@@ -5,7 +5,8 @@ const folgeSchema = mongoose.Schema({
   title: String,
   number: String,
   ratings: Array,
-  rating: Number
+  rating: Number,
+  inhalt: String
 });
 
 const Folge = module.exports = mongoose.model('Folge', folgeSchema)

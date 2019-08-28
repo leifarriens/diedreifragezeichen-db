@@ -8,7 +8,7 @@
     <div>
       <h2>Die drei ???</h2>
       <h1><%= title %></h1>
-      <h2>Folge <%= number %></h2>
+      <h2>Folge <%= Number(number) %></h2>
       <div><%= rating %><small>/10</small><br><small><%= ratings.length %> Bewertungen</small></div>
       <form action="/folge/<%= number %>/rate" method="POST">
         <input type="number" min="1" max="10" name="rating">
@@ -17,6 +17,7 @@
     </div>
     <span>Quelle: dreifragezeichen.de</span>
   </div>
+  <p><%= inhalt %></p>
 </div>
 
 <% include ./templates/footer %>

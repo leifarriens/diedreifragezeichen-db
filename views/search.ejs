@@ -1,0 +1,11 @@
+<% include ./templates/head %>
+<% include ./templates/header %>
+<div class="wrapper">
+  <% result.forEach(folge => { %>
+    <a href="/folge/<%= folge.number %>">
+      <div><%= folge.title %></div>
+    </a>
+  <% }) %>
+</div>
+
+<% include ./templates/footer %>

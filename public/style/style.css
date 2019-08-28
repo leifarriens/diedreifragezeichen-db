@@ -47,6 +47,7 @@ footer {
   text-align: center;
   position: -webkit-sticky;
   position: sticky;
+  font-size: .9rem;
   bottom: 0;
 }
 
@@ -142,12 +143,17 @@ footer {
   width: 100%;
 }
 
-.folge form {
+.folge .container form {
   display: block;
 }
 
-.folge form input, .folge form textarea {
+.folge .container form input, .folge .container form textarea {
   width: 100%;
+}
+
+.folge p {
+  margin-top: 48px;
+  line-height: 150%;
 }
 
 .folge-miniatur .cover {

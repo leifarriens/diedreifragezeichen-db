@@ -7,7 +7,7 @@ const app = express();
 
 const Folge = require('./models/folge');
 
-const dbPath = 'mongodb+srv://app:HBY1j1w620ugqrqV@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority';
+const dbPath = 'mongodb+srv://app:HJTFT2Ae4QsFksbD@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority';
 mongoose.connect(dbPath, {useNewUrlParser: true});
 const db = mongoose.connection;
 
@@ -26,35 +26,26 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
-  const folgen = await Folge.find({}).sort('-rating');
+  // const folgen = await Folge.find({}).sort('-rating');
+  const folgen = await Folge.find({}).sort('number');1
   console.log(folgen);
   res.render('index', { folgen });
+});
+
+app.get('/folge', async (req, res) => {
+  const folgen = await Folge.find({}).select('-ratings');
+  res.json(folgen);
+});
+
+app.get('/search', async (req, res) => {
+  console.log(req.query.s);
+  const result = await Folge.find( { $text: { $search: req.query.s } } );
+  res.render('search', { result });
 });
 
 app.get('/folge/:number', async (req, res) => {
   try {
     const folge = await Folge.findOne({ number: req.params.number });
-    console.log(folge);
-    folge.rating = getRating(folge);
-
-    // const formattedTitle = folge.title.replace(/\s+/g, '-').toLowerCase();
-
-    // console.log(formattedTitle);
-
-    // scrapeIt(`https://dreifragezeichen.de/produktwelt/details/${formattedTitle}`, {
-    //   title: '.product-title',
-    //   release: '.title span:last-of-type',
-    //   inhalt: '#info-inhalt p',
-    //   sprecher: '#info-sprecher p'
-    // }).then(({ data, response }) => {
-    //   console.log(`Status Code: ${response.statusCode}`)
-    //   console.log(data)
-    //   folge.inhalt = data.inhalt;
-    //   folge.sprecher = data.sprecher;
-    //   folge.release = data.release;
-    //   res.render('folge', folge);
-    // })
-
     res.render('folge', folge);
   } catch (err) {
     console.log(err);
@@ -94,6 +85,41 @@ app.post('/folge', async (req, res) => {
     message: 'Folge gespeichert!'
   }))
   .catch(err => console.log(err));
+});
+
+app.get('/scrapeFolgenDetails', async (req, res) => {
+  const folgen = await Folge.find({});
+
+  let counter = 0;
+  folgen.forEach(folge => {
+    const formattedTitle = folge.title.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace('ß', 'ss')
+          .replace('ä', 'a')
+          .replace('ö', 'o')
+          .replace('ü', 'u');
+    scrapeIt(`https://dreifragezeichen.de/produktwelt/details/${formattedTitle}`, {
+      title: '.product-title',
+      release: '.title span:last-of-type',
+      inhalt: '#info-inhalt p',
+      sprecher: '#info-sprecher p'
+    }).then(({ data, response }) => {
+      console.log(`Status Code: ${response.statusCode}`)
+      // console.log(data)
+      folge.inhalt = data.inhalt;
+      folge.sprecher = data.sprecher;
+      folge.release = data.release;
+  
+      console.log(data.inhalt);
+      folge.save()
+      .then(() => {
+        console.log(folge.number);
+        counter++;
+        if (counter === folgen.length) res.send('done')
+      })
+      .catch(err => console.log(err));
+    })
+  });
 });
 
 function getRating(folge) {
