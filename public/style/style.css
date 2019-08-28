@@ -12,6 +12,18 @@ body {
   font-size: 1.1rem;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 header {
   background-color: #fff;
   color: #000;
@@ -30,6 +42,14 @@ header {
           align-items: center;
 }
 
+footer {
+  line-height: 250%;
+  text-align: center;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+}
+
 .wrapper {
   width: 100%;
   padding: 0 12px;
@@ -41,5 +61,97 @@ header {
     margin: 0 auto;
     padding: 0;
   }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.loader {
+  height: 50px;
+  width: 50px;
+}
+
+.loader:after {
+  content: "";
+  -webkit-animation-name: load;
+          animation-name: load;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes load {
+  0% {
+    content: "";
+  }
+  33% {
+    content: "?";
+  }
+  66% {
+    content: "??";
+  }
+  100% {
+    content: "???";
+  }
+}
+
+@keyframes load {
+  0% {
+    content: "";
+  }
+  33% {
+    content: "?";
+  }
+  66% {
+    content: "??";
+  }
+  100% {
+    content: "???";
+  }
+}
+
+.folge {
+  margin-top: 96px;
+  min-height: 83vh;
+}
+
+.folge .bg {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: -1;
+  opacity: .1;
+}
+
+.folge .container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-column-gap: 96px;
+}
+
+.folge .container .cover {
+  height: auto;
+  width: 100%;
+}
+
+.folge form {
+  display: block;
+}
+
+.folge form input, .folge form textarea {
+  width: 100%;
+}
+
+.folge-miniatur .cover {
+  height: 250px;
+  width: 250px;
 }
 /*# sourceMappingURL=style.css.map */

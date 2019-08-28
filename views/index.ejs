@@ -1,3 +1,28 @@
 <% include ./templates/head %>
 <% include ./templates/header %>
-<div class="wrapper">Index</div>
+<div class="wrapper">
+  <% folgen.forEach(folge => { %>
+    <a href="/folge/<%= folge.number %>">
+      <div class="folge-miniatur">
+        <div class="cover">
+            <!-- <div class="loader"></div> -->
+            <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg" alt="<%= folge.number %>">
+        </div>
+        <div><%= folge.rating %></div>
+      </div>
+    </a>
+  <% }) %>
+</div>
+
+<% include ./templates/footer %>
+
+<script>
+  // const doms = document.querySelectorAll('.cover');
+  // doms.forEach(cover => {
+  //   console.log(cover);
+  //   cover.children[1].addEventListener('load', () => {
+  //     cover.children[0].classList.add('hidden');
+  //     cover.children[1].classList.remove('hidden');
+  //   })
+  // });
+</script>

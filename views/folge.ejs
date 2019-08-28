@@ -1,7 +1,22 @@
 <% include ./templates/head %>
 <% include ./templates/header %>
-<div class="wrapper">
-  <h1><%= title %></h1>
-  <h2><%= number %></h2>
-  <div><%= rating %></div>
+<div class="folge wrapper">
+  <div class="container">
+    <div class="cover">
+      <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= number %>.jpg" alt="<%= number %>">
+    </div>
+    <div>
+      <h2>Die drei ???</h2>
+      <h1><%= title %></h1>
+      <h2>Folge <%= number %></h2>
+      <div><%= rating %><small>/10</small><br><small><%= ratings.length %> Bewertungen</small></div>
+      <form action="/folge/<%= number %>/rate" method="POST">
+        <input type="number" min="1" max="10" name="rating">
+        <button type="submit">Bewerten</button>
+      </form>
+    </div>
+    <span>Quelle: dreifragezeichen.de</span>
+  </div>
 </div>
+
+<% include ./templates/footer %>
