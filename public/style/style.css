@@ -160,4 +160,29 @@ footer {
   height: 250px;
   width: 250px;
 }
+
+.list {
+  list-style: none;
+}
+
+.list_item {
+  padding: 24px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 1fr;
+      grid-template-columns: auto 1fr;
+  grid-column-gap: 24px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.list_item:hover {
+  background-color: #121212;
+}
+
+.list_item .cover {
+  height: 80px;
+  width: 80px;
+}
 /*# sourceMappingURL=style.css.map */

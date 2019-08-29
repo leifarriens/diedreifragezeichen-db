@@ -131,3 +131,24 @@ footer {
     width: 250px;
   }
 }
+
+.list {
+  list-style: none;
+  
+  &_item {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-column-gap: 24px;
+    align-items: center;
+
+    &:hover {
+      background-color: #121212;
+    }
+
+    .cover {
+      height: 80px;
+      width: 80px;
+    }
+  }
+}

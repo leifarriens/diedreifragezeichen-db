@@ -1,11 +1,18 @@
 <% include ./templates/head %>
 <% include ./templates/header %>
 <div class="wrapper">
+  <ul class="list">
   <% result.forEach(folge => { %>
     <a href="/folge/<%= folge.number %>">
-      <div><%= folge.title %></div>
+      <li class="list_item">
+        <div class="cover">
+            <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg" alt="<%= folge.number %>">
+        </div>
+        <div>Die drei ??? <%= folge.title %></div>
+      </li>
     </a>
   <% }) %>
+  </ul>
 </div>
 
 <% include ./templates/footer %>
