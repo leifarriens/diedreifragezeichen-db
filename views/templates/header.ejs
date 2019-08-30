@@ -1,10 +1,19 @@
 <header>
-  <span><a href="/">DieDreiFragezeichen DB</a></span>
-  <form action="/search" method="GET">
-    <input type="text" placeholder="Suche" name="s">
-    <button type="submit">S</button>
-  </form>
+  <div class="wrapper">
+    <div><a href="/">DieDreiFragezeichen DB</a></div>
+    <div><form action="/search" method="GET">
+      <input type="text" placeholder="Suche" name="s">
+    </form></div>
+    <div class="user-int">
+    <% if (!user) { %>
+      <a href="/auth/login">Anmelden</a>
+      <a href="/auth/register">Registrieren</a>
+    <% } else { %>
+      <a href="/user/<%= user.id %>/list"><i class="fas fa-user"></i></a>
+      <a href="/auth/logout"><i class="fas fa-sign-out-alt"></i></a>
+    <% } %>
+  </div>
 </header>
 <script>
-    // document.body.classList.add('dark');
+  // document.body.classList.add('dark');
 </script>

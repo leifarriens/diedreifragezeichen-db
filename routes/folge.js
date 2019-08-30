@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const ensureLogin = require('connect-ensure-login');
 const moment = require('moment');
 
 const Folge = require('../models/folge');
@@ -27,9 +28,14 @@ router.route('/')
 router.route('/:number')
 
   .get(async (req, res) => {
+    
     try {
       const folge = await Folge.findOne({ number: req.params.number });
-      res.render('folge', folge);
+      // if (moment(new Date(folge.release).toISOString()).isValid()) {
+      //   const momentObj = moment(new Date(folge.release).toISOString());
+      //   folge.release = momentObj.format('DD.MM.YYYY');
+      // }
+      res.render('folge', {folge, user: req.user});
     } catch (err) {
       console.log(err);
       res.render('404');
@@ -38,7 +44,7 @@ router.route('/:number')
 
 router.route('/:number/rate')
 
-  .post(async (req, res) => {
+  .post(ensureLogin.ensureLoggedIn('/auth/login'), async (req, res) => {
 
     const getRating = folge => {
       let s = 0;

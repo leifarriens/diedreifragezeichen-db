@@ -8,21 +8,10 @@
     </select>
     <input type="radio" name="view" value="grid" <% if(settings.view === 'grid') { %> checked <% } %>>Grid
     <input type="radio" name="view" value="list" <% if(settings.view === 'list') { %> checked <% } %>>List
+    <input type="checkbox" value="desc" name="sort" <% if(settings.sort === 'desc') { %> checked <% } %>>
     <button type="submit">Sort</button>
   </form>
-  <div class="folgen folgen_<%= settings.view %>">
-    <% folgen.forEach(folge => { %>
-      <a href="/folge/<%= folge.number %>" class="folge-miniatur">
-        <div class="cover">
-            <!-- <div class="loader"></div> -->
-            <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg" alt="<%= folge.number %>">
-        </div>
-        <div class="rating">
-          <span><%= folge.rating %></span>
-        </div>
-      </a>
-    <% }) %>
-  </div>
+  <% include ./templates/folgen %>
 </div>
 
 <% include ./templates/footer %>

@@ -19,8 +19,10 @@
   "homepage": "https://github.com/leifarriens/diedreifragezeichen-db#readme",
   "dependencies": {
     "axios": "^0.19.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
+    "connect-ensure-login": "^0.1.1",
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
@@ -28,6 +30,7 @@
     "mongoose": "^5.6.11",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "scrape-it": "^5.1.4"
   }
