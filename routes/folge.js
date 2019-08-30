@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const passport = require('passport');
+const moment = require('moment');
 
 const Folge = require('../models/folge');
 
 router.route('/')
 
   .get(async (req, res) => {
-    const folgen = await Folge.find({}).select('-ratings');
+    let folgen = await Folge.find({}).select('-ratings');
     res.json(folgen);
   })
 

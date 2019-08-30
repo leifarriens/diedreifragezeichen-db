@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const scrapeIt = require('scrape-it');
+const moment = require('moment');
 const app = express();
 
 const Folge = require('./models/folge');
@@ -31,14 +32,6 @@ app.get('/', async (req, res) => {
   const settings = req.query;
   const folgen = await Folge.find({}).sort(`-${settings.sortby}`);
 
-  folgen.map((folge, i) => {
-    // console.log(folge.rating);
-    if (folge.rating < 8) {
-      folgen.splice(i, 1)
-    };
-    // console.log(folge);
-  })
-  // console.log(folgen);
   res.render('index', { folgen, settings });
 });
 
@@ -59,20 +52,23 @@ app.get('/scrapeFolgenDetails', async (req, res) => {
           .replace('ä', 'a')
           .replace('ö', 'o')
           .replace('ü', 'u');
-    console.log(folge.inhalt);
+          
     scrapeIt(`https://dreifragezeichen.de/produktwelt/details/${formattedTitle}`, {
       title: '.product-title',
       release: '.title span:last-of-type',
       inhalt: '#info-inhalt p',
       sprecher: '#info-sprecher p'
     }).then(({ data, response }) => {
-      // console.log(`Status Code: ${response.statusCode}`)
-      // console.log(data)
       folge.inhalt = data.inhalt;
       folge.sprecher = data.sprecher;
-      folge.release = data.release;
-  
-      // console.log(data.inhalt);
+      const releaseSplit = data.release.replace('Veröffentlichungsdatum: ', '').split('.');
+      const formattedDate = `${releaseSplit[1]}/${releaseSplit[0]}/${releaseSplit[2]}`;
+      if (moment(formattedDate).isValid()) {
+        folge.release = moment(formattedDate); 
+      } else {
+        folge.release = '???';
+      }
+
       folge.save()
       .then(() => {
         console.log(folge.number);
