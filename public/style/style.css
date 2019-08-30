@@ -6,10 +6,19 @@
 }
 
 body {
-  background-color: #000;
-  color: #fff;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 1.1rem;
+  color: #001727;
+}
+
+body.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+body.dark header {
+  background-color: #fff;
+  color: #000;
 }
 
 a {
@@ -25,8 +34,9 @@ img {
 }
 
 header {
-  background-color: #fff;
-  color: #000;
+  z-index: 1;
+  background-color: #001727;
+  color: #fff;
   height: 72px;
   position: -webkit-sticky;
   position: sticky;
@@ -43,12 +53,12 @@ header {
 }
 
 footer {
-  line-height: 250%;
-  text-align: center;
-  position: -webkit-sticky;
-  position: sticky;
-  font-size: .9rem;
+  margin: 0 18px 18px 0;
+  position: fixed;
+  font-size: .85rem;
+  color: #c7c7c7;
   bottom: 0;
+  right: 0;
 }
 
 .wrapper {
@@ -156,11 +166,6 @@ footer {
   line-height: 150%;
 }
 
-.folge-miniatur .cover {
-  height: 250px;
-  width: 250px;
-}
-
 .list {
   list-style: none;
 }
@@ -184,5 +189,54 @@ footer {
 .list_item .cover {
   height: 80px;
   width: 80px;
+}
+
+.folgen {
+  margin: 96px 0;
+}
+
+.folgen_grid {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 48px;
+  justify-items: center;
+}
+
+.folgen .folge-miniatur {
+  display: block;
+  width: 250px;
+  -webkit-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+}
+
+.folgen .folge-miniatur:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.folgen .folge-miniatur:hover .cover {
+  -webkit-box-shadow: 0 0 60px 15px #00000024;
+          box-shadow: 0 0 60px 15px #00000024;
+}
+
+.folgen .folge-miniatur .cover {
+  height: 250px;
+  width: 100%;
+  -webkit-box-shadow: 0 0 30px 15px #00000024;
+          box-shadow: 0 0 30px 15px #00000024;
+  -webkit-transition: all 250ms ease-out;
+  transition: all 250ms ease-out;
+}
+
+.folgen .folge-miniatur .rating {
+  height: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 /*# sourceMappingURL=style.css.map */
