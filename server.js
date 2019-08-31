@@ -75,7 +75,7 @@ app.get('/', async (req, res) => {
       return '';
   }
   const perpage = 0;
-  const offset = perpage * settings.page - perpage
+  const offset = perpage * settings.page - perpage;
   const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`).skip(offset).limit(perpage);
 
   folgen.forEach(folge => {
@@ -91,7 +91,7 @@ app.get('/', async (req, res) => {
 app.get('/search', async (req, res) => {
   const settings = req.query;
   const folgen = await Folge.find( { $text: { $search: req.query.s } } );
-
+  console.log(settings.s);
   folgen.forEach(folge => {
     const momentObj = moment(new Date(folge.release));
     folge.release = momentObj.format('YYYY');

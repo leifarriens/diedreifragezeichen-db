@@ -1,21 +1,25 @@
 <div class="folgen folgen_<%= settings.view %>">
-    <% folgen.forEach((folge, i) => { %>
-      <div class="folge-miniatur">
-        <a href="/folge/<%= folge.number %>">
-          <div class="cover animated flipInX" style="animation-delay: <%= i * 100 %>ms">
-            <!-- <div class="loader"></div> -->
-            <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg" alt="<%= folge.number %>">
-          </div>
-        </a>
-        <div class="rating">
-          <span><%= folge.rating %></span>
-          <span><%= folge.release %></span>
-          <form action="/user/<% if(user) { %><%= user.id %><% } %>/list" method="POST">
-            <input type="hidden" name="number" value="<%= folge.number %>">
-            <button type="submit"><i class="fas fa-plus"></i> Zur Liste Hinzufügen</button>
-          </form>
-        </div>
-        <div class="inhalt"><%= folge.inhalt %></div>
+  <% folgen.forEach((folge, i) => { %>
+  <div class="folge-miniatur">
+    <a href="/folge/<%= folge.number %>">
+      <div class="cover animated flipInX" style="animation-delay: <%= i * 100 %>ms">
+        <!-- <div class="loader"></div> -->
+        <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg"
+          alt="<%= folge.number %>">
       </div>
-    <% }) %>
+    </a>
+    <div class="rating">
+      <span><%= folge.rating %></span>
+      <span><%= folge.release %></span>
+      <form action="/user/<% if(user) { %><%= user.id %><% } else { %>null<% }%>/list" method="POST">
+        <input type="hidden" name="number" value="<%= folge.number %>">
+        <button type="submit"><i class="fas fa-plus"></i> Zur Liste Hinzufügen</button>
+      </form>
+    </div>
+    <div class="inhalt">
+      <h3>Die drei ??? <br> <%= folge.title %></h3>
+      <p><%= folge.inhalt %></p>
+    </div>
   </div>
+  <% }) %>
+</div>

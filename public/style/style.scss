@@ -34,6 +34,11 @@ button {
   background-color: transparent;
   font-family: inherit;
   cursor: pointer;
+
+  &:hover {
+    background-color: $ddfBlue;
+    color: #fff;
+  }
 }
 
 img {
@@ -215,10 +220,17 @@ footer {
 
       .inhalt { 
         height: 250px;
-        line-height: 150%;
         overflow: hidden;
-        display: flex;
-        padding: 24px 0;
+
+        h3 {
+          font-size: 1.5rem;
+          margin-bottom: .8rem;
+          color: $ddfBlue;
+        }
+
+        p {
+          line-height: 150%;
+        }
       }
     }
   }

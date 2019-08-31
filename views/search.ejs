@@ -1,6 +1,17 @@
 <% include ./templates/head %>
 <% include ./templates/header %>
 <div class="wrapper">
+  <form action="/search" method="GET">
+    <input type="hidden" name="s" value="<%= settings.s %>">
+    <select name="sortby">
+      <option value="number">number</option>
+      <option value="rating" <% if(settings.sortby === 'rating') { %> selected <% } %>>rating</option>
+    </select>
+    <input type="radio" name="view" value="grid" <% if(settings.view === 'grid') { %> checked <% } %>>Grid
+    <input type="radio" name="view" value="list" <% if(settings.view === 'list') { %> checked <% } %>>List
+    <input type="checkbox" value="desc" name="sort" <% if(settings.sort === 'desc') { %> checked <% } %>>
+    <button type="submit">Sort</button>
+  </form>
   <div><%= folgen.length %> Ergebnisse</div>
   <% include ./templates/folgen %>
 </div>

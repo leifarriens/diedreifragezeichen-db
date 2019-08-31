@@ -33,6 +33,11 @@ button {
   cursor: pointer;
 }
 
+button:hover {
+  background-color: #00a5e7;
+  color: #fff;
+}
+
 img {
   width: 100%;
   height: 100%;
@@ -253,12 +258,17 @@ footer {
 
 .folgen_list .folge-miniatur .inhalt {
   height: 250px;
-  line-height: 150%;
   overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 24px 0;
+}
+
+.folgen_list .folge-miniatur .inhalt h3 {
+  font-size: 1.5rem;
+  margin-bottom: .8rem;
+  color: #00a5e7;
+}
+
+.folgen_list .folge-miniatur .inhalt p {
+  line-height: 150%;
 }
 
 .folgen_grid {
