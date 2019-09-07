@@ -1,10 +1,10 @@
 <div class="folgen folgen_<%= settings.view %>">
   <% folgen.forEach((folge, i) => { %>
-  <div class="folge-miniatur">
+  <div class="folge-miniatur" data-aos="fade-up">
     <a href="/folge/<%= folge.number %>">
-      <div class="cover animated flipInX" style="animation-delay: <%= i * 100 %>ms">
+      <div class="cover">
         <!-- <div class="loader"></div> -->
-        <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg"
+        <img class="lazy" data-src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg"
           alt="<%= folge.number %>">
       </div>
     </a>
@@ -17,9 +17,31 @@
       </form>
     </div>
     <div class="inhalt">
-      <h3>Die drei ??? <br> <%= folge.title %></h3>
+      <a href="/folge/<%= folge.number %>"><h3>Die drei ??? <br> <%= folge.title %></h3></a>
       <p><%= folge.inhalt %></p>
     </div>
   </div>
   <% }) %>
 </div>
+<script>
+const targets = document.querySelectorAll('.lazy');
+
+const lazyLoad = target => {
+  const io = new IntersectionObserver((entries, observer) => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const src = img.getAttribute('data-src');
+        console.log(img);
+        img.setAttribute('src', src);
+      }
+    });
+  });
+
+  io.observe(target);
+};
+
+targets.forEach(lazyLoad);
+</script>

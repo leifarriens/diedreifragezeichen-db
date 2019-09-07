@@ -194,6 +194,7 @@ footer {
 
 .folgen {
   margin: 96px 0;
+  padding: 0 48px;
 
   &_list {
 
@@ -242,7 +243,6 @@ footer {
     justify-items: center;
 
     .folge-miniatur {
-      // display: block;
       width: 250px;
       animation-duration: 1s;
 
