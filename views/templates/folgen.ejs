@@ -3,7 +3,11 @@
   <div class="folge-miniatur" data-aos="fade-up">
     <a href="/folge/<%= folge.number %>">
       <div class="cover">
-        <!-- <div class="loader"></div> -->
+        <!-- <div class="spinner">
+          <div class="rect1">?</div>
+          <div class="rect2">?</div>
+          <div class="rect3">?</div>
+        </div> -->
         <img class="lazy" data-src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg"
           alt="<%= folge.number %>">
       </div>
@@ -23,6 +27,7 @@
   </div>
   <% }) %>
 </div>
+<!-- <script src="/js/lazy-img.js"></script> -->
 <script>
 const targets = document.querySelectorAll('.lazy');
 
@@ -34,7 +39,6 @@ const lazyLoad = target => {
       if (entry.isIntersecting) {
         const img = entry.target;
         const src = img.getAttribute('data-src');
-        console.log(img);
         img.setAttribute('src', src);
       }
     });
@@ -44,4 +48,13 @@ const lazyLoad = target => {
 };
 
 targets.forEach(lazyLoad);
+// targets.forEach(entry => {
+//   entry.onload = () => {
+//     const parent = entry.parentNode;
+//     const spinner = parent.querySelector('.spinner');
+//     console.log('done');
+//     parent.removeChild(spinner);
+//     entry.classList.remove('hidden');
+//   }
+// })
 </script>
