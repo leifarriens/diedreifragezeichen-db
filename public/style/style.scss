@@ -180,6 +180,11 @@ footer {
     justify-content: center;
     align-items: center;
     background-color: $ddfDark;
+    transition: transform 150ms ease-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   &_list {
