@@ -1,7 +1,7 @@
 <div class="folgen folgen_<%= settings.view %>">
   <% folgen.forEach((folge, i) => { %>
   <div class="folge-miniatur" data-aos="fade-up">
-    <a href="/folge/<%= folge.number %>">
+    <a href="/folge/<%= folge._id %>">
       <div class="cover">
         <!-- <div class="spinner">
           <div class="rect1">?</div>
@@ -21,25 +21,36 @@
       </form>
     </div>
     <div class="inhalt">
-      <a href="/folge/<%= folge.number %>"><h3>Die drei ??? <br> <%= folge.title %></h3></a>
+      <a href="/folge/<%= folge._id %>"><h3>Die drei ??? <br> <%= folge.title %></h3></a>
       <p><%= folge.inhalt %></p>
     </div>
   </div>
   <% }) %>
 </div>
 <!-- <script src="/js/lazy-img.js"></script> -->
+<script></script>
 <script>
 const targets = document.querySelectorAll('.lazy');
 
 const lazyLoad = target => {
+  // target.classList.add('hidden')
   const io = new IntersectionObserver((entries, observer) => {
 
     entries.forEach(entry => {
-
       if (entry.isIntersecting) {
         const img = entry.target;
         const src = img.getAttribute('data-src');
+        // img.classList.add('hidden');
         img.setAttribute('src', src);
+        // console.log('hi');
+        
+        // img.addEventListener('load', () => {
+        //   img.classList.remove('hidden');
+
+        //   const parent = img.parentNode;
+        //   const spinner = parent.querySelector('.spinner');
+        //   parent.removeChild(spinner);
+        // })
       }
     });
   });
@@ -48,6 +59,22 @@ const lazyLoad = target => {
 };
 
 targets.forEach(lazyLoad);
+targets.forEach(entry => {
+  entry.addEventListener('load', () => {
+    // entry.classList.remove('hidden');
+    // const parent = entry.parentNode;
+    // const spinner = parent.querySelector('.spinner');
+    // parent.removeChild(spinner);
+  });
+});
+// targets.forEach((entry) => {
+//   entry.addEventListener('load', () => {
+//     console.log(entry);
+//   })
+//   entry.onload = function() {
+//     // console.log(entry);
+//   }
+// })
 // targets.forEach(entry => {
 //   entry.onload = () => {
 //     const parent = entry.parentNode;

@@ -106,6 +106,7 @@ footer {
 // pages
 
 .folge {
+  background-color: #fff;
   margin-top: 96px;
   min-height: 83vh;
 
@@ -175,15 +176,18 @@ footer {
   margin: 96px 0;
   padding: 0 48px;
 
-  .cover {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $ddfDark;
-    transition: transform 150ms ease-out;
+  .folge-miniatur {
 
     &:hover {
       transform: scale(1.1);
+    }
+
+    .cover {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $ddfDark;
+      transition: transform 150ms ease-out;
     }
   }
 
@@ -194,6 +198,7 @@ footer {
       grid-template-columns: 250px 80px 1fr;
       grid-gap: 24px;
       margin-bottom: 48px;
+      // box-shadow: 0 0 10px 10px #00000025;
 
       .cover {
         height: 250px;

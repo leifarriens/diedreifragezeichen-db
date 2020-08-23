@@ -37,6 +37,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.locals.moment = moment;
 
 passport.use(new LocalStrategy(function(username, password, done) {
   User.findOne({ email: username })
@@ -67,7 +68,7 @@ passport.deserializeUser(function(id, done) {
 app.use('/', (req, res, next) => {
   if (req.user) console.log(req.user);
   next();
-})
+});
 
 app.get('/', async (req, res) => {
   const settings = req.query;
@@ -79,11 +80,6 @@ app.get('/', async (req, res) => {
   const offset = perpage * settings.page - perpage;
   const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`).skip(offset).limit(perpage);
 
-  folgen.forEach(folge => {
-    const momentObj = moment(new Date(folge.release));
-    folge.release = momentObj.format('YYYY');
-  });
-
   if (!settings.view) settings.view = 'grid';
 
   res.render('index', { folgen, settings, user: req.user });
@@ -92,11 +88,10 @@ app.get('/', async (req, res) => {
 app.get('/search', async (req, res) => {
   const settings = req.query;
   const folgen = await Folge.find( { $text: { $search: req.query.s } } );
-  console.log(settings.s);
-  folgen.forEach(folge => {
-    const momentObj = moment(new Date(folge.release));
-    folge.release = momentObj.format('YYYY');
-  });
+  // folgen.forEach(folge => {
+  //   const momentObj = moment(new Date(folge.release));
+  //   folge.release = momentObj.format('YYYY');
+  // });
 
   if (!settings.view) settings.view = 'list';
 
@@ -118,5 +113,5 @@ app.use('/', require('./routes/Router'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server listening on localhost:${PORT}`);
+  console.log(`Server listening on http://localhost:${PORT}`);
 });

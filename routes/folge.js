@@ -30,13 +30,13 @@ router.route('/:number')
   .get(async (req, res) => {
     
     try {
-      const folge = await Folge.findOne({ number: req.params.number });
+      const folge = await Folge.findById(req.params.number);
+      // const folge = await Folge.findOne({ number: req.params.number });
       // if (moment(new Date(folge.release).toISOString()).isValid()) {
       //   const momentObj = moment(new Date(folge.release).toISOString());
       //   folge.release = momentObj.format('DD.MM.YYYY');
       // }
       console.log(folge);
-      
       if (folge) {
         res.render('folge', {folge, user: req.user});
       } else {

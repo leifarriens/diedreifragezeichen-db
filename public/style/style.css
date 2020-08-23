@@ -105,6 +105,7 @@ footer {
 }
 
 .folge {
+  background-color: #fff;
   margin-top: 96px;
   min-height: 83vh;
 }
@@ -181,7 +182,12 @@ footer {
   padding: 0 48px;
 }
 
-.folgen .cover {
+.folgen .folge-miniatur:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.folgen .folge-miniatur .cover {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -196,11 +202,6 @@ footer {
   transition: -webkit-transform 150ms ease-out;
   transition: transform 150ms ease-out;
   transition: transform 150ms ease-out, -webkit-transform 150ms ease-out;
-}
-
-.folgen .cover:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
 }
 
 .folgen_list .folge-miniatur {
