@@ -13,16 +13,16 @@ const Folge = require('./models/folge');
 const User = require('./models/user');
 
 // const dbPath = 'mongodb+srv://app:HJTFT2Ae4QsFksbD@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority';
-const dbPath = 'mongodb+srv://app:GFdAaT1auwjr4bp8@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority';
-mongoose.connect(dbPath, {useNewUrlParser: true});
-const db = mongoose.connection;
+// const dbPath = 'mongodb+srv://app:GFdAaT1auwjr4bp8@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority';
+// mongoose.connect(dbPath, {useNewUrlParser: true});
+// const db = mongoose.connection;
 
-db.once('open', function() {
-  console.log(`Connected to ${dbPath}`);
-});
-db.on('error', function(err) {
-  console.log(err);
-});
+// db.once('open', function() {
+//   console.log(`Connected to ${dbPath}`);
+// });
+// db.on('error', function(err) {
+//   console.log(err);
+// });
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -78,10 +78,13 @@ app.get('/', async (req, res) => {
   }
   const perpage = 0;
   const offset = perpage * settings.page - perpage;
-  const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`).skip(offset).limit(perpage);
+  // const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`).skip(offset).limit(perpage);
+  const folgen = require('./allefolgen.json');
+  console.log(folgen);
 
-  if (!settings.view) settings.view = 'grid';
+  // if (!settings.view) settings.view = 'grid';
 
+  // res.render('index', { folgen, settings, user: req.user });
   res.render('index', { folgen, settings, user: req.user });
 });
 

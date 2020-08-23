@@ -1,0 +1,79 @@
+<div class="folgen folgen_<%= settings.view %>">
+  <% folgen.forEach((folge, i) => { %>
+  <div class="folge-miniatur" data-aos="fade-up">
+    <a href="">
+      <div class="cover">
+        <!-- <div class="spinner">
+          <div class="rect1">?</div>
+          <div class="rect2">?</div>
+          <div class="rect3">?</div>
+        </div> -->
+        <img src="<%= folge.images[1].url%>">
+      </div>
+    </a>
+    <div class="">
+      <span><%= folge.release_date %></span>
+      <a href=""><h3><%= folge.artists[0].name %> <br> <%= folge.name %></h3></a>
+    </div>
+    <div class="inhalt">
+      <a href=""><h3>Die drei ??? <br> <%= folge.name %></h3></a>
+    </div>
+  </div>
+  <% }) %>
+</div>
+<script>
+  const targets = document.querySelectorAll('.lazy');
+  
+  const lazyLoad = target => {
+    // target.classList.add('hidden')
+    const io = new IntersectionObserver((entries, observer) => {
+  
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          const src = img.getAttribute('data-src');
+          // img.classList.add('hidden');
+          img.setAttribute('src', src);
+          // console.log('hi');
+          
+          // img.addEventListener('load', () => {
+          //   img.classList.remove('hidden');
+  
+          //   const parent = img.parentNode;
+          //   const spinner = parent.querySelector('.spinner');
+          //   parent.removeChild(spinner);
+          // })
+        }
+      });
+    });
+  
+    io.observe(target);
+  };
+  
+  targets.forEach(lazyLoad);
+  targets.forEach(entry => {
+    entry.addEventListener('load', () => {
+      // entry.classList.remove('hidden');
+      // const parent = entry.parentNode;
+      // const spinner = parent.querySelector('.spinner');
+      // parent.removeChild(spinner);
+    });
+  });
+  // targets.forEach((entry) => {
+  //   entry.addEventListener('load', () => {
+  //     console.log(entry);
+  //   })
+  //   entry.onload = function() {
+  //     // console.log(entry);
+  //   }
+  // })
+  // targets.forEach(entry => {
+  //   entry.onload = () => {
+  //     const parent = entry.parentNode;
+  //     const spinner = parent.querySelector('.spinner');
+  //     console.log('done');
+  //     parent.removeChild(spinner);
+  //     entry.classList.remove('hidden');
+  //   }
+  // })
+  </script>
