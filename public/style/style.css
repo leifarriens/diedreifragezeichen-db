@@ -137,6 +137,8 @@ footer {
 
 .folge .container .cover img {
   width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .folge .container form {

@@ -1,7 +1,7 @@
 <div class="folgen folgen_<%= settings.view %>">
   <% folgen.forEach((folge, i) => { %>
   <div class="folge-miniatur" data-aos="fade-up">
-    <a href="">
+    <a href="folge/<%= folge._id %>">
       <div class="cover">
         <!-- <div class="spinner">
           <div class="rect1">?</div>
@@ -13,7 +13,7 @@
     </a>
     <div class="">
       <span><%= folge.release_date %></span>
-      <a href=""><h3><%= folge.artists[0].name %> <br> <%= folge.name %></h3></a>
+      <a href=""><h3>Die drei ??? <br> <%= folge.name %></h3></a>
     </div>
     <div class="inhalt">
       <a href=""><h3>Die drei ??? <br> <%= folge.name %></h3></a>

@@ -1,6 +1,5 @@
 const fs = require('fs');
 const Axios = require('axios');
-const { off } = require('../models/user');
 const TOKEN = 'BQDeErjTtxn_Yvh5Hq5MrA1eDVThrSEstDjKf4g8mMOHctnE_93GV5RSh4Nc_cGbeeB0hqpxWloLEiTR34k';
 
 const getAlbums = async () => {

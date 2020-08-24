@@ -3,23 +3,22 @@
 <div class="folge wrapper">
   <div class="container">
     <div class="cover">
-      <img src="http://cdn.smehost.net/hcmssmeappscom-delabelsprod/produkte/hoerspiele/ddf_cd_<%= folge.number %>.jpg" alt="<%= folge.number %>">
+      <img src="<%= folge.images[0].url %>">
     </div>
     <div>
       <h2>Die drei ???</h2>
-      <h1><%= folge.title %></h1>
-      <h2>Folge <%= Number(folge.number) %></h2>
-      <div>Veröffentlicht am <%= moment(folge.release).format('DD.MM.YYYY') %></div>
-      <div><%= folge.rating %><small>/10</small><br><small><%= folge.ratings.length %> Bewertungen</small></div>
+      <h1><%= folge.name %></h1>
+      <h2>Folge </h2>
+      <div>Veröffentlicht am <%= moment(folge.release_date).format('DD.MM.YYYY') %></div>
+      <% if(folge.rating) { %>
+        <div><%= folge.rating %><small>/10</small><br><small><%= folge.ratings.length %> Bewertungen</small></div>
+      <% } %>
       <form action="/folge/<%= folge.number %>/rate" method="POST">
         <input type="number" min="1" max="10" name="rating">
         <button type="submit">Bewerten</button>
       </form>
     </div>
-    <span>Quelle: dreifragezeichen.de</span>
   </div>
-  <p><%= folge.inhalt %></p>
-  <p><%= folge.sprecher %></p>
 </div>
 
 <% include ./templates/footer %>

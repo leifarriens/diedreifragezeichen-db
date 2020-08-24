@@ -3,7 +3,7 @@
 <div class="">
   <form action="/" method="GET">
     <select name="sortby">
-      <option value="number">number</option>
+      <option value="release_date">date</option>
       <option value="rating" <% if(settings.sortby === 'rating') { %> selected <% } %>>rating</option>
     </select>
     <input type="radio" name="view" value="grid" <% if(settings.view === 'grid') { %> checked <% } %>>Grid
