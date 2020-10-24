@@ -1,0 +1,21 @@
+<div class="folgen folgen_grid">
+  <% folgen.forEach((folge, i) => { %>
+  <div class="folge-miniatur" data-aos="fade-up">
+    <a href="folge/<%= folge._id %>">
+      <div class="cover">
+        <img src="<%= folge.images[1].url%>">
+      </div>
+    </a>
+    <div class="">
+      <span><%= moment(folge.release_date).format('DD.MM.YYYY') %></span>
+      <a href=""><h3>Die drei ??? <br> <%= folge.name %></h3></a>
+    </div>
+    <div>
+      <% include rating %>
+    </div>
+    <div class="inhalt">
+      <a href=""><h3>Die drei ??? <br> <%= folge.name %></h3></a>
+    </div>
+  </div>
+  <% }) %>
+</div>

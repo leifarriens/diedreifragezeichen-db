@@ -1,0 +1,191 @@
+<style>
+  .rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 10;
+}
+
+.rating label:nth-child(2) {
+  z-index: 9;
+}
+
+.rating label:nth-child(3) {
+  z-index: 8;
+}
+
+.rating label:nth-child(4) {
+  z-index: 7;
+}
+
+.rating label:nth-child(5) {
+  z-index: 6;
+}
+
+.rating label:nth-child(6) {
+  z-index: 5;
+}
+
+.rating label:nth-child(7) {
+  z-index: 4;
+}
+
+.rating label:nth-child(8) {
+  z-index: 3;
+}
+
+.rating label:nth-child(9) {
+  z-index: 2;
+}
+
+.rating label:nth-child(10) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #001727;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: #00a5e7;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #001727;
+  text-shadow: 0 0 5px #00a5e7;
+}
+</style>
+<form class="rating" action="/folge/<%= folge._id %>/rating" method="POST">
+  <label>
+    <input type="radio" name="rating" value="1" />
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="2" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="3" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>   
+  </label>
+  <label>
+    <input type="radio" name="rating" value="4" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="5" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="6" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="7" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="8" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="9" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+  <label>
+    <input type="radio" name="rating" value="10" />
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+    <span class="icon">?</span>
+  </label>
+</form>
+<script>
+  const rating = <%= folge.rating %>;
+  const form = document.querySelector('.rating');
+  const radios = document.querySelectorAll('input[type="radio"]');
+
+  radios.forEach(input => {
+    if (input.value == rating) {
+      input.checked = true;
+    }
+
+    input.addEventListener('click', (e) => {
+      console.log('changes');
+      form.submit();
+    });
+  });
+</script>

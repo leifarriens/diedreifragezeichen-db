@@ -1,7 +1,7 @@
 <% include ./templates/head %>
 <% include ./templates/header %>
 <div class="">
-  <form action="/" method="GET">
+  <!-- <form action="/" method="GET">
     <select name="sortby">
       <option value="release_date">date</option>
       <option value="rating" <% if(settings.sortby === 'rating') { %> selected <% } %>>rating</option>
@@ -10,8 +10,8 @@
     <input type="radio" name="view" value="list" <% if(settings.view === 'list') { %> checked <% } %>>List
     <input type="checkbox" value="desc" name="sort" <% if(settings.sort === 'desc') { %> checked <% } %>>
     <button type="submit">Sort</button>
-  </form>
-  <% include ./templates/all %>
+  </form> -->
+  <% include ./templates/grid %>
 </div>
 
 <% include ./templates/footer %>

@@ -9,19 +9,21 @@ $ddfBlue: #00a5e7;
 }
 
 body {
-  // font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-family: Helvetica Inserat;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  // font-family: Helvetica Inserat;
   font-size: 1.1rem;
-  color: $ddfDark;
+  // color: $ddfDark;
+  color: #fff;
+  background-color: $ddfDark;
 }
 
 body.dark {
-  background-color: #000;
+  background-color: #001727;
   color: #fff;
 
   header {
-    background-color: #fff;
-    color: #000;
+    // background-color: #fff;
+    // color: #000;
   }
 }
 
@@ -50,11 +52,22 @@ img {
 
 header {
   z-index: 1;
-  background-color: #001727;
+  // background-color: #001727;
   color: #fff;
-  height: 72px;
+  // height: 72px;
   position: sticky;
   top: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 36px;
+
+  .home-link {
+    img {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+  }
 
   .wrapper {
     height: 100%;
@@ -65,10 +78,14 @@ header {
   }
 
   input {
-    border: 3px solid $ddfDark;
+    // border: 3px solid $ddfDark;
+    border: none;
+    border-radius: 32px;
     color: $ddfDark;
-    padding: 10px;
+    padding: 10px 18px;
     width: 100%;
+    outline: none;
+    box-shadow: 0 0 30px 15px #00000024;
   }
 
   .user-int {
@@ -107,7 +124,7 @@ footer {
 // pages
 
 .folge {
-  background-color: #fff;
+  // background-color: #fff;
   margin-top: 96px;
   min-height: 83vh;
 
@@ -174,8 +191,8 @@ footer {
 }
 
 .folgen {
-  margin: 96px 0;
-  padding: 0 48px;
+  margin: 64px 0;
+  padding: 0 36px;
 
   .folge-miniatur {
 
@@ -236,7 +253,7 @@ footer {
   &_grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-gap: 48px;
+    grid-gap: 36px;
     justify-items: center;
 
     .folge-miniatur {
@@ -325,5 +342,25 @@ footer {
   }  20% { 
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
+  }
+}
+
+.folgen-slider {
+  height: 250px;
+
+  &__cover {
+    height: 100%;
+    transition: transform 0.15s;
+    opacity: .5;
+
+    &:hover {
+      // transform: translateY(-25px);
+      opacity: 1;
+    }
+  }
+
+  &__cover.active {
+    // transform: translateY(-25px);
+    opacity: 1;
   }
 }

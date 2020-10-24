@@ -1,4 +1,5 @@
 console.clear();
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
@@ -27,6 +28,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
+app.use(express.static('client'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(session({
@@ -69,23 +71,23 @@ app.use('/', (req, res, next) => {
   next();
 });
 
-app.get('/', async (req, res) => {
-  const settings = req.query;
-  const ascDesc = (sort) => {
-    if (sort === 'asc') return '-';
-      return '';
-  }
-  const perpage = 0;
-  const offset = perpage * settings.page - perpage;
-  // const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`).skip(offset).limit(perpage);
-  console.log(settings);
-  const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`);
+// app.get('/', async (req, res) => {
+//   const settings = req.query;
+//   const ascDesc = (sort) => {
+//     if (sort === 'asc') return '-';
+//       return '';
+//   }
+//   const perpage = 0;
+//   const offset = perpage * settings.page - perpage;
+//   // const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`).skip(offset).limit(perpage);
+//   console.log(settings);
+//   const folgen = await Folge.find({}).sort(`${ascDesc(settings.sort)}${settings.sortby}`);
 
-  if (!settings.view) settings.view = 'grid';
+//   if (!settings.view) settings.view = 'grid';
 
-  // res.render('index', { folgen, settings, user: req.user });
-  res.render('index', { folgen, settings, user: req.user });
-});
+//   // res.render('index', { folgen, settings, user: req.user });
+//   res.render('index', { folgen, settings, user: req.user });
+// });
 
 // app.get('/search', async (req, res) => {
 //   const settings = req.query;
@@ -100,15 +102,24 @@ app.get('/', async (req, res) => {
 //   res.render('search', { folgen, settings, user: req.user });
 // });
 
-app.get('/scrapeFolgenDetails', async (req, res) => {
-  const scrapeDetails = require('./jobs/scrapeFolgenDetails');
-  res.send(await scrapeDetails())
-});
+// SERVE CLIENT APP ON /
+app.use(express.static('client/dist'));
+
+// app.get('/', (req, res) => {
+//   console.log('hi');
+//   // res.sendFile(path.join(__dirname, 'client/dist', 'index.html'));
+// });
 
 // REGISTER API ROUTES
 // -------------------
 
-app.use('/', require('./routes/Router'));
+// app.use('/', require('./routes/Router'));
+
+app.use('/api', require('./routes'));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
+});
 
 // START THE SERVER
 // ---------------

@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 
 // Folge Schema
 const folgeSchema = mongoose.Schema({
+  images: Array,
+  ratings: Array,
   name: String,
+  number: String,
+  type: String,
   release_date: String,
-  images: Array
+  spotify_id: String
 }, {
   collection: 'folgen'
 });
