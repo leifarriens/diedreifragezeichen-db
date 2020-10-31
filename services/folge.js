@@ -5,13 +5,14 @@ const loadFolge = async (id) => {
     return Folge.findById(id);
   }
   catch(e) {
-    throw new Error(e.message);
+    throw new Error(e);
   }
 }
 
 const loadAllFolgen = async () => {
   try {
-    return Folge.find({ type: 'regular' }).sort('-number');
+    return Folge.find({ type: 'regular' }).sort('-release_date')
+    // return Folge.find().sort('-release_date') // .limit();
   }
   catch (e) {
     throw new Error(e.message);

@@ -7,7 +7,7 @@ const folgeSchema = mongoose.Schema({
   name: String,
   number: String,
   type: String,
-  release_date: String,
+  release_date: Date,
   spotify_id: String
 }, {
   collection: 'folgen'

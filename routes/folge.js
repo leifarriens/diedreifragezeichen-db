@@ -1,11 +1,16 @@
 const router = require('express').Router();
 
+const { verifyToken } = require('../middleware');
 const { loadFolge, addFolgenRating, getPreviousFolgen, getNextFolgen, loadAllFolgen } = require('../services/folge');
 
 router.get('/', async (req, res) => {
-  const alle = await loadAllFolgen();
-  res.json(alle)
-})
+  try {
+    const alle = await loadAllFolgen();
+    res.json(alle);
+  } catch (e) {
+    console.log(e.message);
+  }
+});
 
 router.get('/:id', async (req, res) => {
   try {
@@ -17,8 +22,8 @@ router.get('/:id', async (req, res) => {
     res.json(folge);
     // res.render('folge', { folge, user: req.user });
   } catch(e) {
-    console.log(e.message);
-    res.sendStatus(404);
+    console.log(e);
+    res.status(404).json({ lel:'hi'});
   }
 });
 
@@ -34,7 +39,7 @@ router.get('/:id/alt', async (req, res) => {
   }
 })
 
-router.post('/:id/rating', async (req, res) => {
+router.post('/:id/rating', verifyToken, async (req, res) => {
   console.log(req.params.id, req.body.rating);
   try {
     const rating = Number(req.body.rating);

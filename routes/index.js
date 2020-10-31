@@ -1,16 +1,7 @@
 const router = require('express').Router();
 
-const { loadAllFolgen } = require('../services/folge');
-
-  // router.get('/', async (req, res) => {
-  //   try {
-  //     const folgen = await loadAllFolgen();
-  //     res.render('index', { folgen, user: req.user });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // });
-
 router.use('/folge', require('./folge'));
+router.use('/auth', require('./auth'));
+router.use('/user', require('./user'));
 
 module.exports = router;
