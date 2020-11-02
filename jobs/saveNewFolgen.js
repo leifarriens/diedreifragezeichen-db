@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 const Folge = require('../models/folge');
 
-const jsonFolgen = require('../allefolgen2.json');
+const jsonFolgen = require('../allefolgen.json');
 
 const dbPath = 'mongodb+srv://app:GFdAaT1auwjr4bp8@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority';
 mongoose.connect(dbPath, {useNewUrlParser: true});
@@ -25,7 +25,7 @@ async function verifyFolge(folge) {
       console.log(`${chalk.red(folge.name)} is not in DB...`);
       saveNewFolge(folge);
     } else {
-      // console.log(`${chalk.green(folge.name)} is in DB...`);
+      console.log(`${chalk.green(folge.name)} is already in DB...`);
     }
   } catch (error) {
     console.log(error);
@@ -37,6 +37,7 @@ async function saveNewFolge(jsonFolge) {
 
   const folge = new Folge ({
     images,
+    raw_name: name,
     ratings: [],
     release_date,
     spotify_id: id

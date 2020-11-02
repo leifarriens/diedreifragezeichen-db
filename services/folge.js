@@ -11,7 +11,7 @@ const loadFolge = async (id) => {
 
 const loadAllFolgen = async () => {
   try {
-    return Folge.find({ type: 'regular' }).sort('-release_date')
+    return Folge.find({ type: 'special' }).sort('-release_date')
     // return Folge.find().sort('-release_date') // .limit();
   }
   catch (e) {

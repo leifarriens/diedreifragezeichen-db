@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Axios from 'axios';
 
 import { AuthContext } from '../context/AuthContext';
@@ -34,7 +34,6 @@ const Rate = ({ folge_id, currentRating }) => {
 
   const isChecked = (value) => {
     return value == currentRating.toFixed(0) && true;
-      return false;
   }
 
   return (

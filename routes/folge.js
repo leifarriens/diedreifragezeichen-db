@@ -20,7 +20,6 @@ router.get('/:id', async (req, res) => {
     // const nextFolge = await getNextFolge(req.params.id);
     folge.rating = folge.ratings.reduce((a, b) => Number(a) + Number(b), 0) / folge.ratings.length;
     res.json(folge);
-    // res.render('folge', { folge, user: req.user });
   } catch(e) {
     console.log(e);
     res.status(404).json({ lel:'hi'});

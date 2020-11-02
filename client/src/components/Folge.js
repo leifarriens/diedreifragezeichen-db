@@ -10,18 +10,12 @@ import Rate from '../components/Rate';
 import AltFolgen from '../components/AltFolgen';
 import AddToList from './AddToLitst';
 
-// import useRequest from '../components/useRequest';
-
 const FolgePage = () => {
   const { id } = useParams();
 
   const [folge, setFolge] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  // useEffect(() => {
-  //   fetchFolge();
-  // }, [id]);
   
   useEffect(() => {
     const fetchFolge = async () => {
@@ -40,28 +34,10 @@ const FolgePage = () => {
     fetchFolge();
   }, [id]);
 
-
-  // const fetchFolge = () => {
-  //   Axios(`/api/folge/${id}`)
-  //   .then(response => {
-  //     console.log(response.data);
-  //     setFolge(response.data);
-  //     setLoading(false);
-  //   })
-  //   .catch(error => {
-  //     setLoading(false);
-  //     setError(error.message);
-  //   });
-  // }
-
-  // return loading ? <Loader /> : <Folge data={folge}/>;
-  // const { data, loading, error } = useRequest(`/api/folge/${id}`);
-
   return (
-    <div>
+    <div className="page">
       {loading && <FullpageLoader />}
       {folge && <Folge data={folge}/>}
-      {/* {loading ? <Loader /> : <Folge data={data}/>} */}
       {error && <div className="wrapper">{error.message}</div>}
     </div>
   );
@@ -71,8 +47,18 @@ const Folge = ({ data }) => {
   const rating = calcFolgenRating(data.ratings);
   const formatedRating = rating.toFixed(1);
 
+  const style = {
+    position: 'fixed',
+    // top: '100px',
+    // left: '0',
+    // width: '100%',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)'
+  }
+
   return (
-    <div>
+    <div style={style}>
       <div className="folge wrapper">
         <div className="container">
           <div className="cover">

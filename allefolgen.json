@@ -10,6 +10,80 @@
     "name": "Die drei ???",
     "type": "artist",
     "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
+  }],
+  "external_urls": {
+    "spotify": "https://open.spotify.com/album/7ynXpeQRwzqKiv8WVh7c7B"
+  },
+  "href": "https://api.spotify.com/v1/albums/7ynXpeQRwzqKiv8WVh7c7B",
+  "id": "7ynXpeQRwzqKiv8WVh7c7B",
+  "images": [{
+    "height": 640,
+    "url": "https://i.scdn.co/image/ab67616d0000b273a9ac37c2ff7fe5fb5f29a45e",
+    "width": 640
+  }, {
+    "height": 300,
+    "url": "https://i.scdn.co/image/ab67616d00001e02a9ac37c2ff7fe5fb5f29a45e",
+    "width": 300
+  }, {
+    "height": 64,
+    "url": "https://i.scdn.co/image/ab67616d00004851a9ac37c2ff7fe5fb5f29a45e",
+    "width": 64
+  }],
+  "name": "Adventskalender - O du finstere",
+  "release_date": "2020-10-09",
+  "release_date_precision": "day",
+  "total_tracks": 112,
+  "type": "album",
+  "uri": "spotify:album:7ynXpeQRwzqKiv8WVh7c7B"
+}, {
+  "album_group": "album",
+  "album_type": "album",
+  "artists": [{
+    "external_urls": {
+      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
+    },
+    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
+    "id": "3meJIgRw7YleJrmbpbJK6S",
+    "name": "Die drei ???",
+    "type": "artist",
+    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
+  }],
+  "external_urls": {
+    "spotify": "https://open.spotify.com/album/6BxvBG51szGmlg5x3F1rHj"
+  },
+  "href": "https://api.spotify.com/v1/albums/6BxvBG51szGmlg5x3F1rHj",
+  "id": "6BxvBG51szGmlg5x3F1rHj",
+  "images": [{
+    "height": 640,
+    "url": "https://i.scdn.co/image/ab67616d0000b273b7cb427c9c5bf0fabfebb834",
+    "width": 640
+  }, {
+    "height": 300,
+    "url": "https://i.scdn.co/image/ab67616d00001e02b7cb427c9c5bf0fabfebb834",
+    "width": 300
+  }, {
+    "height": 64,
+    "url": "https://i.scdn.co/image/ab67616d00004851b7cb427c9c5bf0fabfebb834",
+    "width": 64
+  }],
+  "name": "207/Die falschen Detektive",
+  "release_date": "2020-09-25",
+  "release_date_precision": "day",
+  "total_tracks": 42,
+  "type": "album",
+  "uri": "spotify:album:6BxvBG51szGmlg5x3F1rHj"
+}, {
+  "album_group": "album",
+  "album_type": "album",
+  "artists": [{
+    "external_urls": {
+      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
+    },
+    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
+    "id": "3meJIgRw7YleJrmbpbJK6S",
+    "name": "Die drei ???",
+    "type": "artist",
+    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
   }, {
     "external_urls": {
       "spotify": "https://open.spotify.com/artist/4zS5aB4qvsRbV8Av1WArGP"
@@ -851,6 +925,43 @@
     "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
   }],
   "external_urls": {
+    "spotify": "https://open.spotify.com/album/09Ckx1JLgPsQHHGuSIt2j3"
+  },
+  "href": "https://api.spotify.com/v1/albums/09Ckx1JLgPsQHHGuSIt2j3",
+  "id": "09Ckx1JLgPsQHHGuSIt2j3",
+  "images": [{
+    "height": 640,
+    "url": "https://i.scdn.co/image/ab67616d0000b27352c0f5ffda1043b41fe52969",
+    "width": 640
+  }, {
+    "height": 300,
+    "url": "https://i.scdn.co/image/ab67616d00001e0252c0f5ffda1043b41fe52969",
+    "width": 300
+  }, {
+    "height": 64,
+    "url": "https://i.scdn.co/image/ab67616d0000485152c0f5ffda1043b41fe52969",
+    "width": 64
+  }],
+  "name": "200/Feuriges Auge",
+  "release_date": "2019-07-19",
+  "release_date_precision": "day",
+  "total_tracks": 162,
+  "type": "album",
+  "uri": "spotify:album:09Ckx1JLgPsQHHGuSIt2j3"
+}, {
+  "album_group": "album",
+  "album_type": "album",
+  "artists": [{
+    "external_urls": {
+      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
+    },
+    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
+    "id": "3meJIgRw7YleJrmbpbJK6S",
+    "name": "Die drei ???",
+    "type": "artist",
+    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
+  }],
+  "external_urls": {
     "spotify": "https://open.spotify.com/album/7bTKP2hU0LRks1bXN1R7ko"
   },
   "href": "https://api.spotify.com/v1/albums/7bTKP2hU0LRks1bXN1R7ko",
@@ -1096,6 +1207,43 @@
   "total_tracks": 40,
   "type": "album",
   "uri": "spotify:album:3pbXIzVk7CA5VM2ltxu9TN"
+}, {
+  "album_group": "album",
+  "album_type": "album",
+  "artists": [{
+    "external_urls": {
+      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
+    },
+    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
+    "id": "3meJIgRw7YleJrmbpbJK6S",
+    "name": "Die drei ???",
+    "type": "artist",
+    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
+  }],
+  "external_urls": {
+    "spotify": "https://open.spotify.com/album/2oKngJQA5TdxF5QcP3uZEf"
+  },
+  "href": "https://api.spotify.com/v1/albums/2oKngJQA5TdxF5QcP3uZEf",
+  "id": "2oKngJQA5TdxF5QcP3uZEf",
+  "images": [{
+    "height": 640,
+    "url": "https://i.scdn.co/image/ab67616d0000b2731a873873dce1e3e04c87ab21",
+    "width": 640
+  }, {
+    "height": 300,
+    "url": "https://i.scdn.co/image/ab67616d00001e021a873873dce1e3e04c87ab21",
+    "width": 300
+  }, {
+    "height": 64,
+    "url": "https://i.scdn.co/image/ab67616d000048511a873873dce1e3e04c87ab21",
+    "width": 64
+  }],
+  "name": "194/und die Zeitreisende",
+  "release_date": "2018-07-20",
+  "release_date_precision": "day",
+  "total_tracks": 40,
+  "type": "album",
+  "uri": "spotify:album:2oKngJQA5TdxF5QcP3uZEf"
 }, {
   "album_group": "album",
   "album_type": "album",

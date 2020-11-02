@@ -1,7 +1,11 @@
+/**
+ * This Job fetches all Die drei ??? Folgen from Spotify
+ * and writes it to local JSON file
+ */
+
 const fs = require('fs');
 const Axios = require('axios');
-const TOKEN = 'BQC2SFqikK-vV3oGRexVFJeks-j27RhvQcxaO8cWD-urpDd9J_FuMAlktig2Fz7jNajRuVu5jLU3H3Zbf9o';
-require('dotenv').config();
+const TOKEN = 'BQB7cB1Ft141s72p_04y0x4LfHn_BU6TxeSPCaiapYyBddLLs72mQ2tiNcjv5XEBWzwDzW7NpctR-j1f30o';
 
 const getAlbums = async () => {
   let albums = [];
@@ -25,21 +29,7 @@ const getAlbums = async () => {
   await doRun(offset);
   console.log(albums);
   let jsondata = JSON.stringify(albums);
-  fs.writeFileSync('allefolgen2.json', jsondata);
-}
-
-const authSpotify = async () => {
-  const response = await Axios('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    data: { 'grant_type': 'client_credentials' },
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + process.env.SPOTIFY_TOKEN
-    }
-  });
-  console.log(response.data);
-
-  return response.data.access_token;
+  fs.writeFileSync('allefolgen.json', jsondata);
 }
 
 getAlbums();

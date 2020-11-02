@@ -28357,7 +28357,87 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../Users/Leif/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
+},{"_css_loader":"../../../../Users/Leif/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/@babel/runtime/helpers/arrayWithHoles.js":[function(require,module,exports) {
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+},{}],"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":[function(require,module,exports) {
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+},{}],"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":[function(require,module,exports) {
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+},{}],"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":[function(require,module,exports) {
+var arrayLikeToArray = require("./arrayLikeToArray");
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+},{"./arrayLikeToArray":"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js"}],"../node_modules/@babel/runtime/helpers/nonIterableRest.js":[function(require,module,exports) {
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+},{}],"../node_modules/@babel/runtime/helpers/slicedToArray.js":[function(require,module,exports) {
+var arrayWithHoles = require("./arrayWithHoles");
+
+var iterableToArrayLimit = require("./iterableToArrayLimit");
+
+var unsupportedIterableToArray = require("./unsupportedIterableToArray");
+
+var nonIterableRest = require("./nonIterableRest");
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+},{"./arrayWithHoles":"../node_modules/@babel/runtime/helpers/arrayWithHoles.js","./iterableToArrayLimit":"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js","./unsupportedIterableToArray":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableRest":"../node_modules/@babel/runtime/helpers/nonIterableRest.js"}],"../node_modules/@babel/runtime/helpers/esm/inheritsLoose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -34178,87 +34258,7 @@ function _objectWithoutProperties(source, excluded) {
 }
 
 module.exports = _objectWithoutProperties;
-},{"./objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"}],"../node_modules/@babel/runtime/helpers/arrayWithHoles.js":[function(require,module,exports) {
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-module.exports = _arrayWithHoles;
-},{}],"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js":[function(require,module,exports) {
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-module.exports = _iterableToArrayLimit;
-},{}],"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js":[function(require,module,exports) {
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-module.exports = _arrayLikeToArray;
-},{}],"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js":[function(require,module,exports) {
-var arrayLikeToArray = require("./arrayLikeToArray");
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-
-module.exports = _unsupportedIterableToArray;
-},{"./arrayLikeToArray":"../node_modules/@babel/runtime/helpers/arrayLikeToArray.js"}],"../node_modules/@babel/runtime/helpers/nonIterableRest.js":[function(require,module,exports) {
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableRest;
-},{}],"../node_modules/@babel/runtime/helpers/slicedToArray.js":[function(require,module,exports) {
-var arrayWithHoles = require("./arrayWithHoles");
-
-var iterableToArrayLimit = require("./iterableToArrayLimit");
-
-var unsupportedIterableToArray = require("./unsupportedIterableToArray");
-
-var nonIterableRest = require("./nonIterableRest");
-
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-
-module.exports = _slicedToArray;
-},{"./arrayWithHoles":"../node_modules/@babel/runtime/helpers/arrayWithHoles.js","./iterableToArrayLimit":"../node_modules/@babel/runtime/helpers/iterableToArrayLimit.js","./unsupportedIterableToArray":"../node_modules/@babel/runtime/helpers/unsupportedIterableToArray.js","./nonIterableRest":"../node_modules/@babel/runtime/helpers/nonIterableRest.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+},{"./objectWithoutPropertiesLoose":"../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js"}],"../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -34509,6 +34509,146 @@ var Footer = function Footer() {
 };
 
 var _default = Footer;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Search.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Search = function Search(props) {
+  var _useState = (0, _react.useState)(''),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      query = _useState2[0],
+      setQuery = _useState2[1];
+
+  (0, _react.useEffect)(function () {
+    props.onQuery(query);
+  }, [query]);
+  var style = {
+    // textAlign: 'center',
+    padding: '0 36px',
+    margin: '24px 0' // zIndex: '10',
+    // position: 'fixed',
+    // top: '20px',
+    // right: '20px'
+
+  };
+  var inputStyle = {
+    padding: '12px 18px',
+    borderRadius: '25px',
+    border: 'none',
+    width: '250px'
+  };
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+    style: inputStyle,
+    type: "text",
+    placeholder: "Suchen...",
+    value: query,
+    onChange: function onChange(e) {
+      return setQuery(e.target.value);
+    }
+  }));
+};
+
+var _default = Search;
+exports.default = _default;
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Loader.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = exports.Loader = exports.FullpageLoader = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FullpageLoader = function FullpageLoader() {
+  var style = {
+    zIndex: '999',
+    position: 'fixed',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+    display: 'flex',
+    alignItems: 'center'
+  };
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: style
+  }, /*#__PURE__*/_react.default.createElement(Loader, null));
+};
+
+exports.FullpageLoader = FullpageLoader;
+
+var Loader = function Loader() {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "spinner"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "rect1"
+  }, "?"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "rect2"
+  }, "?"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "rect3"
+  }, "?"));
+};
+
+exports.Loader = Loader;
+var _default = Loader;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js"}],"components/Sort.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Sort = function Sort(_ref) {
+  var onSortChange = _ref.onSortChange;
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", null, "Neuste zuerst", /*#__PURE__*/_react.default.createElement("input", {
+    type: "radio",
+    name: "sort",
+    value: "dateAsc",
+    onChange: function onChange(e) {
+      return onSortChange(e.target.value);
+    }
+  })), /*#__PURE__*/_react.default.createElement("label", null, "\xC4lteste zuerst", /*#__PURE__*/_react.default.createElement("input", {
+    type: "radio",
+    name: "sort",
+    value: "dateDesc",
+    onChange: function onChange(e) {
+      return onSortChange(e.target.value);
+    }
+  })), /*#__PURE__*/_react.default.createElement("label", null, "Beste zuerst", /*#__PURE__*/_react.default.createElement("input", {
+    type: "radio",
+    name: "sort",
+    value: "rating",
+    onChange: function onChange(e) {
+      return onSortChange(e.target.value);
+    }
+  })));
+};
+
+var _default = Sort;
 exports.default = _default;
 },{"react":"../node_modules/react/index.js"}],"../node_modules/react-intersection-observer/react-intersection-observer.m.js":[function(require,module,exports) {
 "use strict";
@@ -34884,346 +35024,7 @@ exports.default = _default;
 var define;
 !function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):t.dayjs=e()}(this,function(){"use strict";var t="millisecond",e="second",n="minute",r="hour",i="day",s="week",u="month",a="quarter",o="year",f="date",h=/^(\d{4})[-/]?(\d{1,2})?[-/]?(\d{0,2})[^0-9]*(\d{1,2})?:?(\d{1,2})?:?(\d{1,2})?.?(\d+)?$/,c=/\[([^\]]+)]|Y{2,4}|M{1,4}|D{1,2}|d{1,4}|H{1,2}|h{1,2}|a|A|m{1,2}|s{1,2}|Z{1,2}|SSS/g,d={name:"en",weekdays:"Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),months:"January_February_March_April_May_June_July_August_September_October_November_December".split("_")},$=function(t,e,n){var r=String(t);return!r||r.length>=e?t:""+Array(e+1-r.length).join(n)+t},l={s:$,z:function(t){var e=-t.utcOffset(),n=Math.abs(e),r=Math.floor(n/60),i=n%60;return(e<=0?"+":"-")+$(r,2,"0")+":"+$(i,2,"0")},m:function t(e,n){if(e.date()<n.date())return-t(n,e);var r=12*(n.year()-e.year())+(n.month()-e.month()),i=e.clone().add(r,u),s=n-i<0,a=e.clone().add(r+(s?-1:1),u);return+(-(r+(n-i)/(s?i-a:a-i))||0)},a:function(t){return t<0?Math.ceil(t)||0:Math.floor(t)},p:function(h){return{M:u,y:o,w:s,d:i,D:f,h:r,m:n,s:e,ms:t,Q:a}[h]||String(h||"").toLowerCase().replace(/s$/,"")},u:function(t){return void 0===t}},y="en",M={};M[y]=d;var m=function(t){return t instanceof S},D=function(t,e,n){var r;if(!t)return y;if("string"==typeof t)M[t]&&(r=t),e&&(M[t]=e,r=t);else{var i=t.name;M[i]=t,r=i}return!n&&r&&(y=r),r||!n&&y},v=function(t,e){if(m(t))return t.clone();var n="object"==typeof e?e:{};return n.date=t,n.args=arguments,new S(n)},g=l;g.l=D,g.i=m,g.w=function(t,e){return v(t,{locale:e.$L,utc:e.$u,x:e.$x,$offset:e.$offset})};var S=function(){function d(t){this.$L=this.$L||D(t.locale,null,!0),this.parse(t)}var $=d.prototype;return $.parse=function(t){this.$d=function(t){var e=t.date,n=t.utc;if(null===e)return new Date(NaN);if(g.u(e))return new Date;if(e instanceof Date)return new Date(e);if("string"==typeof e&&!/Z$/i.test(e)){var r=e.match(h);if(r){var i=r[2]-1||0,s=(r[7]||"0").substring(0,3);return n?new Date(Date.UTC(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)):new Date(r[1],i,r[3]||1,r[4]||0,r[5]||0,r[6]||0,s)}}return new Date(e)}(t),this.$x=t.x||{},this.init()},$.init=function(){var t=this.$d;this.$y=t.getFullYear(),this.$M=t.getMonth(),this.$D=t.getDate(),this.$W=t.getDay(),this.$H=t.getHours(),this.$m=t.getMinutes(),this.$s=t.getSeconds(),this.$ms=t.getMilliseconds()},$.$utils=function(){return g},$.isValid=function(){return!("Invalid Date"===this.$d.toString())},$.isSame=function(t,e){var n=v(t);return this.startOf(e)<=n&&n<=this.endOf(e)},$.isAfter=function(t,e){return v(t)<this.startOf(e)},$.isBefore=function(t,e){return this.endOf(e)<v(t)},$.$g=function(t,e,n){return g.u(t)?this[e]:this.set(n,t)},$.unix=function(){return Math.floor(this.valueOf()/1e3)},$.valueOf=function(){return this.$d.getTime()},$.startOf=function(t,a){var h=this,c=!!g.u(a)||a,d=g.p(t),$=function(t,e){var n=g.w(h.$u?Date.UTC(h.$y,e,t):new Date(h.$y,e,t),h);return c?n:n.endOf(i)},l=function(t,e){return g.w(h.toDate()[t].apply(h.toDate("s"),(c?[0,0,0,0]:[23,59,59,999]).slice(e)),h)},y=this.$W,M=this.$M,m=this.$D,D="set"+(this.$u?"UTC":"");switch(d){case o:return c?$(1,0):$(31,11);case u:return c?$(1,M):$(0,M+1);case s:var v=this.$locale().weekStart||0,S=(y<v?y+7:y)-v;return $(c?m-S:m+(6-S),M);case i:case f:return l(D+"Hours",0);case r:return l(D+"Minutes",1);case n:return l(D+"Seconds",2);case e:return l(D+"Milliseconds",3);default:return this.clone()}},$.endOf=function(t){return this.startOf(t,!1)},$.$set=function(s,a){var h,c=g.p(s),d="set"+(this.$u?"UTC":""),$=(h={},h[i]=d+"Date",h[f]=d+"Date",h[u]=d+"Month",h[o]=d+"FullYear",h[r]=d+"Hours",h[n]=d+"Minutes",h[e]=d+"Seconds",h[t]=d+"Milliseconds",h)[c],l=c===i?this.$D+(a-this.$W):a;if(c===u||c===o){var y=this.clone().set(f,1);y.$d[$](l),y.init(),this.$d=y.set(f,Math.min(this.$D,y.daysInMonth())).$d}else $&&this.$d[$](l);return this.init(),this},$.set=function(t,e){return this.clone().$set(t,e)},$.get=function(t){return this[g.p(t)]()},$.add=function(t,a){var f,h=this;t=Number(t);var c=g.p(a),d=function(e){var n=v(h);return g.w(n.date(n.date()+Math.round(e*t)),h)};if(c===u)return this.set(u,this.$M+t);if(c===o)return this.set(o,this.$y+t);if(c===i)return d(1);if(c===s)return d(7);var $=(f={},f[n]=6e4,f[r]=36e5,f[e]=1e3,f)[c]||1,l=this.$d.getTime()+t*$;return g.w(l,this)},$.subtract=function(t,e){return this.add(-1*t,e)},$.format=function(t){var e=this;if(!this.isValid())return"Invalid Date";var n=t||"YYYY-MM-DDTHH:mm:ssZ",r=g.z(this),i=this.$locale(),s=this.$H,u=this.$m,a=this.$M,o=i.weekdays,f=i.months,h=function(t,r,i,s){return t&&(t[r]||t(e,n))||i[r].substr(0,s)},d=function(t){return g.s(s%12||12,t,"0")},$=i.meridiem||function(t,e,n){var r=t<12?"AM":"PM";return n?r.toLowerCase():r},l={YY:String(this.$y).slice(-2),YYYY:this.$y,M:a+1,MM:g.s(a+1,2,"0"),MMM:h(i.monthsShort,a,f,3),MMMM:h(f,a),D:this.$D,DD:g.s(this.$D,2,"0"),d:String(this.$W),dd:h(i.weekdaysMin,this.$W,o,2),ddd:h(i.weekdaysShort,this.$W,o,3),dddd:o[this.$W],H:String(s),HH:g.s(s,2,"0"),h:d(1),hh:d(2),a:$(s,u,!0),A:$(s,u,!1),m:String(u),mm:g.s(u,2,"0"),s:String(this.$s),ss:g.s(this.$s,2,"0"),SSS:g.s(this.$ms,3,"0"),Z:r};return n.replace(c,function(t,e){return e||l[t]||r.replace(":","")})},$.utcOffset=function(){return 15*-Math.round(this.$d.getTimezoneOffset()/15)},$.diff=function(t,f,h){var c,d=g.p(f),$=v(t),l=6e4*($.utcOffset()-this.utcOffset()),y=this-$,M=g.m(this,$);return M=(c={},c[o]=M/12,c[u]=M,c[a]=M/3,c[s]=(y-l)/6048e5,c[i]=(y-l)/864e5,c[r]=y/36e5,c[n]=y/6e4,c[e]=y/1e3,c)[d]||y,h?M:g.a(M)},$.daysInMonth=function(){return this.endOf(u).$D},$.$locale=function(){return M[this.$L]},$.locale=function(t,e){if(!t)return this.$L;var n=this.clone(),r=D(t,e,!0);return r&&(n.$L=r),n},$.clone=function(){return g.w(this.$d,this)},$.toDate=function(){return new Date(this.valueOf())},$.toJSON=function(){return this.isValid()?this.toISOString():null},$.toISOString=function(){return this.$d.toISOString()},$.toString=function(){return this.$d.toUTCString()},d}(),p=S.prototype;return v.prototype=p,[["$ms",t],["$s",e],["$m",n],["$H",r],["$W",i],["$M",u],["$y",o],["$D",f]].forEach(function(t){p[t[1]]=function(e){return this.$g(e,t[0],t[1])}}),v.extend=function(t,e){return t(e,S,v),v},v.locale=D,v.isDayjs=m,v.unix=function(t){return v(1e3*t)},v.en=M[y],v.Ls=M,v.p={},v});
 
-},{}],"components/Search.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
-var _react = _interopRequireWildcard(require("react"));
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Search = function Search(props) {
-  var _useState = (0, _react.useState)(''),
-      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
-      query = _useState2[0],
-      setQuery = _useState2[1];
-
-  (0, _react.useEffect)(function () {
-    props.onQuery(query);
-  }, [query]);
-  var style = {
-    // textAlign: 'center',
-    padding: '0 36px',
-    margin: '24px 0' // zIndex: '10',
-    // position: 'fixed',
-    // top: '20px',
-    // right: '20px'
-
-  };
-  var inputStyle = {
-    padding: '12px 18px',
-    borderRadius: '25px',
-    border: 'none',
-    width: '250px'
-  };
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
-    style: inputStyle,
-    type: "text",
-    placeholder: "Suchen...",
-    value: query,
-    onChange: function onChange(e) {
-      return setQuery(e.target.value);
-    }
-  }));
-};
-
-var _default = Search;
-exports.default = _default;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js"}],"components/Loader.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.Loader = exports.FullpageLoader = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FullpageLoader = function FullpageLoader() {
-  var style = {
-    zIndex: '999',
-    position: 'fixed',
-    width: '100%',
-    height: '100%',
-    top: 0,
-    left: 0,
-    display: 'flex',
-    alignItems: 'center'
-  };
-  return /*#__PURE__*/_react.default.createElement("div", {
-    style: style
-  }, /*#__PURE__*/_react.default.createElement(Loader, null));
-};
-
-exports.FullpageLoader = FullpageLoader;
-
-var Loader = function Loader() {
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "spinner"
-  }, /*#__PURE__*/_react.default.createElement("div", {
-    className: "rect1"
-  }, "?"), /*#__PURE__*/_react.default.createElement("div", {
-    className: "rect2"
-  }, "?"), /*#__PURE__*/_react.default.createElement("div", {
-    className: "rect3"
-  }, "?"));
-};
-
-exports.Loader = Loader;
-var _default = Loader;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"style/rate.css":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../Users/Leif/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Rate.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _axios = _interopRequireDefault(require("axios"));
-
-var _AuthContext = require("../context/AuthContext");
-
-require("../style/rate.css");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-var Rate = function Rate(_ref) {
-  var folge_id = _ref.folge_id,
-      currentRating = _ref.currentRating;
-
-  var _useContext = (0, _react.useContext)(_AuthContext.AuthContext),
-      user = _useContext.user;
-
-  var rateFolge = function rateFolge(e) {
-    if (!user) {
-      location.href = '/login';
-    } else {
-      var rating = Number(e.target.value);
-      var url = "/api/folge/".concat(folge_id, "/rating");
-
-      _axios.default.post(url, {
-        rating: rating
-      }, {
-        headers: {
-          'Authorization': 'Bearer ' + user.token
-        }
-      }).then(function (response) {
-        console.log(response.data);
-        window.location.reload();
-      }).catch(function (error) {
-        console.log(error);
-      });
-    }
-  };
-
-  var isChecked = function isChecked(value) {
-    return value == currentRating.toFixed(0) && true;
-    return false;
-  };
-
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
-    className: "rating",
-    action: "/folge/<%= folge._id %>/rate"
-  }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "1",
-    checked: isChecked(1)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "2",
-    checked: isChecked(2)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "3",
-    checked: isChecked(3)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "4",
-    checked: isChecked(4)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "5",
-    checked: isChecked(5)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "6",
-    checked: isChecked(6)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "7",
-    checked: isChecked(7)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "8",
-    checked: isChecked(8)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "9",
-    checked: isChecked(9)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    onChange: rateFolge,
-    type: "radio",
-    name: "rating",
-    value: "10",
-    checked: isChecked(10)
-  }), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
-    className: "icon"
-  }, "?"))));
-};
-
-var _default = Rate;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../context/AuthContext":"context/AuthContext.js","../style/rate.css":"style/rate.css"}],"../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":[function(require,module,exports) {
+},{}],"../node_modules/@babel/runtime/helpers/arrayWithoutHoles.js":[function(require,module,exports) {
 var arrayLikeToArray = require("./arrayLikeToArray");
 
 function _arrayWithoutHoles(arr) {
@@ -35304,7 +35105,7 @@ var sortFolgenByDateDesc = function sortFolgenByDateDesc(folgen) {
 };
 
 exports.sortFolgenByDateDesc = sortFolgenByDateDesc;
-},{"@babel/runtime/helpers/toConsumableArray":"../node_modules/@babel/runtime/helpers/toConsumableArray.js"}],"components/Grid.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/toConsumableArray":"../node_modules/@babel/runtime/helpers/toConsumableArray.js"}],"components/GridFolge.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -35320,17 +35121,120 @@ var _reactRouterDom = require("react-router-dom");
 
 var _reactIntersectionObserver = require("react-intersection-observer");
 
-var _axios = _interopRequireDefault(require("axios"));
-
 var _dayjs = _interopRequireDefault(require("dayjs"));
+
+var _utils = require("../utils");
+
+var _Loader = require("./Loader");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GridFolge = function GridFolge(_ref) {
+  var folge = _ref.folge;
+  var rating = (0, _utils.calcFolgenRating)(folge.ratings);
+
+  var rederRatingIcons = function rederRatingIcons() {
+    var blues = rating;
+    var whites = 10 - rating;
+    var icons = [];
+
+    for (var i = 0; i < blues; i++) {
+      icons.push( /*#__PURE__*/_react.default.createElement("span", {
+        key: i,
+        className: "icon blue"
+      }, "?"));
+    }
+
+    for (var _i = 0; _i < whites; _i++) {
+      icons.push( /*#__PURE__*/_react.default.createElement("span", {
+        key: _i,
+        className: "icon"
+      }, "?"));
+    }
+
+    return icons;
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    as: "div",
+    className: "folge-miniatur"
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/folge/".concat(folge._id)
+  }, /*#__PURE__*/_react.default.createElement(FolgeCover, {
+    src: folge.images[1].url
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "description"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "folge-miniatur__rating"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "rating"
+  }, rederRatingIcons()), /*#__PURE__*/_react.default.createElement("div", null, rating.toFixed(1), "/", /*#__PURE__*/_react.default.createElement("small", null, "10"))), /*#__PURE__*/_react.default.createElement("div", null, (0, _dayjs.default)(folge.release_date).format('DD.MM.YYYY'))));
+};
+
+var FolgeCover = function FolgeCover(_ref2) {
+  var src = _ref2.src;
+
+  var _useState = (0, _react.useState)(true),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      loading = _useState2[0],
+      setLoading = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(''),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      imgSrc = _useState4[0],
+      setImgSrc = _useState4[1];
+
+  var handleViewChange = function handleViewChange(inView) {
+    if (!inView) return;
+    if (inView) setImgSrc(src);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_reactIntersectionObserver.InView, {
+    as: "div",
+    onChange: function onChange(inView) {
+      return handleViewChange(inView);
+    },
+    className: "cover"
+  }, loading && /*#__PURE__*/_react.default.createElement(_Loader.Loader, null), /*#__PURE__*/_react.default.createElement("img", {
+    style: {
+      display: loading ? 'none' : 'block'
+    },
+    src: imgSrc,
+    onLoad: function onLoad() {
+      return setLoading(false);
+    }
+  }));
+};
+
+var _default = GridFolge;
+exports.default = _default;
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-intersection-observer":"../node_modules/react-intersection-observer/react-intersection-observer.m.js","dayjs":"../node_modules/dayjs/dayjs.min.js","../utils":"utils/index.js","./Loader":"components/Loader.js"}],"components/Grid.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _axios = _interopRequireDefault(require("axios"));
 
 var _Search = _interopRequireDefault(require("./Search"));
 
 var _Loader = require("./Loader");
 
-var _Loader2 = require("../components/Loader");
+var _Sort = _interopRequireDefault(require("./Sort"));
 
-var _Rate = _interopRequireDefault(require("./Rate"));
+var _GridFolge = _interopRequireDefault(require("./GridFolge"));
 
 var _utils = require("../utils");
 
@@ -35340,56 +35244,47 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Grid = function Grid() {
-  var _useState = (0, _react.useState)([]),
+var Grid = function Grid(props) {
+  var _useState = (0, _react.useState)(''),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
-      alleFolgen = _useState2[0],
-      setAlleFolgen = _useState2[1];
+      queryFilter = _useState2[0],
+      setQueryFilter = _useState2[1];
 
-  var _useState3 = (0, _react.useState)(''),
+  var _useState3 = (0, _react.useState)([]),
       _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
-      queryFilter = _useState4[0],
-      setQueryFilter = _useState4[1];
-
-  var _useState5 = (0, _react.useState)([]),
-      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
-      folgen = _useState6[0],
-      setFolgen = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(true),
-      _useState8 = (0, _slicedToArray2.default)(_useState7, 2),
-      loading = _useState8[0],
-      setLoading = _useState8[1];
-
-  var _useState9 = (0, _react.useState)(''),
-      _useState10 = (0, _slicedToArray2.default)(_useState9, 2),
-      error = _useState10[0],
-      setError = _useState10[1];
+      folgen = _useState4[0],
+      setFolgen = _useState4[1];
 
   (0, _react.useEffect)(function () {
-    getAllFolgen();
-  }, []);
+    console.log(props.folgen);
+  }, [props.folgen]);
   (0, _react.useEffect)(function () {
     var filterFolge = function filterFolge(folge) {
       var query = queryFilter.toLowerCase();
-      var name = folge.name.toLowerCase();
+      var name = folge.raw_name.toLowerCase();
       return name.includes(query);
     };
 
-    var filtered = alleFolgen.filter(filterFolge);
+    var filtered = props.folgen.filter(filterFolge);
     setFolgen(filtered);
   }, [queryFilter]);
 
-  var getAllFolgen = function getAllFolgen() {
-    (0, _axios.default)('/api/folge').then(function (response) {
-      setAlleFolgen(response.data);
-      setFolgen(response.data);
-      console.log(response.data);
-      setLoading(false);
-    }).catch(function (error) {
-      console.log(error);
-      setError(error);
-    });
+  var sortBy = function sortBy(by) {
+    console.log(by);
+
+    switch (by) {
+      case 'dateAsc':
+        setFolgen(_utils.sortFolgenByDateAsc);
+        break;
+
+      case 'dateDesc':
+        setFolgen(_utils.sortFolgenByDateDesc);
+        break;
+
+      case 'rating':
+        setFolgen(_utils.sortFolgenByRating);
+        break;
+    }
   };
 
   var sortByRating = function sortByRating() {
@@ -35417,91 +35312,21 @@ var Grid = function Grid() {
   }, "\xC4lteste Zuerst"), /*#__PURE__*/_react.default.createElement("button", {
     className: "button",
     onClick: sortByRating
-  }, "Beste zuerst")), /*#__PURE__*/_react.default.createElement("div", null, folgen.length, " Folgen"), loading && /*#__PURE__*/_react.default.createElement(_Loader.FullpageLoader, null), /*#__PURE__*/_react.default.createElement("div", {
-    className: "folgen folgen_grid"
+  }, "Beste zuerst")), /*#__PURE__*/_react.default.createElement(_Sort.default, {
+    onSortChange: sortBy
+  }), /*#__PURE__*/_react.default.createElement("div", null, folgen.length, " Folgen"), /*#__PURE__*/_react.default.createElement("div", {
+    className: "grid folgen folgen_grid"
   }, folgen.map(function (folge) {
-    return /*#__PURE__*/_react.default.createElement(Folge, {
+    return /*#__PURE__*/_react.default.createElement(_GridFolge.default, {
       key: folge._id,
-      data: folge
+      folge: folge
     });
   })));
 };
 
-var Folge = function Folge(_ref) {
-  var data = _ref.data;
-  var rating = (0, _utils.calcFolgenRating)(data.ratings);
-
-  var rederRatingIcons = function rederRatingIcons() {
-    var blues = rating;
-    var whites = 10 - rating;
-    var icons = [];
-
-    for (var i = 0; i < blues; i++) {
-      icons.push( /*#__PURE__*/_react.default.createElement("span", {
-        className: "icon blue"
-      }, "?"));
-    }
-
-    for (var _i = 0; _i < whites; _i++) {
-      icons.push( /*#__PURE__*/_react.default.createElement("span", {
-        className: "icon"
-      }, "?"));
-    }
-
-    console.log(icons);
-    return icons;
-  };
-
-  return /*#__PURE__*/_react.default.createElement("div", {
-    as: "div",
-    className: "folge-miniatur"
-  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "/folge/".concat(data._id)
-  }, /*#__PURE__*/_react.default.createElement(FolgeCover, {
-    src: data.images[1].url
-  })), /*#__PURE__*/_react.default.createElement("div", {
-    className: "rating"
-  }, rederRatingIcons()), /*#__PURE__*/_react.default.createElement("div", null, rating.toFixed(1), "/", /*#__PURE__*/_react.default.createElement("small", null, "10")), /*#__PURE__*/_react.default.createElement("div", null, (0, _dayjs.default)(data.release_date).format('DD.MM.YYYY')));
-};
-
-var FolgeCover = function FolgeCover(_ref2) {
-  var src = _ref2.src;
-
-  var _useState11 = (0, _react.useState)(true),
-      _useState12 = (0, _slicedToArray2.default)(_useState11, 2),
-      loading = _useState12[0],
-      setLoading = _useState12[1];
-
-  var _useState13 = (0, _react.useState)(''),
-      _useState14 = (0, _slicedToArray2.default)(_useState13, 2),
-      imgSrc = _useState14[0],
-      setImgSrc = _useState14[1];
-
-  var handleViewChange = function handleViewChange(inView) {
-    if (!inView) return;
-    if (inView) setImgSrc(src);
-  };
-
-  return /*#__PURE__*/_react.default.createElement(_reactIntersectionObserver.InView, {
-    as: "div",
-    onChange: function onChange(inView) {
-      return handleViewChange(inView);
-    },
-    className: "cover"
-  }, loading && /*#__PURE__*/_react.default.createElement(_Loader2.Loader, null), /*#__PURE__*/_react.default.createElement("img", {
-    style: {
-      display: loading ? 'none' : 'block'
-    },
-    src: imgSrc,
-    onLoad: function onLoad() {
-      return setLoading(false);
-    }
-  }));
-};
-
 var _default = Grid;
 exports.default = _default;
-},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-intersection-observer":"../node_modules/react-intersection-observer/react-intersection-observer.m.js","axios":"../node_modules/axios/index.js","dayjs":"../node_modules/dayjs/dayjs.min.js","./Search":"components/Search.js","./Loader":"components/Loader.js","../components/Loader":"components/Loader.js","./Rate":"components/Rate.js","../utils":"utils/index.js"}],"components/Login.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js","./Search":"components/Search.js","./Loader":"components/Loader.js","./Sort":"components/Sort.js","./GridFolge":"components/GridFolge.js","../utils":"utils/index.js"}],"components/Login.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36421,7 +36246,245 @@ function _asyncToGenerator(fn) {
 }
 
 module.exports = _asyncToGenerator;
-},{}],"../node_modules/ssr-window/ssr-window.esm.js":[function(require,module,exports) {
+},{}],"style/rate.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../Users/Leif/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/Rate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _axios = _interopRequireDefault(require("axios"));
+
+var _AuthContext = require("../context/AuthContext");
+
+require("../style/rate.css");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var Rate = function Rate(_ref) {
+  var folge_id = _ref.folge_id,
+      currentRating = _ref.currentRating;
+
+  var _useContext = (0, _react.useContext)(_AuthContext.AuthContext),
+      user = _useContext.user;
+
+  var rateFolge = function rateFolge(e) {
+    if (!user) {
+      location.href = '/login';
+    } else {
+      var rating = Number(e.target.value);
+      var url = "/api/folge/".concat(folge_id, "/rating");
+
+      _axios.default.post(url, {
+        rating: rating
+      }, {
+        headers: {
+          'Authorization': 'Bearer ' + user.token
+        }
+      }).then(function (response) {
+        console.log(response.data);
+        window.location.reload();
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  };
+
+  var isChecked = function isChecked(value) {
+    return value == currentRating.toFixed(0) && true;
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+    className: "rating",
+    action: "/folge/<%= folge._id %>/rate"
+  }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "1",
+    checked: isChecked(1)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "2",
+    checked: isChecked(2)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "3",
+    checked: isChecked(3)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "4",
+    checked: isChecked(4)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "5",
+    checked: isChecked(5)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "6",
+    checked: isChecked(6)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "7",
+    checked: isChecked(7)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "8",
+    checked: isChecked(8)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "9",
+    checked: isChecked(9)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?")), /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+    onChange: rateFolge,
+    type: "radio",
+    name: "rating",
+    value: "10",
+    checked: isChecked(10)
+  }), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "icon"
+  }, "?"))));
+};
+
+var _default = Rate;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","../context/AuthContext":"context/AuthContext.js","../style/rate.css":"style/rate.css"}],"../node_modules/ssr-window/ssr-window.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49310,7 +49373,6 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import useRequest from '../components/useRequest';
 var FolgePage = function FolgePage() {
   var _useParams = (0, _reactRouterDom.useParams)(),
       id = _useParams.id;
@@ -49328,10 +49390,7 @@ var FolgePage = function FolgePage() {
   var _useState5 = (0, _react.useState)(''),
       _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
       error = _useState6[0],
-      setError = _useState6[1]; // useEffect(() => {
-  //   fetchFolge();
-  // }, [id]);
-
+      setError = _useState6[1];
 
   (0, _react.useEffect)(function () {
     var fetchFolge = /*#__PURE__*/function () {
@@ -49377,22 +49436,10 @@ var FolgePage = function FolgePage() {
     }();
 
     fetchFolge();
-  }, [id]); // const fetchFolge = () => {
-  //   Axios(`/api/folge/${id}`)
-  //   .then(response => {
-  //     console.log(response.data);
-  //     setFolge(response.data);
-  //     setLoading(false);
-  //   })
-  //   .catch(error => {
-  //     setLoading(false);
-  //     setError(error.message);
-  //   });
-  // }
-  // return loading ? <Loader /> : <Folge data={folge}/>;
-  // const { data, loading, error } = useRequest(`/api/folge/${id}`);
-
-  return /*#__PURE__*/_react.default.createElement("div", null, loading && /*#__PURE__*/_react.default.createElement(_Loader.FullpageLoader, null), folge && /*#__PURE__*/_react.default.createElement(Folge, {
+  }, [id]);
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "page"
+  }, loading && /*#__PURE__*/_react.default.createElement(_Loader.FullpageLoader, null), folge && /*#__PURE__*/_react.default.createElement(Folge, {
     data: folge
   }), error && /*#__PURE__*/_react.default.createElement("div", {
     className: "wrapper"
@@ -49403,7 +49450,18 @@ var Folge = function Folge(_ref2) {
   var data = _ref2.data;
   var rating = (0, _utils.calcFolgenRating)(data.ratings);
   var formatedRating = rating.toFixed(1);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("div", {
+  var style = {
+    position: 'fixed',
+    // top: '100px',
+    // left: '0',
+    // width: '100%',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)'
+  };
+  return /*#__PURE__*/_react.default.createElement("div", {
+    style: style
+  }, /*#__PURE__*/_react.default.createElement("div", {
     className: "folge wrapper"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "container"
@@ -49427,6 +49485,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
+
 var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
@@ -49449,43 +49509,56 @@ var _Folge = _interopRequireDefault(require("../components/Folge"));
 
 var _AuthContext = require("../context/AuthContext");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import Grid from '../components/Grid';
 var App = function App() {
-  // const [folgen, setFolgen] = useState([]);
   var _useContext = (0, _react.useContext)(_AuthContext.AuthContext),
       setUser = _useContext.setUser;
 
+  var _useState = (0, _react.useState)([]),
+      _useState2 = (0, _slicedToArray2.default)(_useState, 2),
+      folgen = _useState2[0],
+      setFolgen = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(false),
+      _useState4 = (0, _slicedToArray2.default)(_useState3, 2),
+      loading = _useState4[0],
+      setLoading = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(''),
+      _useState6 = (0, _slicedToArray2.default)(_useState5, 2),
+      error = _useState6[0],
+      setError = _useState6[1];
+
   (0, _react.useEffect)(function () {
-    // getAllFolgen();
     var storedUser = JSON.parse(window.localStorage.getItem('user'));
     setUser(storedUser);
-  }, []); // const getAllFolgen = () => {
-  //   Axios('/api/folge')
-  //   .then(response => {
-  //     setFolgen(response.data);
-  //     setLoading(false);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //     setError(error);
-  //   });
-  // }
-  // const sortByRating = () => {
-  //   const newFolgen = folgen.sort((a, b) => {
-  //     console.log(a);
-  //   })
-  // }
+  }, []);
+  (0, _react.useEffect)(function () {
+    var fetchAllFolgen = function fetchAllFolgen() {
+      (0, _axios.default)('/api/folge').then(function (response) {
+        setFolgen(response.data);
+        setLoading(false);
+      }).catch(function (error) {
+        console.log(error);
+        setError(error);
+      });
+    };
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    fetchAllFolgen();
+  }, []);
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_Header.default, null), loading && /*#__PURE__*/_react.default.createElement(FullpageLoader, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Switch, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
     path: "/",
     component: function component() {
-      return /*#__PURE__*/_react.default.createElement(_Grid.default, null);
+      return /*#__PURE__*/_react.default.createElement(_Grid.default, {
+        folgen: folgen
+      });
     }
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     exact: true,
@@ -49504,7 +49577,7 @@ var App = function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js","../components/PotectedRoute":"components/PotectedRoute.js","../components/Header":"components/Header.js","../components/Footer":"components/Footer.js","../components/Grid":"components/Grid.js","../components/Login":"components/Login.js","../components/Profile":"components/Profile.js","../components/Folge":"components/Folge.js","../context/AuthContext":"context/AuthContext.js"}],"js/AppContainer.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/slicedToArray":"../node_modules/@babel/runtime/helpers/slicedToArray.js","react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","axios":"../node_modules/axios/index.js","../components/PotectedRoute":"components/PotectedRoute.js","../components/Header":"components/Header.js","../components/Footer":"components/Footer.js","../components/Grid":"components/Grid.js","../components/Login":"components/Login.js","../components/Profile":"components/Profile.js","../components/Folge":"components/Folge.js","../context/AuthContext":"context/AuthContext.js"}],"js/AppContainer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -49568,7 +49641,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58502" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59481" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

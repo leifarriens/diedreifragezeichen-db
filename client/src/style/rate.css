@@ -1,9 +1,9 @@
 .rating {
   display: inline-block;
   position: relative;
-  height: 50px;
-  line-height: 50px;
-  font-size: 30px;
+  /* height: 50px; */
+  /* line-height: 50px; */
+  font-size: 22px;
   font-weight: 900;
 }
 
