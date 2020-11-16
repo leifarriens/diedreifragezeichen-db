@@ -38,17 +38,21 @@ router.get('/:id/alt', async (req, res) => {
   }
 })
 
-router.post('/:id/rating', verifyToken, async (req, res) => {
-  console.log(req.params.id, req.body.rating);
+router.post('/:id/rating', async (req, res) => {
+  const IP = req.headers['x-forwarded-for'] || 
+    req.connection.remoteAddress || 
+    req.socket.remoteAddress ||
+    (req.connection.socket ? req.connection.socket.remoteAddress : null);
+  console.log(IP);
   try {
     const rating = Number(req.body.rating);
+    console.log(rating);
     await addFolgenRating(req.params.id, rating);
     console.log('done');
     res.send('Rating saved!');
     // res.redirect(`/folge/${req.params.id}`);
-  }
-  catch (e) {
-    console.log(e.message);  
+  } catch (e) {
+    console.log(e.message);
   }
 });
 

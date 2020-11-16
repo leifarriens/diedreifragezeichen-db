@@ -3,13 +3,13 @@ import { Route, Redirect } from 'react-router-dom';
 
 import { AuthContext } from '../context/AuthContext';
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
+const ProtectedRoute = ({ component: Component, ...restProps }) => {
   const { user } = useContext(AuthContext);
 
   console.log(user);
 
   return (
-    <Route {...rest} render={(props) => (
+    <Route {...restProps} render={(props) => (
       user ? 
         <Component {...props} /> : <Redirect to={{ pathname: '/login', state: { from: props.location }}} />   
     )} />

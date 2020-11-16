@@ -1,0 +1,164 @@
+$ddfDark: #001727;
+$ddfRed: #c50009;
+$ddfBlue: #00a5e7;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  // font-family: Helvetica Inserat;
+  font-size: 1.1rem;
+  // color: $ddfDark;
+  color: #fff;
+  background-color: $ddfDark;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+footer {
+  margin: 0 18px 18px 0;
+  position: fixed;
+  font-size: .65rem;
+  color: #c7c7c7;
+  bottom: 0;
+  right: 0;
+  z-index: 10;
+
+  @media screen and (min-width:1080px) {
+    font-size: .85rem;
+  }
+}
+
+.wrapper {
+  width: 100%;
+  padding: 0 36px;
+
+  @media screen and (min-width:1080px) {
+    width: 1080px;
+    margin: 0 auto;
+    // padding: 0;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.grid-wrapper {
+  // padding: 0 16px;
+}
+
+.grid-ui {
+  padding-left: 36px;
+}
+
+
+.folge {
+  margin-top: 72px;
+  margin-bottom: 196px;
+
+  @media screen and (min-width:720px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 96px;
+  }
+
+  &__cover {
+    height: auto;
+    width: 100%;
+
+    img {
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    padding: 8px;
+
+    .rating {
+      margin: 8px 0;
+    }
+  }
+}
+
+.grid {
+  padding: 0 16px;
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  justify-items: center;
+
+  @media screen and (min-width:460px) {
+    grid-gap: 36px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  @media screen and (min-width:1440px) {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .folge-miniatur {
+    width: 100%;
+    max-width: 250px;
+    min-height: 100px;
+
+    .cover {
+      min-height: 150px;
+      transition: all 150ms ease-out;
+      transform-origin: bottom;
+
+      &:hover {
+        position: relative;
+        z-index: 1;
+        transform: scale(1.08);
+        box-shadow: 0 0 30px 15px #00000035;
+      }
+    }
+
+    .description {
+      &__rating {
+        color: #6e7c86;
+        display: flex;
+        justify-content: space-between;
+        margin: .15rem 0;
+      }
+    }
+  }
+}
+
+.folgen-slider {
+  height: 250px;
+
+  &__cover {
+    height: 100%;
+    transition: transform 0.15s;
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__cover.active {
+    opacity: 1;
+  }
+}
+
+@import 'loader';
+@import 'input';
+@import 'button';

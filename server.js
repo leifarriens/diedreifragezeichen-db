@@ -3,6 +3,8 @@ const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const morgan = require('morgan');
 const app = express();
 require('dotenv').config();
 
@@ -17,8 +19,10 @@ db.on('error', function(err) {
   console.log(err);
 });
 
+// app.use(helmet());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(morgan('tiny'));
 
 // SERVE CLIENT APP ON /
 app.use(express.static('client/dist'));

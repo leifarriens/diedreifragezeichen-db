@@ -21,7 +21,7 @@ export const FullpageLoader = () => {
 
 export const Loader = () => {
   return (
-    <div className="spinner">
+    <div className="loader">
       <div className="rect1">?</div>
       <div className="rect2">?</div>
       <div className="rect3">?</div>

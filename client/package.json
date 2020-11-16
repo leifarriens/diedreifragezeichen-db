@@ -1,35 +1,43 @@
 {
   "name": "client",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "parcel watch src/index.html",
+    "start": "parcel src/index.html",
     "build": "parcel build src/index.html"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.0",
+    "web-vitals": "^0.2.4",
     "aos": "^2.3.4",
     "axios": "^0.20.0",
+    "classnames": "^2.2.6",
     "dayjs": "^1.9.4",
-    "react": "^16.14.0",
-    "react-dom": "^16.14.0",
     "react-intersection-observer": "^8.29.0",
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.0",
     "react-transition-group": "^4.4.1",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.0.1",
+    "styled-components": "^5.2.1",
     "swiper": "^6.3.4"
   },
-  "proxy": "http://localhost:3000",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@babel/runtime": "^7.12.1",
+    "babel-plugin-styled-components": "^1.11.1",
     "cssnano": "^4.1.10",
     "sass": "^1.27.0"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }

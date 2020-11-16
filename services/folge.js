@@ -11,10 +11,17 @@ const loadFolge = async (id) => {
 
 const loadAllFolgen = async () => {
   try {
-    return Folge.find({ type: 'special' }).sort('-release_date')
-    // return Folge.find().sort('-release_date') // .limit();
+    return await Folge.find({ type: 'regular' }).sort('-release_date')
   }
   catch (e) {
+    throw new Error(e.message);
+  }
+}
+
+const loadMultipleFolgen = async (ids) => {
+  try {
+    return Folge.find({ '_id': { $in: ids}});
+  } catch (e) {
     throw new Error(e.message);
   }
 }
@@ -22,7 +29,7 @@ const loadAllFolgen = async () => {
 const addFolgenRating = async (id, rating) => {
   try {
     const folge = await Folge.findById(id);
-    console.log(folge);
+
     folge.ratings.push(rating);
 
     return await folge.save();
@@ -52,6 +59,7 @@ const getNextFolgen = async (currentId) => {
 module.exports = {
   loadFolge,
   loadAllFolgen,
+  loadMultipleFolgen,
   addFolgenRating,
   getPreviousFolgen,
   getNextFolgen

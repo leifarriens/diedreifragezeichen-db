@@ -1,33 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components';
+import Miniatur from './Miniatur';
 
-import Search from './Search';
-import Sort from './Sort';
-import GridFolge from './GridFolge';
-import { sortFolgenByRating, sortFolgenByDateAsc, sortFolgenByDateDesc } from '../utils';
-
-
-const GridContainer = styled.div`
-  margin: 48px 0;
-  /* padding: 0 12px; */
+const Container = styled.div`
+  display: grid;
+  grid-gap: 24px;
+  padding: 0 24px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 `;
 
-const GridUI = styled.div`
-  padding: 0 36px;
-  // width: 300px;
-
-  // @media (max-width: 768px) {
-  //   width: 100%;
-  // }
-`;
+import { sortFolgenByRating, sortFolgenByDateAsc, sortFolgenByDateDesc } from '../../utils';
 
 const Grid = (props) => {
   const [queryFilter, setQueryFilter] = useState('');
   const [folgen, setFolgen] = useState([]);
   const [sortBy, setSortBy] = useState('');
-
-  useEffect(() => {
-  }, [props.folgen]);
 
   useEffect(() => {
     const filterFolge = (folge) => {
@@ -54,24 +41,16 @@ const Grid = (props) => {
     }
   }, [sortBy]);
 
-  // const sortByRating = () => setFolgen(sortFolgenByRating);
-
-  // const sortOldest = () => setFolgen(sortFolgenByDateAsc);
-
-  // const sortNewest = () => setFolgen(sortFolgenByDateDesc);
-
   return (
-    <GridContainer>
-      <GridUI>
+    <Container>
+      {/* <GridUI>
         <Search onQuery={setQueryFilter}/>
         <Sort onSortChange={(by) => setSortBy(by)}/>
         <div>{folgen.length} Folgen</div>        
-      </GridUI>
+      </GridUI> */}
 
-      <div className="grid">
-        {folgen.map(folge => <GridFolge key={folge._id} folge={folge}/>)}
-      </div>
-    </GridContainer>
+      {folgen.map(folge => <Miniatur key={folge._id} folge={folge}/>)}
+    </Container>
   );
 }
 

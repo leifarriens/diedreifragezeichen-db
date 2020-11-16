@@ -13,7 +13,7 @@ export const sortFolgenByRating = folgen => {
 
 export const sortFolgenByDateAsc = folgen => {
   const sorted = [...folgen].sort((a, b) => {
-    return  new Date(a.release_date).getTime() -  new Date(b.release_date).getTime()
+    return new Date(a.release_date).getTime() -  new Date(b.release_date).getTime()
   });
 
   return sorted;

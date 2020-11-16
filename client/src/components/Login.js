@@ -15,15 +15,15 @@ const Login = () => {
     })
     .then(response => {
       const user = response.data.user;
+      delete user['list'];
       user.token = response.data.token;
-      
       setUser(user);
     })
     .catch(error => console.log(error));
   }
 
   return (
-    <div>
+    <div className="wrapper">
       <input
         placeholder="email"
         value={email}
@@ -31,12 +31,13 @@ const Login = () => {
       />
 
       <input
+      type="password"
         placeholder="password"
         value={password}
         onChange={e => setPassword(e.target.value)}
       />
 
-      <button onClick={handleSubmit}>Login</button>
+      <button className="button" onClick={handleSubmit}>Login</button>
     </div>
   );
 }

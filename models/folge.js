@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Folge Schema
 const folgeSchema = mongoose.Schema({
   images: Array,
-  ratings: Object,
+  ratings: Array,
   name: String,
   raw_name: String,
   number: String,
