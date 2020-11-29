@@ -11,6 +11,15 @@ const loadFolge = async (id) => {
 
 const loadAllFolgen = async () => {
   try {
+    return await Folge.find().sort('-release_date')
+  }
+  catch (e) {
+    throw new Error(e.message);
+  }
+}
+
+const loadAllRegularFolgen = async () => {
+  try {
     return await Folge.find({ type: 'regular' }).sort('-release_date')
   }
   catch (e) {
@@ -56,11 +65,50 @@ const getNextFolgen = async (currentId) => {
   }
 }
 
+const addFolge = async (name, images, id, release_date) => {
+  const folge = new Folge ({
+    images,
+    release_date,
+    spotify_id: id
+  });
+  
+  if (name.includes('/')) {
+    folge.type = 'regular';
+    folge.number = name.split('/')[0];
+    folge.name = name.split('/')[1];
+  } else {
+    folge.type = 'special';
+    folge.number = '';
+    folge.name = name;
+  }
+
+  // folge.save()
+  // .then(() => console.log(`${chalk.green(folge.name)} was added to DB...`))
+  // .catch(error => console.log(error));
+  
+  try {
+    return await folge.save();
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
+const removeFolge = async (id) => {
+  try {
+    return await Folge.deleteOne({ _id: id});
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
 module.exports = {
   loadFolge,
   loadAllFolgen,
+  loadAllRegularFolgen,
   loadMultipleFolgen,
   addFolgenRating,
   getPreviousFolgen,
-  getNextFolgen
+  getNextFolgen,
+  addFolge,
+  removeFolge
 }

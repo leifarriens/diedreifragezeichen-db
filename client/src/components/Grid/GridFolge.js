@@ -3,39 +3,42 @@ import { Link } from 'react-router-dom';
 import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
 
-import Rate from './Rate';
+import Rate from '../Rate';
 
-import { calcFolgenRating } from '../utils';
+import { calcFolgenRating } from '../../utils';
 
-import { Loader } from './Loader';
+import { Loader } from '../Loader';
+import styled from 'styled-components';
+
+const Cover = styled.div`
+  width: 100%;
+  height: auto;
+  transition: transform 150ms ease;
+  transform-origin: bottom;
+
+  :hover {
+    transform: scale(1.05);
+  }
+
+  @media (pointer: coarse) {
+    :hover {
+      transform: none;
+    }
+  }
+`;
 
 const GridFolge = ({ folge }) => {
   const rating = calcFolgenRating(folge.ratings);
 
-  const rederRatingIcons = () => {
-    const blues = rating;
-    const whites = 10 - rating;
-    const icons = [];
-    for (let i = 0; i < blues; i++) {
-      icons.push(<span key={i + 'b'} className="icon blue"></span>);
-    }
-    for (let i = 0; i < whites; i++) {
-      icons.push(<span key={i + 'w'} className="icon"></span>);
-    }
-    return icons;
-  }
-
   return (
     <div className="folge-miniatur">
       <Link to={`/folge/${folge._id}`}>
+        {/* <Cover src={folge.images[1].url}/> */}
         <FolgeCover src={folge.images[1].url}/>
       </Link>
       <div className="description">
         <div className="folge-miniatur__rating">
           {/* <Rate folge_id={folge._id} currentRating={rating}/> */}
-          {/* <div className="rating">
-            {rederRatingIcons()}
-          </div> */}
           <div>{rating.toFixed(1)}/<small>10</small></div>
         </div>
         <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
@@ -54,10 +57,10 @@ const FolgeCover = ({ src }) => {
   }
 
   return (
-    <div className="cover">
+    <Cover>
       {loading && <Loader />}
-      <img style={{ visibility: loading ? 'hidden': 'visible' }} src={imgSrc} onLoad={() => setLoading(false)}/>
-    </div>
+      <img style={{ visibility: loading ? 'hidden': 'visible' }} src={src} onLoad={() => setLoading(false)}/>
+    </Cover>
   );
 
   return (

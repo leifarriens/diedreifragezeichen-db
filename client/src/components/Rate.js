@@ -14,7 +14,7 @@ const Rate = ({ folge_id, currentRating }) => {
       location.href = '/login';
     } else {
       const rating = Number(value);
-      const url = `/api/folge/${folge_id}/rating`;
+      const url = `/api/folgen/${folge_id}/rating`;
     
       Axios.post(url, {
         rating

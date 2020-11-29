@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Axios from 'axios';
 
-import Grid from './Grid/index';
 import { AuthContext } from '../context/AuthContext';
 
 const Profile = () => {
@@ -44,8 +43,7 @@ const Profile = () => {
       {profileData && (
         <div>
           <h2>{profileData.email}</h2>
-          {/* {JSON.stringify(userFolgen)} */}
-          <Grid />
+          {JSON.stringify(userFolgen)}
           {/* <List user_id={user._id} items={profileData.list}/> */}
           <button className="button" onClick={handleLogout}>Logout</button>
         </div>

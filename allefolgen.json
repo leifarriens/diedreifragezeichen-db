@@ -1,16 +1,60 @@
 [{
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
+  "external_urls": {
+    "spotify": "https://open.spotify.com/album/4vj4Dq2q7fyvwY7UCj2vin"
+  },
+  "href": "https://api.spotify.com/v1/albums/4vj4Dq2q7fyvwY7UCj2vin",
+  "id": "4vj4Dq2q7fyvwY7UCj2vin",
+  "images": [{
+    "height": 640,
+    "url": "https://i.scdn.co/image/ab67616d0000b273d6bde10679cf9215db2fd071",
+    "width": 640
+  }, {
+    "height": 300,
+    "url": "https://i.scdn.co/image/ab67616d00001e02d6bde10679cf9215db2fd071",
+    "width": 300
+  }, {
+    "height": 64,
+    "url": "https://i.scdn.co/image/ab67616d00004851d6bde10679cf9215db2fd071",
+    "width": 64
   }],
+  "name": "und das Grab der Maya",
+  "release_date": "2020-11-20",
+  "release_date_precision": "day",
+  "total_tracks": 72,
+  "type": "album",
+  "uri": "spotify:album:4vj4Dq2q7fyvwY7UCj2vin"
+}, {
+  "album_group": "album",
+  "album_type": "album",
+  "external_urls": {
+    "spotify": "https://open.spotify.com/album/3t9NGa2A9SGvipHoU5Bc6m"
+  },
+  "href": "https://api.spotify.com/v1/albums/3t9NGa2A9SGvipHoU5Bc6m",
+  "id": "3t9NGa2A9SGvipHoU5Bc6m",
+  "images": [{
+    "height": 640,
+    "url": "https://i.scdn.co/image/ab67616d0000b2732fa85ff14fac4ef5d3b7cdd3",
+    "width": 640
+  }, {
+    "height": 300,
+    "url": "https://i.scdn.co/image/ab67616d00001e022fa85ff14fac4ef5d3b7cdd3",
+    "width": 300
+  }, {
+    "height": 64,
+    "url": "https://i.scdn.co/image/ab67616d000048512fa85ff14fac4ef5d3b7cdd3",
+    "width": 64
+  }],
+  "name": "und das Grab der Maya (Kopfhörer-Hörspiel)",
+  "release_date": "2020-11-20",
+  "release_date_precision": "day",
+  "total_tracks": 73,
+  "type": "album",
+  "uri": "spotify:album:3t9NGa2A9SGvipHoU5Bc6m"
+}, {
+  "album_group": "album",
+  "album_type": "album",
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7ynXpeQRwzqKiv8WVh7c7B"
   },
@@ -38,16 +82,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6BxvBG51szGmlg5x3F1rHj"
   },
@@ -75,25 +109,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/4zS5aB4qvsRbV8Av1WArGP"
-    },
-    "href": "https://api.spotify.com/v1/artists/4zS5aB4qvsRbV8Av1WArGP",
-    "id": "4zS5aB4qvsRbV8Av1WArGP",
-    "name": "Katrin Fröhlich",
-    "type": "artist",
-    "uri": "spotify:artist:4zS5aB4qvsRbV8Av1WArGP"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6SKAhnE8C9K3hhccf3qETF"
   },
@@ -121,16 +136,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7khAMIQlYBmW7mI9cphDhJ"
   },
@@ -158,25 +163,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/0m6gWorlzEOyrVVSKpKrbW"
-    },
-    "href": "https://api.spotify.com/v1/artists/0m6gWorlzEOyrVVSKpKrbW",
-    "id": "0m6gWorlzEOyrVVSKpKrbW",
-    "name": "Oliver Kalkofe",
-    "type": "artist",
-    "uri": "spotify:artist:0m6gWorlzEOyrVVSKpKrbW"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/07xQ4Dx5waYYUAPcRGU8u5"
   },
@@ -204,16 +190,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2Sw9FBHOoT6fBhYxHsRFxq"
   },
@@ -241,25 +217,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/4Z4sm8RwRLwr0hFZ1f7VlX"
-    },
-    "href": "https://api.spotify.com/v1/artists/4Z4sm8RwRLwr0hFZ1f7VlX",
-    "id": "4Z4sm8RwRLwr0hFZ1f7VlX",
-    "name": "Tim Grobe",
-    "type": "artist",
-    "uri": "spotify:artist:4Z4sm8RwRLwr0hFZ1f7VlX"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0K7SuRJt86O4oG1a6aCHY6"
   },
@@ -287,16 +244,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1yMMjH3tDN9GyXiADzTkL9"
   },
@@ -324,16 +271,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0oKfTJmMTUbguGrxnvUIwr"
   },
@@ -361,16 +298,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/76M62o1rdKEqTN1JIbGdGV"
   },
@@ -398,16 +325,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/79Drf49yNdGLBzzHMGGmBz"
   },
@@ -435,25 +352,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/5fTY9Ks37jhIxsYXKW24Fq"
-    },
-    "href": "https://api.spotify.com/v1/artists/5fTY9Ks37jhIxsYXKW24Fq",
-    "id": "5fTY9Ks37jhIxsYXKW24Fq",
-    "name": "Jessica Schwarz",
-    "type": "artist",
-    "uri": "spotify:artist:5fTY9Ks37jhIxsYXKW24Fq"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/553NN3wSa7Sb1o4hiYvuKf"
   },
@@ -481,25 +379,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/1BOTcSZvfl1F4kui1f95dk"
-    },
-    "href": "https://api.spotify.com/v1/artists/1BOTcSZvfl1F4kui1f95dk",
-    "id": "1BOTcSZvfl1F4kui1f95dk",
-    "name": "Bela B.",
-    "type": "artist",
-    "uri": "spotify:artist:1BOTcSZvfl1F4kui1f95dk"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3JipEukbhM5xpewSjT2KPX"
   },
@@ -527,16 +406,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4Exxckn0GwbhnGl6N4um2N"
   },
@@ -564,25 +433,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/2P3WR7S0UfbmUNrL5UEqIy"
-    },
-    "href": "https://api.spotify.com/v1/artists/2P3WR7S0UfbmUNrL5UEqIy",
-    "id": "2P3WR7S0UfbmUNrL5UEqIy",
-    "name": "Andreas Fröhlich",
-    "type": "artist",
-    "uri": "spotify:artist:2P3WR7S0UfbmUNrL5UEqIy"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4ylLMiYlbxfICFmZ9Va8P0"
   },
@@ -610,25 +460,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/2Tv6Xbbismxj97q657wtJF"
-    },
-    "href": "https://api.spotify.com/v1/artists/2Tv6Xbbismxj97q657wtJF",
-    "id": "2Tv6Xbbismxj97q657wtJF",
-    "name": "Jens Wawrczeck",
-    "type": "artist",
-    "uri": "spotify:artist:2Tv6Xbbismxj97q657wtJF"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0msYXbGb3x5Ye5ulasSxL2"
   },
@@ -656,25 +487,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/2HqTRvO1WDx7A4yTxLjYFe"
-    },
-    "href": "https://api.spotify.com/v1/artists/2HqTRvO1WDx7A4yTxLjYFe",
-    "id": "2HqTRvO1WDx7A4yTxLjYFe",
-    "name": "Oliver Rohrbeck",
-    "type": "artist",
-    "uri": "spotify:artist:2HqTRvO1WDx7A4yTxLjYFe"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5JZMdAzeapgfnOqGVs9Xai"
   },
@@ -702,25 +514,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/6KbI0VvHgDSremIkCm4UyF"
-    },
-    "href": "https://api.spotify.com/v1/artists/6KbI0VvHgDSremIkCm4UyF",
-    "id": "6KbI0VvHgDSremIkCm4UyF",
-    "name": "Jannik Schümann",
-    "type": "artist",
-    "uri": "spotify:artist:6KbI0VvHgDSremIkCm4UyF"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/48MEVXeUF6qgWOSDVzDMCl"
   },
@@ -748,16 +541,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6UN8m07SmIzyDe63H0oljL"
   },
@@ -785,25 +568,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/6VqsZsM3fYFi3k0ZCniPO2"
-    },
-    "href": "https://api.spotify.com/v1/artists/6VqsZsM3fYFi3k0ZCniPO2",
-    "id": "6VqsZsM3fYFi3k0ZCniPO2",
-    "name": "Anna Thalbach",
-    "type": "artist",
-    "uri": "spotify:artist:6VqsZsM3fYFi3k0ZCniPO2"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6qadwXs1xKFY4tocOJieWy"
   },
@@ -831,16 +595,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4FxNfDSXqAg8N1D8NBtvZ5"
   },
@@ -868,25 +622,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }, {
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/50OCw14nBUZLqIXIi5lPW5"
-    },
-    "href": "https://api.spotify.com/v1/artists/50OCw14nBUZLqIXIi5lPW5",
-    "id": "50OCw14nBUZLqIXIi5lPW5",
-    "name": "Bastian Pastewka",
-    "type": "artist",
-    "uri": "spotify:artist:50OCw14nBUZLqIXIi5lPW5"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3EjzXEcI1CCOFYdrMcyHFh"
   },
@@ -914,16 +649,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/09Ckx1JLgPsQHHGuSIt2j3"
   },
@@ -951,16 +676,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7bTKP2hU0LRks1bXN1R7ko"
   },
@@ -988,16 +703,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4piiNuehCc4VjN8NBIcnRt"
   },
@@ -1025,16 +730,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/39K0Sczt1mIbW33lB5RNer"
   },
@@ -1062,16 +757,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0GRoTtX1wI16M7GSnnN96R"
   },
@@ -1099,16 +784,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/39a7bHWZyWPxwukCHPrTly"
   },
@@ -1136,16 +811,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7ehMwTyKuIM4zdiltMxE4X"
   },
@@ -1173,16 +838,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3pbXIzVk7CA5VM2ltxu9TN"
   },
@@ -1210,16 +865,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2oKngJQA5TdxF5QcP3uZEf"
   },
@@ -1247,16 +892,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4m6VlVOWfrUVhWWrueMo7p"
   },
@@ -1284,16 +919,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1qag2AiFcxXU1UaIgrDFff"
   },
@@ -1321,16 +946,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2ICtKWqLqMBTzi7UeByhKd"
   },
@@ -1358,16 +973,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/100ZHoBX994GlckxjoGpma"
   },
@@ -1395,16 +1000,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/02MXdFaVMz0qQJjmivjI8g"
   },
@@ -1432,16 +1027,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3egVVb6Zt0LdS6agBMGsiJ"
   },
@@ -1469,16 +1054,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/22soWryC08ctyMNb6NrMGD"
   },
@@ -1506,16 +1081,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7mH8vdj0TkiPO6fMHBCvYj"
   },
@@ -1543,16 +1108,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6uj8JeIgluMibSu8Divkbh"
   },
@@ -1580,16 +1135,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7osWCNCcvGfqP31G7281iL"
   },
@@ -1617,16 +1162,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5kevid18ttcAPK1vk0kLtc"
   },
@@ -1654,16 +1189,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7eHh5PAxQBt5KBWzd3a10G"
   },
@@ -1691,16 +1216,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5B7w9vkfh979tEyzwkLk9k"
   },
@@ -1728,16 +1243,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1qhlRmclvYWkrYkLnFxFZN"
   },
@@ -1765,16 +1270,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4zCPToY7AoTqvOKf4HRqAN"
   },
@@ -1802,16 +1297,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/18xyskqkEGnVfVFhznkFIK"
   },
@@ -1839,16 +1324,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3L3ztKRWI0d7JwZga12WCb"
   },
@@ -1876,16 +1351,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4lLOJQU6QBH5cxmERE77La"
   },
@@ -1913,16 +1378,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6tioH9PNiZbmUT54MsiX5k"
   },
@@ -1950,16 +1405,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4IZ7Lsm5le7HJPtaGLCrjO"
   },
@@ -1987,16 +1432,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5iobM2gNVymvP8XqnRnHVR"
   },
@@ -2024,16 +1459,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3w5glP0mzKfTanzXpAjN27"
   },
@@ -2061,16 +1486,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0w6Khy7kpqTXrEDITf0rZ0"
   },
@@ -2098,16 +1513,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4qbxSVpr3NxRjdIVC411ue"
   },
@@ -2135,16 +1540,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4uggmrJ3Xpm1e2tcz6laze"
   },
@@ -2172,16 +1567,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5RoL0jdWMoJ8KRFVOeFYtX"
   },
@@ -2209,16 +1594,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2ALDCHCHdawewN1sduWVQQ"
   },
@@ -2246,16 +1621,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6Anfub4AoVHg9bhJ7js0L0"
   },
@@ -2283,16 +1648,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6YbaUGc6ZeR1YnDFGQJV8F"
   },
@@ -2320,16 +1675,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/62CKj2RCiWDDUtBWTn4KxQ"
   },
@@ -2357,16 +1702,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5PEHeYcUhz1Aq02ZB1pUgJ"
   },
@@ -2394,16 +1729,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/77aawQqgLQZxPb9kwSg0JR"
   },
@@ -2431,16 +1756,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7kskBahbrQWCOiaXKuoPjE"
   },
@@ -2468,16 +1783,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2AEzTekSWfyfzJH56jmhET"
   },
@@ -2505,16 +1810,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/427kScPIeUSfoNKCNercMC"
   },
@@ -2542,16 +1837,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4izJKxYT4fTwIZjoXNgkX7"
   },
@@ -2579,16 +1864,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3An657Q0wkVp4nIDg2zpcB"
   },
@@ -2616,16 +1891,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4fv0pPN7ZjbUiejSTxTPZh"
   },
@@ -2653,16 +1918,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7beppYTqtHAEPKoXyodssF"
   },
@@ -2690,16 +1945,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1GEzdjI5N25iuGjvypRscs"
   },
@@ -2727,16 +1972,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2F6VxgWbGCUpTU9ux6Dtbi"
   },
@@ -2764,16 +1999,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4rCAnDrNJ96srnBEoA0ISj"
   },
@@ -2801,16 +2026,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2qFuUJMx8w4VEO0Zdf8jFJ"
   },
@@ -2838,16 +2053,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3uFt95otJjaxH8o40tPtIS"
   },
@@ -2875,16 +2080,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0pdXEEgKjfh4H0aZg4IOTS"
   },
@@ -2912,16 +2107,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1nL3AddBvZ845zMyXRowgs"
   },
@@ -2949,16 +2134,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/78wUIvkGT2CdWW0ngeEy8V"
   },
@@ -2986,16 +2161,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/623V90QowsF4WSqV3cHGKf"
   },
@@ -3023,16 +2188,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3uggg8gNlh1kpBxLeOfFTV"
   },
@@ -3060,16 +2215,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7nxSEeJiQwI34VwnWT83C9"
   },
@@ -3097,16 +2242,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5iNeANVy4supl8HowB9V2h"
   },
@@ -3134,16 +2269,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3u0OSCwiOblOhm4dKjwLN5"
   },
@@ -3171,16 +2296,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6cPgVsZ6TPyVIP9BHP5ty5"
   },
@@ -3208,16 +2323,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2Bxdn8Gn8vEy4UiTOc8cBK"
   },
@@ -3245,16 +2350,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7K7dfMc3VwHOKtENI1BWTD"
   },
@@ -3282,16 +2377,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2uOsf31oenHRd4DVxCSjn9"
   },
@@ -3319,16 +2404,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/35aU9bfmxPGdjiRA4JMuFd"
   },
@@ -3356,16 +2431,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3D9Jf4mdOBoeyrKpffYBvy"
   },
@@ -3393,16 +2458,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5RBu5WK95Q6BtWfA4o3Vgs"
   },
@@ -3430,16 +2485,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6TjzBTmeDakBgh5NOGj1BC"
   },
@@ -3467,16 +2512,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2RxTF6MhAVOtudVNOyHTQz"
   },
@@ -3504,16 +2539,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4Y7Pxv7pzLmKVJowmBwOkd"
   },
@@ -3541,16 +2566,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/71moidSHTwJsc2N70axEce"
   },
@@ -3578,16 +2593,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6gxj68DOHRSVlEM4xzwtRy"
   },
@@ -3615,16 +2620,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3JJeehFIJTxhrltC6e44VT"
   },
@@ -3652,16 +2647,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6RJf8I60kNhnYxlnw7eTGv"
   },
@@ -3689,16 +2674,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/79enDMGQWH7LQ5weNB96g7"
   },
@@ -3726,16 +2701,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3m7fR2wOkytZHq9m4QeBkB"
   },
@@ -3763,16 +2728,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5HiWGQmaCRaxdaon49Iw9S"
   },
@@ -3800,16 +2755,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0TmWLedytkxVuP9b5Hqeqq"
   },
@@ -3837,16 +2782,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1Cta130Rwp5vH1ddfAChbU"
   },
@@ -3874,16 +2809,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1juMQy6yZVmk9Za6HeiicB"
   },
@@ -3911,16 +2836,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/23wcElHGWpunC23ggr4PcW"
   },
@@ -3948,16 +2863,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4eorcDi9eRfsi7X0A91Z7u"
   },
@@ -3985,16 +2890,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5l5CFSjzSdhbflqmplcTFX"
   },
@@ -4022,16 +2917,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1lD4RdnibVS7QhtZqCal9E"
   },
@@ -4059,16 +2944,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0sCs2S5YTEN0UT1fwWpvKw"
   },
@@ -4096,16 +2971,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3XXYXmCEe185oHxigCRo97"
   },
@@ -4133,16 +2998,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0mp5HVWlYinEYa7Y4Q2vau"
   },
@@ -4170,16 +3025,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0AnyLaLPx339iGaxjqVfob"
   },
@@ -4207,16 +3052,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0sIRyuExi7jBQmOpHyyY78"
   },
@@ -4244,16 +3079,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0LoesJ9VnJPrlvIDz4u4Xt"
   },
@@ -4281,16 +3106,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3HgetGSMzg6bGM6b67YZcj"
   },
@@ -4318,16 +3133,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/68NWcgqeCQMZ3QcPJXBhzH"
   },
@@ -4355,53 +3160,33 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
-    "spotify": "https://open.spotify.com/album/4LRmXZj9QgaCo0zyeWBGpm"
+    "spotify": "https://open.spotify.com/album/50FLTmWKqAYVKuPOE6nLXb"
   },
-  "href": "https://api.spotify.com/v1/albums/4LRmXZj9QgaCo0zyeWBGpm",
-  "id": "4LRmXZj9QgaCo0zyeWBGpm",
+  "href": "https://api.spotify.com/v1/albums/50FLTmWKqAYVKuPOE6nLXb",
+  "id": "50FLTmWKqAYVKuPOE6nLXb",
   "images": [{
     "height": 640,
-    "url": "https://i.scdn.co/image/ab67616d0000b273734310fe3c9ac64006235134",
+    "url": "https://i.scdn.co/image/ab67616d0000b2735084859a26b0fc61e2baa1c7",
     "width": 640
   }, {
     "height": 300,
-    "url": "https://i.scdn.co/image/ab67616d00001e02734310fe3c9ac64006235134",
+    "url": "https://i.scdn.co/image/ab67616d00001e025084859a26b0fc61e2baa1c7",
     "width": 300
   }, {
     "height": 64,
-    "url": "https://i.scdn.co/image/ab67616d00004851734310fe3c9ac64006235134",
+    "url": "https://i.scdn.co/image/ab67616d000048515084859a26b0fc61e2baa1c7",
     "width": 64
   }],
   "name": "Das Geheimnis der Geisterinsel",
   "release_date": "2007-11-02",
   "release_date_precision": "day",
-  "total_tracks": 15,
+  "total_tracks": 31,
   "type": "album",
-  "uri": "spotify:album:4LRmXZj9QgaCo0zyeWBGpm"
+  "uri": "spotify:album:50FLTmWKqAYVKuPOE6nLXb"
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6d21lwV9Imn3ObWUyV1UN2"
   },
@@ -4429,16 +3214,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6fVTJQKJBku1yaOmZOnfwg"
   },
@@ -4466,16 +3241,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7rPDg8NlFJ1a2HMTQvVaB2"
   },
@@ -4503,16 +3268,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1GKXpMQRKEyZI8pL62VUIP"
   },
@@ -4540,16 +3295,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3piMnopGsrEAKd1EZxsU3i"
   },
@@ -4577,16 +3322,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3rxr4SLE2EG0EAlpSeI99o"
   },
@@ -4614,16 +3349,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5Hafee7JOUqNVqtsrCtrTZ"
   },
@@ -4651,16 +3376,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5L2KCw21QT3JKg1KKuqSeF"
   },
@@ -4688,16 +3403,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3bFvjy9IyWd7GrzN2dr0Hi"
   },
@@ -4725,16 +3430,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0WBhXS0uAYuL1sYb6vjYeS"
   },
@@ -4762,16 +3457,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7b9OiVsktCZyldiAnjkVDx"
   },
@@ -4799,16 +3484,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1OBHPhBUih26oQTqxLvJTQ"
   },
@@ -4836,16 +3511,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4RZllDAKF3DeDz6jZJFXTa"
   },
@@ -4873,16 +3538,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3v4W4AFaI8uO7J88ojaSkS"
   },
@@ -4910,16 +3565,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3kBby5GJMI4U97XljKcPFD"
   },
@@ -4947,16 +3592,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4uJPgDMOIRfoAumwwmpRbR"
   },
@@ -4984,16 +3619,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4eX1wH67TDcYPZ1ZsjtPb6"
   },
@@ -5021,16 +3646,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6Mi4Smq7Fn8qNOg6Xnf0In"
   },
@@ -5058,16 +3673,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6joRNVLN69v3eSnxM86BSM"
   },
@@ -5095,16 +3700,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4ADdmpObDUmBdvyJ9oNz5o"
   },
@@ -5132,16 +3727,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3NYWEuwAPt4PIJ4OeNxmzO"
   },
@@ -5169,16 +3754,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1DZAe0qMw8Pq9EPoX6gETA"
   },
@@ -5206,16 +3781,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6zwBnyiy9Hy9TAser0DOuL"
   },
@@ -5243,16 +3808,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4KXnXnpFRnQsjeZHpNC7X9"
   },
@@ -5280,16 +3835,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5ub4r9Q0YVMrWuOEesu6dR"
   },
@@ -5317,16 +3862,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2bfJa4PRKVb7as86HZv8Df"
   },
@@ -5354,16 +3889,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4C4o7tHpT20QrdsvmI70uI"
   },
@@ -5391,16 +3916,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3haGZZ8x7PyaGxiqcLmLf9"
   },
@@ -5428,16 +3943,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3UHj03eU7OnDuMVCTLbmcj"
   },
@@ -5465,16 +3970,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7a9rwqPkVdU4FC2cWFudVO"
   },
@@ -5502,16 +3997,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7yMRFgR8FRyWwiLHzQQa2B"
   },
@@ -5539,16 +4024,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0Jh7gzQaOscoFndb3raq2l"
   },
@@ -5576,16 +4051,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2dlgtHB8z7ZhSl1fsSb0Ic"
   },
@@ -5613,16 +4078,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3TcIn19pVz5LXE8UleuLuX"
   },
@@ -5650,16 +4105,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3CZCwdMpj2jnjI43ZlnY5T"
   },
@@ -5687,16 +4132,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1KpWkUQaj5ECJsrb8SrPl4"
   },
@@ -5724,16 +4159,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4uF9MjchYgq5jjPi5x5YZy"
   },
@@ -5761,16 +4186,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2eeodcwD9HXpcA2rvoFkIq"
   },
@@ -5798,16 +4213,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3bhsXwKIDwVK5LTkDCICp0"
   },
@@ -5835,16 +4240,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3yofHdHiOLtVZlxWCZ4XBB"
   },
@@ -5872,16 +4267,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7iysTnwaaFrPPWAuUyyi0c"
   },
@@ -5909,16 +4294,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2s5u6hCaMpTIvZtBRvQzha"
   },
@@ -5946,16 +4321,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4izXuApLzBWtWHrFqgcrxL"
   },
@@ -5983,16 +4348,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1rDYlXZy6vN4wqqQ6buqOr"
   },
@@ -6020,16 +4375,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6t7Y1H4dUM0d4JycenVskN"
   },
@@ -6057,16 +4402,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3CMN8Y4kjoG4sFwlOEpfsV"
   },
@@ -6094,16 +4429,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6RDPGc2budsdTw1lj8f2O5"
   },
@@ -6131,16 +4456,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2IqfdlQamN3vCWN3CKLEVI"
   },
@@ -6168,16 +4483,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/69VLqtWA1bpguYRCFRAxQl"
   },
@@ -6205,16 +4510,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1K8kXLhNnHSdPvtUwf74DE"
   },
@@ -6242,16 +4537,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2GQjkF0ceIse6jVZkUuAQc"
   },
@@ -6279,16 +4564,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6EEN6onzbHIOxnwUkGfKhv"
   },
@@ -6316,16 +4591,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4mlQEwk6I0XuksZCYTtatz"
   },
@@ -6353,16 +4618,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2erJcBofKBO6GFMqDPppsU"
   },
@@ -6390,16 +4645,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/21pUsEhxssm6fvumGFmi35"
   },
@@ -6427,16 +4672,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7Hjk98j1FSrHV5IHWmeeFh"
   },
@@ -6464,16 +4699,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6qj4LD0zotutkIgEg9OvDj"
   },
@@ -6501,16 +4726,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/62z7yW4RKhhuAp0RklmNvc"
   },
@@ -6538,16 +4753,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0tmMvsGyWRzVckCYgkvve3"
   },
@@ -6575,16 +4780,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5GPTZKrD7eaCp9p6VOBuIN"
   },
@@ -6612,16 +4807,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0biXUv1uGUaVsPcw8nAZCY"
   },
@@ -6649,16 +4834,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/26M4ktHp3isOX6XJazAxPn"
   },
@@ -6686,16 +4861,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7cBoiWgh1bTMZmCwJE0eMu"
   },
@@ -6723,16 +4888,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2qcA1EqAoUsqxXqIivY6Zc"
   },
@@ -6760,16 +4915,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6DWykdlgf60Mq02hPAGYVD"
   },
@@ -6797,16 +4942,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5W6dRiaeSVE7zUBYHbepak"
   },
@@ -6834,16 +4969,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3fotka2Hbq0N7V9KKWIDdw"
   },
@@ -6871,16 +4996,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4oH2GUWlSSsSgVkxyPVHX1"
   },
@@ -6908,16 +5023,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1Fg15cBLFliy6Kr60QqRan"
   },
@@ -6945,16 +5050,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0F9ebKwTd5RNZZOu49lWuF"
   },
@@ -6982,16 +5077,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3pXJh2A9gYzNt22rEIE5q7"
   },
@@ -7019,16 +5104,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/71kiy6INV3LzsCddpTZoHf"
   },
@@ -7056,16 +5131,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6DKfjDIB1BSYRGAi2YJYm3"
   },
@@ -7093,16 +5158,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7t2SteAH5OnLLC1ghTAmka"
   },
@@ -7130,16 +5185,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5IRxm1lo35PttzU8YLslZy"
   },
@@ -7167,16 +5212,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3iWNsrEs9D0FFlKFfscdvL"
   },
@@ -7204,16 +5239,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6YX4i7aMCYmn20zvAFM3lG"
   },
@@ -7241,16 +5266,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/39mWWzaUZp0AXyN9Vnp4od"
   },
@@ -7278,16 +5293,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6JNNLdq9ELeKENK3RmxLWQ"
   },
@@ -7315,16 +5320,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/48QVzskevXtA0KpJjXzvb1"
   },
@@ -7352,16 +5347,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/24bba3w45LGGm7ps3qonkc"
   },
@@ -7389,16 +5374,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5KUXX8H2LNsuik46M5XLx0"
   },
@@ -7426,16 +5401,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2IIw1KESZrJQBFdZQAWcKY"
   },
@@ -7463,16 +5428,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0AKPkUh4ElyZNipc0lZoiR"
   },
@@ -7500,16 +5455,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6d3Pavm0enVICdOvBEqxYA"
   },
@@ -7537,16 +5482,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6R4gnRHXKgw2cxneWgTiEL"
   },
@@ -7574,16 +5509,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4R24oyyqxGkczNpqWGCXBZ"
   },
@@ -7611,16 +5536,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2REEfC6tVMiYv1eKMlGiOX"
   },
@@ -7648,16 +5563,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2L18qTB1EfS4FuBk2M6QwV"
   },
@@ -7685,16 +5590,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1imKVIfJIM0vKNymevqKjP"
   },
@@ -7722,16 +5617,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7K3VEzD1rm0dgUGBi1i5PW"
   },
@@ -7759,16 +5644,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0tPetsUWuZIC0E85x6eVN5"
   },
@@ -7796,16 +5671,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0zV9pnaXLuogDr6prsvb4M"
   },
@@ -7833,16 +5698,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5JHijjtr65MjdNOnNvD3Ec"
   },
@@ -7870,16 +5725,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7Dbd2rya9glmBLVxclcU4d"
   },
@@ -7907,16 +5752,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2AisAUu4deLpNi6g6qlTLC"
   },
@@ -7944,16 +5779,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2NSreywe8UbWo7BJVY3Spk"
   },
@@ -7981,16 +5806,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6RXr8BmKNSK9Zk11k0I7Dl"
   },
@@ -8018,16 +5833,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/211IEWHi59nUsHx8li8G9r"
   },
@@ -8055,16 +5860,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/67qFOAxbhNRHEIeOjQ9Zkp"
   },
@@ -8092,16 +5887,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/7i50aK2wKvszWNnay4DtxP"
   },
@@ -8129,16 +5914,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4KEZWleMTT8lDaQDLgozFc"
   },
@@ -8166,16 +5941,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2koZEkq7vQnHjMP73gVXCo"
   },
@@ -8203,16 +5968,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5ilbdbGu5eQRUIsbslyiLe"
   },
@@ -8240,16 +5995,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3JqJ2zIt3UzKug7onmbmAo"
   },
@@ -8277,16 +6022,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/1yqICFWBL4l7fJkrFWvfWL"
   },
@@ -8314,16 +6049,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0CMsNalUakIcv6znyVLALr"
   },
@@ -8351,16 +6076,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/16dOhg07DVqoSxlS7ToLM5"
   },
@@ -8388,16 +6103,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2dQYcaTRh5qEYk2oH7WoBC"
   },
@@ -8425,16 +6130,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3O5STjjugoL5cNKfeRuBiU"
   },
@@ -8462,16 +6157,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2AZ7zFBophWEIuBPjAG60I"
   },
@@ -8499,16 +6184,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0bSrvyOjOzFoFJfx3uaFgk"
   },
@@ -8536,16 +6211,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/07EhJ6uxWcQQWKeXJ1e8Lb"
   },
@@ -8573,16 +6238,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4h75QQIxW1etThTuw6vWzg"
   },
@@ -8610,16 +6265,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0aNqdp5ayuUNsOdUwu8x0b"
   },
@@ -8647,16 +6292,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/6MRsf5IcfqJIogaNqtESnh"
   },
@@ -8684,16 +6319,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/3nGyW4ETDrDpInYEAQCyYS"
   },
@@ -8721,16 +6346,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/54eP8BYMR270sTqklv83V0"
   },
@@ -8758,16 +6373,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/5YWM39RnabpxekZuHriTam"
   },
@@ -8795,16 +6400,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/2w902iYtkf0ipmTImyLlsL"
   },
@@ -8832,16 +6427,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/61OtrnMm1lqoMgMRb1aw7g"
   },
@@ -8869,16 +6454,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/0xldqK4Ocdt8dwQSxUzt6x"
   },
@@ -8906,16 +6481,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/4N9tvSjWfZXx3eHKblYEWQ"
   },
@@ -8943,16 +6508,6 @@
 }, {
   "album_group": "album",
   "album_type": "album",
-  "artists": [{
-    "external_urls": {
-      "spotify": "https://open.spotify.com/artist/3meJIgRw7YleJrmbpbJK6S"
-    },
-    "href": "https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S",
-    "id": "3meJIgRw7YleJrmbpbJK6S",
-    "name": "Die drei ???",
-    "type": "artist",
-    "uri": "spotify:artist:3meJIgRw7YleJrmbpbJK6S"
-  }],
   "external_urls": {
     "spotify": "https://open.spotify.com/album/249qkyRcqMAoKJhXwrTYtE"
   },

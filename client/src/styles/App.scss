@@ -2,6 +2,21 @@ $ddfDark: #001727;
 $ddfRed: #c50009;
 $ddfBlue: #00a5e7;
 
+$white: #fff;
+$black: #01080E;
+$lightblack: #061C31;
+$red: #c50009;
+$blue: #00a5e7;
+
+
+$bgShade1: #030F1A;
+$bgShade2: #001727;
+$bgShade3: #05182A;
+
+// $bgShade1: #01080E;
+// $bgShade2: #001727;
+// $bgShade3: #061C31;
+
 * {
   margin: 0;
   padding: 0;
@@ -10,11 +25,13 @@ $ddfBlue: #00a5e7;
 
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  // font-family: Helvetica Inserat;
   font-size: 1.1rem;
   // color: $ddfDark;
   color: #fff;
   background-color: $ddfDark;
+  // background: linear-gradient(180deg, $bgShade1 0%, $bgShade2 50%, $bgShade3 100%);
+  // filter: brightness(50%);
+  min-height: 100vh;
 }
 
 a {
@@ -88,7 +105,7 @@ footer {
   }
 
   &__content {
-    padding: 8px;
+    // padding: 8px;
 
     .rating {
       margin: 8px 0;
@@ -96,47 +113,32 @@ footer {
   }
 }
 
-.grid {
-  padding: 0 16px;
-  display: grid;
-  grid-gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  justify-items: center;
+// .grid {
+//   // padding: 0 16px;
+//   display: grid;
+//   grid-gap: 16px;
+//   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+//   justify-items: center;
 
-  @media screen and (min-width:460px) {
-    grid-gap: 36px;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  }
+//   @media screen and (min-width:460px) {
+//     grid-gap: 36px;
+//     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+//   }
 
-  @media screen and (min-width:1440px) {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
+//   @media screen and (min-width:1440px) {
+//     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+//   }
+// }
 
-  .folge-miniatur {
-    width: 100%;
-    max-width: 250px;
-    min-height: 100px;
+.folge-miniatur {
+  width: 100%;
 
-    .cover {
-      min-height: 150px;
-      transition: all 150ms ease-out;
-      transform-origin: bottom;
-
-      &:hover {
-        position: relative;
-        z-index: 1;
-        transform: scale(1.08);
-        box-shadow: 0 0 30px 15px #00000035;
-      }
-    }
-
-    .description {
-      &__rating {
-        color: #6e7c86;
-        display: flex;
-        justify-content: space-between;
-        margin: .15rem 0;
-      }
+  .description {
+    &__rating {
+      color: #6e7c86;
+      display: flex;
+      justify-content: space-between;
+      margin: .15rem 0;
     }
   }
 }
@@ -162,3 +164,54 @@ footer {
 @import 'loader';
 @import 'input';
 @import 'button';
+
+.search {
+  &__container {
+    flex: 0 1 auto !important;
+    min-width: 0px !important;
+    // padding: 0px 24px !important;
+    text-align: left !important;
+    position: sticky;
+    top: 105px;
+    z-index: 0;
+
+    @media screen and(min-width:768px) {
+      width: 480px;
+    }
+  }
+
+  &__input {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    width: 100%;
+  }
+}
+
+
+// Workaround for linear gradient transition animation
+@mixin gradientAnimation( $start, $end, $transTime ){
+  background-size: 100%;
+  background-image: linear-gradient($start, $end);
+  position: relative;
+  z-index: 100;
+  &:before {
+      background-image: linear-gradient($end, $start);
+      content: "";
+      display: block;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+      width: 100%;
+      z-index: -100;
+      transition: opacity $transTime;
+  }
+  &:hover {
+      &:before {
+          opacity: 1;
+      }
+  }
+}

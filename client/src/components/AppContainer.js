@@ -7,7 +7,7 @@ const AppContainer = () => {
   return (
     <AuthProvider>
       <App />
-    </AuthProvider>
+    </AuthProvider>      
   );
 }
 

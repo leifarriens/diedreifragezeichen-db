@@ -25,7 +25,7 @@ const AltFolgen = ({ folgen_id }) => {
 
   const getAltFolgen = () => {
     console.log(`/api/folge/${folgen_id}/alt`);
-    Axios(`/api/folge/${folgen_id}/alt`)
+    Axios(`/api/folgen/${folgen_id}/alt`)
     .then(response => {
       console.log(response.data);
       setAltFolgen(response.data);
@@ -37,7 +37,8 @@ const AltFolgen = ({ folgen_id }) => {
 
   const style = {
     margin: '40px 0',
-    height: '250px'
+    height: '250px',
+    width: '100%'
   }
 
   return (
@@ -64,17 +65,6 @@ const AltFolgen = ({ folgen_id }) => {
           </SwiperSlide>        
         );
       })}
-      {/* {altFolgen.map(folge => (
-        <SwiperSlide key={folge._id}>
-          <Link to={`/folge/${folge._id}`}>
-            <div
-              className="folgen-slider__cover"
-            >
-              <img src={folge.images[1].url}/>
-            </div>
-          </Link>
-        </SwiperSlide>
-      ))} */}
     </Swiper>
   );
 }

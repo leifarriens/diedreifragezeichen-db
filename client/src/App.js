@@ -14,10 +14,10 @@ import {
   ProtectedRoute
 } from './components/';
 
-// import Grid from './components/Grid/index';
 import { Loader, FullpageLoader } from './components/Loader';
 
 import { AuthContext } from './context/AuthContext';
+import { GlobalProvider } from './context/GlobalContext';
 
 const App = () => {
   const { setUser } = useContext(AuthContext);
@@ -29,14 +29,14 @@ const App = () => {
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem('user')) || null;
     setUser(storedUser);
-    AOS.init();
+    // AOS.init();
   }, []);
 
   useEffect(() => {
     const fetchAllFolgen = async () => {
       setLoading(true);
       try {
-        const response = await Axios('/api/folge');
+        const response = await Axios('/api/folgen');
         setFolgen(response.data);
       } catch (error) {
         console.log(error);
@@ -49,19 +49,21 @@ const App = () => {
   }, []);
 
   return (
-    <Router >
-      <Header />
-      {loading && <FullpageLoader />}
-      {/* <Hero /> */}
-      <Switch>
-        <Route exact path="/" component={() => <Grid folgen={folgen}/>}/>
-        <Route exact path="/folge/:id" component={Folge}/>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/nix" />
-        <ProtectedRoute exact path="/profile" component={Profile}/>
-      </Switch>
-      <Footer />
-    </Router>
+    <GlobalProvider>
+      <Router >
+        <Header />
+        {loading && <FullpageLoader />}
+        {/* <Hero /> */}
+        <Switch>
+          <Route exact path="/" component={() => <Grid folgen={folgen}/>}/>
+          <Route exact path="/folge/:id" component={Folge}/>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/nix" />
+          <ProtectedRoute exact path="/profile" component={Profile}/>
+        </Switch>
+        <Footer />
+      </Router>
+    </GlobalProvider>
   );
 }
 

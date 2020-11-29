@@ -15,7 +15,6 @@ router.get('/:id', async (req, res) => {
 });
 
 router.get('/:id/list', async (req, res) => {
-  console.log('hhh');
   try {
     const { list } = await loadUser(req.params.id);
     const ids = list.map(x => x.folge_id);

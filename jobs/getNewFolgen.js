@@ -1,21 +1,17 @@
-/**
- * This Job fetches all Die drei ??? Folgen from Spotify
- * and writes it to local JSON file
- */
-
-const fs = require('fs');
-const Axios = require('axios');
-const TOKEN = 'BQCr7gAqUPUmxVh8GKX7OwpDIkt0CbZ9ZAS2Mzgpl7LzY6z6Nlm4lrs3aPXQta1ovKIFTbMvnqclRT_2nCY';
+const Axios = require('Axios');
 const chalk = require('chalk');
+require('dotenv').config();
 
-(async () => {
+const { getBearerToken } = require('./authSpotify');
+
+const getAlleFolgenFromSpotify = async (bearerToken) => {
   let albums = [];
   let offset = 0;
 
   const doRun = async (offset) => {
     const response = await Axios(`https://api.spotify.com/v1/artists/3meJIgRw7YleJrmbpbJK6S/albums?country=DE&include_groups=album&limit=50&offset=${offset}`, {
       method: 'GET',
-      headers: { 'Authorization': 'Bearer ' + TOKEN}
+      headers: { 'Authorization': 'Bearer ' + bearerToken}
     });
 
     albums = albums.concat(response.data.items);
@@ -29,7 +25,17 @@ const chalk = require('chalk');
   await doRun(offset);
   
   albums.map(entry => delete entry.artists);
-  fs.writeFileSync('allefolgen.json', JSON.stringify(albums));
 
-  console.log(`Fetched ${chalk.green(albums.length)} folgen from Spotify`);
+  return albums;
+}
+
+(async () => {
+  try {
+    const token = await getBearerToken();
+    const alleFolgen = await getAlleFolgenFromSpotify(token);
+    console.log(`Fetched ${chalk.blue(alleFolgen.length)} from Spotify`);
+  } catch (error) {
+    console.log(error); 
+  }
+  return;
 })();

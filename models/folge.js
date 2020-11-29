@@ -5,7 +5,6 @@ const folgeSchema = mongoose.Schema({
   images: Array,
   ratings: Array,
   name: String,
-  raw_name: String,
   number: String,
   type: String,
   release_date: Date,

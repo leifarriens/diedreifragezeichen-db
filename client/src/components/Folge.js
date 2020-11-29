@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import dayjs from 'dayjs';
@@ -21,7 +21,7 @@ const FolgePage = () => {
     const fetchFolge = async () => {
       setLoading(true);
       try {
-        const response = await Axios(`/api/folge/${id}`);
+        const response = await Axios(`/api/folgen/${id}`);
         setFolge(response.data);
       } catch (error) {
         console.log(error);
@@ -44,9 +44,9 @@ const FolgePage = () => {
 
 const Folge = ({ data }) => {
   const rating = calcFolgenRating(data.ratings);
-  const formatedRating = rating.toFixed(1);
 
   return (
+    <>
     <div className="folge wrapper">
       <div className="folge__cover">
         <img src={data.images[0].url} />
@@ -55,15 +55,16 @@ const Folge = ({ data }) => {
         <h2>Die drei ???</h2>
         <h1>{data.name}</h1>
         <div>Veröffentlicht am {dayjs(data.release_date).format('DD.MM.YYYY')}</div>
-        {/* <div>{formatedRating} / 10 {data.ratings.length} Bewertungen</div> */}
         <Rate folge_id={data._id} currentRating={rating}/>
         <div>
           <a className="button" target="_blank" href={`spotify:album:${data.spotify_id}`}>Anhören</a>
           <AddToList folge={data}/>
         </div>
       </div>
-      {/* <AltFolgen folgen_id={data._id} /> */}
+      
     </div>
+    <AltFolgen folgen_id={data._id} />
+    </>
   );
 }
 

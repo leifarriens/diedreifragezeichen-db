@@ -1,56 +1,55 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components';
-import Miniatur from './Miniatur';
+import React, { useState, useEffect, useContext } from 'react';
+import { GridContainer, FolgenContainer } from './StyledGrid';
 
-const Container = styled.div`
-  display: grid;
-  grid-gap: 24px;
-  padding: 0 24px;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-`;
-
+// import Search from './Search';
+import Sort from '../Sort';
+import GridFolge from './GridFolge';
 import { sortFolgenByRating, sortFolgenByDateAsc, sortFolgenByDateDesc } from '../../utils';
 
+import { GlobalContext } from '../../context/GlobalContext';
+
 const Grid = (props) => {
-  const [queryFilter, setQueryFilter] = useState('');
+  // const [queryFilter, setQueryFilter] = useState('');
+  const { searchQuery } = useContext(GlobalContext);
   const [folgen, setFolgen] = useState([]);
   const [sortBy, setSortBy] = useState('');
 
   useEffect(() => {
+    console.log(searchQuery);
     const filterFolge = (folge) => {
-      const query = queryFilter.toLowerCase();
-      const name = folge.raw_name.toLowerCase();
+      const query = searchQuery.toLowerCase();
+      const name = folge.number + folge.name.toLowerCase();
       return name.includes(query);
     }
     let filtered = props.folgen.filter(filterFolge);
+    console.log(filtered);
 
     setFolgen(filtered);
-  }, [queryFilter]);
+  }, [searchQuery]);
 
   useEffect(() => {
     switch (sortBy) {
       case 'dateAsc':
-        setFolgen(sortFolgenByDateAsc)
+        setFolgen(sortFolgenByDateAsc);
         break;
       case 'dateDesc':
-        setFolgen(sortFolgenByDateDesc)
+        setFolgen(sortFolgenByDateDesc);
         break;
       case 'rating':
-        setFolgen(sortFolgenByRating)
+        setFolgen(sortFolgenByRating);
         break;
     }
   }, [sortBy]);
 
   return (
-    <Container>
-      {/* <GridUI>
-        <Search onQuery={setQueryFilter}/>
-        <Sort onSortChange={(by) => setSortBy(by)}/>
-        <div>{folgen.length} Folgen</div>        
-      </GridUI> */}
-
-      {folgen.map(folge => <Miniatur key={folge._id} folge={folge}/>)}
-    </Container>
+    <GridContainer sortBy={sortBy}>
+      <Sort onSortChange={(by) => setSortBy(by)}/>
+      
+      <FolgenContainer>
+        {folgen.map(folge => <GridFolge key={folge._id} folge={folge}/>)}
+      </FolgenContainer>
+      
+    </GridContainer>
   );
 }
 

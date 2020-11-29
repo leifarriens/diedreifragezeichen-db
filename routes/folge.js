@@ -1,11 +1,12 @@
 const router = require('express').Router();
 
 const { verifyToken } = require('../middleware');
-const { loadFolge, addFolgenRating, getPreviousFolgen, getNextFolgen, loadAllFolgen } = require('../services/folge');
+const { loadFolge, loadAllRegularFolgen, addFolgenRating, getPreviousFolgen, getNextFolgen, loadAllFolgen } = require('../services/folge');
 
 router.get('/', async (req, res) => {
   try {
-    const alle = await loadAllFolgen();
+    const alle = await loadAllRegularFolgen();
+    // const alle = await loadAllFolgen();
     res.json(alle);
   } catch (e) {
     console.log(e.message);
@@ -15,9 +16,6 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const folge = await loadFolge(req.params.id);
-    console.log(folge);
-    // const prevFolge = await getPreviousFolge(req.params.id);
-    // const nextFolge = await getNextFolge(req.params.id);
     folge.rating = folge.ratings.reduce((a, b) => Number(a) + Number(b), 0) / folge.ratings.length;
     res.json(folge);
   } catch(e) {

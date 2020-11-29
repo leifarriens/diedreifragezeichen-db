@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "concurrently \"nodemon ./server.js\" \"cd client && npm start\""
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ]
   },
   "repository": {
     "type": "git",
@@ -19,6 +24,7 @@
   },
   "homepage": "https://github.com/leifarriens/diedreifragezeichen-db#readme",
   "dependencies": {
+    "agenda": "^3.1.0",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -30,6 +36,12 @@
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "mongoose": "^5.6.11",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-cron": "^2.0.3",
+    "qs": "^6.9.4",
+    "smoothscroll-polyfill": "^0.4.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0"
   }
 }
