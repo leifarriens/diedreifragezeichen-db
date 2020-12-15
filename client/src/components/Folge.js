@@ -1,7 +1,8 @@
-import React, { useEffect, Fragment, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import dayjs from 'dayjs';
+import ColorThief from 'colorthief'
 
 import { FullpageLoader } from '../components/Loader';
 import { calcFolgenRating } from '../utils';
@@ -43,29 +44,51 @@ const FolgePage = () => {
 }
 
 const Folge = ({ data }) => {
-  const rating = calcFolgenRating(data.ratings);
+  const [colors, setColors] = useState([]);
+  const colorThief = new ColorThief();
+  const [mainColor, setMainColor] = useState([]);
+  const domColor = colors[0] || [];
+
+  const getColors = (e) => {
+    const img = e.target;
+    img.setAttribute('crossOrigin', '');
+    setColors(colorThief.getPalette(img));
+    setMainColor(colorThief.getColor(img));
+  }
 
   return (
-    <>
+    // <div style={{ backgroundColor: `rgba(${domColor[0]}, ${domColor[1]}, ${domColor[2]})` }}>
+    <div>
     <div className="folge wrapper">
       <div className="folge__cover">
-        <img src={data.images[0].url} />
+        <img src={data.images[0].url} onLoad={getColors}/>
       </div>
       <div className="folge__content">
         <h2>Die drei ???</h2>
         <h1>{data.name}</h1>
         <div>Veröffentlicht am {dayjs(data.release_date).format('DD.MM.YYYY')}</div>
-        <Rate folge_id={data._id} currentRating={rating}/>
+        <Rate folge_id={data._id} currentRating={calcFolgenRating(data.ratings)}/>
         <div>
           <a className="button" target="_blank" href={`spotify:album:${data.spotify_id}`}>Anhören</a>
-          <AddToList folge={data}/>
+          {/* <AddToList folge={data}/> */}
         </div>
       </div>
       
     </div>
-    <AltFolgen folgen_id={data._id} />
-    </>
+    <Palette colors={colors}/>
+    {/* <AltFolgen folgen_id={data._id} /> */}
+    </div>
   );
+}
+
+const Palette = ({ colors }) => {
+  return (
+    <div style={{ display: 'flex', flexGrow: '2'}}>
+      {colors.map(entry => (
+        <div style={{width: '100%', height: '50px', backgroundColor: `rgb(${entry[0]}, ${entry[1]}, ${entry[2]})`}}></div>
+      ))}
+    </div>
+  )
 }
 
 export default FolgePage;

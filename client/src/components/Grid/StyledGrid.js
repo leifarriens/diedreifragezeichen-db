@@ -26,11 +26,15 @@ export const FolgenContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
   justify-items: start;
 
-  /* @media screen and (min-width:768px) {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  @media screen and (min-width:590px) {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  }
+
+  @media screen and (min-width:744px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 
   @media screen and (min-width:1440px) {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  } */
+  }
 `;

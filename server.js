@@ -8,8 +8,8 @@ const morgan = require('morgan');
 const app = express();
 require('dotenv').config();
 
-const dbPath = `mongodb+srv://app:${process.env.MONGO_PASSWORD}@diedreifragezeichen-db-7k2z1.mongodb.net/diedreifragezeichen-db?retryWrites=true&w=majority`;
-mongoose.connect(dbPath, {useNewUrlParser: true});
+const dbPath = process.env.MONGO_URI;
+mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 
 db.once('open', function() {
@@ -19,14 +19,16 @@ db.on('error', function(err) {
   console.log(err);
 });
 
-// app.use(helmet());
+// MIDDLEWARE
+// -------------------
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 // SERVE CLIENT
+// ------------
 app.use(express.static('client/dist'));
-
 
 // REGISTER API ROUTES
 // -------------------
@@ -39,7 +41,6 @@ app.get('*', (req, res) => {
 
 // START THE SERVER
 // ---------------
-
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);

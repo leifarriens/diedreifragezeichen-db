@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
@@ -27,13 +27,12 @@ const Cover = styled.div`
   }
 `;
 
-const GridFolge = ({ folge }) => {
+const GridFolge = React.memo(({ folge }) => {
   const rating = calcFolgenRating(folge.ratings);
 
   return (
     <div className="folge-miniatur">
       <Link to={`/folge/${folge._id}`}>
-        {/* <Cover src={folge.images[1].url}/> */}
         <FolgeCover src={folge.images[1].url}/>
       </Link>
       <div className="description">
@@ -45,11 +44,11 @@ const GridFolge = ({ folge }) => {
       </div>
     </div>
   );
-}
+});
 
 const FolgeCover = ({ src }) => {
   const [loading, setLoading] = useState(true);
-  const [imgSrc, setImgSrc] = useState(src);
+  const [imgSrc, setImgSrc] = useState('');
 
   const handleViewChange = (inView) => {
     if (!inView) return;
@@ -57,20 +56,14 @@ const FolgeCover = ({ src }) => {
   }
 
   return (
-    <Cover>
-      {loading && <Loader />}
-      <img style={{ visibility: loading ? 'hidden': 'visible' }} src={src} onLoad={() => setLoading(false)}/>
-    </Cover>
-  );
-
-  return (
     <InView
       as="div"
       onChange={(inView) => handleViewChange(inView)}
-      className="cover"
     >
-      {loading && <Loader />}
-      <img style={{ display: loading ? 'none': 'block' }} src={imgSrc} onLoad={() => setLoading(false)}/>
+      <Cover>
+        {loading && <Loader />}
+        <img style={{ display: loading ? 'none': 'block' }} src={imgSrc} onLoad={() => setLoading(false)}/>
+      </Cover>
     </InView>
   );
 }

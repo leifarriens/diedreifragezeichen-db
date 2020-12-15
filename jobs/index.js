@@ -1,8 +1,8 @@
 const cron = require('node-cron');
 
-const getBearerToken = require('./authSpotify');
+// const getBearerToken = require('./authSpotify');
 
-console.log(getBearerToken);
+// console.log(getBearerToken);
 
 // const time = '15 4 * * *';
 const time = '5 0 * * *';

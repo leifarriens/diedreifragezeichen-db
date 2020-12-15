@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Axios from 'axios';
-import AOS from 'aos';
 
 import {
   Header,
@@ -13,6 +12,8 @@ import {
   Folge,
   ProtectedRoute
 } from './components/';
+
+import Fade from './components/Fade';
 
 import { Loader, FullpageLoader } from './components/Loader';
 
@@ -29,7 +30,6 @@ const App = () => {
   useEffect(() => {
     const storedUser = JSON.parse(window.localStorage.getItem('user')) || null;
     setUser(storedUser);
-    // AOS.init();
   }, []);
 
   useEffect(() => {
@@ -61,6 +61,7 @@ const App = () => {
           <Route exact path="/nix" />
           <ProtectedRoute exact path="/profile" component={Profile}/>
         </Switch>
+        {/* <Fade /> */}
         <Footer />
       </Router>
     </GlobalProvider>

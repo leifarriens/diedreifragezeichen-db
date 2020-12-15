@@ -13,7 +13,7 @@ const Profile = () => {
     const fetchUser = async () => {
       try {
         const response = await Axios(`/api/user/${user._id}`);
-        setProfileData(response.data)
+        setProfileData(response.data);
       } catch (error) {
         console.log(error);
       }

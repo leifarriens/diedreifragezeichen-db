@@ -11,8 +11,8 @@ const Search = () => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       ref.current.blur();
+      history.push('/');
     }
-    history.push('/');
   }
 
   return (

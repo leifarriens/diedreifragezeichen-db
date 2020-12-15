@@ -2,17 +2,23 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { Container, HomeLink, SearchBar, ProfileLink } from './StyledHeader';
 import { AiOutlineProfile } from 'react-icons/ai';
-// import Headroom from 'react-headroom';
 import Search from './Search';
 
 import { AuthContext } from '../../context/AuthContext';
+import { GlobalContext } from '../../context/GlobalContext';
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  const { setSearchQuery } = useContext(GlobalContext);
+
+  const handleHomeClick = () => {
+    setSearchQuery('');
+    window.scrollTo({top: 0, behavior: 'smooth'})
+  }
 
   return (
     <Container>
-      <HomeLink to="/#" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} />
+      <HomeLink to="/#" onClick={handleHomeClick} />
       
       <SearchBar>
         <Search />

@@ -45,20 +45,6 @@ img {
   object-fit: contain;
 }
 
-footer {
-  margin: 0 18px 18px 0;
-  position: fixed;
-  font-size: .65rem;
-  color: #c7c7c7;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-
-  @media screen and (min-width:1080px) {
-    font-size: .85rem;
-  }
-}
-
 .wrapper {
   width: 100%;
   padding: 0 36px;
@@ -84,7 +70,8 @@ footer {
 
 
 .folge {
-  margin-top: 72px;
+  // margin-top: 72px;
+  padding-top: 144px;
   margin-bottom: 196px;
 
   @media screen and (min-width:720px) {
@@ -112,23 +99,6 @@ footer {
     }
   }
 }
-
-// .grid {
-//   // padding: 0 16px;
-//   display: grid;
-//   grid-gap: 16px;
-//   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-//   justify-items: center;
-
-//   @media screen and (min-width:460px) {
-//     grid-gap: 36px;
-//     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-//   }
-
-//   @media screen and (min-width:1440px) {
-//     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-//   }
-// }
 
 .folge-miniatur {
   width: 100%;
@@ -162,7 +132,6 @@ footer {
 }
 
 @import 'loader';
-@import 'input';
 @import 'button';
 
 .search {

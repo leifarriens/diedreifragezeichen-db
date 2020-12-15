@@ -23,21 +23,6 @@ img {
   object-fit: contain;
 }
 
-footer {
-  margin: 0 18px 18px 0;
-  position: fixed;
-  font-size: 0.65rem;
-  color: #c7c7c7;
-  bottom: 0;
-  right: 0;
-  z-index: 10;
-}
-@media screen and (min-width: 1080px) {
-  footer {
-    font-size: 0.85rem;
-  }
-}
-
 .wrapper {
   width: 100%;
   padding: 0 36px;
@@ -58,7 +43,7 @@ footer {
 }
 
 .folge {
-  margin-top: 72px;
+  padding-top: 144px;
   margin-bottom: 196px;
 }
 @media screen and (min-width: 720px) {
@@ -151,12 +136,6 @@ footer {
     -webkit-transform: scale(1.2);
   }
 }
-.input {
-  padding: 12px 18px;
-  border-radius: 25px;
-  border: none;
-}
-
 button {
   border: 0;
   background-color: transparent;
@@ -165,6 +144,7 @@ button {
 }
 
 .button {
+  display: inline-block;
   color: #fff;
   border: 1px solid #fff;
   padding: 12px 24px;

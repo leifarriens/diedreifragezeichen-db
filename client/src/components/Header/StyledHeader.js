@@ -9,6 +9,7 @@ export const Container = styled.header`
   position: sticky;
   top: 0;
   top: -18px;
+  /* top: -86px; */
   display: flex;
   justify-content: space-between;
   align-items: center;

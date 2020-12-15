@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { GridContainer, FolgenContainer } from './StyledGrid';
 
-// import Search from './Search';
 import Sort from '../Sort';
 import GridFolge from './GridFolge';
 import { sortFolgenByRating, sortFolgenByDateAsc, sortFolgenByDateDesc } from '../../utils';
@@ -9,23 +8,32 @@ import { sortFolgenByRating, sortFolgenByDateAsc, sortFolgenByDateDesc } from '.
 import { GlobalContext } from '../../context/GlobalContext';
 
 const Grid = (props) => {
-  // const [queryFilter, setQueryFilter] = useState('');
   const { searchQuery } = useContext(GlobalContext);
   const [folgen, setFolgen] = useState([]);
-  const [sortBy, setSortBy] = useState('');
+  const [sortBy, setSortBy] = useState('rating');
+  // const [showSpecials, setShowSpecials] = useState(false);
 
   useEffect(() => {
-    console.log(searchQuery);
     const filterFolge = (folge) => {
       const query = searchQuery.toLowerCase();
       const name = folge.number + folge.name.toLowerCase();
       return name.includes(query);
     }
     let filtered = props.folgen.filter(filterFolge);
-    console.log(filtered);
 
     setFolgen(filtered);
   }, [searchQuery]);
+
+  // useEffect(() => {
+  //   if (!showSpecials) {
+  //     let filtered = props.folgen.filter(folge => {
+  //       return folge.type !== 'special';
+  //     });
+  //     setFolgen(filtered);
+  //   } else {
+  //     setFolgen(props.folgen);
+  //   }
+  // }, [showSpecials]);
 
   useEffect(() => {
     switch (sortBy) {
@@ -41,9 +49,24 @@ const Grid = (props) => {
     }
   }, [sortBy]);
 
+  // const handleCheckboxChange = (e) => {
+  //   const isChecked = e.target.checked;
+  //   if (isChecked) {
+  //     setShowSpecials(true);
+  //   } else {
+  //     setShowSpecials(false);
+  //   }
+  // }
+
   return (
     <GridContainer sortBy={sortBy}>
       <Sort onSortChange={(by) => setSortBy(by)}/>
+      {/* <div>
+        <label>
+          <span>Specials anzeigen</span>
+          <input type="checkbox" onChange={(e) => handleCheckboxChange(e)}/>
+        </label>
+      </div> */}
       
       <FolgenContainer>
         {folgen.map(folge => <GridFolge key={folge._id} folge={folge}/>)}
