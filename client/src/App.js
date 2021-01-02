@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Axios from 'axios';
 
@@ -13,24 +13,15 @@ import {
   ProtectedRoute
 } from './components/';
 
-import Fade from './components/Fade';
+import { FullpageLoader } from './components/Loader';
 
-import { Loader, FullpageLoader } from './components/Loader';
-
-import { AuthContext } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 import { GlobalProvider } from './context/GlobalContext';
 
 const App = () => {
-  const { setUser } = useContext(AuthContext);
-
   const [folgen, setFolgen] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    const storedUser = JSON.parse(window.localStorage.getItem('user')) || null;
-    setUser(storedUser);
-  }, []);
 
   useEffect(() => {
     const fetchAllFolgen = async () => {
@@ -50,20 +41,21 @@ const App = () => {
 
   return (
     <GlobalProvider>
-      <Router >
-        <Header />
-        {loading && <FullpageLoader />}
-        {/* <Hero /> */}
-        <Switch>
-          <Route exact path="/" component={() => <Grid folgen={folgen}/>}/>
-          <Route exact path="/folge/:id" component={Folge}/>
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/nix" />
-          <ProtectedRoute exact path="/profile" component={Profile}/>
-        </Switch>
-        {/* <Fade /> */}
-        <Footer />
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Header />
+          {loading && <FullpageLoader />}
+          {/* <Hero /> */}
+          <Switch>
+            <Route exact path="/" component={() => <Grid folgen={folgen}/>}/>
+            <Route exact path="/folge/:id" component={Folge}/>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/nix" />
+            <ProtectedRoute exact path="/profile" component={Profile}/>
+          </Switch>
+          <Footer />
+        </Router>
+      </AuthProvider>
     </GlobalProvider>
   );
 }

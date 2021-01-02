@@ -21,6 +21,7 @@
     "react-headroom": "^3.0.0",
     "react-icons": "^3.11.0",
     "react-intersection-observer": "^8.29.0",
+    "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "react-select": "^3.1.0",
@@ -39,6 +40,8 @@
     "@babel/runtime": "^7.12.1",
     "babel-plugin-styled-components": "^1.11.1",
     "cssnano": "^4.1.10",
+    "eslint": "^7.17.0",
+    "eslint-plugin-react": "^7.22.0",
     "sass": "^1.27.0"
   },
   "resolutions": {

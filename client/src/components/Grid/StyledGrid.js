@@ -20,6 +20,15 @@ export const GridContainer = styled.div`
   /* ${({ sortBy }) => sortBy === 'dateDesc' && `background: linear-gradient(180deg, #030F1A 0%, #001727 50%, #05182A 100%);`} */
 `;
 
+export const GridUI = styled.div`
+  /* width: auto; */
+
+  @media (min-width: 744px) {
+    /* display: grid; */
+    /* grid-template-columns: auto 1fr; */
+  }
+`;
+
 export const FolgenContainer = styled.div`
   display: grid;
   grid-gap: 16px;

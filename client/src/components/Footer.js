@@ -49,10 +49,10 @@ const Footer = () => {
         <span>Powereded by </span>
         {/* <a href="https://api.spotify.com/" target="_blank">Spotify API </a> */}
         {/* <FaSpotify /> */}
-        <a href="https://api.spotify.com/" target="_blank"><FaSpotify /></a>
+        <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a>
       </PageFooter>
-      <Signatur>Developed with 💗 by <a href="https://leifarriens.github.io/" target="_blank">Leif Arriens</a></Signatur>
-      <Fade />
+      <Signatur>Developed with 💗 by <a href="https://leifarriens.github.io/" target="_blank" rel="noreferrer">Leif Arriens</a></Signatur>
+      {/* <Fade /> */}
     </React.Fragment>
   )
 }

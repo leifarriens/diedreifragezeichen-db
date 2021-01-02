@@ -3,6 +3,10 @@ export const calcFolgenRating = ratings => {
     return ratings.reduce((a, b) => Number(a) + Number(b), 0) / ratings.length;
 }
 
+export const roundRatingToPointFive = rating => {
+  return Math.round(rating*2) / 2;
+}
+
 export const sortFolgenByRating = folgen => {
   const sorted = [...folgen].sort((a, b) => {
     return calcFolgenRating(a.ratings) - calcFolgenRating(b.ratings)

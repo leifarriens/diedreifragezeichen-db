@@ -7,10 +7,10 @@ import { AuthContext } from '../context/AuthContext';
 import '../styles/rate.css';
 
 const Rate = ({ folge_id, currentRating }) => {
-  const { user } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
 
   const rateFolge = (value) => {
-    if (!user) {
+    if (!auth.data) {
       location.href = '/login';
     } else {
       const rating = Number(value);
@@ -20,7 +20,7 @@ const Rate = ({ folge_id, currentRating }) => {
         rating
       }, {
         headers: {
-          'Authorization': 'Bearer ' + user.token
+          'Authorization': 'Bearer ' + auth.data.token
         }
       })
       .then(response => {

@@ -4,15 +4,15 @@ import styled from 'styled-components';
 const SortContainer = styled.div`
   display: flex;
   margin-bottom: 24px;
-
-  @media (min-width:744px) {
-    max-width: 420px;
-  }
 `;
 
 const Label = styled.label`
   cursor: pointer;
   width: 100%;
+
+  @media (min-width:744px) {
+    width: auto;
+  }
 
   input {
     display: none;
@@ -20,8 +20,12 @@ const Label = styled.label`
 
   span {
     width: 100%;
+    width: auto;
+    height: 100%;
     display: inline-block;
+    display: block;
     padding: 8px;
+    padding: 8px 18px;
     border: 1px solid #fff;
     text-align: center;
   }
@@ -47,8 +51,8 @@ const Label = styled.label`
   }
 `;
 
-const Sort = ({ onSortChange }) => {
-  const [currentSort, setCurrentSort] = useState('dateDesc');
+const Sort = ({ currentSort, onSortChange }) => {
+  // const [currentSort, setCurrentSort] = useState(current);
   const sortVariants = [
     {
       name: 'Neuste zuerst',
@@ -64,9 +68,9 @@ const Sort = ({ onSortChange }) => {
     }
   ];
 
-  useEffect(() => {
-    onSortChange(currentSort);
-  }, [currentSort])
+  // useEffect(() => {
+  //   onSortChange(currentSort);
+  // }, [currentSort]);
 
   return (
     <SortContainer>
@@ -77,7 +81,7 @@ const Sort = ({ onSortChange }) => {
             name="sort"
             value={value}
             checked={value === currentSort ? true : false}
-            onChange={e => setCurrentSort(e.target.value)}
+            onChange={e => onSortChange(e.target.value)}
           />
           <span>{name}</span>
         </Label>

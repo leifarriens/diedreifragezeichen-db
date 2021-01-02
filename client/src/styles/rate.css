@@ -73,17 +73,9 @@
   height: 36px;
 }
 
-/* .rating .icon {
-  background-image: url(../assets/iconsvg.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-} */
-
 .rating label:last-child .icon {
-  /* color: #001727; */
   color: #d8d8d8;
-  background-image: url(../assets/iconsvg.svg);
+  background-image: url(../assets/white.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -92,20 +84,20 @@
 .rating:not(:hover) label input:checked ~ .icon,
 .rating:hover label:hover input ~ .icon {
   color: #00a5e7;
-  background-image: url(../assets/iconsvg_b.svg);
+  background-image: url(../assets/blue.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
-.rating label input:focus:not(:checked) ~ .icon:last-child {
+/* .rating label input:focus:not(:checked) ~ .icon:last-child {
   color: #001727;
   text-shadow: 0 0 5px #00a5e7;
-}
+} */
 
 .rating .blue {
   color: #00a5e7;
-  background-image: url(../assets/iconsvg_b.svg);
+  background-image: url(../assets/blue.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;

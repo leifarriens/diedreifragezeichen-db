@@ -20,7 +20,8 @@ const Login = () => {
 
   const history = useHistory();
 
-  const { setUser } = useContext(AuthContext);
+  // const { setUser } = useContext(AuthContext);
+  const { setAuthData } = useContext(AuthContext);
 
   const handleSubmit = () => {
     Axios.post('/api/auth/login', {
@@ -30,7 +31,8 @@ const Login = () => {
       const user = response.data.user;
       delete user['list'];
       user.token = response.data.token;
-      setUser(user);
+      // setUser(user);
+      setAuthData(user);
       history.push('/')
     })
     .catch(error => console.log(error));

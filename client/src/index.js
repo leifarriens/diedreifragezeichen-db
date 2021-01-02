@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import './styles/App.scss';
-import AppContainer from './components/AppContainer';
+import App from './App';
 
 import smoothscroll from 'smoothscroll-polyfill';
 smoothscroll.polyfill();
 
-ReactDOM.render(<AppContainer />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

@@ -4,7 +4,8 @@ import Axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
 const Profile = () => {
-  const { user, setUser } = useContext(AuthContext);
+  // const { user, setUser } = useContext(AuthContext);
+  const { auth, setAuthData } = useContext(AuthContext);
 
   const [profileData, setProfileData] = useState('');
   const [userFolgen, setUserFolgen] = useState([]);
@@ -12,7 +13,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await Axios(`/api/user/${user._id}`);
+        const response = await Axios(`/api/user/${auth.data._id}`);
         setProfileData(response.data);
       } catch (error) {
         console.log(error);
@@ -24,7 +25,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserList = async () => {
       try {
-        const response = await Axios(`/api/user/${user._id}/list`);
+        const response = await Axios(`/api/user/${auth.data._id}/list`);
         // console.log(response.data);
         setUserFolgen(response.data);
       } catch (error) {
@@ -35,7 +36,7 @@ const Profile = () => {
   }, []);
 
   const handleLogout = () => {
-    setUser(null);
+    setAuthData(null);
   }
 
   return (

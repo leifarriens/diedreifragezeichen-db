@@ -1,73 +1,89 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { GridContainer, FolgenContainer } from './StyledGrid';
+import { GridContainer, GridUI, FolgenContainer } from './StyledGrid';
+import dayjs from 'dayjs';
 
 import Sort from '../Sort';
 import GridFolge from './GridFolge';
-import { sortFolgenByRating, sortFolgenByDateAsc, sortFolgenByDateDesc } from '../../utils';
+import {
+  sortFolgenByRating,
+  sortFolgenByDateAsc,
+  sortFolgenByDateDesc
+} from '../../utils';
 
 import { GlobalContext } from '../../context/GlobalContext';
 
 const Grid = (props) => {
-  const { searchQuery } = useContext(GlobalContext);
-  const [folgen, setFolgen] = useState([]);
-  const [sortBy, setSortBy] = useState('rating');
+  const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } = useContext(GlobalContext);
+  const [folgen, setFolgen] = useState(props.folgen);
   // const [showSpecials, setShowSpecials] = useState(false);
 
-  useEffect(() => {
+  const filterSpecial = () => {
+    return !showSpecials ? props.folgen.filter(folge => folge.type !== 'special') : props.folgen;
+  }
+
+  const filterByQuery = (folgen) => {
+    const query = searchQuery.toLowerCase();
     const filterFolge = (folge) => {
-      const query = searchQuery.toLowerCase();
       const name = folge.number + folge.name.toLowerCase();
-      return name.includes(query);
+
+      if (name.includes(query)) {
+        return true;
+      } else if (dayjs(folge.release_date).year() == query) {
+        return true;
+      } else {
+        return false;
+      }
     }
-    let filtered = props.folgen.filter(filterFolge);
+    return folgen.filter(filterFolge);
+  }
 
-    setFolgen(filtered);
-  }, [searchQuery]);
-
-  // useEffect(() => {
-  //   if (!showSpecials) {
-  //     let filtered = props.folgen.filter(folge => {
-  //       return folge.type !== 'special';
-  //     });
-  //     setFolgen(filtered);
-  //   } else {
-  //     setFolgen(props.folgen);
-  //   }
-  // }, [showSpecials]);
-
-  useEffect(() => {
+  const applySort = (folgen) => {
     switch (sortBy) {
       case 'dateAsc':
-        setFolgen(sortFolgenByDateAsc);
-        break;
+        return sortFolgenByDateAsc(folgen);
       case 'dateDesc':
-        setFolgen(sortFolgenByDateDesc);
-        break;
+        return sortFolgenByDateDesc(folgen);
       case 'rating':
-        setFolgen(sortFolgenByRating);
-        break;
+        return sortFolgenByRating(folgen);
     }
-  }, [sortBy]);
+  }
 
-  // const handleCheckboxChange = (e) => {
-  //   const isChecked = e.target.checked;
-  //   if (isChecked) {
-  //     setShowSpecials(true);
-  //   } else {
-  //     setShowSpecials(false);
-  //   }
-  // }
+  useEffect(() => {
+    const showRightFolgen = () => {
+      let folgenToShow = [];
+  
+      folgenToShow = filterSpecial();
+      folgenToShow = filterByQuery(folgenToShow);
+      folgenToShow = applySort(folgenToShow);
+      
+      setFolgen(folgenToShow);
+    }
+
+    showRightFolgen();
+  }, [showSpecials, searchQuery, sortBy]);
+
+  const handleCheckboxChange = (e) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setShowSpecials(true);
+    } else {
+      setShowSpecials(false);
+    }
+  }
 
   return (
     <GridContainer sortBy={sortBy}>
-      <Sort onSortChange={(by) => setSortBy(by)}/>
-      {/* <div>
-        <label>
-          <span>Specials anzeigen</span>
-          <input type="checkbox" onChange={(e) => handleCheckboxChange(e)}/>
-        </label>
-      </div> */}
-      
+      <GridUI>
+        <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)}/>
+        <div>
+          <label>
+            <span>Specials anzeigen</span>
+            <input type="checkbox" checked={showSpecials} onChange={(e) => handleCheckboxChange(e)} />
+          </label>
+        </div>
+      </GridUI>
+
+      <div>{folgen.length} Fogen</div>
       <FolgenContainer>
         {folgen.map(folge => <GridFolge key={folge._id} folge={folge}/>)}
       </FolgenContainer>

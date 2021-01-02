@@ -23,13 +23,12 @@ const registerUser = async (data) => {
     return user.save();
   } catch (e) {
     throw new Error(e.message);
-    
   }
 }
 
 const getUserByEmail = async (email) => {
   try {
-    return await User.findOne({ email});
+    return await User.findOne({ email });
   } catch (e) {
     throw new Error(e.message);
   }

@@ -48,6 +48,7 @@ async function runJob () {
   });
 
   setTimeout(() => {
+    printResults
     console.log(`${chalk.blue(inDb.length)} Folgen are already in DB...`);
     console.log(`${chalk.yellow(notInDb.length)} Folgen are not in DB...`);
     console.log(`${chalk.green(successfullyAdded.length)} Folgen have been added DB...`);

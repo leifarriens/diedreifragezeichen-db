@@ -8,7 +8,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { GlobalContext } from '../../context/GlobalContext';
 
 const Header = () => {
-  const { user } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const { setSearchQuery } = useContext(GlobalContext);
 
   const handleHomeClick = () => {
@@ -25,7 +25,7 @@ const Header = () => {
       </SearchBar>
 
       <ProfileLink>
-        {!user ?
+        {!auth.data ?
           <Link to="/login">Anmelden</Link> :
           <Link to="/profile">
             <AiOutlineProfile size={28} />

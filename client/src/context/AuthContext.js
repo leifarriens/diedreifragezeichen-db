@@ -1,55 +1,40 @@
-import React, { useReducer } from 'react';
-import AuthReducer from './AuthReducer';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const initialState = {
-  user: null,
-  token: ''
+  loading: true,
+  data: null
 }
 
-export const AuthContext = React.createContext(initialState);
+export const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AuthReducer, initialState);
+  const [auth, setAuth] = useState(initialState);
 
-  // Actions
-  function loadUserFromStorage() {
-    console.log(user);
-    const user = JSON.parse(window.localStorage.getItem('user')) || null;
-    dispatch({
-      type: 'LOAD_USER',
-      payload: user
-    });
+  const setAuthData = data => {
+    setAuth({ data });
   }
 
-  function setUser(user) {
-    console.log(user);
-    window.localStorage.setItem('user', JSON.stringify(user));
-    dispatch({
-      type: 'SET_USER',
-      payload: user
-    });
-  }
+  useEffect(() => {
+    setAuth({ loading: false, data: JSON.parse(window.localStorage.getItem('authData'))});
+  }, []);
 
-  function setJwt(token) {
-    console.log(token);
-    window.localStorage.setItem('token', token);
-    dispatch({
-      type: 'SET_JWT',
-      payload: token
-    });
-  }
+  useEffect(() => {
+    window.localStorage.setItem('authData', JSON.stringify(auth.data));
+  }, [auth.data]);
 
   return (
     <AuthContext.Provider
       value={{
-        user: state.user,
-        token: state.token,
-        loadUserFromStorage,
-        setUser,
-        setJwt
+        auth,
+        setAuthData
       }}
     >
       {children}
     </AuthContext.Provider>
   );
 }
+
+AuthProvider.propTypes = {
+  children: PropTypes.node
+};

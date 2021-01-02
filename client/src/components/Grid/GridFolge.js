@@ -62,7 +62,7 @@ const FolgeCover = ({ src }) => {
     >
       <Cover>
         {loading && <Loader />}
-        <img style={{ display: loading ? 'none': 'block' }} src={imgSrc} onLoad={() => setLoading(false)}/>
+        <img style={{ display: loading ? 'none' : 'block' }} src={imgSrc} onLoad={() => setLoading(false)}/>
       </Cover>
     </InView>
   );
