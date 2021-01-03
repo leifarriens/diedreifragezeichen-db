@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "concurrently \"nodemon ./server.js\" \"cd client && npm start\""
+    "dev": "concurrently \"nodemon ./server.js\" \"cd client && npm start\"",
+    "scrape-folgen": "node ./jobs/v2"
   },
   "nodemonConfig": {
     "ignore": [

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
 
-import Rate from '../Rate';
+import 'animate.css';
 
 import { calcFolgenRating } from '../../utils';
 
@@ -37,7 +37,6 @@ const GridFolge = React.memo(({ folge }) => {
       </Link>
       <div className="description">
         <div className="folge-miniatur__rating">
-          {/* <Rate folge_id={folge._id} currentRating={rating}/> */}
           <div>{rating.toFixed(1)}/<small>10</small></div>
         </div>
         <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
@@ -53,7 +52,7 @@ const FolgeCover = ({ src }) => {
   const handleViewChange = (inView) => {
     if (!inView) return;
     if (inView) setImgSrc(src);
-  }
+  };
 
   return (
     <InView
@@ -62,10 +61,15 @@ const FolgeCover = ({ src }) => {
     >
       <Cover>
         {loading && <Loader />}
-        <img style={{ display: loading ? 'none' : 'block' }} src={imgSrc} onLoad={() => setLoading(false)}/>
+        <img
+          style={{ display: loading ? 'none' : 'block' }} 
+          src={imgSrc}
+          onLoad={() => setLoading(false)}
+          className="animate__animated animate__fadeIn"
+          />
       </Cover>
     </InView>
   );
-}
+};
 
 export default GridFolge;

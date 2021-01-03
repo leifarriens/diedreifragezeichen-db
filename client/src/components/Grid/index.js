@@ -10,6 +10,8 @@ import {
   sortFolgenByDateDesc
 } from '../../utils';
 
+import Fade from '../Fade';
+
 import { GlobalContext } from '../../context/GlobalContext';
 
 const Grid = (props) => {
@@ -19,7 +21,7 @@ const Grid = (props) => {
 
   const filterSpecial = () => {
     return !showSpecials ? props.folgen.filter(folge => folge.type !== 'special') : props.folgen;
-  }
+  };
 
   const filterByQuery = (folgen) => {
     const query = searchQuery.toLowerCase();
@@ -33,9 +35,9 @@ const Grid = (props) => {
       } else {
         return false;
       }
-    }
+    };
     return folgen.filter(filterFolge);
-  }
+  };
 
   const applySort = (folgen) => {
     switch (sortBy) {
@@ -46,7 +48,7 @@ const Grid = (props) => {
       case 'rating':
         return sortFolgenByRating(folgen);
     }
-  }
+  };
 
   useEffect(() => {
     const showRightFolgen = () => {
@@ -57,7 +59,7 @@ const Grid = (props) => {
       folgenToShow = applySort(folgenToShow);
       
       setFolgen(folgenToShow);
-    }
+    };
 
     showRightFolgen();
   }, [showSpecials, searchQuery, sortBy]);
@@ -69,7 +71,7 @@ const Grid = (props) => {
     } else {
       setShowSpecials(false);
     }
-  }
+  };
 
   return (
     <GridContainer sortBy={sortBy}>
@@ -87,9 +89,9 @@ const Grid = (props) => {
       <FolgenContainer>
         {folgen.map(folge => <GridFolge key={folge._id} folge={folge}/>)}
       </FolgenContainer>
-      
+      <Fade/>
     </GridContainer>
   );
-}
+};
 
 export default Grid;

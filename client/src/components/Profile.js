@@ -8,12 +8,13 @@ const Profile = () => {
   const { auth, setAuthData } = useContext(AuthContext);
 
   const [profileData, setProfileData] = useState('');
-  const [userFolgen, setUserFolgen] = useState([]);
+  // const [userFolgen, setUserFolgen] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const response = await Axios(`/api/user/${auth.data._id}`);
+        console.log(response.data);
         setProfileData(response.data);
       } catch (error) {
         console.log(error);
@@ -22,18 +23,18 @@ const Profile = () => {
     fetchUser();
   }, []);
 
-  useEffect(() => {
-    const fetchUserList = async () => {
-      try {
-        const response = await Axios(`/api/user/${auth.data._id}/list`);
-        // console.log(response.data);
-        setUserFolgen(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchUserList()
-  }, []);
+  // useEffect(() => {
+  //   const fetchUserList = async () => {
+  //     try {
+  //       const response = await Axios(`/api/user/${auth.data._id}/list`);
+  //       // console.log(response.data);
+  //       setUserFolgen(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchUserList()
+  // }, []);
 
   const handleLogout = () => {
     setAuthData(null);
@@ -44,7 +45,7 @@ const Profile = () => {
       {profileData && (
         <div>
           <h2>{profileData.email}</h2>
-          {JSON.stringify(userFolgen)}
+          {/* {JSON.stringify(userFolgen)} */}
           {/* <List user_id={user._id} items={profileData.list}/> */}
           <button className="button" onClick={handleLogout}>Logout</button>
         </div>
@@ -53,27 +54,27 @@ const Profile = () => {
   );
 }
 
-const List = ({ user_id, items }) => {
+// const List = ({ user_id, items }) => {
 
-  console.log(items);
+//   console.log(items);
 
-  const [userFolgen, setUserFolgen] = useState([]);
+//   const [userFolgen, setUserFolgen] = useState([]);
   
-  useEffect(() => {
-    const fetchLikedFolgen = async () => {
-      try {
-        const response = await Axios(`/api/user/${user_id}/list`);
-        console.log(response.data);
-        setUserFolgen(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchLikedFolgen();
-  }, []);
-  return (
-    <Grid folgen={userFolgen}/>
-  );
-}
+//   useEffect(() => {
+//     const fetchLikedFolgen = async () => {
+//       try {
+//         const response = await Axios(`/api/user/${user_id}/list`);
+//         console.log(response.data);
+//         setUserFolgen(response.data);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     }
+//     fetchLikedFolgen();
+//   }, []);
+//   return (
+//     <Grid folgen={userFolgen}/>
+//   );
+// }
 
 export default Profile;

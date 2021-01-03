@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
+import Headroom from 'react-headroom';
 import { Container, HomeLink, SearchBar, ProfileLink } from './StyledHeader';
 import { AiOutlineProfile } from 'react-icons/ai';
 import Search from './Search';
@@ -14,27 +15,29 @@ const Header = () => {
   const handleHomeClick = () => {
     setSearchQuery('');
     window.scrollTo({top: 0, behavior: 'smooth'})
-  }
+  };
 
   return (
-    <Container>
-      <HomeLink to="/#" onClick={handleHomeClick} />
-      
-      <SearchBar>
-        <Search />
-      </SearchBar>
+    <Headroom>
+      <Container>
+        <HomeLink to="/#" onClick={handleHomeClick} />
+        
+        <SearchBar>
+          <Search />
+        </SearchBar>
 
-      <ProfileLink>
-        {!auth.data ?
-          <Link to="/login">Anmelden</Link> :
-          <Link to="/profile">
-            <AiOutlineProfile size={28} />
-          </Link>
-        }
-      </ProfileLink>
+        <ProfileLink>
+          {!auth.data ?
+            <Link to="/login">Anmelden</Link> :
+            <Link to="/profile">
+              <AiOutlineProfile size={28} />
+            </Link>
+          }
+        </ProfileLink>
 
-    </Container>
+      </Container>
+    </Headroom>
   );
-}
+};
 
 export default Header;

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FaSpotify } from 'react-icons/fa';
+// import { FaSpotify } from 'react-icons/fa';
 
 const PageFooter = styled.div`
   text-align: center;
@@ -31,17 +31,6 @@ const Signatur = styled.div`
   }
 `;
 
-const Fade = styled.div`
-  position: fixed;
-  z-index: 10;
-  width: 100%;
-  height: 64px;
-  bottom: 0;
-  left: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(0,23,39,0) 0%, rgba(0,23,39,.85) 100%);
-`;
-
 const Footer = () => {
   return (
     <React.Fragment>
@@ -50,9 +39,8 @@ const Footer = () => {
         <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a> */}
       </PageFooter>
       <Signatur>Developed with 💗 by <a href="https://leifarriens.github.io/" target="_blank" rel="noreferrer">Leif Arriens</a></Signatur>
-      {/* <Fade /> */}
     </React.Fragment>
-  )
-}
+  );
+};
 
 export default Footer;

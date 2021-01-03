@@ -8,7 +8,7 @@ export const Container = styled.header`
   color: #fff;
   position: sticky;
   top: 0;
-  top: -18px;
+  /* top: -18px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -27,6 +27,8 @@ export const Container = styled.header`
     'search search search';
 
   @media (min-width: 375px) {
+    /* padding-top: 26px; */
+    /* padding-bottom: 26px; */
     padding-left: 24px;
     padding-right: 24px;
   }
@@ -69,6 +71,7 @@ export const SearchBar = styled.div`
   input {
     font-family: inherit;
     font-size: 16px;
+    font-size: inherit;
     padding: 12px 24px;
     border-radius: 25px;
     border: none;

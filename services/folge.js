@@ -11,7 +11,7 @@ const loadFolge = async (id) => {
 
 const loadAllFolgen = async () => {
   try {
-    return await Folge.find().sort('-release_date')
+    return await Folge.find().sort('-release_date');
   }
   catch (e) {
     throw new Error(e.message);
@@ -20,7 +20,7 @@ const loadAllFolgen = async () => {
 
 const loadAllRegularFolgen = async () => {
   try {
-    return await Folge.find({ type: 'regular' }).sort('-release_date')
+    return await Folge.find({ type: 'regular' }).sort('-release_date');
   }
   catch (e) {
     throw new Error(e.message);
@@ -58,7 +58,6 @@ const getPreviousFolgen = async (currentId) => {
 
 const getNextFolgen = async (currentId) => {
   try {
-    // return await Folge.findOne({_id: {$lt: currentId}}).sort({_id: -1});
     return await Folge.find({_id: {$lt: currentId}, type: 'regular'}).sort({_id: -1}).limit(5);
   } catch (e) {
     throw new Error(e.message);
@@ -81,10 +80,6 @@ const addFolge = async (name, images, id, release_date) => {
     folge.number = '';
     folge.name = name;
   }
-
-  // folge.save()
-  // .then(() => console.log(`${chalk.green(folge.name)} was added to DB...`))
-  // .catch(error => console.log(error));
   
   try {
     return await folge.save();

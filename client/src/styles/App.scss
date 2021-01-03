@@ -25,13 +25,18 @@ $bgShade3: #05182A;
 
 body {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 1.1rem;
+  // font-size: 1.1rem;
+  font-size: 14px;
   // color: $ddfDark;
   color: #fff;
   background-color: $ddfDark;
   // background: linear-gradient(180deg, $bgShade1 0%, $bgShade2 50%, $bgShade3 100%);
   // filter: brightness(50%);
   min-height: 100vh;
+
+  @media screen and (min-width: 744px) {
+    font-size: 16px;
+  }
 }
 
 a {

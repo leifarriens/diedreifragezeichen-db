@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding-top: 144px;
+  padding-top: 0px;
   margin-bottom: 196px;
 
   @media screen and (min-width:720px) {
+    padding-top: 144px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 96px;
@@ -51,5 +52,5 @@ export const Background = styled.div`
   background-position: ${props => props.bigCover ? 'right bottom' : 'center 93%'};
   background-repeat: no-repeat;
   transform: scale(1.15);
-  filter: blur(80px) brightness(25%);
+  filter: blur(80px) brightness(35%);
 `;
