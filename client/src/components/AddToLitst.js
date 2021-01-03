@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import Axios from 'axios';
 
 import { AuthContext } from '../context/AuthContext';
@@ -34,10 +34,10 @@ const AddToList = ({ folge }) => {
   }, []);
 
   if (isOnList) {
-    return <button className="button"><AiFillHeart /></button>;
+    return <button className="button icon"><AiFillHeart /></button>;
   }
 
-  return <button className="button" onClick={addToUserList}><AiOutlineHeart /></button>;
+  return <button className="button icon" onClick={addToUserList}><AiOutlineHeart /></button>;
 }
 
 export default AddToList;

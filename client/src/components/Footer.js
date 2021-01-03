@@ -46,10 +46,8 @@ const Footer = () => {
   return (
     <React.Fragment>
       <PageFooter>
-        <span>Powereded by </span>
-        {/* <a href="https://api.spotify.com/" target="_blank">Spotify API </a> */}
-        {/* <FaSpotify /> */}
-        <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a>
+        {/* <span>Powereded by </span>
+        <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a> */}
       </PageFooter>
       <Signatur>Developed with 💗 by <a href="https://leifarriens.github.io/" target="_blank" rel="noreferrer">Leif Arriens</a></Signatur>
       {/* <Fade /> */}

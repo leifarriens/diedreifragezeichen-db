@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SortContainer = styled.div`
@@ -52,7 +52,6 @@ const Label = styled.label`
 `;
 
 const Sort = ({ currentSort, onSortChange }) => {
-  // const [currentSort, setCurrentSort] = useState(current);
   const sortVariants = [
     {
       name: 'Neuste zuerst',
@@ -67,10 +66,6 @@ const Sort = ({ currentSort, onSortChange }) => {
       value: 'rating'
     }
   ];
-
-  // useEffect(() => {
-  //   onSortChange(currentSort);
-  // }, [currentSort]);
 
   return (
     <SortContainer>

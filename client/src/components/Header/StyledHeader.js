@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import logo from '../../assets/logoneu.png';
+import logo from '../../assets/logo.png';
 
 export const Container = styled.header`
   z-index: 10;
@@ -9,16 +9,11 @@ export const Container = styled.header`
   position: sticky;
   top: 0;
   top: -18px;
-  /* top: -86px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 48px;
-  /* padding-top: 48px; */
-  /* padding-right: 48px; */
-  /* padding-bottom: 24px; */
-  /* padding-left: 48px; */
   background: linear-gradient(0deg, rgba(0,23,39,0) 0%, rgba(0,23,39,.85) 100%);
   pointer-events: none;
 

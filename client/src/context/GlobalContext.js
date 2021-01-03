@@ -1,6 +1,5 @@
 import React, { useReducer } from 'react';
 import GlobalReducer from './GlobalReducer';
-import PropTypes from 'prop-types';
 
 const initalState = {
   showSpecials: false,
@@ -50,7 +49,3 @@ export const GlobalProvider = ({ children }) => {
     </GlobalContext.Provider>
   )
 }
-
-GlobalProvider.propTypes = {
-  children: PropTypes.node
-};

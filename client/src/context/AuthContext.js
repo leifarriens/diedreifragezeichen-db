@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 const initialState = {
   loading: true,
@@ -34,7 +33,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 }
-
-AuthProvider.propTypes = {
-  children: PropTypes.node
-};

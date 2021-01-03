@@ -27,6 +27,16 @@ export const Cover = styled.div`
 
 export const Content = styled.div`
   padding: 6px;
+
+  > div {
+    margin-bottom: 8px;
+  }
+`;
+
+export const Buttons = styled.div`
+  > * {
+    margin-right: 10px;
+  }
 `;
 
 export const Background = styled.div`
@@ -37,9 +47,9 @@ export const Background = styled.div`
   top: 0;
   left: 0;
   background-image: url(${props => props.url});
-  background-position: center;
-  background-size: 150%;
+  background-size: ${props => props.bigCover ? '120% 140%' : '150% 150%'};
+  background-position: ${props => props.bigCover ? 'right bottom' : 'center 93%'};
   background-repeat: no-repeat;
-  transform: scale(1.03);
-  filter: blur(50px) brightness(25%);
+  transform: scale(1.15);
+  filter: blur(80px) brightness(25%);
 `;

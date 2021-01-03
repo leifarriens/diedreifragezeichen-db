@@ -43,9 +43,7 @@ router.post('/:id/rating', async (req, res) => {
   //   (req.connection.socket ? req.connection.socket.remoteAddress : null);
   // console.log(IP);
   try {
-    console.log(req.body);
     const rating = Number(req.body.rating);
-    console.log(rating);
     await addFolgenRating(req.params.id, rating);
     console.log('done');
     res.send('Rating saved!');

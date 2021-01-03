@@ -1,12 +1,15 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { Container, Cover, Content, Background } from './StyledFolge';
+import { Container, Cover, Content, Buttons, Background } from './StyledFolge';
 import Rating from '../Rating';
-import Rate from '../Rate';
+import AddToList from '../AddToLitst';
+// import Rate from '../Rate';
 import { calcFolgenRating } from '../../utils';
 
 const Folge = ({ folge }) => {
-  const { images, name, release_date, _id, ratings} = folge;
+  const { images, name, release_date, _id, ratings, number, spotify_id } = folge;
+  const rating = calcFolgenRating(ratings);
+  const isBigCover = Number(number) >= 125 ? true : false;
 
   return (
     <Container className="wrapper">
@@ -17,10 +20,16 @@ const Folge = ({ folge }) => {
         <h2>Die drei ???</h2>
         <h1>{name}</h1>
         <div>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</div>
-        <Rating folge_id={_id} defaultRating={calcFolgenRating(ratings)}/>
+        <div><span style={{ fontSize: '30px' }}>{rating.toFixed(1)}/10</span> - {ratings.length} Bewertungen</div>
+        <Rating folge_id={_id} defaultRating={rating}/>
+        
         {/* <Rate folge_id={_id} currentRating={calcFolgenRating(ratings)}/> */}
+        <Buttons>
+          <a className="button" target="_blank" rel="noreferrer" href={`spotify:album:${spotify_id}`}>Anhören</a>
+          {/* <AddToList folge={folge}/> */}
+        </Buttons>
       </Content>
-      <Background url={images[0].url}/>
+      <Background url={images[0].url} bigCover={isBigCover}/>
     </Container>
   );
 }

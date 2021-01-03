@@ -4,7 +4,6 @@ import Axios from 'axios';
 
 import {
   Header,
-  Hero,
   Footer,
   Grid,
   Login,
@@ -45,7 +44,7 @@ const App = () => {
         <Router>
           <Header />
           {loading && <FullpageLoader />}
-          {/* <Hero /> */}
+          {error && error}
           <Switch>
             <Route exact path="/" component={() => <Grid folgen={folgen}/>}/>
             <Route exact path="/folge/:id" component={Folge}/>

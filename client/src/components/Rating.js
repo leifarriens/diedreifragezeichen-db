@@ -30,7 +30,7 @@ const Rating = ({ folge_id, defaultRating }) => {
     } else {
       const rating = Number(value);
       const url = `/api/folgen/${folge_id}/rating`;
-      console.log(url);
+      
       Axios.post(url, {
         rating
       }, {

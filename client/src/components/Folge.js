@@ -88,45 +88,17 @@ const FolgePage = () => {
 //         <div>Veröffentlicht am {dayjs(data.release_date).format('DD.MM.YYYY')}</div>
 //         <Rate folge_id={data._id} currentRating={calcFolgenRating(data.ratings)}/>
 
-//         {/* <RatingEx default="5"/> */}
-
-//         <div>
-//           <a className="button" target="_blank" rel="noreferrer" href={`spotify:album:${data.spotify_id}`}>Anhören</a>
-//           {/* <AddToList folge={data}/> */}
-//         </div>
+        // <div>
+        //   <a className="button" target="_blank" rel="noreferrer" href={`spotify:album:${data.spotify_id}`}>Anhören</a>
+        //   {/* <AddToList folge={data}/> */}
+        // </div>
 //       </div>
       
 //     </div>
-//     {/* <Palette colors={colors}/> */}
 //     {/* <AltFolgen folgen_id={data._id} /> */}
 //     </div>
 //     </div>
 //   );
 // }
-
-const Palette = ({ colors }) => {
-  return (
-    <div style={{ display: 'flex', flexGrow: '2'}}>
-      {colors.map(entry => (
-        <div style={{width: '100%', height: '50px', backgroundColor: `rgb(${entry[0]}, ${entry[1]}, ${entry[2]})`}}></div>
-      ))}
-    </div>
-  )
-}
-
-const RatingEx = (props) => {
-  const settings = {
-    size: 40,
-    count: 10,
-    value: props.default,
-    emptyIcon: <RateIcon />,
-    halfIcon: <i className="fa fa-star-half-alt" />,
-    filledIcon: <RateIconBlue />
-  }
-
-  return (
-    <ReactStars {...settings}/>
-  );
-}
 
 export default FolgePage;
