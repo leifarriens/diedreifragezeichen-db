@@ -65,7 +65,6 @@ const FolgeCover = ({ src }) => {
           style={{ display: loading ? 'none' : 'block' }} 
           src={imgSrc}
           onLoad={() => setLoading(false)}
-          className="animate__animated animate__fadeIn"
           />
       </Cover>
     </InView>
