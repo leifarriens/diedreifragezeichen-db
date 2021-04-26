@@ -26,7 +26,7 @@ function Folge(props) {
     number,
     spotify_id,
   } = props.folge
-  const rating = calcFolgenRating(ratings) || 5.5
+  const rating = calcFolgenRating(ratings) || 0
   const isBigCover = Number(number) >= 125 ? true : false
   const router = useRouter()
   let sortedFolgen = sortFolgenByDateAsc(folgen)
@@ -103,17 +103,14 @@ function Folge(props) {
 
 export async function getServerSideProps(context) {
   const id = context.params.id
-  const res = await fetch('http://localhost:3000/api/folgen/' + id)
-  // const res = await fetch('http://localhost:3000/api/folgen');
+  console.log(id);
+  const res = await fetch(process.env.API_URL + '/api/folgen/' + id)
   const folge = await res.json(res)
-
-  // const folge = folgen.find(f => f._id === id);
 
   return {
     props: {
-      folge,
-      // folgen
-    },
+      folge
+    }
   }
 }
 

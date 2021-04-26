@@ -13,22 +13,29 @@ export const GlobalContext = React.createContext(initalState)
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(GlobalReducer, initalState)
 
+  const folgen = useFolgen();
+
   // Actions
   useEffect(() => {
-    const fetchFolgen = async () => {
-      try {
-        const res = await fetch('http://localhost:3000/api/folgen')
-        const folgen = await res.json()
-        dispatch({
-          type: 'SET_FOLGEN',
-          payload: folgen,
-        })
-      } catch (err) {
-        console.log(err.response)
-      }
+    // const fetchFolgen = async () => {
+    //   try {
+    //     const res = await fetch(process.env.API_URL + '/api/folgen')
+    //     const folgen = await res.json()
+        // dispatch({
+        //   type: 'SET_FOLGEN',
+        //   payload: folgen,
+        // })
+    //   } catch (err) {
+    //     console.log(err.response)
+    //   }
+    // }
+    // fetchFolgen()
+    if (folgen && folgen.length > 0) {
+      setFolgen(folgen)
     }
-    fetchFolgen()
-  }, [])
+
+    // console.log(folgen);
+  }, [folgen])
 
   useEffect(() => {
     const show = JSON.parse(localStorage.getItem('showSpecials')) || false;
@@ -38,6 +45,13 @@ export const GlobalProvider = ({ children }) => {
     const sortBy = sessionStorage.getItem('sortBy') || 'dateDesc'
     setSortBy(sortBy)
   }, [])
+
+  function setFolgen(folgen) {
+    dispatch({
+      type: 'SET_FOLGEN',
+      payload: folgen,
+    })
+  }
 
   function setShowSpecials(show) {
     localStorage.setItem('showSpecials', show)
@@ -78,4 +92,16 @@ export const GlobalProvider = ({ children }) => {
       {state.folgen.length > 0 && children}
     </GlobalContext.Provider>
   )
+}
+
+import useSWR from 'swr'
+
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+function useFolgen () {
+  const { data, error } = useSWR('/api/folgen', fetcher)
+
+  if (data) {
+    return data
+  };
 }

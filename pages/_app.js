@@ -1,3 +1,4 @@
+import App from 'next/app';
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo';
 
@@ -8,12 +9,11 @@ import Footer from '../components/Footer'
 import { Provider } from 'next-auth/client'
 import { GlobalProvider } from '../context/GlobalContext'
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, folgen }) {
   return (
     <>
       <Head>
         <link rel="shortcut icon" type="img/png" href="/icon.png" />
-        {/* <link rel="stylesheet" href="https://contentcrawler.de/lgr-design/lgr-design.css"/> */}
         <link
           href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap"
           rel="stylesheet"
@@ -28,11 +28,11 @@ function MyApp({ Component, pageProps }) {
         }}
         defaultTitle = 'Drei Fragezeichen DB'
       />
+
       <Provider session={pageProps.session}>
         <GlobalProvider>
           <Header />
           <Component {...pageProps} />
-
           <Footer />
         </GlobalProvider>
       </Provider>

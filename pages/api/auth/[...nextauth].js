@@ -64,5 +64,5 @@ export default NextAuth({
     updateAge: 24 * 60 * 60, // 24 hours
   },
   // A database is optional, but required to persist accounts in a database
-  database: process.env.MONGO_URI
+  // database: process.env.MONGO_URI
 })
