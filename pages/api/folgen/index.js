@@ -1,16 +1,12 @@
-const { dbConnect } = require('../../../db');
-const Folge = require('../../../models/folge');
+import connectDB from '../../../middleware/mongodb'
+import Folge from '../../../models/folge'
 
 const handler = async (req, res) => {
-  await dbConnect();
-  console.log('copnnezte');
-  const folgen = await Folge.find({});
-
-  res.json(folgen);
-  // if (req.method === 'GET') {
-  //   const folgen = await Folge.find({});
-  //   res.status(200).json(folgen);
-  // }
+  console.log('API CALL')
+  if (req.method === 'GET') {
+    const folgen = await Folge.find({})
+    return res.json(folgen)
+  }
 }
 
-export default handler;
+export default connectDB(handler)

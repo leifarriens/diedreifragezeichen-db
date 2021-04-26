@@ -19,4 +19,4 @@ async function dbConnect() {
   connection.isConnected = db.connections[0].readyState
 }
 
-module.exports = {dbConnect}
+export default dbConnect

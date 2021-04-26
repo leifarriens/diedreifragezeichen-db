@@ -1,17 +1,17 @@
-import React, { useContext, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useRef } from 'react'
+import { useRouter } from 'next/router'
 
-// import { GlobalContext } from '../../context/GlobalContext';
+import { GlobalContext } from '../../context/GlobalContext'
 
 const Search = () => {
-  const ref = useRef();
-  // const { setSearchQuery, searchQuery } = useContext(GlobalContext);
-  const history = useHistory();
+  const ref = useRef()
+  const { setSearchQuery, searchQuery } = useContext(GlobalContext)
+  const router = useRouter()
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
-      ref.current.blur();
-      history.push('/');
+      ref.current.blur()
+      router.push('/')
     }
   }
 
@@ -24,7 +24,7 @@ const Search = () => {
       onKeyPress={handleKeyDown}
       onChange={(e) => setSearchQuery(e.target.value)}
     />
-  );
+  )
 }
 
-export default Search;
+export default Search

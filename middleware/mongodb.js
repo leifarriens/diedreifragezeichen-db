@@ -1,18 +1,18 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const connectDB = handler => async (req, res) => {
+const connectDB = (handler) => async (req, res) => {
   if (mongoose.connections[0].readyState) {
     // Use current db connection
-    return handler(req, res);
+    return handler(req, res)
   }
   // Use new db connection
-  await mongoose.connect(process.env.mongodburl, {
+  await mongoose.connect(process.env.MONGO_URI, {
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
-    useNewUrlParser: true
-  });
-  return handler(req, res);
-};
+    useNewUrlParser: true,
+  })
+  return handler(req, res)
+}
 
-export default connectDB;
+export default connectDB

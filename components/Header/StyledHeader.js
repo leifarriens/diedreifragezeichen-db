@@ -1,7 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
-import logo from '../../public/logo.png';
+import styled from 'styled-components'
+// import { Link } from 'react-router-dom';
 
 export const Container = styled.header`
   z-index: 10;
@@ -14,7 +12,11 @@ export const Container = styled.header`
   align-items: center;
   width: 100%;
   padding: 48px;
-  background: linear-gradient(0deg, rgba(0,23,39,0) 0%, rgba(0,23,39,.85) 100%);
+  background: linear-gradient(
+    0deg,
+    rgba(0, 23, 39, 0) 0%,
+    rgba(0, 23, 39, 0.85) 100%
+  );
   pointer-events: none;
 
   /* GRID */
@@ -47,18 +49,19 @@ export const Container = styled.header`
   * {
     pointer-events: all;
   }
-`;
+`
 
-export const HomeLink = styled(Link)`
+export const HomeLink = styled.a`
+  cursor: pointer;
   flex: 0 0 auto;
   height: 36px;
   width: 62px;
-  background-image: url(${logo});
+  background-image: url('/logo.png');
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   grid-area: logo;
-`;
+`
 
 export const SearchBar = styled.div`
   width: 100%;
@@ -77,7 +80,7 @@ export const SearchBar = styled.div`
     border: none;
     width: 100%;
   }
-`;
+`
 
 export const ProfileLink = styled.div`
   flex: 1 0 auto;
@@ -91,4 +94,4 @@ export const ProfileLink = styled.div`
   * {
     pointer-events: all;
   }
-`;
+`

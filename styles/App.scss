@@ -3,15 +3,14 @@ $ddfRed: #c50009;
 $ddfBlue: #00a5e7;
 
 $white: #fff;
-$black: #01080E;
-$lightblack: #061C31;
+$black: #01080e;
+$lightblack: #061c31;
 $red: #c50009;
 $blue: #00a5e7;
 
-
-$bgShade1: #030F1A;
+$bgShade1: #030f1a;
 $bgShade2: #001727;
-$bgShade3: #05182A;
+$bgShade3: #05182a;
 
 // $bgShade1: #01080E;
 // $bgShade2: #001727;
@@ -54,7 +53,7 @@ img {
   width: 100%;
   padding: 0 36px;
 
-  @media screen and (min-width:1080px) {
+  @media screen and (min-width: 1080px) {
     width: 1080px;
     margin: 0 auto;
     // padding: 0;
@@ -73,13 +72,12 @@ img {
   padding-left: 36px;
 }
 
-
 .folge {
   // margin-top: 72px;
   padding-top: 144px;
   margin-bottom: 196px;
 
-  @media screen and (min-width:720px) {
+  @media screen and (min-width: 720px) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 96px;
@@ -114,7 +112,7 @@ img {
       color: #6e7c86;
       display: flex;
       justify-content: space-between;
-      margin: .15rem 0;
+      margin: 0.15rem 0;
     }
   }
 }
@@ -125,7 +123,7 @@ img {
   &__cover {
     height: 100%;
     transition: transform 0.15s;
-    opacity: .5;
+    opacity: 0.5;
 
     &:hover {
       opacity: 1;
@@ -165,28 +163,28 @@ img {
   }
 }
 
-
 // Workaround for linear gradient transition animation
-@mixin gradientAnimation( $start, $end, $transTime ){
+@mixin gradientAnimation($start, $end, $transTime) {
   background-size: 100%;
   background-image: linear-gradient($start, $end);
   position: relative;
   z-index: 100;
   &:before {
-      background-image: linear-gradient($end, $start);
-      content: "";
-      display: block;
-      height: 100%;
-      position: absolute;
-      top: 0; left: 0;
-      opacity: 0;
-      width: 100%;
-      z-index: -100;
-      transition: opacity $transTime;
+    background-image: linear-gradient($end, $start);
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    z-index: -100;
+    transition: opacity $transTime;
   }
   &:hover {
-      &:before {
-          opacity: 1;
-      }
+    &:before {
+      opacity: 1;
+    }
   }
 }

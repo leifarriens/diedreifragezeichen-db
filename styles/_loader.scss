@@ -11,7 +11,7 @@
   height: 100%;
   // width: 6px;
   display: inline-block;
-  
+
   -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
   animation: sk-stretchdelay 1.2s infinite ease-in-out;
   transform-origin: center;
@@ -28,20 +28,29 @@
 
 .loader .rect3 {
   // color: $ddfBlue;
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scale(1) }  
-  20% { -webkit-transform: scale(1.2) }
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scale(1);
+  }
+  20% {
+    -webkit-transform: scale(1.2);
+  }
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%,
+  40%,
+  100% {
     transform: scale(1);
     -webkit-transform: scale(1);
-  }  20% { 
+  }
+  20% {
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
   }
