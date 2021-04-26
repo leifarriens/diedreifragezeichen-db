@@ -1,0 +1,192 @@
+$ddfDark: #001727;
+$ddfRed: #c50009;
+$ddfBlue: #00a5e7;
+
+$white: #fff;
+$black: #01080E;
+$lightblack: #061C31;
+$red: #c50009;
+$blue: #00a5e7;
+
+
+$bgShade1: #030F1A;
+$bgShade2: #001727;
+$bgShade3: #05182A;
+
+// $bgShade1: #01080E;
+// $bgShade2: #001727;
+// $bgShade3: #061C31;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  // font-size: 1.1rem;
+  font-size: 14px;
+  // color: $ddfDark;
+  color: #fff;
+  background-color: $ddfDark;
+  // background: linear-gradient(180deg, $bgShade1 0%, $bgShade2 50%, $bgShade3 100%);
+  // filter: brightness(50%);
+  min-height: 100vh;
+
+  @media screen and (min-width: 744px) {
+    font-size: 16px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.wrapper {
+  width: 100%;
+  padding: 0 36px;
+
+  @media screen and (min-width:1080px) {
+    width: 1080px;
+    margin: 0 auto;
+    // padding: 0;
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+
+.grid-wrapper {
+  // padding: 0 16px;
+}
+
+.grid-ui {
+  padding-left: 36px;
+}
+
+
+.folge {
+  // margin-top: 72px;
+  padding-top: 144px;
+  margin-bottom: 196px;
+
+  @media screen and (min-width:720px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 96px;
+  }
+
+  &__cover {
+    height: auto;
+    width: 100%;
+
+    img {
+      height: auto;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &__content {
+    // padding: 8px;
+
+    .rating {
+      margin: 8px 0;
+    }
+  }
+}
+
+.folge-miniatur {
+  width: 100%;
+  // content-visibility: auto;
+
+  .description {
+    &__rating {
+      color: #6e7c86;
+      display: flex;
+      justify-content: space-between;
+      margin: .15rem 0;
+    }
+  }
+}
+
+.folgen-slider {
+  height: 250px;
+
+  &__cover {
+    height: 100%;
+    transition: transform 0.15s;
+    opacity: .5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__cover.active {
+    opacity: 1;
+  }
+}
+
+@import 'loader';
+@import 'button';
+
+.search {
+  &__container {
+    flex: 0 1 auto !important;
+    min-width: 0px !important;
+    // padding: 0px 24px !important;
+    text-align: left !important;
+    position: sticky;
+    top: 105px;
+    z-index: 0;
+
+    @media screen and(min-width:768px) {
+      width: 480px;
+    }
+  }
+
+  &__input {
+    font-family: inherit;
+    font-size: 16px;
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    width: 100%;
+  }
+}
+
+
+// Workaround for linear gradient transition animation
+@mixin gradientAnimation( $start, $end, $transTime ){
+  background-size: 100%;
+  background-image: linear-gradient($start, $end);
+  position: relative;
+  z-index: 100;
+  &:before {
+      background-image: linear-gradient($end, $start);
+      content: "";
+      display: block;
+      height: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      opacity: 0;
+      width: 100%;
+      z-index: -100;
+      transition: opacity $transTime;
+  }
+  &:hover {
+      &:before {
+          opacity: 1;
+      }
+  }
+}
