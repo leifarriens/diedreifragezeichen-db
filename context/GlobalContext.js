@@ -79,6 +79,10 @@ export const GlobalProvider = ({ children }) => {
   )
 }
 
+export const useGlobalState = () => {
+  return React.useContext(GlobalContext);
+}
+
 import useSWR from 'swr'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())

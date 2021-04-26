@@ -1,6 +1,5 @@
 import connectDB from '../../../middleware/mongodb'
 import Folge from '../../../models/folge'
-import { getSession } from 'next-auth/client'
 
 const handler = async ({ method, query: { id } }, res) => {
   switch (method) {

@@ -10,6 +10,8 @@ import {
 import { calcFolgenRating, sortFolgenByDateAsc } from '../../utils'
 import dayjs from 'dayjs'
 
+import { getFolgeById } from '../../services/'
+
 import Rating from '../../components/Rating'
 
 import { GlobalContext } from '../../context/GlobalContext'
@@ -103,9 +105,7 @@ function Folge(props) {
 
 export async function getServerSideProps(context) {
   const id = context.params.id
-  console.log(id);
-  const res = await fetch(process.env.VERCEL_URL + '/api/folgen/' + id)
-  const folge = await res.json(res)
+  const folge = await getFolgeById(id)
 
   return {
     props: {
