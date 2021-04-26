@@ -34,3 +34,7 @@ export const sortFolgenByDateDesc = (folgen) => {
 
   return sorted.reverse()
 }
+
+export const parseMongo = (mongoResponse) => {
+  return JSON.parse(JSON.stringify(mongoResponse));
+}

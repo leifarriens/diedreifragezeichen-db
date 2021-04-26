@@ -1,117 +1,52 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Link from 'next/link'
-import {
-  Container,
-  Cover,
-  Content,
-  Buttons,
-  Background,
-} from '../../components/Folge/StyledFolge'
-import { calcFolgenRating, sortFolgenByDateAsc } from '../../utils'
-import dayjs from 'dayjs'
+import FolgeComponent from '../../components/Folge/'
+import { parseMongo } from '../../utils'
 
 import { getFolgeById } from '../../services/'
 
-import Rating from '../../components/Rating'
-
 import { GlobalContext } from '../../context/GlobalContext'
-import { useRouter } from 'next/router'
+import { GridContainer, FolgenContainer } from '../../components/Grid/StyledGrid'
+import GridFolge from '../../components/Grid/GridFolge'
 
 function Folge(props) {
   const { folgen } = useContext(GlobalContext)
-  const {
-    images,
-    name,
-    release_date,
-    _id,
-    ratings,
-    number,
-    spotify_id,
-  } = props.folge
-  const rating = calcFolgenRating(ratings) || 0
-  const isBigCover = Number(number) >= 125 ? true : false
-  const router = useRouter()
-  let sortedFolgen = sortFolgenByDateAsc(folgen)
-  sortedFolgen = sortedFolgen.filter((f) => f.type === 'regular')
 
-  const currIndex = sortedFolgen.findIndex((f) => f._id === _id)
-
-  const prevFolge = sortedFolgen[currIndex - 1]
-  const nextFolge = sortedFolgen[currIndex + 1]
-
-  const prevLink = prevFolge && sortedFolgen[currIndex - 1]._id
-  const nextLink = nextFolge && sortedFolgen[currIndex + 1]._id
-
-  const _handleKeyNavigation = (e) => {
-    if (prevFolge && e.key === 'ArrowLeft') {
-      router.push('/folge/' + prevLink)
-    }
-
-    if (nextFolge && e.key === 'ArrowRight') {
-      router.push('/folge/' + nextLink)
-    }
-  }
-
-  useEffect(() => {
-    document.removeEventListener('keydown', _handleKeyNavigation)
-    document.addEventListener('keydown', _handleKeyNavigation)
-  }, [props.folge])
+  const rel = getRelatedFolgen(props.folge, folgen);
 
   return (
-    <Container className="wrapper">
-      <Cover>
-        <img src={images[0].url} />
-      </Cover>
-      <Content>
-        <h2>Die drei ???</h2>
-        <h1>{name}</h1>
-        <div>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</div>
-        <div>
-          <span style={{ fontSize: '30px' }}>{rating.toFixed(1)}/10</span>
-        </div>
-        <Rating folge_id={_id} defaultRating={rating} />
-
-        <Buttons>
-          <a
-            className="button"
-            target="_blank"
-            rel="noreferrer"
-            href={`spotify:album:${spotify_id}`}
-          >
-            Anhören
-          </a>
-          {/* <AddToList folge={folge}/> */}
-        </Buttons>
-      </Content>
-
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {prevLink && (
-          <Link href={`/folge/${prevLink}`}>
-            <a>Previous</a>
-          </Link>
-        )}
-
-        {nextLink && (
-          <Link href={`/folge/${nextLink}`}>
-            <a>Next</a>
-          </Link>
-        )}
-      </div>
-
-      <Background url={images[0].url} bigCover={isBigCover} />
-    </Container>
+    <GridContainer>
+      <FolgeComponent folge={props.folge} />
+      
+      <FolgenContainer>
+        {rel.map((folge) => (
+          <GridFolge key={folge._id} folge={folge} />
+        ))}
+      </FolgenContainer>
+    </GridContainer>
   )
 }
 
 export async function getServerSideProps(context) {
+
   const id = context.params.id
-  const folge = await getFolgeById(id)
+  const data = await getFolgeById(id)
+
+  const folge = parseMongo(data)
 
   return {
     props: {
-      folge
-    }
+      folge,
+    },
   }
+}
+
+// helpers
+
+const getRelatedFolgen = (folge, folgen) => {
+  const index = folgen.findIndex((f) => f._id === folge._id)
+
+  return folgen.slice(index - 10, index + 10)
 }
 
 export default Folge

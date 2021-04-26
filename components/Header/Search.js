@@ -11,18 +11,25 @@ const Search = () => {
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       ref.current.blur()
-      router.push('/')
+      router.push({
+        pathname: '/',
+        // search: '?' + new URLSearchParams({ search: e.target.value }).toString(),
+      })
     }
+  }
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value)
   }
 
   return (
     <input
       ref={ref}
       type="text"
-      // value={searchQuery}
+      value={searchQuery}
       placeholder="DB durchsuchen..."
       onKeyPress={handleKeyDown}
-      onChange={(e) => setSearchQuery(e.target.value)}
+      onChange={handleSearchChange}
     />
   )
 }

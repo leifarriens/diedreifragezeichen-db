@@ -11,8 +11,10 @@ import {
 } from '../../utils'
 
 import { GlobalContext } from '../../context/GlobalContext'
+import Loader from '../Loader'
 
 const Grid = (props) => {
+  const { showControls = true } = props
   const {
     searchQuery,
     sortBy,
@@ -20,6 +22,7 @@ const Grid = (props) => {
     showSpecials,
     setShowSpecials,
   } = useContext(GlobalContext)
+
   const [folgen, setFolgen] = useState(props.folgen)
 
   const filterSpecial = () => {
@@ -80,21 +83,23 @@ const Grid = (props) => {
 
   return (
     <GridContainer>
-      <GridUI>
-        <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
-        <div>
-          <label>
-            <span>Specials anzeigen</span>
-            <input
-              type="checkbox"
-              checked={showSpecials}
-              onChange={(e) => handleCheckboxChange(e)}
-            />
-          </label>
-        </div>
-      </GridUI>
+      {showControls && (
+        <GridUI>
+          <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
+          <div>
+            <label>
+              <span>Specials anzeigen</span>
+              <input
+                type="checkbox"
+                checked={showSpecials}
+                onChange={(e) => handleCheckboxChange(e)}
+              />
+            </label>
+          </div>
+          <div>{folgen.length} Folgen</div>
+        </GridUI>
+      )}
 
-      <div>{folgen.length} Folgen</div>
       <FolgenContainer>
         {folgen.map((folge) => (
           <GridFolge key={folge._id} folge={folge} />

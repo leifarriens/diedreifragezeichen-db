@@ -1,36 +1,32 @@
+import dbConnect from '../db'
 import Grid from '../components/Grid'
-import { signIn, signOut, useSession } from 'next-auth/client'
-
+import { getFolgen } from '../services'
 import { GlobalContext } from '../context/GlobalContext'
 import { useContext } from 'react'
+import { parseMongo } from '../utils'
 
-import { getFolgen }  from '../services'
+import Loader from '../components/Loader'
 
-function Home() {
-  const { folgen } = useContext(GlobalContext)
+function Home(props) {
+  // const { folgen } = useContext(GlobalContext)
 
-  return <Grid folgen={folgen} />
+  return <Grid folgen={props.folgen} />
+
+  if (folgen.length > 0) return <Grid folgen={folgen} />
+
+  return <Loader/>
 }
 
-// export async function getStaticProps(context) {
-//   // const res = await fetch(`http://localhost:3000/api/folgen`)
-//   // const folgen = await res.json()
-  
-//   const folgen = await getFolgen();
-//   // const folgen = JSON.parse(JSON.stringify(data))
+export async function getStaticProps (context) {
+  await dbConnect()
 
-//   if (!folgen) {
-//     return {
-//       notFound: true,
-//     }
-//   }
+  const data = await getFolgen();
 
-//   return {
-//     props: {
-//       folgen
-//     }, // will be passed to the page component as props
-//   }
-// }
+  const folgen = parseMongo(data);
 
+  return {
+    props: { folgen }
+  }
+}
 
 export default Home

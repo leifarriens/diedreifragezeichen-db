@@ -17,7 +17,10 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   useEffect(() => {
+    // console.log(folgen);
     if (folgen && folgen.length > 0) {
+      console.log(folgen);
+      console.log('set data');
       setFolgen(folgen)
     }
   }, [folgen])
@@ -31,10 +34,10 @@ export const GlobalProvider = ({ children }) => {
     setSortBy(sortBy)
   }, [])
 
-  function setFolgen(folgen) {
+  function setFolgen(newfolgen) {
     dispatch({
       type: 'SET_FOLGEN',
-      payload: folgen,
+      payload: newfolgen,
     })
   }
 
@@ -74,7 +77,7 @@ export const GlobalProvider = ({ children }) => {
         setSortBy,
       }}
     >
-      {state.folgen.length > 0 && children}
+      {children}
     </GlobalContext.Provider>
   )
 }
