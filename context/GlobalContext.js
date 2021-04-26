@@ -17,24 +17,9 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   useEffect(() => {
-    // const fetchFolgen = async () => {
-    //   try {
-    //     const res = await fetch(process.env.API_URL + '/api/folgen')
-    //     const folgen = await res.json()
-        // dispatch({
-        //   type: 'SET_FOLGEN',
-        //   payload: folgen,
-        // })
-    //   } catch (err) {
-    //     console.log(err.response)
-    //   }
-    // }
-    // fetchFolgen()
     if (folgen && folgen.length > 0) {
       setFolgen(folgen)
     }
-
-    // console.log(folgen);
   }, [folgen])
 
   useEffect(() => {

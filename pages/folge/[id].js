@@ -104,7 +104,7 @@ function Folge(props) {
 export async function getServerSideProps(context) {
   const id = context.params.id
   console.log(id);
-  const res = await fetch(process.env.API_URL + '/api/folgen/' + id)
+  const res = await fetch(process.env.VERCEL_URL + '/api/folgen/' + id)
   const folge = await res.json(res)
 
   return {
