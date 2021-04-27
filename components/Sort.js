@@ -41,12 +41,12 @@ const Label = styled.label`
   }
 
   :first-child span {
-    border-radius: 24px 0 0 24px;
+    border-radius: 8px 0 0 8px;
     border-right: none;
   }
 
   :last-child span {
-    border-radius: 0 24px 24px 0;
+    border-radius: 0 8px 8px 0;
     border-left: none;
   }
 `;

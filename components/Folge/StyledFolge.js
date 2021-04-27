@@ -35,6 +35,8 @@ export const Content = styled.div`
 `;
 
 export const Buttons = styled.div`
+  margin-top: 24px;
+
   > * {
     margin-right: 10px;
   }

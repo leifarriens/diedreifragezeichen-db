@@ -65,7 +65,6 @@ const Grid = (props) => {
       folgenToShow = filterByQuery(folgenToShow);
       folgenToShow = applySort(folgenToShow);
 
-      folgenToShow.forEach(f  => console.log(f.number))
       setFolgen(folgenToShow);
     };
 
@@ -87,17 +86,17 @@ const Grid = (props) => {
     <GridContainer>
       <GridUI>
         <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
-        <div>
+        <div style={{ marginBottom: '16px' }}>
           <label>
-            <span>Specials anzeigen</span>
             <input
               type="checkbox"
               checked={showSpecials}
               onChange={(e) => handleCheckboxChange(e)}
             />
+            <span style={{ marginLeft: '8px', lineHeight: 1.5 }}>Specials anzeigen</span>
           </label>
         </div>
-        <div>{folgen.length} Folgen</div>
+        <div style={{ marginBottom: '16px' }}>{folgen.length} Folgen</div>
       </GridUI>
 
       <FolgenContainer>

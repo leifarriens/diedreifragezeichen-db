@@ -7,6 +7,19 @@ const userSchema = mongoose.Schema({
   password: String,
   created_at: Date,
   list: Array,
+  ratings: {
+    type: Array,
+    default: []
+  }
+  // ratings: [{
+  //   folge: String,
+  //   rating: {
+  //     type: Number,
+  //     default: 0
+  //   }
+  // }]
 });
 
-const User = (module.exports = mongoose.model('User', userSchema));
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;

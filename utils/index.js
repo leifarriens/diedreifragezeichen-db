@@ -1,6 +1,6 @@
 export const calcFolgenRating = (ratings) => {
   if (ratings.length === 0) return 0;
-  return ratings.reduce((a, b) => Number(a) + Number(b), 0) / ratings.length;
+  return Math.round((ratings.reduce((a, b) => Number(a) + Number(b), 0) / ratings.length) * 10) / 10;
 };
 
 export const roundRatingToPointFive = (rating) => {

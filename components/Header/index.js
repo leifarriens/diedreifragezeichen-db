@@ -1,22 +1,26 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import Headroom from 'react-headroom';
 import { Container, HomeLink, SearchBar, ProfileLink } from './StyledHeader';
 import { AiOutlineProfile } from 'react-icons/ai';
 import SearchInput from './Search';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/client';
 
-// import { AuthContext } from '../../context/AuthContext';
 import { GlobalContext } from '../../context/GlobalContext';
 
 const Header = () => {
-  // const { auth } = useContext(AuthContext);
   const { setSearchQuery } = useContext(GlobalContext);
-  // const auth = false;
+  const router = useRouter();
 
   const handleHomeClick = () => {
     setSearchQuery('');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    if (router.route !== '/') {
+      router.push('/')
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const [session, loading] = useSession();
@@ -24,9 +28,9 @@ const Header = () => {
   return (
     <Headroom style={{pointerEvents: 'none'}}>
       <Container>
-        <Link href="/#">
+        {/* <Link href="/#"> */}
           <HomeLink onClick={handleHomeClick} />
-        </Link>
+        {/* </Link> */}
 
         <SearchBar>
           <SearchInput />

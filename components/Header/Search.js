@@ -27,7 +27,7 @@ const Search = () => {
       ref={ref}
       type="text"
       value={searchQuery}
-      placeholder="DB durchsuchen..."
+      placeholder="'Name', 'Nummer', 'Erscheinungsjahr'"
       onKeyPress={handleKeyDown}
       onChange={handleSearchChange}
     />

@@ -22,32 +22,6 @@ const Folge = ({ folge, prevFolge, nextFolge }) => {
   const isBigCover = Number(number) >= 125 ? true : false;
   const router = useRouter();
 
-  // let sortedFolgen = sortFolgenByDateAsc(folgen)
-  // sortedFolgen = sortedFolgen.filter((f) => f.type === 'regular')
-
-  // const currIndex = sortedFolgen.findIndex((f) => f._id === _id)
-
-  // const prevFolge = sortedFolgen[currIndex - 1]
-  // const nextFolge = sortedFolgen[currIndex + 1]
-
-  // const prevLink = prevFolge && sortedFolgen[currIndex - 1]._id
-  // const nextLink = nextFolge && sortedFolgen[currIndex + 1]._id
-
-  // const _handleKeyNavigation = (e) => {
-  //   if (prevFolge && e.key === 'ArrowLeft') {
-  //     router.push('/folge/' + prevLink)
-  //   }
-
-  //   if (nextFolge && e.key === 'ArrowRight') {
-  //     router.push('/folge/' + nextLink)
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   document.removeEventListener('keydown', _handleKeyNavigation)
-  //   document.addEventListener('keydown', _handleKeyNavigation)
-  // }, [folge])
-
   const _toPrevFolge = () => router.push('/folge/' + prevFolge._id);
 
   const _toNextFolge = () => router.push('/folge/' + nextFolge._id);
@@ -62,10 +36,9 @@ const Folge = ({ folge, prevFolge, nextFolge }) => {
         <h1>{name}</h1>
         <div>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</div>
         <div>
-          <span style={{ fontSize: '30px' }}>{rating.toFixed(1)}/10</span>
+          <span style={{ fontSize: '30px' }}>{rating ? rating : '???'}/10</span>
         </div>
-        <Rating folge_id={_id} defaultRating={rating} />
-
+        <Rating folge_id={_id} defaultRating={0} />
         <Buttons>
           <a
             className="button"

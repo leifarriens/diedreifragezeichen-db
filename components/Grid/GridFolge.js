@@ -13,7 +13,6 @@ const Cover = styled.div`
   height: auto;
   transition: transform 150ms ease;
   transform-origin: bottom;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 
   :hover {
     transform: scale(1.05);
@@ -39,7 +38,7 @@ const GridFolge = React.memo(({ folge }) => {
       <div className="description">
         <div className="folge-miniatur__rating">
           <div>
-            {rating.toFixed(1)}/<small>10</small>
+            {rating ? rating : '???'}/<small>10</small>
           </div>
         </div>
         <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
@@ -66,7 +65,7 @@ const FolgeCover = ({ src }) => {
       <Cover>
         {loading && <Loader />}
         <img
-          style={{ display: loading ? 'none' : 'block' }}
+          style={{ display: loading ? 'none' : 'block', boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' }}
           src={imgSrc}
           onLoad={() => setLoading(false)}
         />
