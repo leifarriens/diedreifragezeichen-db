@@ -8,14 +8,14 @@ export const FullpageLoader = () => {
     left: 0,
     display: 'flex',
     alignItems: 'center',
-  }
+  };
 
   return (
     <div style={style}>
       <Loader />
     </div>
-  )
-}
+  );
+};
 
 export const Loader = () => {
   return (
@@ -24,7 +24,7 @@ export const Loader = () => {
       <div className="rect2">?</div>
       <div className="rect3">?</div>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

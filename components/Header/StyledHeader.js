@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 // import { Link } from 'react-router-dom';
 
 export const Container = styled.header`
@@ -49,7 +49,7 @@ export const Container = styled.header`
   * {
     pointer-events: all;
   }
-`
+`;
 
 export const HomeLink = styled.a`
   cursor: pointer;
@@ -61,7 +61,7 @@ export const HomeLink = styled.a`
   background-size: contain;
   background-repeat: no-repeat;
   grid-area: logo;
-`
+`;
 
 export const SearchBar = styled.div`
   width: 100%;
@@ -76,11 +76,12 @@ export const SearchBar = styled.div`
     font-size: 16px;
     font-size: inherit;
     padding: 12px 24px;
-    border-radius: 25px;
+    border-radius: 12px;
     border: none;
     width: 100%;
+    outline: none;
   }
-`
+`;
 
 export const ProfileLink = styled.div`
   flex: 1 0 auto;
@@ -94,4 +95,4 @@ export const ProfileLink = styled.div`
   * {
     pointer-events: all;
   }
-`
+`;

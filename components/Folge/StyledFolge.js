@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Container = styled.div`
   padding-top: 0px;
@@ -10,7 +10,7 @@ export const Container = styled.div`
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 96px;
   }
-`
+`;
 
 export const Cover = styled.div`
   height: auto;
@@ -24,7 +24,7 @@ export const Cover = styled.div`
     object-fit: cover;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
-`
+`;
 
 export const Content = styled.div`
   padding: 6px;
@@ -32,13 +32,13 @@ export const Content = styled.div`
   > div {
     margin-bottom: 8px;
   }
-`
+`;
 
 export const Buttons = styled.div`
   > * {
     margin-right: 10px;
   }
-`
+`;
 
 export const Background = styled.div`
   z-index: -1;
@@ -54,4 +54,4 @@ export const Background = styled.div`
   background-repeat: no-repeat;
   transform: scale(1.15);
   filter: blur(80px) brightness(35%);
-`
+`;

@@ -1,15 +1,9 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import {
-  Container,
-  Cover,
-  Content,
-  Buttons,
-  Background,
-} from './StyledFolge'
-import { calcFolgenRating, sortFolgenByDateAsc } from '../../utils'
-import Rating from '../Rating'
-import dayjs from 'dayjs'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Container, Cover, Content, Buttons, Background } from './StyledFolge';
+import { calcFolgenRating, sortFolgenByDateAsc } from '../../utils';
+import Rating from '../Rating';
+import dayjs from 'dayjs';
 
 const Folge = ({ folge }) => {
   const {
@@ -20,9 +14,9 @@ const Folge = ({ folge }) => {
     ratings,
     number,
     spotify_id,
-  } = folge
-  const rating = calcFolgenRating(ratings) || 0
-  const isBigCover = Number(number) >= 125 ? true : false
+  } = folge;
+  const rating = calcFolgenRating(ratings) || 0;
+  const isBigCover = Number(number) >= 125 ? true : false;
   // const router = useRouter()
 
   // let sortedFolgen = sortFolgenByDateAsc(folgen)
@@ -94,7 +88,7 @@ const Folge = ({ folge }) => {
 
       <Background url={images[0].url} bigCover={isBigCover} />
     </Container>
-  )
-}
+  );
+};
 
 export default Folge;

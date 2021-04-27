@@ -1,10 +1,10 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const SortContainer = styled.div`
   display: flex;
   margin-bottom: 24px;
-`
+`;
 
 const Label = styled.label`
   cursor: pointer;
@@ -49,7 +49,7 @@ const Label = styled.label`
     border-radius: 0 24px 24px 0;
     border-left: none;
   }
-`
+`;
 
 const Sort = ({ currentSort, onSortChange }) => {
   const sortVariants = [
@@ -65,7 +65,7 @@ const Sort = ({ currentSort, onSortChange }) => {
       name: 'Beste zuerst',
       value: 'rating',
     },
-  ]
+  ];
 
   return (
     <SortContainer>
@@ -82,7 +82,7 @@ const Sort = ({ currentSort, onSortChange }) => {
         </Label>
       ))}
     </SortContainer>
-  )
-}
+  );
+};
 
-export default Sort
+export default Sort;

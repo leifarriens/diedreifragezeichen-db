@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
-import styled from 'styled-components'
-import ReactStars from 'react-rating-stars-component'
-import { useSession, signIn } from 'next-auth/client'
-import { useRouter } from 'next/router'
-import { roundRatingToPointFive } from '../utils'
-import useSWR, { mutate } from 'swr'
+import React, { useContext } from 'react';
+import styled from 'styled-components';
+import ReactStars from 'react-rating-stars-component';
+import { useSession, signIn } from 'next-auth/client';
+import { useRouter } from 'next/router';
+import { roundRatingToPointFive } from '../utils';
+import useSWR, { mutate } from 'swr';
 
 const RateIcon = styled.i`
   display: block;
@@ -14,13 +14,13 @@ const RateIcon = styled.i`
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-`
+`;
 
 const Rating = ({ folge_id, defaultRating }) => {
-  const roundedRating = roundRatingToPointFive(defaultRating)
-  const [session] = useSession()
+  const roundedRating = roundRatingToPointFive(defaultRating);
+  const [session] = useSession();
 
-  const router = useRouter()
+  const router = useRouter();
 
   // const rateFolge = (value) => {
 
@@ -48,18 +48,18 @@ const Rating = ({ folge_id, defaultRating }) => {
   // }
 
   const _handleRateClick = (newRating) => {
-    if (!session) return signIn()
+    if (!session) return signIn();
 
-    console.log(newRating)
+    console.log(newRating);
     mutate(`/api/folgen/`, async (respo) => {
       const updatedRating = await fetch(`/api/folgen/${folge_id}/rate`, {
         method: 'POST',
         body: JSON.stringify({ rating: newRating }),
-      })
+      });
 
-      console.log(updatedRating)
-    })
-  }
+      console.log(updatedRating);
+    });
+  };
 
   const settings = {
     style: { display: 'inline-flex' },
@@ -70,9 +70,9 @@ const Rating = ({ folge_id, defaultRating }) => {
     halfIcon: <RateIcon icon={'/half.png'} />,
     filledIcon: <RateIcon icon={'/blue.png'} />,
     onChange: (newRating) => _handleRateClick(newRating),
-  }
+  };
 
-  return <ReactStars {...settings} />
-}
+  return <ReactStars {...settings} />;
+};
 
-export default Rating
+export default Rating;

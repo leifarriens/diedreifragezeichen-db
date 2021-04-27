@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const GridContainer = styled.div`
   padding: 0 24px;
@@ -22,7 +22,7 @@ export const GridContainer = styled.div`
   /* ${({ sortBy }) =>
     sortBy === 'dateDesc' &&
     `background: linear-gradient(180deg, #030F1A 0%, #001727 50%, #05182A 100%);`} */
-`
+`;
 
 export const GridUI = styled.div`
   /* width: auto; */
@@ -31,16 +31,16 @@ export const GridUI = styled.div`
     /* display: grid; */
     /* grid-template-columns: auto 1fr; */
   }
-`
+`;
 
 export const FolgenContainer = styled.div`
   display: grid;
   grid-gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   justify-items: start;
 
   @media screen and (min-width: 590px) {
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 
   @media screen and (min-width: 744px) {
@@ -50,4 +50,4 @@ export const FolgenContainer = styled.div`
   @media screen and (min-width: 1440px) {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
-`
+`;

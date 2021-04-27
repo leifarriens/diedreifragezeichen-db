@@ -1,13 +1,13 @@
 import App from 'next/app';
-import Head from 'next/head'
+import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
 
-import '../styles/App.scss'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import '../styles/App.scss';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
-import { Provider } from 'next-auth/client'
-import { GlobalProvider } from '../context/GlobalContext'
+import { Provider } from 'next-auth/client';
+import { GlobalProvider } from '../context/GlobalContext';
 
 function MyApp({ Component, pageProps, folgen }) {
   return (
@@ -26,18 +26,22 @@ function MyApp({ Component, pageProps, folgen }) {
           // url: 'https://www.factory-shop.de/',
           site_name: 'Die drei Fragezeichen DB',
         }}
-        defaultTitle = 'Drei Fragezeichen DB'
+        defaultTitle="Drei Fragezeichen DB"
       />
 
       <Provider session={pageProps.session}>
         <GlobalProvider>
-          <Header />
-          <Component {...pageProps} />
-          <Footer />
+          <div className="container">
+            <Header />
+            <div className="main">
+              <Component {...pageProps} />
+            </div>
+            <Footer />
+          </div>
         </GlobalProvider>
       </Provider>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 // import { FaSpotify } from 'react-icons/fa';
 
 const PageFooter = styled.div`
@@ -15,7 +15,7 @@ const PageFooter = styled.div`
     top: 2px;
     left: 2px;
   }
-`
+`;
 
 const Signatur = styled.div`
   margin: 0 18px 18px 0;
@@ -29,7 +29,7 @@ const Signatur = styled.div`
   @media screen and (min-width: 1080px) {
     font-size: 0.85rem;
   }
-`
+`;
 
 const Footer = () => {
   return (
@@ -49,7 +49,7 @@ const Footer = () => {
         </a>
       </Signatur>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

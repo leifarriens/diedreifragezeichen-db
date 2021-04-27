@@ -1,5 +1,5 @@
-import NextAuth from 'next-auth'
-import Providers from 'next-auth/providers'
+import NextAuth from 'next-auth';
+import Providers from 'next-auth/providers';
 
 export default NextAuth({
   // Configure one or more authentication providers
@@ -12,7 +12,7 @@ export default NextAuth({
     // }),
     Providers.Spotify({
       clientId: process.env.SPOTIFY_CLIENT_ID,
-      clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     }),
     // Providers.Credentials({
     //   // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -65,4 +65,4 @@ export default NextAuth({
   },
   // A database is optional, but required to persist accounts in a database
   // database: process.env.MONGO_URI
-})
+});

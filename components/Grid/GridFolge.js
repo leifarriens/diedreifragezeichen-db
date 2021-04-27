@@ -1,13 +1,12 @@
-import React, { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { InView } from 'react-intersection-observer'
-import dayjs from 'dayjs'
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { InView } from 'react-intersection-observer';
+import dayjs from 'dayjs';
 
-import { calcFolgenRating } from '../../utils'
+import { calcFolgenRating } from '../../utils';
 
-import { Loader } from '../Loader'
-import styled from 'styled-components'
+import { Loader } from '../Loader';
+import styled from 'styled-components';
 
 const Cover = styled.div`
   width: 100%;
@@ -24,10 +23,10 @@ const Cover = styled.div`
       transform: none;
     }
   }
-`
+`;
 
 const GridFolge = React.memo(({ folge }) => {
-  const rating = calcFolgenRating(folge.ratings)
+  const rating = calcFolgenRating(folge.ratings);
 
   return (
     <div className="folge-miniatur">
@@ -45,17 +44,17 @@ const GridFolge = React.memo(({ folge }) => {
         <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
       </div>
     </div>
-  )
-})
+  );
+});
 
 const FolgeCover = ({ src }) => {
-  const [loading, setLoading] = useState(true)
-  const [imgSrc, setImgSrc] = useState('')
+  const [loading, setLoading] = useState(true);
+  const [imgSrc, setImgSrc] = useState('');
 
   const handleViewChange = (inView) => {
-    if (!inView) return
-    if (inView) setImgSrc(src)
-  }
+    if (!inView) return;
+    if (inView) setImgSrc(src);
+  };
 
   return (
     <InView
@@ -70,14 +69,9 @@ const FolgeCover = ({ src }) => {
           src={imgSrc}
           onLoad={() => setLoading(false)}
         />
-        {/* <Image
-          src={src}
-          width={150}
-          height={150}
-        /> */}
       </Cover>
     </InView>
-  )
-}
+  );
+};
 
-export default GridFolge
+export default GridFolge;

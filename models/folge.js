@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose');
 
 // Folge Schema
 const folgeSchema = mongoose.Schema(
@@ -19,10 +19,10 @@ const folgeSchema = mongoose.Schema(
   {
     collection: 'folgen',
   }
-)
+);
 
-mongoose.models = {}
+mongoose.models = {};
 
-var Folge = mongoose.model('Folge', folgeSchema)
+var Folge = mongoose.model('Folge', folgeSchema);
 
-export default Folge
+module.exports = Folge;
