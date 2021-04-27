@@ -13,6 +13,7 @@ const Cover = styled.div`
   height: auto;
   transition: transform 150ms ease;
   transform-origin: bottom;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 
   :hover {
     transform: scale(1.05);

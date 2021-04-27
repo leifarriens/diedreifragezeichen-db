@@ -13,6 +13,23 @@ export default NextAuth({
     Providers.Spotify({
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      async authorize(credentials) {
+        console.log(credentials);
+        // const user = (credentials) => {
+        //   // You need to provide your own logic here that takes the credentials
+        //   // submitted and returns either a object representing a user or value
+        //   // that is false/null if the credentials are invalid.
+        //   // e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
+        //   return null
+        // }
+        // if (user) {
+        //   console.log(user);
+        //   // Any user object returned here will be saved in the JSON Web Token
+        //   return user
+        // } else {
+        //   return null
+        // }
+      }
     }),
     // Providers.Credentials({
     //   // The name to display on the sign in form (e.g. 'Sign in with...')
@@ -62,7 +79,7 @@ export default NextAuth({
     // Use it to limit write operations. Set to 0 to always update the database.
     // Note: This option is ignored if using JSON Web Tokens
     updateAge: 24 * 60 * 60, // 24 hours
-  },
+  }
   // A database is optional, but required to persist accounts in a database
   // database: process.env.MONGO_URI
 });

@@ -22,7 +22,7 @@ const Header = () => {
   const [session, loading] = useSession();
 
   return (
-    <Headroom>
+    <Headroom style={{pointerEvents: 'none'}}>
       <Container>
         <Link href="/#">
           <HomeLink onClick={handleHomeClick} />

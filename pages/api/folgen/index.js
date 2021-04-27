@@ -4,7 +4,7 @@ import Folge from '../../../models/folge';
 const handler = async (req, res) => {
   console.log('API CALL');
   if (req.method === 'GET') {
-    const folgen = await Folge.find({});
+    const folgen = await Folge.find({}).sort('release_date');
     return res.json(folgen);
   }
 };

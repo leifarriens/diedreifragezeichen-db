@@ -65,12 +65,13 @@ const Grid = (props) => {
       folgenToShow = filterByQuery(folgenToShow);
       folgenToShow = applySort(folgenToShow);
 
+      folgenToShow.forEach(f  => console.log(f.number))
       setFolgen(folgenToShow);
     };
 
     showRightFolgen();
 
-    setBodyBgBySort(sortBy);
+    setBodyBgByStyle(sortBy);
   }, [showSpecials, searchQuery, sortBy]);
 
   const handleCheckboxChange = (e) => {
@@ -108,9 +109,9 @@ const Grid = (props) => {
   );
 };
 
-const setBodyBgBySort = (sortBy) => {
-  console.log(sortBy);
+const setBodyBgByStyle = (sortBy) => {
   let style = '';
+
   switch (sortBy) {
     case 'dateAsc':
       style = 'linear-gradient(0deg, #030f1a 0%, #001727 50%, #05182a 100%)';

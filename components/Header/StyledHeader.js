@@ -21,16 +21,18 @@ export const Container = styled.header`
 
   /* GRID */
   display: grid;
-  grid-row-gap: 18px;
-  grid-column-gap: 18px;
+  grid-row-gap: 20px;
+  grid-column-gap: 20px;
   grid-template-columns: auto 1fr auto;
   grid-template-areas:
     'logo - profile'
     'search search search';
 
+  @media (max-width: 744px) {
+    padding-top: 18px;
+  }
+
   @media (min-width: 375px) {
-    /* padding-top: 26px; */
-    /* padding-bottom: 26px; */
     padding-left: 24px;
     padding-right: 24px;
   }
@@ -76,7 +78,8 @@ export const SearchBar = styled.div`
     font-size: 16px;
     font-size: inherit;
     padding: 12px 24px;
-    border-radius: 12px;
+    border-radius: 25px;
+    font-size: 1.2.rem;
     border: none;
     width: 100%;
     outline: none;

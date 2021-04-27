@@ -16,11 +16,11 @@ import GridFolge from '../../components/Grid/GridFolge';
 function Folge(props) {
   const { folgen } = useContext(GlobalContext);
 
-  const rel = getRelatedFolgen(props.folge, folgen);
+  const { rel, next, prev } = getRelatedFolgen(props.folge, folgen);
 
   return (
     <GridContainer>
-      <FolgeComponent folge={props.folge} />
+      <FolgeComponent folge={props.folge} prevFolge={prev} nextFolge={next} />
 
       <FolgenContainer>
         {rel.map((folge) => (
@@ -50,7 +50,15 @@ export async function getServerSideProps(context) {
 const getRelatedFolgen = (folge, folgen) => {
   const index = folgen.findIndex((f) => f._id === folge._id);
 
-  return folgen.slice(index - 10, index + 10);
+  const previosEntrys = index < 5 ? index : 5;
+  const followingEntrys = folgen.length - 5 < index ? index : 5
+
+  const rel = folgen.slice(index - previosEntrys, index + followingEntrys);
+
+  const prev = folgen[index - 1] || null;
+  const next = folgen[index + 1] || null;
+
+  return { rel, prev, next };
 };
 
 export default Folge;

@@ -48,7 +48,7 @@ const Rating = ({ folge_id, defaultRating }) => {
   // }
 
   const _handleRateClick = (newRating) => {
-    if (!session) return signIn();
+    // if (!session) return signIn();
 
     console.log(newRating);
     mutate(`/api/folgen/`, async (respo) => {

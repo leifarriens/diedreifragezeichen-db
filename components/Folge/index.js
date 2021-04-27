@@ -4,8 +4,10 @@ import { Container, Cover, Content, Buttons, Background } from './StyledFolge';
 import { calcFolgenRating, sortFolgenByDateAsc } from '../../utils';
 import Rating from '../Rating';
 import dayjs from 'dayjs';
+import { Key, KeyContainer } from '../Key';
+import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
-const Folge = ({ folge }) => {
+const Folge = ({ folge, prevFolge, nextFolge }) => {
   const {
     images,
     name,
@@ -15,9 +17,10 @@ const Folge = ({ folge }) => {
     number,
     spotify_id,
   } = folge;
+
   const rating = calcFolgenRating(ratings) || 0;
   const isBigCover = Number(number) >= 125 ? true : false;
-  // const router = useRouter()
+  const router = useRouter();
 
   // let sortedFolgen = sortFolgenByDateAsc(folgen)
   // sortedFolgen = sortedFolgen.filter((f) => f.type === 'regular')
@@ -44,6 +47,10 @@ const Folge = ({ folge }) => {
   //   document.removeEventListener('keydown', _handleKeyNavigation)
   //   document.addEventListener('keydown', _handleKeyNavigation)
   // }, [folge])
+
+  const _toPrevFolge = () => router.push('/folge/' + prevFolge._id);
+
+  const _toNextFolge = () => router.push('/folge/' + nextFolge._id);
 
   return (
     <Container className="wrapper">
@@ -72,19 +79,10 @@ const Folge = ({ folge }) => {
         </Buttons>
       </Content>
 
-      {/* <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        {prevLink && (
-          <Link href={`/folge/${prevLink}`}>
-            <a>Previous</a>
-          </Link>
-        )}
-
-        {nextLink && (
-          <Link href={`/folge/${nextLink}`}>
-            <a>Next</a>
-          </Link>
-        )}
-      </div> */}
+      <KeyContainer style={{ marginTop: '56px', gridColumn: '1 / 3' }}>
+        {prevFolge && <Key icon={BiLeftArrowAlt} onPress={_toPrevFolge} />}
+        {nextFolge && <Key icon={BiRightArrowAlt} onPress={_toNextFolge} />}
+      </KeyContainer>
 
       <Background url={images[0].url} bigCover={isBigCover} />
     </Container>

@@ -12,7 +12,7 @@ function Home(props) {
 
   return <Grid folgen={props.folgen} />;
 
-  if (folgen.length > 0) return <Grid folgen={folgen} />;
+  // if (folgen.length > 0) return <Grid folgen={folgen} />;
 
   return <Loader />;
 }
