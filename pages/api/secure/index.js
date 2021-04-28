@@ -1,7 +1,6 @@
-import connectDB from '../../../middleware/mongodb';
 import { getSession } from 'next-auth/client';
 
-const handler = async (req, res) => {
+export default async function handler (req, res) {
   const session = await getSession({ req });
   if (session) {
     console.log('Session', JSON.stringify(session, null, 2));
@@ -11,4 +10,3 @@ const handler = async (req, res) => {
   }
 };
 
-export default connectDB(handler);

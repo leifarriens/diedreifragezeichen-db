@@ -12,6 +12,7 @@ const { getBearerToken, getAllAlbums } = require('./spotifyAPI');
 
 // const { loadAllFolgen, addFolge } = require('../../services/folge.js');
 const { getAllDbFolgen, addNewFolge } = require('./dbServices');
+const Folge = require('../../models/folge');
 
 const dbPath = process.env.MONGO_URI;
 mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -30,24 +31,28 @@ async function runJob() {
     successfullyAdded: [],
   };
 
-  allAlbums.forEach(async (folge) => {
+  let addToDb = [];
+
+  allAlbums.forEach((folge) => {
     const isInDb = dbFolgen.find((x) => x.spotify_id === folge.id);
 
     if (isInDb) {
       stats.inDb.push(folge);
-      // folge is not in DB and has to be added
+      // folge is in DB
     } else {
-      // folge is in db
+      // folge is not in db
+      addToDb.push(formatFolge(folge))
       stats.notInDb.push(folge);
-      try {
-        const { name, images, id, release_date } = folge;
-        const addedFolge = await addNewFolge(name, images, id, release_date);
-        stats.successfullyAdded.push(addedFolge);
-      } catch (error) {
-        console.log(error);
-      }
     }
   });
+
+  try {
+    const added = await Folge.insertMany(addToDb);
+    stats.successfullyAdded = added;
+    console.log(added);
+  } catch (error) {
+    console.log(error);
+  }
 
   setTimeout(() => {
     db.close(() => {
@@ -66,4 +71,24 @@ function printResults(stats) {
       stats.successfullyAdded.length
     )} Folgen have been added DB...`
   );
+}
+
+function formatFolge({ name, images, id, release_date }) {
+  const folge = {
+    images,
+    release_date,
+    spotify_id: id,
+  };
+
+  if (name.includes('/')) {
+    folge.type = 'regular';
+    folge.number = name.split('/')[0];
+    folge.name = name.split('/')[1];
+  } else {
+    folge.type = 'special';
+    folge.number = '';
+    folge.name = name;
+  }
+
+  return folge;
 }

@@ -4,12 +4,7 @@ const mongoose = require('mongoose');
 const folgeSchema = mongoose.Schema(
   {
     images: Array,
-    ratings: [
-      {
-        type: Number,
-        default: 0,
-      },
-    ],
+    // ratings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Rating' }],
     name: String,
     number: String,
     type: String,
@@ -21,8 +16,4 @@ const folgeSchema = mongoose.Schema(
   }
 );
 
-mongoose.models = {};
-
-var Folge = mongoose.model('Folge', folgeSchema);
-
-module.exports = Folge;
+module.exports = mongoose.models && (mongoose.models.Folge || mongoose.model('Folge', folgeSchema))

@@ -18,14 +18,15 @@ const Folge = ({ folge, prevFolge, nextFolge }) => {
     spotify_id,
   } = folge;
 
-  const rating = calcFolgenRating(ratings) || 0;
+  const rating = calcFolgenRating(ratings);
+  console.log(rating);
   const isBigCover = Number(number) >= 125 ? true : false;
   const router = useRouter();
 
   const _toPrevFolge = () => router.push('/folge/' + prevFolge._id);
 
   const _toNextFolge = () => router.push('/folge/' + nextFolge._id);
-
+  console.log(folge);
   return (
     <Container className="wrapper">
       <Cover>

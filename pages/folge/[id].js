@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import FolgeComponent from '../../components/Folge/';
 import { parseMongo } from '../../utils';
+import FolgeModel from '../../models/folge';
 
 import { getFolgeById } from '../../services/';
 
@@ -34,10 +35,10 @@ function Folge(props) {
 export async function getServerSideProps(context) {
   await dbConnect();
 
-  const data = await getFolgeById(context.params.id);
+  const data = await FolgeModel.findById(context.params.id);
 
   const folge = parseMongo(data);
-
+  
   return {
     props: {
       folge,

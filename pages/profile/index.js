@@ -1,4 +1,4 @@
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 
 function Profile() {
   const [session, loading] = useSession();
@@ -17,7 +17,5 @@ function Profile() {
     </div>
   );
 }
-
-// export async function getServerSideProps(context) {}
 
 export default Profile;
