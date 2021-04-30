@@ -8,10 +8,10 @@ import {
   sortFolgenByRating,
   sortFolgenByDateAsc,
   sortFolgenByDateDesc,
+  sortByPopularity
 } from '../../utils';
 
 import { GlobalContext } from '../../context/GlobalContext';
-import Loader from '../Loader';
 
 const Grid = (props) => {
   const {
@@ -54,6 +54,8 @@ const Grid = (props) => {
         return sortFolgenByDateDesc(folgen);
       case 'rating':
         return sortFolgenByRating(folgen);
+      case 'popularity':
+        return sortByPopularity(folgen);
     }
   };
 

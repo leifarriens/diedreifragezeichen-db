@@ -37,6 +37,16 @@ export const sortFolgenByDateDesc = (folgen) => {
   return sorted.reverse();
 };
 
+export const sortByPopularity = (folgen) => {
+  const sorted = [...folgen].sort((a, b) => {
+    return a.ratings.length - b.ratings.length;
+  });
+
+  console.log(sorted);
+
+  return sorted.reverse();
+}
+
 export const parseMongo = (mongoResponse) => {
   return JSON.parse(JSON.stringify(mongoResponse));
 };

@@ -65,6 +65,10 @@ const Sort = ({ currentSort, onSortChange }) => {
       name: 'Beste zuerst',
       value: 'rating',
     },
+    {
+      name: 'Beliebteste zuerst',
+      value: 'popularity'
+    }
   ];
 
   return (
