@@ -3,7 +3,7 @@ import Folge from '../../../models/folge';
 import { getSession } from 'next-auth/client';
 import User from '../../../models/user';
 import Rating from '../../../models/rating';
-
+import mongoose from 'mongoose';
 
 export default async function handler (req, res) {
   const { method, query } = req;
@@ -35,12 +35,22 @@ const handleRate = async (req, res) => {
 
       const email = session.user.email;
 
-      const rating = {
+      const rating = await Rating.findOneAndUpdate({
         user: email,
-        rating: data.rating
-      }
+        folge: id
+      }, {
+        user: email,
+        folge: mongoose.Types.ObjectId(id),
+        value: data.rating
+      }, { upsert: true, new: true });
 
       console.log(rating);
+
+      const updatedFolge = await Folge.findByIdAndUpdate(id, {
+        $addToSet: { ratings: mongoose.Types.ObjectId(rating._id) }
+      }, { new: true });
+
+      console.log(updatedFolge);
 
       res.status(201).end();
       break;

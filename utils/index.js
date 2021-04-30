@@ -1,8 +1,8 @@
-export const calcFolgenRating = (ratings) => {
-  return 5.2;
+export const calcFolgenRating = (ratings = []) => {
   if (ratings.length === 0) return null;
-  if (ratings.length === 1) return ratings[0].rating;
-  return Math.round((ratings.reduce((a, b) => Number(a) + Number(b), 0) / ratings.length) * 10) / 10;
+  if (ratings.length === 1) return ratings[0].value;
+
+  return Math.round(ratings.map(r => r.value).reduce((acc, curr) =>  acc + curr, 0) / ratings.length * 10) / 10;
 };
 
 export const roundRatingToPointFive = (rating) => {

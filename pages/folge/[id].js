@@ -4,6 +4,7 @@ import Link from 'next/link';
 import FolgeComponent from '../../components/Folge/';
 import { parseMongo } from '../../utils';
 import FolgeModel from '../../models/folge';
+import Rating from '../../models/rating';
 
 import { getFolgeById } from '../../services/';
 
@@ -18,7 +19,7 @@ function Folge(props) {
   const { folgen } = useContext(GlobalContext);
 
   const { rel, next, prev } = getRelatedFolgen(props.folge, folgen);
-
+  console.log(props.folge);
   return (
     <GridContainer>
       <FolgeComponent folge={props.folge} prevFolge={prev} nextFolge={next} />
@@ -35,7 +36,7 @@ function Folge(props) {
 export async function getServerSideProps(context) {
   await dbConnect();
 
-  const data = await FolgeModel.findById(context.params.id);
+  const data = await FolgeModel.findById(context.params.id).populate('ratings');
 
   const folge = parseMongo(data);
   

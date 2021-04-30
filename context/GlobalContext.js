@@ -17,17 +17,14 @@ export const GlobalProvider = ({ children }) => {
 
   // Actions
   useEffect(() => {
-    // console.log(folgen);
     if (folgen && folgen.length > 0) {
-      console.log(folgen);
-      console.log('set data');
       setFolgen(folgen);
     }
   }, [folgen]);
 
   useEffect(() => {
     const show = JSON.parse(localStorage.getItem('showSpecials')) || false;
-    console.log(show);
+
     setShowSpecials(show);
 
     const sortBy = sessionStorage.getItem('sortBy') || 'dateDesc';
