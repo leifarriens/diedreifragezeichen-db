@@ -1,7 +1,6 @@
 import dbConnect from '../../../db';
 import Folge from '../../../models/folge';
 import { getSession } from 'next-auth/client';
-import User from '../../../models/user';
 import Rating from '../../../models/rating';
 import mongoose from 'mongoose';
 

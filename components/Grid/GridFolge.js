@@ -25,7 +25,7 @@ const Cover = styled.div`
   }
 `;
 
-const GridFolge = React.memo(({ folge }) => {
+const GridFolge = React.memo(({ folge, coverOnly = false }) => {
   const rating = calcFolgenRating(folge.ratings);
 
   return (
@@ -35,14 +35,16 @@ const GridFolge = React.memo(({ folge }) => {
           <FolgeCover src={folge.images[1].url} />
         </a>
       </Link>
-      <div className="description">
-        <div className="folge-miniatur__rating">
-          <div>
-            {rating ? rating : '???'}/<small>10</small>
+      {!coverOnly && (
+        <div className="description">
+          <div className="folge-miniatur__rating">
+            <div>
+              {rating ? rating : '???'}/<small>10</small>
+            </div>
           </div>
+          <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
         </div>
-        <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
-      </div>
+      )}
     </div>
   );
 });
@@ -65,7 +67,10 @@ const FolgeCover = ({ src }) => {
       <Cover>
         {loading && <Loader />}
         <img
-          style={{ display: loading ? 'none' : 'block', boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)' }}
+          style={{
+            display: loading ? 'none' : 'block',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
+          }}
           src={imgSrc}
           onLoad={() => setLoading(false)}
         />

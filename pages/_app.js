@@ -1,19 +1,15 @@
-import App from 'next/app';
 import Router from 'next/router'
 import Head from 'next/head';
 import { DefaultSeo } from 'next-seo';
-import NProgress from 'nprogress'; //nprogress module
-// import 'nprogress/nprogress.css'; //styles of nprogress
+import NProgress from 'nprogress';
 import '../styles/nprogress.css'
 
 import '../styles/App.scss';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Layout from '../components/Layout';
 
-import { Provider } from 'next-auth/client';
+import { Provider as AuthProvider } from 'next-auth/client';
 import { GlobalProvider } from '../context/GlobalContext';
 
-//Binding events. 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done())
@@ -33,23 +29,19 @@ function MyApp({ Component, pageProps, folgen }) {
         openGraph={{
           type: 'website',
           locale: 'de_DE',
-          // url: 'https://www.factory-shop.de/',
+          url: 'https://diedreifragezeichen-db.de',
           site_name: 'Die drei Fragezeichen DB',
         }}
         defaultTitle="Drei Fragezeichen DB"
       />
 
-      <Provider session={pageProps.session}>
+      <AuthProvider session={pageProps.session}>
         <GlobalProvider>
-          <div className="container">
-            <Header />
-            <div className="main">
-              <Component {...pageProps} />
-            </div>
-            <Footer />
-          </div>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </GlobalProvider>
-      </Provider>
+      </AuthProvider>
     </>
   );
 }

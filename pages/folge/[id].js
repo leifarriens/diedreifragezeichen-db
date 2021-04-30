@@ -50,10 +50,11 @@ export async function getServerSideProps(context) {
 // helpers
 
 const getRelatedFolgen = (folge, folgen) => {
+  const NEAR_FOLGEN = 8;
   const index = folgen.findIndex((f) => f._id === folge._id);
 
-  const previosEntrys = index < 5 ? index : 5;
-  const followingEntrys = folgen.length - 5 < index ? index : 5
+  const previosEntrys = index < NEAR_FOLGEN ? index : NEAR_FOLGEN;
+  const followingEntrys = folgen.length - NEAR_FOLGEN < index ? index : NEAR_FOLGEN
 
   const rel = folgen.slice(index - previosEntrys, index + followingEntrys);
 
