@@ -2,7 +2,13 @@ export const calcFolgenRating = (ratings = []) => {
   if (ratings.length === 0) return null;
   if (ratings.length === 1) return ratings[0].value;
 
-  return Math.round(ratings.map(r => r.value).reduce((acc, curr) =>  acc + curr, 0) / ratings.length * 10) / 10;
+  return (
+    Math.round(
+      (ratings.map((r) => r.value).reduce((acc, curr) => acc + curr, 0) /
+        ratings.length) *
+        10
+    ) / 10
+  );
 };
 
 export const roundRatingToPointFive = (rating) => {
@@ -42,10 +48,8 @@ export const sortByPopularity = (folgen) => {
     return a.ratings.length - b.ratings.length;
   });
 
-  console.log(sorted);
-
   return sorted.reverse();
-}
+};
 
 export const parseMongo = (mongoResponse) => {
   return JSON.parse(JSON.stringify(mongoResponse));

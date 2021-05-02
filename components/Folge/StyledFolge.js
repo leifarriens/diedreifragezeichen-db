@@ -54,6 +54,7 @@ export const Background = styled.div`
   background-position: ${(props) =>
     props.bigCover ? 'right bottom' : 'center 93%'};
   background-repeat: no-repeat;
+  background-attachment: fixed;
   transform: scale(1.15);
   filter: blur(80px) brightness(35%);
 `;

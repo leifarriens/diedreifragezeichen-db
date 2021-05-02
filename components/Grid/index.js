@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { GridContainer, GridUI, FolgenContainer } from './StyledGrid';
 import dayjs from 'dayjs';
 
@@ -8,7 +8,7 @@ import {
   sortFolgenByRating,
   sortFolgenByDateAsc,
   sortFolgenByDateDesc,
-  sortByPopularity
+  sortByPopularity,
 } from '../../utils';
 
 import { GlobalContext } from '../../context/GlobalContext';
@@ -95,7 +95,9 @@ const Grid = (props) => {
               checked={showSpecials}
               onChange={(e) => handleCheckboxChange(e)}
             />
-            <span style={{ marginLeft: '8px', lineHeight: 1.5 }}>Specials anzeigen</span>
+            <span style={{ marginLeft: '8px', lineHeight: 1.5 }}>
+              Specials anzeigen
+            </span>
           </label>
         </div>
         <div style={{ marginBottom: '16px' }}>{folgen.length} Folgen</div>

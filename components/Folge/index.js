@@ -4,10 +4,8 @@ import { Container, Cover, Content, Buttons, Background } from './StyledFolge';
 import { calcFolgenRating, sortFolgenByDateAsc } from '../../utils';
 import Rating from '../Rating';
 import dayjs from 'dayjs';
-import { Key, KeyContainer } from '../Key';
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
-const Folge = ({ folge, prevFolge, nextFolge }) => {
+const Folge = ({ folge }) => {
   const {
     images,
     name,
@@ -21,11 +19,6 @@ const Folge = ({ folge, prevFolge, nextFolge }) => {
   const rating = calcFolgenRating(ratings);
 
   const isBigCover = Number(number) >= 125 ? true : false;
-  const router = useRouter();
-
-  const _toPrevFolge = () => router.push('/folge/' + prevFolge._id);
-
-  const _toNextFolge = () => router.push('/folge/' + nextFolge._id);
 
   return (
     <Container className="wrapper">
@@ -34,12 +27,11 @@ const Folge = ({ folge, prevFolge, nextFolge }) => {
       </Cover>
       <Content>
         <h2>Die drei ???</h2>
-        <h1>{name}</h1>
-        <div>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</div>
-        <div>
-          <span style={{ fontSize: '30px' }}>{rating ? rating : '???'}/10</span>
+        <h1 style={{ fontSize: '42px' }}>{name}</h1>
+        <div style={{ fontSize: '22px', marginTop: '6px' }}>
+          Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}
         </div>
-        <Rating folge_id={_id} defaultRating={0} />
+        <Rating folge_id={_id} defaultRating={rating} />
         <Buttons>
           <a
             className="button"
@@ -52,11 +44,6 @@ const Folge = ({ folge, prevFolge, nextFolge }) => {
           {/* <AddToList folge={folge}/> */}
         </Buttons>
       </Content>
-
-      <KeyContainer style={{ marginTop: '56px', gridColumn: '1 / 3' }}>
-        {prevFolge && <Key icon={BiLeftArrowAlt} onPress={_toPrevFolge} />}
-        {nextFolge && <Key icon={BiRightArrowAlt} onPress={_toNextFolge} />}
-      </KeyContainer>
 
       <Background url={images[0].url} bigCover={isBigCover} />
     </Container>

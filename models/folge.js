@@ -16,4 +16,6 @@ const folgeSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.models && mongoose.models.Folge || mongoose.model('Folge', folgeSchema)
+module.exports =
+  (mongoose.models && mongoose.models.Folge) ||
+  mongoose.model('Folge', folgeSchema);

@@ -31,7 +31,7 @@ const Signatur = styled.div`
   }
 `;
 
-const Footer = () => {
+export default function Footer() {
   return (
     <React.Fragment>
       <PageFooter>
@@ -39,7 +39,7 @@ const Footer = () => {
         <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a> */}
       </PageFooter>
       <Signatur>
-        Developed with 💗 by{' '}
+        Developed with 🤍 by{' '}
         <a
           href="https://leifarriens.github.io/"
           target="_blank"
@@ -50,6 +50,4 @@ const Footer = () => {
       </Signatur>
     </React.Fragment>
   );
-};
-
-export default Footer;
+}

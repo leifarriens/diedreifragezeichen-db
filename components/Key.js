@@ -11,7 +11,7 @@ const KeyBox = styled.div`
   cursor: pointer;
 
   :hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 `;
 
@@ -20,12 +20,23 @@ export const KeyContainer = styled.div`
   justify-content: center;
 `;
 
-export function Key({ icon, color = '#ddd', size = 22, onPress }) {
+export function Key({ icon, color = '#ddd', size = 22, onPress, keyCode }) {
   const Icon = icon;
+
+  useEffect(() => {
+    function onKeyup(e) {
+      if (e.code === keyCode) {
+        console.log(keyCode);
+        onPress();
+      }
+    }
+    window.addEventListener('keyup', onKeyup);
+    return () => window.removeEventListener('keyup', onKeyup);
+  });
 
   return (
     <KeyBox color={color} onClick={onPress}>
-      <Icon color={color} size={size}/>
+      <Icon color={color} size={size} />
     </KeyBox>
   );
 }

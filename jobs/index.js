@@ -31,21 +31,23 @@ async function runJob() {
   let addToDb = [];
 
   allAlbums.forEach((folge) => {
-    const isInDb = dbFolgen.find((album) => album.spotify_id === folge.id || album.name === folge.name);
+    const isInDb = dbFolgen.find(
+      (album) => album.spotify_id === folge.id || album.name === folge.name
+    );
 
     if (isInDb) {
       stats.inDb.push(folge);
       // folge is in DB
     } else {
       // folge is not in db
-      addToDb.push(formatFolge(folge))
+      addToDb.push(formatFolge(folge));
       stats.notInDb.push(folge);
     }
   });
 
   try {
     const added = await Folge.insertMany(addToDb);
-    stats.successfullyAdded = added.map(f => f.name);
+    stats.successfullyAdded = added.map((f) => f.name);
   } catch (error) {
     console.log(error);
   }
@@ -75,7 +77,7 @@ function formatFolge({ name, images, id, release_date }) {
     images,
     release_date,
     spotify_id: id,
-  })
+  });
 
   if (name.includes('/')) {
     folge.type = 'regular';

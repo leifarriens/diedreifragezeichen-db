@@ -8,4 +8,4 @@ export default async function handler(req, res) {
     const folgen = await Folge.find({}).sort('release_date');
     return res.json(folgen);
   }
-};
+}

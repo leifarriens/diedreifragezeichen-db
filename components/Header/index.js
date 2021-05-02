@@ -15,9 +15,9 @@ const Header = () => {
 
   const handleHomeClick = () => {
     setSearchQuery('');
-    
+
     if (router.route !== '/') {
-      router.push('/')
+      router.push('/');
     } else {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -26,10 +26,10 @@ const Header = () => {
   const [session, loading] = useSession();
 
   return (
-    <Headroom style={{pointerEvents: 'none'}}>
+    <Headroom style={{ pointerEvents: 'none' }}>
       <Container>
         {/* <Link href="/#"> */}
-          <HomeLink onClick={handleHomeClick} />
+        <HomeLink onClick={handleHomeClick} />
         {/* </Link> */}
 
         <SearchBar>
@@ -46,6 +46,10 @@ const Header = () => {
               <Link href="/profile">
                 <a>
                   <AiOutlineProfile size={28} />
+                  {/* <div style={{ width: '38px', height: '38px', display: 'flex', alignItems: 'center'}}> */}
+                  {/* {session.user.name} */}
+                  {/* <img src={session.user.image} style={{ borderRadius: '18px', marginLeft: '12px' }}/> */}
+                  {/* </div> */}
                 </a>
               </Link>
             </div>

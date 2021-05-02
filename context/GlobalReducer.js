@@ -1,4 +1,4 @@
-export default (state, action) => {
+export default function GlobalReducer(state, action) {
   switch (action.type) {
     case 'SET_FOLGEN':
       return {
@@ -23,4 +23,4 @@ export default (state, action) => {
     default:
       return state;
   }
-};
+}

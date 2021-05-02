@@ -1,40 +1,33 @@
-import React from 'react';
-import { providers, signin, getSession } from 'next-auth/client';
-// import Providers from 'next-auth/providers';
+import { getSession, getProviders, signIn } from 'next-auth/client';
 
 export default function SignIn({ providers }) {
   return (
-    <main className="wrapper" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      {Object.values(providers).map((provider) => {
-        if (provider.name === 'Email') {
-          return;
-        }
-        return (
-          <div key={provider.name}>
-            <button className="button" onClick={() => signin(provider.id)}>
-              Sign in with {provider.name}
-            </button>
-          </div>
-        );
-      })}
-    </main>
+    <div className="wrapper">
+      {Object.values(providers).map((provider) => (
+        <div key={provider.name}>
+          <button className="button" onClick={() => signIn(provider.id)}>
+            Sign in with {provider.name}
+          </button>
+        </div>
+      ))}
+    </div>
   );
 }
 
-SignIn.getInitialProps = async (context) => {
+export async function getServerSideProps(context) {
   const { req, res } = context;
   const session = await getSession({ req });
 
-  if (session && res && session.accessToken) {
+  if (session && res && session.user) {
     res.writeHead(302, {
       Location: '/',
     });
-    res.end();
-    return;
+    return res.end();
   }
 
+  const providers = await getProviders();
+
   return {
-    session: undefined,
-    providers: await providers(context)
+    props: { providers },
   };
-};
+}

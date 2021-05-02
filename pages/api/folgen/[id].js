@@ -5,10 +5,9 @@ import Folge from '../../../models/folge';
 export default async function handler({ method, query: { id } }, res) {
   await dbConnect();
 
-  console.log(id);
   switch (method) {
     case 'GET':
-      const folge = await Folge.findById(id);
+      const folge = await Folge.findById(id).populate('ratings');
       res.json(folge);
       break;
     default:

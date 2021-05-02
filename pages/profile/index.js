@@ -39,18 +39,16 @@ export async function getServerSideProps(context) {
   const { req, res } = context;
   const session = await getSession({ req });
 
-  if (session && res && session.accessToken) {
+  if (!session) {
     res.writeHead(302, {
       Location: '/api/auth/signin',
     });
-    res.end();
-    return;
+    return res.end();
   }
 
   await dbConnect();
 
   const data = await Rating.find({ user: session.user.email });
-  console.log(data);
 
   const ratedFolgen = data.map((r) => r.folge);
 

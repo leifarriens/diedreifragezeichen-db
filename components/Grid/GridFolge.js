@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
@@ -7,9 +7,11 @@ import { calcFolgenRating } from '../../utils';
 
 import { Loader } from '../Loader';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const Cover = styled.div`
   width: 100%;
+  max-width: 320px;
   height: auto;
   transition: transform 150ms ease;
   transform-origin: bottom;
@@ -25,11 +27,11 @@ const Cover = styled.div`
   }
 `;
 
-const GridFolge = React.memo(({ folge, coverOnly = false }) => {
+const GridFolge = React.memo(({ folge, coverOnly = false, ...style }) => {
   const rating = calcFolgenRating(folge.ratings);
 
   return (
-    <div className="folge-miniatur">
+    <div className="folge-miniatur" {...style}>
       <Link href={`/folge/${folge._id}`}>
         <a>
           <FolgeCover src={folge.images[1].url} />
