@@ -16,9 +16,10 @@ export default function SignIn({ providers }) {
 
 export async function getServerSideProps(context) {
   const { req, res } = context;
+
   const session = await getSession({ req });
 
-  if (session && res && session.user) {
+  if (session && res) {
     res.writeHead(302, {
       Location: '/',
     });
@@ -28,6 +29,9 @@ export async function getServerSideProps(context) {
   const providers = await getProviders();
 
   return {
-    props: { providers },
+    props: {
+      session: undefined,
+      providers: providers
+    },
   };
 }

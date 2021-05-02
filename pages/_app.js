@@ -28,6 +28,7 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         ></link>
       </Head>
+      
       <DefaultSeo
         openGraph={{
           type: 'website',

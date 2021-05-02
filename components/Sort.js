@@ -54,19 +54,19 @@ const Label = styled.label`
 const Sort = ({ currentSort, onSortChange }) => {
   const sortVariants = [
     {
-      name: 'Neuste zuerst',
+      name: 'Neuste',
       value: 'dateDesc',
     },
     {
-      name: 'Älteste zuerst',
+      name: 'Älteste',
       value: 'dateAsc',
     },
     {
-      name: 'Beste zuerst',
+      name: 'Beste',
       value: 'rating',
     },
     {
-      name: 'Beliebteste zuerst',
+      name: 'Beliebteste',
       value: 'popularity',
     },
   ];

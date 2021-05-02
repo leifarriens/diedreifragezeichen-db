@@ -19,7 +19,8 @@ $bgShade3: #05182a;
 }
 
 body {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  // font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: system-ui, sans-serif;
   font-size: 14px;
   color: #fff;
   background-color: $ddfDark;
@@ -28,6 +29,10 @@ body {
   @media screen and (min-width: 744px) {
     font-size: 16px;
   }
+}
+
+h1,h2,h3 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .container {
@@ -59,7 +64,7 @@ img {
   padding: 0 36px;
 
   @media screen and (min-width: 1200px) {
-    width: 1080px;
+    width: 1120px;
     margin: 0 auto;
   }
 }

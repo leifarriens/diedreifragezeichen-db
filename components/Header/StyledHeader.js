@@ -73,15 +73,23 @@ export const SearchBar = styled.div`
   }
 
   input {
+    background-color: transparent;
+    color: #eee;
     font-family: inherit;
     font-size: 16px;
     font-size: inherit;
-    padding: 12px 24px;
+    padding: 10px 24px;
     border-radius: 25px;
-    font-size: 1.2.rem;
+    font-size: 1.1.rem;
     border: none;
     width: 100%;
     outline: none;
+    border: 1px solid #999;
+
+    &:focus {
+      color: #000;
+      background-color: #fafafa;
+    }
   }
 `;
 

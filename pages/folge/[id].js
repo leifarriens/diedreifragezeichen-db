@@ -7,6 +7,7 @@ import FolgeModel from '../../models/folge';
 import Rating from '../../models/rating';
 import { Key, KeyContainer } from '../../components/Key';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+// import Header from '../../components/Header'
 
 import { getFolgeById } from '../../services/';
 
@@ -30,7 +31,8 @@ function Folge(props) {
   const _toNextFolge = () => router.push('/folge/' + next._id);
 
   return (
-    <GridContainer>
+    <>
+      {/* <Header /> */}
       <FolgeComponent folge={props.folge} />
 
       <KeyContainer style={{ margin: '48px 0', gridColumn: '1 / 3' }}>
@@ -49,24 +51,22 @@ function Folge(props) {
           />
         )}
       </KeyContainer>
-
-      <FolgenContainer>
-        {rel.map((folge) => {
-          const isCurrent = props.folge._id === folge._id;
-          return (
-            <GridFolge
-              key={folge._id}
-              folge={folge}
-              coverOnly={true}
-              style={{
-                // filter: !isCurrent && 'grayscale(1)',
-                opacity: isCurrent ? 0.15 : 1,
-              }}
-            />
-          );
-        })}
-      </FolgenContainer>
-    </GridContainer>
+      <GridContainer>
+        <FolgenContainer>
+          {rel.map((folge) => {
+            const isCurrent = props.folge._id === folge._id;
+            return (
+              <GridFolge
+                key={folge._id}
+                folge={folge}
+                coverOnly={true}
+                style={{ opacity: isCurrent ? 0.15 : 1 }}
+              />
+            );
+          })}
+        </FolgenContainer>
+      </GridContainer>
+    </>
   );
 }
 
@@ -88,7 +88,6 @@ export async function getStaticProps({ params }) {
   await dbConnect();
 
   const data = await FolgeModel.findById(params.id).populate('ratings');
-  // const folgen = await FolgeModel.find({}).populate('ratings');
 
   const folge = parseMongo(data);
 
@@ -115,7 +114,7 @@ export async function getStaticProps({ params }) {
 // helpers
 
 const getRelatedFolgen = (folge, folgen) => {
-  const NEAR_FOLGEN = 5;
+  const NEAR_FOLGEN = 8;
   const index = folgen.findIndex((f) => f._id === folge._id);
 
   const previosEntrys = index < NEAR_FOLGEN ? index : NEAR_FOLGEN;

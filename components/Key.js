@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const KeyBox = styled.div`
@@ -9,9 +9,10 @@ const KeyBox = styled.div`
   display: inline-flex;
   margin: 0 10px;
   cursor: pointer;
+  opacity: ${(props) => props.opacity};
 
   :hover {
-    opacity: 0.5;
+    opacity: .5;
   }
 `;
 
@@ -23,19 +24,31 @@ export const KeyContainer = styled.div`
 export function Key({ icon, color = '#ddd', size = 22, onPress, keyCode }) {
   const Icon = icon;
 
+  const [keydown, setKeydown] = useState(false);
+
   useEffect(() => {
+    function onKeydown(e) {
+      if (e.key === keyCode) {
+        setKeydown(true);
+      }
+    }
+
     function onKeyup(e) {
-      if (e.code === keyCode) {
-        console.log(keyCode);
+      if (e.key === keyCode) {
+        setKeydown(false);
         onPress();
       }
     }
+    window.addEventListener('keydown', onKeydown);
     window.addEventListener('keyup', onKeyup);
-    return () => window.removeEventListener('keyup', onKeyup);
+    return () => {
+      window.removeEventListener('keydown', onKeydown);
+      window.removeEventListener('keyup', onKeyup);
+    }
   });
 
   return (
-    <KeyBox color={color} onClick={onPress}>
+    <KeyBox color={color} onClick={onPress} opacity={ keydown ? .5 : 1 }>
       <Icon color={color} size={size} />
     </KeyBox>
   );

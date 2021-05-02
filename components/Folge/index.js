@@ -27,8 +27,8 @@ const Folge = ({ folge }) => {
       </Cover>
       <Content>
         <h2>Die drei ???</h2>
-        <h1 style={{ fontSize: '42px' }}>{name}</h1>
-        <div style={{ fontSize: '22px', marginTop: '6px' }}>
+        <h1 style={{ fontSize: '46px' }}>{name}</h1>
+        <div style={{ fontSize: '20px', marginTop: '6px', color: '#ddd' }}>
           Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}
         </div>
         <Rating folge_id={_id} defaultRating={rating} />
@@ -39,8 +39,9 @@ const Folge = ({ folge }) => {
             rel="noreferrer"
             href={`spotify:album:${spotify_id}`}
           >
-            Anhören
+            Auf Spotify Anhören
           </a>
+          <button className="button blue">Review</button>
           {/* <AddToList folge={folge}/> */}
         </Buttons>
       </Content>

@@ -36,25 +36,27 @@ const Header = () => {
           <SearchInput />
         </SearchBar>
 
-        <ProfileLink>
-          {!session ? (
-            <span>
-              <button onClick={() => signIn()}>Anmelden</button>
-            </span>
-          ) : (
-            <div>
-              <Link href="/profile">
-                <a>
-                  <AiOutlineProfile size={28} />
-                  {/* <div style={{ width: '38px', height: '38px', display: 'flex', alignItems: 'center'}}> */}
-                  {/* {session.user.name} */}
-                  {/* <img src={session.user.image} style={{ borderRadius: '18px', marginLeft: '12px' }}/> */}
-                  {/* </div> */}
-                </a>
-              </Link>
-            </div>
-          )}
-        </ProfileLink>
+        {router.pathname !== '/signin' && (
+          <ProfileLink>
+            {!session ? (
+              <span>
+                <button className="button red" onClick={() => signIn()}>Anmelden</button>
+              </span>
+            ) : (
+              <div>
+                <Link href="/profile">
+                  <a>
+                    <AiOutlineProfile size={28} />
+                    {/* <div style={{ width: '38px', height: '38px', display: 'flex', alignItems: 'center'}}> */}
+                    {/* {session.user.name} */}
+                    {/* <img src={session.user.image} style={{ borderRadius: '18px', marginLeft: '12px' }}/> */}
+                    {/* </div> */}
+                  </a>
+                </Link>
+              </div>
+            )}
+          </ProfileLink>
+        )}
       </Container>
     </Headroom>
   );

@@ -55,8 +55,7 @@ const Rating = ({ folge_id, defaultRating }) => {
       <div
         style={{ fontSize: '46px', marginTop: '24px', marginBottom: '12px' }}
       >
-        {defaultRating ? defaultRating : ' - '}/10
-        <span></span>
+        <span style={{ fontFamily: 'Cambria'}}>{defaultRating ? defaultRating : ' - '}/10</span>
       </div>
       <div style={{ display: 'flex' }}>
         <ReactStars {...settings} />

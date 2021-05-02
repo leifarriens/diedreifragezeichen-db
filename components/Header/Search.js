@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 
 import { GlobalContext } from '../../context/GlobalContext';
