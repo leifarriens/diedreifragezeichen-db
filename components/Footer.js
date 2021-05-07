@@ -43,7 +43,7 @@ export default function Footer() {
         <a
           href="https://leifarriens.github.io/"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
         >
           Leif Arriens
         </a>

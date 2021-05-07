@@ -1,6 +1,6 @@
-import dbConnect from '../../db';
-import Rating from '../../models/rating';
-import Folge from '../../models/folge';
+// import dbConnect from '../../db';
+// import Rating from '../../models/rating';
+// import Folge from '../../models/folge';
 import { signIn, signOut, useSession, getSession } from 'next-auth/client';
 import { parseMongo } from '../../utils';
 import {
@@ -23,14 +23,14 @@ function Profile({ ratings, folgen }) {
       <div>{name}</div>
       <div>{email}</div>
       <button onClick={() => signOut()}>Logout</button>
-      <h3>Deine Bwertungen</h3>
+      {/* <h3>Deine Bwertungen</h3>
       <GridContainer>
         <FolgenContainer>
           {folgen.map((folge) => (
             <GridFolge key={folge._id} folge={folge} coverOnly={true} />
           ))}
         </FolgenContainer>
-      </GridContainer>
+      </GridContainer> */}
     </div>
   );
 }
@@ -46,25 +46,25 @@ export async function getServerSideProps(context) {
     return res.end();
   }
 
-  await dbConnect();
+  // await dbConnect();
 
-  const data = await Rating.find({ user: session.user.email });
+  // const data = await Rating.find({ user: session.user.email });
 
-  const ratedFolgen = data.map((r) => r.folge);
+  // const ratedFolgen = data.map((r) => r.folge);
 
-  const rawFolgen = await Folge.find({
-    _id: {
-      $in: ratedFolgen,
-    },
-  });
+  // const rawFolgen = await Folge.find({
+  //   _id: {
+  //     $in: ratedFolgen,
+  //   },
+  // });
 
-  const ratings = parseMongo(data);
-  const folgen = parseMongo(rawFolgen);
+  // const ratings = parseMongo(data);
+  // const folgen = parseMongo(rawFolgen);
 
   return {
     props: {
-      ratings,
-      folgen,
+      // ratings,
+      // folgen,
     },
   };
 }

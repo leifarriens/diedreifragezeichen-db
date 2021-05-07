@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const KeyBox = styled.div`
@@ -12,7 +12,7 @@ const KeyBox = styled.div`
   opacity: ${(props) => props.opacity};
 
   :hover {
-    opacity: .5;
+    opacity: 0.5;
   }
 `;
 
@@ -44,11 +44,11 @@ export function Key({ icon, color = '#ddd', size = 22, onPress, keyCode }) {
     return () => {
       window.removeEventListener('keydown', onKeydown);
       window.removeEventListener('keyup', onKeyup);
-    }
+    };
   });
 
   return (
-    <KeyBox color={color} onClick={onPress} opacity={ keydown ? .5 : 1 }>
+    <KeyBox color={color} onClick={onPress} opacity={keydown ? 0.5 : 1}>
       <Icon color={color} size={size} />
     </KeyBox>
   );

@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 const mongoose = require('mongoose');
+const Rating = require('./rating');
 
 // Folge Schema
 const folgeSchema = mongoose.Schema(

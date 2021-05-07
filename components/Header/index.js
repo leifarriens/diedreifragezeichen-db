@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Headroom from 'react-headroom';
@@ -11,6 +11,7 @@ import { GlobalContext } from '../../context/GlobalContext';
 
 const Header = () => {
   const { setSearchQuery } = useContext(GlobalContext);
+  const [session, loading] = useSession();
   const router = useRouter();
 
   const handleHomeClick = () => {
@@ -23,40 +24,39 @@ const Header = () => {
     }
   };
 
-  const [session, loading] = useSession();
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);;
 
   return (
     <Headroom style={{ pointerEvents: 'none' }}>
       <Container>
-        {/* <Link href="/#"> */}
         <HomeLink onClick={handleHomeClick} />
-        {/* </Link> */}
 
         <SearchBar>
           <SearchInput />
         </SearchBar>
 
-        {router.pathname !== '/signin' && (
+        {!loading && router.pathname !== '/signin' && (
           <ProfileLink>
             {!session ? (
               <span>
-                <button className="button red" onClick={() => signIn()}>Anmelden</button>
+                <button className="button red" onClick={() => signIn()}>
+                  Anmelden
+                </button>
               </span>
             ) : (
               <div>
                 <Link href="/profile">
                   <a>
                     <AiOutlineProfile size={28} />
-                    {/* <div style={{ width: '38px', height: '38px', display: 'flex', alignItems: 'center'}}> */}
-                    {/* {session.user.name} */}
-                    {/* <img src={session.user.image} style={{ borderRadius: '18px', marginLeft: '12px' }}/> */}
-                    {/* </div> */}
                   </a>
                 </Link>
               </div>
             )}
           </ProfileLink>
         )}
+
       </Container>
     </Headroom>
   );

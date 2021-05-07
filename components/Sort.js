@@ -20,14 +20,14 @@ const Label = styled.label`
 
   span {
     width: 100%;
-    width: auto;
-    height: 100%;
     display: inline-block;
-    display: block;
-    padding: 8px;
-    padding: 8px 18px;
+    padding: 6px 18px;
     border: 1px solid #fff;
     text-align: center;
+
+    @media (min-width: 480px) {
+      padding: 8px 22px;
+    }
   }
 
   input:hover ~ span {
@@ -53,22 +53,10 @@ const Label = styled.label`
 
 const Sort = ({ currentSort, onSortChange }) => {
   const sortVariants = [
-    {
-      name: 'Neuste',
-      value: 'dateDesc',
-    },
-    {
-      name: 'Älteste',
-      value: 'dateAsc',
-    },
-    {
-      name: 'Beste',
-      value: 'rating',
-    },
-    {
-      name: 'Beliebteste',
-      value: 'popularity',
-    },
+    { name: 'Neuste', value: 'dateDesc' },
+    { name: 'Älteste', value: 'dateAsc' },
+    { name: 'Beste', value: 'rating' },
+    { name: 'Beliebteste', value: 'popularity' },
   ];
 
   return (

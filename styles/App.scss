@@ -18,21 +18,34 @@ $bgShade3: #05182a;
   box-sizing: border-box;
 }
 
-body {
-  // font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-family: system-ui, sans-serif;
-  font-size: 14px;
-  color: #fff;
+html {
   background-color: $ddfDark;
-  min-height: 100vh;
+  font-size: 12px;
+
+  @media screen and (min-width: 460px) {
+    font-size: 14px;
+  }
 
   @media screen and (min-width: 744px) {
     font-size: 16px;
   }
 }
 
-h1,h2,h3 {
+body {
+  font-family: system-ui, sans-serif;
+  color: #fff;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h1 {
+  font-size: 3.6rem;
+  font-size: clamp(1.6rem, 5vw, 3rem);
 }
 
 .container {
@@ -60,30 +73,14 @@ img {
 }
 
 .wrapper {
-  width: 100%;
+  // width: 100%;
   padding: 0 36px;
-
-  @media screen and (min-width: 1200px) {
-    width: 1120px;
-    margin: 0 auto;
-  }
-}
-
-.hidden {
-  display: none !important;
-}
-
-.folge-miniatur {
-  width: 100%;
-
-  .description {
-    &__rating {
-      color: #6e7c86;
-      display: flex;
-      justify-content: space-between;
-      margin: 0.15rem 0;
-    }
-  }
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  // @media screen and (min-width: 1200px) {
+  //   width: 1120px;
+  //   margin: 0 auto;
+  // }
 }
 
 @import 'loader';

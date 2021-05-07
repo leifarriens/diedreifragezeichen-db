@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
@@ -7,7 +7,6 @@ import { calcFolgenRating } from '../../utils';
 
 import { Loader } from '../Loader';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
 
 const Cover = styled.div`
   width: 100%;
@@ -31,18 +30,16 @@ const GridFolge = React.memo(({ folge, coverOnly = false, ...style }) => {
   const rating = calcFolgenRating(folge.ratings);
 
   return (
-    <div className="folge-miniatur" {...style}>
+    <div {...style}>
       <Link href={`/folge/${folge._id}`}>
         <a>
           <FolgeCover src={folge.images[1].url} />
         </a>
       </Link>
       {!coverOnly && (
-        <div className="description">
-          <div className="folge-miniatur__rating">
-            <div>
-              {rating ? rating : '???'}/<small>10</small>
-            </div>
+        <div>
+          <div>
+            {rating ? rating : '???'}/<small>10</small>{' '}
           </div>
           <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
         </div>

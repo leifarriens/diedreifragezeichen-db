@@ -10,6 +10,7 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
+  // eslint-disable-next-line no-unused-vars
   const [id, action] = query.slug;
 
   if (action === 'rating') {

@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
           rel="stylesheet"
         ></link>
       </Head>
-      
+
       <DefaultSeo
         openGraph={{
           type: 'website',
@@ -37,6 +37,7 @@ function MyApp({ Component, pageProps }) {
           site_name: 'Die drei Fragezeichen DB',
         }}
         defaultTitle="Drei Fragezeichen DB"
+        titleTemplate="Drei Fragezeichen DB | %s"
       />
 
       <AuthProvider session={pageProps.session}>

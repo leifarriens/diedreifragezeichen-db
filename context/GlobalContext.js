@@ -13,14 +13,14 @@ export const GlobalContext = React.createContext(initalState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(GlobalReducer, initalState);
 
-  const folgen = useFolgen();
+  // const folgen = useFolgen();
 
   // Actions
-  useEffect(() => {
-    if (folgen && folgen.length > 0) {
-      setFolgen(folgen);
-    }
-  }, [folgen]);
+  // useEffect(() => {
+  //   if (folgen && folgen.length > 0) {
+  //     setFolgen(folgen);
+  //   }
+  // }, [folgen]);
 
   useEffect(() => {
     const show = JSON.parse(localStorage.getItem('showSpecials')) || false;
@@ -31,12 +31,12 @@ export const GlobalProvider = ({ children }) => {
     setSortBy(sortBy);
   }, []);
 
-  function setFolgen(newfolgen) {
-    dispatch({
-      type: 'SET_FOLGEN',
-      payload: newfolgen,
-    });
-  }
+  // function setFolgen(newfolgen) {
+  //   dispatch({
+  //     type: 'SET_FOLGEN',
+  //     payload: newfolgen,
+  //   });
+  // }
 
   function setShowSpecials(show) {
     localStorage.setItem('showSpecials', show);

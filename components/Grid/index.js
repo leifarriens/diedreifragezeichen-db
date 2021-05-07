@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { GridContainer, GridUI, FolgenContainer } from './StyledGrid';
 import dayjs from 'dayjs';
 
@@ -126,7 +126,7 @@ const setBodyBgByStyle = (sortBy) => {
       style = '#001727';
   }
 
-  document.body.style.background = style;
+  document.getElementsByTagName('html')[0].style.background = style;
 };
 
 export default Grid;

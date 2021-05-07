@@ -1,8 +1,6 @@
 .rating {
   display: inline-block;
   position: relative;
-  /* height: 50px; */
-  /* line-height: 50px; */
   font-size: 22px;
   font-weight: 900;
 }
@@ -89,11 +87,6 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-
-/* .rating label input:focus:not(:checked) ~ .icon:last-child {
-  color: #001727;
-  text-shadow: 0 0 5px #00a5e7;
-} */
 
 .rating .blue {
   color: #00a5e7;

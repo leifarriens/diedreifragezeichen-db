@@ -12,12 +12,12 @@ button {
   border: 1px solid #fff;
   padding: 10px 22px;
   border-radius: 8px;
-  text-transform: uppercase;
-  font-size: 16px;
   line-height: 18px;
+  font-size: 1rem;
 
   &:hover {
     color: $ddfDark;
+    opacity: 0.9;
     background-color: #fff;
   }
 }
@@ -28,7 +28,7 @@ button {
 
   &:hover {
     color: #fff;
-    opacity: .9;
+    opacity: 0.9;
   }
 }
 
@@ -38,7 +38,6 @@ button {
 
   &:hover {
     color: #fff;
-    opacity: .9;
+    opacity: 0.9;
   }
 }
-

@@ -1,28 +1,22 @@
 import dbConnect from '../../db';
-import { useContext, useEffect, useState } from 'react';
-import Link from 'next/link';
 import FolgeComponent from '../../components/Folge/';
 import { parseMongo } from '../../utils';
-import FolgeModel from '../../models/folge';
-import Rating from '../../models/rating';
 import { Key, KeyContainer } from '../../components/Key';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
-// import Header from '../../components/Header'
-
-import { getFolgeById } from '../../services/';
-
-import { GlobalContext } from '../../context/GlobalContext';
+import { NextSeo } from 'next-seo';
 import {
   GridContainer,
   FolgenContainer,
 } from '../../components/Grid/StyledGrid';
 import GridFolge from '../../components/Grid/GridFolge';
 import { useRouter } from 'next/router';
+import {
+  getAllFolgenIndexes,
+  getAllFolgenSortedWithRating,
+} from '../../services/';
 
 function Folge(props) {
-  const { folgen } = useContext(GlobalContext);
-
-  const { rel, next, prev } = getRelatedFolgen(props.folge, folgen);
+  const { rel, next, prev } = getRelatedFolgen(props.folge, props.folgen);
 
   const router = useRouter();
 
@@ -32,10 +26,10 @@ function Folge(props) {
 
   return (
     <>
-      {/* <Header /> */}
+      <NextSeo title={`${props.folge.number} ${props.folge.name}`} />
       <FolgeComponent folge={props.folge} />
 
-      <KeyContainer style={{ margin: '48px 0', gridColumn: '1 / 3' }}>
+      <KeyContainer style={{ marginBottom: '48px', gridColumn: '1 / 3' }}>
         {prev && (
           <Key
             icon={BiLeftArrowAlt}
@@ -73,7 +67,7 @@ function Folge(props) {
 export async function getStaticPaths() {
   await dbConnect();
 
-  const data = await FolgeModel.find({});
+  const data = await getAllFolgenIndexes();
 
   const folgen = parseMongo(data);
 
@@ -87,29 +81,17 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   await dbConnect();
 
-  const data = await FolgeModel.findById(params.id).populate('ratings');
+  const data = await getAllFolgenSortedWithRating();
 
-  const folge = parseMongo(data);
+  const folgen = parseMongo(data);
+
+  const folge = folgen.find((f) => f._id === params.id);
 
   return {
-    props: { folge },
+    props: { folge, folgen },
     revalidate: 1,
   };
 }
-
-// export async function getServerSideProps(context) {
-//   await dbConnect();
-
-//   const data = await FolgeModel.findById(context.params.id).populate('ratings');
-
-//   const folge = parseMongo(data);
-
-//   return {
-//     props: {
-//       folge,
-//     },
-//   };
-// }
 
 // helpers
 
