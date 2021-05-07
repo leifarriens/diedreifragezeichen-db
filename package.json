@@ -8,20 +8,16 @@
     "build": "next build",
     "start": "next start",
     "scrape-folgen": "node jobs/",
+    "lint": "eslint .",
     "format": "prettier --write ."
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "client/*"
-    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/leifarriens/diedreifragezeichen-db.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Leif Arriens",
+  "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/leifarriens/diedreifragezeichen-db/issues"
   },
@@ -30,18 +26,11 @@
     "agenda": "^3.1.0",
     "axios": "^0.19.0",
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
     "chalk": "^4.1.0",
     "dayjs": "^1.10.4",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.16.2",
-    "helmet": "^4.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
     "mongodb": "^3.6.6",
     "mongoose": "^5.6.11",
-    "morgan": "^1.10.0",
     "next": "^10.2.0",
     "next-auth": "^3.19.3",
     "next-seo": "^4.24.0",
@@ -51,17 +40,18 @@
     "react-dom": "^17.0.1",
     "react-headroom": "^3.1.1",
     "react-icons": "^4.2.0",
-    "react-infinite-scroll-component": "^6.1.0",
     "react-intersection-observer": "^8.31.1",
     "react-rating-stars-component": "leifarriens/react-stars#hover_event",
     "sass": "^1.32.11",
-    "smoothscroll-polyfill": "^0.4.4",
     "styled-components": "^5.2.3",
     "swr": "^0.5.5"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0",
-    "concurrently": "^5.3.0",
+    "eslint": "^7.25.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
     "prettier": "^2.2.1"
   }
 }
