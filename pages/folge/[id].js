@@ -14,6 +14,7 @@ import {
   getAllFolgenIndexes,
   getAllFolgenSortedWithRating,
 } from '../../services/';
+import Header from '../../components/Header/';
 
 function Folge(props) {
   const { rel, next, prev } = getRelatedFolgen(props.folge, props.folgen);
@@ -27,6 +28,7 @@ function Folge(props) {
   return (
     <>
       <NextSeo title={`${props.folge.number} ${props.folge.name}`} />
+      <Header transparent={true} />
       <FolgeComponent folge={props.folge} />
 
       <KeyContainer style={{ marginBottom: '48px', gridColumn: '1 / 3' }}>
@@ -45,6 +47,7 @@ function Folge(props) {
           />
         )}
       </KeyContainer>
+
       <GridContainer>
         <FolgenContainer>
           {rel.map((folge) => {

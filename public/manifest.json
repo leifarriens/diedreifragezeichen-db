@@ -1,0 +1,16 @@
+{
+  "name": "Die Drei Fragezeichen DB",
+  "short_name": "ddfdb",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#001727",
+  "theme_color": "#001727",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ]
+}

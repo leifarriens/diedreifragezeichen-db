@@ -28,9 +28,10 @@ const Search = () => {
   return (
     <input
       ref={ref}
-      type="text"
+      type="search"
+      name="search"
       value={searchQuery}
-      placeholder="'Name', 'Nummer' oder 'Erscheinungsjahr'"
+      placeholder="Name, Nummer oder Erscheinungsjahr"
       onKeyPress={handleKeyDown}
       onChange={handleSearchChange}
     />

@@ -2776,7 +2776,7 @@ react-is@16.13.1, react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-rating-stars-component@leifarriens/react-stars#hover_event:
+react-rating-stars-component@leifarriens/react-stars:
   version "2.2.0"
   resolved "https://codeload.github.com/leifarriens/react-stars/tar.gz/59f17cf343d9223178621ffd2278c46aeb4f12bc"
 

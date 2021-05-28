@@ -1,10 +1,9 @@
-// import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactStars from 'react-rating-stars-component';
-// import ReactStars from '../../react-stars/dist/react-stars';
 import { useSession, signIn } from 'next-auth/client';
 import { roundRatingToPointFive } from '../utils';
-import { mutate } from 'swr';
+import useSWR, { mutate } from 'swr';
 
 const RateIcon = styled.i`
   display: block;
@@ -16,53 +15,45 @@ const RateIcon = styled.i`
   background-repeat: no-repeat;
 `;
 
-const Rating = ({ folge_id, defaultRating = 0 }) => {
-  const roundedRating = roundRatingToPointFive(defaultRating);
+const Rating = ({ folge_id, userRating, onRated }) => {
   const [session] = useSession();
-  // const [hoverRating, setHoverRating] = useState(defaultRating);
+  const [hoverRating, setHoverRating] = useState(null);
 
   const _handleRateClick = (newRating) => {
     if (!session) return signIn();
 
     mutate(`/api/folgen/`, async () => {
-      const response = await fetch(`/api/folgen/${folge_id}/rating`, {
+      await fetch(`/api/folgen/${folge_id}/rating`, {
         method: 'POST',
         body: JSON.stringify({ rating: newRating }),
       });
 
-      console.log(response);
-      // setHoverRating(newRating);
+      onRated(newRating);
     });
   };
 
   const settings = {
     style: { display: 'inline-flex' },
     count: 10,
-    value: roundedRating,
+    value: userRating || 0,
     isHalf: true,
     emptyIcon: <RateIcon icon={'/white_small.png'} />,
     halfIcon: <RateIcon icon={'/half_small.png'} />,
     filledIcon: <RateIcon icon={'/blue_small.png'} />,
     onChange: (newRating) => _handleRateClick(newRating),
-    // onMouseOver: (value) => setHoverRating(value),
-    // onMouseLeave: () => setHoverRating(defaultRating),
+    onMouseOver: (value) => setHoverRating(value),
+    onMouseLeave: () => setHoverRating(null),
   };
 
   return (
     <div>
-      <div
-        style={{ fontSize: '2.4rem', marginTop: '24px', marginBottom: '12px' }}
-      >
-        <span style={{ fontFamily: 'Cambria' }}>
-          {defaultRating ? defaultRating : ' - '}/10
-        </span>
-      </div>
+      <div style={{ fontSize: '18px', marginBottom: '6px' }}>Deine Wertung:</div>
       <div style={{ display: 'flex' }}>
         <ReactStars {...settings} />
         <span
-          style={{ fontSize: '36px', marginLeft: '8px', lineHeight: '.75' }}
+          style={{ fontSize: '36px', marginLeft: '12px', lineHeight: '0.75' }}
         >
-          {/* {hoverRating} */}
+          {hoverRating ? hoverRating : userRating}
         </span>
       </div>
     </div>

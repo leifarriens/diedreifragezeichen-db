@@ -19,7 +19,6 @@ $bgShade3: #05182a;
 }
 
 html {
-  background-color: $ddfDark;
   font-size: 12px;
 
   @media screen and (min-width: 460px) {
@@ -32,9 +31,9 @@ html {
 }
 
 body {
+  background-color: $ddfDark;
   font-family: system-ui, sans-serif;
   color: #fff;
-  min-height: 100vh;
 }
 
 h1,
@@ -85,3 +84,4 @@ img {
 
 @import 'loader';
 @import 'button';
+@import 'checkbox';

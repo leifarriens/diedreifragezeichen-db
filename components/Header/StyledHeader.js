@@ -1,21 +1,14 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  z-index: 10;
+  z-index: 100;
   color: #fff;
-  position: sticky;
-  top: 0;
-  /* top: -18px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 48px;
-  background: linear-gradient(
-    0deg,
-    rgba(0, 23, 39, 0) 0%,
-    rgba(0, 23, 39, 0.85) 100%
-  );
+  background: ${(props) => props.background};
   pointer-events: none;
 
   /* GRID */
@@ -74,21 +67,24 @@ export const SearchBar = styled.div`
 
   input {
     background-color: transparent;
-    color: #eee;
+    color: #fff;
     font-family: inherit;
     font-size: 16px;
     font-size: inherit;
     padding: 10px 24px;
     border-radius: 25px;
-    font-size: 1.1.rem;
     border: none;
     width: 100%;
     outline: none;
-    border: 1px solid #999;
+    border: 1px solid #fff;
+    transition: all 150ms ease;
+    /* border-radius: 8px; */
+    opacity: 0.45;
 
     &:focus {
       color: #000;
-      background-color: #fafafa;
+      background-color: #fff;
+      opacity: 1;
     }
   }
 `;

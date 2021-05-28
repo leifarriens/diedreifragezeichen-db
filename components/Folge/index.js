@@ -1,8 +1,12 @@
+import { useEffect, useState } from 'react';
 import { Container, Cover, Content, Buttons, Background } from './StyledFolge';
+import useSWR from 'swr';
 import { calcFolgenRating } from '../../utils';
 import Rating from '../Rating';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Folge = ({ folge }) => {
   const {
@@ -15,31 +19,55 @@ const Folge = ({ folge }) => {
     spotify_id,
   } = folge;
 
+  const [userRating, setUserRating] = useState(null);
+
   const rating = calcFolgenRating(ratings);
 
+  const { data, error } = useSWR(`/api/folgen/${_id}/rating`, fetcher, {
+    errorRetryCount: 1,
+  });
+
+  useEffect(() => {
+    if (data) setUserRating(data.value);
+    // if (error) setUserRating('NR');
+    console.log(userRating);
+  }, [data, error]);
+
+  const loading = !data && !error;
+
   const isBigCover = Number(number) >= 125 ? true : false;
+
+  const _handleUserRated = (rating) => setUserRating(rating);
 
   return (
     <Container className="wrapper">
       <Cover>
-        <img src={images[0].url} alt="Folgen Cover" />
+        <img src={images[0].url} alt={`${name} Cover`} />
       </Cover>
       <Content>
         <h2>Die drei ???</h2>
         <h1>{name}</h1>
-        <div style={{ fontSize: '20px', marginTop: '6px', color: '#ddd' }}>
-          Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}
+        <div style={{ fontSize: '1.2rem', marginTop: '6px', color: '#ddd' }}>
+          <p>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</p>
         </div>
-        <Rating folge_id={_id} defaultRating={rating} />
+
+        <div style={{ fontSize: '2.4rem', marginTop: '16px', marginBottom: '12px' }}>
+          <span style={{ fontFamily: 'Cambria' }}>
+            {rating ? rating : ' - '}/10
+          </span>
+        </div>
+        {/* {!loading ? <Rating folge_id={_id} rating={rating} userRating={userRating} onRated={_handleUserRated} /> : '...'} */}
+        {userRating && <Rating folge_id={_id} rating={rating} userRating={userRating} onRated={_handleUserRated}/>}
+        
         <Buttons>
           <a
             className="button"
-            // target="_blank"
             rel="noopener noreferrer"
             href={`spotify:album:${spotify_id}`}
           >
             Auf Spotify Anhören
           </a>
+          {/* <a href="" className="button blue">Review</a> */}
         </Buttons>
       </Content>
 

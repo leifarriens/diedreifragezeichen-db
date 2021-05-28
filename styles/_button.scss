@@ -10,15 +10,32 @@ button {
   display: inline-block;
   color: #fff;
   border: 1px solid #fff;
-  padding: 10px 22px;
+  padding: 0.7rem 1.4rem;
   border-radius: 8px;
   line-height: 18px;
   font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  transition: all 100ms ease-in;
 
   &:hover {
     color: $ddfDark;
-    opacity: 0.9;
     background-color: #fff;
+    box-shadow: inset 5px -5px 10px rgba($color: #000, $alpha: 0.1);
+  }
+}
+
+.button.round {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0;
+
+  svg {
+    display: block;
   }
 }
 
@@ -28,7 +45,6 @@ button {
 
   &:hover {
     color: #fff;
-    opacity: 0.9;
   }
 }
 
@@ -38,6 +54,5 @@ button {
 
   &:hover {
     color: #fff;
-    opacity: 0.9;
   }
 }

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const GridContainer = styled.div`
   padding: 0 24px;
+  flex: 1;
 
   @media (min-width: 375px) {
     padding: 0 24px;
@@ -26,6 +27,7 @@ export const GridContainer = styled.div`
 
 export const GridUI = styled.div`
   /* width: auto; */
+  margin-bottom: 22px;
 
   @media (min-width: 744px) {
     /* display: grid; */
@@ -36,10 +38,22 @@ export const GridUI = styled.div`
 export const FolgenContainer = styled.div`
   display: grid;
   grid-gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  justify-items: start;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  justify-items: center;
 
-  @media screen and (min-width: 590px) {
+  @media screen and (min-width: 375px) {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+
+  @media screen and (min-width: 850px) {
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  }
+
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  /* @media screen and (min-width: 690px) {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 
@@ -49,5 +63,5 @@ export const FolgenContainer = styled.div`
 
   @media screen and (min-width: 1440px) {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  }
+  } */
 `;

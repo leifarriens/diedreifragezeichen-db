@@ -72,7 +72,12 @@ const Grid = (props) => {
 
     showRightFolgen();
 
-    setBodyBgByStyle(sortBy);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (!isSafari) setBodyBgByStyle(sortBy);
+
+    return () => {
+      unsetBodyBgStyle();
+    };
   }, [showSpecials, searchQuery, sortBy]);
 
   const handleCheckboxChange = (e) => {
@@ -87,20 +92,28 @@ const Grid = (props) => {
   return (
     <GridContainer>
       <GridUI>
-        <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
-        <div style={{ marginBottom: '16px' }}>
-          <label>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
+          <span style={{ marginBottom: '16px' }}>
             <input
+              id="confirm"
               type="checkbox"
               checked={showSpecials}
               onChange={(e) => handleCheckboxChange(e)}
             />
-            <span style={{ marginLeft: '8px', lineHeight: 1.5 }}>
-              Specials anzeigen
-            </span>
-          </label>
+            <label htmlFor="confirm">Specials anzeigen</label>
+          </span>
         </div>
-        <div style={{ marginBottom: '16px' }}>{folgen.length} Folgen</div>
+        <div>
+          {folgen.length} {folgen.length === 1 ? 'Folge' : 'Folgen'}
+        </div>
       </GridUI>
 
       <FolgenContainer>
@@ -123,10 +136,16 @@ const setBodyBgByStyle = (sortBy) => {
       style = 'linear-gradient(180deg, #030f1a 0%, #001727 50%, #05182a 100%)';
       break;
     default:
-      style = '#001727';
+      style = '';
   }
 
-  document.getElementsByTagName('html')[0].style.background = style;
+  document.getElementsByClassName('container')[0].style.background = style;
+};
+
+const unsetBodyBgStyle = () => {
+  document
+    .getElementsByClassName('container')[0]
+    .style.removeProperty('background');
 };
 
 export default Grid;

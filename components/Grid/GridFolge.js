@@ -10,7 +10,8 @@ import styled from 'styled-components';
 
 const Cover = styled.div`
   width: 100%;
-  max-width: 320px;
+  /* min-width: 180px; */
+  /* max-width: 320px; */
   height: auto;
   transition: transform 150ms ease;
   transform-origin: bottom;
@@ -30,10 +31,10 @@ const GridFolge = React.memo(({ folge, coverOnly = false, ...style }) => {
   const rating = calcFolgenRating(folge.ratings);
 
   return (
-    <div {...style}>
+    <article {...style}>
       <Link href={`/folge/${folge._id}`}>
         <a>
-          <FolgeCover src={folge.images[1].url} />
+          <FolgeCover src={folge.images[1].url} alt={`${folge.name} Cover`} />
         </a>
       </Link>
       {!coverOnly && (
@@ -44,11 +45,11 @@ const GridFolge = React.memo(({ folge, coverOnly = false, ...style }) => {
           <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
         </div>
       )}
-    </div>
+    </article>
   );
 });
 
-const FolgeCover = ({ src }) => {
+const FolgeCover = ({ src, alt }) => {
   const [loading, setLoading] = useState(true);
   const [imgSrc, setImgSrc] = useState('');
 
@@ -71,6 +72,7 @@ const FolgeCover = ({ src }) => {
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
           }}
           src={imgSrc}
+          alt={alt}
           onLoad={() => setLoading(false)}
         />
       </Cover>

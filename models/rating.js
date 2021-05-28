@@ -9,7 +9,11 @@ const ratingSchema = mongoose.Schema(
       ref: 'Folge',
       required: true,
     },
-    value: Number,
+    value: {
+      type: Number,
+      min: 1,
+      max: 10,
+    },
   },
   {
     timestamps: true,

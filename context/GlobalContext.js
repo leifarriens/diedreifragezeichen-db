@@ -1,4 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
+import qs from 'qs';
 import GlobalReducer from './GlobalReducer';
 
 const initalState = {
@@ -23,12 +24,28 @@ export const GlobalProvider = ({ children }) => {
   // }, [folgen]);
 
   useEffect(() => {
+    // const {
+    //   search = '',
+    //   sort = 'dateDesc',
+    //   specials = false,
+    // } = qs.parse(window.location.search, { ignoreQueryPrefix: true });
+
+    // setSearchQuery(search);
+    // setSortBy(sort);
+    // setShowSpecials(specials);
+
     const show = JSON.parse(localStorage.getItem('showSpecials')) || false;
 
     setShowSpecials(show);
 
     const sortBy = sessionStorage.getItem('sortBy') || 'dateDesc';
     setSortBy(sortBy);
+
+    const queryString = qs.parse(window.location.search, {
+      ignoreQueryPrefix: true,
+    });
+    const searchQuery = queryString.search || '';
+    setSearchQuery(searchQuery);
   }, []);
 
   // function setFolgen(newfolgen) {

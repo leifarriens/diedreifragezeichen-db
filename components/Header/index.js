@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Headroom from 'react-headroom';
@@ -9,7 +9,7 @@ import { signIn, useSession } from 'next-auth/client';
 
 import { GlobalContext } from '../../context/GlobalContext';
 
-const Header = () => {
+const Header = ({ transparent, simple = false }) => {
   const { setSearchQuery } = useContext(GlobalContext);
   const [session, loading] = useSession();
   const router = useRouter();
@@ -24,39 +24,46 @@ const Header = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);;
+  const gradient = `linear-gradient(
+    0deg,
+    rgba(0, 23, 39, 0) 0%,
+    rgba(0, 23, 39, 0.6) 40%,
+    rgba(0, 23, 39, 0.85) 100%
+  )`;
+
+  const background = !transparent ? gradient : null;
 
   return (
     <Headroom style={{ pointerEvents: 'none' }}>
-      <Container>
+      <Container background={background}>
         <HomeLink onClick={handleHomeClick} />
 
-        <SearchBar>
-          <SearchInput />
-        </SearchBar>
+        {!simple && (
+          <SearchBar>
+            <SearchInput />
+          </SearchBar>
+        )}
 
         {!loading && router.pathname !== '/signin' && (
           <ProfileLink>
             {!session ? (
               <span>
                 <button className="button red" onClick={() => signIn()}>
-                  Anmelden
+                  Folgen Bewerten
                 </button>
               </span>
             ) : (
               <div>
-                <Link href="/profile">
-                  <a>
-                    <AiOutlineProfile size={28} />
+                <Link href="/profil">
+                  <a className="button blue">
+                    Profil
+                    {/* <AiOutlineProfile size={26} /> */}
                   </a>
                 </Link>
               </div>
             )}
           </ProfileLink>
         )}
-
       </Container>
     </Headroom>
   );

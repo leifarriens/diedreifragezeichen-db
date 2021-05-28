@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SortContainer = styled.div`
-  display: flex;
+const SortContainer = styled.span`
+  display: inline-flex;
   margin-bottom: 24px;
+  margin-right: 12px;
 `;
 
 const Label = styled.label`
@@ -24,6 +25,7 @@ const Label = styled.label`
     padding: 6px 18px;
     border: 1px solid #fff;
     text-align: center;
+    border-right: none;
 
     @media (min-width: 480px) {
       padding: 8px 22px;
@@ -42,12 +44,11 @@ const Label = styled.label`
 
   :first-child span {
     border-radius: 8px 0 0 8px;
-    border-right: none;
   }
 
   :last-child span {
     border-radius: 0 8px 8px 0;
-    border-left: none;
+    border-right: 1px solid #fff;
   }
 `;
 
