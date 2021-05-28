@@ -1,6 +1,6 @@
-import Document from 'next/document';
+import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
-
+import { colors } from '../theme';
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
@@ -26,5 +26,25 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
+  }
+
+  render() {
+    return (
+      <Html lang="de">
+        <Head>
+          <link rel="shortcut icon" type="img/png" href="/icon.png" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="theme-color" content={colors.darkblue} />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap"
+            rel="stylesheet"
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
   }
 }
