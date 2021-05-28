@@ -20,7 +20,7 @@ function Profile({ folgenWithRating }) {
   if (!session) return signIn();
 
   const { name, email } = session.user;
-  console.log(folgenWithRating);
+
   return (
     <>
       <Header />
@@ -30,7 +30,7 @@ function Profile({ folgenWithRating }) {
         <button className="button red" onClick={signOut}>
           Logout
         </button>
-        <h3>Deine Bwertungen</h3>
+        <h3 style={{ margin: '36px 0'}}>Deine Bewertungen</h3>
         <GridContainer>
           <ul>
             {/* <FolgenContainer> */}

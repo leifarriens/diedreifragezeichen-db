@@ -50,7 +50,7 @@ const Rating = ({ folge_id, userRating, onRated }) => {
   return (
     <div>
       <div style={{ fontSize: '18px', marginBottom: '6px' }}>
-        Deine Wertung:
+        {userRating ? 'Deine Wertung:': 'Bewerten:'}
       </div>
       <div style={{ display: 'flex' }}>
         <ReactStars {...settings} />

@@ -37,7 +37,9 @@ const Folge = ({ folge }) => {
 
   const isBigCover = Number(number) >= 125 ? true : false;
 
-  const _handleUserRated = (rating) => setUserRating(rating);
+  const _handleUserRated = (rating) => {
+    setUserRating(rating)
+  };
 
   useEffect(() => {
     console.log(userRating);
@@ -76,7 +78,7 @@ const Folge = ({ folge }) => {
           />
         )}
 
-        {error && (
+        {(error && !userRating) && (
           <Rating
             folge_id={_id}
             rating={rating}
