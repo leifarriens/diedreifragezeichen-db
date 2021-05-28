@@ -1,60 +1,50 @@
 import { getSession, getProviders, signIn } from 'next-auth/client';
 import { FaSpotify, FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import { HiOutlineMail } from 'react-icons/hi';
+import Header from '../components/Header';
 
-export default function SignIn(props) {
+export default function SignIn({ providers }) {
+  const providerButtons = {
+    spotify: {
+      icon: <FaSpotify size={20} />,
+      bgColor: '#1ED760',
+      color: '#fff',
+    },
+    facebook: {
+      icon: <FaFacebook size={20} />,
+      bgColor: '#1877F2',
+      color: '#fff',
+    },
+    google: {
+      icon: <FcGoogle size={20} />,
+      bgColor: '#fff',
+      color: '#000',
+    },
+    email: {
+      icon: <HiOutlineMail size={20} />,
+      bgColor: '#000',
+      color: '#fff',
+    },
+  };
+
   return (
-    <div className="wrapper" style={{ maxWidth: '420px' }}>
-      <h1>Anmelden</h1>
-      {Object.values(props.providers).map((provider) => {
-        if (provider.id === 'spotify') {
+    <>
+      <Header simple={true} />
+      <div className="wrapper" style={{ maxWidth: '420px' }}>
+        <h1>Anmelden</h1>
+        {Object.values(providers).map((provider) => {
           return (
             <SocialLoginButton
               key={provider.id}
               name={provider.name}
-              icon={<FaSpotify />}
-              bgColor="#1ED760"
-              color="#fff"
               onClick={() => signIn(provider.id)}
+              {...providerButtons[provider.id]}
             />
           );
-        }
-
-        if (provider.id === 'facebook') {
-          return (
-            <SocialLoginButton
-              key={provider.id}
-              name={provider.name}
-              icon={<FaFacebook />}
-              bgColor="#1877F2"
-              color="#fff"
-              onClick={() => signIn(provider.id)}
-            />
-          );
-        }
-
-        if (provider.id === 'google') {
-          return (
-            <SocialLoginButton
-              key={provider.id}
-              name={provider.name}
-              icon={<FcGoogle />}
-              bgColor="#fff"
-              color="#000"
-              onClick={() => signIn(provider.id)}
-            />
-          );
-        }
-
-        // return (
-        //   <div key={provider.name}>
-        //     <button className="button" onClick={() => signIn(provider.id)}>
-        //       Mit {provider.name} anmelden
-        //     </button>
-        //   </div>
-        // );
-      })}
-    </div>
+        })}
+      </div>
+    </>
   );
 }
 
@@ -66,37 +56,38 @@ const SocialLoginButton = ({ name, icon, bgColor, color, onClick }) => {
         onClick={onClick}
         style={{
           width: '100%',
-          fontSize: '20px',
+          fontSize: '1.1rem',
           backgroundColor: bgColor,
           borderColor: bgColor,
           color: color,
         }}
       >
         <span style={{ marginRight: '6px' }}>{icon}</span>
-        Mit {name} anmelden
+        <span>Mit {name} anmelden</span>
       </button>
     </div>
   );
 };
 
 export async function getServerSideProps(context) {
-  const { res } = context;
-
+  const { res, query } = context;
   const session = await getSession(context);
+
+  const { callbackUrl } = query;
 
   if (session && res) {
     res.writeHead(302, {
-      Location: '/',
+      Location: callbackUrl || process.env.NEXTAUTH_URL,
     });
-    return res.end();
+    res.end();
+    return {
+      props: {},
+    };
   }
 
   const providers = await getProviders();
 
   return {
-    props: {
-      session: session,
-      providers: providers,
-    },
+    props: { providers },
   };
 }
