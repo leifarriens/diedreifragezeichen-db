@@ -17,7 +17,7 @@ function Home(props) {
 
   return (
     <>
-    <Header />
+      <Header />
       <Grid folgen={props.folgen} />
       {!session && (
         <HomeFooter className="wrapper">

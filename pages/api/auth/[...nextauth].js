@@ -24,9 +24,9 @@ const options = {
     signIn: '/signin',
   },
   callbacks: {
-    redirect: async (url, baseUrl) => {
-      return Promise.resolve(url);
-    },
+    // redirect: async (url, baseUrl) => {
+    //   return Promise.resolve(url);
+    // },
     // redirect: async (url, baseUrl) => {
     //   // return url.startsWith(baseUrl)
     //   //   ? Promise.resolve(url)

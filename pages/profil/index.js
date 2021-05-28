@@ -17,34 +17,34 @@ function Profile({ folgenWithRating }) {
 
   if (loading) return null;
 
-  if (!loading && !session) return signIn();
+  if (!session) return signIn();
 
   const { name, email } = session.user;
   console.log(folgenWithRating);
   return (
     <>
-      <Header simple={true} />
+      <Header />
       <div className="wrapper">
         <div>{name}</div>
         <div>{email}</div>
-        <button className="button red" onClick={() => signOut()}>
+        <button className="button red" onClick={signOut}>
           Logout
         </button>
         <h3>Deine Bwertungen</h3>
-      <GridContainer>
-        <ul>
-        {/* <FolgenContainer> */}
-          {folgenWithRating.map(folge => (
-            // <GridFolge key={folge._id} folge={folge} coverOnly={true} />
-            // <li key={folge._id}>
-            //   <span>
-            //     <img src={folge.images[1].url} height="200" />{folge.name} {folge.yourRating}</span>
-            // </li>
-            <ListItem key={folge._id} folge={folge} />
-          ))}
-        {/* </FolgenContainer> */}
-        </ul>
-      </GridContainer>
+        <GridContainer>
+          <ul>
+            {/* <FolgenContainer> */}
+            {folgenWithRating.map((folge) => (
+              // <GridFolge key={folge._id} folge={folge} coverOnly={true} />
+              // <li key={folge._id}>
+              //   <span>
+              //     <img src={folge.images[1].url} height="200" />{folge.name} {folge.yourRating}</span>
+              // </li>
+              <ListItem key={folge._id} folge={folge} />
+            ))}
+            {/* </FolgenContainer> */}
+          </ul>
+        </GridContainer>
       </div>
     </>
   );
@@ -55,7 +55,7 @@ const ListItemContainer = styled.div`
   grid-template-columns: 80px 1fr auto;
   grid-column-gap: 18px;
   margin-bottom: 18px;
-  background-color: #010A0F;
+  background-color: #010a0f;
   padding: 18px;
   align-items: center;
   box-shadow: rgb(0 0 0 / 20%) 0px 8px 24px;
@@ -74,18 +74,18 @@ const ListItemContainer = styled.div`
 const ListItem = ({ folge }) => {
   return (
     <Link href={`folge/${folge._id}`}>
-    <a>
-      <ListItemContainer bgImage={folge.images[1].url}>
-          <div >
+      <a>
+        <ListItemContainer bgImage={folge.images[1].url}>
+          <div>
             <img src={folge.images[1].url} alt="" />
           </div>
           <span>{folge.name}</span>
           <span>{folge.yourRating}</span>
-      </ListItemContainer>
-    </a>
+        </ListItemContainer>
+      </a>
     </Link>
-  )
-}
+  );
+};
 
 export async function getServerSideProps(context) {
   const { req, res } = context;
@@ -108,15 +108,15 @@ export async function getServerSideProps(context) {
     _id: {
       $in: ratedFolgen,
     },
-  })
+  });
 
   const ratings = parseMongo(data);
   const folgen = parseMongo(rawFolgen);
 
-  const folgenWithRating = folgen.map(f => {
-    f.yourRating = ratings.find(r => r.folge === f._id).value;
+  const folgenWithRating = folgen.map((f) => {
+    f.yourRating = ratings.find((r) => r.folge === f._id).value;
     return f;
-  })
+  });
 
   return {
     props: {
