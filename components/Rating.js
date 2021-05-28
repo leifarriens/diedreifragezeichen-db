@@ -32,10 +32,12 @@ const Rating = ({ folge_id, userRating, onRated }) => {
     });
   };
 
+  const hoverRatingString = userRating === 0 ? null : userRating;
+
   const settings = {
     style: { display: 'inline-flex' },
     count: 10,
-    value: userRating || 0,
+    value: userRating,
     isHalf: true,
     emptyIcon: <RateIcon icon={'/white_small.png'} />,
     halfIcon: <RateIcon icon={'/half_small.png'} />,
@@ -47,13 +49,15 @@ const Rating = ({ folge_id, userRating, onRated }) => {
 
   return (
     <div>
-      <div style={{ fontSize: '18px', marginBottom: '6px' }}>Deine Wertung:</div>
+      <div style={{ fontSize: '18px', marginBottom: '6px' }}>
+        Deine Wertung:
+      </div>
       <div style={{ display: 'flex' }}>
         <ReactStars {...settings} />
         <span
           style={{ fontSize: '36px', marginLeft: '12px', lineHeight: '0.75' }}
         >
-          {hoverRating ? hoverRating : userRating}
+          {hoverRating ? hoverRating : hoverRatingString}
         </span>
       </div>
     </div>

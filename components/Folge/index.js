@@ -28,16 +28,21 @@ const Folge = ({ folge }) => {
   });
 
   useEffect(() => {
-    if (data) setUserRating(data.value);
-    // if (error) setUserRating('NR');
-    console.log(userRating);
+    if (data) {
+      setUserRating(data.value);
+      console.log(data);
+    }
+    if (error) setUserRating(null);
   }, [data, error]);
-
-  const loading = !data && !error;
 
   const isBigCover = Number(number) >= 125 ? true : false;
 
   const _handleUserRated = (rating) => setUserRating(rating);
+
+  useEffect(() => {
+    console.log(userRating);
+  }, [userRating]);
+  console.log(folge);
 
   return (
     <Container className="wrapper">
@@ -51,14 +56,35 @@ const Folge = ({ folge }) => {
           <p>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</p>
         </div>
 
-        <div style={{ fontSize: '2.4rem', marginTop: '16px', marginBottom: '12px' }}>
+        <div
+          style={{
+            fontSize: '2.4rem',
+            marginTop: '16px',
+            marginBottom: '12px',
+          }}
+        >
           <span style={{ fontFamily: 'Cambria' }}>
             {rating ? rating : ' - '}/10
           </span>
         </div>
-        {/* {!loading ? <Rating folge_id={_id} rating={rating} userRating={userRating} onRated={_handleUserRated} /> : '...'} */}
-        {userRating && <Rating folge_id={_id} rating={rating} userRating={userRating} onRated={_handleUserRated}/>}
-        
+        {userRating && (
+          <Rating
+            folge_id={_id}
+            rating={rating}
+            userRating={userRating}
+            onRated={_handleUserRated}
+          />
+        )}
+
+        {error && (
+          <Rating
+            folge_id={_id}
+            rating={rating}
+            userRating={0}
+            onRated={_handleUserRated}
+          />
+        )}
+
         <Buttons>
           <a
             className="button"
