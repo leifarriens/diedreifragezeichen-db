@@ -3,7 +3,6 @@ import qs from 'qs';
 import GlobalReducer from './GlobalReducer';
 
 const initalState = {
-  folgen: [],
   showSpecials: false,
   searchQuery: '',
   sortBy: 'dateDesc',
@@ -14,26 +13,7 @@ export const GlobalContext = React.createContext(initalState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(GlobalReducer, initalState);
 
-  // const folgen = useFolgen();
-
-  // Actions
-  // useEffect(() => {
-  //   if (folgen && folgen.length > 0) {
-  //     setFolgen(folgen);
-  //   }
-  // }, [folgen]);
-
   useEffect(() => {
-    // const {
-    //   search = '',
-    //   sort = 'dateDesc',
-    //   specials = false,
-    // } = qs.parse(window.location.search, { ignoreQueryPrefix: true });
-
-    // setSearchQuery(search);
-    // setSortBy(sort);
-    // setShowSpecials(specials);
-
     const show = JSON.parse(localStorage.getItem('showSpecials')) || false;
 
     setShowSpecials(show);
@@ -47,13 +27,6 @@ export const GlobalProvider = ({ children }) => {
     const searchQuery = queryString.search || '';
     setSearchQuery(searchQuery);
   }, []);
-
-  // function setFolgen(newfolgen) {
-  //   dispatch({
-  //     type: 'SET_FOLGEN',
-  //     payload: newfolgen,
-  //   });
-  // }
 
   function setShowSpecials(show) {
     localStorage.setItem('showSpecials', show);
@@ -82,7 +55,6 @@ export const GlobalProvider = ({ children }) => {
   return (
     <GlobalContext.Provider
       value={{
-        folgen: state.folgen,
         showSpecials: state.showSpecials,
         setShowSpecials,
         searchQuery: state.searchQuery,
@@ -99,15 +71,3 @@ export const GlobalProvider = ({ children }) => {
 export const useGlobalState = () => {
   return React.useContext(GlobalContext);
 };
-
-import useSWR from 'swr';
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
-
-function useFolgen() {
-  const { data, error } = useSWR('/api/folgen', fetcher);
-
-  if (data) {
-    return data;
-  }
-}
