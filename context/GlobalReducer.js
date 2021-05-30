@@ -1,10 +1,5 @@
 export default function GlobalReducer(state, action) {
   switch (action.type) {
-    case 'SET_FOLGEN':
-      return {
-        ...state,
-        folgen: action.payload,
-      };
     case 'SET_SHOW_SPECIALS':
       return {
         ...state,
