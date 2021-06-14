@@ -7,7 +7,7 @@ const ScrollTopContainer = styled.div`
   z-index: 555;
   bottom: 48px;
   right: 48px;
-  transition: opacity 200ms ease;
+  transition: opacity 100ms ease;
 `;
 
 const ScrollToTop = () => {
@@ -24,14 +24,12 @@ const ScrollToTop = () => {
 
   const _handleVisibility = () => {
     const t = document.body.getBoundingClientRect().top;
-    setVisible(t < -window.innerHeight / 2);
+    setVisible(t < -window.innerHeight / 3);
   }
 
   const _handleClick = () => {
     window.scroll({ top: 0, behavior: 'smooth' });
   };
-
-  // if (!visible) return null;
 
   return (
     <ScrollTopContainer ref={scrollTopRef} style={{ opacity: visible ? 1 : 0 }}>
