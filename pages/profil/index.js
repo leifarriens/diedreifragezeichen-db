@@ -94,8 +94,13 @@ export async function getServerSideProps(context) {
   if (!session) {
     res.writeHead(302, {
       Location: '/api/auth/signin',
+      // Location: '/',
     });
     res.end();
+
+    return {
+      props: {}
+    }
   }
 
   await dbConnect();
