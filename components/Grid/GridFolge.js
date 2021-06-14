@@ -3,10 +3,9 @@ import Link from 'next/link';
 import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
 
-import { calcFolgenRating } from '../../utils';
-
 import { Loader } from '../Loader';
 import styled from 'styled-components';
+import RatingDisplay from '../RatingDisplay';
 
 const Cover = styled.div`
   width: 100%;
@@ -25,11 +24,13 @@ const Cover = styled.div`
   }
 `;
 
-const GridFolge = React.memo(({ folge, coverOnly = false }) => {
-  const rating = calcFolgenRating(folge.ratings);
+const FolgeContainer = styled.article`
+  width: 100%;
+`;
 
+const GridFolge = React.memo(({ folge, coverOnly = false }) => {
   return (
-    <article style={{ width: '100%' }}>
+    <FolgeContainer>
       <Link href={`/folge/${folge._id}`}>
         <a>
           <FolgeCover src={folge.images[1].url} alt={`${folge.name} Cover`} />
@@ -38,12 +39,12 @@ const GridFolge = React.memo(({ folge, coverOnly = false }) => {
       {!coverOnly && (
         <div>
           <div>
-            {rating ? rating : '???'}/<small>10</small>{' '}
+            <RatingDisplay ratings={folge.ratings} />
           </div>
           <div>{dayjs(folge.release_date).format('DD.MM.YYYY')}</div>
         </div>
       )}
-    </article>
+    </FolgeContainer>
   );
 });
 
@@ -64,7 +65,6 @@ const FolgeCover = ({ src, alt }) => {
     >
       <Cover>
         {loading && <Loader />}
-        {/* <Loader /> */}
         <img
           style={{
             display: loading ? 'none' : 'block',

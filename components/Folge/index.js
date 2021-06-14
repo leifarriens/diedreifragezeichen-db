@@ -5,6 +5,7 @@ import { calcFolgenRating } from '../../utils';
 import Rating from '../Rating';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import RatingDisplay from '../RatingDisplay';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -61,7 +62,7 @@ const Folge = ({ folge }) => {
           }}
         >
           <span style={{ fontFamily: 'Cambria' }}>
-            {rating ? rating : ' - '}/10
+            <RatingDisplay ratings={ratings}/>
           </span>
         </div>
         {userRating && (
