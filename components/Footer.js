@@ -21,7 +21,7 @@ const Signatur = styled.div`
   margin: 0 18px 18px 0;
   position: fixed;
   font-size: 0.65rem;
-  color: #c7c7c7;
+  color: #9a9a9a;
   bottom: 0;
   right: 0;
   z-index: 20;
@@ -39,7 +39,7 @@ export default function Footer() {
         <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a> */}
       </PageFooter>
       <Signatur>
-        Developed with 🤍 by{' '}
+        Developed with 🦜 by{' '}
         <a
           href="https://leifarriens.github.io/"
           target="_blank"

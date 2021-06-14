@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactStars from 'react-rating-stars-component';
 import { useSession, signIn } from 'next-auth/client';
-import { roundRatingToPointFive } from '../utils';
-import useSWR, { mutate } from 'swr';
+import { mutate } from 'swr';
 
 const RateIcon = styled.i`
   display: block;

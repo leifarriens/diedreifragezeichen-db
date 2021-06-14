@@ -10,8 +10,6 @@ import styled from 'styled-components';
 
 const Cover = styled.div`
   width: 100%;
-  /* min-width: 180px; */
-  /* max-width: 320px; */
   height: auto;
   transition: transform 150ms ease;
   transform-origin: bottom;
@@ -27,11 +25,11 @@ const Cover = styled.div`
   }
 `;
 
-const GridFolge = React.memo(({ folge, coverOnly = false, ...style }) => {
+const GridFolge = React.memo(({ folge, coverOnly = false }) => {
   const rating = calcFolgenRating(folge.ratings);
 
   return (
-    <article {...style}>
+    <article style={{ width: '100%' }}>
       <Link href={`/folge/${folge._id}`}>
         <a>
           <FolgeCover src={folge.images[1].url} alt={`${folge.name} Cover`} />
@@ -66,6 +64,7 @@ const FolgeCover = ({ src, alt }) => {
     >
       <Cover>
         {loading && <Loader />}
+        {/* <Loader /> */}
         <img
           style={{
             display: loading ? 'none' : 'block',

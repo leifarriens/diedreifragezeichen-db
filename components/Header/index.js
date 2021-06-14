@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Headroom from 'react-headroom';
 import { Container, HomeLink, SearchBar, ProfileLink } from './StyledHeader';
-// import { AiOutlineProfile } from 'react-icons/ai';
 import SearchInput from './Search';
 import { signIn, useSession } from 'next-auth/client';
 
@@ -57,7 +56,6 @@ const Header = ({ transparent, simple = false }) => {
                 <Link href="/profil">
                   <a className="button blue">
                     Profil
-                    {/* <AiOutlineProfile size={26} /> */}
                   </a>
                 </Link>
               </div>
