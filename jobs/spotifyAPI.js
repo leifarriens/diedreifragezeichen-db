@@ -20,7 +20,6 @@ const getBearerToken = async () => {
         grant_type: 'client_credentials',
       }),
     });
-    console.log(response.data);
     return response.data.access_token;
   } catch (error) {
     console.log(error);

@@ -7,18 +7,14 @@ const options = {
       clientId: process.env.SPOTIFY_CLIENT_ID,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     }),
-    Providers.Facebook({
-      clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    }),
+    // Providers.Facebook({
+    //   clientId: process.env.FACEBOOK_CLIENT_ID,
+    //   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    // }),
     Providers.Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    // Providers.Email({
-    //   server: 'smtp://username:password@smtp.example.com:587',
-    //   from: 'noreply@dreifragezeichen-db.de'
-    // }),
   ],
   pages: {
     signIn: '/signin',
@@ -26,11 +22,6 @@ const options = {
   callbacks: {
     // redirect: async (url, baseUrl) => {
     //   return Promise.resolve(url);
-    // },
-    // redirect: async (url, baseUrl) => {
-    //   // return url.startsWith(baseUrl)
-    //   //   ? Promise.resolve(url)
-    //   //   : Promise.resolve(baseUrl);
     // },
   },
   session: {

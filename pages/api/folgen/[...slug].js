@@ -74,15 +74,13 @@ const handlePostRating = async (req, res) => {
     { upsert: true, new: true }
   );
 
-  const updatedFolge = await Folge.findOneAndUpdate(
+  await Folge.findOneAndUpdate(
     { _id: id },
     {
       $addToSet: { ratings: mongoose.Types.ObjectId(rating._id) },
     },
     { new: true }
   );
-
-  console.log(updatedFolge);
 
   res.status(201).end();
 };

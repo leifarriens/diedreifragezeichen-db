@@ -31,7 +31,7 @@ export default function SignIn({ providers }) {
   return (
     <>
       <Header simple={true} />
-      <div className="wrapper" style={{ maxWidth: '420px' }}>
+      <div className="wrapper" style={{ maxWidth: '420px', textAlign: 'center' }}>
         <h1>Anmelden</h1>
         {Object.values(providers).map((provider) => {
           return (

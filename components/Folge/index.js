@@ -23,6 +23,7 @@ const Folge = ({ folge }) => {
 
   const rating = calcFolgenRating(ratings);
 
+  // TODO: unset userRating on _id change
   const { data, error } = useSWR(`/api/folgen/${_id}/rating`, fetcher, {
     errorRetryCount: 1,
   });
@@ -30,7 +31,6 @@ const Folge = ({ folge }) => {
   useEffect(() => {
     if (data) {
       setUserRating(data.value);
-      console.log(data);
     }
     if (error) setUserRating(null);
   }, [data, error]);
@@ -40,11 +40,6 @@ const Folge = ({ folge }) => {
   const _handleUserRated = (rating) => {
     setUserRating(rating)
   };
-
-  useEffect(() => {
-    console.log(userRating);
-  }, [userRating]);
-  console.log(folge);
 
   return (
     <Container className="wrapper">
