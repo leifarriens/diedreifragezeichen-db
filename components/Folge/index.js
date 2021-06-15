@@ -74,7 +74,7 @@ const Folge = ({ folge }) => {
           />
         )}
 
-        {(error && !userRating) && (
+        {(error || !userRating) && (
           <Rating
             folge_id={_id}
             rating={rating}

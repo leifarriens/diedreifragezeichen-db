@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import ReactStars from 'react-rating-stars-component';
 import { useSession, signIn } from 'next-auth/client';
