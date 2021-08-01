@@ -79,7 +79,7 @@ export const SearchBar = styled.div`
     border: 1px solid #fff;
     transition: all 150ms ease;
     /* border-radius: 8px; */
-    opacity: 0.45;
+    opacity: 0.65;
 
     &:focus {
       color: #000;

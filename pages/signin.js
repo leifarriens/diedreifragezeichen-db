@@ -1,7 +1,8 @@
-import { getSession, getProviders, signIn } from 'next-auth/client';
-import { FaSpotify, FaFacebook } from 'react-icons/fa';
+import { getProviders, getSession, signIn } from 'next-auth/client';
+import { FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';
+
 import Header from '../components/Header';
 
 export default function SignIn({ providers }) {
@@ -31,7 +32,10 @@ export default function SignIn({ providers }) {
   return (
     <>
       <Header simple={true} />
-      <div className="wrapper" style={{ maxWidth: '420px', textAlign: 'center' }}>
+      <div
+        className="wrapper"
+        style={{ maxWidth: '420px', textAlign: 'center' }}
+      >
         <h1>Anmelden</h1>
         {Object.values(providers).map((provider) => {
           return (
@@ -52,6 +56,7 @@ const SocialLoginButton = ({ name, icon, bgColor, color, onClick }) => {
   return (
     <div style={{ marginBottom: '12px' }}>
       <button
+        aria-label={`${name} Login`}
         className="button"
         onClick={onClick}
         style={{

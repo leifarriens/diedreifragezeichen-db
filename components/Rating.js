@@ -1,7 +1,7 @@
+import { signIn, useSession } from 'next-auth/client';
 import { useState } from 'react';
-import styled from 'styled-components';
 import ReactStars from 'react-rating-stars-component';
-import { useSession, signIn } from 'next-auth/client';
+import styled from 'styled-components';
 import { mutate } from 'swr';
 
 const RateIcon = styled.i`
@@ -36,7 +36,6 @@ const Rating = ({ folge_id, userRating, onRated }) => {
   const settings = {
     style: { display: 'inline-flex' },
     count: 10,
-    value: userRating,
     isHalf: true,
     emptyIcon: <RateIcon icon={'/white_small.png'} />,
     halfIcon: <RateIcon icon={'/half_small.png'} />,
@@ -49,12 +48,12 @@ const Rating = ({ folge_id, userRating, onRated }) => {
   return (
     <div>
       <div style={{ fontSize: '18px', marginBottom: '6px' }}>
-        {userRating ? 'Deine Wertung:': 'Bewerten:'}
+        {userRating ? 'Deine Wertung:' : 'Bewerten:'}
       </div>
       <div style={{ display: 'flex' }}>
-        <ReactStars {...settings} />
+        <ReactStars {...settings} value={userRating} />
         <span
-          style={{ fontSize: '36px', marginLeft: '12px', lineHeight: '0.75' }}
+          style={{ fontSize: '32px', marginLeft: '12px', lineHeight: '0.75' }}
         >
           {hoverRating ? hoverRating : hoverRatingString}
         </span>

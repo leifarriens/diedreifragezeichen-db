@@ -1,16 +1,13 @@
-import dbConnect from '../../db';
-import Rating from '../../models/rating';
-import Folge from '../../models/folge';
-import { signIn, signOut, useSession, getSession } from 'next-auth/client';
-import { parseMongo } from '../../utils';
-import {
-  GridContainer,
-  FolgenContainer,
-} from '../../components/Grid/StyledGrid';
-import GridFolge from '../../components/Grid/GridFolge';
-import Header from '../../components/Header';
-import styled from 'styled-components';
 import Link from 'next/link';
+import { getSession, signIn, signOut, useSession } from 'next-auth/client';
+import styled from 'styled-components';
+
+import { GridContainer } from '../../components/Grid/StyledGrid';
+import Header from '../../components/Header';
+import dbConnect from '../../db';
+import Folge from '../../models/folge';
+import Rating from '../../models/rating';
+import { parseMongo } from '../../utils';
 
 function Profile({ folgenWithRating }) {
   const [session, loading] = useSession();
@@ -27,10 +24,10 @@ function Profile({ folgenWithRating }) {
       <div className="wrapper">
         <div>{name}</div>
         <div>{email}</div>
-        <button className="button red" onClick={signOut}>
+        <button aria-label="Logout" className="button red" onClick={signOut}>
           Logout
         </button>
-        <h3 style={{ margin: '36px 0'}}>Deine Bewertungen</h3>
+        <h3 style={{ margin: '36px 0' }}>Deine Bewertungen</h3>
         <GridContainer>
           <ul>
             {/* <FolgenContainer> */}
@@ -99,8 +96,8 @@ export async function getServerSideProps(context) {
     res.end();
 
     return {
-      props: {}
-    }
+      props: {},
+    };
   }
 
   await dbConnect();

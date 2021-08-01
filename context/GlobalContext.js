@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer } from 'react';
 import qs from 'qs';
+import React, { useEffect, useReducer } from 'react';
+
 import GlobalReducer from './GlobalReducer';
 
 const initalState = {

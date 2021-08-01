@@ -1,20 +1,21 @@
-import dbConnect from '../../db';
-import FolgeComponent from '../../components/Folge/';
-import { parseMongo } from '../../utils';
-import { Key, KeyContainer } from '../../components/Key';
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
-import { NextSeo } from 'next-seo';
-import {
-  GridContainer,
-  FolgenContainer,
-} from '../../components/Grid/StyledGrid';
-import GridFolge from '../../components/Grid/GridFolge';
 import { useRouter } from 'next/router';
+import { NextSeo } from 'next-seo';
+import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+
+import FolgeComponent from '../../components/Folge/';
+import GridFolge from '../../components/Grid/GridFolge';
+import {
+  FolgenContainer,
+  GridContainer,
+} from '../../components/Grid/StyledGrid';
+import Header from '../../components/Header/';
+import { Key, KeyContainer } from '../../components/Key';
+import dbConnect from '../../db';
 import {
   getAllFolgenIndexes,
   getAllFolgenSortedWithRating,
 } from '../../services/';
-import Header from '../../components/Header/';
+import { parseMongo } from '../../utils';
 
 function Folge(props) {
   const { rel, next, prev } = getRelatedFolgen(props.folge, props.folgen);
@@ -78,7 +79,7 @@ export async function getStaticPaths() {
     params: { id: folge._id },
   }));
 
-  return { paths, fallback: false };
+  return { paths, fallback: 'blocking' };
 }
 
 export async function getStaticProps({ params }) {

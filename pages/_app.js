@@ -1,13 +1,13 @@
-import Router from 'next/router';
+import '../styles/nprogress.css';
+import '../styles/App.scss';
+
 import Head from 'next/head';
+import Router from 'next/router';
+import { Provider as AuthProvider } from 'next-auth/client';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
-import '../styles/nprogress.css';
 
-import '../styles/App.scss';
 import Layout from '../components/Layout';
-
-import { Provider as AuthProvider } from 'next-auth/client';
 import { GlobalProvider } from '../context/GlobalContext';
 
 Router.events.on('routeChangeStart', () => NProgress.start());

@@ -1,6 +1,6 @@
 import React from 'react';
+import { FaSpotify } from 'react-icons/fa';
 import styled from 'styled-components';
-// import { FaSpotify } from 'react-icons/fa';
 
 const PageFooter = styled.div`
   text-align: center;
@@ -22,6 +22,8 @@ const Signatur = styled.div`
   position: fixed;
   font-size: 0.65rem;
   color: #9a9a9a;
+  color: #c7c7c7;
+
   bottom: 0;
   right: 0;
   z-index: 20;
@@ -35,9 +37,12 @@ export default function Footer() {
   return (
     <React.Fragment>
       <PageFooter>
-        {/* <span>Powereded by </span>
-        <a href="https://api.spotify.com/" target="_blank" rel="noreferrer"><FaSpotify /></a> */}
+        <span>Powereded by </span>
+        <a href="https://api.spotify.com/" target="_blank" rel="noreferrer">
+          <FaSpotify />
+        </a>
       </PageFooter>
+
       <Signatur>
         Developed with 🦜 by{' '}
         <a

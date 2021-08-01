@@ -1,8 +1,9 @@
+import mongoose from 'mongoose';
+import { getSession } from 'next-auth/client';
+
 import dbConnect from '../../../db';
 import Folge from '../../../models/folge';
-import { getSession } from 'next-auth/client';
 import Rating from '../../../models/rating';
-import mongoose from 'mongoose';
 import { parseMongo } from '../../../utils';
 
 export default async function handler(req, res) {

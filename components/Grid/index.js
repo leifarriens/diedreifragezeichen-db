@@ -1,17 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { GridContainer, GridUI, FolgenContainer } from './StyledGrid';
 import dayjs from 'dayjs';
-
-import Sort from '../Sort';
-import GridFolge from './GridFolge';
-import {
-  sortFolgenByRating,
-  sortFolgenByDateAsc,
-  sortFolgenByDateDesc,
-  sortByPopularity,
-} from '../../utils';
+import React, { useContext, useEffect, useState } from 'react';
 
 import { GlobalContext } from '../../context/GlobalContext';
+import {
+  sortByPopularity,
+  sortFolgenByDateAsc,
+  sortFolgenByDateDesc,
+  sortFolgenByRating,
+} from '../../utils';
+import Sort from '../Sort';
+import GridFolge from './GridFolge';
+import { FolgenContainer, GridContainer, GridUI } from './StyledGrid';
 
 const Grid = (props) => {
   const {

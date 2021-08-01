@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Headroom from 'react-headroom';
-import { Container, HomeLink, SearchBar, ProfileLink } from './StyledHeader';
-import SearchInput from './Search';
 import { signIn, useSession } from 'next-auth/client';
+import React, { useContext } from 'react';
+import Headroom from 'react-headroom';
 
 import { GlobalContext } from '../../context/GlobalContext';
+import SearchInput from './Search';
+import { Container, HomeLink, ProfileLink, SearchBar } from './StyledHeader';
 
 const Header = ({ transparent, simple = false }) => {
   const { setSearchQuery } = useContext(GlobalContext);
@@ -47,16 +47,18 @@ const Header = ({ transparent, simple = false }) => {
           <ProfileLink>
             {!session ? (
               <span>
-                <button className="button red" onClick={() => signIn()}>
+                <button
+                  aria-label="Folgen Bewerten"
+                  className="button red"
+                  onClick={() => signIn()}
+                >
                   Folgen Bewerten
                 </button>
               </span>
             ) : (
               <div>
                 <Link href="/profil">
-                  <a className="button blue">
-                    Profil
-                  </a>
+                  <a className="button blue">Profil</a>
                 </Link>
               </div>
             )}

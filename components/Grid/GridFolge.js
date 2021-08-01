@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { InView } from 'react-intersection-observer';
 import dayjs from 'dayjs';
+import Link from 'next/link';
+import React, { useState } from 'react';
+import { InView } from 'react-intersection-observer';
+import styled from 'styled-components';
 
 import { Loader } from '../Loader';
-import styled from 'styled-components';
 import RatingDisplay from '../RatingDisplay';
 
 const Cover = styled.div`

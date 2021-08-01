@@ -1,7 +1,8 @@
-import dbConnect from '../db';
-import Folge from '../models/folge';
-import { getBearerToken, getAllAlbums } from '../jobs/spotifyAPI';
 import chalk from 'chalk';
+
+import dbConnect from '../db';
+import { getAllAlbums, getBearerToken } from '../jobs/spotifyAPI';
+import Folge from '../models/folge';
 
 export default async function () {
   await dbConnect();

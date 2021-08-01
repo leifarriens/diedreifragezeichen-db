@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Container, Cover, Content, Buttons, Background } from './StyledFolge';
-import useSWR from 'swr';
-import { calcFolgenRating } from '../../utils';
-import Rating from '../Rating';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+
+// import { calcFolgenRating } from '../../utils';
+import Rating from '../Rating';
 import RatingDisplay from '../RatingDisplay';
+import { Background, Buttons, Container, Content, Cover } from './StyledFolge';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -20,9 +21,9 @@ const Folge = ({ folge }) => {
     spotify_id,
   } = folge;
 
-  const [userRating, setUserRating] = useState(null);
+  const [userRating, setUserRating] = useState(0);
 
-  const rating = calcFolgenRating(ratings);
+  // const rating = calcFolgenRating(ratings);
 
   // TODO: unset userRating on _id change
   const { data, error } = useSWR(`/api/folgen/${_id}/rating`, fetcher, {
@@ -33,13 +34,13 @@ const Folge = ({ folge }) => {
     if (data) {
       setUserRating(data.value);
     }
-    if (error) setUserRating(null);
+    if (error) setUserRating(0);
   }, [data, error]);
 
   const isBigCover = Number(number) >= 125 ? true : false;
 
   const _handleUserRated = (rating) => {
-    setUserRating(rating)
+    setUserRating(rating);
   };
 
   return (
@@ -62,26 +63,34 @@ const Folge = ({ folge }) => {
           }}
         >
           <span style={{ fontFamily: 'Cambria' }}>
-            <RatingDisplay ratings={ratings}/>
+            <RatingDisplay ratings={ratings} />
           </span>
         </div>
-        {userRating && (
+        {/* TODO: Fix user rating not represented as react stars value */}
+        {userRating > 0 ? (
           <Rating
             folge_id={_id}
-            rating={rating}
+            // rating={userRating}
             userRating={userRating}
+            onRated={_handleUserRated}
+          />
+        ) : (
+          <Rating
+            folge_id={_id}
+            // rating={rating}
+            userRating={0}
             onRated={_handleUserRated}
           />
         )}
 
-        {(error || !userRating) && (
+        {/* {(error || !userRating) && (
           <Rating
             folge_id={_id}
             rating={rating}
             userRating={0}
             onRated={_handleUserRated}
           />
-        )}
+        )} */}
 
         <Buttons>
           <a

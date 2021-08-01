@@ -50,7 +50,7 @@ export const FolgenContainer = styled.div`
   }
 
   @media screen and (min-width: 1440px) {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   }
 
   /* @media screen and (min-width: 690px) {

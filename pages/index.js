@@ -1,11 +1,12 @@
-import dbConnect from '../db';
+import Link from 'next/link';
+import { useSession } from 'next-auth/client';
+import styled from 'styled-components';
+
 import Grid from '../components/Grid';
+import Header from '../components/Header';
+import dbConnect from '../db';
 import { getAllFolgen } from '../services';
 import { parseMongo } from '../utils';
-import Link from 'next/link';
-import styled from 'styled-components';
-import { useSession } from 'next-auth/client';
-import Header from '../components/Header';
 
 const HomeFooter = styled.footer`
   text-align: center;

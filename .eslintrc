@@ -18,10 +18,12 @@
       "version": "detect"
     }
   },
-  "plugins": ["react", "prettier"],
+  "plugins": ["react", "simple-import-sort", "prettier"],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
   }
 }
