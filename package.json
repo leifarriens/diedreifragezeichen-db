@@ -46,6 +46,7 @@
     "react-icons": "^4.2.0",
     "react-intersection-observer": "^8.31.1",
     "react-rating-stars-component": "leifarriens/react-stars#hover_event",
+    "react-transition-group": "^4.4.2",
     "sass": "^1.32.11",
     "styled-components": "^5.2.3",
     "swr": "^0.5.5"

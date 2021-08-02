@@ -1,10 +1,13 @@
 import { signIn, useSession } from 'next-auth/client';
+import { useState } from 'react';
 import { mutate } from 'swr';
 
 import RatingInput from './RatingInput';
+import Toast from './Toast';
 
-const Rating = ({ folge_id, userRating }) => {
+const Rating = ({ folge_id, userRating, folge_name }) => {
   const [session] = useSession();
+  const [toasted, setToasted] = useState(false);
 
   const handleNewRating = (newRating) => {
     if (!session) return signIn();
@@ -14,7 +17,7 @@ const Rating = ({ folge_id, userRating }) => {
         method: 'POST',
         body: JSON.stringify({ rating: newRating }),
       });
-
+      setToasted(true);
       console.log('rating saved', newRating);
     });
   };
@@ -29,6 +32,11 @@ const Rating = ({ folge_id, userRating }) => {
         defaultValue={userRating}
         onRate={(newRating) => handleNewRating(newRating)}
       />
+      {toasted && (
+        <Toast duration={5000} onFadeOut={() => setToasted(false)}>
+          Bewertung für <i>{folge_name}</i> abgegeben!
+        </Toast>
+      )}
     </>
   );
 };

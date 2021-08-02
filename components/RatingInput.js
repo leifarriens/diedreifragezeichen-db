@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const IconContainer = styled.div`
@@ -57,6 +57,7 @@ const Fragezeichen = styled.span`
 `;
 
 function RatingInput({ defaultValue = 0, onRate }) {
+  const [initialValue, setInitialValue] = useState(defaultValue);
   const [range, setRange] = React.useState(defaultValue);
 
   React.useEffect(() => {
@@ -75,7 +76,8 @@ function RatingInput({ defaultValue = 0, onRate }) {
   };
 
   const handleInputEnd = () => {
-    if (range !== defaultValue) {
+    if (range !== initialValue) {
+      setInitialValue(range);
       onRate(range);
     }
   };
