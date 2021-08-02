@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -12,8 +12,8 @@ const Container = styled.div`
 
 const StlyedToast = styled.div`
   z-index: 9999;
-  box-shadow: 0 0 20px 5px rgba(0,0,0,0.15);
-  background-color: #84E60B;
+  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.15);
+  background-color: #84e60b;
   border-radius: 6px;
   padding: 16px;
   width: auto;
@@ -22,11 +22,9 @@ const StlyedToast = styled.div`
 function Toast({ children }) {
   return (
     <Container>
-      <StlyedToast>
-        {children}
-      </StlyedToast>
+      <StlyedToast>{children}</StlyedToast>
     </Container>
-  )
+  );
 }
 
-export default Toast
+export default Toast;

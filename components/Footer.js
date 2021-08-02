@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaSpotify } from 'react-icons/fa';
+// import { FaSpotify } from 'react-icons/fa';
 import styled from 'styled-components';
 
 const PageFooter = styled.div`

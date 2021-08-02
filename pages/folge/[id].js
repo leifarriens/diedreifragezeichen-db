@@ -12,20 +12,17 @@ import {
 import Header from '../../components/Header/';
 import { Key, KeyContainer } from '../../components/Key';
 import dbConnect from '../../db';
-import {
-  getAllFolgen,
-  getAllFolgenIndexes,
-} from '../../services/';
+import { getAllFolgen, getAllFolgenIndexes } from '../../services/';
 import { applyFilter, parseMongo } from '../../utils';
 import { useGlobalState } from '../../context/GlobalContext';
 
 function Folge(props) {
   const { showSpecials, sortBy } = useGlobalState();
-  
+
   const filteredFolgen = applyFilter(props.folgen, {
     showSpecials,
     searchQuery: '',
-    sortBy
+    sortBy,
   });
 
   const { rel, next, prev } = getRelatedFolgen(props.folge, filteredFolgen);

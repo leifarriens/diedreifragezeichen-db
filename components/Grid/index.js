@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { GlobalContext } from '../../context/GlobalContext';
@@ -25,7 +24,7 @@ const Grid = (props) => {
         searchQuery,
         sortBy,
       });
-      
+
       setFolgen(folgenToShow);
     };
 

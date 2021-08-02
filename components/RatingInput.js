@@ -61,7 +61,7 @@ function RatingInput({ defaultValue = 0, onRate }) {
 
   React.useEffect(() => {
     setRange(defaultValue);
-  }, [defaultValue])
+  }, [defaultValue]);
 
   const handleValueChange = (e) => {
     if (!isNaN(val)) return;
@@ -78,7 +78,7 @@ function RatingInput({ defaultValue = 0, onRate }) {
     if (range !== defaultValue) {
       onRate(range);
     }
-  }
+  };
 
   const inputSettings = {
     type: 'range',
@@ -90,7 +90,13 @@ function RatingInput({ defaultValue = 0, onRate }) {
   return (
     <div style={{ display: 'flex', width: '100%' }}>
       <IconContainer>
-        <input {...inputSettings} value={range} onChange={handleValueChange} onMouseLeave={handleInputEnd} onTouchEnd={handleInputEnd} />
+        <input
+          {...inputSettings}
+          value={range}
+          onChange={handleValueChange}
+          onMouseLeave={handleInputEnd}
+          onTouchEnd={handleInputEnd}
+        />
 
         <FragezeichenContainer>
           {[...Array(10)].map((_, index) => {
@@ -112,7 +118,7 @@ function RatingInput({ defaultValue = 0, onRate }) {
       </IconContainer>
 
       <div style={{ minWidth: '35px', textAlign: 'right' }}>
-        {range > 0  && range.toFixed(1)}
+        {range > 0 && range.toFixed(1)}
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ const Folge = ({ folge }) => {
           </span>
         </div>
 
-          <Rating folge_id={_id} userRating={userRating}/>
+        <Rating folge_id={_id} userRating={userRating} />
         {/* <div style={{ fontSize: '18px', marginBottom: '6px' }}>
           {userRating ? 'Deine Wertung:' : 'Bewerten:'}
         </div>

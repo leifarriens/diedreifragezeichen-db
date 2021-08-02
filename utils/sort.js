@@ -1,4 +1,4 @@
-import { calcFolgenRating  } from './';
+import { calcFolgenRating } from './';
 
 export const sortFolgen = (folgen, sortBy) => {
   switch (sortBy) {

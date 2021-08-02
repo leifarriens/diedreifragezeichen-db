@@ -36,6 +36,7 @@ function Home(props) {
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 const ChronikView = ({ folgen }) => {
   const folgenSplitByReleaseDate = splitArrayByProp(
     folgen,

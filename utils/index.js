@@ -49,17 +49,17 @@ const applyFilter = (folgen, { showSpecials, searchQuery, sortBy }) => {
   let filtered = [];
 
   filtered = filterSpecial(folgen, showSpecials);
-  filtered = sortFolgen(filtered, sortBy)
-  filtered = filterByQuery(filtered, searchQuery)
+  filtered = sortFolgen(filtered, sortBy);
+  filtered = filterByQuery(filtered, searchQuery);
 
   return filtered;
-}
+};
 
 const splitArrayByProp = (array, prop, transformer) => {
   let obj = {};
-  
-  array.forEach(entry => {
-    const name = transformer(entry[prop])
+
+  array.forEach((entry) => {
+    const name = transformer(entry[prop]);
     console.log(name);
     if (!obj[name]) {
       obj[name] = [];
@@ -67,9 +67,17 @@ const splitArrayByProp = (array, prop, transformer) => {
     } else {
       obj[name].push(entry);
     }
-  })
+  });
 
   return obj;
-}
+};
 
-export { applyFilter, calcFolgenRating, filterSpecial, parseMongo, roundRatingToPointFive, sortFolgen, splitArrayByProp };
+export {
+  applyFilter,
+  calcFolgenRating,
+  filterSpecial,
+  parseMongo,
+  roundRatingToPointFive,
+  sortFolgen,
+  splitArrayByProp,
+};
