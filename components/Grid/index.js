@@ -2,12 +2,7 @@ import dayjs from 'dayjs';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { GlobalContext } from '../../context/GlobalContext';
-import {
-  sortByPopularity,
-  sortFolgenByDateAsc,
-  sortFolgenByDateDesc,
-  sortFolgenByRating,
-} from '../../utils';
+import { applyFilter } from '../../utils';
 import Sort from '../Sort';
 import GridFolge from './GridFolge';
 import { FolgenContainer, GridContainer, GridUI } from './StyledGrid';
@@ -23,49 +18,14 @@ const Grid = (props) => {
 
   const [folgen, setFolgen] = useState(props.folgen);
 
-  const filterSpecial = () => {
-    return !showSpecials
-      ? props.folgen.filter((folge) => folge.type !== 'special')
-      : props.folgen;
-  };
-
-  const filterByQuery = (folgen) => {
-    const query = searchQuery.toLowerCase();
-    const filterFolge = (folge) => {
-      const name = folge.number + folge.name.toLowerCase();
-
-      if (name.includes(query)) {
-        return true;
-      } else if (dayjs(folge.release_date).year() == query) {
-        return true;
-      } else {
-        return false;
-      }
-    };
-    return folgen.filter(filterFolge);
-  };
-
-  const applySort = (folgen) => {
-    switch (sortBy) {
-      case 'dateAsc':
-        return sortFolgenByDateAsc(folgen);
-      case 'dateDesc':
-        return sortFolgenByDateDesc(folgen);
-      case 'rating':
-        return sortFolgenByRating(folgen);
-      case 'popularity':
-        return sortByPopularity(folgen);
-    }
-  };
-
   useEffect(() => {
     const showRightFolgen = () => {
-      let folgenToShow = [];
-
-      folgenToShow = filterSpecial();
-      folgenToShow = filterByQuery(folgenToShow);
-      folgenToShow = applySort(folgenToShow);
-
+      const folgenToShow = applyFilter(props.folgen, {
+        showSpecials,
+        searchQuery,
+        sortBy,
+      });
+      
       setFolgen(folgenToShow);
     };
 

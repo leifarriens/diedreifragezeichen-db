@@ -1,3 +1,4 @@
+/* eslint-disable simple-import-sort/imports */
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
@@ -12,13 +13,22 @@ import Header from '../../components/Header/';
 import { Key, KeyContainer } from '../../components/Key';
 import dbConnect from '../../db';
 import {
+  getAllFolgen,
   getAllFolgenIndexes,
-  getAllFolgenSortedWithRating,
 } from '../../services/';
-import { parseMongo } from '../../utils';
+import { applyFilter, parseMongo } from '../../utils';
+import { useGlobalState } from '../../context/GlobalContext';
 
 function Folge(props) {
-  const { rel, next, prev } = getRelatedFolgen(props.folge, props.folgen);
+  const { showSpecials, sortBy } = useGlobalState();
+  
+  const filteredFolgen = applyFilter(props.folgen, {
+    showSpecials,
+    searchQuery: '',
+    sortBy
+  });
+
+  const { rel, next, prev } = getRelatedFolgen(props.folge, filteredFolgen);
 
   const router = useRouter();
 
@@ -85,7 +95,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   await dbConnect();
 
-  const data = await getAllFolgenSortedWithRating();
+  const data = await getAllFolgen();
 
   const folgen = parseMongo(data);
 
