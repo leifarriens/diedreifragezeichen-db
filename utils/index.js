@@ -75,6 +75,7 @@ const splitArrayByProp = (array, prop, transformer) => {
 export {
   applyFilter,
   calcFolgenRating,
+  filterByQuery,
   filterSpecial,
   parseMongo,
   roundRatingToPointFive,
