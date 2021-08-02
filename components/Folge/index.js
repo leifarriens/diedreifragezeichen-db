@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 
+// import { useFetch } from '../../hooks';
 // import { calcFolgenRating } from '../../utils';
 import Rating from '../Rating';
 import RatingDisplay from '../RatingDisplay';
@@ -30,18 +31,23 @@ const Folge = ({ folge }) => {
     errorRetryCount: 1,
   });
 
+  // const { data, error } = useFetch(`/api/folgen/${_id}/rating`);
+
   useEffect(() => {
-    if (data) {
+    if (data && !isNaN(data.value)) {
       setUserRating(data.value);
     }
-    if (error) setUserRating(0);
+
+    return () => {
+      setUserRating(0);
+    };
   }, [data, error]);
 
   const isBigCover = Number(number) >= 125 ? true : false;
 
-  const _handleUserRated = (rating) => {
-    setUserRating(rating);
-  };
+  // const _handleUserRated = (rating) => {
+  //   setUserRating(rating);
+  // };
 
   return (
     <Container className="wrapper">
@@ -66,8 +72,17 @@ const Folge = ({ folge }) => {
             <RatingDisplay ratings={ratings} />
           </span>
         </div>
+
+          <Rating folge_id={_id} userRating={userRating}/>
+        {/* <div style={{ fontSize: '18px', marginBottom: '6px' }}>
+          {userRating ? 'Deine Wertung:' : 'Bewerten:'}
+        </div>
+        <RatingInput
+          defaultValue={userRating}
+          onRate={(newRating) => console.log(newRating)}
+        /> */}
         {/* TODO: Fix user rating not represented as react stars value */}
-        {userRating > 0 ? (
+        {/* {userRating > 0 ? (
           <Rating
             folge_id={_id}
             // rating={userRating}
@@ -81,7 +96,7 @@ const Folge = ({ folge }) => {
             userRating={0}
             onRated={_handleUserRated}
           />
-        )}
+        )} */}
 
         {/* {(error || !userRating) && (
           <Rating
