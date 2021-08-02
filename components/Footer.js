@@ -37,10 +37,10 @@ export default function Footer() {
   return (
     <React.Fragment>
       <PageFooter>
-        <span>Powereded by </span>
+        {/* <span>Powereded by </span>
         <a href="https://api.spotify.com/" target="_blank" rel="noreferrer">
           <FaSpotify />
-        </a>
+        </a> */}
       </PageFooter>
 
       <Signatur>
