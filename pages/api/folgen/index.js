@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     const folgen = await Folge.find({}).sort('release_date');
 
     if (req.query.q) {
-      const filtered = filterByQuery(folgen, req.query.q)
+      const filtered = filterByQuery(folgen, req.query.q);
       return res.json(filtered);
     }
 
