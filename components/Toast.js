@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { colors } from '../theme';
 
 const Container = styled.div`
+  z-index: 999;
   position: fixed;
   bottom: 2rem;
   left: 0;
@@ -14,7 +15,6 @@ const Container = styled.div`
 `;
 
 const StlyedToast = styled.div`
-  z-index: 9999;
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.15);
   background-color: ${(props) => props.bgColor};
   border-radius: 6px;
