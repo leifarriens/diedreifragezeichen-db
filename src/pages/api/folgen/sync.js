@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       // Process the POST request
       const result = await syncFolgen();
       console.log(result);
-      return res.status(201).end();
+      return res.status(201).json(result);
     } else {
       return res.status(401).end();
     }

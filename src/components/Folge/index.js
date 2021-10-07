@@ -1,4 +1,6 @@
+import Axios from 'axios';
 import dayjs from 'dayjs';
+import { signIn, useSession } from 'next-auth/client';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
@@ -11,40 +13,59 @@ import { Background, Buttons, Container, Content, Cover } from './StyledFolge';
 
 // const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const Folge = ({ folge }) => {
-  const {
-    images,
-    name,
-    release_date,
-    _id,
-    ratings,
-    number,
-    spotify_id,
-  } = folge;
+const Folge = ({
+  folge: { images, name, release_date, _id, ratings, number, spotify_id },
+}) => {
+  // const {
+  //   images,
+  //   name,
+  //   release_date,
+  //   _id,
+  //   ratings,
+  //   number,
+  //   spotify_id,
+  // } = folge;
+  const [session] = useSession();
 
   const [userRating, setUserRating] = useState(0);
-
-  // const rating = calcFolgenRating(ratings);
-
-  // TODO: unset userRating on _id change
-  const { data, error } = useSWR(`/api/folgen/${_id}/rating`);
-
-  // const { data, error } = useFetch(`/api/folgen/${_id}/rating`);
 
   // FIXME: Is this save to reset userRating display on route change?
   useEffect(() => {
     setUserRating(0);
+
+    if (session) {
+      fetchUserRating();
+    }
   }, [_id]);
 
-  useEffect(() => {
-    if (data && !isNaN(data.value)) {
-      setUserRating(data.value);
-    }
+  // const rating = calcFolgenRating(ratings);
 
-    return () => {
+  // TODO: unset userRating on _id change
+  // const { data, error } = useSWR(`/api/folgen/${_id}/rating`);
+
+  const fetchUserRating = async () => {
+    try {
+      const {
+        data: { value },
+      } = await Axios(`/api/folgen/${_id}/rating`);
+      setUserRating(value);
+    } catch (error) {
       setUserRating(0);
-    };
-  }, [data, error]);
+      console.log(error);
+    }
+  };
+
+  // const { data, error } = useFetch(`/api/folgen/${_id}/rating`);
+
+  // useEffect(() => {
+  //   if (data && !isNaN(data.value)) {
+  //     setUserRating(data.value);
+  //   }
+
+  //   return () => {
+  //     setUserRating(0);
+  //   };
+  // }, [data, error]);
 
   const isBigCover = Number(number) >= 125 ? true : false;
 

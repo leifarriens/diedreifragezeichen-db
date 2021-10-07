@@ -1,4 +1,4 @@
-import blacklist from '../jobs/blacklist.json';
+import blacklist from '../../jobs/blacklist.json';
 import Folge from '../models/folge';
 import convertFolge from '../utils/convertFolge';
 import { getAllAlbums, getBearerToken } from './spotify';

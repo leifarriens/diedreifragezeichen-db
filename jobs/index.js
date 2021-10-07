@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 const { getBearerToken, getAllAlbums } = require('./spotifyAPI');
 const blacklist = require('./blacklist.json');
-const Folge = require('../models/folge');
+const Folge = require('../src/models/folge');
 
 const dbPath = process.env.MONGO_URI;
 mongoose.connect(dbPath, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -17,7 +17,7 @@ const db = mongoose.connection;
 
 db.on('open', runJob);
 
-export default async function runJob() {
+async function runJob() {
   const bearerToken = await getBearerToken();
   const allAlbums = await getAllAlbums(bearerToken);
   const dbFolgen = await Folge.find({});

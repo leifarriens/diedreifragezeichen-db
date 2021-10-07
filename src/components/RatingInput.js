@@ -126,8 +126,8 @@ function RatingInput({ defaultValue = 0, onRate }) {
           // onMouseMove={handleMouseMove}
           // onMouseOut={handleMouseOut}
           onChange={handleValueChange}
-          // onMouseUp={handleInputEnd}
-          // onTouchEnd={handleInputEnd}
+          onMouseUp={handleInputEnd}
+          onTouchEnd={handleInputEnd}
         />
 
         <FragezeichenContainer>

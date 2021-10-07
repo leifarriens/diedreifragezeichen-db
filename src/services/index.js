@@ -1,6 +1,4 @@
 /* eslint-disable no-unused-vars */
-import { calcFolgenRating } from 'utils';
-
 import Folge from '../models/folge';
 import Rating from '../models/rating';
 

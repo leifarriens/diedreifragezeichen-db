@@ -10,8 +10,7 @@
     "scrape-folgen": "node jobs/",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "quirrel": "quirrel"
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",

@@ -102,6 +102,8 @@ const getUserRating = async (req, res) => {
 
   const data = await Rating.findOne({ folge: id, user: email });
 
+  if (!data) return res.status(404).end();
+
   const userRating = parseMongo(data);
 
   res.send(userRating);
