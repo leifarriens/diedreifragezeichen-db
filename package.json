@@ -8,9 +8,9 @@
     "build": "next build",
     "start": "next start",
     "scrape-folgen": "node jobs/",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
+    "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
+    "format": "prettier --write ./src"
   },
   "repository": {
     "type": "git",

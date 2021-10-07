@@ -17,7 +17,7 @@ const folgeSchema = mongoose.Schema(
   },
   {
     collection: 'folgen',
-    timestamps: true
+    timestamps: true,
   }
 );
 

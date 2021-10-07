@@ -2,9 +2,8 @@
 
 ## Todos
 
-* &#9744; client
-* &#9745; database
-
+- &#9744; client
+- &#9745; database
 
 ## API
 

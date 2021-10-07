@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const IconContainer = styled.div`
@@ -60,17 +60,7 @@ const FragezeichenIcon = styled.span`
 function RatingInput({ defaultValue = 0, onRate }) {
   const [initialValue, setInitialValue] = useState(defaultValue);
   const [range, setRange] = useState(defaultValue);
-  const [hover, setHover] = useState(null);
-
-  const vals = {
-    defaultValue,
-    range,
-    hover,
-  };
-
-  // useEffect(() => {
-  //   console.log(hover);
-  // }, [vals]);
+  // const [hover, setHover] = useState(null);
 
   React.useEffect(() => {
     setRange(defaultValue);
@@ -96,19 +86,19 @@ function RatingInput({ defaultValue = 0, onRate }) {
     }
   };
 
-  const handleMouseMove = (e) => {
-    const mouseElementOffsetX = e.nativeEvent.offsetX;
-    const targetElementWidth = e.target.clientWidth;
+  // const handleMouseMove = (e) => {
+  //   const mouseElementOffsetX = e.nativeEvent.offsetX;
+  //   const targetElementWidth = e.target.clientWidth;
 
-    const sliderHoverValue = Math.abs(
-      (mouseElementOffsetX / targetElementWidth) * parseInt(10, 10)
-    );
-    setHover(sliderHoverValue);
-  };
+  //   const sliderHoverValue = Math.abs(
+  //     (mouseElementOffsetX / targetElementWidth) * parseInt(10, 10)
+  //   );
+  //   setHover(sliderHoverValue);
+  // };
 
-  const handleMouseOut = () => {
-    setHover(null);
-  };
+  // const handleMouseOut = () => {
+  //   setHover(null);
+  // };
 
   const inputSettings = {
     type: 'range',
@@ -133,13 +123,13 @@ function RatingInput({ defaultValue = 0, onRate }) {
         <FragezeichenContainer>
           {[...Array(10)].map((_, index) => {
             const icon = () => {
-              if (hover && index < hover && hover - index > 0.5) {
-                return 'blue_small';
-              }
+              // if (hover && index < hover && hover - index > 0.5) {
+              //   return 'blue_small';
+              // }
 
-              if (hover && index < hover) {
-                return 'half_small';
-              }
+              // if (hover && index < hover) {
+              //   return 'half_small';
+              // }
 
               if (range - 1 >= index) {
                 return 'blue_small';
