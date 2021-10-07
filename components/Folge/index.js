@@ -9,7 +9,7 @@ import Rating from '../Rating';
 import RatingDisplay from '../RatingDisplay';
 import { Background, Buttons, Container, Content, Cover } from './StyledFolge';
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+// const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Folge = ({ folge }) => {
   const {
@@ -27,11 +27,14 @@ const Folge = ({ folge }) => {
   // const rating = calcFolgenRating(ratings);
 
   // TODO: unset userRating on _id change
-  const { data, error } = useSWR(`/api/folgen/${_id}/rating`, fetcher, {
-    errorRetryCount: 1,
-  });
+  const { data, error } = useSWR(`/api/folgen/${_id}/rating`);
 
   // const { data, error } = useFetch(`/api/folgen/${_id}/rating`);
+
+  // FIXME: Is this save to reset userRating display on route change?
+  useEffect(() => {
+    setUserRating(0);
+  }, [_id]);
 
   useEffect(() => {
     if (data && !isNaN(data.value)) {

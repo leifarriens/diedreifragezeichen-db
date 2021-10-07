@@ -8,7 +8,7 @@
 const mongoose = require('mongoose');
 const chalk = require('chalk');
 const { getBearerToken, getAllAlbums } = require('./spotifyAPI');
-
+const blacklist = require('./blacklist.json');
 const Folge = require('../models/folge');
 
 const dbPath = process.env.MONGO_URI;
@@ -17,7 +17,7 @@ const db = mongoose.connection;
 
 db.on('open', runJob);
 
-async function runJob() {
+export default async function runJob() {
   const bearerToken = await getBearerToken();
   const allAlbums = await getAllAlbums(bearerToken);
   const dbFolgen = await Folge.find({});
@@ -26,6 +26,7 @@ async function runJob() {
     inDb: [],
     notInDb: [],
     successfullyAdded: [],
+    blacklisted: [],
   };
 
   let addToDb = [];
@@ -40,8 +41,13 @@ async function runJob() {
       // folge is in DB
     } else {
       // folge is not in db
-      addToDb.push(formatFolge(folge));
-      stats.notInDb.push(folge);
+
+      if (blacklist.includes(folge.id)) {
+        stats.blacklisted.push(folge);
+      } else {
+        addToDb.push(formatFolge(folge));
+        stats.notInDb.push(folge);
+      }
     }
   });
 
@@ -69,6 +75,14 @@ function printResults(stats) {
       stats.successfullyAdded.length
     )} Folgen have been added DB...`
   );
+  console.log(
+    `${chalk.blackBright(
+      stats.blacklisted.length
+    )} Folgen are skipped due to blacklist...`
+  );
+  console.log(
+    `Skipped: ${stats.blacklisted.map((entry) => entry.name).join(', ')}`
+  );
   console.log(`Added: ${stats.successfullyAdded.join(', ')}`);
 }
 
@@ -80,10 +94,17 @@ function formatFolge({ name, images, id, release_date }) {
   });
 
   if (name.includes('/')) {
+    folge.isSpecial = false;
     folge.type = 'regular';
     folge.number = name.split('/')[0];
     folge.name = name.split('/')[1];
+  } else if (name.includes(':')) {
+    folge.isSpecial = false;
+    folge.type = 'regular';
+    folge.number = name.split(':')[0];
+    folge.name = name.split(':')[1];
   } else {
+    folge.isSpecial = true;
     folge.type = 'special';
     folge.number = '';
     folge.name = name;

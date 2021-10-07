@@ -12,7 +12,7 @@ import {
 import Header from '../../components/Header/';
 import { Key, KeyContainer } from '../../components/Key';
 import dbConnect from '../../db';
-import { getAllFolgen, getAllFolgenIndexes } from '../../services/';
+import { getAllFolgenIds, getAllFolgenWithRating } from '../../services/';
 import { applyFilter, parseMongo } from '../../utils';
 import { useGlobalState } from '../../context/GlobalContext';
 
@@ -78,7 +78,7 @@ function Folge(props) {
 export async function getStaticPaths() {
   await dbConnect();
 
-  const data = await getAllFolgenIndexes();
+  const data = await getAllFolgenIds();
 
   const folgen = parseMongo(data);
 
@@ -92,14 +92,17 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   await dbConnect();
 
-  const data = await getAllFolgen();
+  const data = await getAllFolgenWithRating();
 
   const folgen = parseMongo(data);
 
   const folge = folgen.find((f) => f._id === params.id);
 
   return {
-    props: { folge, folgen },
+    props: {
+      folge,
+      folgen,
+    },
     revalidate: 1,
   };
 }

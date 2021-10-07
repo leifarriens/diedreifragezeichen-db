@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/client';
 import dbConnect from '../../../db';
 import Folge from '../../../models/folge';
 import Rating from '../../../models/rating';
+import { getFolgeWithRating } from '../../../services/index';
 import { parseMongo } from '../../../utils';
 
 export default async function handler(req, res) {
@@ -42,7 +43,7 @@ export default async function handler(req, res) {
 const getFolge = async (req, res) => {
   const [id] = req.query.slug;
 
-  const data = await Folge.findById(id).populate('ratings');
+  const data = await getFolgeWithRating(id);
 
   const folge = parseMongo(data);
 

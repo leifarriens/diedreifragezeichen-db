@@ -1,15 +1,22 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/client';
-import React, { useContext } from 'react';
+import React from 'react';
 import Headroom from 'react-headroom';
+import { AiOutlineClose } from 'react-icons/ai';
 
-import { GlobalContext } from '../../context/GlobalContext';
+import { useGlobalState } from '../../context/GlobalContext';
 import SearchInput from './Search';
-import { Container, HomeLink, ProfileLink, SearchBar } from './StyledHeader';
+import {
+  CloseLoginButton,
+  Container,
+  HomeLink,
+  ProfileLink,
+  SearchBar,
+} from './StyledHeader';
 
-const Header = ({ transparent, simple = false }) => {
-  const { setSearchQuery } = useContext(GlobalContext);
+const Header = ({ transparent = false, simple = false }) => {
+  const { setSearchQuery } = useGlobalState();
   const [session, loading] = useSession();
   const router = useRouter();
 
@@ -30,7 +37,7 @@ const Header = ({ transparent, simple = false }) => {
     rgba(0, 23, 39, 0.85) 100%
   )`;
 
-  const background = !transparent ? gradient : null;
+  const background = transparent ? '' : gradient;
 
   return (
     <Headroom style={{ pointerEvents: 'none' }}>
@@ -48,11 +55,11 @@ const Header = ({ transparent, simple = false }) => {
             {!session ? (
               <span>
                 <button
-                  aria-label="Folgen Bewerten"
+                  aria-label="Anmelden"
                   className="button red"
                   onClick={() => signIn()}
                 >
-                  Folgen Bewerten
+                  Anmelden
                 </button>
               </span>
             ) : (
@@ -62,6 +69,13 @@ const Header = ({ transparent, simple = false }) => {
                 </Link>
               </div>
             )}
+          </ProfileLink>
+        )}
+        {router.pathname === '/signin' && (
+          <ProfileLink>
+            <CloseLoginButton onClick={() => router.back()}>
+              <AiOutlineClose size={28} />
+            </CloseLoginButton>
           </ProfileLink>
         )}
       </Container>

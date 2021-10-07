@@ -10,6 +10,7 @@ const Rating = ({ folge_id, userRating, folge_name }) => {
   const [toasted, setToasted] = useState(false);
 
   const handleNewRating = (newRating) => {
+    console.log(newRating);
     if (!session) return signIn();
 
     mutate(`/api/folgen/`, async () => {
@@ -34,7 +35,7 @@ const Rating = ({ folge_id, userRating, folge_name }) => {
       />
       {toasted && (
         <Toast duration={5000} onFadeOut={() => setToasted(false)}>
-          Bewertung für <i>{folge_name}</i> abgegeben!
+          Bewertung für <i>{folge_name}</i> abgegeben
         </Toast>
       )}
     </>

@@ -12,6 +12,7 @@ const Container = styled.div`
   right: 0;
   display: flex;
   justify-content: center;
+  pointer-events: none;
 `;
 
 const StlyedToast = styled.div`
@@ -20,6 +21,7 @@ const StlyedToast = styled.div`
   border-radius: 6px;
   padding: 16px;
   width: auto;
+  pointer-events: all;
 `;
 
 function Toast({ duration = 3000, onFadeOut, children }) {

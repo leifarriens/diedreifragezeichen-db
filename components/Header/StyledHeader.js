@@ -8,6 +8,8 @@ export const Container = styled.header`
   align-items: center;
   width: 100%;
   padding: 48px;
+  padding-left: 24px;
+  padding-right: 24px;
   background: ${(props) => props.background};
   pointer-events: none;
 
@@ -76,7 +78,7 @@ export const SearchBar = styled.div`
     border: none;
     width: 100%;
     outline: none;
-    border: 1px solid #fff;
+    border: 2px solid #fff;
     transition: all 150ms ease;
     /* border-radius: 8px; */
     opacity: 0.65;
@@ -100,5 +102,11 @@ export const ProfileLink = styled.div`
 
   * {
     pointer-events: all;
+  }
+`;
+
+export const CloseLoginButton = styled.button`
+  &:hover {
+    opacity: 0.85;
   }
 `;

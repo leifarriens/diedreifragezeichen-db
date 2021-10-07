@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const IconContainer = styled.div`
@@ -42,7 +42,7 @@ const FragezeichenContainer = styled.div`
   justify-items: center;
 `;
 
-const Fragezeichen = styled.span`
+const FragezeichenIcon = styled.span`
   display: inline-block;
   background-image: url('/${(props) => props.icon}.png');
   background-position: center;
@@ -56,9 +56,21 @@ const Fragezeichen = styled.span`
   }
 `;
 
+// TODO: Fix rating events
 function RatingInput({ defaultValue = 0, onRate }) {
   const [initialValue, setInitialValue] = useState(defaultValue);
-  const [range, setRange] = React.useState(defaultValue);
+  const [range, setRange] = useState(defaultValue);
+  const [hover, setHover] = useState(null);
+
+  const vals = {
+    defaultValue,
+    range,
+    hover,
+  };
+
+  // useEffect(() => {
+  //   console.log(hover);
+  // }, [vals]);
 
   React.useEffect(() => {
     setRange(defaultValue);
@@ -68,6 +80,8 @@ function RatingInput({ defaultValue = 0, onRate }) {
     if (!isNaN(val)) return;
 
     const val = Number(e.target.value);
+
+    if (val === 0) return;
 
     const isIntOrPointFive = val % 1 === 0 || val % 1 === 0.5;
     if (val >= 1 && isIntOrPointFive) {
@@ -80,6 +94,20 @@ function RatingInput({ defaultValue = 0, onRate }) {
       setInitialValue(range);
       onRate(range);
     }
+  };
+
+  const handleMouseMove = (e) => {
+    const mouseElementOffsetX = e.nativeEvent.offsetX;
+    const targetElementWidth = e.target.clientWidth;
+
+    const sliderHoverValue = Math.abs(
+      (mouseElementOffsetX / targetElementWidth) * parseInt(10, 10)
+    );
+    setHover(sliderHoverValue);
+  };
+
+  const handleMouseOut = () => {
+    setHover(null);
   };
 
   const inputSettings = {
@@ -95,32 +123,43 @@ function RatingInput({ defaultValue = 0, onRate }) {
         <input
           {...inputSettings}
           value={range}
+          // onMouseMove={handleMouseMove}
+          // onMouseOut={handleMouseOut}
           onChange={handleValueChange}
-          onMouseLeave={handleInputEnd}
-          onTouchEnd={handleInputEnd}
+          // onMouseUp={handleInputEnd}
+          // onTouchEnd={handleInputEnd}
         />
 
         <FragezeichenContainer>
           {[...Array(10)].map((_, index) => {
-            if (Math.floor(range) > index) {
-              return (
-                <Fragezeichen key={index} icon="blue_small"></Fragezeichen>
-              );
-            }
+            const icon = () => {
+              if (hover && index < hover && hover - index > 0.5) {
+                return 'blue_small';
+              }
 
-            if (index + 1 === Math.round(range)) {
-              return (
-                <Fragezeichen key={index} icon="half_small"></Fragezeichen>
-              );
-            }
+              if (hover && index < hover) {
+                return 'half_small';
+              }
 
-            return <Fragezeichen key={index} icon="white_small"></Fragezeichen>;
+              if (range - 1 >= index) {
+                return 'blue_small';
+              }
+
+              if (range > index && range % 1 != 0) {
+                return 'half_small';
+              }
+
+              return 'white_small';
+            };
+
+            return <FragezeichenIcon key={index} icon={icon()} />;
           })}
         </FragezeichenContainer>
       </IconContainer>
 
-      <div style={{ minWidth: '35px', textAlign: 'right' }}>
+      <div style={{ minWidth: '35px', textAlign: 'right', fontSize: '24px' }}>
         {range > 0 && range.toFixed(1)}
+        {/* {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)} */}
       </div>
     </div>
   );

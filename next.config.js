@@ -13,6 +13,9 @@ module.exports = (phase, { defaultConfig }) => {
   }
 
   return {
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
     env: {
       minRatingsToDisplay: 5,
     },

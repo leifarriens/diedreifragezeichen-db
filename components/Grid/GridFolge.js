@@ -2,38 +2,21 @@ import dayjs from 'dayjs';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { InView } from 'react-intersection-observer';
-import styled from 'styled-components';
 
 import { Loader } from '../Loader';
 import RatingDisplay from '../RatingDisplay';
-
-const Cover = styled.div`
-  width: 100%;
-  height: auto;
-  transition: transform 150ms ease;
-  transform-origin: bottom;
-
-  :hover {
-    transform: scale(1.05);
-  }
-
-  @media (pointer: coarse) {
-    :hover {
-      transform: none;
-    }
-  }
-`;
-
-const FolgeContainer = styled.article`
-  width: 100%;
-`;
+import { Cover, FolgeContainer, NewBadge } from './StyledFolge';
 
 const GridFolge = React.memo(({ folge, coverOnly = false }) => {
   return (
     <FolgeContainer>
       <Link href={`/folge/${folge._id}`}>
         <a>
-          <FolgeCover src={folge.images[1].url} alt={`${folge.name} Cover`} />
+          <FolgeCover
+            src={folge.images[1].url}
+            alt={`${folge.name} Cover`}
+            release_date={folge.release_date}
+          />
         </a>
       </Link>
       {!coverOnly && (
@@ -48,9 +31,14 @@ const GridFolge = React.memo(({ folge, coverOnly = false }) => {
   );
 });
 
-const FolgeCover = ({ src, alt }) => {
+const FolgeCover = ({ src, alt, release_date }) => {
   const [loading, setLoading] = useState(true);
   const [imgSrc, setImgSrc] = useState('');
+
+  const releaseDate = dayjs(release_date);
+  const today = dayjs();
+
+  const isNewerThanTwoMonth = releaseDate.add(2, 'month').isAfter(today);
 
   const handleViewChange = (inView) => {
     if (!inView) return;
@@ -64,12 +52,10 @@ const FolgeCover = ({ src, alt }) => {
       triggerOnce={true}
     >
       <Cover>
+        {isNewerThanTwoMonth && <NewBadge>neu</NewBadge>}
         {loading && <Loader />}
         <img
-          style={{
-            display: loading ? 'none' : 'block',
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
-          }}
+          style={{ display: loading ? 'none' : 'block' }}
           src={imgSrc}
           alt={alt}
           onLoad={() => setLoading(false)}
@@ -79,4 +65,4 @@ const FolgeCover = ({ src, alt }) => {
   );
 };
 
-export default GridFolge;
+export default React.memo(GridFolge);

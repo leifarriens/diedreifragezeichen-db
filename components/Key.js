@@ -10,6 +10,7 @@ const KeyBox = styled.div`
   margin: 0 10px;
   cursor: pointer;
   opacity: ${(props) => props.opacity};
+  transition: opacity 150ms ease-out;
 
   :hover {
     opacity: 0.5;

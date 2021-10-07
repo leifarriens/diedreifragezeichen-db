@@ -2,8 +2,19 @@ import { getProviders, getSession, signIn } from 'next-auth/client';
 import { FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';
+import styled from 'styled-components';
 
 import Header from '../components/Header';
+
+const FormContainer = styled.div`
+  /* border: 1px solid #fff; */
+  /* border-radius: 20px; */
+  /* padding: 32px; */
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+`;
 
 export default function SignIn({ providers }) {
   const providerButtons = {
@@ -36,17 +47,21 @@ export default function SignIn({ providers }) {
         className="wrapper"
         style={{ maxWidth: '420px', textAlign: 'center' }}
       >
-        <h1>Anmelden</h1>
-        {Object.values(providers).map((provider) => {
-          return (
-            <SocialLoginButton
-              key={provider.id}
-              name={provider.name}
-              onClick={() => signIn(provider.id)}
-              {...providerButtons[provider.id]}
-            />
-          );
-        })}
+        <FormContainer>
+          <div>
+            <h1>Anmelden</h1>
+            {Object.values(providers).map((provider) => {
+              return (
+                <SocialLoginButton
+                  key={provider.id}
+                  name={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  {...providerButtons[provider.id]}
+                />
+              );
+            })}
+          </div>
+        </FormContainer>
       </div>
     </>
   );
@@ -61,13 +76,20 @@ const SocialLoginButton = ({ name, icon, bgColor, color, onClick }) => {
         onClick={onClick}
         style={{
           width: '100%',
-          fontSize: '1.1rem',
+          // fontSize: '1.1rem',
+          fontWeight: 400,
           backgroundColor: bgColor,
           borderColor: bgColor,
           color: color,
+          display: 'flex',
+          justifyContent: 'center',
         }}
       >
-        <span style={{ marginRight: '6px' }}>{icon}</span>
+        <span
+          style={{ marginRight: '6px', display: 'flex', alignItems: 'center' }}
+        >
+          {icon}
+        </span>
         <span>Mit {name} anmelden</span>
       </button>
     </div>

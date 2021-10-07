@@ -60,7 +60,6 @@ const splitArrayByProp = (array, prop, transformer) => {
 
   array.forEach((entry) => {
     const name = transformer(entry[prop]);
-    console.log(name);
     if (!obj[name]) {
       obj[name] = [];
       obj[name].push(entry);

@@ -18,6 +18,15 @@
   letter-spacing: -8;
 }
 
+.loader .rect {
+  background-image: url(/white_small.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 18px;
+  height: 32px;
+}
+
 .loader .rect2 {
   // color: $ddfRed;
   -webkit-animation-delay: -1.1s;

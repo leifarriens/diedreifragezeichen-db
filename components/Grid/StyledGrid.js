@@ -27,6 +27,7 @@ export const GridContainer = styled.div`
 
 export const GridUI = styled.div`
   /* width: auto; */
+  margin-top: 22px;
   margin-bottom: 22px;
 
   @media (min-width: 744px) {
@@ -38,15 +39,19 @@ export const GridUI = styled.div`
 export const FolgenContainer = styled.div`
   display: grid;
   grid-gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   justify-items: center;
 
   @media screen and (min-width: 375px) {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 
+  @media screen and (min-width: 640px) {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
   @media screen and (min-width: 850px) {
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 
   @media screen and (min-width: 1440px) {

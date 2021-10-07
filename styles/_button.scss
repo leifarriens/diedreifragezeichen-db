@@ -12,11 +12,10 @@ button {
   border: 1px solid #fff;
   padding: 0.7rem 1.4rem;
   border-radius: 8px;
-  line-height: 18px;
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.02rem;
-  transition: all 100ms ease-in;
+  transition: all 150ms ease-in;
 
   &:hover {
     color: $ddfDark;

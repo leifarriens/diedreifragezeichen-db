@@ -1,0 +1,13 @@
+name: Sync Folgen
+on:
+  schedule:
+    - cron: '10 0 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync Folgen
+        run: |
+          curl --request POST \
+          --url 'https://www.diedreifragezeichen-db.de/api/folgen/sync' \
+          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'

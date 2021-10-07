@@ -1,10 +1,9 @@
-const Axios = require('axios');
-const qs = require('qs');
-require('dotenv').config();
+import Axios from 'axios';
+import qs from 'qs';
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
 
-const getBearerToken = async () => {
+export const getBearerToken = async () => {
   try {
     const response = await Axios('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -28,7 +27,7 @@ const getBearerToken = async () => {
   }
 };
 
-const getAllAlbums = async (bearerToken) => {
+export const getAllAlbums = async (bearerToken) => {
   let albums = [];
   let offset = 0;
 
@@ -54,29 +53,4 @@ const getAllAlbums = async (bearerToken) => {
   albums.map((entry) => delete entry.artists);
 
   return albums;
-};
-
-const getPlaylist = async () => {
-  const bearerToken = await getBearerToken();
-  try {
-    const response = await Axios(
-      'https://api.spotify.com/v1/playlists/0FB4kFr4ZwjtloY5NFfKS9',
-      {
-        method: 'GET',
-        headers: { Authorization: 'Bearer ' + bearerToken },
-      }
-    );
-
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    console.log(error.response.statusText);
-    console.log(JSON.stringify(error.response.data));
-  }
-};
-
-module.exports = {
-  getBearerToken,
-  getAllAlbums,
-  getPlaylist,
 };

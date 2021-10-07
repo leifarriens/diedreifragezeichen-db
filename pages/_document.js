@@ -36,10 +36,10 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" type="img/png" href="/icon.png" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content={colors.darkblue} />
-          <link
+          {/* <link
             href="https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap"
             rel="stylesheet"
-          />
+          /> */}
         </Head>
         <body>
           <Main />

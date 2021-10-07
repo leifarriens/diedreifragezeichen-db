@@ -6,7 +6,7 @@ function RatingDisplay({ ratings }) {
   const rating = calcFolgenRating(ratings);
   const min = process.env.minRatingsToDisplay;
 
-  return <span>{rating && ratings.length >= min ? rating : ' - '}/10</span>;
+  return <span>{rating && ratings.length >= min ? rating : ' ??? '}/10</span>;
 }
 
 export default RatingDisplay;
