@@ -60,9 +60,10 @@ const FragezeichenIcon = styled.span`
 function RatingInput({ defaultValue = 0, onRate }) {
   const [initialValue, setInitialValue] = useState(defaultValue);
   const [range, setRange] = useState(defaultValue);
-  // const [hover, setHover] = useState(null);
+  const [hover, setHover] = useState(null);
 
   React.useEffect(() => {
+    console.log('value changed', defaultValue);
     setRange(defaultValue);
   }, [defaultValue]);
 
@@ -86,19 +87,22 @@ function RatingInput({ defaultValue = 0, onRate }) {
     }
   };
 
-  // const handleMouseMove = (e) => {
-  //   const mouseElementOffsetX = e.nativeEvent.offsetX;
-  //   const targetElementWidth = e.target.clientWidth;
+  const handleMouseMove = (e) => {
+    const mouseElementOffsetX = e.nativeEvent.offsetX;
+    const targetElementWidth = e.target.clientWidth;
 
-  //   const sliderHoverValue = Math.abs(
-  //     (mouseElementOffsetX / targetElementWidth) * parseInt(10, 10)
-  //   );
-  //   setHover(sliderHoverValue);
-  // };
+    const sliderHoverValue = Math.abs(
+      (mouseElementOffsetX / targetElementWidth) * parseInt(10, 10)
+    );
 
-  // const handleMouseOut = () => {
-  //   setHover(null);
-  // };
+    const rounded = (Math.ceil((sliderHoverValue * 10) / 5) * 5) / 10;
+
+    setHover(rounded);
+  };
+
+  const handleMouseOut = () => {
+    setHover(null);
+  };
 
   const inputSettings = {
     type: 'range',
@@ -113,8 +117,8 @@ function RatingInput({ defaultValue = 0, onRate }) {
         <input
           {...inputSettings}
           value={range}
-          // onMouseMove={handleMouseMove}
-          // onMouseOut={handleMouseOut}
+          onMouseMove={handleMouseMove}
+          onMouseOut={handleMouseOut}
           onChange={handleValueChange}
           onMouseUp={handleInputEnd}
           onTouchEnd={handleInputEnd}
@@ -123,13 +127,13 @@ function RatingInput({ defaultValue = 0, onRate }) {
         <FragezeichenContainer>
           {[...Array(10)].map((_, index) => {
             const icon = () => {
-              // if (hover && index < hover && hover - index > 0.5) {
-              //   return 'blue_small';
-              // }
+              if (hover && index < hover && hover - index > 0.5) {
+                return 'blue_small';
+              }
 
-              // if (hover && index < hover) {
-              //   return 'half_small';
-              // }
+              if (hover && index < hover) {
+                return 'half_small';
+              }
 
               if (range - 1 >= index) {
                 return 'blue_small';
@@ -148,8 +152,8 @@ function RatingInput({ defaultValue = 0, onRate }) {
       </IconContainer>
 
       <div style={{ minWidth: '35px', textAlign: 'right', fontSize: '24px' }}>
-        {range > 0 && range.toFixed(1)}
-        {/* {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)} */}
+        {/* {range > 0 && range.toFixed(1)} */}
+        {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)}
       </div>
     </div>
   );

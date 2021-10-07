@@ -1,13 +1,37 @@
+import Axios from 'axios';
 import { signIn, useSession } from 'next-auth/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
 import RatingInput from './RatingInput';
 import Toast from './Toast';
 
-const Rating = ({ folge_id, userRating, folge_name }) => {
+// FIXME: Pls fix this damn input
+const Rating = ({ folge_id, folge_name }) => {
   const [session] = useSession();
   const [toasted, setToasted] = useState(false);
+
+  const [userRating, setUserRating] = useState(0);
+
+  useEffect(() => {
+    console.log(folge_id);
+    setUserRating(0);
+
+    if (session) {
+      fetchUserRating();
+    }
+  }, [folge_id]);
+
+  const fetchUserRating = async () => {
+    try {
+      const {
+        data: { value },
+      } = await Axios(`/api/folgen/${folge_id}/rating`);
+      setUserRating(value);
+    } catch (error) {
+      setUserRating(0);
+    }
+  };
 
   const handleNewRating = (newRating) => {
     console.log(newRating);
@@ -28,7 +52,7 @@ const Rating = ({ folge_id, userRating, folge_name }) => {
       <div style={{ fontSize: '18px', marginBottom: '6px' }}>
         {userRating ? 'Deine Wertung:' : 'Bewerten:'}
       </div>
-
+      {userRating}
       <RatingInput
         defaultValue={userRating}
         onRate={(newRating) => handleNewRating(newRating)}
