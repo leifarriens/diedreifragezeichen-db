@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useSession } from 'next-auth/client';
+import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
 import Grid from '../components/Grid';
@@ -9,7 +9,7 @@ import { getAllFolgenWithRating } from '../services';
 import { applyFolgenRating, parseMongo } from '../utils';
 
 function Home({ folgen }) {
-  const [session] = useSession();
+  const { data: session } = useSession();
 
   return (
     <>

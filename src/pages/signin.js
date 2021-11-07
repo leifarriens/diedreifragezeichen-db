@@ -1,4 +1,4 @@
-import { getProviders, getSession, signIn } from 'next-auth/client';
+import { getProviders, getSession, signIn } from 'next-auth/react';
 import { FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';

@@ -1,4 +1,4 @@
-import { getSession, signIn, signOut, useSession } from 'next-auth/client';
+import { getSession, signIn, signOut, useSession } from 'next-auth/react';
 
 import Grid from '../../components/Grid';
 import Header from '../../components/Header';
@@ -8,7 +8,8 @@ import Rating from '../../models/rating';
 import { applyFolgenRating, parseMongo } from '../../utils';
 
 function Profile({ folgenWithRating }) {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
 
   if (loading) return null;
 

@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { signIn, useSession } from 'next-auth/client';
+import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { mutate } from 'swr';
 
@@ -8,7 +8,7 @@ import Toast from './Toast';
 
 // FIXME: Pls fix this damn input
 const Rating = ({ folge_id, folge_name }) => {
-  const [session] = useSession();
+  const { data: session, state } = useSession();
   const [toasted, setToasted] = useState(false);
 
   const [userRating, setUserRating] = useState(0);

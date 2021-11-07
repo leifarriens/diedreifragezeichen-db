@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/leifarriens/diedreifragezeichen-db#readme",
   "dependencies": {
+    "@next-auth/mongodb-adapter": "^0.0.2-next.285",
     "axios": "^0.19.0",
     "chalk": "^4.1.0",
     "dayjs": "^1.10.4",
@@ -31,7 +32,7 @@
     "mongodb": "^3.6.6",
     "mongoose": "^5.6.11",
     "next": "^11.0.0",
-    "next-auth": "^3.19.3",
+    "next-auth": "^4.0.0-beta.6",
     "next-seo": "^4.24.0",
     "nprogress": "^0.2.0",
     "qs": "^6.10.1",

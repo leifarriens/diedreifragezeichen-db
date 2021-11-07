@@ -3,7 +3,7 @@ import '../styles/App.scss';
 
 import Head from 'next/head';
 import Router from 'next/router';
-import { Provider as AuthProvider } from 'next-auth/client';
+import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
 
@@ -33,14 +33,13 @@ function MyApp({ Component, pageProps }) {
         defaultTitle="Drei Fragezeichen DB"
         titleTemplate="Drei Fragezeichen DB | %s"
       />
-
-      <AuthProvider session={pageProps.session}>
+      <SessionProvider session={pageProps.session}>
         <GlobalProvider>
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </GlobalProvider>
-      </AuthProvider>
+      </SessionProvider>
     </>
   );
 }

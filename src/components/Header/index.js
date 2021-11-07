@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { signIn, signOut, useSession } from 'next-auth/client';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -16,7 +16,8 @@ import {
 
 const Header = ({ transparent = false, simple = false }) => {
   const { setSearchQuery } = useGlobalState();
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === 'loading';
   const router = useRouter();
 
   const handleHomeClick = () => {

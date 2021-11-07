@@ -1,4 +1,4 @@
-interface IFolge {
+interface Folge {
   name: string;
   number: string;
   createdAt: string;
@@ -6,13 +6,13 @@ interface IFolge {
   type: string;
   isSpecial: boolean;
   release_date: string;
-  images: IImage[];
+  images: Image[];
   spotify_id: string;
   _id: string;
   ratings: object[];
 }
 
-interface IImage {
+interface Image {
   url: string;
   height: number;
   width: number;

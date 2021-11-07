@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { getSession } from 'next-auth/client';
+import { getSession } from 'next-auth/react';
 
 import dbConnect from '../../../db';
 import Folge from '../../../models/folge';
