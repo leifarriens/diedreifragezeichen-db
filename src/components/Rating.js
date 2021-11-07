@@ -14,13 +14,12 @@ const Rating = ({ folge_id, folge_name }) => {
   const [userRating, setUserRating] = useState(0);
 
   useEffect(() => {
-    console.log(folge_id);
     setUserRating(0);
 
     if (session) {
       fetchUserRating();
     }
-  }, [folge_id]);
+  }, [folge_id, folge_name]);
 
   const fetchUserRating = async () => {
     try {
@@ -34,7 +33,6 @@ const Rating = ({ folge_id, folge_name }) => {
   };
 
   const handleNewRating = (newRating) => {
-    console.log(newRating);
     if (!session) return signIn();
 
     mutate(`/api/folgen/`, async () => {
@@ -43,7 +41,6 @@ const Rating = ({ folge_id, folge_name }) => {
         body: JSON.stringify({ rating: newRating }),
       });
       setToasted(true);
-      console.log('rating saved', newRating);
     });
   };
 
@@ -52,7 +49,6 @@ const Rating = ({ folge_id, folge_name }) => {
       <div style={{ fontSize: '18px', marginBottom: '6px' }}>
         {userRating ? 'Deine Wertung:' : 'Bewerten:'}
       </div>
-      {userRating}
       <RatingInput
         defaultValue={userRating}
         onRate={(newRating) => handleNewRating(newRating)}

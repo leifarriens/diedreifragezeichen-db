@@ -13,7 +13,7 @@ export default function Footer() {
       <Signatur>
         Developed with 🦜 by{' '}
         <a
-          href="https://leifarriens.github.io/"
+          href="https://leifarriens.dev"
           target="_blank"
           rel="noopener noreferrer"
         >

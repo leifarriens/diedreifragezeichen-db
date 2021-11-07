@@ -1,11 +1,11 @@
 import Header from '../components/Header';
 
-export default function Custom404() {
+export default function Custom500() {
   return (
     <>
       <Header />
       <div className="wrapper">
-        <h1>Seite nicht gefunden</h1>
+        <h1>Server error</h1>
       </div>
     </>
   );

@@ -1,29 +1,22 @@
-// TODO: depricate this file
-import Axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export function useFetch(url, options) {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(null);
+export function useHover() {
+  const [value, setValue] = useState(false);
+  const ref = useRef(null);
+  const handleMouseOver = () => setValue(true);
+  const handleMouseOut = () => setValue(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      console.log(url);
-      setLoading(true);
-      setData(null);
-      try {
-        const { data } = await Axios(url, options);
-        setData(data);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+    const node = ref.current;
+    if (node) {
+      node.addEventListener('mouseover', handleMouseOver);
+      node.addEventListener('mouseout', handleMouseOut);
+      return () => {
+        node.removeEventListener('mouseover', handleMouseOver);
+        node.removeEventListener('mouseout', handleMouseOut);
+      };
+    }
+  }, [ref.current]);
 
-    fetchData();
-  }, [url]);
-
-  return { data, error, loading };
+  return [ref, value];
 }

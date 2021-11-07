@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const GridContainer = styled.div`
-  padding: 0 24px;
+  /* padding: 0 24px; */
   flex: 1;
-
+  /* 
   @media (min-width: 375px) {
     padding: 0 24px;
   }
@@ -14,7 +14,7 @@ export const GridContainer = styled.div`
 
   @media (min-width: 1128px) {
     padding: 0 80px;
-  }
+  } */
 
   // transition: background 150ms ease; is not supported in css
   /* ${({ sortBy }) =>

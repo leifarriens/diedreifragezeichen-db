@@ -13,7 +13,7 @@ import Header from '../../components/Header/';
 import { Key, KeyContainer } from '../../components/Key';
 import dbConnect from '../../db';
 import { getAllFolgenIds, getAllFolgenWithRating } from '../../services/';
-import { applyFilter, parseMongo } from '../../utils';
+import { applyFilter, applyFolgenRating, parseMongo } from '../../utils';
 import { useGlobalState } from '../../context/GlobalContext';
 
 function Folge(props) {
@@ -28,6 +28,7 @@ function Folge(props) {
   const { rel, next, prev } = getRelatedFolgen(props.folge, filteredFolgen);
 
   const router = useRouter();
+  console.log(props.folge);
 
   const _toPrevFolge = () => router.push('/folge/' + prev._id);
 
@@ -56,21 +57,23 @@ function Folge(props) {
         )}
       </KeyContainer>
 
-      <GridContainer>
-        <FolgenContainer>
-          {rel.map((folge) => {
-            const isCurrent = props.folge._id === folge._id;
-            return (
-              <GridFolge
-                key={folge._id}
-                folge={folge}
-                coverOnly={true}
-                style={{ opacity: isCurrent ? 0.15 : 1 }}
-              />
-            );
-          })}
-        </FolgenContainer>
-      </GridContainer>
+      <div className="wrapper stretch">
+        <GridContainer>
+          <FolgenContainer>
+            {rel.map((folge) => {
+              const isCurrent = props.folge._id === folge._id;
+              return (
+                <GridFolge
+                  key={folge._id}
+                  folge={folge}
+                  coverOnly={true}
+                  style={{ opacity: isCurrent ? 0.15 : 1 }}
+                />
+              );
+            })}
+          </FolgenContainer>
+        </GridContainer>
+      </div>
     </>
   );
 }
@@ -96,7 +99,15 @@ export async function getStaticProps({ params }) {
 
   const folgen = parseMongo(data);
 
+  folgen.map(applyFolgenRating);
+
   const folge = folgen.find((f) => f._id === params.id);
+
+  if (!folge) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {

@@ -1,8 +1,16 @@
+import { getSession } from 'next-auth/client';
+
 import dbConnect from '../../../db';
 import Folge from '../../../models/folge';
 import { filterByQuery } from '../../../utils';
 
 export default async function handler(req, res) {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return res.status(401).send('Unauthorized');
+  }
+
   await dbConnect();
 
   if (req.method === 'GET') {

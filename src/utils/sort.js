@@ -1,5 +1,3 @@
-import { calcFolgenRating } from './';
-
 export const sortFolgen = (folgen, sortBy) => {
   switch (sortBy) {
     case 'dateAsc':
@@ -17,7 +15,7 @@ export const sortFolgen = (folgen, sortBy) => {
 
 const sortFolgenByRating = (folgen) => {
   const sorted = [...folgen].sort((a, b) => {
-    return calcFolgenRating(a.ratings) - calcFolgenRating(b.ratings);
+    return a.rating - b.rating;
   });
 
   return sorted.reverse();
@@ -45,7 +43,7 @@ const sortFolgenByDateDesc = (folgen) => {
 
 const sortByPopularity = (folgen) => {
   const sorted = [...folgen].sort((a, b) => {
-    return a.ratings.length - b.ratings.length;
+    return a.numberOfRatings - b.numberOfRatings;
   });
 
   return sorted.reverse();

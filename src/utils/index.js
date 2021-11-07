@@ -15,6 +15,13 @@ const calcFolgenRating = (ratings = []) => {
   );
 };
 
+const applyFolgenRating = (folge) => {
+  folge.rating = calcFolgenRating(folge.ratings);
+  folge.numberOfRatings = folge.ratings.length;
+  delete folge.ratings;
+  return folge;
+};
+
 const roundRatingToPointFive = (rating) => {
   return Math.round(rating * 2) / 2;
 };
@@ -73,6 +80,7 @@ const splitArrayByProp = (array, prop, transformer) => {
 
 export {
   applyFilter,
+  applyFolgenRating,
   calcFolgenRating,
   filterByQuery,
   filterSpecial,

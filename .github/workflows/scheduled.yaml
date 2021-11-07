@@ -1,7 +1,7 @@
 name: Sync Folgen
 on:
   schedule:
-    - cron: '10 0 * * *'
+    - cron: '0 1 * * 5'
 jobs:
   cron:
     runs-on: ubuntu-latest

@@ -5,10 +5,15 @@ import dbConnect from '../../../db';
 import Folge from '../../../models/folge';
 import Rating from '../../../models/rating';
 import { getFolgeWithRating } from '../../../services/index';
-import { parseMongo } from '../../../utils';
+import { applyFolgenRating, parseMongo } from '../../../utils';
 
 export default async function handler(req, res) {
+  const session = await getSession({ req });
   const { method, query } = req;
+
+  if (!session) {
+    return res.status(401).send('Unauthorized');
+  }
 
   await dbConnect();
 
@@ -45,7 +50,9 @@ const getFolge = async (req, res) => {
 
   const data = await getFolgeWithRating(id);
 
-  const folge = parseMongo(data);
+  let folge = parseMongo(data);
+
+  folge = applyFolgenRating(folge);
 
   res.send(folge);
 };
@@ -55,9 +62,9 @@ const handlePostRating = async (req, res) => {
 
   const session = await getSession({ req });
 
-  if (!session) {
-    return res.status(401).end();
-  }
+  // if (!session) {
+  //   return res.status(401).end();
+  // }
 
   const data = JSON.parse(req.body);
 
@@ -94,9 +101,9 @@ const getUserRating = async (req, res) => {
 
   const session = await getSession({ req });
 
-  if (!session) {
-    return res.status(401).end();
-  }
+  // if (!session) {
+  //   return res.status(401).end();
+  // }
 
   const email = session.user.email;
 

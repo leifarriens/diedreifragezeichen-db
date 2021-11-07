@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { signIn, useSession } from 'next-auth/client';
-import React from 'react';
+import { signIn, signOut, useSession } from 'next-auth/client';
 import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
 
@@ -57,9 +56,19 @@ const Header = ({ transparent = false, simple = false }) => {
                 <button
                   aria-label="Anmelden"
                   className="button red"
-                  onClick={() => signIn()}
+                  onClick={signIn}
                 >
                   Anmelden
+                </button>
+              </span>
+            ) : router.pathname === '/profil' ? (
+              <span>
+                <button
+                  aria-label="Ausloggen"
+                  className="button red"
+                  onClick={signOut}
+                >
+                  Ausloggen
                 </button>
               </span>
             ) : (
@@ -73,7 +82,7 @@ const Header = ({ transparent = false, simple = false }) => {
         )}
         {router.pathname === '/signin' && (
           <ProfileLink>
-            <CloseLoginButton onClick={() => router.back()}>
+            <CloseLoginButton onClick={router.back}>
               <AiOutlineClose size={28} />
             </CloseLoginButton>
           </ProfileLink>

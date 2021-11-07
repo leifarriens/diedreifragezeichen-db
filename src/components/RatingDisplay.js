@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { calcFolgenRating } from '../utils';
-
-function RatingDisplay({ ratings }) {
-  const rating = calcFolgenRating(ratings);
-  const min = process.env.minRatingsToDisplay;
-
-  return <span>{rating && ratings.length >= min ? rating : ' ??? '}/10</span>;
+function RatingDisplay({ numberOfRatings, rating }) {
+  return (
+    <>
+      <span>{rating ? rating : ' ??? '}/10</span>
+      {/* <div style={{ fontSize: '0.4em' }}>{numberOfRatings} Bewertungen</div> */}
+    </>
+  );
 }
 
 export default RatingDisplay;

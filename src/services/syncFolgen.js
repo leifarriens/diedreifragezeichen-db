@@ -24,9 +24,7 @@ export default async function syncFolgen() {
       );
       if (isInDb) {
         stats.inDb.push(folge);
-        // folge is in DB
       } else {
-        // folge is not in db
         if (blacklist.includes(folge.id)) {
           stats.blacklisted.push(folge);
         } else {
@@ -50,7 +48,7 @@ export default async function syncFolgen() {
       },
       added: {
         amount: stats.successfullyAdded.length,
-        names: stats.successfullyAdded.map((entry) => entry.name),
+        names: stats.successfullyAdded,
       },
       blacklist: {
         amount: stats.blacklisted.length,
@@ -58,7 +56,6 @@ export default async function syncFolgen() {
       },
     };
   } catch (error) {
-    console.log(error);
     throw new Error(error);
   }
 }

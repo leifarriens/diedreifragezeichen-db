@@ -1,9 +1,20 @@
 # diedreifragezeichen-db
 
-## Todos
+## Setup
 
-- &#9744; client
-- &#9745; database
+### Database
+
+Set MONGO_URI to full connection string with /${database_name}.
+
+### Folgen sync
+
+To use cron folgen sync with github workflows set `ACTION_KEY` secret on github and `APP_KEY` on vercel to a matching value.
+
+### Authentication
+
+Set `NEXTAUTH_URL` to your host url.
+
+Set `{AUTH_PROVIDER}_CLIENT_ID` and `{AUTH_PROVIDER}_CLIENT__SECRET`
 
 ## API
 

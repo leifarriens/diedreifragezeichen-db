@@ -1,13 +1,11 @@
-import Link from 'next/link';
 import { getSession, signIn, signOut, useSession } from 'next-auth/client';
-import styled from 'styled-components';
 
-import { GridContainer } from '../../components/Grid/StyledGrid';
+import Grid from '../../components/Grid';
 import Header from '../../components/Header';
 import dbConnect from '../../db';
 import Folge from '../../models/folge';
 import Rating from '../../models/rating';
-import { parseMongo } from '../../utils';
+import { applyFolgenRating, parseMongo } from '../../utils';
 
 function Profile({ folgenWithRating }) {
   const [session, loading] = useSession();
@@ -24,65 +22,12 @@ function Profile({ folgenWithRating }) {
       <div className="wrapper">
         <div>{name}</div>
         <div>{email}</div>
-        <button aria-label="Logout" className="button red" onClick={signOut}>
-          Logout
-        </button>
         <h3 style={{ margin: '36px 0' }}>Deine Bewertungen</h3>
-        <GridContainer>
-          <ul>
-            {/* <FolgenContainer> */}
-            {folgenWithRating.map((folge) => (
-              // <GridFolge key={folge._id} folge={folge} coverOnly={true} />
-              // <li key={folge._id}>
-              //   <span>
-              //     <img src={folge.images[1].url} height="200" />{folge.name} {folge.yourRating}</span>
-              // </li>
-              <ListItem key={folge._id} folge={folge} />
-            ))}
-            {/* </FolgenContainer> */}
-          </ul>
-        </GridContainer>
+        <Grid folgen={folgenWithRating} />
       </div>
     </>
   );
 }
-
-const ListItemContainer = styled.div`
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  grid-column-gap: 18px;
-  margin-bottom: 18px;
-  background-color: #010a0f;
-  padding: 18px;
-  align-items: center;
-  box-shadow: rgb(0 0 0 / 20%) 0px 8px 24px;
-  transition: transform 150ms ease;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  img {
-    height: auto;
-    width: 100%;
-  }
-`;
-
-const ListItem = ({ folge }) => {
-  return (
-    <Link href={`folge/${folge._id}`}>
-      <a>
-        <ListItemContainer bgImage={folge.images[1].url}>
-          <div>
-            <img src={folge.images[1].url} alt="" />
-          </div>
-          <span>{folge.name}</span>
-          <span>{folge.yourRating}</span>
-        </ListItemContainer>
-      </a>
-    </Link>
-  );
-};
 
 export async function getServerSideProps(context) {
   const { req, res } = context;
@@ -91,13 +36,9 @@ export async function getServerSideProps(context) {
   if (!session) {
     res.writeHead(302, {
       Location: '/api/auth/signin',
-      // Location: '/',
     });
-    res.end();
 
-    return {
-      props: {},
-    };
+    return res.end();
   }
 
   await dbConnect();
@@ -110,15 +51,17 @@ export async function getServerSideProps(context) {
     _id: {
       $in: ratedFolgen,
     },
-  });
+  }).populate('ratings');
 
   const ratings = parseMongo(data);
   const folgen = parseMongo(rawFolgen);
 
-  const folgenWithRating = folgen.map((f) => {
-    f.yourRating = ratings.find((r) => r.folge === f._id).value;
+  let folgenWithRating = folgen.map((f) => {
+    f.userRating = ratings.find((r) => r.folge === f._id).value;
     return f;
   });
+
+  folgenWithRating = folgenWithRating.map(applyFolgenRating);
 
   return {
     props: {

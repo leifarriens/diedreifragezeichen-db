@@ -6,7 +6,7 @@ import Grid from '../components/Grid';
 import Header from '../components/Header';
 import dbConnect from '../db';
 import { getAllFolgenWithRating } from '../services';
-import { parseMongo } from '../utils';
+import { applyFolgenRating, parseMongo } from '../utils';
 
 function Home({ folgen }) {
   const [session] = useSession();
@@ -14,7 +14,9 @@ function Home({ folgen }) {
   return (
     <>
       <Header />
-      <Grid folgen={folgen} />
+      <div className="wrapper stretch">
+        <Grid folgen={folgen} />
+      </div>
 
       {!session && (
         <HomeFooter className="wrapper">
@@ -39,11 +41,7 @@ export async function getStaticProps() {
 
   const folgen = parseMongo(data);
 
-  // TODO: rating should be calculated on server side and array of rating should be removed
-  // folgen.map((entry) => {
-  //   entry['rating_value'] = calcFolgenRating(entry.ratings);
-  //   delete entry.ratings;
-  // });
+  folgen.map(applyFolgenRating);
 
   return {
     props: { folgen },

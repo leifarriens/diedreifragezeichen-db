@@ -23,8 +23,7 @@ const ScrollToTop = () => {
   }, []);
 
   const _handleVisibility = () => {
-    const t = document.body.getBoundingClientRect().top;
-    setVisible(t < -window.innerHeight / 3);
+    setVisible(window.scrollY >= 100);
   };
 
   const _handleClick = () => {

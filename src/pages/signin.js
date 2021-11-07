@@ -7,9 +7,11 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 
 const FormContainer = styled.div`
-  /* border: 1px solid #fff; */
-  /* border-radius: 20px; */
-  /* padding: 32px; */
+  @media screen and (min-width: 640px) {
+    border: 2px solid #fff;
+    border-radius: 16px;
+    padding: 64px 48px;
+  }
 
   h1 {
     margin-bottom: 1rem;
@@ -45,7 +47,7 @@ export default function SignIn({ providers }) {
       <Header simple={true} />
       <div
         className="wrapper"
-        style={{ maxWidth: '420px', textAlign: 'center' }}
+        style={{ maxWidth: '520px', textAlign: 'center' }}
       >
         <FormContainer>
           <div>
@@ -76,7 +78,6 @@ const SocialLoginButton = ({ name, icon, bgColor, color, onClick }) => {
         onClick={onClick}
         style={{
           width: '100%',
-          // fontSize: '1.1rem',
           fontWeight: 400,
           backgroundColor: bgColor,
           borderColor: bgColor,

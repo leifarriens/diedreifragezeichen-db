@@ -6,7 +6,16 @@ import RatingDisplay from '../RatingDisplay';
 import { Background, Buttons, Container, Content, Cover } from './StyledFolge';
 
 const Folge = ({
-  folge: { images, name, release_date, _id, ratings, number, spotify_id },
+  folge: {
+    images,
+    name,
+    numberOfRatings,
+    release_date,
+    _id,
+    rating,
+    number,
+    spotify_id,
+  },
 }) => {
   const isBigCover = Number(number) >= 125 ? true : false;
 
@@ -30,11 +39,11 @@ const Folge = ({
           }}
         >
           <span style={{ fontFamily: 'Cambria' }}>
-            <RatingDisplay ratings={ratings} />
+            <RatingDisplay rating={rating} numberOfRatings={numberOfRatings} />
           </span>
         </div>
 
-        <Rating folge_id={_id} folge_name={name} />
+        <Rating rating={rating} folge_id={_id} folge_name={name} />
 
         <Buttons>
           <a
