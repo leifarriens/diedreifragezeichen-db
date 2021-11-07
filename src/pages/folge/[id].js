@@ -28,7 +28,6 @@ function Folge(props) {
   const { rel, next, prev } = getRelatedFolgen(props.folge, filteredFolgen);
 
   const router = useRouter();
-  console.log(props.folge);
 
   const _toPrevFolge = () => router.push('/folge/' + prev._id);
 

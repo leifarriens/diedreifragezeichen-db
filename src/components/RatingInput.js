@@ -83,7 +83,6 @@ function RatingInput({ defaultValue = 0, onRate }) {
 
   const handleMouseMove = (e) => {
     const mouseElementOffsetX = e.nativeEvent.offsetX;
-    // console.log(mouseElementOffsetX);
     const targetElementWidth = e.target.clientWidth;
 
     if (mouseElementOffsetX < 0 || mouseElementOffsetX > targetElementWidth) {
