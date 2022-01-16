@@ -7,14 +7,14 @@ export default async function handler(req, res) {
       return res.status(401).end('No App Key provided');
     }
 
-    await dbConnect();
-
     const { APP_KEY } = process.env;
 
     const ACTION_KEY = req.headers.authorization.split(' ')[1];
 
     try {
       if (ACTION_KEY === APP_KEY) {
+        await dbConnect();
+
         const result = await syncFolgen();
         console.log(result);
         return res.status(201).json(result);

@@ -40,9 +40,16 @@ const Header = ({ transparent = false, simple = false }) => {
   const background = transparent ? '' : gradient;
 
   return (
-    <Headroom style={{ pointerEvents: 'none' }}>
+    <Headroom
+      style={{
+        pointerEvents: 'none',
+        zIndex: 90,
+      }}
+    >
       <Container background={background}>
-        <HomeLink onClick={handleHomeClick} />
+        <HomeLink onClick={handleHomeClick}>
+          <img src="/logo.png" alt="Logo" />
+        </HomeLink>
 
         {!simple && (
           <SearchBar>

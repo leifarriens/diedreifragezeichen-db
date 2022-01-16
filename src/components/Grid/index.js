@@ -15,6 +15,8 @@ const Grid = (props) => {
     setShowSpecials,
   } = useContext(GlobalContext);
 
+  const { sortOptions } = props;
+
   const [folgen, setFolgen] = useState(props.folgen);
 
   useEffect(() => {

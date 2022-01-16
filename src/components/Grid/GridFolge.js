@@ -4,18 +4,18 @@ import React, { useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
 import { Loader } from '../Loader';
-import RatingDisplay from '../RatingDisplay';
+import RatingInput from '../RatingInput';
 import { Cover, FolgeContainer, NewBadge } from './StyledFolge';
 
-const GridFolge = React.memo(({ folge, coverOnly = false }) => {
+const GridFolge = React.memo(({ folge, coverOnly = false, ...rest }) => {
   const [image, setImage] = useState({
     url: '',
     loading: true, // needs to be initial "true" to hide Image
   });
 
-  const releaseDate = dayjs(folge.release_date);
-  const today = dayjs();
-  const isNew = releaseDate.add(2, 'month').isAfter(today);
+  // const releaseDate = dayjs(folge.release_date);
+  // const today = dayjs();
+  // const isNew = releaseDate.add(2, 'month').isAfter(today);
 
   const handleViewChange = (inView) => {
     if (!inView) return;
@@ -23,7 +23,7 @@ const GridFolge = React.memo(({ folge, coverOnly = false }) => {
   };
 
   return (
-    <FolgeContainer>
+    <FolgeContainer {...rest}>
       <Link href={`/folge/${folge._id}`}>
         <a>
           <InView as="div" onChange={handleViewChange} triggerOnce={true}>
@@ -49,19 +49,14 @@ const GridFolge = React.memo(({ folge, coverOnly = false }) => {
           {!coverOnly && (
             <div className="text">
               <div>
-                <div>
-                  <RatingDisplay rating={folge.rating} />
-                </div>
+                <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
                 <div style={{ fontSize: '0.8em' }}>
                   {dayjs(folge.release_date).format('DD.MM.YYYY')}
                 </div>
               </div>
-              <div>
-                {folge.userRating && (
-                  <div>Deine Wertung: {folge.userRating}</div>
-                )}
-                {isNew && <NewBadge>neu</NewBadge>}
-              </div>
+              {folge.userRating && (
+                <NewBadge className="">{folge.userRating}</NewBadge>
+              )}
             </div>
           )}
         </a>

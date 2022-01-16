@@ -20,6 +20,8 @@ const KeyBox = styled.div`
 export const KeyContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin-bottom: 48px;
+  grid-column: 1/3;
 `;
 
 export function Key({ icon, color = '#ddd', size = 22, onPress, keyCode }) {

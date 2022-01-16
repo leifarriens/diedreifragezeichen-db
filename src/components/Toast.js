@@ -24,7 +24,12 @@ const StlyedToast = styled.div`
   pointer-events: all;
 `;
 
-function Toast({ duration = 3000, onFadeOut, children }) {
+function Toast({
+  duration = 3000,
+  onFadeOut,
+  children,
+  color = colors.lightblue,
+}) {
   const [inProp, setInProp] = useState(false);
 
   const transitionDuration = 300;
@@ -59,7 +64,7 @@ function Toast({ duration = 3000, onFadeOut, children }) {
       <Transition in={inProp} timeout={150}>
         {(state) => (
           <StlyedToast
-            bgColor={colors.lightblue}
+            bgColor={color}
             style={{
               ...defaultStyle,
               ...transitionStyles[state],

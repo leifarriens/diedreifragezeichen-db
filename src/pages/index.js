@@ -15,7 +15,10 @@ function Home({ folgen }) {
     <>
       <Header />
       <div className="wrapper stretch">
-        <Grid folgen={folgen} />
+        <Grid
+          folgen={folgen}
+          sortOptions={['dateDesc', 'dateAsc', 'rating', 'popularity']}
+        />
       </div>
 
       {!session && (

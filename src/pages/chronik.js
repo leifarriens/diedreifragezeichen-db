@@ -22,7 +22,9 @@ function ChronikPage({ folgen }) {
   return (
     <>
       <Header />
-      <ChronikView folgen={folgen} />
+      <div className="wrapper">
+        <ChronikView folgen={folgen} />
+      </div>
     </>
   );
 }

@@ -8,6 +8,8 @@ export const sortFolgen = (folgen, sortBy) => {
       return sortFolgenByRating(folgen);
     case 'popularity':
       return sortByPopularity(folgen);
+    case 'userRating':
+      return sortByUserRating(folgen);
     default:
       return sortFolgenByDateDesc(folgen);
   }
@@ -44,6 +46,14 @@ const sortFolgenByDateDesc = (folgen) => {
 const sortByPopularity = (folgen) => {
   const sorted = [...folgen].sort((a, b) => {
     return a.numberOfRatings - b.numberOfRatings;
+  });
+
+  return sorted.reverse();
+};
+
+const sortByUserRating = (folgen) => {
+  const sorted = [...folgen].sort((a, b) => {
+    return a.userRating - b.userRating;
   });
 
   return sorted.reverse();

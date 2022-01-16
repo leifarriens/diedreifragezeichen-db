@@ -124,5 +124,5 @@ export const NewBadge = styled.span`
   border-radius: 4px;
   text-transform: capitalize;
   box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.15);
-  overflow: visible;
+  display: inline-block;
 `;

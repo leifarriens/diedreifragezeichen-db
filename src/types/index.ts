@@ -1,4 +1,4 @@
-interface Folge {
+export interface FolgeType {
   name: string;
   number: string;
   createdAt: string;

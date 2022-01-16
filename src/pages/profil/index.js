@@ -1,6 +1,8 @@
-import { getSession, signIn, signOut, useSession } from 'next-auth/react';
+import { getSession, signIn, useSession } from 'next-auth/react';
+import styled from 'styled-components';
 
-import Grid from '../../components/Grid';
+import GridFolge from '../../components/Grid/GridFolge';
+import { FolgenContainer } from '../../components/Grid/StyledGrid';
 import Header from '../../components/Header';
 import dbConnect from '../../db';
 import Folge from '../../models/folge';
@@ -15,20 +17,29 @@ function Profile({ folgenWithRating }) {
 
   if (!session) return signIn();
 
-  const { name, email } = session.user;
+  const { name } = session.user;
 
   return (
-    <>
+    <Styles>
       <Header />
       <div className="wrapper">
-        <div>{name}</div>
-        <div>{email}</div>
-        <h3 style={{ margin: '36px 0' }}>Deine Bewertungen</h3>
-        <Grid folgen={folgenWithRating} />
+        <h2>Hallo, {name}</h2>
+        <h3>Deine Bewertungen</h3>
+        <FolgenContainer>
+          {folgenWithRating.map((entry) => (
+            <GridFolge key={entry._id} folge={entry} />
+          ))}
+        </FolgenContainer>
       </div>
-    </>
+    </Styles>
   );
 }
+
+const Styles = styled.div`
+  h3 {
+    margin: 36px 0;
+  }
+`;
 
 export async function getServerSideProps(context) {
   const { req, res } = context;

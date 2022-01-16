@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Container = styled.header`
-  z-index: 100;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -11,12 +10,11 @@ export const Container = styled.header`
   padding-left: 24px;
   padding-right: 24px;
   background: ${(props) => props.background};
-  pointer-events: none;
 
   /* GRID */
   display: grid;
   grid-row-gap: 20px;
-  grid-column-gap: 20px;
+  grid-column-gap: 24px;
   grid-template-columns: auto 1fr auto;
   grid-template-areas:
     'logo - profile'
@@ -51,8 +49,8 @@ export const HomeLink = styled.a`
   cursor: pointer;
   flex: 0 0 auto;
   height: 36px;
-  width: 62px;
-  background-image: url('/logo.png');
+  /* width: 62px; */
+  /* background-image: url('/logo.png'); */
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -97,11 +95,11 @@ export const ProfileLink = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  pointer-events: none;
+  /* pointer-events: none; */
   grid-area: profile;
 
   * {
-    pointer-events: all;
+    /* pointer-events: all; */
   }
 `;
 

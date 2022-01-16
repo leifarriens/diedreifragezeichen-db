@@ -15,10 +15,14 @@ export default async function handler(req, res) {
     return res.status(401).send('Unauthorized');
   }
 
+  req.session = session;
+
+  console.log(req.session);
+
   await dbConnect();
 
   // eslint-disable-next-line no-unused-vars
-  const [id, action] = query.slug;
+  const [_, action] = query.slug;
 
   if (!action) {
     switch (method) {
@@ -60,15 +64,13 @@ const getFolge = async (req, res) => {
 const handlePostRating = async (req, res) => {
   const [id] = req.query.slug;
 
-  const session = await getSession({ req });
+  const data = req.body;
 
-  // if (!session) {
-  //   return res.status(401).end();
-  // }
+  if (!data.rating) {
+    return res.status(400).end();
+  }
 
-  const data = JSON.parse(req.body);
-
-  const email = session.user.email;
+  const email = req.session.user.email;
 
   const rating = await Rating.findOneAndUpdate(
     {
@@ -95,17 +97,9 @@ const handlePostRating = async (req, res) => {
 };
 
 const getUserRating = async (req, res) => {
-  await dbConnect();
-
   const [id] = req.query.slug;
 
-  const session = await getSession({ req });
-
-  // if (!session) {
-  //   return res.status(401).end();
-  // }
-
-  const email = session.user.email;
+  const email = req.session.user.email;
 
   const data = await Rating.findOne({ folge: id, user: email });
 

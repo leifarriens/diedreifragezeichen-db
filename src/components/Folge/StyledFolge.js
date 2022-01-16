@@ -58,3 +58,16 @@ export const Background = styled.div`
   transform: scale(1.15);
   filter: blur(80px) brightness(35%);
 `;
+
+export const RatingContainer = styled.div`
+  font-size: 2.4em;
+  font-family: 'Cambria';
+  margin-top: 16px;
+  margin-bottom: 12px;
+`;
+
+export const ReleaseContainer = styled.div`
+  font-size: 1.2em;
+  margin-top: 6px;
+  color: #ddd;
+`;

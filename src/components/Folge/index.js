@@ -2,8 +2,15 @@ import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 
 import Rating from '../Rating';
-import RatingDisplay from '../RatingDisplay';
-import { Background, Buttons, Container, Content, Cover } from './StyledFolge';
+import {
+  Background,
+  Buttons,
+  Container,
+  Content,
+  Cover,
+  RatingContainer,
+  ReleaseContainer,
+} from './StyledFolge';
 
 const Folge = ({
   folge: {
@@ -17,7 +24,7 @@ const Folge = ({
     spotify_id,
   },
 }) => {
-  const isBigCover = Number(number) >= 125 ? true : false;
+  const isBigCover = Number(number) >= 125;
 
   return (
     <Container className="wrapper">
@@ -27,23 +34,13 @@ const Folge = ({
       <Content>
         <h2>Die drei ???</h2>
         <h1>{name}</h1>
-        <div style={{ fontSize: '1.2rem', marginTop: '6px', color: '#ddd' }}>
-          <p>Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}</p>
-        </div>
+        <ReleaseContainer>
+          Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}
+        </ReleaseContainer>
 
-        <div
-          style={{
-            fontSize: '2.4rem',
-            marginTop: '16px',
-            marginBottom: '12px',
-          }}
-        >
-          <span style={{ fontFamily: 'Cambria' }}>
-            <RatingDisplay rating={rating} numberOfRatings={numberOfRatings} />
-          </span>
-        </div>
+        <RatingContainer>{rating ? rating : ' ??? '}/10</RatingContainer>
 
-        <Rating rating={rating} folge_id={_id} folge_name={name} />
+        <Rating folge_id={_id} folge_name={name} />
 
         <Buttons>
           <a

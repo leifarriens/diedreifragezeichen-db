@@ -3,18 +3,16 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
-import FolgeComponent from '../../components/Folge/';
+import FolgeComponent from '../../components/Folge';
 import GridFolge from '../../components/Grid/GridFolge';
-import {
-  FolgenContainer,
-  GridContainer,
-} from '../../components/Grid/StyledGrid';
-import Header from '../../components/Header/';
+import { FolgenContainer } from '../../components/Grid/StyledGrid';
+import Header from '../../components/Header';
 import { Key, KeyContainer } from '../../components/Key';
 import dbConnect from '../../db';
-import { getAllFolgenIds, getAllFolgenWithRating } from '../../services/';
+import { getAllFolgenIds, getAllFolgenWithRating } from '../../services';
 import { applyFilter, applyFolgenRating, parseMongo } from '../../utils';
 import { useGlobalState } from '../../context/GlobalContext';
+import { getNextFolgen } from '../../services/db';
 
 function Folge(props) {
   const { showSpecials, sortBy } = useGlobalState();
@@ -39,7 +37,7 @@ function Folge(props) {
       <Header transparent={true} />
       <FolgeComponent folge={props.folge} />
 
-      <KeyContainer style={{ marginBottom: '48px', gridColumn: '1 / 3' }}>
+      <KeyContainer>
         {prev && (
           <Key
             icon={BiLeftArrowAlt}
@@ -57,21 +55,22 @@ function Folge(props) {
       </KeyContainer>
 
       <div className="wrapper stretch">
-        <GridContainer>
-          <FolgenContainer>
-            {rel.map((folge) => {
-              const isCurrent = props.folge._id === folge._id;
-              return (
-                <GridFolge
-                  key={folge._id}
-                  folge={folge}
-                  coverOnly={true}
-                  style={{ opacity: isCurrent ? 0.15 : 1 }}
-                />
-              );
-            })}
-          </FolgenContainer>
-        </GridContainer>
+        <FolgenContainer>
+          {rel.map((folge) => {
+            const isCurrent = props.folge._id === folge._id;
+            return (
+              <GridFolge
+                key={folge._id}
+                folge={folge}
+                coverOnly={true}
+                style={{
+                  opacity: isCurrent ? 0.35 : 1,
+                  pointerEvents: isCurrent ? 'none' : 'all',
+                }}
+              />
+            );
+          })}
+        </FolgenContainer>
       </div>
     </>
   );
@@ -101,6 +100,8 @@ export async function getStaticProps({ params }) {
   folgen.map(applyFolgenRating);
 
   const folge = folgen.find((f) => f._id === params.id);
+
+  // const nextFolgen = await getNextFolgen(folge, 'release_date');
 
   if (!folge) {
     return {

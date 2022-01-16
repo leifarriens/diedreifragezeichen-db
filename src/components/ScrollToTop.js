@@ -7,7 +7,7 @@ const ScrollTopContainer = styled.div`
   z-index: 555;
   bottom: 48px;
   right: 18px;
-  transition: opacity 100ms ease;
+  transition: opacity 200ms ease-in;
 `;
 
 const ScrollToTop = () => {

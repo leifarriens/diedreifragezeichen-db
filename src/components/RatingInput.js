@@ -1,6 +1,13 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+  pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
 const IconContainer = styled.div`
   position: relative;
   height: 60px;
@@ -55,12 +62,20 @@ const FragezeichenIcon = styled.span`
   }
 `;
 
+const HoverValue = styled.div`
+  min-width: 35px;
+  text-align: right;
+  font-size: 24px;
+  margin-top: -12px;
+`;
+
 // FIXME: fix variance between submitted range and hover
-function RatingInput({ defaultValue = 0, onRate }) {
-  const [range, setRange] = useState(defaultValue || 1);
-  const [hover, setHover] = useState(null);
+function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
+  const [range, setRange] = useState(defaultValue || 0);
+  const [hover, setHover] = useState('');
 
   useEffect(() => {
+    console.log('NEW', defaultValue);
     setRange(defaultValue);
   }, [defaultValue]);
 
@@ -78,7 +93,10 @@ function RatingInput({ defaultValue = 0, onRate }) {
   };
 
   const handleInputEnd = () => {
+    // setRange(hover);
+    setRange(0);
     onRate(hover);
+    setHover('');
   };
 
   const handleMouseMove = (e) => {
@@ -99,18 +117,18 @@ function RatingInput({ defaultValue = 0, onRate }) {
   };
 
   const handleMouseOut = () => {
-    setHover(null);
+    setHover('');
   };
 
   const inputSettings = {
     type: 'range',
-    min: 1,
+    min: 0.5, // needs to be 0.5 to equal input range and hover value
     max: 10,
     step: 0.5,
   };
 
   return (
-    <div style={{ display: 'flex', width: '100%' }}>
+    <Container disabled={disabled}>
       <IconContainer>
         <input
           {...inputSettings}
@@ -148,10 +166,10 @@ function RatingInput({ defaultValue = 0, onRate }) {
           })}
         </FragezeichenContainer>
       </IconContainer>
-      <div style={{ minWidth: '35px', textAlign: 'right', fontSize: '24px' }}>
+      <HoverValue>
         {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)}
-      </div>
-    </div>
+      </HoverValue>
+    </Container>
   );
 }
 
