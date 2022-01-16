@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: Sync Folgen
         run: |
-          curl --request POST \
+          curl --request GET \
           --url 'https://www.diedreifragezeichen-db.de/api/folgen/sync' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
