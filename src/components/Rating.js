@@ -23,9 +23,9 @@ const Rating = ({ folge_id, folge_name }) => {
   useEffect(() => {
     setUserRating(0);
 
-    // if (session) {
-    fetchUserRating();
-    // }
+    if (session) {
+      fetchUserRating();
+    }
   }, [folge_id, folge_name]);
 
   const fetchUserRating = async () => {

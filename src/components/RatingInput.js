@@ -127,6 +127,26 @@ function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
     step: 0.5,
   };
 
+  const getIcon = (index) => {
+    if (hover && index < hover && hover - index > 0.5) {
+      return 'blue_small';
+    }
+
+    if (hover && index < hover) {
+      return 'half_small';
+    }
+
+    if (!hover && range - 1 >= index) {
+      return 'blue_small';
+    }
+
+    if (range > index && range % 1 != 0) {
+      return 'half_small';
+    }
+
+    return 'white_small';
+  };
+
   return (
     <Container disabled={disabled}>
       <IconContainer>
@@ -141,29 +161,12 @@ function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
         />
 
         <FragezeichenContainer>
-          {[...Array(10)].map((_, index) => {
-            const icon = () => {
-              if (hover && index < hover && hover - index > 0.5) {
-                return 'blue_small';
-              }
-
-              if (hover && index < hover) {
-                return 'half_small';
-              }
-
-              if (!hover && range - 1 >= index) {
-                return 'blue_small';
-              }
-
-              if (range > index && range % 1 != 0) {
-                return 'half_small';
-              }
-
-              return 'white_small';
-            };
-
-            return <FragezeichenIcon key={index} icon={icon()} />;
-          })}
+          {Array.from({ length: 10 }, (_, i) => (
+            <FragezeichenIcon key={i} icon={getIcon(i)} />
+          ))}
+          {/* {[...Array(10)].map((_, index) => {
+            return <FragezeichenIcon key={index} icon={getIcon(index)} />;
+          })} */}
         </FragezeichenContainer>
       </IconContainer>
       <HoverValue>
