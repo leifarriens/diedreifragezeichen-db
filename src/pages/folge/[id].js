@@ -12,7 +12,7 @@ import dbConnect from '../../db';
 import { getAllFolgenIds, getAllFolgenWithRating } from '../../services';
 import { applyFilter, applyFolgenRating, parseMongo } from '../../utils';
 import { useGlobalState } from '../../context/GlobalContext';
-import { getNextFolgen } from '../../services/db';
+// import { getNextFolgen } from '../../services/db';
 
 function Folge(props) {
   const { showSpecials, sortBy } = useGlobalState();
@@ -31,9 +31,13 @@ function Folge(props) {
 
   const _toNextFolge = () => router.push('/folge/' + next._id);
 
+  const number = !isNaN(parseInt(props.folge.number))
+    ? parseInt(props.folge.number)
+    : '';
+
   return (
     <>
-      <NextSeo title={`${props.folge.number} ${props.folge.name}`} />
+      <NextSeo title={`${number} ${props.folge.name}`} />
       <Header transparent={true} />
       <FolgeComponent folge={props.folge} />
 

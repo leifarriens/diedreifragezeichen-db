@@ -10,7 +10,7 @@
     "scrape-folgen": "node jobs/",
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
-    "format": "prettier --write ./src"
+    "format": "prettier --write ."
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "react-icons": "^4.2.0",
     "react-intersection-observer": "^8.31.1",
     "react-transition-group": "^4.4.2",
+    "react-virtualized": "^9.22.3",
     "sass": "^1.32.11",
     "styled-components": "^5.2.3"
   },

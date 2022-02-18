@@ -90,7 +90,7 @@ export const FolgeContainer = styled.article`
     transform: scale(1.2);
     transform-origin: center;
     z-index: 10;
-    box-shadow: 0 0 30px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 30px 6px rgba(0, 0, 0, 0.2);
 
     ${Overlay} {
       opacity: 1;
