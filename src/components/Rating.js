@@ -34,6 +34,7 @@ const Rating = ({ folge_id, folge_name }) => {
       const {
         data: { value },
       } = await Axios(`/api/folgen/${folge_id}/rating`);
+      console.log(value);
       setUserRating(value);
     } catch (error) {
       setUserRating(0);
@@ -53,8 +54,6 @@ const Rating = ({ folge_id, folge_name }) => {
       return;
     }
 
-    setUserRating(newRating);
-
     try {
       setLoading(true);
       await Axios({
@@ -62,6 +61,7 @@ const Rating = ({ folge_id, folge_name }) => {
         url: `/api/folgen/${folge_id}/rating`,
         data: { rating: newRating },
       });
+      setUserRating(newRating);
       setToasted(true);
     } catch (error) {
       setError(error.response);

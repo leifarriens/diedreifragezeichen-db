@@ -72,12 +72,14 @@ const HoverValue = styled.div`
 // FIXME: fix variance between submitted range and hover
 function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
   const [range, setRange] = useState(defaultValue || 0);
-  const [hover, setHover] = useState('');
+  const [hover, setHover] = useState(null);
 
   useEffect(() => {
     console.log('NEW', defaultValue);
     setRange(defaultValue);
   }, [defaultValue]);
+
+  // console.log(range, hover);
 
   const handleValueChange = (e) => {
     if (!isNaN(val)) return;
@@ -93,10 +95,9 @@ function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
   };
 
   const handleInputEnd = () => {
-    // setRange(hover);
-    setRange(0);
+    // setRange(0);
     onRate(hover);
-    setHover('');
+    setHover(null);
   };
 
   const handleMouseMove = (e) => {
@@ -115,6 +116,10 @@ function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
 
     setHover(rounded < 1 ? 1 : rounded);
   };
+
+  const handleTouchMove = (e) => {
+    console.log(e);
+  }
 
   const handleMouseOut = () => {
     setHover('');
@@ -154,6 +159,7 @@ function RatingInput({ defaultValue = 0, onRate, disabled = false }) {
           {...inputSettings}
           value={range}
           onMouseMove={handleMouseMove}
+          onTouchMove={handleTouchMove}
           onMouseOut={handleMouseOut}
           onChange={handleValueChange}
           onMouseUp={handleInputEnd}
