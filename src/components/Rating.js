@@ -7,7 +7,6 @@ import { colors } from '../theme';
 import RatingInput from './RatingInput';
 import Toast from './Toast';
 
-// FIXME: Pls fix this damn input
 const Rating = ({ folge_id, folge_name }) => {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
@@ -15,10 +14,6 @@ const Rating = ({ folge_id, folge_name }) => {
   const [toasted, setToasted] = useState(false);
 
   const [userRating, setUserRating] = useState('');
-
-  useEffect(() => {
-    console.log('user Rating', userRating);
-  }, [userRating]);
 
   useEffect(() => {
     setUserRating(0);
@@ -34,7 +29,6 @@ const Rating = ({ folge_id, folge_name }) => {
       const {
         data: { value },
       } = await Axios(`/api/folgen/${folge_id}/rating`);
-      console.log(value);
       setUserRating(value);
     } catch (error) {
       setUserRating(0);
@@ -50,7 +44,6 @@ const Rating = ({ folge_id, folge_name }) => {
     if (!session) return signIn();
 
     if (newRating === userRating) {
-      console.log('no new value');
       return;
     }
 
@@ -73,9 +66,10 @@ const Rating = ({ folge_id, folge_name }) => {
   return (
     <>
       <Title>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</Title>
+      {userRating}
       <RatingInput
         defaultValue={userRating}
-        onRate={(newRating) => handleNewRating(newRating)}
+        onRate={handleNewRating}
         disabled={loading}
       />
       {toasted && (
@@ -84,7 +78,7 @@ const Rating = ({ folge_id, folge_name }) => {
           onFadeOut={() => setToasted(false)}
           color={colors.lightblue}
         >
-          Bewertung für <i>{folge_name}</i> abgegeben
+          Bewertung für <i>{folge_name}</i> gespeichert
         </Toast>
       )}
       {error && (

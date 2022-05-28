@@ -65,6 +65,7 @@ const Background = styled.div`
 `;
 
 export const FolgeContainer = styled.article`
+  z-index: 1;
   position: relative;
   width: 100%;
   background-size: cover;
@@ -75,6 +76,7 @@ export const FolgeContainer = styled.article`
 
   img {
     border-radius: 12px;
+    transition: border-radius 150ms ease-out;
   }
 
   .text {
@@ -92,6 +94,14 @@ export const FolgeContainer = styled.article`
     z-index: 10;
     box-shadow: 0 0 30px 6px rgba(0, 0, 0, 0.2);
 
+    /* @media screen and (max-width: 560px) {
+      transform: none;
+    } */
+
+    @media (hover: none) {
+      transform: none;
+    }
+
     ${Overlay} {
       opacity: 1;
       /* animation-play-state: running; */
@@ -102,7 +112,7 @@ export const FolgeContainer = styled.article`
     }
 
     img {
-      border-radius: 6px;
+      border-radius: 12px;
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
     }
@@ -112,11 +122,24 @@ export const FolgeContainer = styled.article`
 FolgeContainer.Background = Background;
 FolgeContainer.Overlay = Overlay;
 
+export const RatingBadge = styled.span`
+  z-index: 8;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  padding: 4px 10px;
+  background-color: ${colors.lightblue};
+  /* background-image: url('/blue.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain; */
+`;
+
 export const NewBadge = styled.span`
   z-index: 8;
-  /* position: absolute; */
-  /* right: -10px; */
-  /* top: -6px; */
+  position: absolute;
+  right: -10px;
+  top: -6px;
   display: grid;
   place-items: center;
   background-color: ${colors.lightblue};

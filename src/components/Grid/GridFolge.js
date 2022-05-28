@@ -1,68 +1,81 @@
 import dayjs from 'dayjs';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
 import { Loader } from '../Loader';
-import RatingInput from '../RatingInput';
-import { Cover, FolgeContainer, NewBadge } from './StyledFolge';
+import { Cover, FolgeContainer, RatingBadge } from './StyledFolge';
 
-const GridFolge = React.memo(({ folge, coverOnly = false, ...rest }) => {
-  const [image, setImage] = useState({
-    url: '',
-    loading: true, // needs to be initial "true" to hide Image
-  });
+const GridFolge = React.memo(
+  ({ folge, userRating = null, coverOnly = false, ...rest }) => {
+    const [image, setImage] = useState({
+      url: '',
+      loading: true, // needs to be initial "true" to hide Image
+    });
+    const router = useRouter();
+    const ref = React.useRef();
+    // const href = `/folge/${folge.name.split(' ').join('-').toLowerCase()}`;
 
-  // const releaseDate = dayjs(folge.release_date);
-  // const today = dayjs();
-  // const isNew = releaseDate.add(2, 'month').isAfter(today);
+    useEffect(() => {
+      if (router.query.ref === folge._id) {
+        console.log(folge);
+        ref.current.scrollIntoView();
+      }
+    }, []);
 
-  const handleViewChange = (inView) => {
-    if (!inView) return;
-    if (inView) setImage({ url: folge.images[1].url, loading: true });
-  };
+    const href = '/folge/' + folge._id;
 
-  return (
-    <FolgeContainer {...rest}>
-      <Link href={`/folge/${folge._id}`}>
-        <a>
-          <InView as="div" onChange={handleViewChange} triggerOnce={true}>
-            {!coverOnly && (
-              <>
-                <FolgeContainer.Background />
-                <FolgeContainer.Overlay
-                  style={{ backgroundImage: `url(${image.url})` }}
-                />
-              </>
-            )}
-            <Cover>
-              {image.loading && <Loader />}
-              <img
-                style={{ display: image.loading ? 'none' : 'block' }}
-                src={image.url}
-                alt={`${folge.name} Cover`}
-                onLoad={() => setImage((prev) => ({ ...prev, loading: false }))}
-              />
-            </Cover>
-          </InView>
+    const handleViewChange = (inView) => {
+      if (!inView) return;
 
-          {!coverOnly && (
-            <div className="text">
-              <div>
-                <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
-                <div style={{ fontSize: '0.8em' }}>
-                  {dayjs(folge.release_date).format('DD.MM.YYYY')}
+      setImage({ url: folge.images[0].url, loading: true });
+    };
+
+    return (
+      <>
+        <FolgeContainer ref={ref} {...rest}>
+          <Link href={href}>
+            <a>
+              <InView as="div" onChange={handleViewChange} triggerOnce={true}>
+                {!coverOnly && (
+                  <>
+                    <FolgeContainer.Background />
+                    <FolgeContainer.Overlay
+                      style={{ backgroundImage: `url(${image.url})` }}
+                    />
+                  </>
+                )}
+                <Cover>
+                  {image.loading && <Loader />}
+                  <img
+                    style={{ display: image.loading ? 'none' : 'block' }}
+                    src={image.url}
+                    alt={`${folge.name} Cover`}
+                    onLoad={() =>
+                      setImage((prev) => ({ ...prev, loading: false }))
+                    }
+                  />
+                </Cover>
+              </InView>
+
+              {!coverOnly && (
+                <div className="text">
+                  <div>
+                    <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
+                    <div style={{ fontSize: '0.8em' }}>
+                      {dayjs(folge.release_date).format('DD.MM.YYYY')}
+                    </div>
+                  </div>
+                  {userRating && <RatingBadge>{userRating}</RatingBadge>}
                 </div>
-              </div>
-              {folge.userRating && (
-                <NewBadge className="">{folge.userRating}</NewBadge>
               )}
-            </div>
-          )}
-        </a>
-      </Link>
-    </FolgeContainer>
-  );
-});
+            </a>
+          </Link>
+        </FolgeContainer>
+      </>
+    );
+  }
+);
 
 export default React.memo(GridFolge);
