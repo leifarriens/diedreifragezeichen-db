@@ -2,6 +2,7 @@ import '../styles/global.css';
 import '../styles/nprogress.css';
 import '../styles/App.scss';
 
+import { AppProps } from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import { SessionProvider } from 'next-auth/react';
@@ -25,7 +26,7 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
       <Head>

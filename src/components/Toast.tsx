@@ -44,6 +44,7 @@ export default function Toast({
     entered: { opacity: 1, transform: 'translate(0px)' },
     exiting: { opacity: 0, transform: 'translateY(100px)' },
     exited: { opacity: 0, transform: 'translateY(100px)' },
+    unmounted: { opacity: 0, transform: 'translateY(100px)' },
   };
 
   return (

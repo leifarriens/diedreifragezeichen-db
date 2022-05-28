@@ -7,7 +7,6 @@ interface Rating {
   comment: string;
 }
 
-// rating Schema
 const ratingSchema = new mongoose.Schema<Rating>(
   {
     user: {

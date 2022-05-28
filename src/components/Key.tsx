@@ -1,8 +1,8 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 type KeyProps = {
-  icon: ReactNode;
+  icon: React.ElementType<{ color: string; size: number }>;
   color: string;
   size: number;
   keyCode: string;
@@ -10,14 +10,12 @@ type KeyProps = {
 };
 
 export function Key({
-  icon,
+  icon: Icon,
   color = '#ddd',
   size = 22,
   onPress,
   keyCode,
 }: KeyProps) {
-  const Icon = icon;
-
   const [keydown, setKeydown] = useState(false);
 
   useEffect(() => {
@@ -43,6 +41,7 @@ export function Key({
 
   return (
     <KeyBox color={color} onClick={onPress} opacity={keydown ? 0.5 : 1}>
+      {/* @ts-ignore FIXME: Fix type error */}
       <Icon color={color} size={size} />
     </KeyBox>
   );

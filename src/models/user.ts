@@ -7,7 +7,6 @@ interface User {
   emailVerified: boolean;
 }
 
-// user Schema
 const userSchema = new mongoose.Schema<User>(
   {
     name: String,

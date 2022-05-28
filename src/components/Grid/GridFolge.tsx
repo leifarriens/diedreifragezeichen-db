@@ -34,7 +34,6 @@ const GridFolge = React.memo(
     });
     const router = useRouter();
     const ref = useRef<HTMLElement | null>(null);
-    // const href = `/folge/${folge.name.split(' ').join('-').toLowerCase()}`;
 
     useEffect(() => {
       if (router.query.ref === folge._id) {
@@ -44,6 +43,7 @@ const GridFolge = React.memo(
     }, []);
 
     const href = '/folge/' + folge._id;
+    // const href = `/folge/${folge.name.split(' ').join('-').toLowerCase()}`;
 
     const handleViewChange = (inView: boolean) => {
       if (!inView) return;
@@ -56,6 +56,7 @@ const GridFolge = React.memo(
         <FolgeContainer ref={ref} {...rest}>
           <Link href={href}>
             <a>
+              {/* @ts-ignore FIXME: Fix InView type error */}
               <InView as="div" onChange={handleViewChange} triggerOnce={true}>
                 {!coverOnly && (
                   <>
