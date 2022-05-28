@@ -37,7 +37,6 @@ const GridFolge = React.memo(
 
     useEffect(() => {
       if (router.query.ref === folge._id) {
-        console.log(folge);
         ref.current?.scrollIntoView();
       }
     }, []);
