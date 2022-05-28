@@ -3,7 +3,8 @@
   "env": {
     "browser": true,
     "amd": true,
-    "node": true
+    "node": true,
+    "es6": true
   },
   "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
   "parserOptions": {
@@ -18,13 +19,19 @@
       "version": "detect"
     }
   },
-  "plugins": ["react", "simple-import-sort", "prettier"],
+  "plugins": [
+    "react",
+    "simple-import-sort",
+    "eslint-plugin-no-inline-styles",
+    "prettier"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/display-name": "off",
-    "simple-import-sort/imports": "warn",
-    "simple-import-sort/exports": "warn",
-    "prettier/prettier": "warn"
+    "no-inline-styles/no-inline-styles": 2,
+    "simple-import-sort/imports": 1,
+    "simple-import-sort/exports": 1,
+    "prettier/prettier": 1
   }
 }

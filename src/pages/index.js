@@ -1,15 +1,44 @@
+import Axios from 'axios';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import Grid from '../components/Grid';
-import Header from '../components/Header';
-import dbConnect from '../db';
-import { getAllFolgenWithRating } from '../services';
-import { applyFolgenRating, parseMongo } from '../utils';
+import Grid from '@/components/Grid';
+import Header from '@/components/Header';
 
-function Home({ folgen }) {
-  const { data: session } = useSession();
+import dbConnect from '../db';
+import { getFolgen } from '../services';
+import { parseMongo } from '../utils';
+
+function Home(props) {
+  const { data: session, status } = useSession();
+
+  const [folgen, setFolgen] = useState(props.folgen);
+
+  useEffect(() => {
+    const fetchUserRatings = async () => {
+      const { data } = await Axios(`/api/user/ratings`);
+
+      const folgenWithUserRating = folgen.map((folge) => {
+        const rating = data.find((rating) => rating.folge === folge._id);
+
+        if (!rating) {
+          folge.user_rating = null;
+          return folge;
+        }
+
+        folge.user_rating = rating.value;
+        return folge;
+      });
+
+      setFolgen(folgenWithUserRating);
+    };
+
+    if (status === 'authenticated') {
+      fetchUserRatings();
+    }
+  }, [status]);
 
   return (
     <>
@@ -40,15 +69,26 @@ const HomeFooter = styled.footer`
 export async function getStaticProps() {
   await dbConnect();
 
-  const data = await getAllFolgenWithRating();
+  const folgen = parseMongo(
+    await getFolgen({
+      fields: [
+        'name',
+        'number',
+        'type',
+        'images',
+        'release_date',
+        'rating',
+        'popularity',
+      ],
+    })
+  );
 
-  const folgen = parseMongo(data);
-
-  folgen.map(applyFolgenRating);
+  const size = Buffer.byteLength(JSON.stringify(folgen));
+  console.log('Size', parseInt(size / 1024), 'kB');
 
   return {
     props: { folgen },
-    revalidate: 1,
+    revalidate: 60,
   };
 }
 

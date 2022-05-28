@@ -1,5 +1,6 @@
+import syncFolgen from '@/services/syncFolgen';
+
 import dbConnect from '../../../db';
-import syncFolgen from '../../../services/syncFolgen';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {

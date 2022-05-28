@@ -26,6 +26,12 @@ Get folge by ID
 
 GET `/api/folgen/{id}`
 
+Get alt folgen
+
+GET `/api/folgen/{id}/alts`
+
+Authenticatin is required for GET and POST /rating
+
 Get user rating for folge
 
 GET `/api/folgen/{id}/rating`

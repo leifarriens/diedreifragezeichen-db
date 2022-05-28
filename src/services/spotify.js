@@ -41,7 +41,6 @@ export const getAllAlbums = async (bearerToken) => {
     );
 
     albums = albums.concat(response.data.items);
-
     if (response.data.total > offset) {
       offset = offset + 50;
       await doRun(offset);
@@ -51,6 +50,6 @@ export const getAllAlbums = async (bearerToken) => {
   await doRun(offset);
 
   albums.map((entry) => delete entry.artists);
-
+  console.log(albums[0]);
   return albums;
 };

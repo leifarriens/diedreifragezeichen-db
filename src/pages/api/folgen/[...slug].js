@@ -2,46 +2,51 @@ import mongoose from 'mongoose';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '../../../db';
-import Folge from '../../../models/folge';
-import Rating from '../../../models/rating';
-import { getFolgeWithRating } from '../../../services/index';
-import { applyFolgenRating, parseMongo } from '../../../utils';
+import { Rating } from '../../../models';
+import { getAltFolgen } from '../../../services';
+import { parseMongo } from '../../../utils';
 
 export default async function handler(req, res) {
   const session = await getSession({ req });
   const { method, query } = req;
+  const [id, action] = query.slug;
 
-  if (!session) {
-    return res.status(401).send('Unauthorized');
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send('Not Found');
   }
-
-  req.session = session;
-
-  console.log(req.session);
 
   await dbConnect();
 
   // eslint-disable-next-line no-unused-vars
-  const [_, action] = query.slug;
 
-  if (!action) {
+  // GET & POST /api/folgen/:id/rating
+  if (action === 'rating') {
+    if (!session) {
+      return res.status(401).send('Unauthorized');
+    }
+
+    req.session = session;
+
     switch (method) {
       case 'GET':
-        return getFolge(req, res);
+        return handleGetUserRating(req, res);
+      case 'POST':
+        return handlePostRating(req, res);
+      // case 'DELETE':
+      // return handleDeleteRating(req, res);
       default:
-        res.setHeader('Allow', ['GET']);
+        res.setHeader('Allow', ['GET', 'POST']);
         res.status(405).end(`Method ${method} Not Allowed`);
     }
   }
 
-  if (action === 'rating') {
+  // GET /api/folgen/:id/alts
+  if (action === 'alts') {
     switch (method) {
       case 'GET':
-        return getUserRating(req, res);
-      case 'POST':
-        return handlePostRating(req, res);
+        return handleGetAltFolgen(req, res);
       default:
-        res.setHeader('Allow', ['GET', 'POST']);
+        res.setHeader('Allow', ['GET']);
         res.status(405).end(`Method ${method} Not Allowed`);
     }
   }
@@ -49,16 +54,15 @@ export default async function handler(req, res) {
   res.status(404).end();
 }
 
-const getFolge = async (req, res) => {
-  const [id] = req.query.slug;
+const handleGetAltFolgen = async (req, res) => {
+  let { slug, fields = '' } = req.query;
+  const [id] = slug;
 
-  const data = await getFolgeWithRating(id);
+  fields = fields.match(/[^,]+/g) || [];
 
-  let folge = parseMongo(data);
+  const folgen = parseMongo(await getAltFolgen(id, { fields }));
 
-  folge = applyFolgenRating(folge);
-
-  res.send(folge);
+  res.send(folgen);
 };
 
 const handlePostRating = async (req, res) => {
@@ -66,42 +70,43 @@ const handlePostRating = async (req, res) => {
 
   const data = req.body;
 
-  if (!data.rating) {
+  if (!data.rating || typeof data.rating !== 'number') {
     return res.status(400).end();
   }
 
-  const email = req.session.user.email;
+  const userId = mongoose.Types.ObjectId(req.session.user.id);
+  const folgeId = mongoose.Types.ObjectId(id);
 
-  const rating = await Rating.findOneAndUpdate(
+  await Rating.findOneAndUpdate(
     {
-      user: email,
-      folge: id,
+      user: userId,
+      folge: folgeId,
     },
     {
-      user: email,
-      folge: mongoose.Types.ObjectId(id),
+      user: userId,
+      folge: folgeId,
       value: data.rating,
     },
     { upsert: true, new: true }
   );
 
-  await Folge.findOneAndUpdate(
-    { _id: id },
-    {
-      $addToSet: { ratings: mongoose.Types.ObjectId(rating._id) },
-    },
-    { new: true }
-  );
-
   res.status(201).end();
 };
 
-const getUserRating = async (req, res) => {
+// const handleDeleteRating = async (req, res) => {
+//   const [id] = req.query.slug;
+
+//   await Rating.findOneAndDelete(id);
+
+//   res.status(204).send('No Content');
+// };
+
+const handleGetUserRating = async (req, res) => {
   const [id] = req.query.slug;
 
-  const email = req.session.user.email;
+  const userId = req.session.user.id;
 
-  const data = await Rating.findOne({ folge: id, user: email });
+  const data = await Rating.findOne({ folge: id, user: userId });
 
   if (!data) return res.status(404).end();
 

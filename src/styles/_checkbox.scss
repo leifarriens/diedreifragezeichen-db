@@ -11,15 +11,16 @@ $checkHeight: 24px;
 }
 [type='checkbox'] + label {
   position: relative;
-  display: inline-block;
+  display: block;
   cursor: pointer;
   // font-family: sans-serif;
   // font-size: 24px;
   font-size: 1.1rem;
-  line-height: 1.3;
+  line-height: 1.45;
+  height: 100%;
   padding-left: 70px;
   position: relative;
-  margin-top: -$checkHeight;
+  // margin-top: -$checkHeight;
 }
 [type='checkbox'] + label:before {
   width: $checkWidth;

@@ -1,80 +1,27 @@
 /* eslint-disable simple-import-sort/imports */
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
+import { Types } from 'mongoose';
 import { NextSeo } from 'next-seo';
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
-import FolgeComponent from '../../components/Folge';
-import GridFolge from '../../components/Grid/GridFolge';
-import { FolgenContainer } from '../../components/Grid/StyledGrid';
-import Header from '../../components/Header';
-import { Key, KeyContainer } from '../../components/Key';
+import FolgeComponent from '@/components/Folge';
+import Header from '@/components/Header';
+import { parseMongo } from '../../utils/';
 import dbConnect from '../../db';
-import { getAllFolgenIds, getAllFolgenWithRating } from '../../services';
-import { applyFilter, applyFolgenRating, parseMongo } from '../../utils';
-import { useGlobalState } from '../../context/GlobalContext';
-// import { getNextFolgen } from '../../services/db';
+import { getAllFolgenIds } from '../../services';
+import { getFolgeById } from '../../services/';
+import AltFolgen from '@/components/Folge/AltFolgen';
 
-function Folge(props) {
-  const { showSpecials, sortBy } = useGlobalState();
-
-  const filteredFolgen = applyFilter(props.folgen, {
-    showSpecials,
-    searchQuery: '',
-    sortBy,
-  });
-
-  const { rel, next, prev } = getRelatedFolgen(props.folge, filteredFolgen);
-
-  const router = useRouter();
-
-  const _toPrevFolge = () => router.push('/folge/' + prev._id);
-
-  const _toNextFolge = () => router.push('/folge/' + next._id);
-
-  const number = !isNaN(parseInt(props.folge.number))
-    ? parseInt(props.folge.number)
-    : '';
+function Folge({ folge }) {
+  const number = !isNaN(parseInt(folge.number)) ? parseInt(folge.number) : '';
 
   return (
     <>
-      <NextSeo title={`${number} ${props.folge.name}`} />
+      <NextSeo title={`${number} ${folge.name}`} />
       <Header transparent={true} />
-      <FolgeComponent folge={props.folge} />
-
-      <KeyContainer>
-        {prev && (
-          <Key
-            icon={BiLeftArrowAlt}
-            onPress={_toPrevFolge}
-            keyCode="ArrowLeft"
-          />
-        )}
-        {next && (
-          <Key
-            icon={BiRightArrowAlt}
-            onPress={_toNextFolge}
-            keyCode="ArrowRight"
-          />
-        )}
-      </KeyContainer>
+      <FolgeComponent folge={folge} />
 
       <div className="wrapper stretch">
-        <FolgenContainer>
-          {rel.map((folge) => {
-            const isCurrent = props.folge._id === folge._id;
-            return (
-              <GridFolge
-                key={folge._id}
-                folge={folge}
-                coverOnly={true}
-                style={{
-                  opacity: isCurrent ? 0.35 : 1,
-                  pointerEvents: isCurrent ? 'none' : 'all',
-                }}
-              />
-            );
-          })}
-        </FolgenContainer>
+        <AltFolgen refFolgeId={folge._id} />
       </div>
     </>
   );
@@ -97,47 +44,22 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   await dbConnect();
 
-  const data = await getAllFolgenWithRating();
+  if (Types.ObjectId.isValid(params.id)) {
+    const folge = parseMongo(await getFolgeById(params.id));
 
-  const folgen = parseMongo(data);
-
-  folgen.map(applyFolgenRating);
-
-  const folge = folgen.find((f) => f._id === params.id);
-
-  // const nextFolgen = await getNextFolgen(folge, 'release_date');
-
-  if (!folge) {
-    return {
-      notFound: true,
-    };
+    if (folge) {
+      return {
+        props: {
+          folge,
+        },
+        revalidate: 10,
+      };
+    }
   }
 
   return {
-    props: {
-      folge,
-      folgen,
-    },
-    revalidate: 1,
+    notFound: true,
   };
 }
-
-// helpers
-
-const getRelatedFolgen = (folge, folgen) => {
-  const NEAR_FOLGEN = 8;
-  const index = folgen.findIndex((f) => f._id === folge._id);
-
-  const previosEntrys = index < NEAR_FOLGEN ? index : NEAR_FOLGEN;
-  const followingEntrys =
-    folgen.length - NEAR_FOLGEN < index ? index : NEAR_FOLGEN;
-
-  const rel = folgen.slice(index - previosEntrys, index + followingEntrys);
-
-  const prev = folgen[index - 1] || null;
-  const next = folgen[index + 1] || null;
-
-  return { rel, prev, next };
-};
 
 export default Folge;

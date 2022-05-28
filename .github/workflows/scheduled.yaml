@@ -11,3 +11,10 @@ jobs:
           curl --request GET \
           --url 'https://www.diedreifragezeichen-db.de/api/folgen/sync' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
+    steps:
+      - name: Sync preview Folgen
+        run: |
+          curl --request GET \
+          --url 'https://diedreifragezeichen-db-git-development-leifarriens.vercel.app/api/folgen/sync' \
+          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
+

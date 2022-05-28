@@ -1,19 +1,23 @@
-export interface FolgeType {
+import type { ObjectId } from 'mongoose';
+
+export type FolgeType = {
   name: string;
   number: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   type: string;
-  isSpecial: boolean;
   release_date: string;
   images: Image[];
   spotify_id: string;
-  _id: string;
-  ratings: object[];
-}
+  _id: ObjectId | string;
+  rating: number;
+  number_of_ratings: number;
+  popularity: number;
+  user_rating?: number;
+};
 
-interface Image {
+export type Image = {
   url: string;
   height: number;
   width: number;
-}
+};

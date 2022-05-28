@@ -25,7 +25,10 @@ export default async function syncFolgen() {
       if (isInDb) {
         stats.inDb.push(folge);
       } else {
-        if (blacklist.includes(folge.id)) {
+        if (
+          blacklist.includes(folge.id) ||
+          folge.name.match(/liest|Kopfhörer/g)
+        ) {
           stats.blacklisted.push(folge);
         } else {
           addToDb.push(convertFolge(folge));

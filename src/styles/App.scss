@@ -12,30 +12,6 @@ $bgShade1: #030f1a;
 $bgShade2: #001727;
 $bgShade3: #05182a;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 12px;
-
-  @media screen and (min-width: 460px) {
-    font-size: 14px;
-  }
-
-  @media screen and (min-width: 744px) {
-    font-size: 16px;
-  }
-}
-
-body {
-  background-color: $ddfDark;
-  font-family: system-ui, sans-serif;
-  color: #fff;
-}
-
 h1,
 h2,
 h3 {

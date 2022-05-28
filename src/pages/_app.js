@@ -1,3 +1,4 @@
+import '../styles/global.css';
 import '../styles/nprogress.css';
 import '../styles/App.scss';
 
@@ -6,9 +7,19 @@ import Router from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-import Layout from '../components/Layout';
+import Layout from '@/components/Layout';
+
 import { GlobalProvider } from '../context/GlobalContext';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -33,13 +44,15 @@ function MyApp({ Component, pageProps }) {
         defaultTitle="Drei Fragezeichen DB"
         titleTemplate="Drei Fragezeichen DB | %s"
       />
-      <SessionProvider session={pageProps.session}>
-        <GlobalProvider>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </GlobalProvider>
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={pageProps.session}>
+          <GlobalProvider>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </GlobalProvider>
+        </SessionProvider>
+      </QueryClientProvider>
     </>
   );
 }

@@ -1,20 +1,19 @@
-import { getSession } from 'next-auth/react';
-
 import dbConnect from '../../../db';
-import Folge from '../../../models/folge';
+import { getFolgen } from '../../../services';
 import { filterByQuery } from '../../../utils';
 
+/**
+ * Get all folgen
+ */
+
 export default async function handler(req, res) {
-  const session = await getSession({ req });
-
-  if (!session) {
-    return res.status(401).send('Unauthorized');
-  }
-
-  await dbConnect();
-
   if (req.method === 'GET') {
-    const folgen = await Folge.find({}).sort('release_date');
+    let { fields = '' } = req.query;
+
+    await dbConnect();
+
+    fields = fields.match(/[^,]+/g) || [];
+    const folgen = await getFolgen({ fields });
 
     if (req.query.q) {
       const filtered = filterByQuery(folgen, req.query.q);
@@ -23,4 +22,6 @@ export default async function handler(req, res) {
 
     return res.json(folgen);
   }
+
+  return res.status(405).end('Method not allowed');
 }
