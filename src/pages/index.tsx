@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import dayjs from '@/utils/dayjs';
 
 import Grid from '@/components/Grid';
 import Header from '@/components/Header';

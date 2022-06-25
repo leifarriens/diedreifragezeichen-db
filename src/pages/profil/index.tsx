@@ -141,7 +141,7 @@ const PorgressContainer = styled.div`
   }
 `;
 
-export const getServerSideProps: any = async ({ req, res }) => {
+export const getServerSideProps = async ({ req, res }: any) => {
   const session = await getSession({ req });
 
   if (!session) {

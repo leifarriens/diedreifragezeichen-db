@@ -9,6 +9,9 @@ module.exports = async (phase, { defaultConfig }) => {
     compiler: {
       styledComponents: true,
     },
+    typescript: {
+      ignoreBuildErrors: true,
+    },
     eslint: {
       ignoreDuringBuilds: true,
     },

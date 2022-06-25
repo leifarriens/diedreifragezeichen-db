@@ -1,4 +1,4 @@
-import Axios, { AxiosError } from 'axios';
+import Axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
