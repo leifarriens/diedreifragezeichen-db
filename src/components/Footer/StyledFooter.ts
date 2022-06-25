@@ -8,20 +8,25 @@ export const PageFooter = styled.div`
   color: #c7c7c7;
   line-height: 200%;
 
-  svg {
-    position: relative;
-    top: 2px;
-    left: 2px;
+  a {
+    transition: color 150ms ease-out;
+    &:hover {
+      /* text-decoration: underline; */
+      opacity: 0.85;
+    }
+  }
+
+  > :not(:last-child) {
+    margin-right: 12px;
   }
 `;
 
 export const Signatur = styled.div`
   margin: 0 18px 18px 0;
-  /* position: absolute; */
   text-align: right;
   font-size: 0.65rem;
   color: #c7c7c7;
-  opacity: 0.65;
+  opacity: 0.7;
 
   bottom: 0;
   right: 0;

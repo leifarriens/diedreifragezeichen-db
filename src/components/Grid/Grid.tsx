@@ -5,7 +5,12 @@ import { GlobalContext } from '../../context/GlobalContext';
 import { applyFilter } from '../../utils';
 import Sort from '../Sort';
 import GridFolge from './GridFolge';
-import { FolgenContainer, GridContainer, GridUI } from './StyledGrid';
+import {
+  FolgenContainer,
+  FolgenCounter,
+  GridContainer,
+  GridUI,
+} from './StyledGrid';
 
 type GridProps = {
   folgen: FolgeType[];
@@ -35,12 +40,7 @@ const Grid = (props: GridProps) => {
   }, [showSpecials, searchQuery, sortBy]);
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
-    if (isChecked) {
-      setShowSpecials(true);
-    } else {
-      setShowSpecials(false);
-    }
+    setShowSpecials(e.target.checked);
   };
 
   return (
@@ -56,9 +56,11 @@ const Grid = (props: GridProps) => {
           />
           <label htmlFor="confirm">Specials anzeigen</label>
         </span>
-        <div>
-          {folgen.length} {folgen.length === 1 ? 'Folge' : 'Folgen'}
-        </div>
+        <FolgenCounter>
+          <span>
+            {folgen.length} {folgen.length === 1 ? 'Folge' : 'Folgen'}
+          </span>
+        </FolgenCounter>
       </GridUI>
 
       <FolgenContainer>

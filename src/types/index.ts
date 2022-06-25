@@ -11,11 +11,17 @@ export type FolgeType = {
   rating: number;
   number_of_ratings: number;
   popularity: number;
-  user_rating?: number;
+  user_rating?: number | null;
 };
 
 export type Image = {
   url: string;
   height: number;
   width: number;
+};
+
+export type Rating = {
+  user: string;
+  folge: string;
+  value: number;
 };

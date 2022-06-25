@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  padding-top: 0px;
+  padding-top: 30px;
   margin-bottom: 96px;
 
   @media screen and (min-width: 720px) {
@@ -61,7 +61,7 @@ export const Background = styled.div<{ url: string; bigCover: boolean }>`
 
 export const RatingContainer = styled.div`
   font-size: 2.4em;
-  font-family: 'Cambria';
+  font-family: 'Cochin';
   margin-top: 16px;
   margin-bottom: 12px;
 `;

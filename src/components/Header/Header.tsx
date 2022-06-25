@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import React from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import { useGlobalState } from '../../context/GlobalContext';
+import { colors } from '../../theme';
 import SearchInput from './Search';
 import {
   CloseLoginButton,
@@ -12,14 +14,18 @@ import {
   ProfileLink,
   SearchBar,
 } from './StyledHeader';
-import React from 'react';
 
 type HeaderProps = {
   transparent?: boolean;
   simple?: boolean;
+  solid?: boolean;
 };
 
-const Header = ({ transparent = false, simple = false }: HeaderProps) => {
+const Header = ({
+  transparent = false,
+  simple = false,
+  solid = false,
+}: HeaderProps) => {
   const { setSearchQuery } = useGlobalState();
   const { data: session, status } = useSession();
   const loading = status === 'loading';
@@ -47,7 +53,7 @@ const Header = ({ transparent = false, simple = false }: HeaderProps) => {
     rgba(0, 23, 39, 0.85) 100%
   )`;
 
-  const background = transparent ? '' : gradient;
+  const background = transparent ? '' : solid ? colors.darkblue : gradient;
 
   return (
     <Container background={background} className="wrapper stretch">

@@ -32,8 +32,6 @@ export default async function handler(req, res) {
         return handleGetUserRating(req, res);
       case 'POST':
         return handlePostRating(req, res);
-      // case 'DELETE':
-      // return handleDeleteRating(req, res);
       default:
         res.setHeader('Allow', ['GET', 'POST']);
         res.status(405).end(`Method ${method} Not Allowed`);
@@ -92,14 +90,6 @@ const handlePostRating = async (req, res) => {
 
   res.status(201).end();
 };
-
-// const handleDeleteRating = async (req, res) => {
-//   const [id] = req.query.slug;
-
-//   await Rating.findOneAndDelete(id);
-
-//   res.status(204).send('No Content');
-// };
 
 const handleGetUserRating = async (req, res) => {
   const [id] = req.query.slug;

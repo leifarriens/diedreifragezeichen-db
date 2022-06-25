@@ -11,7 +11,7 @@ export default function useScreenSize(): Screen {
     height: window.innerHeight || undefined,
   });
 
-  const handleRezise = (): void =>
+  const handleRezise = () =>
     setScreen({
       width: window.innerWidth,
       height: window.innerHeight,
@@ -19,6 +19,7 @@ export default function useScreenSize(): Screen {
 
   useEffect(() => {
     window.addEventListener('resize', handleRezise);
+
     return () => {
       window.removeEventListener('resize', handleRezise);
     };

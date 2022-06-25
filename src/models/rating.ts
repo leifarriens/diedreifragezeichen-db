@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+// import Folge from './folge';
 interface Rating {
   user: mongoose.Types.ObjectId;
   folge: mongoose.Types.ObjectId;
@@ -31,13 +31,6 @@ const ratingSchema = new mongoose.Schema<Rating>(
     collection: 'ratings',
   }
 );
-
-// ratingSchema.set('toJSON', {
-//   versionKey: false,
-//   // transform: function (doc, ret) {
-//   //   delete ret._id;
-//   // },
-// });
 
 export default (mongoose.models && mongoose.models.Rating) ||
   mongoose.model('Rating', ratingSchema);

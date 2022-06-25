@@ -4,25 +4,28 @@ import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
 
 import FolgeComponent from '@/components/Folge';
-import Header from '@/components/Header';
-import { parseMongo } from '../../utils';
-import dbConnect from '../../db';
-import { getAllFolgenIds } from '../../services';
-import { getFolgeById } from '../../services';
 import AltFolgen from '@/components/Folge/AltFolgen';
-import { FolgeType } from 'src/types';
+import Header from '@/components/Header';
+
+import dbConnect from '../../db';
+import { getAllFolgenIds, getFolgeById } from '../../services';
+import { FolgeType } from '../../types';
+import { parseMongo } from '../../utils';
 
 type FolgePageProps = {
   folge: FolgeType;
 };
 
 function Folge({ folge }: FolgePageProps) {
-  const number = !isNaN(parseInt(folge.number)) ? parseInt(folge.number) : '';
+  const number = !isNaN(parseInt(folge.number))
+    ? `Folge: ${parseInt(folge.number)}`
+    : '';
+  const title = `${number} ${folge.name}`;
 
   return (
     <>
-      <NextSeo title={`${number} ${folge.name}`} />
-      <Header transparent={true} />
+      <NextSeo title={title} />
+      <Header solid={true} />
       <FolgeComponent folge={folge} />
 
       <div className="wrapper stretch">

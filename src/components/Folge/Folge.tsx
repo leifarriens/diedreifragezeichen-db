@@ -1,10 +1,9 @@
-import dayjs from 'dayjs';
-import de from 'dayjs/locale/de';
-import relative from 'dayjs/plugin/relativeTime';
+import Axios from 'axios';
+import { signIn, useSession } from 'next-auth/react';
 
-dayjs.extend(relative);
-dayjs.locale(de);
+import dayjs from '@/utils/dayjs';
 
+import type { Image } from '../../types';
 import Rating from '../Rating';
 import {
   Background,
@@ -15,8 +14,6 @@ import {
   RatingContainer,
   ReleaseContainer,
 } from './StyledFolge';
-
-import type { Image } from '../../types';
 
 type FolgeProps = {
   folge: {
@@ -33,7 +30,27 @@ type FolgeProps = {
 const Folge = ({
   folge: { images, name, release_date, _id, rating, number, spotify_id },
 }: FolgeProps) => {
+  const { data: session } = useSession();
   const isBigCover = Number(number) >= 125;
+
+  const handleAddToList = async () => {
+    if (!session) return signIn();
+    console.log(session);
+    try {
+      const { data } = await Axios({
+        method: 'POST',
+        url: `/api/user/list`,
+        data: { folgeId: _id },
+      });
+      console.log(data);
+    } catch (error) {
+      if (Axios.isAxiosError(error) && error.response) {
+        console.log(error.response?.data);
+      }
+    }
+
+    return;
+  };
 
   return (
     <Container className="wrapper">
@@ -54,6 +71,9 @@ const Folge = ({
         <Rating folge_id={_id} folge_name={name} />
 
         <Buttons>
+          <button className="button" onClick={handleAddToList}>
+            Auf die Merkliste
+          </button>
           <a
             className="button"
             rel="noopener noreferrer"

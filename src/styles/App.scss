@@ -15,7 +15,7 @@ $bgShade3: #05182a;
 h1,
 h2,
 h3 {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 h1 {
@@ -48,8 +48,10 @@ img {
 }
 
 .wrapper {
+  --minWidth: 1120px;
+
   padding: 0 36px;
-  width: min(1120px, 100%);
+  width: min(var(--minWidth), 100%);
   margin: 0 auto;
 
   &.stretch {

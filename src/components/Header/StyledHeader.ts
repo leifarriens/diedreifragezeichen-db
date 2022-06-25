@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Container = styled.header<{ background: string }>`
   position: sticky;
-  top: 0;
+  /* top: 0; */
+  top: -56px;
   z-index: 99;
   color: #fff;
   display: flex;
@@ -14,17 +15,26 @@ export const Container = styled.header<{ background: string }>`
   background: ${(props) => props.background};
   pointer-events: none;
 
+  @media (max-width: 744px) {
+    padding-top: 18px !important;
+    padding-bottom: 18px !important;
+  }
+
   /* GRID */
   display: grid;
   grid-row-gap: 20px;
-  grid-column-gap: 24px;
+  grid-column-gap: 16px;
   grid-template-columns: auto 1fr auto;
   grid-template-areas:
     'logo - profile'
     'search search search';
+  background: transparent !important;
 
-  @media (min-width: 744px) {
+  @media (min-width: 540px) {
+    grid-column-gap: 24px;
     grid-template-areas: 'logo search profile';
+    background: none;
+    top: 0;
   }
 
   * {

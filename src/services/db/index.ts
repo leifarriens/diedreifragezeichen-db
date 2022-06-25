@@ -1,5 +1,4 @@
 import Folge from '../../models/folge';
-
 import type { FolgeType } from '../../types';
 
 export async function getNextFolgen(

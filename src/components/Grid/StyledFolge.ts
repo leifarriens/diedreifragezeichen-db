@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { colors } from '../../theme';
 
 export const Cover = styled.div`
+  position: relative;
   width: 100%;
   height: auto;
 

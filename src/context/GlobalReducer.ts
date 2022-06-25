@@ -6,10 +6,10 @@ export enum ActionKind {
   SET_SORT_BY = 'SET_SORTBY',
 }
 
-type Action = {
-  type: ActionKind;
-  payload?: any;
-};
+type Action =
+  | { type: ActionKind.SET_SHOW_SPECIALS; payload: boolean }
+  | { type: ActionKind.SET_SEARCH_QUERY; payload: string }
+  | { type: ActionKind.SET_SORT_BY; payload: string };
 
 export default function GlobalReducer(state: GlobalState, action: Action) {
   switch (action.type) {

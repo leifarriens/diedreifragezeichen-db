@@ -1,6 +1,6 @@
-import dayjs from 'dayjs';
 import { FolgeType } from 'src/types';
 
+import dayjs from './dayjs';
 import { sortFolgen } from './sort';
 
 const parseMongo = (mongoResponse: any) => {

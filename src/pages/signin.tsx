@@ -58,7 +58,7 @@ export default function SignIn({
       <FormContainer className="wrapper">
         <h1>Anmelden</h1>
         {Object.values(providers).map((provider) => {
-          provider.return(
+          return (
             <SocialLoginButton
               key={provider.id}
               name={provider.name}

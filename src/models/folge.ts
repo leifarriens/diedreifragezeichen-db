@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-// @ts-ignore
-import Rating from './rating';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// import Rating from './rating';
 
 interface Folge {
   images: any[];
@@ -30,23 +30,9 @@ const folgeSchema = new mongoose.Schema<Folge>(
   }
 );
 
-// Add all folgen rating _id to doc
-// folgeSchema.virtual('ratings', {
-//   ref: 'Rating',
-//   foreignField: 'folge',
-//   localField: '_id',
-// });
-
-// TODO: "toObject" needed ?
-// folgeSchema.set('toObject', {
-//   virtuals: true,
-//   versionKey: false,
-// });
-
 folgeSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  // TODO: add transform with delete "_id"
 });
 
 export default (mongoose.models && mongoose.models.Folge) ||

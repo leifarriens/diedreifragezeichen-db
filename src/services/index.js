@@ -3,6 +3,8 @@ import mongoose from 'mongoose';
 import Folge from '../models/folge';
 import Rating from '../models/rating';
 
+import { FolgeType } from 'src/types';
+
 const folgeAggregation = ({ queryFields }) => [
   {
     $lookup: {

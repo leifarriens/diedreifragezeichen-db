@@ -1,15 +1,16 @@
-import dayjs from 'dayjs';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState, useRef, CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
-import { FolgeType } from 'src/types';
 
+import dayjs from '@/utils/dayjs';
+
+import { FolgeType } from '../../types';
 import { Loader } from '../Loader';
 import {
+  Background,
   Cover,
   FolgeContainer,
-  Background,
   Overlay,
   RatingBadge,
 } from './StyledFolge';
@@ -37,6 +38,7 @@ const GridFolge = React.memo(
 
     useEffect(() => {
       if (router.query.ref === folge._id) {
+        // FIXME: Does not properly scroll into view
         ref.current?.scrollIntoView();
       }
     }, []);
