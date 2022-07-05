@@ -1,0 +1,93 @@
+$ddfDark: #001727;
+$ddfRed: #c50009;
+$ddfBlue: #00a5e7;
+
+$white: #fff;
+$black: #01080e;
+$lightblack: #061c31;
+$red: #c50009;
+$blue: #00a5e7;
+
+:root {
+  /* global static */
+  --font-size-base: 12px;
+  --color-bg: #001727;
+  --color-text: #fff;
+    color-scheme: dark;
+  --ui-outline: 0 0 0 0.2em hsl(197, 100%, 80%);
+}
+
+@media screen and (min-width: 460px) {
+  :root {
+    --font-size-base: 14px;
+  }
+}
+
+@media screen and (min-width: 744px) {
+  :root {
+    --font-size-base: 16px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+  box-shadow: var(--ui-outline);
+}
+
+html,
+body {
+  font-family: system-ui, sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  background-color: var(--color-bg);
+}
+
+h1,
+h2,
+h3 {
+  font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+h1 {
+  font-size: 3.6rem;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+button {
+  border: 0;
+  background-color: transparent;
+  font-family: inherit;
+  cursor: pointer;
+  color: #fff;
+}
+
+@import 'checkbox';

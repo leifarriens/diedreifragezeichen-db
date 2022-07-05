@@ -1,6 +1,5 @@
-import '../styles/global.css';
-import '../styles/nprogress.css';
-import '../styles/App.scss';
+import '@/styles/global.scss';
+import '@/styles/nprogress.css';
 
 import { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -10,9 +9,8 @@ import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import Layout from '@/components/Layout';
-
-import { GlobalProvider } from '../context/GlobalContext';
+import { GlobalProvider } from '@/context/GlobalContext';
+import Page from '@/layout/Page';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -48,9 +46,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={pageProps.session}>
           <GlobalProvider>
-            <Layout>
+            <Page>
               <Component {...pageProps} />
-            </Layout>
+            </Page>
           </GlobalProvider>
         </SessionProvider>
       </QueryClientProvider>

@@ -5,6 +5,7 @@ const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
  */
 module.exports = async (phase, { defaultConfig }) => {
   const sharedConfig = {
+    ...defaultConfig,
     reactStrictMode: true,
     compiler: {
       styledComponents: true,
@@ -15,6 +16,10 @@ module.exports = async (phase, { defaultConfig }) => {
     eslint: {
       ignoreDuringBuilds: true,
     },
+    images: {
+      domains: ['i.scdn.co'],
+    },
+    experimental: { images: { allowFutureImage: true } },
     async rewrites() {
       return [];
     },

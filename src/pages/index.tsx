@@ -1,62 +1,35 @@
-import Axios from 'axios';
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Grid from '@/components/Grid';
-import Header from '@/components/Header';
+import Button from '@/components/shared/Button';
+import { colors } from '@/constants/theme';
+import dbConnect from '@/db/connect';
+import Wrapper from '@/layout/Wrapper';
+import { FolgeType } from '@/types';
+import { parseMongo } from '@/utils/index';
 
-import dbConnect from '../db';
 import { getFolgen } from '../services';
-import { FolgeType, Rating } from '../types';
-import { parseMongo } from '../utils';
 
 function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data: session, status } = useSession();
-
-  const [folgen, setFolgen] = useState(props.folgen);
-
-  useEffect(() => {
-    const fetchUserRatings = async () => {
-      const { data } = await Axios(`/api/user/ratings`);
-
-      const folgenWithUserRating = folgen.map((folge) => {
-        const rating = data.find(
-          (rating: Rating) => rating.folge === folge._id
-        );
-
-        if (rating) {
-          folge.user_rating = rating.value;
-        }
-
-        return folge;
-      });
-
-      setFolgen(folgenWithUserRating);
-    };
-
-    if (status === 'authenticated') {
-      fetchUserRatings();
-    }
-  }, [status]);
+  const { data: session } = useSession();
 
   return (
-    <>
-      <Header />
-      <div className="wrapper stretch">
-        <Grid folgen={folgen} />
-      </div>
+    <Wrapper>
+      <Grid folgen={props.folgen} coverOnly={false} />
 
       {!session && (
-        <HomeFooter className="wrapper">
+        <HomeFooter>
           <Link href={'/signin'}>
-            <a className="button red">Jetzt Bewerten!</a>
+            <Button as="a" color={colors.red}>
+              Jetzt Bewerten!
+            </Button>
           </Link>
         </HomeFooter>
       )}
-    </>
+    </Wrapper>
   );
 }
 
@@ -79,7 +52,7 @@ export const getStaticProps = async () => {
         'rating',
         'popularity',
       ],
-    })
+    }),
   );
 
   const size = Buffer.byteLength(JSON.stringify(folgen));

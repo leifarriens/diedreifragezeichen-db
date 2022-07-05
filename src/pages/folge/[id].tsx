@@ -5,12 +5,11 @@ import { ParsedUrlQuery } from 'querystring';
 
 import FolgeComponent from '@/components/Folge';
 import AltFolgen from '@/components/Folge/AltFolgen';
-import Header from '@/components/Header';
-
-import dbConnect from '../../db';
-import { getAllFolgenIds, getFolgeById } from '../../services';
-import { FolgeType } from '../../types';
-import { parseMongo } from '../../utils';
+import dbConnect from '@/db/connect';
+import Wrapper from '@/layout/Wrapper';
+import { getAllFolgenIds, getFolgeById } from '@/services/index';
+import { FolgeType } from '@/types';
+import { parseMongo } from '@/utils/index';
 
 type FolgePageProps = {
   folge: FolgeType;
@@ -22,15 +21,31 @@ function Folge({ folge }: FolgePageProps) {
     : '';
   const title = `${number} ${folge.name}`;
 
+  const ogImage = folge.images[2];
+
   return (
     <>
-      <NextSeo title={title} />
-      <Header solid={true} />
-      <FolgeComponent folge={folge} />
+      <NextSeo
+        title={title}
+        openGraph={{
+          images: [
+            {
+              url: ogImage.url,
+              alt: folge.name,
+              width: ogImage.width,
+              height: ogImage.height,
+              type: 'image/jpeg',
+            },
+          ],
+        }}
+      />
+      <Wrapper maxWidth="1280px">
+        <FolgeComponent folge={folge} />
+      </Wrapper>
 
-      <div className="wrapper stretch">
+      <Wrapper>
         <AltFolgen refFolgeId={folge._id.toString()} />
-      </div>
+      </Wrapper>
     </>
   );
 }

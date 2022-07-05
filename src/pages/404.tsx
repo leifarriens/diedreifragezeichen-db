@@ -1,12 +1,9 @@
-import Header from '@/components/Header';
+import Wrapper from '@/layout/Wrapper';
 
-export default function Custom404() {
+export default function NotFound() {
   return (
-    <>
-      <Header />
-      <div className="wrapper">
-        <h1>Seite nicht gefunden</h1>
-      </div>
-    </>
+    <Wrapper>
+      <h1>Seite nicht gefunden</h1>
+    </Wrapper>
   );
 }

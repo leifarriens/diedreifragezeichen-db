@@ -7,7 +7,7 @@
     "es6": true
   },
   "parser": "@typescript-eslint/parser",
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier"],
+  "extends": ["eslint:recommended", "eslint-config-next", "plugin:@typescript-eslint/recommended", "plugin:react/recommended", "prettier"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -34,6 +34,7 @@
     "no-inline-styles/no-inline-styles": 2,
     "simple-import-sort/imports": 1,
     "simple-import-sort/exports": 1,
-    "prettier/prettier": 1
+    "prettier/prettier": 1,
+    "@typescript-eslint/no-empty-function": "off"
   }
 }

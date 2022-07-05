@@ -5,8 +5,7 @@ import { NextSeo } from 'next-seo';
 import path from 'path';
 import styled from 'styled-components';
 
-import Header from '@/components/Header';
-import Wrapper from '@/components/Wrapper';
+import Wrapper from '@/layout/Wrapper';
 import markdownToHtml from '@/utils/markdownToHtml';
 
 function Datenschutz({
@@ -16,9 +15,9 @@ function Datenschutz({
   return (
     <>
       <NextSeo title={title} />
-      <Header solid={true} simple={true} />
 
-      <Wrapper minWidth="860px">
+      <Wrapper maxWidth="860px">
+        <h1>{title}</h1>
         <Content dangerouslySetInnerHTML={{ __html: html }} />
       </Wrapper>
     </>
@@ -31,7 +30,7 @@ const Content = styled.div`
   h3,
   h4,
   h5 {
-    margin-bottom: 1em;
+    margin-top: 1em;
   }
 
   p {
@@ -40,7 +39,7 @@ const Content = styled.div`
   }
 `;
 
-const directory = path.join(process.cwd(), 'src', 'markdown');
+const directory = path.join(process.cwd(), 'src', 'content');
 
 export const getStaticProps = async () => {
   const fullPath = path.join(directory, 'datenschutz.md');

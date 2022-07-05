@@ -1,12 +1,9 @@
-import Header from '@/components/Header';
+import Wrapper from '@/layout/Wrapper';
 
-export default function Custom500() {
+export default function InternalServerError() {
   return (
-    <>
-      <Header />
-      <div className="wrapper">
-        <h1>Server error</h1>
-      </div>
-    </>
+    <Wrapper>
+      <h1>Server error</h1>
+    </Wrapper>
   );
 }
