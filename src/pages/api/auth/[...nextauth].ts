@@ -4,7 +4,7 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
-import clientPromise from '../../../db/authConn';
+import clientPromise from '@/db/authConn';
 
 const SESSION_MAX_AGE = 90 * 24 * 60 * 60; // 90 days
 
