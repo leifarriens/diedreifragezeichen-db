@@ -36,6 +36,7 @@
       "@/constants/*": ["src/constants/*"],
       "@/db/*": ["src/db/*"],
       "@/services/*": ["src/services/*"],
+      "@/modules/*": ["src/modules/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
