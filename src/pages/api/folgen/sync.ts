@@ -24,7 +24,7 @@ export default async function handler(
 
         return res.status(201).json(result);
       } else {
-        return res.status(401).end();
+        return res.status(401).end('Invalid App Key provided');
       }
     } catch (err) {
       console.error(err);
