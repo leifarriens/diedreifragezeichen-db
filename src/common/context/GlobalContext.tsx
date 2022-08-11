@@ -33,8 +33,9 @@ export const GlobalProvider = ({
   const [state, dispatch] = useReducer(GlobalReducer, initalState);
 
   useEffect(() => {
-    const show =
-      JSON.parse(localStorage.getItem('showSpecials') || '') || false;
+    const show = localStorage.getItem('showSpecials')
+      ? JSON.parse(localStorage.getItem('showSpecials') || '')
+      : false;
 
     setShowSpecials(show);
 

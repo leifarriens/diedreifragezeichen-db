@@ -2,14 +2,18 @@ import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
-const Button = styled.button<{ color?: string; ghost?: boolean }>`
+const Button = styled.button<{
+  color?: string;
+  ghost?: boolean;
+  size?: 'default' | 'small';
+}>`
   cursor: pointer;
   display: inline-block;
   color: ${colors.white};
   border: 1px solid ${colors.white};
-  padding: 0.7rem 1.4rem;
+  padding: 0.7em 1.4em;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: ${({ size }) => (size === 'small' ? '0.8em' : '1em')};
   font-weight: 500;
   letter-spacing: 0.02rem;
   transition: all 150ms ease-in;

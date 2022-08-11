@@ -1,9 +1,6 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime);
-
 import Image from 'next/future/image';
 
+import dayjs from '@/lib/dayjs';
 import type { Image as ImageType } from '@/types';
 
 import Rating from '../Rating';
@@ -19,26 +16,35 @@ import {
 } from './StyledFolge';
 
 type FolgeProps = {
-  folge: {
-    images: ImageType[];
-    name: string;
-    release_date: Date;
-    _id: string;
-    rating: number;
-    number: string;
-    spotify_id: string;
-  };
+  images: ImageType[];
+  name: string;
+  release_date: Date;
+  _id: string;
+  rating: number;
+  number: string;
+  spotify_id: string;
 };
 
 const Folge = ({
-  folge: { images, name, release_date, _id, rating, number, spotify_id },
+  images,
+  name,
+  release_date,
+  _id,
+  rating,
+  number,
+  spotify_id,
 }: FolgeProps) => {
   const isBigCover = Number(number) >= 125;
 
   return (
     <Container>
       <Cover>
-        <Image src={images[0].url} alt={`${name} Cover`} />
+        <Image
+          src={images[0].url}
+          alt={`${name} Cover`}
+          width={512}
+          height={512}
+        />
       </Cover>
       <Content>
         <h2>Die drei ???</h2>

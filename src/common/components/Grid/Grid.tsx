@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { GlobalContext } from '@/context/GlobalContext';
@@ -19,7 +19,10 @@ type GridProps = {
   folgen: FolgeType[];
   coverOnly?: boolean;
 };
+
 import { getUserRatings } from '@/services/client';
+
+import Switch from '../shared/Switch';
 
 const Grid = (props: GridProps) => {
   const { data: session, status } = useSession();
@@ -30,21 +33,13 @@ const Grid = (props: GridProps) => {
   const [folgen, setFolgen] = useState(props.folgen);
 
   useEffect(() => {
-    setFolgen(
-      applyFilter(props.folgen, {
-        showSpecials,
-        searchQuery,
-        sortBy,
-      }),
-    );
-
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     if (!isSafari) setBodyBgByStyle(sortBy);
 
     return () => {
       unsetBodyBgStyle();
     };
-  }, [showSpecials, searchQuery, sortBy, props.folgen]);
+  }, [sortBy]);
 
   useQuery([session?.user.id, 'ratings'], () => getUserRatings(), {
     enabled: status === 'authenticated' && !coverOnly,
@@ -69,28 +64,35 @@ const Grid = (props: GridProps) => {
     setShowSpecials(e.target.checked);
   };
 
+  const filteredFolgen = useMemo(
+    () =>
+      applyFilter(folgen, {
+        showSpecials,
+        searchQuery,
+        sortBy,
+      }),
+    [folgen, showSpecials, searchQuery, sortBy],
+  );
+
   return (
     <GridContainer>
       <GridUI>
         <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
-        <span>
-          <input
-            id="confirm"
-            type="checkbox"
-            checked={showSpecials}
-            onChange={(e) => handleCheckboxChange(e)}
-          />
-          <label htmlFor="confirm">Specials anzeigen</label>
-        </span>
+        <Switch
+          id="confirm"
+          checked={showSpecials}
+          onChange={handleCheckboxChange}
+        />
         <FolgenCounter>
           <span>
-            {folgen.length} {folgen.length === 1 ? 'Folge' : 'Folgen'}
+            {filteredFolgen.length}{' '}
+            {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
           </span>
         </FolgenCounter>
       </GridUI>
 
       <FolgenContainer>
-        {folgen.map((folge) => (
+        {filteredFolgen.map((folge) => (
           <GridFolge
             key={folge._id.toString()}
             folge={folge}

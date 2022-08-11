@@ -21,7 +21,7 @@ export default async function handler(
         await dbConnect();
 
         const result = await syncFolgen();
-        console.log(result);
+
         return res.status(201).json(result);
       } else {
         return res.status(401).end();

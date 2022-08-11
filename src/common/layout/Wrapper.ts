@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div<{ maxWidth?: string }>`
+const Wrapper = styled.div<{ maxWidth?: string; center?: boolean }>`
   --maxWidth: ${(props) => props.maxWidth};
 
   flex: 1;
@@ -9,6 +9,8 @@ const Wrapper = styled.div<{ maxWidth?: string }>`
   width: ${({ maxWidth }) =>
     maxWidth ? 'min(var(--maxWidth), 100%)' : '100%'};
   margin: 0 auto;
+  align-self: ${({ center }) => (center ? 'center' : null)};
+  flex-grow: 1;
 
   @media (min-width: 375px) {
     padding-left: 24px;

@@ -1,10 +1,9 @@
-import dayjs from 'dayjs';
-
+import dayjs from '@/lib/dayjs';
 import { FolgeType } from '@/types';
 
 import { sortFolgen } from './sort';
 
-export const filterSpecial = (folgen: FolgeType[], showSpecials: boolean) => {
+export const filterSpecial = (folgen: FolgeType[], showSpecials = true) => {
   return !showSpecials
     ? folgen.filter((folge) => folge.type !== 'special')
     : folgen;
@@ -28,9 +27,9 @@ export const filterByQuery = (folgen: FolgeType[], searchQuery: string) => {
 };
 
 type FilterOptions = {
-  showSpecials: boolean;
+  showSpecials?: boolean;
   searchQuery: string;
-  sortBy: string;
+  sortBy?: string;
 };
 
 export const applyFilter = (

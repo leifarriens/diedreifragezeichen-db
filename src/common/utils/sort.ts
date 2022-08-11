@@ -1,6 +1,6 @@
 import { FolgeType, RatingWithFolge } from '../types';
 
-export const sortFolgen = (folgen: FolgeType[], sortBy: string) => {
+export const sortFolgen = (folgen: FolgeType[], sortBy = 'dateDesc') => {
   switch (sortBy) {
     case 'dateAsc':
       return sortFolgenByDateAsc(folgen);

@@ -1,7 +1,13 @@
+import { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import { getUserRating, postUserRating } from '@/services/client';
+import {
+  getUserRating,
+  getUserRatings,
+  postUserRating,
+} from '@/services/client';
+import { Rating } from '@/types';
 
 type QueryOptions = {
   onMutationSuccess: () => void;
@@ -16,12 +22,20 @@ export function useUserRating(
 
   const queryKey = [folge_id, session?.user.id];
 
-  const query = useQuery(queryKey, () => getUserRating(folge_id), {
-    enabled: status === 'authenticated',
-    retry: false,
-  });
+  const query = useQuery<number, AxiosError>(
+    queryKey,
+    () => getUserRating(folge_id),
+    {
+      enabled: status === 'authenticated',
+      retry: false,
+    },
+  );
 
-  const mutation = useMutation(postUserRating, {
+  const mutation = useMutation<
+    number,
+    AxiosError,
+    { folgeId: string; rating: number }
+  >(postUserRating, {
     onSuccess: (newRating) => {
       queryClient.setQueryData(queryKey, newRating);
       onMutationSuccess();
@@ -29,6 +43,7 @@ export function useUserRating(
   });
 
   const isLoading = query.isLoading || mutation.isLoading;
+  const error = query.error || mutation.error;
 
-  return { userRating: query.data, isLoading, mutate: mutation.mutate };
+  return { userRating: query.data, isLoading, error, mutate: mutation.mutate };
 }

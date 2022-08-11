@@ -15,10 +15,9 @@ type RatingProps = {
 
 export default function Rating({ folge_id, folge_name }: RatingProps) {
   const { data: session } = useSession();
-  const [error, setError] = useState(null);
   const [toasted, setToasted] = useState(false);
 
-  const { userRating, isLoading, mutate } = useUserRating(folge_id, {
+  const { userRating, isLoading, mutate, error } = useUserRating(folge_id, {
     onMutationSuccess() {
       setToasted(true);
     },
@@ -51,12 +50,8 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
           Bewertung für <i>{folge_name}</i> gespeichert
         </Toast>
       )}
-      {error && (
-        <Toast
-          duration={3000}
-          onFadeOut={() => setError(null)}
-          color={colors.red}
-        >
+      {error && error.response?.status !== 404 && (
+        <Toast duration={3000} color={colors.red}>
           Ein Fehler ist aufgetreten
         </Toast>
       )}

@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import styled, { keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
@@ -16,39 +15,10 @@ export const Cover = styled.div`
 const bgWobble = keyframes`
   0% {
     transform: rotate(0deg) scale(4);
-    filter: blur(22px) brightness(60%);
-  }
-  50% {
-    filter: blur(12px) brightness(60%);
   }
   100% {
     transform: rotate(360deg) scale(4);
-    filter: blur(22px) brightness(60%);
   }
-`;
-
-export const Overlay = styled.div`
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  background-position: center;
-  background-size: 150%, auto, cover;
-  transition: all 300ms ease-out;
-  filter: blur(24px) brightness(60%);
-  opacity: 0;
-  border-radius: 12px;
-  /* animation-name: ${bgWobble}; */
-  /* animation-play-state: paused; */
-  /* animation-delay: 2s; */
-  animation-duration: 20s;
-  /* margin-bottom: -100px; */
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
 `;
 
 export const Background = styled.div`
@@ -66,7 +36,57 @@ export const Background = styled.div`
   transition: all 150ms ease-out;
 `;
 
-export const FolgeContainer = styled(motion.article)`
+export const Overlay = styled.div`
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-position: center;
+  background-size: 150%, auto, cover;
+  background-repeat: no-repeat;
+  transition: all 300ms ease-out;
+  filter: blur(16px) brightness(60%);
+  opacity: 0;
+  border-radius: 12px;
+  /* animation-name: ${bgWobble}; */
+  animation-play-state: paused;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+`;
+
+const hover = css`
+  transform: scale(1.2);
+  transform-origin: center;
+  z-index: 10;
+  box-shadow: 0 0 30px 6px rgba(0, 0, 0, 0.2);
+
+  @media (hover: none) {
+    transform: none;
+  }
+
+  ${Overlay} {
+    opacity: 1;
+    animation-play-state: running;
+  }
+
+  ${Background} {
+    opacity: 1;
+  }
+
+  img {
+    border-radius: 12px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+`;
+
+export const FolgeContainer = styled.article`
   z-index: 1;
   position: relative;
   width: 100%;
@@ -95,38 +115,9 @@ export const FolgeContainer = styled(motion.article)`
   }
 
   &:hover {
-    transform: scale(1.2);
-    transform-origin: center;
-    z-index: 10;
-    box-shadow: 0 0 30px 6px rgba(0, 0, 0, 0.2);
-
-    /* @media screen and (max-width: 560px) {
-      transform: none;
-    } */
-
-    @media (hover: none) {
-      transform: none;
-    }
-
-    ${Overlay} {
-      opacity: 1;
-      /* animation-play-state: running; */
-    }
-
-    ${Background} {
-      opacity: 1;
-    }
-
-    img {
-      border-radius: 12px;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-    }
+    ${hover}
   }
 `;
-
-// FolgeContainer.Background = Background;
-// FolgeContainer.Overlay = Overlay;
 
 export const RatingBadge = styled.span`
   z-index: 8;
@@ -135,10 +126,6 @@ export const RatingBadge = styled.span`
   border-radius: 4px;
   padding: 4px 10px;
   background-color: ${colors.lightblue};
-  /* background-image: url('/blue.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain; */
 `;
 
 export const NewBadge = styled.span`

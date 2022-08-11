@@ -6,7 +6,7 @@ import { colors } from '@/constants/theme';
 
 type ToastProps = {
   duration: number;
-  onFadeOut: () => void;
+  onFadeOut?: () => void;
   children: ReactNode | ReactNode[];
   color: string;
 };
@@ -31,9 +31,12 @@ export default function Toast({
 
     const timeout = setTimeout(() => {
       setInProp(false);
-      setTimeout(() => {
-        onFadeOut();
-      }, transitionDuration);
+
+      if (onFadeOut) {
+        setTimeout(() => {
+          onFadeOut();
+        }, transitionDuration);
+      }
     }, duration);
 
     return () => clearTimeout(timeout);

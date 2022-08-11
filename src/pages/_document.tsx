@@ -40,6 +40,7 @@ export default class MyDocument extends Document {
     return (
       <Html lang="de">
         <Head>
+          <link rel="preconnect" href="https://i.scdn.co" />
           <link rel="shortcut icon" type="img/png" href="/icon.png" />
           <link rel="manifest" href="/manifest.json" />
           <meta name="theme-color" content={colors.darkblue} />

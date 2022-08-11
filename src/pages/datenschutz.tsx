@@ -16,7 +16,7 @@ function Datenschutz({
     <>
       <NextSeo title={title} />
 
-      <Wrapper maxWidth="860px">
+      <Wrapper maxWidth="960px">
         <h1>{title}</h1>
         <Content dangerouslySetInnerHTML={{ __html: html }} />
       </Wrapper>
@@ -36,6 +36,14 @@ const Content = styled.div`
   p {
     padding: 18px 0;
     line-height: 1.5;
+  }
+
+  ul {
+    padding-left: 1em;
+
+    li + li {
+      margin-top: 1em;
+    }
   }
 `;
 

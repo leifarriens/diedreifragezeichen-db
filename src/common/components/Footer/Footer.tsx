@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <>
       <PageFooter>
-        {/* <Link href="/">
+        <Link href="/">
           <a>Home</a>
         </Link>
         <Link href="/datenschutz">
@@ -20,9 +20,6 @@ export default function Footer() {
         >
           Mitwirken
         </a>
-        <a rel="noopener noreferrer" target="_blank">
-          Unterstützen
-        </a> */}
       </PageFooter>
 
       {/* <Signatur>

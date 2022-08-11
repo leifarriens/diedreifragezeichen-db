@@ -1,13 +1,17 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
-  padding-top: 30px;
-  margin-bottom: 96px;
+  padding-top: 2em;
+  margin-bottom: 6em;
 
   @media screen and (min-width: 720px) {
-    padding-top: 144px;
+    padding-top: 46px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+  }
+
+  @media screen and (min-width: 960px) {
     grid-column-gap: 96px;
   }
 `;
@@ -45,18 +49,21 @@ export const Buttons = styled.div`
 export const Background = styled.div<{ url: string; bigCover: boolean }>`
   z-index: -1;
   position: fixed;
-  width: 100%;
-  height: 100%;
   top: 0;
+  right: 0;
+  bottom: 0;
   left: 0;
   background-image: url(${(props) => props.url});
   background-size: ${(props) => (props.bigCover ? '120% 140%' : '150% 150%')};
   background-position: ${(props) =>
     props.bigCover ? 'right bottom' : 'center 93%'};
   background-repeat: no-repeat;
-  /* background-attachment: fixed; */
   transform: scale(1.15);
-  filter: blur(80px) brightness(35%);
+  filter: blur(80px) brightness(65%);
+
+  @media screen and (min-width: 720px) {
+    filter: blur(80px) brightness(35%);
+  }
 `;
 
 export const RatingContainer = styled.div`

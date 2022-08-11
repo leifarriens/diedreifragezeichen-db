@@ -40,27 +40,35 @@ export const getBearerToken = async () => {
 };
 
 export const getAllAlbums = async (bearerToken: string) => {
-  let albums: any = [];
-  const offset = 0;
+  try {
+    let albums: any = [];
+    const offset = 0;
 
-  const doRun = async (offset: number) => {
-    const response = await SpotifyAPI.artists.get(
-      `/${ARTISTS_ID}/albums?country=DE&include_groups=album&limit=50&offset=${offset.toString}`,
-      {
+    const doRun = async (offset: number) => {
+      const response = await SpotifyAPI.artists.get(`/${ARTISTS_ID}/albums`, {
         headers: { Authorization: 'Bearer ' + bearerToken },
-      },
-    );
+        params: {
+          country: 'DE',
+          include_groups: 'album',
+          offset,
+          limit: 50,
+        },
+      });
 
-    albums = albums.concat(response.data.items);
-    if (response.data.total > offset) {
-      offset = offset + 50;
-      await doRun(offset);
-    }
-  };
+      albums = albums.concat(response.data.items);
+      if (response.data.total > offset) {
+        offset = offset + 50;
+        await doRun(offset);
+      }
+    };
 
-  await doRun(offset);
+    await doRun(offset);
 
-  albums.map((entry: any) => delete entry.artists);
-  console.log(albums[0]);
-  return albums;
+    albums.map((entry: any) => delete entry.artists);
+    return albums;
+  } catch (error: any) {
+    console.log(error);
+    console.log(error.response.statusText);
+    console.log(JSON.stringify(error.response.data));
+  }
 };

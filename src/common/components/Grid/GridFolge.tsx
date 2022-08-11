@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import dayjs from 'dayjs';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
+import dayjs from '@/lib/dayjs';
 import { FolgeType } from '@/types';
 
 import { Loader } from '../shared/Loader';
@@ -54,45 +55,43 @@ const GridFolge = React.memo(
     };
 
     return (
-      <>
-        <FolgeContainer ref={ref} {...rest}>
-          <Link href={href}>
-            <a>
-              <InView as="div" onChange={handleViewChange} triggerOnce={true}>
-                {!coverOnly && (
-                  <>
-                    <Background />
-                    <Overlay style={{ backgroundImage: `url(${image.url})` }} />
-                  </>
-                )}
-                <Cover>
-                  {image.loading && <Loader />}
-                  <img
-                    style={{ display: image.loading ? 'none' : 'block' }}
-                    src={image.url}
-                    alt={`${folge.name} Cover`}
-                    onLoad={() =>
-                      setImage((prev) => ({ ...prev, loading: false }))
-                    }
-                  />
-                </Cover>
-              </InView>
-
+      <FolgeContainer as={motion.article} ref={ref} {...rest}>
+        <Link href={href}>
+          <a>
+            <InView as="div" onChange={handleViewChange} triggerOnce={true}>
               {!coverOnly && (
-                <div className="text">
-                  <div>
-                    <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
-                    <div className="release">
-                      {dayjs(folge.release_date).format('DD.MM.YYYY')}
-                    </div>
-                  </div>
-                  {userRating && <RatingBadge>{userRating}</RatingBadge>}
-                </div>
+                <>
+                  <Background />
+                  <Overlay style={{ backgroundImage: `url(${image.url})` }} />
+                </>
               )}
-            </a>
-          </Link>
-        </FolgeContainer>
-      </>
+              <Cover>
+                {image.loading && <Loader />}
+                <img
+                  style={{ display: image.loading ? 'none' : 'block' }}
+                  src={image.url}
+                  alt={`${folge.name} Cover`}
+                  onLoad={() =>
+                    setImage((prev) => ({ ...prev, loading: false }))
+                  }
+                />
+              </Cover>
+            </InView>
+
+            {!coverOnly && (
+              <div className="text">
+                <div>
+                  <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
+                  <div className="release">
+                    {dayjs(folge.release_date).format('DD.MM.YYYY')}
+                  </div>
+                </div>
+                {userRating && <RatingBadge>{userRating}</RatingBadge>}
+              </div>
+            )}
+          </a>
+        </Link>
+      </FolgeContainer>
     );
   },
 );

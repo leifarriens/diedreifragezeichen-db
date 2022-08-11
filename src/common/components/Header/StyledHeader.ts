@@ -1,5 +1,6 @@
-import Wrapper from 'src/common/layout/Wrapper';
 import styled from 'styled-components';
+
+import Wrapper from '@/layout/Wrapper';
 
 export const Container = styled(Wrapper)`
   flex: 0; // override Wrapper default flex: 1
@@ -14,6 +15,7 @@ export const Container = styled(Wrapper)`
   padding-top: 48px;
   padding-bottom: 48px;
   pointer-events: none;
+  justify-self: start;
 
   @media (max-width: 744px) {
     padding-top: 18px;

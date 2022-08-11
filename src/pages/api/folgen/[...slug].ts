@@ -5,7 +5,6 @@ import { getSession } from 'next-auth/react';
 import dbConnect from '@/db/connect';
 import Rating from '@/models/rating';
 import { getAltFolgen } from '@/services/index';
-import { parseMongo } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
@@ -65,9 +64,9 @@ const handleGetAltFolgen = async (
 
   fields = fields.match(/[^,]+/g) || [];
 
-  const folgen = parseMongo(await getAltFolgen(id, { fields }));
+  const folgen = await getAltFolgen(id, { fields });
 
-  return res.send(folgen);
+  return res.json(folgen);
 };
 
 const handlePostRating = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -110,7 +109,5 @@ const handleGetUserRating = async (
 
   if (!data) return res.status(404).end();
 
-  const userRating = parseMongo(data);
-
-  return res.send(userRating);
+  return res.json(data);
 };

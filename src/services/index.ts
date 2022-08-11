@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 
+import { FolgeType } from '@/types';
+
 import Folge from '../common/models/folge';
 import Rating from '../common/models/rating';
 
@@ -52,15 +54,18 @@ export async function getFolgen(options: GetFolgenOptions = {}) {
 
   const queryFields = getQueryFields(fields);
 
-  return Folge.aggregate([...folgeAggregation({ queryFields })]);
+  return Folge.aggregate<FolgeType>([...folgeAggregation({ queryFields })]);
 }
 
-export async function getFolgeById(id: string, options: GetFolgenOptions = {}) {
+export async function getFolgeById(
+  id: string,
+  options: { fields?: string[] } = {},
+) {
   const { fields = [] } = options;
 
   const queryFields = getQueryFields(fields);
 
-  const [folge] = await Folge.aggregate([
+  const [folge] = await Folge.aggregate<FolgeType>([
     { $match: { _id: new mongoose.Types.ObjectId(id) } },
     ...folgeAggregation({ queryFields }),
   ]);
@@ -69,7 +74,7 @@ export async function getFolgeById(id: string, options: GetFolgenOptions = {}) {
 }
 
 export async function getAltFolgen(id: string, options: GetFolgenOptions = {}) {
-  const { fields = [], specials = false, limit = 16 } = options;
+  const { fields = [], specials = false, limit = 20 } = options;
 
   fields.push('release_date');
 
@@ -104,8 +109,24 @@ export async function getUserRatings(
   options: { fields: string[] },
 ) {
   const { fields = [] } = options;
-  console.log(fields);
+
   return Rating.find({ user: userId }).select(fields);
+}
+
+export async function getFolgeWithRating(id: string) {
+  const folge = await Folge.findById(id).lean();
+
+  const ratings = await Rating.find({ folge: id });
+
+  const ratingSum = ratings.reduce((prev, curr) => {
+    return prev + curr.value;
+  }, 0) as number;
+
+  folge.rating = ratingSum / ratings.length;
+  folge.number_of_ratings = ratings.length;
+  folge.popularity = ratingSum;
+
+  return folge;
 }
 
 // Helpers

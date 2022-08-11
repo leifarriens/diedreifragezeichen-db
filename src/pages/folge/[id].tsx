@@ -1,10 +1,13 @@
 import { Types } from 'mongoose';
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
+import { IoMdArrowBack } from 'react-icons/io';
 
 import FolgeComponent from '@/components/Folge';
 import AltFolgen from '@/components/Folge/AltFolgen';
+import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { getAllFolgenIds, getFolgeById } from '@/services/index';
@@ -20,6 +23,7 @@ function Folge({ folge }: FolgePageProps) {
     ? `Folge: ${parseInt(folge.number)}`
     : '';
   const title = `${number} ${folge.name}`;
+  const router = useRouter();
 
   const ogImage = folge.images[2];
 
@@ -39,8 +43,14 @@ function Folge({ folge }: FolgePageProps) {
           ],
         }}
       />
+      <Wrapper>
+        <button onClick={() => router.push(`/?ref=${router.query.id}`)}>
+          <IoMdArrowBack size={28} color={colors.white} />
+        </button>
+      </Wrapper>
+
       <Wrapper maxWidth="1280px">
-        <FolgeComponent folge={folge} />
+        <FolgeComponent {...folge} />
       </Wrapper>
 
       <Wrapper>
@@ -73,21 +83,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const { id } = params as Params;
 
-  if (Types.ObjectId.isValid(id)) {
-    const folge = parseMongo(await getFolgeById(id));
-
-    if (folge) {
-      return {
-        props: {
-          folge,
-        },
-        revalidate: 10,
-      };
-    }
+  if (!Types.ObjectId.isValid(id)) {
+    return {
+      notFound: true,
+    };
   }
 
+  const folge = await getFolgeById(id);
+
+  if (!folge) return { notFound: true };
+
   return {
-    notFound: true,
+    props: {
+      folge: parseMongo(folge),
+    },
+    revalidate: 10,
   };
 };
 

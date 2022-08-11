@@ -1,5 +1,5 @@
 import Folge from '@/models/folge';
-import { SpotifyFolge } from '@/types';
+import { FolgeType, SpotifyFolge } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../jobs/blacklist.json';
@@ -12,10 +12,10 @@ export default async function syncFolgen() {
     const dbFolgen = await Folge.find({});
 
     const stats: {
-      inDb: any[];
-      notInDb: any[];
-      successfullyAdded: any[];
-      blacklisted: any[];
+      inDb: SpotifyFolge[];
+      notInDb: SpotifyFolge[];
+      successfullyAdded: SpotifyFolge[];
+      blacklisted: SpotifyFolge[];
     } = {
       inDb: [],
       notInDb: [],
@@ -23,7 +23,7 @@ export default async function syncFolgen() {
       blacklisted: [],
     };
 
-    const addToDb: SpotifyFolge[] = [];
+    const addToDb: FolgeType[] = [];
 
     allAlbums.forEach((folge: SpotifyFolge) => {
       const isInDb = dbFolgen.find(
@@ -46,6 +46,8 @@ export default async function syncFolgen() {
 
     const added = await Folge.insertMany(addToDb);
     stats.successfullyAdded = added.map((f) => f.name);
+
+    await Folge.deleteMany({ spotify_id: { $in: blacklist } });
 
     return {
       inDb: {

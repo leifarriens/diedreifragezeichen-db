@@ -8,6 +8,7 @@ import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import { useGlobalState } from '@/context/GlobalContext';
 
+import LogoImg from '../../../../public/logo.png';
 import Search from './Search';
 import {
   CloseLoginButton,
@@ -40,7 +41,7 @@ const Header = () => {
   return (
     <Container>
       <HomeLink href="/" onClick={handleHomeClick}>
-        <Image src="/logo.png" alt="Logo" />
+        <Image src={LogoImg} alt="Logo" />
       </HomeLink>
 
       <Search />
@@ -70,7 +71,7 @@ const Header = () => {
             </span>
           ) : (
             <div>
-              <Link href="/profil">
+              <Link href="/profil" passHref>
                 <Button as="a" color={colors.lightblue}>
                   Profil
                 </Button>

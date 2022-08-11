@@ -22,7 +22,7 @@ function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
       {!session && (
         <HomeFooter>
-          <Link href={'/signin'}>
+          <Link href={'/signin'} passHref>
             <Button as="a" color={colors.red}>
               Jetzt Bewerten!
             </Button>
@@ -56,7 +56,8 @@ export const getStaticProps = async () => {
   );
 
   const size = Buffer.byteLength(JSON.stringify(folgen));
-  console.log('Size', (size / 1024).toFixed(0), 'kB');
+  process.env.NODE_ENV === 'development' &&
+    console.log('Size', (size / 1024).toFixed(0), 'kB');
 
   return {
     props: { folgen },

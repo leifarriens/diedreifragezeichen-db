@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Container,
@@ -20,7 +20,7 @@ function RatingInput({
   disabled = false,
 }: RatingInputProps) {
   const [range, setRange] = useState(defaultValue || 0);
-  const [hover] = useState<number | null>(null);
+  const [hover, setHover] = useState<number | null>(null);
 
   useEffect(() => {
     if (defaultValue) {
@@ -45,22 +45,23 @@ function RatingInput({
     onRate(range);
   };
 
-  // const handleMouseMove = (e) => {
-  //   const mouseElementOffsetX = e.nativeEvent.offsetX;
-  //   const targetElementWidth = e.target.clientWidth;
+  const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
+    const mouseElementOffsetX = e.nativeEvent.offsetX;
+    // @ts-expect-error clientWidth exits on e.target
+    const targetElementWidth = e.target.clientWidth;
 
-  //   if (mouseElementOffsetX < 0 || mouseElementOffsetX > targetElementWidth) {
-  //     return;
-  //   }
+    if (mouseElementOffsetX < 0 || mouseElementOffsetX > targetElementWidth) {
+      return;
+    }
 
-  //   const sliderHoverValue = Math.abs(
-  //     (mouseElementOffsetX / targetElementWidth) * parseInt(10, 10)
-  //   );
+    const sliderHoverValue = Math.abs(
+      (mouseElementOffsetX / targetElementWidth) * 10,
+    );
 
-  //   const rounded = (Math.ceil((sliderHoverValue * 10) / 5) * 5) / 10;
+    const rounded = (Math.ceil((sliderHoverValue * 10) / 5) * 5) / 10;
 
-  //   setHover(rounded < 1 ? 1 : rounded);
-  // };
+    setHover(rounded < 1 ? 1 : rounded);
+  };
 
   const inputSettings = {
     type: 'range',
@@ -98,6 +99,8 @@ function RatingInput({
           onChange={handleValueChange}
           onMouseUp={handleInputEnd}
           onTouchEnd={handleInputEnd}
+          onMouseMove={handleMouseMove}
+          onMouseOut={() => setHover(null)}
         />
 
         <FragezeichenContainer>

@@ -2,32 +2,30 @@ import { Types } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import dbConnect from '@/db/connect';
-import { getFolgeById } from '@/services/index';
-import { parseMongo } from '@/utils/index';
-
-/**
- * Get folge by id
- */
+import {
+  // getFolgeById,
+  getFolgeWithRating,
+} from '@/services/index';
+import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   if (req.method === 'GET') {
-    const id = Array.isArray(req.query.id) ? req.query.id[0] : req.query.id;
-    let { fields = '' } = req.query;
+    const id = parseQueryParam(req.query.id);
 
-    fields = fields.match(/[^,]+/g) || [];
-
-    if (Types.ObjectId.isValid(id)) {
-      await dbConnect();
-
-      const folge = parseMongo(await getFolgeById(id, { fields }));
-
-      return res.send(folge);
+    if (!Types.ObjectId.isValid(id)) {
+      return res.status(404).end('Not Found');
     }
 
-    return res.status(404).end('Not Found');
+    await dbConnect();
+
+    const folge = await getFolgeWithRating(id);
+
+    if (!folge) return res.status(404).end('Not Found');
+
+    return res.json(folge);
   }
 
   return res.status(405).end('Method not allowed');
