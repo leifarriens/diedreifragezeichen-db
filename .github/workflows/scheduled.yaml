@@ -9,5 +9,5 @@ jobs:
       - name: Sync Folgen
         run: |
           curl --request GET \
-          --url 'https://www.diedreifragezeichen-db.de/api/folgen/sync' \
+          --url 'https://www.ddfdb.de/api/folgen/sync' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
