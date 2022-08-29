@@ -13,13 +13,13 @@ export default function Footer() {
         <Link href="/datenschutz">
           <a>Datenschutz</a>
         </Link>
-        <a
+        {/* <a
           href="https://github.com/leifarriens/diedreifragezeichen-db"
           rel="noopener noreferrer"
           target="_blank"
         >
           Mitwirken
-        </a>
+        </a> */}
       </PageFooter>
 
       {/* <Signatur>

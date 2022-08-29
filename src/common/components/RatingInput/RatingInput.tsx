@@ -83,7 +83,7 @@ function RatingInput({
       return 'blue_small';
     }
 
-    if (range > index && range % 1 != 0) {
+    if (!hover && range > index && range % 1 != 0) {
       return 'half_small';
     }
 

@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession, signIn, useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
-import GridFolge from '@/components/Grid/GridFolge';
+import { FolgenContainer, GridFolge } from '@/components/Grid';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
@@ -26,9 +26,9 @@ function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
 
   return (
     <Styles>
-      <Wrapper maxWidth="860px">
+      <Wrapper maxWidth="1080px">
         {ratings.length >= 2 && (
-          <p>Du hast bereits {ratings.length.toString()} Folgen bewertet!</p>
+          <p>Du hast bereits {ratings.length.toString()} Folgen bewertet</p>
         )}
 
         <RatingProgress ratings={ratings} numberOfFolgen={numberOfFolgen} />
@@ -36,11 +36,11 @@ function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
         <h3>Deine Bewertungen</h3>
 
         {ratings && ratings.length > 0 ? (
-          <List>
+          <FolgenContainer>
             {ratings.map(({ _id, value, folge }) => {
               return <GridFolge key={_id} folge={folge} userRating={value} />;
             })}
-          </List>
+          </FolgenContainer>
         ) : (
           <p>Du hast noch keine Folgen bewertet.</p>
         )}
@@ -48,12 +48,6 @@ function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
     </Styles>
   );
 }
-
-const List = styled.div`
-  display: grid;
-  gap: 1em;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-`;
 
 const Styles = styled.div`
   h3 {

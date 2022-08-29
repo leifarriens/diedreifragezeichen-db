@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import Axios, { AxiosError } from 'axios';
 import qs from 'qs';
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
@@ -32,10 +32,11 @@ export const getBearerToken = async () => {
       }),
     );
     return response.data.access_token;
-  } catch (error: any) {
+  } catch (e) {
+    const error = e as AxiosError;
     console.log(error);
-    console.log(error.response.statusText);
-    console.log(JSON.stringify(error.response.data));
+    console.log(error.response?.statusText);
+    console.log(JSON.stringify(error.response?.data));
   }
 };
 
@@ -66,9 +67,10 @@ export const getAllAlbums = async (bearerToken: string) => {
 
     albums.map((entry: any) => delete entry.artists);
     return albums;
-  } catch (error: any) {
+  } catch (e) {
+    const error = e as AxiosError;
     console.log(error);
-    console.log(error.response.statusText);
-    console.log(JSON.stringify(error.response.data));
+    console.log(error.response?.statusText);
+    console.log(JSON.stringify(error.response?.data));
   }
 };

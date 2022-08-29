@@ -3,8 +3,7 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
 import { useAltFolgen } from '@/hooks';
 
-import GridFolge from '../Grid/GridFolge';
-import { FolgenContainer } from '../Grid/StyledGrid';
+import { FolgenContainer, GridFolge } from '../Grid';
 import { Key, KeyContainer } from '../Key';
 import { Loader } from '../shared/Loader';
 

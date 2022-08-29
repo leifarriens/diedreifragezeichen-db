@@ -2,12 +2,7 @@ import { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 
-import {
-  getUserRating,
-  getUserRatings,
-  postUserRating,
-} from '@/services/client';
-import { Rating } from '@/types';
+import { getUserRating, postUserRating } from '@/services/client';
 
 type QueryOptions = {
   onMutationSuccess: () => void;

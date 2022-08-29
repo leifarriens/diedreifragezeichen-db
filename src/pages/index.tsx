@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
-import Grid from '@/components/Grid';
+import { Grid } from '@/components/Grid';
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';

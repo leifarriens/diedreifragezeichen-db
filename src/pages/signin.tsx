@@ -15,7 +15,7 @@ export default function SignIn({
     <>
       <NextSeo title="Anmelden & Mitmachen" />
 
-      <Wrapper maxWidth="720px" center={true}>
+      <Wrapper maxWidth="720px">
         <LoginForm providers={providers} />
       </Wrapper>
     </>

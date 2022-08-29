@@ -44,6 +44,9 @@ const Folge = ({
           alt={`${name} Cover`}
           width={512}
           height={512}
+          placeholder="blur"
+          blurDataURL={images[2].url}
+          priority
         />
       </Cover>
       <Content>
@@ -55,7 +58,7 @@ const Folge = ({
           {dayjs(release_date).fromNow()}
         </ReleaseContainer>
 
-        <RatingContainer>{rating ? rating : ' ??? '}/10</RatingContainer>
+        <RatingContainer>{rating ? rating : '???'}/10</RatingContainer>
 
         <Rating folge_id={_id} folge_name={name} />
 

@@ -1,6 +1,6 @@
 import { signIn } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
-import { FaDiscord, FaFacebook, FaSpotify } from 'react-icons/fa';
+import { FaApple, FaDiscord, FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';
 import styled from 'styled-components';
@@ -46,6 +46,11 @@ const providerButtons: ProviderButtons = {
     bgColor: '#5865f2',
     color: colors.white,
   },
+  apple: {
+    icon: <FaApple size={size} />,
+    bgColor: '#000',
+    color: colors.white,
+  },
 };
 
 export const LoginForm = ({
@@ -67,6 +72,8 @@ export const LoginForm = ({
 );
 
 const FormContainer = styled.div`
+  margin-top: 20vh;
+
   @media screen and (min-width: 640px) {
     border: 2px solid #001727;
     border-radius: 16px;
@@ -76,12 +83,13 @@ const FormContainer = styled.div`
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 
-  > * {
+  > *:not(:last-of-type) {
     margin-bottom: 1em;
   }
 
   h1 {
     text-align: center;
+    font-size: 3em;
     margin-bottom: 0.8em;
   }
 `;

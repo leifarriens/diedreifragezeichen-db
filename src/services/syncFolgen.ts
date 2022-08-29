@@ -2,7 +2,7 @@ import Folge from '@/models/folge';
 import { FolgeType, SpotifyFolge } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
-import blacklist from '../../jobs/blacklist.json';
+import blacklist from '../../config/blacklist.json';
 import { getAllAlbums, getBearerToken } from './spotify';
 
 export default async function syncFolgen() {
@@ -68,6 +68,7 @@ export default async function syncFolgen() {
       },
     };
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
+    throw Error('Folgen sync error');
   }
 }

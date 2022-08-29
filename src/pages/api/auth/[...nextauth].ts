@@ -1,7 +1,7 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from 'next-auth';
-// import GoogleProvider from 'next-auth/providers/google';
+import GoogleProvider from 'next-auth/providers/google';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
 import clientPromise from '@/db/authConn';
@@ -15,10 +15,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
         clientId: process.env.SPOTIFY_CLIENT_ID,
         clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
       }),
-      // GoogleProvider({
-      //   clientId: process.env.GOOGLE_CLIENT_ID,
-      //   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      // }),
+      GoogleProvider({
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      }),
     ],
     adapter: MongoDBAdapter(clientPromise),
     jwt: {

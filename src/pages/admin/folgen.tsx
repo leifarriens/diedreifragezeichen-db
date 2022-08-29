@@ -1,10 +1,9 @@
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { getSession } from 'next-auth/react';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 
-import Button from '@/components/shared/Button';
 import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';

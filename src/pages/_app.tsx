@@ -2,7 +2,6 @@ import '@/styles/global.scss';
 import '@/styles/nprogress.css';
 
 import { AppProps } from 'next/app';
-import Head from 'next/head';
 import Router from 'next/router';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
@@ -27,12 +26,6 @@ Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
-      <Head>
-        {/* <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-        /> */}
-      </Head>
       <DefaultSeo
         openGraph={{
           type: 'website',
