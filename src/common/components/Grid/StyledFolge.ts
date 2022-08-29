@@ -96,6 +96,14 @@ export const FolgeContainer = styled.article`
   overflow: hidden;
   cursor: pointer;
 
+  &:hover {
+    ${hover};
+  }
+
+  a:focus {
+    ${hover};
+  }
+
   img {
     border-radius: 12px;
     transition: border-radius 150ms ease-out;
@@ -112,10 +120,6 @@ export const FolgeContainer = styled.article`
 
   .release {
     font-size: 0.8em;
-  }
-
-  &:hover {
-    ${hover}
   }
 `;
 

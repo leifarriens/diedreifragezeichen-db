@@ -23,6 +23,11 @@ const initalState = {
   setSortBy: () => {},
 };
 
+enum StorageNames {
+  SHOW_SPECIALS = 'show_specials',
+  SORT_BY = 'sort_by',
+}
+
 export const GlobalContext = React.createContext<GlobalState>(initalState);
 
 export const GlobalProvider = ({
@@ -33,13 +38,13 @@ export const GlobalProvider = ({
   const [state, dispatch] = useReducer(GlobalReducer, initalState);
 
   useEffect(() => {
-    const show = localStorage.getItem('showSpecials')
-      ? JSON.parse(localStorage.getItem('showSpecials') || '')
+    const show = localStorage.getItem(StorageNames.SHOW_SPECIALS)
+      ? JSON.parse(localStorage.getItem(StorageNames.SHOW_SPECIALS) || '')
       : false;
 
     setShowSpecials(show);
 
-    const sortBy = sessionStorage.getItem('sortBy') || 'dateDesc';
+    const sortBy = sessionStorage.getItem(StorageNames.SORT_BY) || 'dateDesc';
 
     if (Object.keys(SortOptionsEnum).includes(sortBy)) {
       setSortBy(sortBy);
@@ -53,7 +58,7 @@ export const GlobalProvider = ({
   }, []);
 
   function setShowSpecials(show: boolean) {
-    localStorage.setItem('showSpecials', JSON.stringify(show));
+    localStorage.setItem(StorageNames.SHOW_SPECIALS, JSON.stringify(show));
 
     dispatch({
       type: ActionKind.SET_SHOW_SPECIALS,
@@ -69,7 +74,7 @@ export const GlobalProvider = ({
   }
 
   function setSortBy(sortBy: string) {
-    sessionStorage.setItem('sortBy', sortBy);
+    sessionStorage.setItem(StorageNames.SORT_BY, sortBy);
     dispatch({
       type: ActionKind.SET_SORT_BY,
       payload: sortBy,

@@ -40,8 +40,7 @@ const GridFolge = React.memo(
 
     useEffect(() => {
       if (router.query.ref === folge._id) {
-        // FIXME: Does not properly scroll into view
-        ref.current?.scrollIntoView();
+        ref.current?.scrollIntoView({ block: 'center' });
       }
     }, [router.query.ref, folge._id]);
 
