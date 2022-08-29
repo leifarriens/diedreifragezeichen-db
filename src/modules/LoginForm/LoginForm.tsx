@@ -55,11 +55,25 @@ const providerButtons: ProviderButtons = {
 
 export const LoginForm = ({
   providers,
+  error,
 }: {
   providers: SessionProviderProps;
+  error: string;
 }) => (
   <FormContainer>
     <h1>Anmelden</h1>
+    {error && (
+      <>
+        {error === 'OAuthAccountNotLinked' ? (
+          <FormError>
+            Email Adresse ist bereits mit einem anderen Provider registriert!
+          </FormError>
+        ) : (
+          <FormError>Fehler bei der der Anmeldung</FormError>
+        )}
+        <hr />
+      </>
+    )}
     {Object.values(providers).map((provider) => (
       <SocialLoginButton
         key={provider.id}
@@ -87,9 +101,26 @@ const FormContainer = styled.div`
     margin-bottom: 1em;
   }
 
+  hr {
+    margin-bottom: 1em;
+    border: none;
+    border-bottom: 1px solid ${colors.white};
+    box-shadow: none;
+  }
+
   h1 {
     text-align: center;
     font-size: 3em;
     margin-bottom: 0.8em;
   }
+`;
+
+const FormError = styled.div`
+  text-align: center;
+  background-color: ${colors.red};
+  border-radius: 8px;
+  padding: 1em;
+  margin-bottom: 1em;
+  font-weight: 600;
+  font-size: 0.7em;
 `;

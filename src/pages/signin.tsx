@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { getProviders, getSession } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
@@ -11,12 +12,15 @@ export default function SignIn({
 }: {
   providers: SessionProviderProps;
 }) {
+  const router = useRouter();
+  const error = router.query?.error as string;
+
   return (
     <>
       <NextSeo title="Anmelden & Mitmachen" />
 
       <Wrapper maxWidth="720px">
-        <LoginForm providers={providers} />
+        <LoginForm providers={providers} error={error} />
       </Wrapper>
     </>
   );
