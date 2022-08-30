@@ -1,8 +1,8 @@
 import { useSession } from 'next-auth/react';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
-import { GlobalContext } from '@/context/GlobalContext';
+import { useGlobalState } from '@/context/GlobalContext';
 import { FolgeType, Rating } from '@/types';
 import { applyFilter } from '@/utils/filter';
 
@@ -28,18 +28,9 @@ const Grid = (props: GridProps) => {
   const { data: session, status } = useSession();
   const { coverOnly = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
-    useContext(GlobalContext);
+    useGlobalState();
 
   const [folgen, setFolgen] = useState(props.folgen);
-
-  useEffect(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    if (!isSafari) setBodyBgByStyle(sortBy);
-
-    return () => {
-      unsetBodyBgStyle();
-    };
-  }, [sortBy]);
 
   useQuery([session?.user.id, 'ratings'], () => getUserRatings(), {
     enabled: status === 'authenticated' && !coverOnly,
@@ -103,35 +94,6 @@ const Grid = (props: GridProps) => {
       </FolgenContainer>
     </GridContainer>
   );
-};
-
-const setBodyBgByStyle = (sortBy: string) => {
-  let style = '';
-
-  switch (sortBy) {
-    case 'dateAsc':
-      style = 'linear-gradient(0deg, #030f1a 0%, #001727 50%, #05182a 100%)';
-      break;
-    case 'dateDesc':
-      style = 'linear-gradient(180deg, #030f1a 0%, #001727 50%, #05182a 100%)';
-      break;
-    default:
-      style = '';
-  }
-
-  const container = document.getElementsByClassName(
-    'container',
-  )[0] as HTMLElement;
-
-  container.style.background = style;
-};
-
-const unsetBodyBgStyle = () => {
-  const container = document.getElementsByClassName(
-    'container',
-  )[0] as HTMLElement;
-
-  container.style.removeProperty('background');
 };
 
 export default Grid;

@@ -1,24 +1,36 @@
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '@/components/Grid';
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
+import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { FolgeType } from '@/types';
-import { parseMongo } from '@/utils/index';
+import { parseMongo, setBodyBgByStyle, unsetBodyBgStyle } from '@/utils/index';
 
 import { getFolgen } from '../services';
 
 function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data: session } = useSession();
+  const { sortBy } = useGlobalState();
+
+  useEffect(() => {
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    if (!isSafari) setBodyBgByStyle(sortBy);
+
+    return () => {
+      unsetBodyBgStyle();
+    };
+  }, [sortBy]);
 
   return (
     <Wrapper>
-      <Grid folgen={props.folgen} coverOnly={false} />
+      <Grid folgen={props.folgen} coverOnly={false} withControls={true} />
 
       {!session && (
         <HomeFooter>
