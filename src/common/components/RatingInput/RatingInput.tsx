@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import {
   Container,
@@ -21,6 +21,7 @@ function RatingInput({
 }: RatingInputProps) {
   const [range, setRange] = useState(defaultValue || 0);
   const [hover, setHover] = useState<number | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (defaultValue) {
@@ -42,21 +43,38 @@ function RatingInput({
   };
 
   const handleInputEnd = () => {
+    setHover(null);
     onRate(range);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
-    const mouseElementOffsetX = e.nativeEvent.offsetX;
-    // @ts-expect-error clientWidth exits on e.target
-    const targetElementWidth = e.target.clientWidth;
+    const rect = inputRef.current?.getBoundingClientRect();
 
-    if (mouseElementOffsetX < 0 || mouseElementOffsetX > targetElementWidth) {
+    if (rect) {
+      const mouseElementOffsetX = e.nativeEvent.offsetX;
+      const targetElementWidth = rect.width;
+
+      calcHoverValue(mouseElementOffsetX, targetElementWidth);
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLInputElement>) => {
+    const rect = inputRef.current?.getBoundingClientRect();
+
+    if (rect) {
+      const touchElementOffsetX = e.targetTouches[0].clientX - rect.left;
+      const targetElementWidth = rect.width;
+
+      calcHoverValue(touchElementOffsetX, targetElementWidth);
+    }
+  };
+
+  const calcHoverValue = (elementOffset: number, elementWidth: number) => {
+    if (elementOffset < 0 || elementOffset > elementWidth) {
       return;
     }
 
-    const sliderHoverValue = Math.abs(
-      (mouseElementOffsetX / targetElementWidth) * 10,
-    );
+    const sliderHoverValue = Math.abs((elementOffset / elementWidth) * 10);
 
     const rounded = (Math.ceil((sliderHoverValue * 10) / 5) * 5) / 10;
 
@@ -94,11 +112,13 @@ function RatingInput({
     <Container disabled={disabled}>
       <IconContainer>
         <input
+          ref={inputRef}
           {...inputSettings}
           value={range}
           onChange={handleValueChange}
           onMouseUp={handleInputEnd}
           onTouchEnd={handleInputEnd}
+          onTouchMove={handleTouchMove}
           onMouseMove={handleMouseMove}
           onMouseOut={() => setHover(null)}
         />
