@@ -30,7 +30,7 @@ function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <Wrapper>
-      <Grid folgen={props.folgen} coverOnly={false} withControls={true} />
+      <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
 
       {!session && (
         <HomeFooter>
