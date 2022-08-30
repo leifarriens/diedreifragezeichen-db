@@ -49,7 +49,7 @@ function Folge({ folge }: FolgePageProps) {
         </button>
       </Wrapper>
 
-      <Wrapper maxWidth="1280px">
+      <Wrapper maxWidth="1080px">
         <FolgeComponent {...folge} />
       </Wrapper>
 

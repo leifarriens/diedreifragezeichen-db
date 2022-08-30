@@ -7,12 +7,10 @@ export default function Footer() {
   return (
     <>
       <PageFooter>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
         <Link href="/datenschutz">
           <a>Datenschutz</a>
         </Link>
+
         {/* <a
           href="https://github.com/leifarriens/diedreifragezeichen-db"
           rel="noopener noreferrer"
@@ -45,15 +43,16 @@ const PageFooter = styled.div`
   line-height: 200%;
 
   a {
+    display: inline-flex;
     transition: color 150ms ease-out;
 
     &:hover {
       opacity: 0.85;
     }
-  }
 
-  > :not(:last-child) {
-    margin-right: 12px;
+    &:not(:last-of-type) {
+      margin-right: 12px;
+    }
   }
 `;
 

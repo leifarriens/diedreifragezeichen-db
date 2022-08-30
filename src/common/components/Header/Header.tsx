@@ -30,9 +30,6 @@ const Header = () => {
 
     if (router.route === '/') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    if (router.query.ref) {
       return router.replace('/', undefined, { shallow: true });
     }
 
