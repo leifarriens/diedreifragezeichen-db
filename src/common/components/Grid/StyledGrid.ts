@@ -28,8 +28,18 @@ export const FolgenContainer = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 
-  @media screen and (min-width: 860px) {
-    grid-gap: 24px;
+  @media screen and (min-width: 1020px) {
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  @media screen and (min-width: 1440px) {
+    grid-gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+
+  @media screen and (min-width: 1660px) {
+    grid-gap: 16px;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 `;

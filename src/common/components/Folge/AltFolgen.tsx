@@ -3,14 +3,14 @@ import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
 import { useAltFolgen } from '@/hooks';
 
-import { FolgenContainer, GridFolge } from '../Grid';
+import { Grid } from '../Grid';
 import { Key, KeyContainer } from '../Key';
 import { Loader } from '../shared/Loader';
 
 function AltFolgen({ refFolgeId }: { refFolgeId: string }) {
   const { isLoading, error, data } = useAltFolgen(refFolgeId);
   const router = useRouter();
-
+  console.log(data);
   if (isLoading || !data) return <Loader />;
 
   if (error) return null;
@@ -36,22 +36,8 @@ function AltFolgen({ refFolgeId }: { refFolgeId: string }) {
           onPress={() => router.push(`/folge/${nextId}`)}
         />
       </KeyContainer>
-      <FolgenContainer>
-        {data.map((folge) => {
-          const isCurrent = refFolgeId === folge._id;
-          return (
-            <GridFolge
-              key={folge._id}
-              folge={folge}
-              coverOnly={true}
-              style={{
-                opacity: isCurrent ? 0.35 : 1,
-                pointerEvents: isCurrent ? 'none' : 'all',
-              }}
-            />
-          );
-        })}
-      </FolgenContainer>
+
+      <Grid folgen={data} coverOnly />
     </>
   );
 }

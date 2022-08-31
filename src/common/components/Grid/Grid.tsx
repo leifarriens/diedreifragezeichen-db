@@ -18,6 +18,8 @@ import {
 type GridProps = {
   folgen: FolgeType[];
   coverOnly?: boolean;
+  withFilters?: boolean;
+  withUi?: boolean;
 };
 
 import { getUserRatings } from '@/services/client';
@@ -26,7 +28,7 @@ import Switch from '../shared/Switch';
 
 const Grid = (props: GridProps) => {
   const { data: session, status } = useSession();
-  const { coverOnly = false } = props;
+  const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGlobalState();
 
@@ -55,43 +57,46 @@ const Grid = (props: GridProps) => {
     setShowSpecials(e.target.checked);
   };
 
-  const filteredFolgen = useMemo(
-    () =>
-      applyFilter(folgen, {
-        showSpecials,
-        searchQuery,
-        sortBy,
-      }),
-    [folgen, showSpecials, searchQuery, sortBy],
-  );
+  const filteredFolgen = useMemo(() => {
+    if (!withFilters) return folgen;
+    return applyFilter(folgen, {
+      showSpecials,
+      searchQuery,
+      sortBy,
+    });
+  }, [folgen, showSpecials, searchQuery, sortBy, withFilters]);
 
   return (
     <GridContainer>
-      <GridUI>
-        <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
-        <Switch
-          id="confirm"
-          checked={showSpecials}
-          onChange={handleCheckboxChange}
-        />
-        <FolgenCounter>
-          <span>
-            {filteredFolgen.length}{' '}
-            {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
-          </span>
-        </FolgenCounter>
-      </GridUI>
-
-      <FolgenContainer>
-        {filteredFolgen.map((folge) => (
-          <GridFolge
-            key={folge._id.toString()}
-            folge={folge}
-            userRating={folge.user_rating}
-            coverOnly={coverOnly}
+      {withUi && (
+        <GridUI>
+          <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
+          <Switch
+            id="confirm"
+            checked={showSpecials}
+            onChange={handleCheckboxChange}
           />
-        ))}
-      </FolgenContainer>
+          <FolgenCounter>
+            <span>
+              {filteredFolgen.length}{' '}
+              {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
+            </span>
+          </FolgenCounter>
+        </GridUI>
+      )}
+
+      {props.folgen && props.folgen.length > 0 && (
+        <FolgenContainer>
+          {filteredFolgen.map((folge) => (
+            <GridFolge
+              key={folge._id.toString()}
+              folge={folge}
+              userRating={folge.user_rating}
+              coverOnly={coverOnly}
+            />
+          ))}
+        </FolgenContainer>
+      )}
     </GridContainer>
   );
 };
