@@ -39,6 +39,7 @@ const StyledButton = styled(Button)`
   display: flex;
   font-weight: 400;
   justify-content: center;
+  align-items: center;
   font-weight: 600;
 
   * + * {
