@@ -8,19 +8,23 @@ export default function Footer() {
     <>
       <PageFooter>
         <Link href="/datenschutz">
+          <a>Home</a>
+        </Link>
+
+        <Link href="/datenschutz">
           <a>Datenschutz</a>
         </Link>
 
-        {/* <a
+        <a
           href="https://github.com/leifarriens/diedreifragezeichen-db"
           rel="noopener noreferrer"
           target="_blank"
         >
           Mitwirken
-        </a> */}
+        </a>
       </PageFooter>
 
-      {/* <Signatur>
+      <Signatur>
         Developed with 🐦 by{' '}
         <a
           href="https://leifarriens.dev"
@@ -29,7 +33,7 @@ export default function Footer() {
         >
           Leif Arriens
         </a>
-      </Signatur> */}
+      </Signatur>
     </>
   );
 }
@@ -56,26 +60,26 @@ const PageFooter = styled.div`
   }
 `;
 
-// const Signatur = styled.div`
-//   margin: 0 18px 18px 0;
-//   text-align: right;
-//   font-size: 0.65rem;
-//   color: ${colors.gray};
+const Signatur = styled.div`
+  margin: 0 18px 18px 0;
+  text-align: right;
+  font-size: 0.65rem;
+  color: ${colors.gray};
 
-//   bottom: 0;
-//   right: 0;
-//   z-index: 20;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
 
-//   @media screen and (min-width: 1080px) {
-//     font-size: 0.8rem;
-//   }
+  @media screen and (min-width: 1080px) {
+    font-size: 0.8rem;
+  }
 
-//   a {
-//     text-decoration: underline;
-//     transition: color 150ms ease-out;
+  a {
+    text-decoration: underline;
+    transition: color 150ms ease-out;
 
-//     &:hover {
-//       opacity: 0.85;
-//     }
-//   }
-// `;
+    &:hover {
+      opacity: 0.85;
+    }
+  }
+`;
