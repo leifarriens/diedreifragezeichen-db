@@ -1,13 +1,11 @@
 import { Types } from 'mongoose';
 import { GetStaticProps } from 'next';
-import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
-import { IoMdArrowBack } from 'react-icons/io';
 
+import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
 import AltFolgen from '@/components/Folge/AltFolgen';
-import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { getAllFolgenIds, getFolgeById } from '@/services/index';
@@ -23,7 +21,6 @@ function Folge({ folge }: FolgePageProps) {
     ? `Folge: ${parseInt(folge.number)}`
     : '';
   const title = `${number} ${folge.name}`;
-  const router = useRouter();
 
   const ogImage = folge.images[2];
 
@@ -43,11 +40,7 @@ function Folge({ folge }: FolgePageProps) {
           ],
         }}
       />
-      <Wrapper>
-        <button onClick={() => router.push(`/?ref=${router.query.id}`)}>
-          <IoMdArrowBack size={28} color={colors.white} />
-        </button>
-      </Wrapper>
+      <BackButton />
 
       <Wrapper maxWidth="1180px">
         <FolgeComponent {...folge} />

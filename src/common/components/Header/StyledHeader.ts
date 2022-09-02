@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { breakpoints } from '@/constants/layout';
 import Wrapper from '@/layout/Wrapper';
 
 export const Container = styled(Wrapper)`
@@ -32,7 +33,7 @@ export const Container = styled(Wrapper)`
     'search search search';
   /* backdrop-filter: blur(2px); */
 
-  @media (min-width: 540px) {
+  @media (min-width: ${breakpoints.mobileHeader}) {
     grid-column-gap: 24px;
     grid-template-areas: 'logo search profile';
     background: none;
