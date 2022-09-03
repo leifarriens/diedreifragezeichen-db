@@ -1,4 +1,7 @@
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: false,
+});
 
 /**
  * @type {import('next').NextConfig}
@@ -43,7 +46,7 @@ module.exports = async (phase, { defaultConfig }) => {
   }
 
   // production specific config
-  return {
+  return withBundleAnalyzer({
     ...sharedConfig,
     swcMinify: true,
     poweredByHeader: false,
@@ -55,5 +58,5 @@ module.exports = async (phase, { defaultConfig }) => {
     env: {
       minRatingsToDisplay: 5,
     },
-  };
+  });
 };

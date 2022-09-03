@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
@@ -54,7 +53,7 @@ const GridFolge = React.memo(
     };
 
     return (
-      <FolgeContainer as={motion.article} ref={ref} {...rest}>
+      <FolgeContainer ref={ref} {...rest}>
         <Link href={href}>
           <a>
             <InView as="div" onChange={handleViewChange} triggerOnce={true}>
