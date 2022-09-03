@@ -59,7 +59,8 @@ const handleGetAltFolgen = async (
   req: NextApiRequest,
   res: NextApiResponse,
 ) => {
-  let { slug, fields = '' } = req.query;
+  const { slug } = req.query;
+  let { fields = '' } = req.query;
   const [id] = slug;
 
   fields = fields.match(/[^,]+/g) || [];

@@ -5,7 +5,11 @@ import { FolgeType } from '@/types';
 import Folge from '../common/models/folge';
 import Rating from '../common/models/rating';
 
-const folgeAggregation: any = ({ queryFields }: { queryFields: unknown[] }) => [
+const folgeAggregation = ({
+  queryFields,
+}: {
+  queryFields: { [key: string]: string | number };
+}) => [
   {
     $lookup: {
       from: 'ratings',

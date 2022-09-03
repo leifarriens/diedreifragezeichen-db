@@ -10,7 +10,7 @@ import { Loader } from '../shared/Loader';
 function AltFolgen({ refFolgeId }: { refFolgeId: string }) {
   const { isLoading, error, data } = useAltFolgen(refFolgeId);
   const router = useRouter();
-  console.log(data);
+
   if (isLoading || !data) return <Loader />;
 
   if (error) return null;
@@ -37,6 +37,7 @@ function AltFolgen({ refFolgeId }: { refFolgeId: string }) {
         />
       </KeyContainer>
 
+      {/* TODO: cannot use with cover cause ratings are not supplied in endpoint */}
       <Grid folgen={data} coverOnly />
     </>
   );
