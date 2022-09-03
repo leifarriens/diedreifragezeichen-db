@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Axios, { AxiosError } from 'axios';
 import qs from 'qs';
 
-const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
+import artist from '../../config/artist.json';
 
-// TODO: should move to config
-const ARTISTS_ID = '3meJIgRw7YleJrmbpbJK6S';
+const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
 
 const SpotifyAPI = {
   accounts: Axios.create({
@@ -46,15 +46,18 @@ export const getAllAlbums = async (bearerToken: string) => {
     const offset = 0;
 
     const doRun = async (offset: number) => {
-      const response = await SpotifyAPI.artists.get(`/${ARTISTS_ID}/albums`, {
-        headers: { Authorization: 'Bearer ' + bearerToken },
-        params: {
-          country: 'DE',
-          include_groups: 'album',
-          offset,
-          limit: 50,
+      const response = await SpotifyAPI.artists.get(
+        `/${artist.artistId}/albums`,
+        {
+          headers: { Authorization: 'Bearer ' + bearerToken },
+          params: {
+            country: 'DE',
+            include_groups: 'album',
+            offset,
+            limit: 50,
+          },
         },
-      });
+      );
 
       albums = albums.concat(response.data.items);
       if (response.data.total > offset) {
