@@ -1,4 +1,5 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Transition } from 'react-transition-group';
 import styled from 'styled-components';
 
@@ -18,6 +19,7 @@ export default function Toast({
   children,
 }: ToastProps) {
   const [inProp, setInProp] = useState(false);
+  const [hover, setHover] = useState(false);
 
   const transitionDuration = 200;
 
@@ -26,21 +28,27 @@ export default function Toast({
     opacity: 0,
   };
 
+  const hide = useCallback(() => {
+    if (hover) return;
+
+    setInProp(false);
+
+    if (onFadeOut) {
+      setTimeout(() => {
+        onFadeOut();
+      }, transitionDuration);
+    }
+  }, [onFadeOut, hover]);
+
   useEffect(() => {
     setInProp(true);
 
     const timeout = setTimeout(() => {
-      setInProp(false);
-
-      if (onFadeOut) {
-        setTimeout(() => {
-          onFadeOut();
-        }, transitionDuration);
-      }
+      hide();
     }, duration);
 
     return () => clearTimeout(timeout);
-  }, [duration, onFadeOut]);
+  }, [duration, hide]);
 
   const transitionStyles = {
     entering: { opacity: 1, transform: 'translateY(100px)' },
@@ -50,12 +58,14 @@ export default function Toast({
     unmounted: { opacity: 0, transform: 'translateY(100px)' },
   };
 
-  return (
+  return createPortal(
     <Container>
       <Transition in={inProp} timeout={150}>
         {(state) => (
           <StlyedToast
             bgColor={color}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
             style={{
               ...defaultStyle,
               ...transitionStyles[state],
@@ -65,7 +75,9 @@ export default function Toast({
           </StlyedToast>
         )}
       </Transition>
-    </Container>
+    </Container>,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    document.querySelector('#toastPortal')!,
   );
 }
 

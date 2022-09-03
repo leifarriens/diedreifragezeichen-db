@@ -94,7 +94,7 @@ export const FolgeContainer = styled.article`
   transition: all 150ms ease-out;
   border-radius: 12px;
   overflow: hidden;
-  cursor: pointer;
+  /* cursor: pointer; */
 
   &:hover {
     ${hover};
@@ -109,17 +109,26 @@ export const FolgeContainer = styled.article`
     transition: border-radius 150ms ease-out;
   }
 
-  .text {
+  .bottom {
     font-size: 0.85em;
     padding: 6px 10px;
     padding-bottom: 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
 
-  .release {
-    font-size: 0.8em;
+    .release {
+      font-size: 0.8em;
+    }
+
+    .right {
+      display: flex;
+      align-items: center;
+
+      * + * {
+        margin-left: 0.5em;
+      }
+    }
   }
 `;
 
@@ -127,8 +136,8 @@ export const RatingBadge = styled.span`
   z-index: 8;
   display: grid;
   place-items: center;
-  border-radius: 4px;
-  padding: 4px 10px;
+  border-radius: 2px;
+  padding: 2px 8px;
   background-color: ${colors.lightblue};
 `;
 

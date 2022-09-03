@@ -3,6 +3,7 @@ import Image from 'next/future/image';
 import dayjs from '@/lib/dayjs';
 import type { Image as ImageType } from '@/types';
 
+import ListButton from '../ListButton';
 import Rating from '../Rating';
 import Button from '../shared/Button';
 import {
@@ -70,6 +71,8 @@ const Folge = ({
           >
             Auf Spotify Anhören
           </Button>
+
+          <ListButton folgeId={_id} folgeName={name} iconSize={28} />
         </Buttons>
       </Content>
 

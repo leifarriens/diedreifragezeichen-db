@@ -1,8 +1,9 @@
 import { GetServerSidePropsContext } from 'next';
-import { getSession, signIn, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import styled from 'styled-components';
 
 import { FolgenContainer, GridFolge } from '@/components/Grid';
+import Links from '@/components/Profil/Links';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
@@ -17,23 +18,14 @@ type ProfilePageProps = {
 };
 
 function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
-  const { data: session, status } = useSession();
-  const loading = status === 'loading';
-
-  if (loading) return null;
-
-  if (!session) return signIn();
-
   return (
     <Styles>
       <Wrapper maxWidth="1080px">
-        {ratings.length >= 2 && (
-          <p>Du hast bereits {ratings.length.toString()} Folgen bewertet</p>
-        )}
+        <h1>Profil</h1>
+
+        <Links />
 
         <RatingProgress ratings={ratings} numberOfFolgen={numberOfFolgen} />
-
-        <h3>Deine Bewertungen</h3>
 
         {ratings && ratings.length > 0 ? (
           <FolgenContainer>
@@ -71,10 +63,10 @@ export const getServerSideProps = async ({
 
   await dbConnect();
 
-  const data = await Rating.find({ user: session.user.id })
+  const ratingsData = await Rating.find({ user: session.user.id })
     .populate('folge')
     .sort('-updatedAt');
-  const ratings: RatingWithFolge[] = parseMongo(data);
+  const ratings: RatingWithFolge[] = parseMongo(ratingsData);
 
   const numberOfFolgen = await Folge.countDocuments({
     type: 'regular',
