@@ -5,6 +5,7 @@ interface User {
   email: string;
   image: string;
   emailVerified: boolean;
+  list: mongoose.Types.ObjectId[];
 }
 
 const userSchema = new mongoose.Schema<User>(
@@ -13,6 +14,12 @@ const userSchema = new mongoose.Schema<User>(
     email: String,
     image: String,
     emailVerified: Boolean,
+    list: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Folge',
+      },
+    ],
   },
   {
     timestamps: true,
@@ -20,5 +27,5 @@ const userSchema = new mongoose.Schema<User>(
   },
 );
 
-export default (mongoose.models && mongoose.models.Rating) ||
+export default (mongoose.models && mongoose.models.User) ||
   mongoose.model('User', userSchema);

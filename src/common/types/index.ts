@@ -41,3 +41,12 @@ export type SpotifyFolge = {
   images: Image[];
   release_date: Date;
 };
+
+export type User = {
+  _id: string;
+  name: string;
+  email: string;
+  image: string;
+  emailVerified: boolean;
+  list: string[];
+};

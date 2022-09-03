@@ -8,6 +8,7 @@ import { InView } from 'react-intersection-observer';
 import dayjs from '@/lib/dayjs';
 import { FolgeType } from '@/types';
 
+import ListButton from '../ListButton';
 import { Loader } from '../shared/Loader';
 import {
   Background,
@@ -76,20 +77,29 @@ const GridFolge = React.memo(
                 />
               </Cover>
             </InView>
-
-            {!coverOnly && (
-              <div className="text">
-                <div>
-                  <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
-                  <div className="release">
-                    {dayjs(folge.release_date).format('DD.MM.YYYY')}
-                  </div>
-                </div>
-                {userRating && <RatingBadge>{userRating}</RatingBadge>}
-              </div>
-            )}
           </a>
         </Link>
+
+        {!coverOnly && (
+          <div className="bottom">
+            <div>
+              <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
+              <div className="release">
+                {dayjs(folge.release_date).format('DD.MM.YYYY')}
+              </div>
+            </div>
+            <div className="right">
+              {userRating && (
+                <Link href={href}>
+                  <a>
+                    <RatingBadge>{userRating}</RatingBadge>
+                  </a>
+                </Link>
+              )}
+              <ListButton folgeId={folge._id} folgeName={folge.name} />
+            </div>
+          </div>
+        )}
       </FolgeContainer>
     );
   },
