@@ -63,6 +63,7 @@ h3 {
 h1 {
   font-size: 3.6rem;
   font-size: clamp(1.6rem, 5vw, 3rem);
+  margin-bottom: 1em;
 }
 
 .container {

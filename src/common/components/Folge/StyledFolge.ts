@@ -12,7 +12,7 @@ export const Container = styled.div`
   }
 
   @media screen and (min-width: 960px) {
-    grid-column-gap: 96px;
+    grid-column-gap: 64px;
   }
 `;
 
@@ -33,6 +33,10 @@ export const Cover = styled.div`
 export const Content = styled.div`
   padding: 6px;
 
+  h1 {
+    margin-bottom: 0;
+  }
+
   > div {
     margin-bottom: 8px;
   }
@@ -40,6 +44,8 @@ export const Content = styled.div`
 
 export const Buttons = styled.div`
   margin-top: 24px;
+  display: flex;
+  align-items: center;
 
   > * {
     margin-right: 1em;
