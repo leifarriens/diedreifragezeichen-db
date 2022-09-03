@@ -60,7 +60,7 @@ const Header = () => {
                 Anmelden
               </Button>
             </span>
-          ) : router.pathname === '/profil' ? (
+          ) : router.pathname.match('/profil') ? (
             <span>
               <Button
                 aria-label="Ausloggen"
