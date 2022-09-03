@@ -82,6 +82,9 @@ const GridFolge = React.memo(
         {!coverOnly && (
           <div className="bottom">
             <div>
+              {/* FIXME: When used outside of index page "folge.rating" is null
+                consider changing the way rating is calculated
+              */}
               <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
               <div className="release">
                 {dayjs(folge.release_date).format('DD.MM.YYYY')}
