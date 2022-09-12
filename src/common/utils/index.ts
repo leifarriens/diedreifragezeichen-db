@@ -1,4 +1,4 @@
-export const parseMongo = (mongoResponse: unknown) => {
+export const parseMongo = <T>(mongoResponse: T): T => {
   return JSON.parse(JSON.stringify(mongoResponse));
 };
 

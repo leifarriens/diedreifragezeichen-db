@@ -8,15 +8,15 @@ import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import dayjs from '@/lib/dayjs';
+import type { Folge } from '@/models/folge';
 import { getFolgen } from '@/services/index';
-import { FolgeType } from '@/types';
 import { applyFilter } from '@/utils/filter';
 import { parseMongo } from '@/utils/index';
 
 const ADMIN_IDS = process.env.ADMIN_IDS;
 const DATE_FORMAT = 'DD.MM.YYYY';
 
-export default function AdminFolgen({ folgen }: { folgen: FolgeType[] }) {
+export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
   const { searchQuery } = useGlobalState();
 
   const filteredFolgen = useMemo(
@@ -35,12 +35,14 @@ export default function AdminFolgen({ folgen }: { folgen: FolgeType[] }) {
             <div>
               Release Date: {dayjs(folge.release_date).format(DATE_FORMAT)}
             </div>
-            <div>Updated At: {dayjs(folge.updatedAt).format(DATE_FORMAT)}</div>
+            <div>Updated At: {dayjs(folge.updated_at).format(DATE_FORMAT)}</div>
             <div>{folge.type}</div>
             <div className="stats">
-              <span>Rating: {folge.rating}</span>
-              <span>Number of Ratings: {folge.number_of_ratings}</span>
-              <span>Popularity: {folge.popularity}</span>
+              <span>Rating: {folge.community_rating}</span>
+              <span>
+                Number of Ratings: {folge.number_of_community_ratings}
+              </span>
+              <span>Popularity: {folge.community_popularity}</span>
             </div>
             <Link href={`/folge/${folge._id}`}>
               <a target="_blank">Open</a>
@@ -84,7 +86,7 @@ export const getServerSideProps = async ({
   }
   await dbConnect();
 
-  const folgen: FolgeType[] = parseMongo(await getFolgen());
+  const folgen = parseMongo(await getFolgen());
 
   return {
     props: { folgen },

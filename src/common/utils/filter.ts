@@ -1,16 +1,16 @@
 import dayjs from '@/lib/dayjs';
-import { FolgeType } from '@/types';
+import type { Folge } from '@/models/folge';
 
 import { sortFolgen } from './sort';
 
-export const filterSpecial = (folgen: FolgeType[], showSpecials = true) => {
+export const filterSpecial = (folgen: Folge[], showSpecials = true) => {
   return !showSpecials
     ? folgen.filter((folge) => folge.type !== 'special')
     : folgen;
 };
 
-export const filterByQuery = (folgen: FolgeType[], searchQuery: string) => {
-  const filterFolge = (folge: FolgeType) => {
+export const filterByQuery = (folgen: Folge[], searchQuery: string) => {
+  const filterFolge = (folge: Folge) => {
     const name = folge.number + folge.name;
 
     if (name.match(new RegExp(searchQuery, 'i'))) {
@@ -33,10 +33,10 @@ type FilterOptions = {
 };
 
 export const applyFilter = (
-  folgen: FolgeType[],
+  folgen: Folge[],
   { showSpecials, searchQuery, sortBy }: FilterOptions,
 ) => {
-  let filtered = [];
+  let filtered: Folge[] = [];
 
   filtered = filterSpecial(folgen, showSpecials);
   filtered = filterByQuery(filtered, searchQuery);

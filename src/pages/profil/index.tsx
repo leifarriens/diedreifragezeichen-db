@@ -7,7 +7,7 @@ import Links from '@/components/Profil/Links';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import Folge from '@/models/folge';
+import { Folge } from '@/models/folge';
 import Rating from '@/models/rating';
 import { RatingWithFolge } from '@/types';
 import { parseMongo } from '@/utils/index';
@@ -65,12 +65,10 @@ export const getServerSideProps = async ({
 
   const ratingsData = await Rating.find({ user: session.user.id })
     .populate('folge')
-    .sort('-updatedAt');
-  const ratings: RatingWithFolge[] = parseMongo(ratingsData);
+    .sort('-updated_at');
+  const ratings = parseMongo(ratingsData);
 
-  const numberOfFolgen = await Folge.countDocuments({
-    type: 'regular',
-  });
+  const numberOfFolgen = await Folge.countDocuments();
 
   return {
     props: {

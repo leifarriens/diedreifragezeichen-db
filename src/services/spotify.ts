@@ -2,6 +2,8 @@
 import Axios, { AxiosError } from 'axios';
 import qs from 'qs';
 
+import { SpotifyFolge } from '@/types';
+
 import artist from '../../config/artist.json';
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
@@ -42,22 +44,22 @@ export const getBearerToken = async () => {
 
 export const getAllAlbums = async (bearerToken: string) => {
   try {
-    let albums: any = [];
+    let albums: SpotifyFolge[] = [];
     const offset = 0;
 
     const doRun = async (offset: number) => {
-      const response = await SpotifyAPI.artists.get(
-        `/${artist.artistId}/albums`,
-        {
-          headers: { Authorization: 'Bearer ' + bearerToken },
-          params: {
-            country: 'DE',
-            include_groups: 'album',
-            offset,
-            limit: 50,
-          },
+      const response = await SpotifyAPI.artists.get<{
+        total: number;
+        items: SpotifyFolge[];
+      }>(`/${artist.artistId}/albums`, {
+        headers: { Authorization: 'Bearer ' + bearerToken },
+        params: {
+          country: 'DE',
+          include_groups: 'album',
+          offset,
+          limit: 50,
         },
-      );
+      });
 
       albums = albums.concat(response.data.items);
       if (response.data.total > offset) {
@@ -75,5 +77,7 @@ export const getAllAlbums = async (bearerToken: string) => {
     console.log(error);
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
+
+    throw Error(JSON.stringify(error.response?.data));
   }
 };

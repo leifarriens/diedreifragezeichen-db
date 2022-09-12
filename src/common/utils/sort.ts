@@ -1,29 +1,31 @@
-import { FolgeType, RatingWithFolge } from '../types';
+import type { Folge } from '@/models/folge';
 
-export const sortFolgen = (folgen: FolgeType[], sortBy = 'dateDesc') => {
+import { RatingWithFolge } from '../types';
+
+export const sortFolgen = (folgen: Folge[], sortBy = 'dateDesc') => {
   switch (sortBy) {
     case 'dateAsc':
       return sortFolgenByDateAsc(folgen);
     case 'dateDesc':
       return sortFolgenByDateDesc(folgen);
-    case 'rating':
+    case 'community_rating':
       return sortFolgenByRating(folgen);
-    case 'popularity':
+    case 'community_popularity':
       return sortByPopularity(folgen);
     default:
       return sortFolgenByDateDesc(folgen);
   }
 };
 
-const sortFolgenByRating = (folgen: FolgeType[]) => {
+const sortFolgenByRating = (folgen: Folge[]) => {
   const sorted = [...folgen].sort((a, b) => {
-    return a.rating - b.rating;
+    return a.community_rating - b.community_rating;
   });
 
   return sorted.reverse();
 };
 
-const sortFolgenByDateAsc = (folgen: FolgeType[]) => {
+const sortFolgenByDateAsc = (folgen: Folge[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return (
       new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
@@ -33,7 +35,7 @@ const sortFolgenByDateAsc = (folgen: FolgeType[]) => {
   return sorted;
 };
 
-const sortFolgenByDateDesc = (folgen: FolgeType[]) => {
+const sortFolgenByDateDesc = (folgen: Folge[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return (
       new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
@@ -43,9 +45,9 @@ const sortFolgenByDateDesc = (folgen: FolgeType[]) => {
   return sorted.reverse();
 };
 
-const sortByPopularity = (folgen: FolgeType[]) => {
+const sortByPopularity = (folgen: Folge[]) => {
   const sorted = [...folgen].sort((a, b) => {
-    return a.popularity - b.popularity;
+    return a.community_popularity - b.community_popularity;
   });
 
   return sorted.reverse();

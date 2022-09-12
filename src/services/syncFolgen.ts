@@ -1,5 +1,6 @@
-import Folge from '@/models/folge';
-import { FolgeType, SpotifyFolge } from '@/types';
+import type { Folge } from '@/models/folge';
+import { Folge as FolgeModel } from '@/models/folge';
+import { SpotifyFolge } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
@@ -9,12 +10,16 @@ export default async function syncFolgen() {
   try {
     const bearerToken = await getBearerToken();
     const allAlbums = await getAllAlbums(bearerToken);
-    const dbFolgen = await Folge.find({});
+    const dbFolgen = await FolgeModel.find({});
+
+    if (!allAlbums) {
+      throw Error('Invalid item response from spotify');
+    }
 
     const stats: {
       inDb: SpotifyFolge[];
       notInDb: SpotifyFolge[];
-      successfullyAdded: SpotifyFolge[];
+      successfullyAdded: string[];
       blacklisted: SpotifyFolge[];
     } = {
       inDb: [],
@@ -23,9 +28,9 @@ export default async function syncFolgen() {
       blacklisted: [],
     };
 
-    const addToDb: FolgeType[] = [];
+    const addToDb: Folge[] = [];
 
-    allAlbums.forEach((folge: SpotifyFolge) => {
+    allAlbums.forEach((folge) => {
       const isInDb = dbFolgen.find(
         (album) => album.spotify_id === folge.id || album.name === folge.name,
       );
@@ -44,10 +49,10 @@ export default async function syncFolgen() {
       }
     });
 
-    const added = await Folge.insertMany(addToDb);
+    const added = await FolgeModel.insertMany(addToDb);
     stats.successfullyAdded = added.map((f) => f.name);
 
-    await Folge.deleteMany({ spotify_id: { $in: blacklist } });
+    await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
     return {
       inDb: {

@@ -1,6 +1,8 @@
 import Axios from 'axios';
 
-import type { FolgeType, Rating, User } from '@/types';
+import type { Folge } from '@/models/folge';
+import type { Rating } from '@/models/rating';
+import type { UserWithId } from '@/models/user';
 
 const API = Axios.create({
   baseURL: '/api',
@@ -22,10 +24,13 @@ export async function postUserRating({
 }: {
   folgeId: string;
   rating: number;
-}): Promise<number> {
-  const { data } = await API.post(`/folgen/${folgeId}/rating`, {
-    rating,
-  });
+}) {
+  const { data } = await API.post<{ value: number }>(
+    `/folgen/${folgeId}/rating`,
+    {
+      rating,
+    },
+  );
   return data.value;
 }
 
@@ -41,15 +46,15 @@ export async function removeFolgeList(folgeId: string): Promise<string> {
   return data;
 }
 
-export async function getUser(): Promise<User> {
-  const { data } = await API.get('/user');
+export async function getUser() {
+  const { data } = await API.get<UserWithId>('/user');
   return data;
 }
 
 export async function getAltFolgen(folgeId: string) {
-  const { data } = await API.get<FolgeType[]>(`/folgen/${folgeId}/alts`, {
+  const { data } = await API.get<Folge[]>(`/folgen/${folgeId}/alts`, {
     params: {
-      fields: 'images',
+      fields: 'images,name,community_rating,number_of_community_ratings',
     },
   });
   return data;

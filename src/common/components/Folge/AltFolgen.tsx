@@ -37,8 +37,7 @@ function AltFolgen({ refFolgeId }: { refFolgeId: string }) {
         />
       </KeyContainer>
 
-      {/* TODO: cannot use with cover cause ratings are not supplied in endpoint */}
-      <Grid folgen={data} coverOnly />
+      <Grid folgen={data} />
     </>
   );
 }

@@ -2,10 +2,7 @@ import { Types } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import dbConnect from '@/db/connect';
-import {
-  // getFolgeById,
-  getFolgeWithRating,
-} from '@/services/index';
+import { getFolge } from '@/services/index';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
@@ -21,7 +18,7 @@ export default async function handler(
 
     await dbConnect();
 
-    const folge = await getFolgeWithRating(id);
+    const folge = await getFolge(id);
 
     if (!folge) return res.status(404).end('Not Found');
 

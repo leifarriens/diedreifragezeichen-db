@@ -1,89 +1,117 @@
-import mongoose from 'mongoose';
-
-import { FolgeType } from '@/types';
-
-import Folge from '../common/models/folge';
+import { Folge } from '../common/models/folge';
 import Rating from '../common/models/rating';
+import { User } from '../common/models/user';
 
-const folgeAggregation = ({
-  queryFields,
-}: {
-  queryFields: { [key: string]: string | number };
-}) => [
-  {
-    $lookup: {
-      from: 'ratings',
-      localField: '_id',
-      foreignField: 'folge',
-      as: 'ratings',
-    },
-  },
-  {
-    $addFields: {
-      rating: {
-        $avg: {
-          $map: {
-            input: '$ratings',
-            as: 'r',
-            in: '$$r.value',
-          },
-        },
-      },
-      number_of_ratings: {
-        $size: '$ratings',
-      },
-      popularity: {
-        $sum: {
-          $map: {
-            input: '$ratings',
-            as: 'r',
-            in: '$$r.value',
-          },
-        },
-      },
-    },
-  },
-  { $project: { ...queryFields } },
-  { $unset: ['__v', 'ratings'] },
-];
-
-type GetFolgenOptions = {
+type FolgenOptions = {
   fields?: string[];
-  specials?: boolean;
   limit?: number;
+  specials?: boolean;
 };
 
-export async function getFolgen(options: GetFolgenOptions = {}) {
-  const { fields = [] } = options;
+export async function getFolgen(options: FolgenOptions = {}) {
+  const { fields = [], limit = 300, specials = true } = options;
 
-  const queryFields = getQueryFields(fields);
+  const type = !specials ? 'regular' : null;
+  const select = fields.join(' ');
 
-  return Folge.aggregate<FolgeType>([...folgeAggregation({ queryFields })]);
+  const folgen = await Folge.find({
+    ...(type && { type }),
+  })
+    .select(select)
+    .limit(limit);
+
+  return folgen;
 }
 
-export async function getFolgeById(
-  id: string,
-  options: { fields?: string[] } = {},
-) {
+export async function getFolge(folgeId: string, options: FolgenOptions = {}) {
   const { fields = [] } = options;
 
-  const queryFields = getQueryFields(fields);
+  const select = fields.join(' ');
 
-  const [folge] = await Folge.aggregate<FolgeType>([
-    { $match: { _id: new mongoose.Types.ObjectId(id) } },
-    ...folgeAggregation({ queryFields }),
-  ]);
+  const folge = await Folge.findById(folgeId).select(select);
 
   return folge;
 }
 
-export async function getAltFolgen(id: string, options: GetFolgenOptions = {}) {
+export async function getAllFolgenIds() {
+  return Folge.find({}).select('_id');
+}
+
+export async function postFolgenRating({
+  folgeId,
+  userId,
+  userRating,
+}: {
+  folgeId: string;
+  userId: string;
+  userRating: number;
+}) {
+  const folge = await getFolge(folgeId);
+
+  if (!folge) {
+    throw Error('Folge not found');
+  }
+
+  const rating = await Rating.findOneAndUpdate(
+    {
+      user: userId,
+      folge: folgeId,
+    },
+    {
+      user: userId,
+      folge: folgeId,
+      value: userRating,
+    },
+    { upsert: true, new: true },
+  );
+
+  const folgenRatings = await Rating.find({ folge: folgeId });
+
+  const ratingsSum = folgenRatings.reduce((curr, acc) => {
+    return curr + acc.value;
+  }, 0) as number;
+
+  const community_rating = ratingsSum / folgenRatings.length;
+
+  folge.community_rating = parseFloat(community_rating.toFixed(1));
+  folge.number_of_community_ratings = folgenRatings.length;
+  folge.community_popularity = ratingsSum;
+
+  await folge.save();
+
+  return rating;
+}
+
+export async function getUserRatings(
+  userId: string,
+  options: { fields: string[] },
+) {
+  const { fields = [] } = options;
+
+  return Rating.find({ user: userId }).select(fields);
+}
+
+export async function getUserFolgenRating({
+  folgeId,
+  userId,
+}: {
+  folgeId: string;
+  userId: string;
+}) {
+  return Rating.findOne({ folge: folgeId, user: userId });
+}
+
+export async function getAltFolgen(id: string, options: FolgenOptions = {}) {
   const { fields = [], specials = false, limit = 20 } = options;
 
   fields.push('release_date');
 
   const type = !specials ? 'regular' : null;
   const current = await Folge.findById(id).select(fields);
+
+  if (!current) {
+    throw Error('Folge not found');
+  }
 
   const previous = await Folge.find({
     release_date: { $lt: current.release_date },
@@ -104,44 +132,9 @@ export async function getAltFolgen(id: string, options: GetFolgenOptions = {}) {
   return [...previous.reverse(), current, ...next];
 }
 
-export async function getAllFolgenIds() {
-  return await Folge.find({}).select('_id');
-}
-
-export async function getUserRatings(
-  userId: string,
-  options: { fields: string[] },
-) {
-  const { fields = [] } = options;
-
-  return Rating.find({ user: userId }).select(fields);
-}
-
-export async function getFolgeWithRating(id: string) {
-  const folge = await Folge.findById(id).lean();
-
-  const ratings = await Rating.find({ folge: id });
-
-  const ratingSum = ratings.reduce((prev, curr) => {
-    return prev + curr.value;
-  }, 0) as number;
-
-  folge.rating = ratingSum / ratings.length;
-  folge.number_of_ratings = ratings.length;
-  folge.popularity = ratingSum;
-
-  return folge;
-}
-
-// Helpers
-
-function getQueryFields(fields: string[] = []) {
-  return fields.reduce(
-    (curr, acc) => {
-      // FIXME: type error
-      delete curr.ratings;
-      return { ...curr, ...{ [acc]: 1 } };
-    },
-    { ratings: 0 },
-  );
+export async function getUserWithList(userId: string) {
+  return User.findById(userId).populate<{ list: Folge[] }>({
+    path: 'list',
+    options: { sort: ['updated_at'] },
+  });
 }

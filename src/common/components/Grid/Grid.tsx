@@ -3,9 +3,12 @@ import React, { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { useGlobalState } from '@/context/GlobalContext';
-import { FolgeType, Rating } from '@/types';
+import { Folge } from '@/models/folge';
+import { Rating } from '@/models/rating';
+import { getUserRatings } from '@/services/client';
 import { applyFilter } from '@/utils/filter';
 
+import Switch from '../shared/Switch';
 import GridFolge from './GridFolge';
 import Sort from './Sort';
 import {
@@ -16,15 +19,11 @@ import {
 } from './StyledGrid';
 
 type GridProps = {
-  folgen: FolgeType[];
+  folgen: Folge[];
   coverOnly?: boolean;
   withFilters?: boolean;
   withUi?: boolean;
 };
-
-import { getUserRatings } from '@/services/client';
-
-import Switch from '../shared/Switch';
 
 const Grid = (props: GridProps) => {
   const { data: session, status } = useSession();
@@ -36,10 +35,10 @@ const Grid = (props: GridProps) => {
 
   useQuery([session?.user.id, 'ratings'], () => getUserRatings(), {
     enabled: status === 'authenticated' && !coverOnly,
-    onSuccess: (data) => {
+    onSuccess: (ratings) => {
       const folgenWithUserRating = folgen.map((folge) => {
-        const rating = data.find(
-          (rating: Rating) => rating.folge === folge._id,
+        const rating = ratings.find(
+          (rating: Rating) => rating.folge == folge._id,
         );
 
         if (rating) {

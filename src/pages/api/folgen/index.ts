@@ -3,10 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import dbConnect from '@/db/connect';
 import { getFolgen } from '@/services/index';
 
-/**
- * Get all folgen
- */
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,

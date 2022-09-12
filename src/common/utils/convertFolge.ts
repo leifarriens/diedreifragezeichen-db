@@ -1,4 +1,5 @@
-import { FolgeType, SpotifyFolge } from '@/types';
+import type { Folge } from '@/models/folge';
+import { SpotifyFolge } from '@/types';
 
 export default function convertFolge({
   name,
@@ -10,7 +11,7 @@ export default function convertFolge({
     images,
     release_date,
     spotify_id: id,
-  } as FolgeType;
+  } as Folge;
 
   if (name.includes('/')) {
     folge.type = 'regular';

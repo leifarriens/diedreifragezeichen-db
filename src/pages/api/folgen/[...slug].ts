@@ -3,16 +3,23 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import Rating from '@/models/rating';
-import { getAltFolgen } from '@/services/index';
+import {
+  getAltFolgen,
+  getUserFolgenRating,
+  postFolgenRating,
+} from '@/services/index';
+import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  const [id] = req.query.slug;
+
   const session = await getSession({ req });
   const { method, query } = req;
-  const [id, action] = query.slug;
+
+  const [action] = query.slug;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).send('Not Found');
@@ -60,12 +67,10 @@ const handleGetAltFolgen = async (
   res: NextApiResponse,
 ) => {
   const { slug } = req.query;
-  let { fields = '' } = req.query;
+  // const fields = parseQueryParam(req.query.fields);
   const [id] = slug;
 
-  fields = fields.match(/[^,]+/g) || [];
-
-  const folgen = await getAltFolgen(id, { fields });
+  const folgen = await getAltFolgen(id);
 
   return res.json(folgen);
 };
@@ -79,21 +84,11 @@ const handlePostRating = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).end();
   }
 
-  const userId = new mongoose.Types.ObjectId(req.session.user.id);
-  const folgeId = new mongoose.Types.ObjectId(id);
-
-  const rating = await Rating.findOneAndUpdate(
-    {
-      user: userId,
-      folge: folgeId,
-    },
-    {
-      user: userId,
-      folge: folgeId,
-      value: data.rating,
-    },
-    { upsert: true, new: true },
-  );
+  const rating = await postFolgenRating({
+    folgeId: id,
+    userId: req.session.user.id,
+    userRating: data.rating,
+  });
 
   return res.status(201).json(rating);
 };
@@ -106,9 +101,9 @@ const handleGetUserRating = async (
 
   const userId = req.session.user.id;
 
-  const data = await Rating.findOne({ folge: id, user: userId });
+  const rating = await getUserFolgenRating({ folgeId: id, userId });
 
-  if (!data) return res.status(404).end();
+  if (!rating) return res.status(404).end();
 
-  return res.json(data);
+  return res.json(rating);
 };

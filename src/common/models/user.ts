@@ -1,11 +1,15 @@
 import mongoose from 'mongoose';
 
-interface User {
+export interface User {
   name: string;
   email: string;
   image: string;
   emailVerified: boolean;
   list: mongoose.Types.ObjectId[];
+}
+
+export interface UserWithId extends User {
+  _id: string;
 }
 
 const userSchema = new mongoose.Schema<User>(
@@ -27,5 +31,6 @@ const userSchema = new mongoose.Schema<User>(
   },
 );
 
-export default (mongoose.models && mongoose.models.User) ||
+export const User =
+  (mongoose.models && mongoose.models.User) ||
   mongoose.model('User', userSchema);

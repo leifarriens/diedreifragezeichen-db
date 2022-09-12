@@ -8,8 +8,8 @@ import FolgeComponent from '@/components/Folge';
 import AltFolgen from '@/components/Folge/AltFolgen';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import { getAllFolgenIds, getFolgeById } from '@/services/index';
-import { FolgeType } from '@/types';
+import type { Folge as FolgeType } from '@/models/folge';
+import { getAllFolgenIds, getFolge } from '@/services/index';
 import { parseMongo } from '@/utils/index';
 
 type FolgePageProps = {
@@ -43,7 +43,7 @@ function Folge({ folge }: FolgePageProps) {
       <BackButton />
 
       <Wrapper maxWidth="1180px">
-        <FolgeComponent {...folge} />
+        <FolgeComponent folge={folge} />
       </Wrapper>
 
       <Wrapper>
@@ -60,7 +60,7 @@ export async function getStaticPaths() {
 
   const folgen = parseMongo(data);
 
-  const paths = folgen.map((folge: FolgeType) => ({
+  const paths = folgen.map((folge) => ({
     params: { id: folge._id },
   }));
 
@@ -82,7 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const folge = await getFolgeById(id);
+  const folge = await getFolge(id);
 
   if (!folge) return { notFound: true };
 

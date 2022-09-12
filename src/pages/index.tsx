@@ -10,7 +10,6 @@ import { colors } from '@/constants/theme';
 import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import { FolgeType } from '@/types';
 import { parseMongo, setBodyBgByStyle, unsetBodyBgStyle } from '@/utils/index';
 
 import { getFolgen } from '../services';
@@ -53,16 +52,17 @@ const HomeFooter = styled.footer`
 export const getStaticProps = async () => {
   await dbConnect();
 
-  const folgen: FolgeType[] = parseMongo(
+  const folgen = parseMongo(
     await getFolgen({
       fields: [
         'name',
         'number',
         'type',
         'images',
+        'community_rating',
+        'number_of_community_ratings',
+        'community_popularity',
         'release_date',
-        'rating',
-        'popularity',
       ],
     }),
   );

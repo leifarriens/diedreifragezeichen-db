@@ -3,11 +3,9 @@ import styled from 'styled-components';
 export enum SortOptionsEnum {
   dateDesc = 'dateDesc',
   dateAsc = 'dateAsc',
-  rating = 'rating',
-  popularity = 'popularity',
+  rating = 'community_rating',
+  popularity = 'community_popularity',
 }
-
-export type SortOptions = 'dateDesc' | 'dateAsc' | 'rating' | 'popularity';
 
 type SortProps = {
   currentSort: string;
@@ -16,10 +14,10 @@ type SortProps = {
 
 export default function Sort({ currentSort, onSortChange }: SortProps) {
   const sortVariants = [
-    { name: 'Neuste', value: 'dateDesc' },
-    { name: 'Älteste', value: 'dateAsc' },
-    { name: 'Beste', value: 'rating' },
-    { name: 'Beliebteste', value: 'popularity' },
+    { name: 'Neuste', value: SortOptionsEnum.dateDesc },
+    { name: 'Älteste', value: SortOptionsEnum.dateAsc },
+    { name: 'Beste', value: SortOptionsEnum.rating },
+    { name: 'Beliebteste', value: SortOptionsEnum.popularity },
   ];
 
   return (

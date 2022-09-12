@@ -5,7 +5,7 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
 import dayjs from '@/lib/dayjs';
-import { FolgeType } from '@/types';
+import type { Folge } from '@/models/folge';
 
 import ListButton from '../ListButton';
 import { Loader } from '../shared/Loader';
@@ -18,7 +18,7 @@ import {
 } from './StyledFolge';
 
 interface GridFolgeProps {
-  folge: FolgeType;
+  folge: Folge;
   userRating?: number | null;
   coverOnly?: boolean;
   style?: CSSProperties;
@@ -82,14 +82,19 @@ const GridFolge = React.memo(
         {!coverOnly && (
           <div className="bottom">
             <div>
-              {/* FIXME: When used outside of index page "folge.rating" is null
-                consider changing the way rating is calculated
-              */}
-              <div>{folge.rating ? folge.rating : ' ??? '}/10</div>
+              <div>
+                <span className="rating">
+                  {folge.number_of_community_ratings >= 1
+                    ? folge.community_rating
+                    : '???'}
+                </span>
+                /10
+              </div>
               <div className="release">
                 {dayjs(folge.release_date).format('DD.MM.YYYY')}
               </div>
             </div>
+
             <div className="right">
               {userRating && (
                 <Link href={href}>

@@ -1,7 +1,7 @@
 import Image from 'next/future/image';
 
 import dayjs from '@/lib/dayjs';
-import type { Image as ImageType } from '@/types';
+import { Folge as FolgeType } from '@/models/folge';
 
 import ListButton from '../ListButton';
 import Rating from '../Rating';
@@ -16,25 +16,17 @@ import {
   ReleaseContainer,
 } from './StyledFolge';
 
-type FolgeProps = {
-  images: ImageType[];
-  name: string;
-  release_date: Date;
-  _id: string;
-  rating: number;
-  number: string;
-  spotify_id: string;
-};
-
-const Folge = ({
-  images,
-  name,
-  release_date,
-  _id,
-  rating,
-  number,
-  spotify_id,
-}: FolgeProps) => {
+const Folge = ({ folge }: { folge: FolgeType }) => {
+  const {
+    images,
+    name,
+    release_date,
+    _id,
+    number_of_community_ratings,
+    community_rating,
+    number,
+    spotify_id,
+  } = folge;
   const isBigCover = Number(number) >= 125;
 
   return (
@@ -59,7 +51,9 @@ const Folge = ({
           {dayjs(release_date).fromNow()}
         </ReleaseContainer>
 
-        <RatingContainer>{rating ? rating : '???'}/10</RatingContainer>
+        <RatingContainer>
+          {number_of_community_ratings >= 1 ? community_rating : '???'}/10
+        </RatingContainer>
 
         <Rating folge_id={_id} folge_name={name} />
 
@@ -76,7 +70,10 @@ const Folge = ({
         </Buttons>
       </Content>
 
-      <Background url={images[0].url} bigCover={isBigCover} />
+      <Background
+        style={{ backgroundImage: `url(${images[0].url})` }}
+        bigCover={isBigCover}
+      />
     </Container>
   );
 };

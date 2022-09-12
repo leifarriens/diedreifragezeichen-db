@@ -1,30 +1,12 @@
-export type FolgeType = {
-  name: string;
-  number: string;
-  createdAt: Date;
-  updatedAt: Date;
-  type: string;
-  release_date: Date;
-  images: Image[];
-  spotify_id: string;
-  _id: string;
-  rating: number;
-  number_of_ratings: number;
-  popularity: number;
-  user_rating?: number | null;
-};
+import mongoose from 'mongoose';
 
-export type Image = {
-  url: string;
-  height: number;
-  width: number;
-};
+import type { Folge } from '@/models/folge';
 
-export type Rating = {
-  user: string;
-  folge: string;
-  value: number;
-};
+// export type Rating = {
+//   user: string;
+//   folge: mongoose.Types.ObjectId;
+//   value: number;
+// };
 
 export interface RatingWithFolge {
   _id: string;
@@ -32,21 +14,27 @@ export interface RatingWithFolge {
   user: string;
   value: number;
   updatedAt: Date;
-  folge: FolgeType;
+  folge: Folge;
 }
 
 export type SpotifyFolge = {
   id: string;
   name: string;
-  images: Image[];
+  images: {
+    url: string;
+    height: number;
+    width: number;
+  }[];
   release_date: Date;
 };
 
-export type User = {
-  _id: string;
-  name: string;
-  email: string;
-  image: string;
-  emailVerified: boolean;
-  list: string[];
-};
+// export type User = {
+//   _id: string;
+//   name: string;
+//   email: string;
+//   image: string;
+//   emailVerified: boolean;
+//   list: string[];
+// };
+
+export type MongoId = mongoose.Types.ObjectId | string;

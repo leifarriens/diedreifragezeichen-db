@@ -5,16 +5,17 @@ import { Grid } from '@/components/Grid';
 import Links from '@/components/Profil/Links';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import UserModel from '@/models/user';
-import { FolgeType, User } from '@/types';
+import type { Folge } from '@/models/folge';
+import { UserWithId } from '@/models/user';
+import { getUserWithList } from '@/services/index';
 import { parseMongo } from '@/utils/index';
 
-interface UserWithMerklist extends User {
-  list: FolgeType[];
+interface UserWithlist extends UserWithId {
+  list: Folge[];
 }
 
 type MerklistePageProps = {
-  user: UserWithMerklist;
+  user: UserWithlist;
 };
 
 function Merkliste({ user }: MerklistePageProps) {
@@ -45,9 +46,9 @@ export const getServerSideProps = async ({
 
   await dbConnect();
 
-  const userData = await UserModel.findById(session.user.id).populate('list');
+  const userData = await getUserWithList(session.user.id);
 
-  const user: UserWithMerklist = parseMongo(userData);
+  const user = parseMongo(userData);
 
   return {
     props: {
