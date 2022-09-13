@@ -7,6 +7,7 @@ import { InView } from 'react-intersection-observer';
 import dayjs from '@/lib/dayjs';
 import type { Folge } from '@/models/folge';
 
+import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
 import { Loader } from '../shared/Loader';
 import {
@@ -82,14 +83,10 @@ const GridFolge = React.memo(
         {!coverOnly && (
           <div className="bottom">
             <div>
-              <div>
-                <span className="rating">
-                  {folge.number_of_community_ratings >= 1
-                    ? folge.community_rating
-                    : '???'}
-                </span>
-                /10
-              </div>
+              <CommunityRating
+                numerOfRatings={folge.number_of_community_ratings}
+                rating={folge.community_rating}
+              />
               <div className="release">
                 {dayjs(folge.release_date).format('DD.MM.YYYY')}
               </div>

@@ -118,11 +118,6 @@ export const FolgeContainer = styled.article`
     justify-content: space-between;
     font-size: 0.8rem;
 
-    .rating {
-      font-size: 1.35em;
-      font-weight: 500;
-    }
-
     .release {
       font-weight: 200;
       font-size: 0.8em;

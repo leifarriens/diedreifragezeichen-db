@@ -3,6 +3,7 @@ import Image from 'next/future/image';
 import dayjs from '@/lib/dayjs';
 import { Folge as FolgeType } from '@/models/folge';
 
+import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
 import Rating from '../Rating';
 import Button from '../shared/Button';
@@ -52,7 +53,10 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
         </ReleaseContainer>
 
         <RatingContainer>
-          {number_of_community_ratings >= 1 ? community_rating : '???'}/10
+          <CommunityRating
+            numerOfRatings={number_of_community_ratings}
+            rating={community_rating}
+          />
         </RatingContainer>
 
         <Rating folge_id={_id} folge_name={name} />

@@ -72,7 +72,7 @@ export const Background = styled.div<{ bigCover: boolean }>`
 `;
 
 export const RatingContainer = styled.div`
-  font-size: 2.4em;
+  font-size: 2.2em;
   font-family: 'Cochin';
   margin-top: 16px;
   margin-bottom: 12px;
