@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
@@ -24,9 +23,7 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
   const queryClient = useQueryClient();
   const [toasted, setToasted] = useState(false);
 
-  const isOnUserList = !data
-    ? false
-    : data.list.includes(new Types.ObjectId(folgeId));
+  const isOnUserList = !data ? false : data.list.includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } = useMutation(
     postFolgeList,
@@ -52,7 +49,7 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
       onMutate: (folgeId) => {
         const updatedUser = {
           ...data,
-          list: data?.list.filter((id) => id !== new Types.ObjectId(folgeId)),
+          list: data?.list.filter((id) => id !== folgeId),
         };
         queryClient.setQueryData(['user', data?._id], updatedUser);
       },
@@ -101,7 +98,7 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
           onFadeOut={() => setToasted(false)}
           color={isOnUserList ? colors.green : colors.red}
         >
-          <i>{folgeName}</i>{' '}
+          <i>{folgeName}</i>
           {isOnUserList ? (
             <span>
               zur <MerklistenLink /> hinzugefügt
