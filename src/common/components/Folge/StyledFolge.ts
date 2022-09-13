@@ -52,14 +52,13 @@ export const Buttons = styled.div`
   }
 `;
 
-export const Background = styled.div<{ url: string; bigCover: boolean }>`
+export const Background = styled.div<{ bigCover: boolean }>`
   z-index: -1;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-image: url(${(props) => props.url});
   background-size: ${(props) => (props.bigCover ? '120% 140%' : '150% 150%')};
   background-position: ${(props) =>
     props.bigCover ? 'right bottom' : 'center 93%'};

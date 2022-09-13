@@ -72,7 +72,8 @@ const hover = css`
 
   ${Overlay} {
     opacity: 1;
-    animation-play-state: running;
+    /* FIXME: Massive performance descrease in firefox cpu usage */
+    /* animation-play-state: running; */
   }
 
   ${Background} {
@@ -94,7 +95,6 @@ export const FolgeContainer = styled.article`
   transition: all 150ms ease-out;
   border-radius: 12px;
   overflow: hidden;
-  /* cursor: pointer; */
 
   &:hover {
     ${hover};
@@ -116,8 +116,15 @@ export const FolgeContainer = styled.article`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: 0.8rem;
+
+    .rating {
+      font-size: 1.35em;
+      font-weight: 500;
+    }
 
     .release {
+      font-weight: 200;
       font-size: 0.8em;
     }
 
