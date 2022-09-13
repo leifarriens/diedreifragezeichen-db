@@ -5,7 +5,7 @@ export interface User {
   email: string;
   image: string;
   emailVerified: boolean;
-  list: mongoose.Types.ObjectId[];
+  list: string[];
 }
 
 export interface UserWithId extends User {
