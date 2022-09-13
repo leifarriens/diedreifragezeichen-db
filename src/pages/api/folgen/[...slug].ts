@@ -14,12 +14,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const [id] = req.query.slug;
-
   const session = await getSession({ req });
   const { method, query } = req;
 
-  const [action] = query.slug;
+  const [id, action] = query.slug;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).send('Not Found');
@@ -67,10 +65,12 @@ const handleGetAltFolgen = async (
   res: NextApiResponse,
 ) => {
   const { slug } = req.query;
-  // const fields = parseQueryParam(req.query.fields);
+  let { fields = '' } = req.query;
   const [id] = slug;
 
-  const folgen = await getAltFolgen(id);
+  fields = fields.match(/[^,]+/g) || [];
+
+  const folgen = await getAltFolgen(id, { fields });
 
   return res.json(folgen);
 };
