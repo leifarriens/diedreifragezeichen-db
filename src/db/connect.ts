@@ -1,12 +1,15 @@
 import mongoose from 'mongoose';
 
 const MONGO_URI = process.env.MONGO_URI;
+const MONGO_DATABASE = process.env.MONGO_DATABASE;
 
-if (!MONGO_URI) {
+if (!MONGO_URI || !MONGO_DATABASE) {
   throw new Error(
     'Please define the MONGODB_URI environment variable inside .env.local',
   );
 }
+
+const connString = MONGO_URI + '/' + MONGO_DATABASE;
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -29,7 +32,7 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGO_URI, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(connString, opts).then((mongoose) => {
       return mongoose;
     });
   }
