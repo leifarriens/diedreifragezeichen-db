@@ -98,7 +98,7 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
           onFadeOut={() => setToasted(false)}
           color={isOnUserList ? colors.green : colors.red}
         >
-          <i>{folgeName}</i>
+          <i>{folgeName}</i>{' '}
           {isOnUserList ? (
             <span>
               zur <MerklistenLink /> hinzugefügt
