@@ -7,7 +7,8 @@ export const Container = styled.div<{ disabled: boolean }>`
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
-export const IconContainer = styled.div`
+export const IconContainer = styled.label`
+  display: block;
   position: relative;
   height: 60px;
   width: 100%;

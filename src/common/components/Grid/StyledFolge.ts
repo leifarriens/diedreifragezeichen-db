@@ -9,6 +9,8 @@ export const Cover = styled.div`
 
   img {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    transition: border-radius 150ms ease-out;
   }
 `;
 
@@ -102,11 +104,6 @@ export const FolgeContainer = styled.article`
 
   a:focus {
     ${hover};
-  }
-
-  img {
-    border-radius: 12px;
-    transition: border-radius 150ms ease-out;
   }
 
   .bottom {

@@ -35,6 +35,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         }}
         defaultTitle="Drei Fragezeichen DB"
         titleTemplate="Drei Fragezeichen DB | %s"
+        description="Die drei Fragezeichen Folgen Archiv und Bewertungen"
       />
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={pageProps.session}>

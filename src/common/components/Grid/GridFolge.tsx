@@ -57,7 +57,7 @@ const GridFolge = React.memo(
     return (
       <FolgeContainer ref={ref} {...rest}>
         <Link href={href}>
-          <a>
+          <a aria-label={folge.name}>
             <InView as="div" onChange={handleViewChange} triggerOnce={true}>
               {!coverOnly && (
                 <>

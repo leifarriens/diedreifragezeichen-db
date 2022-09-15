@@ -7,7 +7,7 @@ type KeyProps = {
   size?: number;
   keyCode: string;
   disabled?: boolean;
-
+  label: string;
   onPress?: () => void;
 };
 
@@ -16,6 +16,7 @@ export function Key({
   color = '#ddd',
   size = 22,
   onPress,
+  label,
   keyCode,
   disabled = false,
 }: KeyProps) {
@@ -48,6 +49,7 @@ export function Key({
       color={color}
       disabled={disabled}
       onClick={onPress}
+      aria-label={label}
       opacity={keydown || disabled ? 0.5 : 1}
     >
       <Icon color={color} size={size} />

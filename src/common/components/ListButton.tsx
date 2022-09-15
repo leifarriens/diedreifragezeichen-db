@@ -85,13 +85,31 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
 
   return (
     <>
-      <button onClick={handleClick} disabled={isLoading}>
+      {!isOnUserList ? (
+        <button
+          onClick={handleClick}
+          disabled={isLoading}
+          aria-label={`${folgeName} zur Merkliste hinzufügen`}
+        >
+          <BsBookmark size={iconSize} />
+        </button>
+      ) : (
+        <button
+          onClick={handleClick}
+          disabled={isLoading}
+          aria-label={`${folgeName} von der Merkliste entfernen`}
+        >
+          <BsBookmarkFill size={iconSize} />
+        </button>
+      )}
+      {/*       
+      <button onClick={handleClick} disabled={isLoading} aria-label="Merkliste">
         {!isOnUserList ? (
           <BsBookmark size={iconSize} />
         ) : (
           <BsBookmarkFill size={iconSize} />
         )}
-      </button>
+      </button> */}
       {toasted && (
         <Toast
           duration={3000}
