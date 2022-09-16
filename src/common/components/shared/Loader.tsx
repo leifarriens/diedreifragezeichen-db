@@ -39,7 +39,6 @@ const scaleAnimation = keyframes`
 `;
 
 const LoadingIndicator = styled.div`
-  margin: 100px auto;
   text-align: center;
   font-size: 42px;
 `;

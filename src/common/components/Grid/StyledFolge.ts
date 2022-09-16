@@ -6,6 +6,9 @@ export const Cover = styled.div`
   position: relative;
   width: 100%;
   height: auto;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
 
   img {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
