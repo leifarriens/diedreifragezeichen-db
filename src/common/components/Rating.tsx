@@ -1,5 +1,5 @@
 import { signIn, useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
@@ -22,6 +22,10 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
       setToasted(true);
     },
   });
+
+  useEffect(() => {
+    setToasted(false);
+  }, [folge_id]);
 
   function handleNewRating(newRating: number) {
     if (!session) return signIn();
