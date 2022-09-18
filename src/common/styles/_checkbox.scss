@@ -7,6 +7,7 @@ $checkHeight: 24px;
   top: 0px;
   opacity: 0;
   width: 0;
+  display: none;
 }
 [type='checkbox'] + label {
   position: relative;
@@ -14,9 +15,11 @@ $checkHeight: 24px;
   cursor: pointer;
   font-size: 1.1rem;
   line-height: 1.45;
-  height: 100%;
-  padding-left: 70px;
+  height: calc($checkHeight + 2px);
+  padding-left: 64px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 [type='checkbox'] + label:before {
   content: '';
