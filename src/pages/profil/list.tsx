@@ -20,7 +20,7 @@ type MerklistePageProps = {
 
 function Merkliste({ user }: MerklistePageProps) {
   return (
-    <Wrapper maxWidth="1080px">
+    <Wrapper maxWidth="1280px">
       <h1>Profil</h1>
 
       <Links />

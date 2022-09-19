@@ -20,7 +20,7 @@ type ProfilePageProps = {
 function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
   return (
     <Styles>
-      <Wrapper maxWidth="1080px">
+      <Wrapper maxWidth="1280px">
         <h1>Profil</h1>
 
         <Links />
