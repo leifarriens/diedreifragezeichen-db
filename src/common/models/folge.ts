@@ -9,6 +9,7 @@ export interface Folge extends mongoose.Document {
   number_of_community_ratings: number;
   community_popularity: number;
   user_rating?: number;
+  inhalt?: string;
   release_date: Date;
   spotify_id: string;
   created_at: Date;
@@ -28,6 +29,7 @@ const folgeSchema = new mongoose.Schema<Folge>(
     community_rating: { type: Number, default: 0 },
     number_of_community_ratings: { type: Number, default: 0 },
     community_popularity: { type: Number, default: 0 },
+    inhalt: String,
     release_date: Date,
     spotify_id: String,
   },

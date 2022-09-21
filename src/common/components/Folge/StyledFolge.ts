@@ -83,3 +83,19 @@ export const ReleaseContainer = styled.div`
   margin-top: 6px;
   color: #ddd;
 `;
+
+export const Inhalt = styled.div`
+  font-size: 1.1em;
+  line-height: 150%;
+  color: #ddd;
+  padding: 2em;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  margin-bottom: 4em;
+
+  h3 {
+    margin-bottom: 1em;
+    font-size: 1.25em;
+    font-weight: 500;
+  }
+`;

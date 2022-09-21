@@ -1,3 +1,6 @@
+import Axios from 'axios';
+import cheerio from 'cheerio';
+
 import type { Folge } from '@/models/folge';
 import { Folge as FolgeModel } from '@/models/folge';
 import { SpotifyFolge } from '@/types';
@@ -49,7 +52,9 @@ export default async function syncFolgen() {
       }
     });
 
-    const added = await FolgeModel.insertMany(addToDb);
+    const withInhalt = await Promise.all(addToDb.map(scrapeInhalt));
+
+    const added = await FolgeModel.insertMany(withInhalt);
     stats.successfullyAdded = added.map((f) => f.name);
 
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
@@ -75,5 +80,34 @@ export default async function syncFolgen() {
   } catch (error) {
     console.log(error);
     throw Error('Folgen sync error');
+  }
+}
+
+async function scrapeInhalt(folge: Folge) {
+  const normalizedName = folge.name
+    .toLowerCase()
+    // .replaceAll('und', '')
+    .trim()
+    .replaceAll(' ', '-')
+    .replaceAll('ä', 'a')
+    .replaceAll('ü', 'u')
+    .replaceAll('ö', 'o')
+    .replaceAll('ß', 'ss');
+
+  try {
+    const { data } = await Axios(
+      `https://dreifragezeichen.de/produktwelt/details/${normalizedName}`,
+    );
+
+    const html = cheerio.load(data);
+    const inhalt = html('#info-inhalt').find('p').text().trim();
+    console.log(normalizedName, 'success');
+    folge.inhalt = inhalt;
+    return folge;
+  } catch (error) {
+    console.log(normalizedName, 'unable to scrape');
+    // console.log(error);
+    // console.log(`Unable to get Inhalt for ${normalizedName}`);
+    return folge;
   }
 }
