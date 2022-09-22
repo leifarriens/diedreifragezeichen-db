@@ -21,10 +21,15 @@ const Button = styled.button<{
   border-color: ${({ color, ghost }) => !ghost && color && color};
   border: ${(props) => props.ghost && 'None'};
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: ${({ color }) => !color && colors.black};
     background-color: ${({ color }) => (color ? color : colors.white)};
     background-color: ${({ ghost, color }) => ghost && color};
+  }
+
+  :disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
   }
 `;
 

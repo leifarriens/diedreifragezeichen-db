@@ -5,6 +5,7 @@ export interface User {
   email: string;
   image: string;
   emailVerified: boolean;
+  role: 'User' | 'Admin';
   list: string[];
 }
 
@@ -18,6 +19,7 @@ const userSchema = new mongoose.Schema<User>(
     email: String,
     image: String,
     emailVerified: Boolean,
+    role: { type: String, default: 'User' },
     list: [
       {
         type: mongoose.Schema.Types.ObjectId,

@@ -8,6 +8,8 @@ import clientPromise from '@/db/authConn';
 
 const SESSION_MAX_AGE = 90 * 24 * 60 * 60; // 90 days
 
+// TODO: implement with getServerSession
+
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   return await NextAuth(req, res, {
     providers: [
@@ -35,6 +37,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
       session: async ({ session, user }) => {
         // append user id to req.session
         session.user.id = user.id;
+        // FIXME: user.role type
+        session.user.role = user.role;
         return Promise.resolve(session);
       },
     },

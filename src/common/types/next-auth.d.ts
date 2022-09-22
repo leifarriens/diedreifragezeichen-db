@@ -6,6 +6,7 @@ type User = {
   email: string;
   image: string | null;
   id: string;
+  role: 'User' | 'Admin';
 };
 
 declare module 'next-auth' {
