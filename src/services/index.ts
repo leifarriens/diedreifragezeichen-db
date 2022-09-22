@@ -1,4 +1,6 @@
-import { Folge } from '../common/models/folge';
+import { UpdateQuery } from 'mongoose';
+
+import { Folge, FolgeWithId } from '../common/models/folge';
 import Rating from '../common/models/rating';
 import { User } from '../common/models/user';
 
@@ -29,6 +31,15 @@ export async function getFolge(folgeId: string, options: FolgenOptions = {}) {
   const select = fields.join(' ');
 
   const folge = await Folge.findById(folgeId).select(select);
+
+  return folge;
+}
+
+export async function updateFolge(
+  folgeId: string,
+  update: UpdateQuery<FolgeWithId>,
+) {
+  const folge = await Folge.findByIdAndUpdate(folgeId, update, { new: true });
 
   return folge;
 }

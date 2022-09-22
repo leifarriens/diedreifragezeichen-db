@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
+import Button from '@/components/shared/Button';
 import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
@@ -13,7 +14,6 @@ import { getFolgen } from '@/services/index';
 import { applyFilter } from '@/utils/filter';
 import { parseMongo } from '@/utils/index';
 
-const ADMIN_IDS = process.env.ADMIN_IDS;
 const DATE_FORMAT = 'DD.MM.YYYY';
 
 export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
@@ -32,6 +32,7 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
           <img src={folge.images[1].url} alt={folge.name} />
           <div>
             <h3>{folge.name}</h3>
+            <h4>{folge.number}</h4>
             <div>
               Release Date: {dayjs(folge.release_date).format(DATE_FORMAT)}
             </div>
@@ -44,9 +45,21 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
               </span>
               <span>Popularity: {folge.community_popularity}</span>
             </div>
-            <Link href={`/folge/${folge._id}`}>
-              <a target="_blank">Open</a>
-            </Link>
+            <div className="buttons">
+              <Link href={`/admin/folgen/${folge._id}`}>
+                <Button as="a" size="small">
+                  Bearbeiten
+                </Button>
+              </Link>
+              <Button
+                as="a"
+                href={`/folge/${folge._id}`}
+                target="_blank"
+                size="small"
+              >
+                Öffnen
+              </Button>
+            </div>
           </div>
         </Item>
       ))}
@@ -66,6 +79,12 @@ const Item = styled.article`
     }
   }
 
+  .buttons {
+    ${Button} + ${Button} {
+      margin-left: 1em;
+    }
+  }
+
   * + * {
     margin-top: 0.8em;
   }
@@ -77,13 +96,14 @@ export const getServerSideProps = async ({
 }: GetServerSidePropsContext) => {
   const session = await getSession({ req });
 
-  if (!session || !ADMIN_IDS.split(',').includes(session.user.id)) {
+  if (!session || session.user.role !== 'Admin') {
     res.writeHead(302, {
       Location: '/',
     });
 
     return res.end();
   }
+
   await dbConnect();
 
   const folgen = parseMongo(await getFolgen());

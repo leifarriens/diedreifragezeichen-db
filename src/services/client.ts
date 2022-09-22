@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import type { Folge } from '@/models/folge';
+import type { Folge, FolgeWithId } from '@/models/folge';
 import type { Rating } from '@/models/rating';
 import type { UserWithId } from '@/models/user';
 
@@ -57,5 +57,17 @@ export async function getAltFolgen(folgeId: string) {
       fields: 'images,name,community_rating,number_of_community_ratings',
     },
   });
+  return data;
+}
+
+// Admin
+
+export async function getFolge(folgeId: string) {
+  const { data } = await API.get<Folge>(`/folgen/${folgeId}`);
+  return data;
+}
+
+export async function updateFolge(folge: FolgeWithId) {
+  const { data } = await API.patch<Folge>(`/folgen/${folge._id}`, folge);
   return data;
 }
