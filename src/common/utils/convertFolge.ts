@@ -15,17 +15,19 @@ export default function convertFolge({
 
   if (name.includes('/')) {
     folge.type = 'regular';
-    folge.number = name.split('/')[0];
+    // folge.number = name.split('/')[0];
     folge.name = name.split('/')[1].trim();
   } else if (name.includes(':')) {
     folge.type = 'regular';
-    folge.number = name.split(':')[0];
+    // folge.number = name.split(':')[0];
     folge.name = name.split(':')[1].trim();
   } else {
     folge.type = 'special';
-    folge.number = '';
+    // folge.number = '';
     folge.name = name;
   }
+
+  folge.number = name.match(/\d/g)?.join('') || '';
 
   return folge;
 }

@@ -29,8 +29,7 @@ const Header = () => {
     setSearchQuery('');
 
     if (router.route === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return router.replace('/', undefined, { shallow: true });
+      return window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     if (router.query.id) {

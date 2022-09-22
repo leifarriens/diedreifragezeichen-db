@@ -55,10 +55,6 @@ export default async function syncFolgen() {
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
     return {
-      inDb: {
-        amount: stats.inDb.length,
-        names: stats.inDb.map((entry) => entry.name),
-      },
       notInDb: {
         amount: stats.notInDb.length,
         names: stats.notInDb.map((entry) => entry.name),
@@ -66,6 +62,10 @@ export default async function syncFolgen() {
       added: {
         amount: stats.successfullyAdded.length,
         names: stats.successfullyAdded,
+      },
+      inDb: {
+        amount: stats.inDb.length,
+        names: stats.inDb.map((entry) => entry.name),
       },
       blacklist: {
         amount: stats.blacklisted.length,
