@@ -83,6 +83,7 @@ export default async function syncFolgen() {
   }
 }
 
+// TODO: should be replaced with approach from scripts/scrape-folgen-inhalt.js
 async function scrapeInhalt(folge: Folge) {
   const normalizedName = folge.name
     .toLowerCase()
