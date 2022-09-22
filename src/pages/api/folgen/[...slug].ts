@@ -8,7 +8,6 @@ import {
   getUserFolgenRating,
   postFolgenRating,
 } from '@/services/index';
-import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
