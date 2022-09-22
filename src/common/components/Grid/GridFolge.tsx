@@ -68,7 +68,11 @@ const GridFolge = React.memo(
               <Cover>
                 {image.loading && <Loader />}
                 <img
-                  style={{ display: image.loading ? 'none' : 'block' }}
+                  style={{
+                    opacity: image.loading ? 0 : 1,
+                    width: image.loading ? '0' : '100%',
+                    height: image.loading ? '0' : 'auto',
+                  }}
                   src={image.url}
                   alt={`${folge.name} Cover`}
                   onLoad={() =>

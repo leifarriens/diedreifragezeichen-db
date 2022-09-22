@@ -7,13 +7,15 @@ export const Cover = styled.div`
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   img {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    transition: border-radius 150ms ease-out;
+    transition: border-radius 150ms, opacity 500ms;
+    transition-timing-function: ease-out;
   }
 `;
 
