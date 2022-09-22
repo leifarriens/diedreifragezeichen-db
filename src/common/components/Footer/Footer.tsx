@@ -7,7 +7,7 @@ export default function Footer() {
   return (
     <>
       <PageFooter>
-        <Link href="/datenschutz">
+        <Link href="/">
           <a>Home</a>
         </Link>
 
