@@ -3,12 +3,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: false,
 });
 
-/**
- * @type {import('next').NextConfig}
- */
-module.exports = async (phase, { defaultConfig }) => {
-  const sharedConfig = {
-    ...defaultConfig,
+module.exports = async (phase) => {
+  /**
+   * @type {import('next').NextConfig}
+   */
+  const nextConfig = {
+    // ...cfg.defaultConfig,
+    swcMinify: true,
+    poweredByHeader: false,
     reactStrictMode: true,
     compiler: {
       styledComponents: true,
@@ -22,7 +24,6 @@ module.exports = async (phase, { defaultConfig }) => {
     images: {
       domains: ['i.scdn.co'],
     },
-    experimental: { images: { allowFutureImage: true } },
     async rewrites() {
       return [];
     },
@@ -37,7 +38,7 @@ module.exports = async (phase, { defaultConfig }) => {
   // development specific config
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
-      ...sharedConfig,
+      ...nextConfig,
       env: {
         // TODO: Implement
         minRatingsToDisplay: 1,
@@ -47,9 +48,7 @@ module.exports = async (phase, { defaultConfig }) => {
 
   // production specific config
   return withBundleAnalyzer({
-    ...sharedConfig,
-    swcMinify: true,
-    poweredByHeader: false,
+    ...nextConfig,
     compiler: {
       removeConsole: {
         exclude: ['error'],
