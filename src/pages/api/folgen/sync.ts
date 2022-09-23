@@ -14,18 +14,18 @@ export default async function handler(
 
     const { APP_KEY } = process.env;
 
-    const ACTION_KEY = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1];
+
+    if (token !== APP_KEY) {
+      return res.status(401).end('Invalid App Key provided');
+    }
 
     try {
-      if (ACTION_KEY === APP_KEY) {
-        await dbConnect();
+      await dbConnect();
 
-        const result = await syncFolgen();
+      const result = await syncFolgen();
 
-        return res.status(201).json(result);
-      } else {
-        return res.status(401).end('Invalid App Key provided');
-      }
+      return res.status(201).json(result);
     } catch (err) {
       console.error(err);
       res.status(500).end();

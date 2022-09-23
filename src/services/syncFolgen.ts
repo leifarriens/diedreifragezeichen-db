@@ -1,9 +1,10 @@
-import type { Folge } from '@/models/folge';
+import type { Folge, FolgeWithId } from '@/models/folge';
 import { Folge as FolgeModel } from '@/models/folge';
 import { SpotifyFolge } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
+import { getAllInhalte } from './inhalt.services';
 import { getAllAlbums, getBearerToken } from './spotify';
 
 export default async function syncFolgen() {
@@ -54,6 +55,8 @@ export default async function syncFolgen() {
 
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
+    await writeFolgenInhalte(added);
+
     return {
       notInDb: {
         amount: stats.notInDb.length,
@@ -75,5 +78,22 @@ export default async function syncFolgen() {
   } catch (error) {
     console.log(error);
     throw Error('Folgen sync error');
+  }
+}
+
+async function writeFolgenInhalte(folgen: FolgeWithId[]) {
+  const inhalte = await getAllInhalte();
+
+  for (let i = 0; i < folgen.length; i++) {
+    const folge = folgen[i];
+    const exp = folge.name.replace('und', '').replace('???', '').trim();
+    const entry = inhalte.find(({ name }) => new RegExp(exp, 'i').test(name));
+
+    const inhalt = entry ? entry.body : '';
+
+    await FolgeModel.updateOne(
+      { _id: folge._id },
+      { $set: { inhalt: inhalt } },
+    );
   }
 }

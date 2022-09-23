@@ -28,6 +28,7 @@
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.0.4",
     "axios": "^0.27.2",
+    "cheerio": "^1.0.0-rc.12",
     "dayjs": "^1.11.5",
     "gray-matter": "^4.0.3",
     "mongodb": "^4.10.0",
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
+    "@types/cli-progress": "^3.11.0",
     "@types/config": "^3.3.0",
     "@types/node": "^18.7.18",
     "@types/nprogress": "^0.2.0",
@@ -62,6 +64,7 @@
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
+    "cli-progress": "^3.11.2",
     "dotenv": "^16.0.2",
     "eslint": "^8.23.1",
     "eslint-config-next": "^12.2.5",

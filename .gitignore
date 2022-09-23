@@ -76,3 +76,5 @@ tsconfig.tsbuildinfo
 /swc
 
 next-env.d.ts
+
+scrape-result.json
