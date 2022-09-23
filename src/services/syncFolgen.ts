@@ -1,12 +1,10 @@
-import Axios from 'axios';
-import cheerio from 'cheerio';
-
-import type { Folge } from '@/models/folge';
+import type { Folge, FolgeWithId } from '@/models/folge';
 import { Folge as FolgeModel } from '@/models/folge';
 import { SpotifyFolge } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
+import { getAllInhalte } from './inhalt.services';
 import { getAllAlbums, getBearerToken } from './spotify';
 
 export default async function syncFolgen() {
@@ -52,12 +50,12 @@ export default async function syncFolgen() {
       }
     });
 
-    const withInhalt = await Promise.all(addToDb.map(scrapeInhalt));
-
-    const added = await FolgeModel.insertMany(withInhalt);
+    const added = await FolgeModel.insertMany(addToDb);
     stats.successfullyAdded = added.map((f) => f.name);
 
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
+
+    await writeFolgenInhalte(added);
 
     return {
       inDb: {
@@ -83,32 +81,19 @@ export default async function syncFolgen() {
   }
 }
 
-// TODO: should be replaced with approach from scripts/scrape-folgen-inhalt.js
-async function scrapeInhalt(folge: Folge) {
-  const normalizedName = folge.name
-    .toLowerCase()
-    // .replaceAll('und', '')
-    .trim()
-    .replaceAll(' ', '-')
-    .replaceAll('ä', 'a')
-    .replaceAll('ü', 'u')
-    .replaceAll('ö', 'o')
-    .replaceAll('ß', 'ss');
+async function writeFolgenInhalte(folgen: FolgeWithId[]) {
+  const inhalte = await getAllInhalte();
 
-  try {
-    const { data } = await Axios(
-      `https://dreifragezeichen.de/produktwelt/details/${normalizedName}`,
+  for (let i = 0; i < folgen.length; i++) {
+    const folge = folgen[i];
+    const exp = folge.name.replace('und', '').replace('???', '').trim();
+    const entry = inhalte.find(({ name }) => new RegExp(exp, 'i').test(name));
+
+    const inhalt = entry ? entry.body : '';
+
+    await FolgeModel.updateOne(
+      { _id: folge._id },
+      { $set: { inhalt: inhalt } },
     );
-
-    const html = cheerio.load(data);
-    const inhalt = html('#info-inhalt').find('p').text().trim();
-    console.log(normalizedName, 'success');
-    folge.inhalt = inhalt;
-    return folge;
-  } catch (error) {
-    console.log(normalizedName, 'unable to scrape');
-    // console.log(error);
-    // console.log(`Unable to get Inhalt for ${normalizedName}`);
-    return folge;
   }
 }
