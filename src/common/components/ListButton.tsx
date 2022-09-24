@@ -18,23 +18,23 @@ type ListButtonProps = {
 };
 
 function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
-  const { data: session } = useSession();
-  const { data } = useUser();
+  const { data: session, status } = useSession();
+  const { data: user, isLoading: userLoading } = useUser();
   const queryClient = useQueryClient();
   const [toasted, setToasted] = useState(false);
 
-  const isOnUserList = !data ? false : data.list.includes(folgeId);
+  const isOnUserList = !user ? false : user.list.includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } = useMutation(
     postFolgeList,
     {
       onMutate: (folgeId) => {
-        if (data) {
+        if (user) {
           const updatedUser = {
-            ...data,
-            list: [...data.list, folgeId],
+            ...user,
+            list: [...user.list, folgeId],
           };
-          queryClient.setQueryData(['user', data?._id], updatedUser);
+          queryClient.setQueryData(['user', user?._id], updatedUser);
         }
       },
       onSuccess: () => {
@@ -48,10 +48,10 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
     {
       onMutate: (folgeId) => {
         const updatedUser = {
-          ...data,
-          list: data?.list.filter((id) => id !== folgeId),
+          ...user,
+          list: user?.list.filter((id) => id !== folgeId),
         };
-        queryClient.setQueryData(['user', data?._id], updatedUser);
+        queryClient.setQueryData(['user', user?._id], updatedUser);
       },
       onSuccess: () => {
         setToasted(true);
@@ -69,6 +69,10 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
     }
 
     return mutateRemove(folgeId);
+  }
+
+  if (status === 'loading' || userLoading) {
+    return null;
   }
 
   if (isLoading) {
@@ -102,14 +106,7 @@ function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
           <BsBookmarkFill size={iconSize} />
         </button>
       )}
-      {/*       
-      <button onClick={handleClick} disabled={isLoading} aria-label="Merkliste">
-        {!isOnUserList ? (
-          <BsBookmark size={iconSize} />
-        ) : (
-          <BsBookmarkFill size={iconSize} />
-        )}
-      </button> */}
+
       {toasted && (
         <Toast
           duration={3000}
