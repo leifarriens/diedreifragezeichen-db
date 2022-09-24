@@ -57,14 +57,19 @@ export const Overlay = styled.div`
   background-size: 150%, auto, cover;
   background-repeat: no-repeat;
   transition: all 300ms ease-out;
-  filter: blur(16px) brightness(60%);
+  filter: blur(16px) brightness(50%);
   opacity: 0;
   border-radius: 12px;
-  /* animation-name: ${bgWobble}; */
+  animation-name: ${bgWobble};
   animation-play-state: paused;
-  animation-duration: 20s;
+  animation-duration: 18s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+
+  /* Disables animation in firefox due to bad performance */
+  @-moz-document url-prefix() {
+    animation-name: none;
+  }
 `;
 
 const hover = css`
@@ -79,8 +84,7 @@ const hover = css`
 
   ${Overlay} {
     opacity: 1;
-    /* FIXME: Massive performance descrease in firefox cpu usage */
-    /* animation-play-state: running; */
+    animation-play-state: running;
   }
 
   ${Background} {

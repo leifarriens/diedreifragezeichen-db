@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { breakpoints } from '@/constants/layout';
+
 export const Container = styled.div`
   padding-top: 2em;
   margin-bottom: 6em;
@@ -69,6 +71,12 @@ export const Background = styled.div<{ bigCover: boolean }>`
   @media screen and (min-width: 720px) {
     filter: blur(80px) brightness(35%);
   }
+
+  /* Disables blurred background on firefox due to bad filter performance */
+  @-moz-document url-prefix() {
+    /* filter: none; */
+    display: none;
+  }
 `;
 
 export const RatingContainer = styled.div`
@@ -87,15 +95,22 @@ export const ReleaseContainer = styled.div`
 export const Inhalt = styled.div`
   font-size: 1.1em;
   line-height: 150%;
-  color: #ddd;
-  padding: 2em;
-  background-color: rgba(0, 0, 0, 0.3);
+  color: #eee;
   border-radius: 8px;
   margin-bottom: 4em;
 
+  @media screen and (min-width: ${breakpoints.mobileHeader}) {
+    padding: 2em;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
   h3 {
     margin-bottom: 1em;
-    font-size: 1.25em;
+    font-size: 1.15em;
     font-weight: 500;
+  }
+
+  p {
+    text-align: justify;
   }
 `;
