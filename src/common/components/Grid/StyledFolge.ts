@@ -146,7 +146,8 @@ export const RatingBadge = styled.span`
   place-items: center;
   border-radius: 2px;
   padding: 2px 8px;
-  font-size: 1.15em;
+  min-width: 24px;
+  font-size: 1.1em;
   background-color: ${colors.lightblue};
 `;
 

@@ -17,7 +17,7 @@ type ListButtonProps = {
   iconSize?: string | number;
 };
 
-function ListButton({ folgeId, folgeName, iconSize = 18 }: ListButtonProps) {
+function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: session, status } = useSession();
   const { data: user, isLoading: userLoading } = useUser();
   const queryClient = useQueryClient();
