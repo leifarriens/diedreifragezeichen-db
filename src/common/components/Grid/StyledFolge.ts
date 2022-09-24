@@ -21,10 +21,10 @@ export const Cover = styled.div`
 
 const bgWobble = keyframes`
   0% {
-    transform: rotate(0deg) scale(4);
+    transform: rotate(0deg) scale(2);
   }
   100% {
-    transform: rotate(360deg) scale(4);
+    transform: rotate(360deg) scale(2);
   }
 `;
 
@@ -53,7 +53,6 @@ export const Overlay = styled.div`
   bottom: 0;
   z-index: -1;
   pointer-events: none;
-  background-position: center;
   background-size: 150%, auto, cover;
   background-repeat: no-repeat;
   transition: all 300ms ease-out;
@@ -62,7 +61,7 @@ export const Overlay = styled.div`
   border-radius: 12px;
   animation-name: ${bgWobble};
   animation-play-state: paused;
-  animation-duration: 18s;
+  animation-duration: 26s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 

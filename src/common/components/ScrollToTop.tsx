@@ -19,7 +19,7 @@ export default function ScrollToTop() {
     const { scrollY, innerHeight } = window;
 
     setVisible(scrollY >= 100);
-    setAtBottom(innerHeight + scrollY >= document.body.offsetHeight);
+    setAtBottom(innerHeight + scrollY >= document.body.offsetHeight - 20);
   };
 
   const handleClick = () => {
@@ -29,21 +29,35 @@ export default function ScrollToTop() {
   return (
     <ScrollTopContainer
       ref={scrollTopRef}
-      opacity={visible ? 1 : 0}
-      bottom={atBottom ? '36px' : '18px'}
+      style={{ opacity: visible ? 1 : 0 }}
+      // opacity={visible ? 1 : 0}
     >
-      <button aria-label="Scroll Top" onClick={handleClick}>
+      <button
+        aria-label="Scroll Top"
+        onClick={handleClick}
+        style={{
+          transform: atBottom ? `translateY(-100%)` : `translateY(0px)`,
+        }}
+      >
         <AiOutlineArrowUp size={32} />
       </button>
     </ScrollTopContainer>
   );
 }
 
-const ScrollTopContainer = styled.div<{ bottom: string; opacity: number }>`
+const ScrollTopContainer = styled.div`
   position: fixed;
   z-index: 555;
-  bottom: ${(props) => props.bottom};
-  right: 18px;
-  opacity: ${(props) => props.opacity};
+  bottom: 0;
+  right: 0;
+  opacity: 0;
   transition: all 200ms ease-in;
+  width: 80px;
+  height: 80px;
+  display: grid;
+  place-items: center;
+
+  button {
+    transition: transform 200ms ease-in;
+  }
 `;

@@ -1,3 +1,5 @@
+import { colors } from '@/constants/theme';
+
 export const parseMongo = <T>(mongoResponse: T): T => {
   return JSON.parse(JSON.stringify(mongoResponse));
 };
@@ -9,12 +11,14 @@ export const parseQueryParam = (param: string | string[] | undefined) => {
 export const setBodyBgByStyle = (sortBy: string) => {
   let style = '';
 
+  const gradient = `${colors.blueShades[0]} 0%, ${colors.blueShades[1]} 50%, ${colors.blueShades[2]} 100%`;
+
   switch (sortBy) {
     case 'dateAsc':
-      style = 'linear-gradient(0deg, #030f1a 0%, #001727 50%, #05182a 100%)';
+      style = `linear-gradient(0deg, ${gradient})`;
       break;
     case 'dateDesc':
-      style = 'linear-gradient(180deg, #030f1a 0%, #001727 50%, #05182a 100%)';
+      style = `linear-gradient(180deg, ${gradient})`;
       break;
     default:
       style = '';
