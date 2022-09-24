@@ -1,15 +1,25 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
 import { GlobalContext } from '@/context/GlobalContext';
+import { useDebounceEffect } from '@/hooks';
 
 const Search = () => {
   const ref = useRef<HTMLInputElement | null>(null);
   const { setSearchQuery, searchQuery } = useContext(GlobalContext);
+  const [value, setValue] = useState(searchQuery);
   const router = useRouter();
+
+  useDebounceEffect(
+    () => {
+      setSearchQuery(value);
+    },
+    [value],
+    50,
+  );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -25,17 +35,17 @@ const Search = () => {
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    setValue(e.target.value);
   };
 
-  const clearInput = () => setSearchQuery('');
+  const clearInput = () => setValue(''); //setSearchQuery('');
 
   return (
     <SearchContainer>
       <input
         ref={ref}
         name="search"
-        value={searchQuery}
+        value={value}
         placeholder="Name, Nummer oder Erscheinungsjahr"
         onKeyPress={handleKeyDown}
         onChange={handleSearchChange}
