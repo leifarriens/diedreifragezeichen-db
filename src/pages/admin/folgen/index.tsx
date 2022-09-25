@@ -31,9 +31,11 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
           <Background
             style={{ backgroundImage: `url(${folge.images[1].url})` }}
           />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={folge.images[1].url} alt={folge.name} />
-          <div>
+          <div className="cover">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={folge.images[1].url} alt={folge.name} />
+          </div>
+          <div className="info">
             <h3>{folge.name}</h3>
             <h4>{folge.number}</h4>
             <div>
@@ -65,7 +67,7 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
             </div>
           </div>
 
-          <div>
+          <div className="inhalt">
             <p>{folge.inhalt}</p>
           </div>
         </Item>
@@ -89,17 +91,27 @@ const Background = styled.div`
 const Item = styled.article`
   margin-bottom: 1em;
   display: grid;
-  grid-template-columns: 220px auto 1fr;
+  grid-template-columns: 220px 1fr auto;
   column-gap: 1em;
   background-color: rgba(25, 25, 25, 0.5);
-  padding: 1em;
+  padding: 1.45em;
   position: relative;
   overflow: hidden;
   border-radius: 12px;
 
-  .stats {
-    span {
-      margin-right: 2em;
+  .cover {
+    align-self: flex-start;
+  }
+
+  .info {
+    * + * {
+      margin-top: 0.8em;
+    }
+
+    .stats {
+      span {
+        margin-right: 2em;
+      }
     }
   }
 
@@ -109,8 +121,10 @@ const Item = styled.article`
     }
   }
 
-  * + * {
-    margin-top: 0.8em;
+  .inhalt {
+    max-width: 72ch;
+    max-height: 32ch;
+    overflow: auto;
   }
 `;
 

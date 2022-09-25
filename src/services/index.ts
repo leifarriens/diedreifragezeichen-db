@@ -144,7 +144,7 @@ export async function getAltFolgen(id: string, options: FolgenOptions = {}) {
 }
 
 export async function getUserWithList(userId: string) {
-  return User.findById(userId).populate<{ list: Folge[] }>({
+  return User.findById(userId).populate<{ list: FolgeWithId[] }>({
     path: 'list',
     options: { sort: ['updated_at'] },
   });
