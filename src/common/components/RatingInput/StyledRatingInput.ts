@@ -25,7 +25,7 @@ export const IconContainer = styled.label`
     opacity: 0;
 
     &::-webkit-slider-thumb {
-      width: 30px;
+      width: 40px;
       height: 60px;
     }
 
