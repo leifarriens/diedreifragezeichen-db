@@ -75,7 +75,7 @@ const Header = () => {
                   aria-label="Ausloggen"
                   ghost={true}
                   color={colors.red}
-                  onClick={() => signOut()}
+                  onClick={() => signOut({ callbackUrl: '/', redirect: true })}
                 >
                   Abmelden
                 </Button>
