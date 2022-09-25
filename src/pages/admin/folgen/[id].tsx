@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
 import Button from '@/components/shared/Button';
-import { Form, Input, Select } from '@/components/shared/Input';
+import { Form, Input, Select, Textarea } from '@/components/shared/Input';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { FolgeWithId } from '@/models/folge';
@@ -19,6 +19,7 @@ type FormValues = {
   name: string;
   number: string;
   type: string;
+  inhalt: string;
 };
 
 export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
@@ -35,7 +36,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   const isTouched = Object.keys(formState.touchedFields).length > 0;
 
   return (
-    <Wrapper maxWidth="520px">
+    <Wrapper maxWidth="720px">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Id</span>
@@ -68,14 +69,25 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
           </Select>
         </label>
 
-        <Link href={`/folge/${folge._id}`} target="_blank">
-          <Button as="a">Öffnen</Button>
-        </Link>
+        <label>
+          <span>Inhalt</span>
+
+          <Textarea
+            {...register('inhalt')}
+            // eslint-disable-next-line no-inline-styles/no-inline-styles
+            style={{ height: '225px' }}
+            defaultValue={folge.inhalt}
+          />
+        </label>
 
         <Button type="submit" disabled={!isTouched || isLoading}>
           Speichern
         </Button>
       </Form>
+
+      <Link href={`/folge/${folge._id}`} target="_blank">
+        <Button as="a">Öffnen</Button>
+      </Link>
     </Wrapper>
   );
 }

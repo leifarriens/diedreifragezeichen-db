@@ -17,11 +17,19 @@ const shared = css`
 `;
 
 export const Input = styled.input`
-  ${shared}
+  ${shared};
 `;
 
 export const Select = styled.select`
-  ${shared}
+  ${shared};
+`;
+
+export const Textarea = styled.textarea`
+  ${shared};
+
+  resize: vertical;
+  min-height: 80px;
+  max-height: 640px;
 `;
 
 export const Form = styled.form`

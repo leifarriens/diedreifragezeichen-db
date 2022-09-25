@@ -28,6 +28,9 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
     <Wrapper>
       {filteredFolgen.map((folge) => (
         <Item key={folge._id}>
+          <Background
+            style={{ backgroundImage: `url(${folge.images[1].url})` }}
+          />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={folge.images[1].url} alt={folge.name} />
           <div>
@@ -61,17 +64,38 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
               </Button>
             </div>
           </div>
+
+          <div>
+            <p>{folge.inhalt}</p>
+          </div>
         </Item>
       ))}
     </Wrapper>
   );
 }
 
+const Background = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(36px) brightness(50%);
+`;
+
 const Item = styled.article`
   margin-bottom: 1em;
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 220px auto 1fr;
   column-gap: 1em;
+  background-color: rgba(25, 25, 25, 0.5);
+  padding: 1em;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
 
   .stats {
     span {
