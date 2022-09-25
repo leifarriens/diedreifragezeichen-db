@@ -54,7 +54,7 @@ export async function getUser() {
 export async function getAltFolgen(folgeId: string) {
   const { data } = await API.get<Folge[]>(`/folgen/${folgeId}/alts`, {
     params: {
-      fields: 'images,name,community_rating,number_of_community_ratings',
+      fields: 'images,name,rating,number_of_ratings',
     },
   });
   return data;

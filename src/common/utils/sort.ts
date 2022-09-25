@@ -8,9 +8,9 @@ export const sortFolgen = (folgen: Folge[], sortBy = 'dateDesc') => {
       return sortFolgenByDateAsc(folgen);
     case 'dateDesc':
       return sortFolgenByDateDesc(folgen);
-    case 'community_rating':
+    case 'rating':
       return sortFolgenByRating(folgen);
-    case 'community_popularity':
+    case 'popularity':
       return sortByPopularity(folgen);
     default:
       return sortFolgenByDateDesc(folgen);
@@ -19,7 +19,7 @@ export const sortFolgen = (folgen: Folge[], sortBy = 'dateDesc') => {
 
 const sortFolgenByRating = (folgen: Folge[]) => {
   const sorted = [...folgen].sort((a, b) => {
-    return a.community_rating - b.community_rating;
+    return a.rating - b.rating;
   });
 
   return sorted.reverse();
@@ -47,7 +47,7 @@ const sortFolgenByDateDesc = (folgen: Folge[]) => {
 
 const sortByPopularity = (folgen: Folge[]) => {
   const sorted = [...folgen].sort((a, b) => {
-    return a.community_popularity - b.community_popularity;
+    return a.popularity - b.popularity;
   });
 
   return sorted.reverse();

@@ -88,8 +88,8 @@ const GridFolge = React.memo(
           <div className="bottom">
             <div>
               <CommunityRating
-                numerOfRatings={folge.number_of_community_ratings}
-                rating={folge.community_rating}
+                numerOfRatings={folge.number_of_ratings}
+                rating={folge.rating}
               />
               <div className="release">
                 {dayjs(folge.release_date).format('DD.MM.YYYY')}

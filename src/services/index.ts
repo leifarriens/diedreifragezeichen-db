@@ -63,7 +63,7 @@ export async function postFolgenRating({
     throw Error('Folge not found');
   }
 
-  const rating = await Rating.findOneAndUpdate(
+  const ratingResult = await Rating.findOneAndUpdate(
     {
       user: userId,
       folge: folgeId,
@@ -82,15 +82,15 @@ export async function postFolgenRating({
     return curr + acc.value;
   }, 0) as number;
 
-  const community_rating = ratingsSum / folgenRatings.length;
+  const rating = ratingsSum / folgenRatings.length;
 
-  folge.community_rating = parseFloat(community_rating.toFixed(1));
-  folge.number_of_community_ratings = folgenRatings.length;
-  folge.community_popularity = ratingsSum;
+  folge.rating = parseFloat(rating.toFixed(1));
+  folge.number_of_ratings = folgenRatings.length;
+  folge.popularity = ratingsSum;
 
   await folge.save();
 
-  return rating;
+  return ratingResult;
 }
 
 export async function getUserRatings(

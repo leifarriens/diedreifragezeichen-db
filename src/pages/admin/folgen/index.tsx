@@ -44,11 +44,9 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
             <div>Updated At: {dayjs(folge.updated_at).format(DATE_FORMAT)}</div>
             <div>{folge.type}</div>
             <div className="stats">
-              <span>Rating: {folge.community_rating}</span>
-              <span>
-                Number of Ratings: {folge.number_of_community_ratings}
-              </span>
-              <span>Popularity: {folge.community_popularity}</span>
+              <span>Rating: {folge.rating}</span>
+              <span>Number of Ratings: {folge.number_of_ratings}</span>
+              <span>Popularity: {folge.popularity}</span>
             </div>
             <div className="buttons">
               <Link href={`/admin/folgen/${folge._id}`}>

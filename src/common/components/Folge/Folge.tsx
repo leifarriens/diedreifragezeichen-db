@@ -25,8 +25,8 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
     name,
     release_date,
     _id,
-    number_of_community_ratings,
-    community_rating,
+    number_of_ratings,
+    rating,
     number,
     spotify_id,
   } = folge;
@@ -57,8 +57,8 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
 
           <RatingContainer>
             <CommunityRating
-              numerOfRatings={number_of_community_ratings}
-              rating={community_rating}
+              numerOfRatings={number_of_ratings}
+              rating={rating}
             />
           </RatingContainer>
 

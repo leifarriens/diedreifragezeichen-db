@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export enum SortOptionsEnum {
   dateDesc = 'dateDesc',
   dateAsc = 'dateAsc',
-  rating = 'community_rating',
-  popularity = 'community_popularity',
+  rating = 'rating',
+  popularity = 'popularity',
 }
 
 type SortProps = {
