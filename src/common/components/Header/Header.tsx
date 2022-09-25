@@ -28,8 +28,6 @@ const Header = () => {
 
   const { width } = useWindowSize();
 
-  console.log(width);
-
   const handleHomeClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 

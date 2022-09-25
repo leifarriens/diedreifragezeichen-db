@@ -106,7 +106,7 @@ export const Inhalt = styled.div`
 
   h3 {
     margin-bottom: 1em;
-    font-size: 1.15em;
+    font-size: 1.25em;
     font-weight: 500;
   }
 

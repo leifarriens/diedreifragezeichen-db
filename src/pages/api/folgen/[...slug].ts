@@ -102,7 +102,7 @@ const handleGetUserRating = async (
 
   const rating = await getUserFolgenRating({ folgeId: id, userId });
 
-  if (!rating) return res.status(404).end();
+  if (!rating) return res.status(404).send('Not found');
 
   return res.json(rating);
 };

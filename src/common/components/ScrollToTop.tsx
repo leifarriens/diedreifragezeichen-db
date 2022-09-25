@@ -27,11 +27,7 @@ export default function ScrollToTop() {
   };
 
   return (
-    <ScrollTopContainer
-      ref={scrollTopRef}
-      style={{ opacity: visible ? 1 : 0 }}
-      // opacity={visible ? 1 : 0}
-    >
+    <ScrollTopContainer ref={scrollTopRef} style={{ opacity: visible ? 1 : 0 }}>
       <button
         aria-label="Scroll Top"
         onClick={handleClick}
@@ -47,7 +43,7 @@ export default function ScrollToTop() {
 
 const ScrollTopContainer = styled.div`
   position: fixed;
-  z-index: 555;
+  z-index: 15;
   bottom: 0;
   right: 0;
   opacity: 0;

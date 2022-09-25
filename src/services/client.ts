@@ -67,7 +67,7 @@ export async function getFolge(folgeId: string) {
   return data;
 }
 
-export async function updateFolge(folge: FolgeWithId) {
+export async function updateFolge(folge: Partial<FolgeWithId>) {
   const { data } = await API.patch<Folge>(`/folgen/${folge._id}`, folge);
   return data;
 }

@@ -37,7 +37,7 @@ export async function getFolge(folgeId: string, options: FolgenOptions = {}) {
 
 export async function updateFolge(
   folgeId: string,
-  update: UpdateQuery<FolgeWithId>,
+  update: UpdateQuery<Partial<FolgeWithId>>,
 ) {
   const folge = await Folge.findByIdAndUpdate(folgeId, update, { new: true });
 

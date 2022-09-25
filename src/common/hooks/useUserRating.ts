@@ -15,7 +15,7 @@ export function useUserRating(
   const { data: session, status } = useSession();
   const queryClient = useQueryClient();
 
-  const queryKey = [folge_id, session?.user.id];
+  const queryKey = [folge_id, session?.user.id, 'rating'];
 
   const query = useQuery<number, AxiosError>(
     queryKey,

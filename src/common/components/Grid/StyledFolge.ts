@@ -14,7 +14,7 @@ export const Cover = styled.div`
   img {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     border-radius: 12px;
-    transition: border-radius 150ms, opacity 500ms;
+    transition: border-radius 150ms, opacity 650ms ease-in;
     transition-timing-function: ease-out;
   }
 `;
@@ -98,7 +98,7 @@ const hover = css`
 `;
 
 export const FolgeContainer = styled.article`
-  z-index: 1;
+  /* z-index: 1; */
   position: relative;
   width: 100%;
   background-size: cover;
