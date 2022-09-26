@@ -4,7 +4,7 @@ import { colors } from '@/constants/theme';
 
 const shared = css`
   font-family: inherit;
-  font-size: 1em;
+  font-size: 16px;
   width: 100%;
   display: inline-block;
   border: 1px solid ${colors.white};
