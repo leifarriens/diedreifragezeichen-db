@@ -3,10 +3,12 @@ import '@/styles/nprogress.css';
 
 import { AppProps } from 'next/app';
 import Router from 'next/router';
+import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 import { GlobalProvider } from '@/context/GlobalContext';
 import Page from '@/layout/Page';
@@ -23,7 +25,7 @@ Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
   return (
     <>
       <DefaultSeo
@@ -45,6 +47,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             </Page>
           </GlobalProvider>
         </SessionProvider>
+        {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
       </QueryClientProvider>
     </>
   );

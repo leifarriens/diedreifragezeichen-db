@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -18,7 +17,6 @@ export default function Layout({ children }: LayoutProps) {
       <Main>{children}</Main>
       <Footer />
       <ScrollToTop />
-      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
     </div>
   );
 }
