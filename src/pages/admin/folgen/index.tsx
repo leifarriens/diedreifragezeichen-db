@@ -128,16 +128,16 @@ const Item = styled.article`
 
 export const getServerSideProps = async ({
   req,
-  res,
 }: GetServerSidePropsContext) => {
   const session = await getSession({ req });
 
   if (!session || session.user.role !== 'Admin') {
-    res.writeHead(302, {
-      Location: '/',
-    });
-
-    return res.end();
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
   }
 
   await dbConnect();

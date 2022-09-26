@@ -10,12 +10,12 @@ import { UserWithId } from '@/models/user';
 import { getUserWithList } from '@/services/index';
 import { parseMongo } from '@/utils/index';
 
-interface UserWithlist extends UserWithId {
+type UserWithList = {
   list: Folge[];
-}
+} & Omit<UserWithId, 'list'>;
 
 type MerklistePageProps = {
-  user: UserWithlist;
+  user: UserWithList;
 };
 
 function Merkliste({ user }: MerklistePageProps) {
@@ -32,16 +32,16 @@ function Merkliste({ user }: MerklistePageProps) {
 
 export const getServerSideProps = async ({
   req,
-  res,
 }: GetServerSidePropsContext) => {
   const session = await getSession({ req });
 
   if (!session) {
-    res.writeHead(302, {
-      Location: '/api/auth/signin',
-    });
-
-    return res.end();
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    };
   }
 
   await dbConnect();

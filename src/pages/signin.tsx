@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { getProviders, getSession } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
@@ -17,7 +17,7 @@ export default function SignIn({
 
   return (
     <>
-      <NextSeo title="Anmelden & Mitmachen" />
+      <NextSeo title="Anmelden &amp; Mitmachen" />
 
       <Wrapper maxWidth="720px">
         <LoginForm providers={providers} error={error} />
@@ -26,19 +26,20 @@ export default function SignIn({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { res, query } = context;
-  const session = await getSession(context);
+export const getServerSideProps = async ({
+  req,
+  query,
+}: GetServerSidePropsContext) => {
+  const session = await getSession({ req });
 
   const { callbackUrl } = query;
 
-  if (session && res) {
-    res.writeHead(302, {
-      Location: callbackUrl || process.env.NEXTAUTH_URL,
-    });
-    res.end();
+  if (session) {
     return {
-      props: {},
+      redirect: {
+        destination: callbackUrl || process.env.NEXTAUTH_URL,
+        permanent: false,
+      },
     };
   }
 

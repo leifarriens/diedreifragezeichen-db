@@ -98,7 +98,6 @@ type Params = {
 
 export async function getServerSideProps({
   req,
-  res,
   params,
 }: GetServerSidePropsContext) {
   await dbConnect();
@@ -106,11 +105,12 @@ export async function getServerSideProps({
   const session = await getSession({ req });
 
   if (!session || session.user.role !== 'Admin') {
-    res.writeHead(302, {
-      Location: '/',
-    });
-
-    return res.end();
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
   }
 
   const { id } = params as Params;
