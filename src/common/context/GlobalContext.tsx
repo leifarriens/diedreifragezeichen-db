@@ -1,5 +1,5 @@
 import qs from 'qs';
-import React, { ReactNode, useEffect, useReducer } from 'react';
+import React, { ReactNode, useCallback, useEffect, useReducer } from 'react';
 
 import { SortOptionsEnum } from '@/components/Grid/Sort';
 
@@ -37,6 +37,30 @@ export const GlobalProvider = ({
 }) => {
   const [state, dispatch] = useReducer(GlobalReducer, initalState);
 
+  const setSearchQuery = useCallback((query: string) => {
+    dispatch({
+      type: ActionKind.SET_SEARCH_QUERY,
+      payload: query,
+    });
+  }, []);
+
+  const setSortBy = useCallback((sortBy: string) => {
+    sessionStorage.setItem(StorageNames.SORT_BY, sortBy);
+    dispatch({
+      type: ActionKind.SET_SORT_BY,
+      payload: sortBy,
+    });
+  }, []);
+
+  const setShowSpecials = useCallback((show: boolean) => {
+    localStorage.setItem(StorageNames.SHOW_SPECIALS, JSON.stringify(show));
+
+    dispatch({
+      type: ActionKind.SET_SHOW_SPECIALS,
+      payload: show,
+    });
+  }, []);
+
   useEffect(() => {
     const show = localStorage.getItem(StorageNames.SHOW_SPECIALS)
       ? JSON.parse(localStorage.getItem(StorageNames.SHOW_SPECIALS) || '')
@@ -55,31 +79,7 @@ export const GlobalProvider = ({
     });
     const searchQuery = queryString.search?.toString() || '';
     setSearchQuery(searchQuery);
-  }, []);
-
-  function setShowSpecials(show: boolean) {
-    localStorage.setItem(StorageNames.SHOW_SPECIALS, JSON.stringify(show));
-
-    dispatch({
-      type: ActionKind.SET_SHOW_SPECIALS,
-      payload: show,
-    });
-  }
-
-  function setSearchQuery(query: string) {
-    dispatch({
-      type: ActionKind.SET_SEARCH_QUERY,
-      payload: query,
-    });
-  }
-
-  function setSortBy(sortBy: string) {
-    sessionStorage.setItem(StorageNames.SORT_BY, sortBy);
-    dispatch({
-      type: ActionKind.SET_SORT_BY,
-      payload: sortBy,
-    });
-  }
+  }, [setSortBy, setSearchQuery, setShowSpecials]);
 
   return (
     <GlobalContext.Provider

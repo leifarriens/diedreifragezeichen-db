@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export function useDebounce<T>(value: T, delay = 1000) {
   const [state, setState] = useState(value);
@@ -26,5 +26,5 @@ export function useDebounceEffect(
 
     return () => clearTimeout(debounce);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [delay].concat(deps));
+  }, [delay, ...(deps || [])]);
 }

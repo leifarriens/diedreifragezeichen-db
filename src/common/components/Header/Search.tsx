@@ -17,7 +17,7 @@ const Search = () => {
     () => {
       setSearchQuery(value);
     },
-    [value],
+    [value, setSearchQuery],
     50,
   );
 

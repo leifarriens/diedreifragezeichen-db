@@ -69,7 +69,7 @@ const Grid = (props: GridProps) => {
     <GridContainer>
       {withUi && (
         <GridUI>
-          <Sort currentSort={sortBy} onSortChange={(by) => setSortBy(by)} />
+          <Sort currentSort={sortBy} onSortChange={setSortBy} />
           <Switch
             id="confirm"
             checked={showSpecials}
