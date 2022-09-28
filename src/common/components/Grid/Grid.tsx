@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import React, { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
@@ -6,10 +7,12 @@ import { useGlobalState } from '@/context/GlobalContext';
 import { Folge } from '@/models/folge';
 import { Rating } from '@/models/rating';
 import { getUserRatings } from '@/services/client';
+import { YearRange } from '@/types';
 import { applyFilter } from '@/utils/filter';
 
 import Switch from '../shared/Switch';
 import GridFolge from './GridFolge';
+import MultiRangeInput from './MultiRangeInput';
 import Sort from './Sort';
 import {
   FolgenContainer,
@@ -30,6 +33,11 @@ const Grid = (props: GridProps) => {
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGlobalState();
+
+  const [yearRange, setYearRange] = useState({
+    min: 1979,
+    max: dayjs().year(),
+  });
 
   const [folgen, setFolgen] = useState(props.folgen);
 
@@ -62,26 +70,43 @@ const Grid = (props: GridProps) => {
       showSpecials,
       searchQuery,
       sortBy,
+      yearRange: {
+        min: dayjs().year(yearRange.min).toDate(),
+        max: dayjs().year(yearRange.max).toDate(),
+      },
     });
-  }, [folgen, showSpecials, searchQuery, sortBy, withFilters]);
+  }, [folgen, showSpecials, searchQuery, sortBy, withFilters, yearRange]);
 
   return (
     <GridContainer>
       {withUi && (
-        <GridUI>
-          <Sort currentSort={sortBy} onSortChange={setSortBy} />
-          <Switch
-            id="confirm"
-            checked={showSpecials}
-            onChange={handleCheckboxChange}
-          />
+        <>
+          <GridUI>
+            <Sort currentSort={sortBy} onSortChange={setSortBy} />
+
+            <div />
+            <Switch
+              id="confirm"
+              checked={showSpecials}
+              onChange={handleCheckboxChange}
+            />
+
+            <MultiRangeInput
+              min={1979}
+              max={dayjs().year()}
+              onChange={setYearRange}
+            />
+
+            <div />
+          </GridUI>
+
           <FolgenCounter>
             <span>
               {filteredFolgen.length}{' '}
               {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
             </span>
           </FolgenCounter>
-        </GridUI>
+        </>
       )}
 
       {props.folgen && props.folgen.length > 0 && (

@@ -38,18 +38,14 @@ export default function Sort({ currentSort, onSortChange }: SortProps) {
   );
 }
 
-const SortContainer = styled.span`
-  display: inline-flex;
-  margin-right: 12px;
+const SortContainer = styled.div`
+  display: flex;
 `;
 
 const Label = styled.label`
   cursor: pointer;
   width: 100%;
-
-  @media (min-width: 744px) {
-    width: auto;
-  }
+  display: block;
 
   input {
     opacity: 0;

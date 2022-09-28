@@ -8,12 +8,12 @@ export const GridUI = styled.div`
   margin-top: 22px;
   margin-bottom: 22px;
   display: grid;
-  row-gap: 12px;
-  column-gap: 12px;
+  row-gap: 1em;
+  column-gap: 2em;
   align-items: center;
 
-  @media (min-width: 744px) {
-    grid-template-columns: 1fr auto;
+  @media (min-width: 820px) {
+    grid-template-columns: 420px 1fr auto;
   }
 `;
 
@@ -45,6 +45,8 @@ export const FolgenContainer = styled.div`
 `;
 
 export const FolgenCounter = styled.div`
+  margin-bottom: 2em;
+
   > :not(:last-child) {
     margin-right: 12px;
   }

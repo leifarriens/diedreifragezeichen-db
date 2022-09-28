@@ -2,7 +2,7 @@ $checkWidth: 50px;
 $checkHeight: 24px;
 
 [type='checkbox'] {
-  position: relative;
+  position: fixed;
   left: $checkHeight;
   top: 0px;
   opacity: 0;

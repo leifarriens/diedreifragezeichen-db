@@ -37,4 +37,9 @@ export type SpotifyFolge = {
 //   list: string[];
 // };
 
+export type YearRange = {
+  min: Date;
+  max: Date;
+};
+
 export type MongoId = mongoose.Types.ObjectId | string;
