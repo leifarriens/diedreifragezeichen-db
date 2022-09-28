@@ -17,8 +17,8 @@ const Search = () => {
     () => {
       setSearchQuery(value);
     },
-    [value, setSearchQuery],
     50,
+    [value, setSearchQuery],
   );
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

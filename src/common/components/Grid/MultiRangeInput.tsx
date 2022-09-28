@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 import { colors } from '@/constants/theme';
+import { useDebounceEffect } from '@/hooks';
 
 type ChangeEvent = {
   min: number;
@@ -50,9 +51,14 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
     }
   }, [maxVal, getPercent]);
 
-  useEffect(() => {
-    onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
+  useDebounceEffect(
+    () => {
+      onChange({ min: minVal, max: maxVal });
+    },
+
+    150,
+    [minVal, maxVal, onChange],
+  );
 
   return (
     <Container>
@@ -135,6 +141,13 @@ const Container = styled.div`
       font-weight: 400;
       display: flex;
       justify-content: space-between;
+
+      span {
+        text-align: center;
+        &:first-of-type {
+          margin-right: 0.5em;
+        }
+      }
     }
   }
 `;

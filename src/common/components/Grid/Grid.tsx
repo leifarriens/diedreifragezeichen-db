@@ -7,7 +7,6 @@ import { useGlobalState } from '@/context/GlobalContext';
 import { Folge } from '@/models/folge';
 import { Rating } from '@/models/rating';
 import { getUserRatings } from '@/services/client';
-import { YearRange } from '@/types';
 import { applyFilter } from '@/utils/filter';
 
 import Switch from '../shared/Switch';

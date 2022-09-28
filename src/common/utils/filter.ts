@@ -10,7 +10,11 @@ export const filterSpecial = (folgen: Folge[], showSpecials = true) => {
     : folgen;
 };
 
-export const filterYearRange = (folgen: Folge[], yearRange: YearRange) => {
+export const filterYearRange = (
+  folgen: Folge[],
+  yearRange: YearRange | undefined,
+) => {
+  if (!yearRange) return folgen;
   return folgen.filter((folge) => {
     const release = dayjs(folge.release_date);
     return (
@@ -41,7 +45,7 @@ type FilterOptions = {
   showSpecials?: boolean;
   searchQuery: string;
   sortBy?: string;
-  yearRange: YearRange;
+  yearRange?: YearRange;
 };
 
 export const applyFilter = (
@@ -51,7 +55,7 @@ export const applyFilter = (
   let filtered: Folge[] = [];
 
   filtered = filterSpecial(folgen, showSpecials);
-  filtered = filterYearRange(folgen, yearRange);
+  filtered = filterYearRange(filtered, yearRange);
   filtered = filterByQuery(filtered, searchQuery);
   filtered = sortFolgen(filtered, sortBy);
 

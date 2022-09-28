@@ -16,14 +16,13 @@ export function useDebounce<T>(value: T, delay = 1000) {
 
 export function useDebounceEffect(
   effect: React.EffectCallback,
-  deps?: React.DependencyList | undefined,
   delay = 500,
+  deps?: React.DependencyList | undefined,
 ) {
   useEffect(() => {
     const debounce = setTimeout(() => {
       effect();
     }, delay);
-
     return () => clearTimeout(debounce);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [delay, ...(deps || [])]);
