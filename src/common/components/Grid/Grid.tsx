@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { useGlobalState } from '@/context/GlobalContext';
@@ -27,16 +27,18 @@ type GridProps = {
   withUi?: boolean;
 };
 
+const initialYearRange = {
+  min: 1979,
+  max: dayjs().year(),
+};
+
 const Grid = (props: GridProps) => {
   const { data: session, status } = useSession();
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGlobalState();
 
-  const [yearRange, setYearRange] = useState({
-    min: 1979,
-    max: dayjs().year(),
-  });
+  const [yearRange, setYearRange] = useState(initialYearRange);
 
   const [folgen, setFolgen] = useState(props.folgen);
 
@@ -76,6 +78,15 @@ const Grid = (props: GridProps) => {
     });
   }, [folgen, showSpecials, searchQuery, sortBy, withFilters, yearRange]);
 
+  useEffect(() => {
+    if (
+      yearRange.min !== initialYearRange.min ||
+      yearRange.max !== initialYearRange.max
+    ) {
+      window.scrollTo({ top: 0 });
+    }
+  }, [yearRange]);
+
   return (
     <GridContainer>
       {withUi && (
@@ -83,20 +94,17 @@ const Grid = (props: GridProps) => {
           <GridUI>
             <Sort currentSort={sortBy} onSortChange={setSortBy} />
 
-            <div />
-            <Switch
-              id="confirm"
-              checked={showSpecials}
-              onChange={handleCheckboxChange}
-            />
-
             <MultiRangeInput
               min={1979}
               max={dayjs().year()}
               onChange={setYearRange}
             />
 
-            <div />
+            <Switch
+              id="confirm"
+              checked={showSpecials}
+              onChange={handleCheckboxChange}
+            />
           </GridUI>
 
           <FolgenCounter>
