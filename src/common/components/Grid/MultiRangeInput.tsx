@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { colors } from '@/constants/theme';
 import { useDebounceEffect } from '@/hooks';
 
-type ChangeEvent = {
+export type RangeChangeEvent = {
   min: number;
   max: number;
 };
@@ -13,7 +13,7 @@ type ChangeEvent = {
 type MultiRangeInputProps = {
   min: number;
   max: number;
-  onChange: (event: ChangeEvent) => void;
+  onChange: (event: RangeChangeEvent) => void;
 };
 
 const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
@@ -106,8 +106,10 @@ const Container = styled.div`
   --slider-height: 8px;
   position: relative;
   width: 100%;
-  padding-bottom: 18px;
-  margin: 1em 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  min-height: 3em;
 
   .track,
   .range {
@@ -156,7 +158,7 @@ const thumb = css`
   background-color: ${colors.white};
   border: none;
   border-radius: 50%;
-  box-shadow: 0 0 1px 1px ${colors.gray};
+  box-shadow: 0 0 4px ${colors.gray};
   cursor: pointer;
   height: var(--thumb-size);
   width: var(--thumb-size);
@@ -164,7 +166,7 @@ const thumb = css`
 `;
 
 const RangeInput = styled.input`
-  --thumb-size: 20px;
+  --thumb-size: 24px;
   height: 8px;
   box-shadow: none !important;
 

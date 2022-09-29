@@ -8,11 +8,15 @@ export const GridUI = styled.div`
   margin-top: 22px;
   margin-bottom: 22px;
   display: grid;
-  row-gap: 1em;
+  row-gap: 2em;
   column-gap: 2em;
   align-items: center;
 
   @media (min-width: 820px) {
+    grid-template-columns: 420px 1fr;
+  }
+
+  @media (min-width: 1180px) {
     grid-template-columns: 420px 1fr auto;
   }
 `;

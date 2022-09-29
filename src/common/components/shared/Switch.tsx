@@ -8,10 +8,10 @@ interface SwitchProps {
 
 const Switch = ({ ...rest }: SwitchProps) => {
   return (
-    <span>
+    <div>
       <input type="checkbox" {...rest} />
       <label htmlFor="confirm">Specials anzeigen</label>
-    </span>
+    </div>
   );
 };
 
