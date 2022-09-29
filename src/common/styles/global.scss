@@ -13,7 +13,6 @@ $blue: #00a5e7;
   --font-size-base: 12px;
   --color-bg: #001727;
   --color-text: #fff;
-  color-scheme: dark;
   --ui-outline: 0 0 0 0.2em hsl(197, 100%, 80%);
 }
 
@@ -26,6 +25,12 @@ $blue: #00a5e7;
 @media screen and (min-width: 744px) {
   :root {
     --font-size-base: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
   }
 }
 

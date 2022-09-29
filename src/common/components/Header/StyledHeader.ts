@@ -32,6 +32,8 @@ export const Container = styled(Wrapper)`
     'logo - profile'
     'search search search';
   /* backdrop-filter: blur(2px); */
+  grid-column-gap: 16px;
+  grid-template-areas: 'logo search profile';
 
   @media (min-width: ${breakpoints.mobileHeader}) {
     grid-column-gap: 24px;
@@ -48,11 +50,15 @@ export const Container = styled(Wrapper)`
 export const HomeLink = styled.a`
   cursor: pointer;
   display: flex;
-  height: 36px;
+  height: 28px;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   grid-area: logo;
+
+  @media (min-width: ${breakpoints.mobileHeader}) {
+    height: 36px;
+  }
 
   img {
     width: auto;

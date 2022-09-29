@@ -95,10 +95,13 @@ const hover = css`
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
+
+  @media (prefers-reduced-motion) {
+    transform: none;
+  }
 `;
 
 export const FolgeContainer = styled.article`
-  /* z-index: 1; */
   position: relative;
   width: 100%;
   background-size: cover;

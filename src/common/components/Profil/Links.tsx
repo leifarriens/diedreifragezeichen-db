@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -5,18 +6,18 @@ import styled from 'styled-components';
 import { colors } from '@/constants/theme';
 
 function Links() {
-  const router = useRouter();
+  const { pathname } = useRouter();
 
   return (
     <StyledLinks>
       <Link href="/profil">
-        <a className={router.pathname == '/profil' ? 'active' : ''}>
+        <a className={classnames({ active: pathname == '/profil' })}>
           Bewertungen
         </a>
       </Link>
 
       <Link href="/profil/list">
-        <a className={router.pathname == '/profil/list' ? 'active' : ''}>
+        <a className={classnames({ active: pathname == '/profil/list' })}>
           Merkliste
         </a>
       </Link>
