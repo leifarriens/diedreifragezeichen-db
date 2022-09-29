@@ -1,6 +1,5 @@
 import { Types } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { unstable_getServerSession } from 'next-auth/next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';

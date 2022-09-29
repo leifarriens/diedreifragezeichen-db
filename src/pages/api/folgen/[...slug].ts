@@ -8,6 +8,7 @@ import {
   getUserFolgenRating,
   postFolgenRating,
 } from '@/services/index';
+import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
@@ -64,10 +65,10 @@ const handleGetAltFolgen = async (
   res: NextApiResponse,
 ) => {
   const { slug } = req.query;
-  let { fields = '' } = req.query;
+  const fieldsQuery = parseQueryParam(req.query.fields);
   const [id] = slug;
 
-  fields = fields.match(/[^,]+/g) || [];
+  const fields = fieldsQuery.match(/[^,]+/g) || [];
 
   const folgen = await getAltFolgen(id, { fields });
 

@@ -35,11 +35,10 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     callbacks: {
       session: async ({ session, user }) => {
-        // append user id to req.session
         session.user.id = user.id;
-        // FIXME: user.role type
         session.user.role = user.role;
-        return Promise.resolve(session);
+
+        return session;
       },
     },
   });

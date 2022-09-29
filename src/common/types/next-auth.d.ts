@@ -7,7 +7,7 @@ type User = {
   image: string | null;
   id: string;
   role: 'User' | 'Admin';
-};
+} & DefaultSession['user'];
 
 declare module 'next-auth' {
   interface Session {

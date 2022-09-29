@@ -1,6 +1,5 @@
 import Image from 'next/future/image';
 
-import Wrapper from '@/layout/Wrapper';
 import dayjs from '@/lib/dayjs';
 import { Folge as FolgeType } from '@/models/folge';
 
