@@ -7,8 +7,15 @@ import { Grid } from '../Grid';
 import { Key, KeyContainer } from '../Key';
 import { Loader } from '../shared/Loader';
 
-function AltFolgen({ refFolgeId }: { refFolgeId: string }) {
-  const { isLoading, error, data } = useAltFolgen(refFolgeId);
+type AltFolgenProps = {
+  refFolgeId: string;
+  enabled: boolean;
+};
+
+function AltFolgen({ refFolgeId, enabled }: AltFolgenProps) {
+  const { isLoading, error, data } = useAltFolgen(refFolgeId, {
+    enabled,
+  });
   const router = useRouter();
 
   if (isLoading || !data) return <Loader />;

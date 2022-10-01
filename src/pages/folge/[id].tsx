@@ -2,6 +2,7 @@ import { Types } from 'mongoose';
 import { GetStaticProps } from 'next';
 import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
+import { useInView } from 'react-intersection-observer';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
@@ -17,6 +18,7 @@ type FolgePageProps = {
 };
 
 function Folge({ folge }: FolgePageProps) {
+  const { ref, inView } = useInView({ triggerOnce: true });
   const number = !isNaN(parseInt(folge.number))
     ? `Folge: ${parseInt(folge.number)}`
     : '';
@@ -46,8 +48,8 @@ function Folge({ folge }: FolgePageProps) {
         <FolgeComponent folge={folge} />
       </Wrapper>
 
-      <Wrapper>
-        <AltFolgen refFolgeId={folge._id.toString()} />
+      <Wrapper ref={ref}>
+        <AltFolgen refFolgeId={folge._id.toString()} enabled={inView} />
       </Wrapper>
     </>
   );
