@@ -111,6 +111,10 @@ const Container = styled.div`
   align-items: center;
   min-height: 3em;
 
+  @media screen and (min-width: 820px) {
+    max-width: 560px;
+  }
+
   .track,
   .range {
     border-radius: 3px;
