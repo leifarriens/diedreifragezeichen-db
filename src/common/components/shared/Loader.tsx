@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import styled, { keyframes } from 'styled-components';
 
 export const FullpageLoader = () => (
@@ -6,10 +7,10 @@ export const FullpageLoader = () => (
   </FullpageContainer>
 );
 
-export const Loader = () => (
+export const Loader = ({ animated = true }) => (
   <LoadingIndicator className="loader">
     {Array.from({ length: 3 }).map((_, index) => (
-      <IndicatorIcon key={index} />
+      <IndicatorIcon key={index} className={classnames({ animated })} />
     ))}
   </LoadingIndicator>
 );
@@ -47,7 +48,6 @@ const IndicatorIcon = styled.div`
   height: 100%;
   display: inline-block;
 
-  animation: ${scaleAnimation} 1.2s infinite ease-in-out;
   transform-origin: center;
   color: #e4e4e4;
   font-family: 'Open Sans Condensed', sans-serif;
@@ -58,6 +58,10 @@ const IndicatorIcon = styled.div`
   background-position: center;
   width: 18px;
   height: 32px;
+
+  &.animated {
+    animation: ${scaleAnimation} 1.2s infinite ease-in-out;
+  }
 
   &:nth-of-type(2) {
     -webkit-animation-delay: -1.1s;

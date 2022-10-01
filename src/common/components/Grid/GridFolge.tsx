@@ -36,6 +36,7 @@ const GridFolge = React.memo(
       url: '',
       loading: true, // needs to be initial "true" to hide Image
     });
+
     const router = useRouter();
     const ref = useRef<HTMLElement | null>(null);
 
@@ -62,16 +63,20 @@ const GridFolge = React.memo(
               {!coverOnly && (
                 <>
                   <Background />
-                  <Overlay style={{ backgroundImage: `url(${image.url})` }} />
+                  <Overlay
+                    style={{ backgroundImage: `url(${folge.images[1].url})` }}
+                  />
                 </>
               )}
               <Cover>
-                {image.loading && <Loader />}
+                {/* {image.loading && <Loader animated={false} />} */}
                 <img
                   style={{
+                    // display: image.loading ? 'none' : 'block',
                     opacity: image.loading ? 0 : 1,
-                    width: image.loading ? '0' : '100%',
-                    height: image.loading ? '0' : 'auto',
+                    // FIXME: width and height has performance issues
+                    // width: image.loading ? '0' : '100%',
+                    // height: image.loading ? '0' : 'auto',
                   }}
                   src={image.url}
                   alt={`${folge.name} Cover`}
