@@ -67,10 +67,6 @@ export const getStaticProps = async () => {
     }),
   );
 
-  const size = Buffer.byteLength(JSON.stringify(folgen));
-  process.env.NODE_ENV === 'development' &&
-    console.log('Size', (size / 1024).toFixed(0), 'kB');
-
   return {
     props: { folgen },
     revalidate: 60,
