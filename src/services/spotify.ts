@@ -51,7 +51,7 @@ export const getAllAlbums = async (bearerToken: string) => {
       const response = await SpotifyAPI.artists.get<{
         total: number;
         items: SpotifyFolge[];
-      }>(`/${artist.artistId}/albums`, {
+      }>(`/${artist.spotifyArtistId}/albums`, {
         headers: { Authorization: 'Bearer ' + bearerToken },
         params: {
           country: 'DE',

@@ -1,4 +1,5 @@
 import Image from 'next/future/image';
+import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
 import dayjs from '@/lib/dayjs';
 import { Folge as FolgeType } from '@/models/folge';
@@ -68,8 +69,18 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
               as="a"
               rel="noopener noreferrer"
               href={`spotify:album:${spotify_id}`}
+              size="small"
             >
-              Auf Spotify Anhören
+              <FaSpotify size="1.4em" /> Auf Spotify Anhören
+            </Button>
+
+            <Button
+              as="a"
+              rel="noopener noreferrer"
+              href={`spotify:album:${spotify_id}`}
+              size="small"
+            >
+              <FaDeezer size="1.4em" /> Auf Deezer Anhören
             </Button>
 
             <ListButton folgeId={_id} folgeName={name} iconSize={28} />
