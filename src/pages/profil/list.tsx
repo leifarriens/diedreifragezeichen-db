@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react';
 
 import { Grid } from '@/components/Grid';
 import Links from '@/components/Profil/Links';
+import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import type { Folge } from '@/models/folge';
@@ -20,13 +21,14 @@ type MerklistePageProps = {
 
 function Merkliste({ user }: MerklistePageProps) {
   return (
-    <Wrapper maxWidth="1280px">
-      <h1>Profil</h1>
+    <>
+      <Seo title="Merkliste" canonicalpath="/profil/list" />
+      <Wrapper maxWidth="1280px">
+        <Links />
 
-      <Links />
-
-      <Grid folgen={user.list.reverse()} />
-    </Wrapper>
+        <Grid folgen={user.list.reverse()} />
+      </Wrapper>
+    </>
   );
 }
 

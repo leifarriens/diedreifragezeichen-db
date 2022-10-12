@@ -5,6 +5,7 @@ import { NextSeo } from 'next-seo';
 import path from 'path';
 import styled from 'styled-components';
 
+import Seo from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import markdownToHtml from '@/utils/markdownToHtml';
 
@@ -14,7 +15,7 @@ function Datenschutz({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
-      <NextSeo title={title} />
+      <Seo title={title} canonicalpath="/datenschutz" />
 
       <Wrapper maxWidth="960px">
         <h1>{title}</h1>
