@@ -63,7 +63,7 @@ const PageFooter = styled.div`
 const Signatur = styled.div`
   margin: 0 18px 18px 0;
   text-align: right;
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: ${colors.gray};
 
   bottom: 0;
@@ -71,7 +71,7 @@ const Signatur = styled.div`
   z-index: 20;
 
   @media screen and (min-width: 1080px) {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   a {

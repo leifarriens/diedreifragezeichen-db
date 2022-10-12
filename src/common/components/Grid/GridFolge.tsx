@@ -9,7 +9,6 @@ import type { Folge } from '@/models/folge';
 
 import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
-import { Loader } from '../shared/Loader';
 import {
   Background,
   Cover,
@@ -69,14 +68,9 @@ const GridFolge = React.memo(
                 </>
               )}
               <Cover>
-                {/* {image.loading && <Loader animated={false} />} */}
                 <img
                   style={{
-                    // display: image.loading ? 'none' : 'block',
                     opacity: image.loading ? 0 : 1,
-                    // FIXME: width and height has performance issues
-                    // width: image.loading ? '0' : '100%',
-                    // height: image.loading ? '0' : 'auto',
                   }}
                   src={image.url}
                   alt={`${folge.name} Cover`}

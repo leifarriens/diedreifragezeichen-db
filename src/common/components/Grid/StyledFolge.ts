@@ -113,10 +113,6 @@ export const FolgeContainer = styled.article`
     ${hover};
   }
 
-  a:focus {
-    ${hover};
-  }
-
   .bottom {
     font-size: 0.85em;
     padding: 6px 10px;

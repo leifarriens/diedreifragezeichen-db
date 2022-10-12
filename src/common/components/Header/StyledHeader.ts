@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { breakpoints } from '@/constants/layout';
 import Wrapper from '@/layout/Wrapper';
 
+/**
+ * Headroom styles are injected by styles/global.scss
+ */
+
 export const Container = styled(Wrapper)`
   flex: 0; // override Wrapper default flex: 1
   position: sticky;
@@ -17,6 +21,11 @@ export const Container = styled(Wrapper)`
   padding-bottom: 48px;
   pointer-events: none;
   justify-self: start;
+  box-shadow: 0px 12px 13px -5px rgb(0 0 0 / 35%);
+
+  @media screen and (min-width: ${breakpoints.mobileHeader}) {
+    box-shadow: none;
+  }
 
   @media (max-width: 744px) {
     padding-top: 18px;
