@@ -25,8 +25,6 @@ export default async function handler(
 
   await dbConnect();
 
-  // eslint-disable-next-line no-unused-vars
-
   // GET & POST /api/folgen/:id/rating
   if (action === 'rating') {
     if (!session) {

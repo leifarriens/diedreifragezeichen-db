@@ -3,14 +3,25 @@
 interface SwitchProps {
   id: string;
   checked: boolean;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  onChange?: (checked: boolean) => void;
 }
 
-const Switch = ({ ...rest }: SwitchProps) => {
+const Switch = ({ id, label, checked, onChange, ...rest }: SwitchProps) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    if (onChange) onChange(e.target.checked);
+  }
+
   return (
     <div>
-      <input type="checkbox" {...rest} />
-      <label htmlFor="confirm">Specials anzeigen</label>
+      <input
+        id={id}
+        type="checkbox"
+        checked={checked}
+        onChange={handleChange}
+        {...rest}
+      />
+      <label htmlFor={id}>{label}</label>
     </div>
   );
 };

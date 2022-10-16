@@ -61,10 +61,6 @@ const Grid = (props: GridProps) => {
     },
   });
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setShowSpecials(e.target.checked);
-  };
-
   const filteredFolgen = useMemo(() => {
     if (!withFilters) return folgen;
     return applyFilter(folgen, {
@@ -101,9 +97,10 @@ const Grid = (props: GridProps) => {
             />
 
             <Switch
-              id="confirm"
+              id="specials"
               checked={showSpecials}
-              onChange={handleCheckboxChange}
+              label="Specials anzeigen"
+              onChange={setShowSpecials}
             />
           </GridUI>
 

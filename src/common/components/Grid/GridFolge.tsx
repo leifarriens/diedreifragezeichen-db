@@ -96,13 +96,7 @@ const GridFolge = React.memo(
             </div>
 
             <div className="right">
-              {userRating && (
-                <Link href={href}>
-                  <a>
-                    <RatingBadge>{userRating}</RatingBadge>
-                  </a>
-                </Link>
-              )}
+              {userRating && <RatingBadge>{userRating}</RatingBadge>}
               <ListButton folgeId={folge._id} folgeName={folge.name} />
             </div>
           </div>

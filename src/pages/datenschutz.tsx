@@ -1,7 +1,6 @@
 import fs from 'fs';
 import matter from 'gray-matter';
 import { InferGetStaticPropsType } from 'next';
-import { NextSeo } from 'next-seo';
 import path from 'path';
 import styled from 'styled-components';
 

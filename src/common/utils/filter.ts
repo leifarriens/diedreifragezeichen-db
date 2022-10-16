@@ -32,6 +32,7 @@ export const filterByQuery = (folgen: Folge[], searchQuery: string) => {
       return true;
     }
 
+    // TODO: also filter for exact date with day and month
     if (dayjs(folge.release_date).year().toString() == searchQuery) {
       return true;
     }

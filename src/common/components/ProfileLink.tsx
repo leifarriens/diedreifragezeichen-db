@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import classnames from 'classnames';
 import Link from 'next/link';
-import { AiOutlineUser } from 'react-icons/ai';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';

@@ -17,7 +17,7 @@ function Seo(props: SeoProps) {
         ],
       }}
       {...props}
-      description={cutString(props.description, 160)}
+      description={cutString(props.description, 185)}
     />
   );
 }
@@ -25,10 +25,26 @@ function Seo(props: SeoProps) {
 function cutString(string: string | undefined, maxLength: number) {
   if (!string) return undefined;
   let trimmed = string.substring(0, maxLength);
+  const lastIndex = getLastIndexOfPunctuation(trimmed);
 
   return (trimmed =
-    trimmed.substring(0, Math.min(trimmed.length, trimmed.lastIndexOf('.'))) +
-    '...');
+    trimmed.substring(0, Math.min(trimmed.length, lastIndex)) + '...');
+}
+
+function getLastIndexOfPunctuation(string: string) {
+  if (string.lastIndexOf('.') !== -1) {
+    return string.lastIndexOf('.');
+  }
+
+  if (string.lastIndexOf('?') !== -1) {
+    return string.lastIndexOf('?');
+  }
+
+  if (string.lastIndexOf('!') !== -1) {
+    return string.lastIndexOf('!');
+  }
+
+  return -1;
 }
 
 export default Seo;

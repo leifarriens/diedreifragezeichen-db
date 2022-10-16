@@ -109,6 +109,10 @@ export const FolgeContainer = styled.article`
   border-radius: 12px;
   overflow: hidden;
 
+  a {
+    display: block;
+  }
+
   &:hover {
     ${hover};
   }
