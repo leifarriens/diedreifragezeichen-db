@@ -18,6 +18,8 @@ type FormValues = {
   _id: string;
   name: string;
   number: string;
+  spotify_id: string;
+  deezer_id: string;
   type: string;
   inhalt: string;
 };
@@ -58,6 +60,24 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
             type="text"
             {...register('number')}
             defaultValue={folge.number}
+          />
+        </label>
+
+        <label>
+          <span>Spotify Id</span>
+          <Input
+            type="text"
+            {...register('spotify_id')}
+            defaultValue={folge.spotify_id}
+          />
+        </label>
+
+        <label>
+          <span>Deezer Id</span>
+          <Input
+            type="text"
+            {...register('deezer_id')}
+            defaultValue={folge.deezer_id}
           />
         </label>
 

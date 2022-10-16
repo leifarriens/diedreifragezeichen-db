@@ -10,9 +10,12 @@ const DeezerApi = {
 
 export const getAllAlbums = async () => {
   try {
-    const { data } = await DeezerApi.artist.get(
-      `/${artist.deezerArtistId}/albums`,
-    );
+    const { data } = await DeezerApi.artist.get<{
+      data: {
+        id: string | number;
+        title: string;
+      }[];
+    }>(`/${artist.deezerArtistId}/albums`);
     return data.data;
   } catch (e) {
     const error = e as AxiosError;

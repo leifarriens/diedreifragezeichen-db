@@ -12,6 +12,7 @@ export interface Folge extends mongoose.Document {
   inhalt?: string;
   release_date: Date;
   spotify_id: string;
+  deezer_id: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -32,6 +33,7 @@ const folgeSchema = new mongoose.Schema<Folge>(
     inhalt: String,
     release_date: Date,
     spotify_id: String,
+    deezer_id: String,
   },
   {
     collection: 'folgen',

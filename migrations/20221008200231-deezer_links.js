@@ -1,34 +1,46 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const Axios = require('axios');
-const dayjs = require('dayjs');
+const { title } = require('process');
 
 module.exports = {
-  async up(db, client) {
+  async up(db) {
     const { data } = await Axios.get(
       'https://api.deezer.com/artist/71513/albums',
+      {
+        params: {
+          limit: 300,
+        },
+      },
     );
-    console.log(data);
-    const deezerAlbums = data.data;
+
+    const deezerAlbums = data.data.filter(({ title }) =>
+      title.includes('ließt'),
+    );
+
     const folgen = await db.collection('folgen').find({}).toArray();
 
-    await Promise.all(
-      folgen.map((folge) => {
-        const deezerAlbum = deezerAlbums.find((album) =>
-          album.title
-            .replaceAll(' ', '')
-            .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
-        );
+    for (let i = 0; i < folgen.length; i++) {
+      const folge = folgen[i];
+      const deezerAlbum = deezerAlbums.find((album) =>
+        album.title
+          .replaceAll(' ', '')
+          .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
+      );
 
-        if (deezerAlbum) {
-          console.log(deezerAlbum.title);
-        }
-      }),
-    );
+      if (deezerAlbum) {
+        await db
+          .collection('folgen')
+          .updateOne(
+            { _id: folge._id },
+            { $set: { deezer_id: deezerAlbum.id } },
+          );
+      }
+    }
   },
 
-  async down(db, client) {
-    // TODO write the statements to rollback your migration (if possible)
-    // Example:
-    // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: false}});
+  async down(db) {
+    await db
+      .collection('folgen')
+      .updateMany({}, { $unset: { deezer_id: undefined } });
   },
 };

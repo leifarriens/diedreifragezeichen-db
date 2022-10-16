@@ -4,6 +4,7 @@ import { SpotifyFolge } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
+import * as DeezerApi from './deezer';
 import { getAllInhalte } from './inhalt.services';
 import { getAllAlbums, getBearerToken } from './spotify';
 
@@ -55,7 +56,7 @@ export default async function syncFolgen() {
 
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
-    await writeFolgenInhalte(added);
+    await writeExtraMetaData(added);
 
     return {
       notInDb: {
@@ -81,19 +82,34 @@ export default async function syncFolgen() {
   }
 }
 
-async function writeFolgenInhalte(folgen: FolgeWithId[]) {
+async function writeExtraMetaData(folgen: FolgeWithId[]) {
   const inhalte = await getAllInhalte();
+  const deezerAlbums = await DeezerApi.getAllAlbums();
 
   for (let i = 0; i < folgen.length; i++) {
     const folge = folgen[i];
-    const exp = folge.name.replace('und', '').replace('???', '').trim();
-    const entry = inhalte.find(({ name }) => new RegExp(exp, 'i').test(name));
 
-    const inhalt = entry ? entry.body : '';
+    // Inhalt
+    const inhtaltExp = folge.name.replace('und', '').replace('???', '').trim();
+    const entry = inhalte.find(({ name }) =>
+      new RegExp(inhtaltExp, 'i').test(name),
+    );
+
+    // DeezerId
+    const deezerAlbum = deezerAlbums.find((album) =>
+      album.title
+        .replaceAll(' ', '')
+        .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
+    );
 
     await FolgeModel.updateOne(
       { _id: folge._id },
-      { $set: { inhalt: inhalt } },
+      {
+        $set: {
+          ...(entry && { inhalt: entry.body }),
+          ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+        },
+      },
     );
   }
 }

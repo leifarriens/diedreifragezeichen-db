@@ -29,6 +29,7 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
     rating,
     number,
     spotify_id,
+    deezer_id,
   } = folge;
   const isBigCover = Number(number) >= 125;
 
@@ -71,17 +72,19 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
               href={`spotify:album:${spotify_id}`}
               size="small"
             >
-              <FaSpotify size="1.4em" /> Auf Spotify Anhören
+              <FaSpotify size="1.4em" /> Auf Spotify anhören
             </Button>
 
-            <Button
-              as="a"
-              rel="noopener noreferrer"
-              href={`spotify:album:${spotify_id}`}
-              size="small"
-            >
-              <FaDeezer size="1.4em" /> Auf Deezer Anhören
-            </Button>
+            {deezer_id && (
+              <Button
+                as="a"
+                rel="noopener noreferrer"
+                href={`deezer://album/${deezer_id}`}
+                size="small"
+              >
+                <FaDeezer size="1.4em" /> Auf Deezer anhören
+              </Button>
+            )}
 
             <ListButton folgeId={_id} folgeName={name} iconSize={28} />
           </Buttons>
