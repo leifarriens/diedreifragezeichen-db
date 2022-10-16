@@ -4,32 +4,42 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
+import Wrapper from '@/layout/Wrapper';
 
 function Links() {
   const { pathname } = useRouter();
 
   return (
     <StyledLinks>
-      <Link href="/profil">
-        <a className={classnames({ active: pathname == '/profil' })}>
-          Bewertungen
-        </a>
-      </Link>
+      <LinkWrapper maxWidth="1280px">
+        <Link href="/profil">
+          <a className={classnames({ active: pathname == '/profil' })}>
+            Bewertungen
+          </a>
+        </Link>
 
-      <Link href="/profil/list">
-        <a className={classnames({ active: pathname == '/profil/list' })}>
-          Merkliste
-        </a>
-      </Link>
+        <Link href="/profil/list">
+          <a className={classnames({ active: pathname == '/profil/list' })}>
+            Merkliste
+          </a>
+        </Link>
+
+        <Link href="/profil/account">
+          <a className={classnames({ active: pathname == '/profil/account' })}>
+            Account
+          </a>
+        </Link>
+      </LinkWrapper>
     </StyledLinks>
   );
 }
 
 const StyledLinks = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  font-size: 2em;
+  font-size: 1.65em;
+  /* margin-top: 1em; */
   margin-bottom: 1em;
+  background-color: #000408;
+  padding: 1em 0;
 
   a {
     border-bottom: 4px solid transparent;
@@ -39,6 +49,11 @@ const StyledLinks = styled.div`
       border-bottom-color: ${colors.lightblue};
     }
   }
+`;
+
+const LinkWrapper = styled(Wrapper)`
+  display: flex;
+  justify-content: space-around;
 `;
 
 export default Links;

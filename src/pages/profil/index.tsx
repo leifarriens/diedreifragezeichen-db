@@ -1,13 +1,11 @@
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
-import styled from 'styled-components';
 
 import { FolgenContainer, GridFolge } from '@/components/Grid';
-import Links from '@/components/Profil/Links';
+import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
 import { Folge } from '@/models/folge';
 import Rating from '@/models/rating';
 import { RatingWithFolge } from '@/types';
@@ -21,33 +19,23 @@ type ProfilePageProps = {
 function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
   return (
     <>
-      <Seo title="Profil" canonicalpath="/profil" />
-      <Styles>
-        <Wrapper maxWidth="1280px">
-          <Links />
+      <Seo title="Bewertungen" canonicalpath="/profil" />
+      <ProfilLayout>
+        <RatingProgress ratings={ratings} numberOfFolgen={numberOfFolgen} />
 
-          <RatingProgress ratings={ratings} numberOfFolgen={numberOfFolgen} />
-
-          {ratings && ratings.length > 0 ? (
-            <FolgenContainer>
-              {ratings.map(({ _id, value, folge }) => {
-                return <GridFolge key={_id} folge={folge} userRating={value} />;
-              })}
-            </FolgenContainer>
-          ) : (
-            <p>Du hast noch keine Folgen bewertet.</p>
-          )}
-        </Wrapper>
-      </Styles>
+        {ratings && ratings.length > 0 ? (
+          <FolgenContainer>
+            {ratings.map(({ _id, value, folge }) => {
+              return <GridFolge key={_id} folge={folge} userRating={value} />;
+            })}
+          </FolgenContainer>
+        ) : (
+          <p>Du hast noch keine Folgen bewertet.</p>
+        )}
+      </ProfilLayout>
     </>
   );
 }
-
-const Styles = styled.div`
-  h3 {
-    margin: 36px 0;
-  }
-`;
 
 export const getServerSideProps = async ({
   req,

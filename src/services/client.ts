@@ -60,6 +60,10 @@ export async function getAltFolgen(folgeId: string) {
   return data;
 }
 
+export async function deleteAccount() {
+  await API.delete('/user');
+}
+
 // Admin
 
 export async function getFolge(folgeId: string) {

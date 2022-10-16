@@ -1,5 +1,4 @@
 import Image from 'next/future/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Headroom from 'react-headroom';
@@ -12,13 +11,9 @@ import { useGlobalState } from '@/context/GlobalContext';
 import { useWindowSize } from '@/hooks';
 
 import LogoImg from '../../../../public/logo.png';
+import ProfileLink from '../ProfileLink';
 import Search from './Search';
-import {
-  CloseLoginButton,
-  Container,
-  HomeLink,
-  ProfileLink,
-} from './StyledHeader';
+import { CloseLoginButton, Container, HomeLink } from './StyledHeader';
 
 const Header = () => {
   const { setSearchQuery } = useGlobalState();
@@ -58,7 +53,7 @@ const Header = () => {
         <Search />
 
         {!loading && router.pathname !== '/signin' && (
-          <ProfileLink>
+          <div className="right">
             {!session ? (
               <span>
                 <Button
@@ -81,22 +76,16 @@ const Header = () => {
                 </Button>
               </span>
             ) : (
-              <div>
-                <Link href="/profil" passHref>
-                  <Button as="a" color={colors.lightblue}>
-                    Profil
-                  </Button>
-                </Link>
-              </div>
+              <ProfileLink image={session.user.image} />
             )}
-          </ProfileLink>
+          </div>
         )}
         {router.pathname === '/signin' && (
-          <ProfileLink>
+          <div className="right">
             <CloseLoginButton onClick={router.back}>
               <AiOutlineClose size={28} />
             </CloseLoginButton>
-          </ProfileLink>
+          </div>
         )}
       </Container>
     </Headroom>

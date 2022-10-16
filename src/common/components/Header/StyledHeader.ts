@@ -54,6 +54,15 @@ export const Container = styled(Wrapper)`
   * {
     pointer-events: all;
   }
+
+  .right {
+    flex: 1 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-area: profile;
+  }
 `;
 
 export const HomeLink = styled.a`
@@ -72,15 +81,6 @@ export const HomeLink = styled.a`
   img {
     width: auto;
   }
-`;
-
-export const ProfileLink = styled.div`
-  flex: 1 0 auto;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  grid-area: profile;
 `;
 
 export const CloseLoginButton = styled.button`
