@@ -61,6 +61,7 @@ const PageFooter = styled.div`
 `;
 
 const Signatur = styled.div`
+  display: none;
   margin: 0 18px 18px 0;
   text-align: right;
   font-size: 0.6rem;

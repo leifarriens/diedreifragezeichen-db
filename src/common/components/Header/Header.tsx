@@ -64,17 +64,6 @@ const Header = () => {
                   Anmelden
                 </Button>
               </span>
-            ) : router.pathname.match('/profil') ? (
-              <span>
-                <Button
-                  aria-label="Ausloggen"
-                  ghost={true}
-                  color={colors.red}
-                  onClick={() => signOut({ callbackUrl: '/', redirect: true })}
-                >
-                  Abmelden
-                </Button>
-              </span>
             ) : (
               <ProfileLink image={session.user.image} />
             )}
