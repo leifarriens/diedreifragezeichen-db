@@ -1,6 +1,6 @@
 import Image from 'next/future/image';
 import { useRouter } from 'next/router';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
 
