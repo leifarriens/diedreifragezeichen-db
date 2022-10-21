@@ -6,10 +6,10 @@ import styled from 'styled-components';
 import { colors } from '@/constants/theme';
 
 type ToastProps = {
-  duration: number;
+  duration?: number;
   onFadeOut?: () => void;
   children: ReactNode | ReactNode[];
-  color: string;
+  color?: string;
 };
 
 export default function Toast({
@@ -79,6 +79,15 @@ export default function Toast({
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.querySelector('#toastPortal')!,
   );
+}
+
+export function useToast() {
+  const [toasted, setToasted] = useState(false);
+
+  const show = () => setToasted(true);
+  const hide = () => setToasted(false);
+
+  return { toasted, show, hide };
 }
 
 const Container = styled.div`

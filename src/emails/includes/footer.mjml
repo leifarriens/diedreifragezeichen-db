@@ -1,0 +1,19 @@
+<mj-section>
+  <mj-column>
+    <mj-divider />
+    <mj-text>
+      Du kannst dich von dieser Email Benachrichtigung
+      <a
+        text-decoration="underline"
+        href="https://ddfdb.de/profil/account"
+        target="_blank"
+        >abmelden</a
+      >
+      indem du die Benachrichtigungseinstellungen in deinem Account änderst.
+    </mj-text>
+
+    <mj-image width="34px" src="https://www.ddfdb.de/icon.png" />
+
+    <mj-text align="center">&copy; Die drei Fragezeichen DB 2022</mj-text>
+  </mj-column>
+</mj-section>

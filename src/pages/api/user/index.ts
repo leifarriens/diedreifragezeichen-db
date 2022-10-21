@@ -17,16 +17,22 @@ export default async function handler(
 
   await dbConnect();
 
-  if (req.method === 'GET') {
-    const userId = session.user.id;
+  const userId = session.user.id;
 
+  if (req.method === 'GET') {
     const user = await User.findById(userId);
 
     return res.json(user);
   }
 
+  if (req.method === 'PATCH') {
+    const user = await User.findByIdAndUpdate(userId, req.body);
+
+    return res.json(user);
+  }
+
   if (req.method === 'DELETE') {
-    await deleteUser(session.user.id);
+    await deleteUser(userId);
     return res.status(204).send('No Content');
   }
 

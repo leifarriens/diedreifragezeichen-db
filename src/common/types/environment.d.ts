@@ -7,6 +7,7 @@ declare global {
       GOOGLE_CLIENT_SECRET: string;
       MONGO_URI: string;
       MONGO_DATABASE: string;
+      AWS_REGION: string;
     }
   }
 }

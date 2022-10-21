@@ -46,18 +46,12 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
         disabled={isLoading}
       />
       {toasted && (
-        <Toast
-          duration={3000}
-          onFadeOut={() => setToasted(false)}
-          color={colors.lightblue}
-        >
+        <Toast onFadeOut={() => setToasted(false)} color={colors.lightblue}>
           Bewertung für <i>{folge_name}</i> gespeichert
         </Toast>
       )}
       {error && error.response?.status !== 404 && (
-        <Toast duration={3000} color={colors.red}>
-          Ein Fehler ist aufgetreten
-        </Toast>
+        <Toast color={colors.red}>Ein Fehler ist aufgetreten</Toast>
       )}
     </>
   );

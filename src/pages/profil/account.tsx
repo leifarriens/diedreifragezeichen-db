@@ -1,28 +1,51 @@
 import { GetServerSidePropsContext } from 'next';
 import { getSession, signOut } from 'next-auth/react';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import Seo from '@/components/Seo/Seo';
 import Button from '@/components/shared/Button';
-// import Switch from '@/components/shared/Switch';
+import Switch from '@/components/shared/Switch';
+import Toast, { useToast } from '@/components/shared/Toast';
 import { colors } from '@/constants/theme';
-import { deleteAccount } from '@/services/client';
+import { useUser } from '@/hooks';
+import { deleteAccount, updateUser } from '@/services/client';
 
 function AccountPage() {
-  const { mutate } = useMutation(deleteAccount, {
+  const { toasted, show, hide } = useToast();
+  const { data: user } = useUser();
+  const queryClient = useQueryClient();
+  const { mutate: mutateUpdate } = useMutation(updateUser, {
+    onMutate: (update) => {
+      const updatedUser = {
+        ...user,
+        ...update,
+      };
+      queryClient.setQueryData(['user', user?._id], updatedUser);
+    },
+    onSuccess: () => {
+      show();
+    },
+  });
+  const { mutate: mutateDeletion } = useMutation(deleteAccount, {
     onSuccess: () => {
       signOut();
     },
   });
+
+  function handleNotificationChange(checked: boolean) {
+    mutateUpdate({
+      notifications: checked,
+    });
+  }
 
   function handleDelete() {
     const confirm = prompt(
       'Bitte geben Sie "Löschen" ein um ihren Account unwiderruflich zu löschen',
       '',
     );
-    if (confirm === 'Löschen') mutate();
+    if (confirm === 'Löschen') mutateDeletion();
   }
 
   return (
@@ -30,17 +53,21 @@ function AccountPage() {
       <Seo title="Account" canonicalpath="/profil/account" />
 
       <ProfilLayout>
-        {/* <SectionBox>
+        <SectionBox>
           <h3>Email Benachrichtigungen</h3>
-          <div className="split">
+          {/* <div className="split">
             <p>Allgemeine Neuigkeiten zur Die Drei Fragezeichen DB erhalten</p>
             <Switch id="emailNews" />
-          </div>
+          </div> */}
           <div className="split">
             <p>Benachrichtigungen über neue Folgen erhalten</p>
-            <Switch id="emailFolgen" />
+            <Switch
+              id="emailFolgen"
+              checked={user?.notifications || false}
+              onChange={handleNotificationChange}
+            />
           </div>
-        </SectionBox> */}
+        </SectionBox>
         <SectionBox>
           <h3>Authentifizierung</h3>
           <div className="split">
@@ -60,6 +87,12 @@ function AccountPage() {
           </div>
         </SectionBox>
       </ProfilLayout>
+
+      {toasted && (
+        <Toast onFadeOut={hide} color={colors.green}>
+          Benachrichtigungseinstellungen wurden gespeichert
+        </Toast>
+      )}
     </>
   );
 }
@@ -104,7 +137,7 @@ const SectionBox = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1em;
+    margin-top: 1.25em;
     gap: 1em;
   }
 `;

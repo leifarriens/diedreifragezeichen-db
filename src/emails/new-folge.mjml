@@ -1,0 +1,32 @@
+<mjml>
+  <mj-include path="./includes/head.mjml" />
+
+  <mj-body background-color="#001727">
+    <mj-include path="./includes/header.mjml" />
+
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="18px"
+          >Ein neuer Fall wurde dem Archiv hinzugefügt:</mj-text
+        >
+
+        <mj-image
+          align="left"
+          width="300px"
+          src="{{ image }}"
+          href="{{ href }}"
+        />
+
+        <mj-text font-size="20px">Die drei ??? {{ name }}</mj-text>
+        <mj-text font-size="14px">Veröffentlicht am {{ release_date }}</mj-text>
+        {{#inhalt}}
+        <mj-text font-size="16px" line-height="150%">{{ inhalt }}</mj-text>
+        {{/inhalt}}
+
+        <mj-button href="{{ href }}">Zur Folge</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-include path="./includes/footer.mjml" />
+  </mj-body>
+</mjml>

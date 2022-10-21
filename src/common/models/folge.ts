@@ -10,7 +10,7 @@ export interface Folge extends mongoose.Document {
   popularity: number;
   user_rating?: number;
   inhalt?: string;
-  release_date: Date;
+  release_date: Date | string;
   spotify_id: string;
   created_at: Date;
   updated_at: Date;

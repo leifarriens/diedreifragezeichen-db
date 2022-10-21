@@ -51,6 +51,11 @@ export async function getUser() {
   return data;
 }
 
+export async function updateUser(user: Partial<UserWithId>) {
+  const { data } = await API.patch<Folge>('/user', user);
+  return data;
+}
+
 export async function getAltFolgen(folgeId: string) {
   const { data } = await API.get<Folge[]>(`/folgen/${folgeId}/alts`, {
     params: {

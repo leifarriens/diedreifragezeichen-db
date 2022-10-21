@@ -1,0 +1,7 @@
+<mj-section>
+  <mj-column>
+    <mj-image align="left" width="48px" src="https://www.ddfdb.de/icon.png" />
+    <mj-text font-size="24px">Die drei Fragezeichen DB</mj-text>
+    <mj-divider />
+  </mj-column>
+</mj-section>

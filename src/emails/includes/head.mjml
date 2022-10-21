@@ -1,0 +1,14 @@
+<mj-head>
+  <mj-attributes>
+    <mj-all font-family="system-ui" />
+    <mj-text color="#fff" font-size="12px" />
+    <mj-button
+      font-size="16px"
+      font-weight="500"
+      background-color="#c50009"
+      color="white"
+      border-radius="8px"
+    />
+    <mj-divider border-width="3px" border-color="#c7c7c7" />
+  </mj-attributes>
+</mj-head>
