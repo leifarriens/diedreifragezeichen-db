@@ -1,14 +1,13 @@
 import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
-import styled from 'styled-components';
 
 import { FolgenContainer, GridFolge } from '@/components/Grid';
-import Links from '@/components/Profil/Links';
+import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
+import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
 import { Folge } from '@/models/folge';
-import Rating from '@/models/rating';
+import { Rating } from '@/models/rating';
 import { RatingWithFolge } from '@/types';
 import { parseMongo } from '@/utils/index';
 
@@ -19,12 +18,9 @@ type ProfilePageProps = {
 
 function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
   return (
-    <Styles>
-      <Wrapper maxWidth="1280px">
-        <h1>Profil</h1>
-
-        <Links />
-
+    <>
+      <Seo title="Bewertungen" canonicalpath="/profil" />
+      <ProfilLayout>
         <RatingProgress ratings={ratings} numberOfFolgen={numberOfFolgen} />
 
         {ratings && ratings.length > 0 ? (
@@ -36,16 +32,10 @@ function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
         ) : (
           <p>Du hast noch keine Folgen bewertet.</p>
         )}
-      </Wrapper>
-    </Styles>
+      </ProfilLayout>
+    </>
   );
 }
-
-const Styles = styled.div`
-  h3 {
-    margin: 36px 0;
-  }
-`;
 
 export const getServerSideProps = async ({
   req,

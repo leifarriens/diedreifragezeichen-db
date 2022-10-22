@@ -1,3 +1,6 @@
+@use 'headroom';
+@use 'checkbox';
+
 $ddfDark: #001727;
 $ddfRed: #c50009;
 $ddfBlue: #00a5e7;
@@ -13,7 +16,9 @@ $blue: #00a5e7;
   --font-size-base: 12px;
   --color-bg: #001727;
   --color-text: #fff;
-  --ui-outline: 0 0 0 0.2em hsl(197, 100%, 80%);
+  --ui-outline: 0 0 0 3px hsl(197, 100%, 80%);
+
+  --color-ddfblue: #00a5e7;
 }
 
 @media screen and (min-width: 460px) {
@@ -95,49 +100,3 @@ button {
   cursor: pointer;
   color: #fff;
 }
-
-.headroom-wrapper {
-  z-index: 999;
-  pointer-events: none;
-  position: sticky !important;
-  top: -1px !important;
-}
-
-.headroom {
-  top: 0;
-  left: 0;
-  right: 0;
-  transition: all 200ms ease-in-out;
-
-  &--unfixed {
-    transform: translateY(0);
-  }
-
-  &--scrolled {
-    background-color: #001727 !important;
-    // transition: all 200ms ease-in-out;
-  }
-
-  &--unpinned {
-    position: fixed;
-
-    @media screen and (min-width: 560px) {
-      transform: translate3d(0px, 0%, 0px) !important;
-    }
-  }
-
-  &--pinned {
-    position: fixed;
-    transform: translateY(0%);
-    
-    @media screen and (min-width: 560px) {
-      background-color: transparent !important;
-    }
-  }
-
-  @media screen and (min-width: 560px) {
-    background-color: transparent !important;
-  }
-}
-
-@import 'checkbox';

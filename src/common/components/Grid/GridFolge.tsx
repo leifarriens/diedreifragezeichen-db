@@ -1,15 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
+import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { Folge } from '@/models/folge';
 
 import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
-import { Loader } from '../shared/Loader';
 import {
   Background,
   Cover,
@@ -25,7 +25,7 @@ interface GridFolgeProps {
   style?: CSSProperties;
 }
 
-const GridFolge = React.memo(
+const GridFolge = memo(
   ({
     folge,
     userRating = null,
@@ -69,14 +69,9 @@ const GridFolge = React.memo(
                 </>
               )}
               <Cover>
-                {/* {image.loading && <Loader animated={false} />} */}
                 <img
                   style={{
-                    // display: image.loading ? 'none' : 'block',
                     opacity: image.loading ? 0 : 1,
-                    // FIXME: width and height has performance issues
-                    // width: image.loading ? '0' : '100%',
-                    // height: image.loading ? '0' : 'auto',
                   }}
                   src={image.url}
                   alt={`${folge.name} Cover`}
@@ -97,18 +92,12 @@ const GridFolge = React.memo(
                 rating={folge.rating}
               />
               <div className="release">
-                {dayjs(folge.release_date).format('DD.MM.YYYY')}
+                {dayjs(folge.release_date).format(DATE_FORMAT)}
               </div>
             </div>
 
             <div className="right">
-              {userRating && (
-                <Link href={href}>
-                  <a>
-                    <RatingBadge>{userRating}</RatingBadge>
-                  </a>
-                </Link>
-              )}
+              {userRating && <RatingBadge>{userRating}</RatingBadge>}
               <ListButton folgeId={folge._id} folgeName={folge.name} />
             </div>
           </div>
@@ -118,4 +107,4 @@ const GridFolge = React.memo(
   },
 );
 
-export default React.memo(GridFolge);
+export default GridFolge;

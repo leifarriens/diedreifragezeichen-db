@@ -60,6 +60,10 @@ export async function getAltFolgen(folgeId: string) {
   return data;
 }
 
+export async function deleteAccount() {
+  await API.delete('/user');
+}
+
 // Admin
 
 export async function getFolge(folgeId: string) {
@@ -69,5 +73,10 @@ export async function getFolge(folgeId: string) {
 
 export async function updateFolge(folge: Partial<FolgeWithId>) {
   const { data } = await API.patch<Folge>(`/folgen/${folge._id}`, folge);
+  return data;
+}
+
+export async function deleteFolge(folgeId: string) {
+  const { data } = await API.delete(`/folgen/${folgeId}`);
   return data;
 }

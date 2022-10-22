@@ -3,11 +3,12 @@ import styled from 'styled-components';
 import { breakpoints } from '@/constants/layout';
 import Wrapper from '@/layout/Wrapper';
 
+/**
+ * Headroom styles are injected by styles/global.scss
+ */
+
 export const Container = styled(Wrapper)`
   flex: 0; // override Wrapper default flex: 1
-  position: sticky;
-  /* top: 0; */
-  /* top: -56px; */
   z-index: 99;
   color: #fff;
   justify-content: space-between;
@@ -31,7 +32,6 @@ export const Container = styled(Wrapper)`
   grid-template-areas:
     'logo - profile'
     'search search search';
-  /* backdrop-filter: blur(2px); */
   grid-column-gap: 16px;
   grid-template-areas: 'logo search profile';
 
@@ -44,6 +44,15 @@ export const Container = styled(Wrapper)`
 
   * {
     pointer-events: all;
+  }
+
+  .right {
+    flex: 1 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-area: profile;
   }
 `;
 
@@ -63,15 +72,6 @@ export const HomeLink = styled.a`
   img {
     width: auto;
   }
-`;
-
-export const ProfileLink = styled.div`
-  flex: 1 0 auto;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  grid-area: profile;
 `;
 
 export const CloseLoginButton = styled.button`

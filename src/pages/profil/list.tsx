@@ -2,9 +2,9 @@ import { GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 
 import { Grid } from '@/components/Grid';
-import Links from '@/components/Profil/Links';
+import ProfilLayout from '@/components/Profil/Layout';
+import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
 import type { Folge } from '@/models/folge';
 import { UserWithId } from '@/models/user';
 import { getUserWithList } from '@/services/index';
@@ -20,13 +20,17 @@ type MerklistePageProps = {
 
 function Merkliste({ user }: MerklistePageProps) {
   return (
-    <Wrapper maxWidth="1280px">
-      <h1>Profil</h1>
+    <>
+      <Seo title="Merkliste" canonicalpath="/profil/list" />
 
-      <Links />
-
-      <Grid folgen={user.list.reverse()} />
-    </Wrapper>
+      <ProfilLayout>
+        {user.list.length > 0 ? (
+          <Grid folgen={user.list.reverse()} />
+        ) : (
+          <p>Du hast noch keine Folgen auf der Merkliste.</p>
+        )}
+      </ProfilLayout>
+    </>
   );
 }
 

@@ -109,11 +109,11 @@ export const FolgeContainer = styled.article`
   border-radius: 12px;
   overflow: hidden;
 
-  &:hover {
-    ${hover};
+  a {
+    display: block;
   }
 
-  a:focus {
+  &:hover {
     ${hover};
   }
 

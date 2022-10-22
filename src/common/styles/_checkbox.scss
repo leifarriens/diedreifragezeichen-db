@@ -45,7 +45,7 @@ $checkHeight: 24px;
   top: 1px;
 }
 [type='checkbox']:checked + label:before {
-  background-color: $ddfBlue;
+  background-color: var(--color-ddfblue);
 }
 [type='checkbox']:checked + label:after {
   margin: 0 0 0 $checkHeight;

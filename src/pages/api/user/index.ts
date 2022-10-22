@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
 import { User } from '@/models/user';
+import { deleteUser } from '@/services/index';
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,6 +23,11 @@ export default async function handler(
     const user = await User.findById(userId);
 
     return res.json(user);
+  }
+
+  if (req.method === 'DELETE') {
+    await deleteUser(session.user.id);
+    return res.status(204).send('No Content');
   }
 
   return res.status(405).end('Method not allowed');

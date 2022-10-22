@@ -2,8 +2,8 @@ import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { getProviders, getSession } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
-import { NextSeo } from 'next-seo';
 
+import Seo from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import { LoginForm } from '@/modules/LoginForm';
 
@@ -17,7 +17,7 @@ export default function SignIn({
 
   return (
     <>
-      <NextSeo title="Anmelden &amp; Mitmachen" />
+      <Seo title="Anmelden &amp; Mitmachen" canonicalpath="/signin" />
 
       <Wrapper maxWidth="720px">
         <LoginForm providers={providers} error={error} />

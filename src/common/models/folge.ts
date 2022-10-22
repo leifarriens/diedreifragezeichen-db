@@ -49,6 +49,8 @@ folgeSchema.set('toJSON', {
   versionKey: false,
 });
 
-export const Folge =
-  (mongoose.models && mongoose.models.Folge) ||
-  mongoose.model('Folge', folgeSchema);
+const getModel = () => mongoose.model('Folge', folgeSchema);
+
+export const Folge = (mongoose.models.Folge || getModel()) as ReturnType<
+  typeof getModel
+>;

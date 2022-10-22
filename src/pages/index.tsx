@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '@/components/Grid';
+import Seo from '@/components/Seo/Seo';
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import { useGlobalState } from '@/context/GlobalContext';
@@ -28,19 +29,22 @@ function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
   }, [sortBy]);
 
   return (
-    <Wrapper>
-      <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
+    <>
+      <Seo title="Archiv" />
+      <Wrapper>
+        <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
 
-      {!session && (
-        <HomeFooter>
-          <Link href={'/signin'} passHref>
-            <Button as="a" color={colors.red}>
-              Jetzt Bewerten!
-            </Button>
-          </Link>
-        </HomeFooter>
-      )}
-    </Wrapper>
+        {!session && (
+          <HomeFooter>
+            <Link href={'/signin'} passHref>
+              <Button as="a" color={colors.red}>
+                Jetzt Bewerten!
+              </Button>
+            </Link>
+          </HomeFooter>
+        )}
+      </Wrapper>
+    </>
   );
 }
 

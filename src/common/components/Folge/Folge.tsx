@@ -1,6 +1,7 @@
 import Image from 'next/future/image';
 import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
+import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import { Folge as FolgeType } from '@/models/folge';
 
@@ -51,7 +52,7 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
           <h2>Die drei ???</h2>
           <h1>{name}</h1>
           <ReleaseContainer>
-            Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}
+            Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
             <br />
             {dayjs(release_date).fromNow()}
           </ReleaseContainer>

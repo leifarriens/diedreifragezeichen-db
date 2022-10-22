@@ -1,12 +1,12 @@
 import { Types } from 'mongoose';
 import { GetStaticProps } from 'next';
-import { NextSeo } from 'next-seo';
 import { ParsedUrlQuery } from 'querystring';
 import { useInView } from 'react-intersection-observer';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
 import AltFolgen from '@/components/Folge/AltFolgen';
+import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import type { Folge as FolgeType } from '@/models/folge';
@@ -20,21 +20,24 @@ type FolgePageProps = {
 function Folge({ folge }: FolgePageProps) {
   const { ref, inView } = useInView({ triggerOnce: true });
   const number = !isNaN(parseInt(folge.number))
-    ? `Folge: ${parseInt(folge.number)}`
+    ? `Folge ${parseInt(folge.number)}`
     : '';
   const title = `${number} ${folge.name}`;
+  const description = `${title}: ${folge.inhalt}`;
 
-  const ogImage = folge.images[2];
+  const ogImage = folge.images[1];
 
   return (
     <>
-      <NextSeo
+      <Seo
         title={title}
+        description={description}
+        canonicalpath={`/folgen/${folge.id}`}
         openGraph={{
           images: [
             {
               url: ogImage.url,
-              alt: folge.name,
+              alt: `${folge.name} Cover`,
               width: ogImage.width,
               height: ogImage.height,
               type: 'image/jpeg',
