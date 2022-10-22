@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 
@@ -26,10 +26,7 @@ const Search = () => {
       ref.current?.blur();
 
       if (router.pathname !== '/') {
-        router.push({
-          pathname: '/',
-          // search: '?' + new URLSearchParams({ search: e.target.value }).toString(),
-        });
+        router.push({ pathname: '/' });
       }
     }
   };
@@ -38,7 +35,7 @@ const Search = () => {
     setValue(e.target.value);
   };
 
-  const clearInput = () => setValue(''); //setSearchQuery('');
+  const clearInput = () => setValue('');
 
   return (
     <SearchContainer>
