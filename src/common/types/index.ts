@@ -11,7 +11,7 @@ export interface RatingWithFolge {
   folge: Folge;
 }
 
-export type SpotifyFolge = {
+export type SpotifyAlbum = {
   id: string;
   name: string;
   images: {
@@ -20,6 +20,7 @@ export type SpotifyFolge = {
     width: number;
   }[];
   release_date: Date;
+  artists: unknown;
 };
 
 export type YearRange = {

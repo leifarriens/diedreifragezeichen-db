@@ -28,9 +28,9 @@ export default async function handler(
       return res.status(201).json(result);
     } catch (err) {
       console.error(err);
-      res.status(500).end();
+      return res.status(500).end();
     }
-  } else {
-    res.status(405).send('Method Not Allowed');
   }
+
+  res.status(405).send('Method Not Allowed');
 }

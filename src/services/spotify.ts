@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Axios, { AxiosError } from 'axios';
 import qs from 'qs';
 
-import { SpotifyFolge } from '@/types';
+import { SpotifyAlbum } from '@/types';
 
 import artist from '../../config/artist.json';
 
@@ -25,7 +24,7 @@ const SpotifyAPI = {
   }),
 };
 
-export const getBearerToken = async () => {
+const getBearerToken = async () => {
   try {
     const response = await SpotifyAPI.accounts.post(
       '/token',
@@ -42,15 +41,16 @@ export const getBearerToken = async () => {
   }
 };
 
-export const getAllAlbums = async (bearerToken: string) => {
+export const getAllAlbums = async () => {
   try {
-    let albums: SpotifyFolge[] = [];
-    const offset = 0;
+    const bearerToken = await getBearerToken();
+    let albums: SpotifyAlbum[] = [];
+    let offset = 0;
 
-    const doRun = async (offset: number) => {
+    const doRun = async () => {
       const response = await SpotifyAPI.artists.get<{
         total: number;
-        items: SpotifyFolge[];
+        items: SpotifyAlbum[];
       }>(`/${artist.artistId}/albums`, {
         headers: { Authorization: 'Bearer ' + bearerToken },
         params: {
@@ -64,13 +64,13 @@ export const getAllAlbums = async (bearerToken: string) => {
       albums = albums.concat(response.data.items);
       if (response.data.total > offset) {
         offset = offset + 50;
-        await doRun(offset);
+        await doRun();
       }
     };
 
-    await doRun(offset);
+    await doRun();
 
-    albums.map((entry: any) => delete entry.artists);
+    albums.map((album) => delete album.artists);
     return albums;
   } catch (e) {
     const error = e as AxiosError;
