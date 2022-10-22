@@ -33,6 +33,8 @@ const userSchema = new mongoose.Schema<User>(
   },
 );
 
-export const User =
-  (mongoose.models && mongoose.models.User) ||
-  mongoose.model('User', userSchema);
+const getModel = () => mongoose.model('User', userSchema);
+
+export const User = (mongoose.models.User || getModel()) as ReturnType<
+  typeof getModel
+>;

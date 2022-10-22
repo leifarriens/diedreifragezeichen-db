@@ -4,7 +4,7 @@ import { UpdateQuery } from 'mongoose';
 import clientPromise from '@/db/authConn';
 
 import { Folge, FolgeWithId } from '../common/models/folge';
-import Rating from '../common/models/rating';
+import { Rating } from '../common/models/rating';
 import { User } from '../common/models/user';
 
 type FolgenOptions = {

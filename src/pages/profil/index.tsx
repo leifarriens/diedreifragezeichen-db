@@ -7,7 +7,7 @@ import RatingProgress from '@/components/Profil/RatingProgress';
 import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import { Folge } from '@/models/folge';
-import Rating from '@/models/rating';
+import { Rating } from '@/models/rating';
 import { RatingWithFolge } from '@/types';
 import { parseMongo } from '@/utils/index';
 
