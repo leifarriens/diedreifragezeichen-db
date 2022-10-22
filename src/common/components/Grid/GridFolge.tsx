@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
+import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { Folge } from '@/models/folge';
 
@@ -91,7 +92,7 @@ const GridFolge = React.memo(
                 rating={folge.rating}
               />
               <div className="release">
-                {dayjs(folge.release_date).format('DD.MM.YYYY')}
+                {dayjs(folge.release_date).format(DATE_FORMAT)}
               </div>
             </div>
 
