@@ -1,46 +1,26 @@
 .headroom-wrapper {
   z-index: 999;
   pointer-events: none;
-  position: sticky !important;
 }
 
 .headroom {
-  top: 0;
-  left: 0;
-  right: 0;
-  transition: all 200ms ease-in-out;
+  transition: background-color 150ms ease;
 
   @media screen and (max-width: 540px) {
-    top: -1px !important;
+    background-color: #001727;
+    top: -1px !important; //fixes content leak on mobile safari
   }
+  
+  // &--unfixed {}
 
-  &--unfixed {
-    transform: translateY(0);
-  }
+  // &--scrolled {}
 
-  &--scrolled {
-    background-color: #001727 !important;
-    box-shadow: 0px 12px 13px -5px rgb(0 0 0 / 35%)
-  }
-
-  &--unpinned {
-    position: fixed;
-
-    @media screen and (min-width: 560px) {
-      transform: translate3d(0px, 0%, 0px) !important;
-    }
-  }
+  // &--unpinned {}
 
   &--pinned {
-    position: fixed;
-    transform: translateY(0%);
-    
-    @media screen and (min-width: 560px) {
-      background-color: transparent !important;
+    @media screen and (max-width: 560px) {
+      // background-color: #001727;
+      box-shadow: 0px 12px 13px -5px rgb(0 0 0 / 35%);
     }
-  }
-
-  @media screen and (min-width: 560px) {
-    background-color: transparent !important;
   }
 }

@@ -5,10 +5,8 @@ import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
 
 import Button from '@/components/shared/Button';
-import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
 import { useGlobalState } from '@/context/GlobalContext';
-import { useWindowSize } from '@/hooks';
 
 import LogoImg from '../../../../public/logo.png';
 import ProfileLink from '../ProfileLink';
@@ -20,8 +18,6 @@ const Header = () => {
   const { data: session, status } = useSession();
   const loading = status === 'loading';
   const router = useRouter();
-
-  const { width } = useWindowSize();
 
   const handleHomeClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -44,7 +40,7 @@ const Header = () => {
   };
 
   return (
-    <Headroom disable={width > parseFloat(breakpoints.mobileHeader)}>
+    <Headroom>
       <Container>
         <HomeLink href="/" onClick={handleHomeClick}>
           <Image src={LogoImg} alt="Logo" />
