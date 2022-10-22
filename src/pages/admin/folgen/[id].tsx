@@ -7,10 +7,11 @@ import { useMutation } from 'react-query';
 
 import Button from '@/components/shared/Button';
 import { Form, Input, Select, Textarea } from '@/components/shared/Input';
+import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { FolgeWithId } from '@/models/folge';
-import { updateFolge } from '@/services/client';
+import { deleteFolge, updateFolge } from '@/services/client';
 import { getFolge } from '@/services/index';
 import { parseMongo } from '@/utils/index';
 
@@ -32,6 +33,20 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       router.push('/admin/folgen');
     },
   });
+
+  const deleteMutation = useMutation(deleteFolge, {
+    onSuccess: () => {
+      router.replace('/admin/folgen');
+    },
+  });
+
+  function handleDelete() {
+    const confirm = prompt(
+      'Löschen durch eingeben des Folgennames bestätigen.',
+      '',
+    );
+    if (confirm === folge.name) deleteMutation.mutate(folge._id.toString());
+  }
 
   const isTouched = Object.keys(formState.touchedFields).length > 0;
 
@@ -77,6 +92,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
             // eslint-disable-next-line no-inline-styles/no-inline-styles
             style={{ height: '225px' }}
             defaultValue={folge.inhalt}
+            spellCheck="true"
           />
         </label>
 
@@ -88,6 +104,10 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       <Link href={`/folge/${folge._id}`} target="_blank">
         <Button as="a">Öffnen</Button>
       </Link>
+
+      <Button onClick={handleDelete} color={colors.red}>
+        Löschen
+      </Button>
     </Wrapper>
   );
 }

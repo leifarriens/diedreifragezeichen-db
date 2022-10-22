@@ -47,6 +47,12 @@ export async function updateFolge(
   return folge;
 }
 
+export async function deleteFolge(folgeId: string) {
+  await Rating.deleteMany({ folge: folgeId });
+
+  return Folge.deleteOne({ _id: folgeId });
+}
+
 export async function getAllFolgenIds() {
   return Folge.find({}).select('_id');
 }
