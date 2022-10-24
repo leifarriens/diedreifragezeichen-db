@@ -59,38 +59,25 @@ export default function Toast({
   };
 
   return createPortal(
-    <Container>
-      <Transition in={inProp} timeout={150}>
-        {(state) => (
-          <StlyedToast
-            bgColor={color}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            style={{
-              ...defaultStyle,
-              ...transitionStyles[state],
-            }}
-          >
-            {children}
-          </StlyedToast>
-        )}
-      </Transition>
-    </Container>,
+    <Transition in={inProp} timeout={150}>
+      {(state) => (
+        <StlyedToast
+          bgColor={color}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          style={{
+            ...defaultStyle,
+            ...transitionStyles[state],
+          }}
+        >
+          {children}
+        </StlyedToast>
+      )}
+    </Transition>,
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     document.querySelector('#toastPortal')!,
   );
 }
-
-const Container = styled.div`
-  z-index: 999;
-  position: fixed;
-  bottom: 2rem;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-`;
 
 const StlyedToast = styled.div<{ bgColor: string }>`
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.15);

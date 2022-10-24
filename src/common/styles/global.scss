@@ -100,3 +100,22 @@ button {
   cursor: pointer;
   color: #fff;
 }
+
+#toastPortal {
+  z-index: 999;
+  position: fixed;
+  bottom: 1rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  flex-direction: column-reverse;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  max-height: 100vh;
+
+  div + div {
+    margin-bottom: 1em;
+  }
+}
