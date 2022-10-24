@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 
+import { FolgeType } from '@/types';
+
 export interface Folge extends mongoose.Document {
   images: { url: string; height: number; width: number }[];
   name: string;
   number: string;
-  type: string;
+  type: FolgeType;
   rating: number;
   number_of_ratings: number;
   popularity: number;

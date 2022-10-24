@@ -13,6 +13,7 @@ import Wrapper from '@/layout/Wrapper';
 import { FolgeWithId } from '@/models/folge';
 import { deleteFolge, updateFolge } from '@/services/client';
 import { getFolge } from '@/services/index';
+import { FolgeType } from '@/types';
 import { parseMongo } from '@/utils/index';
 
 type FormValues = {
@@ -21,14 +22,26 @@ type FormValues = {
   number: string;
   spotify_id: string;
   deezer_id: string;
-  type: string;
+  type: FolgeType;
   inhalt: string;
 };
 
 export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   const router = useRouter();
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { register, handleSubmit, formState, watch } = useForm<FormValues>({
+    defaultValues: {
+      _id: folge._id.toString(),
+      name: folge.name,
+      type: folge.type,
+      number: folge.number,
+      spotify_id: folge.spotify_id,
+      deezer_id: folge.deezer_id,
+      inhalt: folge.inhalt,
+    },
+  });
   const onSubmit: SubmitHandler<FormValues> = (data) => mutate(data);
+
+  const type = watch('type');
 
   const { mutate, isLoading } = useMutation(updateFolge, {
     onSuccess: () => {
@@ -57,51 +70,36 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Id</span>
-          <Input defaultValue={folge._id.toString()} disabled />
+          <Input {...register('_id')} disabled />
         </label>
-        <input
-          type="hidden"
-          {...register('_id')}
-          defaultValue={folge._id.toString()}
-        />
         <label>
           <span>Name</span>
-          <Input type="text" {...register('name')} defaultValue={folge.name} />
-        </label>
-
-        <label>
-          <span>Number</span>
-          <Input
-            type="text"
-            {...register('number')}
-            defaultValue={folge.number}
-          />
-        </label>
-
-        <label>
-          <span>Spotify Id</span>
-          <Input
-            type="text"
-            {...register('spotify_id')}
-            defaultValue={folge.spotify_id}
-          />
-        </label>
-
-        <label>
-          <span>Deezer Id</span>
-          <Input
-            type="text"
-            {...register('deezer_id')}
-            defaultValue={folge.deezer_id}
-          />
+          <Input type="text" {...register('name')} />
         </label>
 
         <label>
           <span>Type</span>
-          <Select {...register('type')} defaultValue={folge.type}>
+          <Select {...register('type')}>
             <option value="regular">regular</option>
             <option value="special">special</option>
           </Select>
+        </label>
+
+        {type === 'regular' && (
+          <label>
+            <span>Number</span>
+            <Input type="text" {...register('number')} />
+          </label>
+        )}
+
+        <label>
+          <span>Spotify Id</span>
+          <Input type="text" {...register('spotify_id')} />
+        </label>
+
+        <label>
+          <span>Deezer Id</span>
+          <Input type="text" {...register('deezer_id')} />
         </label>
 
         <label>
@@ -111,7 +109,6 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
             {...register('inhalt')}
             // eslint-disable-next-line no-inline-styles/no-inline-styles
             style={{ height: '225px' }}
-            defaultValue={folge.inhalt}
             spellCheck="true"
           />
         </label>
