@@ -3,7 +3,7 @@ import qs from 'qs';
 
 import { SpotifyAlbum } from '@/types';
 
-import artist from '../../config/artist.json';
+import artist from '../../../config/artist.json';
 
 const { SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET } = process.env;
 

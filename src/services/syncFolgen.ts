@@ -4,9 +4,9 @@ import { SpotifyAlbum } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
-import * as DeezerApi from './deezer';
 import { getAllInhalte } from './inhalt.services';
-import * as SpotifyApi from './spotify';
+import * as DeezerApi from './streaming/deezer';
+import * as SpotifyApi from './streaming/spotify';
 
 type SyncStats = {
   inDb: SpotifyAlbum[];

@@ -1,6 +1,6 @@
 import Axios, { AxiosError } from 'axios';
 
-import artist from '../../config/artist.json';
+import artist from '../../../config/artist.json';
 
 const DeezerApi = {
   artist: Axios.create({
