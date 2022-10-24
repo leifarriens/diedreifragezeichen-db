@@ -21,34 +21,24 @@ module.exports = {
 
     const folgen = await db.collection('folgen').find({}).toArray();
 
-    const writes = folgen
-      .filter((folge) => {
-        const deezerAlbum = deezerAlbums.find((album) =>
-          album.title
-            .replaceAll(' ', '')
-            .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
-        );
+    const writes = folgen.map((folge) => {
+      const deezerAlbum = deezerAlbums.find((album) =>
+        album.title
+          .replaceAll(' ', '')
+          .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
+      );
 
-        return Boolean(deezerAlbum);
-      })
-      .map((folge) => {
-        const deezerAlbum = deezerAlbums.find((album) =>
-          album.title
-            .replaceAll(' ', '')
-            .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
-        );
-
-        return {
-          updateOne: {
-            filter: { _id: folge._id },
-            update: {
-              $set: {
-                ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
-              },
+      return {
+        updateOne: {
+          filter: { _id: folge._id },
+          update: {
+            $set: {
+              ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
             },
           },
-        };
-      });
+        },
+      };
+    });
 
     await db.collection('folgen').bulkWrite(writes);
   },
