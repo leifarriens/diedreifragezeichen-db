@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { breakpoints } from '@/constants/layout';
+import { colors } from '@/constants/theme';
 import Wrapper from '@/layout/Wrapper';
 
 /**
@@ -18,6 +19,7 @@ export const Container = styled(Wrapper)`
   padding-bottom: 48px;
   pointer-events: none;
   justify-self: start;
+  background: linear-gradient(0deg, transparent, ${colors.darkblue});
 
   @media (max-width: 744px) {
     padding-top: 18px;
@@ -38,7 +40,7 @@ export const Container = styled(Wrapper)`
   @media (min-width: ${breakpoints.mobileHeader}) {
     grid-column-gap: 24px;
     grid-template-areas: 'logo search profile';
-    background: none;
+    /* background: none; */
     top: 0;
   }
 
