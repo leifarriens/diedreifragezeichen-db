@@ -5,7 +5,8 @@ import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
 import { getAllInhalte } from './inhalt.services';
-import { getAllAlbums } from './spotify';
+import * as DeezerApi from './streaming/deezer';
+import * as SpotifyApi from './streaming/spotify';
 
 type SyncStats = {
   inDb: SpotifyAlbum[];
@@ -23,7 +24,7 @@ export default async function syncFolgen() {
   };
 
   try {
-    const allAlbums = await getAllAlbums();
+    const allAlbums = await SpotifyApi.getAllAlbums();
     const dbFolgen = await FolgeModel.find({});
 
     if (!allAlbums) {
@@ -63,7 +64,9 @@ export default async function syncFolgen() {
      */
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
-    await writeFolgenInhalte(added);
+    if (added.length > 0) {
+      await writeExtraMetaData(added);
+    }
 
     return {
       notInDb: {
@@ -89,18 +92,31 @@ export default async function syncFolgen() {
   }
 }
 
-async function writeFolgenInhalte(folgen: FolgeWithId[]) {
+async function writeExtraMetaData(folgen: FolgeWithId[]) {
   const inhalte = await getAllInhalte();
+  const deezerAlbums = await DeezerApi.getAllAlbums();
 
   const writes = folgen.map((folge) => {
-    const exp = folge.name.replace('und', '').replace('???', '').trim();
-    const entry = inhalte.find(({ name }) => new RegExp(exp, 'i').test(name));
-    const inhalt = entry ? entry.body : '';
+    // Inhalt
+    const inhtaltExp = folge.name.replace('und', '').replace('???', '').trim();
+    const entry = inhalte.find(({ name }) =>
+      new RegExp(inhtaltExp, 'i').test(name),
+    );
+
+    // DeezerId
+    const deezerAlbum = deezerAlbums.find((album) =>
+      album.title
+        .replaceAll(' ', '')
+        .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
+    );
 
     return {
       updateOne: {
         filter: { _id: folge._id },
-        update: { inhalt },
+        update: {
+          ...(entry && { inhalt: entry.body }),
+          ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+        },
       },
     };
   });

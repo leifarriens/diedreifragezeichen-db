@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import type { Folge } from '@/models/folge';
 
+export type FolgeType = 'regular' | 'special';
+
 export interface RatingWithFolge {
   _id: string;
   createdAt: Date;
