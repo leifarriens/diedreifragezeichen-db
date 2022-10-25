@@ -1,61 +1,72 @@
-import type { Folge, FolgeWithId } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
 import { Folge as FolgeModel } from '@/models/folge';
-import { SpotifyFolge } from '@/types';
+import { SpotifyAlbum } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
 import { getAllInhalte } from './inhalt.services';
-import { getAllAlbums, getBearerToken } from './spotify';
+import * as DeezerApi from './streaming/deezer';
+import * as SpotifyApi from './streaming/spotify';
+
+type SyncStats = {
+  inDb: SpotifyAlbum[];
+  notInDb: SpotifyAlbum[];
+  successfullyAdded: string[];
+  blacklisted: SpotifyAlbum[];
+};
 
 export default async function syncFolgen() {
+  const stats: SyncStats = {
+    inDb: [],
+    notInDb: [],
+    successfullyAdded: [],
+    blacklisted: [],
+  };
+
   try {
-    const bearerToken = await getBearerToken();
-    const allAlbums = await getAllAlbums(bearerToken);
+    const allAlbums = await SpotifyApi.getAllAlbums();
     const dbFolgen = await FolgeModel.find({});
 
     if (!allAlbums) {
       throw Error('Invalid item response from spotify');
     }
 
-    const stats: {
-      inDb: SpotifyFolge[];
-      notInDb: SpotifyFolge[];
-      successfullyAdded: string[];
-      blacklisted: SpotifyFolge[];
-    } = {
-      inDb: [],
-      notInDb: [],
-      successfullyAdded: [],
-      blacklisted: [],
-    };
+    const notInDbAlbums = allAlbums.filter((album) => {
+      const isInDb = dbFolgen.find((folge) => folge.spotify_id === album.id);
 
-    const addToDb: Folge[] = [];
-
-    allAlbums.forEach((folge) => {
-      const isInDb = dbFolgen.find(
-        (album) => album.spotify_id === folge.id || album.name === folge.name,
-      );
       if (isInDb) {
-        stats.inDb.push(folge);
-      } else {
-        if (
-          blacklist.includes(folge.id) ||
-          folge.name.match(/liest|Kopfhörer/g)
-        ) {
-          stats.blacklisted.push(folge);
-        } else {
-          addToDb.push(convertFolge(folge));
-          stats.notInDb.push(folge);
-        }
+        stats.inDb.push(album);
+        return false;
       }
+
+      if (
+        blacklist.includes(album.id) ||
+        album.name.match(/liest|Kopfhörer/g)
+      ) {
+        stats.blacklisted.push(album);
+        return false;
+      }
+
+      stats.notInDb.push(album);
+      return true;
     });
+
+    const addToDb = notInDbAlbums.map((album) => convertFolge(album));
 
     const added = await FolgeModel.insertMany(addToDb);
     stats.successfullyAdded = added.map((f) => f.name);
 
+    // DISCUSS:
+    /**
+     * 1. Should be obsolete cause blacklisted folgen are never added to DB
+     * 2. Enables possibility to add folgen to blacklist and remove them in next sync
+     * 3. Is a bad pattern cause ratings persits even when folge is deleted
+     */
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
-    await writeFolgenInhalte(added);
+    if (added.length > 0) {
+      await writeExtraMetaData(added);
+    }
 
     return {
       notInDb: {
@@ -81,19 +92,34 @@ export default async function syncFolgen() {
   }
 }
 
-async function writeFolgenInhalte(folgen: FolgeWithId[]) {
+async function writeExtraMetaData(folgen: FolgeWithId[]) {
   const inhalte = await getAllInhalte();
+  const deezerAlbums = await DeezerApi.getAllAlbums();
 
-  for (let i = 0; i < folgen.length; i++) {
-    const folge = folgen[i];
-    const exp = folge.name.replace('und', '').replace('???', '').trim();
-    const entry = inhalte.find(({ name }) => new RegExp(exp, 'i').test(name));
-
-    const inhalt = entry ? entry.body : '';
-
-    await FolgeModel.updateOne(
-      { _id: folge._id },
-      { $set: { inhalt: inhalt } },
+  const writes = folgen.map((folge) => {
+    // Inhalt
+    const inhtaltExp = folge.name.replace('und', '').replace('???', '').trim();
+    const entry = inhalte.find(({ name }) =>
+      new RegExp(inhtaltExp, 'i').test(name),
     );
-  }
+
+    // DeezerId
+    const deezerAlbum = deezerAlbums.find((album) =>
+      album.title
+        .replaceAll(' ', '')
+        .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
+    );
+
+    return {
+      updateOne: {
+        filter: { _id: folge._id },
+        update: {
+          ...(entry && { inhalt: entry.body }),
+          ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+        },
+      },
+    };
+  });
+
+  return FolgeModel.bulkWrite(writes);
 }

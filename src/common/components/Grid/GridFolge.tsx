@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
+import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { Folge } from '@/models/folge';
 
@@ -24,7 +25,7 @@ interface GridFolgeProps {
   style?: CSSProperties;
 }
 
-const GridFolge = React.memo(
+const GridFolge = memo(
   ({
     folge,
     userRating = null,
@@ -91,7 +92,7 @@ const GridFolge = React.memo(
                 rating={folge.rating}
               />
               <div className="release">
-                {dayjs(folge.release_date).format('DD.MM.YYYY')}
+                {dayjs(folge.release_date).format(DATE_FORMAT)}
               </div>
             </div>
 
@@ -106,4 +107,4 @@ const GridFolge = React.memo(
   },
 );
 
-export default React.memo(GridFolge);
+export default GridFolge;

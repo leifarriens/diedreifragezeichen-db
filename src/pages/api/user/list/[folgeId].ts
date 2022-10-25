@@ -19,15 +19,25 @@ export default async function handler(
   if (req.method === 'DELETE') {
     const userId = session.user.id;
 
-    const user = await User.findOneAndUpdate(
+    await User.updateOne(
       { _id: userId },
       {
         $pull: { list: req.query.folgeId },
       },
-      { new: true },
     );
 
-    return res.json(user);
+    // const user = await User.findOneAndUpdate(
+    //   { _id: userId },
+    //   {
+    //     $pull: { list: req.query.folgeId },
+    //   },
+    //   { new: true },
+    // );
+
+    // console.log(user);
+
+    // return res.json(user);
+    return res.status(204).end();
   }
 
   return res.status(405).end('Method not allowed');

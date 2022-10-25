@@ -27,7 +27,7 @@ export default async function handler(
 
   if (req.method === 'DELETE') {
     await deleteUser(session.user.id);
-    return res.status(204).send('No Content');
+    return res.status(204).end();
   }
 
   return res.status(405).end('Method not allowed');

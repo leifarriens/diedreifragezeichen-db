@@ -4,7 +4,7 @@ import { UpdateQuery } from 'mongoose';
 import clientPromise from '@/db/authConn';
 
 import { Folge, FolgeWithId } from '../common/models/folge';
-import Rating from '../common/models/rating';
+import { Rating } from '../common/models/rating';
 import { User } from '../common/models/user';
 
 type FolgenOptions = {
@@ -45,6 +45,12 @@ export async function updateFolge(
   const folge = await Folge.findByIdAndUpdate(folgeId, update, { new: true });
 
   return folge;
+}
+
+export async function deleteFolge(folgeId: string) {
+  await Rating.deleteMany({ folge: folgeId });
+
+  return Folge.deleteOne({ _id: folgeId });
 }
 
 export async function getAllFolgenIds() {

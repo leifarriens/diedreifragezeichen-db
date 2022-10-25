@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { breakpoints } from '@/constants/layout';
+import { colors } from '@/constants/theme';
 import Wrapper from '@/layout/Wrapper';
 
 /**
@@ -9,9 +10,6 @@ import Wrapper from '@/layout/Wrapper';
 
 export const Container = styled(Wrapper)`
   flex: 0; // override Wrapper default flex: 1
-  position: sticky;
-  /* top: 0; */
-  /* top: -56px; */
   z-index: 99;
   color: #fff;
   justify-content: space-between;
@@ -21,11 +19,7 @@ export const Container = styled(Wrapper)`
   padding-bottom: 48px;
   pointer-events: none;
   justify-self: start;
-  /* box-shadow: 0px 12px 13px -5px rgb(0 0 0 / 35%);
-
-  @media screen and (min-width: ${breakpoints.mobileHeader}) {
-    box-shadow: none;
-  } */
+  background: linear-gradient(0deg, transparent, ${colors.darkblue});
 
   @media (max-width: 744px) {
     padding-top: 18px;
@@ -40,14 +34,13 @@ export const Container = styled(Wrapper)`
   grid-template-areas:
     'logo - profile'
     'search search search';
-  /* backdrop-filter: blur(2px); */
   grid-column-gap: 16px;
   grid-template-areas: 'logo search profile';
 
   @media (min-width: ${breakpoints.mobileHeader}) {
     grid-column-gap: 24px;
     grid-template-areas: 'logo search profile';
-    background: none;
+    /* background: none; */
     top: 0;
   }
 

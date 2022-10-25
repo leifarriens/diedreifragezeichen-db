@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import styled from 'styled-components';
 
 import Button from '@/components/shared/Button';
+import { DATE_FORMAT } from '@/constants/formats';
 import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
@@ -13,8 +14,6 @@ import type { Folge } from '@/models/folge';
 import { getFolgen } from '@/services/index';
 import { applyFilter } from '@/utils/filter';
 import { parseMongo } from '@/utils/index';
-
-const DATE_FORMAT = 'DD.MM.YYYY';
 
 export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
   const { searchQuery } = useGlobalState();

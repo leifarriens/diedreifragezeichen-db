@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 import type { Folge } from '@/models/folge';
 
+export type FolgeType = 'regular' | 'special';
+
 export interface RatingWithFolge {
   _id: string;
   createdAt: Date;
@@ -11,7 +13,7 @@ export interface RatingWithFolge {
   folge: Folge;
 }
 
-export type SpotifyFolge = {
+export type SpotifyAlbum = {
   id: string;
   name: string;
   images: {
@@ -20,6 +22,7 @@ export type SpotifyFolge = {
     width: number;
   }[];
   release_date: Date;
+  artists: unknown;
 };
 
 export type YearRange = {

@@ -1,5 +1,12 @@
 import qs from 'qs';
-import React, { ReactNode, useCallback, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react';
 
 import { SortOptionsEnum } from '@/components/Grid/Sort';
 
@@ -28,7 +35,7 @@ enum StorageNames {
   SORT_BY = 'sort_by',
 }
 
-export const GlobalContext = React.createContext<GlobalState>(initalState);
+export const GlobalContext = createContext<GlobalState>(initalState);
 
 export const GlobalProvider = ({
   children,
@@ -98,5 +105,5 @@ export const GlobalProvider = ({
 };
 
 export const useGlobalState = () => {
-  return React.useContext(GlobalContext);
+  return useContext(GlobalContext);
 };

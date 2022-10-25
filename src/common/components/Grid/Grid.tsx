@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { useGlobalState } from '@/context/GlobalContext';

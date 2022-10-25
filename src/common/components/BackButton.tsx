@@ -22,9 +22,7 @@ function BackButton() {
 
 const ButtonContainer = styled(Wrapper)`
   @media (max-width: ${breakpoints.mobileHeader}) {
-    position: sticky;
-    z-index: 10;
-    top: 24px;
+    margin-top: 16px;
   }
 `;
 

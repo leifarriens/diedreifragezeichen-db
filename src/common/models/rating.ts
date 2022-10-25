@@ -39,5 +39,8 @@ const ratingSchema = new mongoose.Schema<Rating>(
   },
 );
 
-export default (mongoose.models && mongoose.models.Rating) ||
-  mongoose.model('Rating', ratingSchema);
+const getModel = () => mongoose.model('Rating', ratingSchema);
+
+export const Rating = (mongoose.models.Rating || getModel()) as ReturnType<
+  typeof getModel
+>;

@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ export default function ScrollToTop() {
   const scrollTopRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [atBottom, setAtBottom] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     window.addEventListener('scroll', handleVisibility);
@@ -24,6 +26,10 @@ export default function ScrollToTop() {
 
   const handleClick = () => {
     window.scroll({ top: 0, behavior: 'smooth' });
+
+    if (router.query.ref) {
+      router.replace('/', '/', { shallow: true }); // removes url query params
+    }
   };
 
   return (

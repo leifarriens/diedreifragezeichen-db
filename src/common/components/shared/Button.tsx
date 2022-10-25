@@ -8,7 +8,8 @@ const Button = styled.button<{
   size?: 'default' | 'small';
 }>`
   cursor: pointer;
-  display: inline-block;
+  display: inline-flex;
+  gap: 0.7em;
   color: ${colors.white};
   border: 1px solid ${colors.white};
   padding: 0.7em 1.4em;

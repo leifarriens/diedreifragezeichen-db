@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 
+import { FolgeType } from '@/types';
+
 export interface Folge extends mongoose.Document {
   images: { url: string; height: number; width: number }[];
   name: string;
   number: string;
-  type: string;
+  type: FolgeType;
   rating: number;
   number_of_ratings: number;
   popularity: number;
@@ -12,6 +14,7 @@ export interface Folge extends mongoose.Document {
   inhalt?: string;
   release_date: Date;
   spotify_id: string;
+  deezer_id: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -32,6 +35,7 @@ const folgeSchema = new mongoose.Schema<Folge>(
     inhalt: String,
     release_date: Date,
     spotify_id: String,
+    deezer_id: String,
   },
   {
     collection: 'folgen',
@@ -47,6 +51,8 @@ folgeSchema.set('toJSON', {
   versionKey: false,
 });
 
-export const Folge =
-  (mongoose.models && mongoose.models.Folge) ||
-  mongoose.model('Folge', folgeSchema);
+const getModel = () => mongoose.model('Folge', folgeSchema);
+
+export const Folge = (mongoose.models.Folge || getModel()) as ReturnType<
+  typeof getModel
+>;

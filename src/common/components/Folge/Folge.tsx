@@ -1,5 +1,7 @@
 import Image from 'next/future/image';
+import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
+import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import { Folge as FolgeType } from '@/models/folge';
 
@@ -28,6 +30,7 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
     rating,
     number,
     spotify_id,
+    deezer_id,
   } = folge;
   const isBigCover = Number(number) >= 125;
 
@@ -49,7 +52,7 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
           <h2>Die drei ???</h2>
           <h1>{name}</h1>
           <ReleaseContainer>
-            Veröffentlicht am {dayjs(release_date).format('DD.MM.YYYY')}
+            Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
             <br />
             {dayjs(release_date).fromNow()}
           </ReleaseContainer>
@@ -68,9 +71,21 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
               as="a"
               rel="noopener noreferrer"
               href={`spotify:album:${spotify_id}`}
+              size="small"
             >
-              Auf Spotify Anhören
+              <FaSpotify size="1.4em" /> Auf Spotify anhören
             </Button>
+
+            {deezer_id && (
+              <Button
+                as="a"
+                rel="noopener noreferrer"
+                href={`deezer://album/${deezer_id}`}
+                size="small"
+              >
+                <FaDeezer size="1.4em" /> Auf Deezer anhören
+              </Button>
+            )}
 
             <ListButton folgeId={_id} folgeName={name} iconSize={28} />
           </Buttons>
