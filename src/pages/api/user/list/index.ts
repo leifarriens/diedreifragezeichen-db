@@ -16,18 +16,25 @@ export default async function handler(
 
   await dbConnect();
 
+  if (req.method === 'GET') {
+    const userId = session.user.id;
+
+    const user = await User.findById(userId);
+
+    return res.json(user?.list);
+  }
+
   if (req.method === 'POST') {
     const userId = session.user.id;
 
-    const user = await User.findOneAndUpdate(
+    await User.updateOne(
       { _id: userId },
       {
         $addToSet: { list: req.body.folge },
       },
-      { new: true },
     );
 
-    return res.json(user);
+    return res.status(201).end();
   }
 
   return res.status(405).end('Method not allowed');

@@ -1,41 +1,101 @@
 # diedreifragezeichen-db
 
-## Setup
+## Contributing
 
-### Database
-
-Set MONGO_URI to full connection string with /${database_name}.
-
-### Folgen sync
-
-To use cron folgen sync with github workflows set `ACTION_KEY` secret on github and `APP_KEY` on vercel to a matching value.
-
-### Authentication
-
-Set `NEXTAUTH_URL` to your host url.
-
-Set `{AUTH_PROVIDER}_CLIENT_ID` and `{AUTH_PROVIDER}_CLIENT__SECRET`
+Read the [Contribution Guide](CONTRIBUTING.md).
 
 ## API
+
+### folgen
 
 Get all folgen
 
 GET `/api/folgen`
 
-Get folge by ID
+Get folge by folgeId
 
-GET `/api/folgen/{id}`
+GET `/api/folgen/{folgeId}`
+
+#### alts
 
 Get alt folgen
 
-GET `/api/folgen/{id}/alts`
+GET `/api/folgen/{folgeId}/alts`
 
-Authenticatin is required for GET and POST /rating
+#### ratings
 
-Get user rating for folge
+Add or update rating. Authenticated session required.
 
-GET `/api/folgen/{id}/rating`
+POST `/api/folgen/{folgeId}/ratings`
 
-Post user rating
+Request
 
-POST `/api/folgen/{id}/rating`
+```json
+{
+  "rating": 10
+}
+```
+
+Response
+
+Success: `201`
+
+### user
+
+All user api endpoints need to be access with a authenticated session. Otherwise a `401` `Unauthorized` will be returned.
+
+Get user
+
+GET `/api/user`
+
+Delete user
+
+DELETE `/api/user`
+
+Response
+
+Success: `204`
+
+#### ratings
+
+Get all user ratings
+
+GET `/api/user/ratings`
+
+Get user rating by folgeId
+
+GET `/api/user/ratings?folgeId={folgeId}`
+
+#### list
+
+Get list
+
+GET `/api/user/list`
+
+Add folge to list
+
+POST `/api/user/list`
+
+Request
+
+```json
+{
+  "folge": "{folgeId}"
+}
+```
+
+Response
+
+Success: `201`
+
+Response
+
+Success: `200`
+
+Delete folge from list
+
+DELETE `/api/user/list/{folgeId}`
+
+Response
+
+Success: `204`

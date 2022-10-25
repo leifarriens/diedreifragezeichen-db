@@ -2,7 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { getUserRatings } from '@/services/index';
+import { getUserFolgenRating, getUserRatings } from '@/services/index';
+import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,6 +19,16 @@ export default async function handler(
 
   if (req.method === 'GET') {
     const userId = session.user.id;
+
+    if (req.query.folgeId) {
+      const folgeId = parseQueryParam(req.query.folgeId);
+
+      const rating = await getUserFolgenRating({ folgeId, userId });
+
+      if (!rating) return res.status(404).send('Not found');
+
+      return res.json(rating);
+    }
 
     const ratings = await getUserRatings(userId, {
       fields: ['folge', 'value'],

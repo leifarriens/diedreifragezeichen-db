@@ -3,20 +3,19 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { getUserFolgenRating, postFolgenRating } from '@/services/index';
+import { postFolgenRating } from '@/services/index';
 import { parseQueryParam } from '@/utils/index';
 
-// TODO: should move to /api/user/ratings/:folgeId
-// This endpoint should return all ratings with future review
+// TODO: GET endpoint should return all ratings with future reviews
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
   const session = await getSession({ req });
 
-  const id = parseQueryParam(req.query.id);
+  const folgeId = parseQueryParam(req.query.id);
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(folgeId)) {
     return res.status(404).send('Not Found');
   }
 
@@ -24,16 +23,6 @@ export default async function handler(
 
   if (!session) {
     return res.status(401).send('Unauthorized');
-  }
-
-  if (req.method === 'GET') {
-    const userId = session.user.id;
-
-    const rating = await getUserFolgenRating({ folgeId: id, userId });
-
-    if (!rating) return res.status(404).send('Not found');
-
-    return res.json(rating);
   }
 
   if (req.method === 'POST') {
@@ -44,7 +33,7 @@ export default async function handler(
     }
 
     const rating = await postFolgenRating({
-      folgeId: id,
+      folgeId,
       userId: session.user.id,
       userRating: data.rating,
     });

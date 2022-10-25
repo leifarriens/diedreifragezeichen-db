@@ -28,7 +28,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { mutate: mutateAdd, isLoading: addIsLoading } = useMutation(
     postFolgeList,
     {
-      onMutate: (folgeId) => {
+      onMutate: () => {
         if (user) {
           const updatedUser = {
             ...user,
@@ -46,7 +46,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { mutate: mutateRemove, isLoading: removeIsLoading } = useMutation(
     removeFolgeList,
     {
-      onMutate: (folgeId) => {
+      onMutate: () => {
         const updatedUser = {
           ...user,
           list: user?.list.filter((id) => id !== folgeId),
@@ -59,7 +59,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     },
   );
 
-  const isLoading = addIsLoading || removeIsLoading;
+  const isLoading = userLoading || addIsLoading || removeIsLoading;
 
   function handleClick() {
     if (!session) return signIn();
