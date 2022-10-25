@@ -1,0 +1,4 @@
+{
+  "*.ts": ["eslint --cache --fix", "prettier"],
+  "*.tsx": ["eslint --cache --fix", "prettier"]
+}
