@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 
@@ -20,6 +20,10 @@ const Search = () => {
     50,
     [value, setSearchQuery],
   );
+
+  useEffect(() => {
+    if (searchQuery === '') setValue('');
+  }, [searchQuery]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
