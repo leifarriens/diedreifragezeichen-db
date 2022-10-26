@@ -1,7 +1,6 @@
 import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '@/components/Grid';
@@ -10,8 +9,9 @@ import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
+import { useBackgroundSortTheme } from '@/hooks';
 import Wrapper from '@/layout/Wrapper';
-import { parseMongo, setBodyBgByStyle, unsetBodyBgStyle } from '@/utils/index';
+import { parseMongo } from '@/utils/index';
 
 import { getFolgen } from '../services';
 
@@ -19,14 +19,7 @@ function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data: session } = useSession();
   const { sortBy } = useGlobalState();
 
-  useEffect(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    if (!isSafari) setBodyBgByStyle(sortBy);
-
-    return () => {
-      unsetBodyBgStyle();
-    };
-  }, [sortBy]);
+  useBackgroundSortTheme(sortBy);
 
   return (
     <>
