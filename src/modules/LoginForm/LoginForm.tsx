@@ -5,8 +5,9 @@ import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';
 import styled from 'styled-components';
 
-import SocialLoginButton from '@/components/SocialLoginButton';
 import { colors } from '@/constants/theme';
+
+import SocialLoginButton from './SocialLoginButton';
 
 type ProviderButtons = {
   [name: string]: ProviderButton;
