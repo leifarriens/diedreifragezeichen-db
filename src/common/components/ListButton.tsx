@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import { RotatingLines } from 'react-loader-spinner';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { colors } from '@/constants/theme';
 import { useUser } from '@/hooks';
 import { postFolgeList, removeFolgeList } from '@/services/client';
 
+import { SpinningLoader } from './shared/Loader';
 import Toast from './shared/Toast';
 
 type ListButtonProps = {
@@ -30,11 +30,10 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     {
       onMutate: () => {
         if (user) {
-          const updatedUser = {
+          queryClient.setQueryData(['user', user?._id], {
             ...user,
             list: [...user.list, folgeId],
-          };
-          queryClient.setQueryData(['user', user?._id], updatedUser);
+          });
         }
       },
       onSuccess: () => {
@@ -47,11 +46,10 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     removeFolgeList,
     {
       onMutate: () => {
-        const updatedUser = {
+        queryClient.setQueryData(['user', user?._id], {
           ...user,
           list: user?.list.filter((id) => id !== folgeId),
-        };
-        queryClient.setQueryData(['user', user?._id], updatedUser);
+        });
       },
       onSuccess: () => {
         setToasted(true);
@@ -76,15 +74,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   }
 
   if (isLoading) {
-    return (
-      <RotatingLines
-        strokeColor="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        width={iconSize.toString()}
-        visible={true}
-      />
-    );
+    return <SpinningLoader width={iconSize.toString()} />;
   }
 
   return (
