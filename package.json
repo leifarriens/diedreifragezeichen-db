@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/leifarriens/diedreifragezeichen-db#readme",
   "resolutions": {
-    "@types/react": "17.0.2"
+    "@types/react": "17.0.2",
+    "styled-components": "^5.3.6"
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.1.0",
