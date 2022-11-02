@@ -1,4 +1,4 @@
-import type { Rating } from '@/models/rating';
+import type { RatingWithId } from '@/models/rating';
 import type { UserWithId } from '@/models/user';
 
 import { API } from './';
@@ -13,15 +13,15 @@ export async function deleteAccount() {
 }
 
 export async function getUserRatings() {
-  const { data } = await API.get<Rating[]>('/user/ratings');
+  const { data } = await API.get<RatingWithId[]>('/user/ratings');
   return data;
 }
 
-export async function getUserRating(folgeId: string): Promise<number> {
-  const { data } = await API.get<Rating>(`/user/ratings`, {
+export async function getUserRating(folgeId: string) {
+  const { data } = await API.get<RatingWithId>(`/user/ratings`, {
     params: { folgeId },
   });
-  return data.value;
+  return data;
 }
 
 export async function postFolgeList(folgeId: string) {

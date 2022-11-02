@@ -17,7 +17,7 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
   const { data: session } = useSession();
   const [toasted, setToasted] = useState(false);
 
-  const { userRating, isLoading, mutate, error } = useUserRating(folge_id, {
+  const { rating, isLoading, mutation } = useUserRating(folge_id, {
     onMutationSuccess() {
       setToasted(true);
     },
@@ -30,18 +30,18 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
   function handleNewRating(newRating: number) {
     if (!session) return signIn();
 
-    if (newRating === userRating) {
+    if (newRating === rating.data?.value) {
       return;
     }
 
-    return mutate({ folgeId: folge_id, rating: newRating });
+    return mutation.mutate({ folgeId: folge_id, value: newRating });
   }
 
   return (
     <>
-      <Title>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</Title>
+      <Title>{rating.data ? 'Deine Wertung:' : 'Bewerten:'}</Title>
       <RatingInput
-        defaultValue={userRating}
+        defaultValue={rating.data?.value}
         onRate={handleNewRating}
         disabled={isLoading}
       />
@@ -52,11 +52,6 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
           color={colors.lightblue}
         >
           Bewertung für <i>{folge_name}</i> gespeichert
-        </Toast>
-      )}
-      {error && error.response?.status !== 404 && (
-        <Toast duration={3000} color={colors.red}>
-          Ein Fehler ist aufgetreten
         </Toast>
       )}
     </>

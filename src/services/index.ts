@@ -60,11 +60,13 @@ export async function getAllFolgenIds() {
 export async function postFolgenRating({
   folgeId,
   userId,
-  userRating,
+  value,
+  body,
 }: {
   folgeId: string;
   userId: string;
-  userRating: number;
+  value: number;
+  body?: string;
 }) {
   const folge = await getFolge(folgeId);
 
@@ -80,7 +82,8 @@ export async function postFolgenRating({
     {
       user: userId,
       folge: folgeId,
-      value: userRating,
+      value,
+      body,
     },
     { upsert: true, new: true },
   );

@@ -6,36 +6,36 @@ import dbConnect from '@/db/connect';
 import { postFolgenRating } from '@/services/index';
 import { parseQueryParam } from '@/utils/index';
 
-// TODO: GET endpoint should return all ratings with future reviews
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
-
   const folgeId = parseQueryParam(req.query.id);
 
   if (!mongoose.Types.ObjectId.isValid(folgeId)) {
     return res.status(404).send('Not Found');
   }
 
-  await dbConnect();
-
-  if (!session) {
-    return res.status(401).send('Unauthorized');
-  }
-
   if (req.method === 'POST') {
+    const session = await getSession({ req });
+
+    if (!session) {
+      return res.status(401).send('Unauthorized');
+    }
+
     const data = req.body;
 
-    if (!data.rating || typeof data.rating !== 'number') {
+    if (!data.value || typeof data.value !== 'number') {
       return res.status(400).end();
     }
+
+    await dbConnect();
 
     const rating = await postFolgenRating({
       folgeId,
       userId: session.user.id,
-      userRating: data.rating,
+      value: data.value,
+      body: data.body,
     });
 
     return res.status(201).json(rating);

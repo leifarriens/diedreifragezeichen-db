@@ -1,21 +1,22 @@
 import type { Folge, FolgeWithId } from '@/models/folge';
+import { RatingWithId } from '@/models/rating';
 
 import { API } from './';
 
 export async function postUserRating({
   folgeId,
-  rating,
+  value,
+  body,
 }: {
   folgeId: string;
-  rating: number;
+  value: number;
+  body?: string;
 }) {
-  const { data } = await API.post<{ value: number }>(
-    `/folgen/${folgeId}/ratings`,
-    {
-      rating,
-    },
-  );
-  return data.value;
+  const { data } = await API.post<RatingWithId>(`/folgen/${folgeId}/ratings`, {
+    value,
+    body,
+  });
+  return data;
 }
 
 export async function getAltFolgen(folgeId: string) {

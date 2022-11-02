@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
-// import Folge from './folge';
+
 export interface Rating {
   user: mongoose.Types.ObjectId;
   folge: mongoose.Types.ObjectId;
   value: number;
-  comment: string;
+  body: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface RatingWithId extends Rating {
@@ -27,8 +29,9 @@ const ratingSchema = new mongoose.Schema<Rating>(
       type: Number,
       min: 1,
       max: 10,
+      required: true,
     },
-    comment: { type: String },
+    body: { type: String },
   },
   {
     timestamps: {
