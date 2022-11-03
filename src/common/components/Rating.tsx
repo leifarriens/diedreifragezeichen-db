@@ -14,7 +14,7 @@ type RatingProps = {
 };
 
 export default function Rating({ folge_id, folge_name }: RatingProps) {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [toasted, setToasted] = useState(false);
 
   const { userRating, isLoading, mutate, error } = useUserRating(folge_id, {
@@ -22,6 +22,8 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
       setToasted(true);
     },
   });
+
+  const disabled = status === 'loading' || isLoading;
 
   useEffect(() => {
     setToasted(false);
@@ -43,7 +45,7 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
       <RatingInput
         defaultValue={userRating}
         onRate={handleNewRating}
-        disabled={isLoading}
+        disabled={disabled}
       />
       {toasted && (
         <Toast
