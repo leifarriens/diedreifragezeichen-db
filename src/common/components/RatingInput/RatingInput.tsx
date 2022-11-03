@@ -10,14 +10,16 @@ import {
 
 type RatingInputProps = {
   defaultValue: number | undefined;
-  disabled: boolean;
-  onRate: (newRating: number) => void;
+  disabled?: boolean;
+  height?: string;
+  onRate?: (newRating: number) => void;
 };
 
 function RatingInput({
   defaultValue = 0,
-  onRate,
   disabled = false,
+  height = '60px',
+  onRate,
 }: RatingInputProps) {
   const [range, setRange] = useState(defaultValue || 0);
   const [hover, setHover] = useState<number | null>(null);
@@ -44,7 +46,7 @@ function RatingInput({
 
   const handleInputEnd = () => {
     setHover(null);
-    onRate(range);
+    onRate && onRate(range);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -109,8 +111,8 @@ function RatingInput({
   };
 
   return (
-    <Container disabled={disabled}>
-      <IconContainer>
+    <Container style={{ opacity: disabled ? 0.2 : 1 }}>
+      <IconContainer height={height}>
         <input
           ref={inputRef}
           {...inputSettings}
@@ -121,11 +123,12 @@ function RatingInput({
           onTouchMove={handleTouchMove}
           onMouseMove={handleMouseMove}
           onMouseOut={() => setHover(null)}
+          disabled={disabled}
         />
 
         <FragezeichenContainer>
           {Array.from({ length: 10 }, (_, i) => (
-            <FragezeichenIcon key={i} icon={getIcon(i)} />
+            <FragezeichenIcon key={i} src={`/${getIcon(i)}.png`} alt="" />
           ))}
         </FragezeichenContainer>
       </IconContainer>

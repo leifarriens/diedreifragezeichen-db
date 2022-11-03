@@ -1,18 +1,13 @@
 import styled from 'styled-components';
 
-export const Container = styled.div<{ disabled: boolean }>`
-  display: flex;
-  width: 100%;
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
-  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+export const Container = styled.label`
+  display: inline-flex;
 `;
 
-export const IconContainer = styled.label`
-  display: block;
+export const IconContainer = styled.div<{ height: string }>`
+  display: flex;
   position: relative;
-  height: 60px;
-  width: 100%;
-  max-width: 350px;
+  height: ${(props) => props.height};
 
   input[type='range'] {
     cursor: pointer;
@@ -23,43 +18,19 @@ export const IconContainer = styled.label`
     left: 0;
     z-index: 1;
     opacity: 0;
-
-    &::-webkit-slider-thumb {
-      width: 40px;
-      height: 60px;
-    }
-
-    &::-moz-range-thumb {
-      width: 30px;
-      height: 60px;
-    }
   }
 `;
 
 export const FragezeichenContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-column-gap: 4px;
-  justify-content: space-between;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  justify-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  column-gap: 4px;
 `;
 
-export const FragezeichenIcon = styled.span<{ icon: string }>`
-  display: inline-block;
-  background-image: url('/${(props) => props.icon}.png');
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 60px;
-  width: 100%;
-
-  &:hover {
-    background-image: url('/blue_small.png');
-  }
+export const FragezeichenIcon = styled.img`
+  height: auto;
+  width: auto;
+  object-fit: cover;
 `;
 
 export const HoverValue = styled.div`
