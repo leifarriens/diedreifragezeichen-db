@@ -26,17 +26,6 @@ export default async function handler(
       },
     );
 
-    // const user = await User.findOneAndUpdate(
-    //   { _id: userId },
-    //   {
-    //     $pull: { list: req.query.folgeId },
-    //   },
-    //   { new: true },
-    // );
-
-    // console.log(user);
-
-    // return res.json(user);
     return res.status(204).end();
   }
 
