@@ -124,6 +124,21 @@ export async function getUserFolgenRating({
   return Rating.findOne({ folge: folgeId, user: userId });
 }
 
+export async function getPublicUser(userId: string) {
+  return User.findById(userId).select('name image');
+}
+
+export async function deleteUserReview(userId: string, folgeId: string) {
+  /**
+   * Deletes only the body for now - deleting the whole rating document
+   * requires the folgen rating to be recalculated aswell
+   */
+  return Rating.updateOne(
+    { user: userId, folge: folgeId },
+    { $unset: { body: 1 } },
+  );
+}
+
 export async function getAltFolgen(id: string, options: FolgenOptions = {}) {
   const { fields = [], specials = false, limit = 20 } = options;
 

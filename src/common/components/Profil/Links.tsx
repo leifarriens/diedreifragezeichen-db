@@ -11,25 +11,53 @@ function Links() {
 
   return (
     <StyledLinks>
-      <LinkWrapper maxWidth="1280px">
-        <Link href="/profil">
-          <a className={classnames({ active: pathname == '/profil' })}>
-            Bewertungen
-          </a>
-        </Link>
+      <Wrapper maxWidth="1280px">
+        <nav>
+          <LinkList>
+            <li>
+              <Link href="/profil/list">
+                <a
+                  className={classnames({ active: pathname == '/profil/list' })}
+                >
+                  Merkliste
+                </a>
+              </Link>
+            </li>
 
-        <Link href="/profil/list">
-          <a className={classnames({ active: pathname == '/profil/list' })}>
-            Merkliste
-          </a>
-        </Link>
+            <li>
+              <Link href="/profil">
+                <a className={classnames({ active: pathname == '/profil' })}>
+                  Bewertungen
+                </a>
+              </Link>
+            </li>
 
-        <Link href="/profil/account">
-          <a className={classnames({ active: pathname == '/profil/account' })}>
-            Account
-          </a>
-        </Link>
-      </LinkWrapper>
+            <li>
+              <Link href="/profil/reviews">
+                <a
+                  className={classnames({
+                    active: pathname == '/profil/reviews',
+                  })}
+                >
+                  Reviews
+                </a>
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/profil/account">
+                <a
+                  className={classnames({
+                    active: pathname == '/profil/account',
+                  })}
+                >
+                  Account
+                </a>
+              </Link>
+            </li>
+          </LinkList>
+        </nav>
+      </Wrapper>
     </StyledLinks>
   );
 }
@@ -51,7 +79,8 @@ const StyledLinks = styled.div`
   }
 `;
 
-const LinkWrapper = styled(Wrapper)`
+const LinkList = styled.ul`
+  list-style: none;
   display: flex;
   justify-content: space-around;
 `;

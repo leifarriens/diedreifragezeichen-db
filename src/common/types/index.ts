@@ -1,17 +1,18 @@
 import mongoose from 'mongoose';
 
-import type { Folge } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
+import { RatingWithId } from '@/models/rating';
+import { UserWithId } from '@/models/user';
 
 export type FolgeType = 'regular' | 'special';
 
-export interface RatingWithFolge {
-  _id: string;
-  createdAt: Date;
-  user: string;
-  value: number;
-  updatedAt: Date;
-  folge: Folge;
-}
+export type RatingWithFolge = RatingWithId & {
+  folge: FolgeWithId;
+};
+
+export type ReviewWithUser = RatingWithId & {
+  user: UserWithId;
+};
 
 export type SpotifyAlbum = {
   id: string;
@@ -31,3 +32,10 @@ export type YearRange = {
 };
 
 export type MongoId = mongoose.Types.ObjectId | string;
+
+export interface ApiResponse<R = unknown[]> {
+  items: R;
+  limit: number;
+  offset: number;
+  total: number;
+}

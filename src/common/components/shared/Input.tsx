@@ -5,6 +5,7 @@ import { colors } from '@/constants/theme';
 const shared = css`
   font-family: inherit;
   font-size: 16px;
+  color: ${colors.white};
   width: 100%;
   display: inline-block;
   border: 1px solid ${colors.white};
@@ -24,12 +25,11 @@ export const Select = styled.select`
   ${shared};
 `;
 
-export const Textarea = styled.textarea`
+export const Textarea = styled.textarea<{ minHeight?: string }>`
   ${shared};
 
   resize: vertical;
-  min-height: 80px;
-  max-height: 640px;
+  min-height: ${({ minHeight }) => (minHeight ? minHeight : '80px')};
 `;
 
 export const Form = styled.form`
@@ -40,4 +40,8 @@ export const Form = styled.form`
   label {
     display: block;
   }
+`;
+
+export const FieldError = styled.div`
+  color: ${colors.lightblue};
 `;

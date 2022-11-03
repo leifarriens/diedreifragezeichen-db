@@ -61,7 +61,10 @@ const Header = () => {
                 </Button>
               </span>
             ) : (
-              <ProfileLink image={session.user.image} />
+              <ProfileLink
+                image={session.user.image}
+                name={session.user.name}
+              />
             )}
           </div>
         )}

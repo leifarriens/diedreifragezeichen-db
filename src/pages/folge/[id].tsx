@@ -10,6 +10,7 @@ import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import type { Folge as FolgeType } from '@/models/folge';
+import { FolgenReviews } from '@/modules/Reviews';
 import { getAllFolgenIds, getFolge } from '@/services/index';
 import { parseMongo } from '@/utils/index';
 
@@ -22,6 +23,7 @@ function Folge({ folge }: FolgePageProps) {
   const number = !isNaN(parseInt(folge.number))
     ? `Folge ${parseInt(folge.number)}`
     : '';
+  const folgeId = folge._id.toString();
   const title = `${number} ${folge.name}`;
   const description = `${title}: ${folge.inhalt}`;
 
@@ -32,7 +34,7 @@ function Folge({ folge }: FolgePageProps) {
       <Seo
         title={title}
         description={description}
-        canonicalpath={`/folgen/${folge.id}`}
+        canonicalpath={`/folgen/${folgeId}`}
         openGraph={{
           images: [
             {
@@ -49,10 +51,11 @@ function Folge({ folge }: FolgePageProps) {
 
       <Wrapper maxWidth="1180px">
         <FolgeComponent folge={folge} />
+        <FolgenReviews folgeId={folgeId} />
       </Wrapper>
 
       <Wrapper ref={ref}>
-        <AltFolgen refFolgeId={folge._id.toString()} enabled={inView} />
+        <AltFolgen refFolgeId={folgeId} enabled={inView} />
       </Wrapper>
     </>
   );

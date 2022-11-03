@@ -1,5 +1,6 @@
 import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useQueryClient } from 'react-query';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
@@ -16,9 +17,11 @@ type RatingProps = {
 export default function Rating({ folge_id, folge_name }: RatingProps) {
   const { data: session } = useSession();
   const [toasted, setToasted] = useState(false);
+  const queryClient = useQueryClient();
 
   const { rating, isLoading, mutation } = useUserRating(folge_id, {
     onMutationSuccess() {
+      queryClient.invalidateQueries([folge_id, session?.user.id, 'rating']);
       setToasted(true);
     },
   });

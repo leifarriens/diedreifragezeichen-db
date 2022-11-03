@@ -31,6 +31,7 @@ const Button = styled.button<{
   :disabled {
     opacity: 0.75;
     cursor: not-allowed;
+    filter: saturate(0);
   }
 `;
 
