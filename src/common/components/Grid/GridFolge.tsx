@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { CSSProperties, memo, useEffect, useRef, useState } from 'react';

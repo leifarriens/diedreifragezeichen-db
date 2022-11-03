@@ -37,10 +37,11 @@
     "react/react-in-jsx-scope": "off",
     "react/prop-types": "off",
     "react/display-name": "off",
-    "no-inline-styles/no-inline-styles": 2,
+    "no-inline-styles/no-inline-styles": 1,
     "simple-import-sort/imports": 1,
     "simple-import-sort/exports": 1,
     "prettier/prettier": 1,
-    "@typescript-eslint/no-empty-function": "off"
+    "@typescript-eslint/no-empty-function": "off",
+    "@next/next/no-img-element": "off"
   }
 }

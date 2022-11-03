@@ -31,7 +31,6 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
             style={{ backgroundImage: `url(${folge.images[1].url})` }}
           />
           <div className="cover">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={folge.images[1].url} alt={folge.name} />
           </div>
           <div className="info">
