@@ -7,7 +7,7 @@ type User = {
   image: string | null;
   id: string;
   role: 'User' | 'Admin';
-} & DefaultSession['user'];
+} & DefaultSession['user']; // resolves type error [...nextauth].ts:47
 
 declare module 'next-auth' {
   interface Session {

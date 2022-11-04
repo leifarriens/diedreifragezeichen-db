@@ -11,9 +11,9 @@ import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { FolgeWithId } from '@/models/folge';
+import { Type } from '@/models/folge';
 import { deleteFolge, updateFolge } from '@/services/client';
-import { getFolge } from '@/services/index';
-import { FolgeType } from '@/types';
+import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
 type FormValues = {
@@ -22,7 +22,7 @@ type FormValues = {
   number: string;
   spotify_id: string;
   deezer_id: string;
-  type: FolgeType;
+  type: Type;
   inhalt: string;
 };
 

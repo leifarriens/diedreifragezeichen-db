@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { getUserFolgenRating, getUserRatings } from '@/services/index';
+import { getUserFolgenRating, getUserRatings } from '@/services/rating.service';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(

@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import dbConnect from '@/db/connect';
-import { getAltFolgen } from '@/services/index';
+import { getAltFolgen } from '@/services/folge.service';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(

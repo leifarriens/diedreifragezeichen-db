@@ -6,17 +6,17 @@ import styled from 'styled-components';
 
 import Button from '@/components/shared/Button';
 import { DATE_FORMAT } from '@/constants/formats';
-import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import dayjs from '@/lib/dayjs';
-import type { Folge } from '@/models/folge';
-import { getFolgen } from '@/services/index';
-import { applyFilter } from '@/utils/filter';
+import type { FolgeWithId } from '@/models/folge';
+import { useGridState } from '@/modules/Grid';
+import { applyFilter } from '@/modules/Grid/utils/filter';
+import { getFolgen } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
-export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
-  const { searchQuery } = useGlobalState();
+export default function AdminFolgen({ folgen }: { folgen: FolgeWithId[] }) {
+  const { searchQuery } = useGridState();
 
   const filteredFolgen = useMemo(
     () => applyFilter(folgen, { searchQuery }),
@@ -26,7 +26,7 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
   return (
     <Wrapper>
       {filteredFolgen.map((folge) => (
-        <Item key={folge._id}>
+        <Item key={folge._id.toString()}>
           <Background
             style={{ backgroundImage: `url(${folge.images[1].url})` }}
           />

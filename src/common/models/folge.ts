@@ -1,27 +1,40 @@
 import mongoose from 'mongoose';
+import * as z from 'zod';
 
-import { FolgeType } from '@/types';
+import { MongoId } from '@/types';
 
-export interface Folge extends mongoose.Document {
-  images: { url: string; height: number; width: number }[];
-  name: string;
-  number: string;
-  type: FolgeType;
-  rating: number;
-  number_of_ratings: number;
-  popularity: number;
-  user_rating?: number;
-  inhalt?: string;
-  release_date: Date;
-  spotify_id: string;
-  deezer_id: string;
-  created_at: Date;
-  updated_at: Date;
-}
+const Type = z.enum(['regular', 'special']);
 
-export interface FolgeWithId extends Folge {
-  _id: mongoose.Types.ObjectId | string;
-}
+const Image = z.object({
+  url: z.string(),
+  height: z.number(),
+  width: z.number(),
+});
+
+export type Type = z.infer<typeof Type>;
+
+const folgeValidator = z.object({
+  name: z.string(),
+  number: z.string(),
+  type: Type,
+  images: z.array(Image),
+  rating: z.number().min(1).max(10),
+  number_of_ratings: z.number().int(),
+  popularity: z.number(),
+  user_rating: z.number().optional(),
+  inhalt: z.string(),
+  release_date: z.date(),
+  spotify_id: z.string(),
+  deezer_id: z.string(),
+  created_at: z.date(),
+  updated_at: z.date(),
+});
+
+export type Folge = z.infer<typeof folgeValidator>;
+
+export type FolgeWithId = Folge & {
+  _id: MongoId;
+};
 
 const folgeSchema = new mongoose.Schema<Folge>(
   {
@@ -45,11 +58,6 @@ const folgeSchema = new mongoose.Schema<Folge>(
     },
   },
 );
-
-folgeSchema.set('toJSON', {
-  virtuals: true,
-  versionKey: false,
-});
 
 const getModel = () => mongoose.model('Folge', folgeSchema);
 

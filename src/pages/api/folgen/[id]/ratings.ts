@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { postFolgenRating } from '@/services/index';
+import { postFolgenRating } from '@/services/rating.service';
 import { parseQueryParam } from '@/utils/index';
 
 // TODO: GET endpoint should return all ratings with future reviews

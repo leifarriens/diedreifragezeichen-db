@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
 import { User } from '@/models/user';
-import { deleteUser } from '@/services/index';
+import { deleteUser } from '@/services/user.service';
 
 export default async function handler(
   req: NextApiRequest,

@@ -23,7 +23,9 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const queryClient = useQueryClient();
   const [toasted, setToasted] = useState(false);
 
-  const isOnUserList = !user ? false : user.list.includes(folgeId);
+  const isOnUserList = !user
+    ? false
+    : user.list.map((id) => id.toString()).includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } = useMutation(
     postFolgeList,
@@ -48,7 +50,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
       onMutate: () => {
         queryClient.setQueryData(['user', user?._id], {
           ...user,
-          list: user?.list.filter((id) => id !== folgeId),
+          list: user?.list.filter((id) => id.toString() !== folgeId),
         });
       },
       onSuccess: () => {

@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { getProviders, getSession } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
@@ -6,6 +6,7 @@ import { SessionProviderProps } from 'next-auth/react';
 import Seo from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import { LoginForm } from '@/modules/LoginForm';
+import { parseQueryParam } from '@/utils/index';
 
 export default function SignIn({
   providers,
@@ -26,18 +27,18 @@ export default function SignIn({
   );
 }
 
-export const getServerSideProps = async ({
+export const getServerSideProps: GetServerSideProps = async ({
   req,
   query,
-}: GetServerSidePropsContext) => {
+}) => {
   const session = await getSession({ req });
 
-  const { callbackUrl } = query;
+  const callbackUrl = parseQueryParam(query.callbackUrl);
 
   if (session) {
     return {
       redirect: {
-        destination: callbackUrl || process.env.NEXTAUTH_URL,
+        destination: callbackUrl || process.env.NEXTAUTH_URL || '',
         permanent: false,
       },
     };

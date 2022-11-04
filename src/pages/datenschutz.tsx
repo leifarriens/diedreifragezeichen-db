@@ -1,6 +1,6 @@
 import fs from 'fs';
 import matter from 'gray-matter';
-import { InferGetStaticPropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import path from 'path';
 import styled from 'styled-components';
 
@@ -49,7 +49,7 @@ const Content = styled.div`
 
 const directory = path.join(process.cwd(), 'src', 'content');
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const fullPath = path.join(directory, 'datenschutz.md');
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');

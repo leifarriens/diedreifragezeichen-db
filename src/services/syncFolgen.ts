@@ -1,10 +1,12 @@
+import { ObjectId } from 'mongodb';
+
 import type { FolgeWithId } from '@/models/folge';
 import { Folge as FolgeModel } from '@/models/folge';
 import { SpotifyAlbum } from '@/types';
 import convertFolge from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
-import { getAllInhalte } from './inhalt.services';
+import { getAllInhalte } from './inhalt.service';
 import * as DeezerApi from './streaming/deezer';
 import * as SpotifyApi from './streaming/spotify';
 
@@ -112,7 +114,7 @@ async function writeExtraMetaData(folgen: FolgeWithId[]) {
 
     return {
       updateOne: {
-        filter: { _id: folge._id },
+        filter: { _id: new ObjectId(folge._id) },
         update: {
           ...(entry && { inhalt: entry.body }),
           ...(deezerAlbum && { deezer_id: deezerAlbum.id }),

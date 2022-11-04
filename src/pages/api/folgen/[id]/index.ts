@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { deleteFolge, getFolge, updateFolge } from '@/services/index';
+import { deleteFolge, getFolge, updateFolge } from '@/services/folge.service';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
