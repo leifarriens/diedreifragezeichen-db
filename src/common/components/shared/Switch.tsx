@@ -1,4 +1,4 @@
-// styled from '@/styles/_checkbox.scss';
+import styled from 'styled-components';
 
 interface SwitchProps {
   id: string;
@@ -13,7 +13,7 @@ const Switch = ({ id, label, checked, onChange, ...rest }: SwitchProps) => {
   }
 
   return (
-    <div>
+    <SwitchContainer>
       <input
         id={id}
         type="checkbox"
@@ -22,8 +22,74 @@ const Switch = ({ id, label, checked, onChange, ...rest }: SwitchProps) => {
         {...rest}
       />
       <label htmlFor={id}>{label}</label>
-    </div>
+    </SwitchContainer>
   );
 };
+
+const SwitchContainer = styled.div`
+  --checkWidth: 50px;
+  --checkHeight: 24px;
+
+  [type='checkbox'] {
+    position: fixed;
+    left: var(--checkHeight);
+    top: 0px;
+    opacity: 0;
+    width: 0;
+  }
+
+  [type='checkbox'] + label {
+    position: relative;
+    display: block;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1.45;
+    height: calc(var(--checkHeight) + 2px);
+    padding-left: 64px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  [type='checkbox'] + label:before {
+    content: '';
+    width: var(--checkWidth);
+    height: var(--checkHeight);
+    border-radius: var(--checkHeight);
+    border: 1px solid rgb(133, 133, 133);
+    background-color: #eee;
+    margin-right: 15px;
+    transition: background-color 0.5s linear;
+    position: absolute;
+    left: 0px;
+  }
+
+  [type='checkbox'] + label:after {
+    content: '';
+    width: var(--checkHeight);
+    height: var(--checkHeight);
+    border-radius: var(--checkHeight);
+    background-color: #fff;
+    transition: margin 80ms ease-out;
+    box-shadow: 0px 0px 4px #aaa;
+    position: absolute;
+    left: 1px;
+    top: 1px;
+  }
+
+  [type='checkbox']:checked + label:before {
+    background-color: var(--color-ddfblue);
+  }
+
+  [type='checkbox']:checked + label:after {
+    margin: 0 0 0 var(--checkHeight);
+    margin-left: calc(var(--checkWidth) / 2);
+  }
+
+  [type='checkbox']:focus + label:before {
+    outline: none;
+    box-shadow: var(--ui-outline);
+  }
+`;
 
 export default Switch;
