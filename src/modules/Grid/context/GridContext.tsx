@@ -3,19 +3,18 @@ import {
   createContext,
   ReactNode,
   useCallback,
-  useContext,
   useEffect,
   useReducer,
 } from 'react';
 
-import { SortOptionsEnum } from '@/components/Grid/Sort';
+import { SortOptionsEnum } from '@/modules/Grid/types';
 
-import GlobalReducer, { ActionKind } from './GlobalReducer';
+import GridReducer, { ActionKind } from './GridReducer';
 
-export type GlobalState = {
+export type GridState = {
   showSpecials: boolean;
   searchQuery: string;
-  sortBy: string;
+  sortBy: SortOptionsEnum;
   setShowSpecials: (show: boolean) => void;
   setSearchQuery: (query: string) => void;
   setSortBy: (query: string) => void;
@@ -24,7 +23,7 @@ export type GlobalState = {
 const initalState = {
   showSpecials: false,
   searchQuery: '',
-  sortBy: 'dateDesc',
+  sortBy: SortOptionsEnum.dateDesc,
   setShowSpecials: () => {},
   setSearchQuery: () => {},
   setSortBy: () => {},
@@ -35,14 +34,14 @@ enum StorageNames {
   SORT_BY = 'sort_by',
 }
 
-export const GlobalContext = createContext<GlobalState>(initalState);
+export const GridContext = createContext<GridState>(initalState);
 
-export const GlobalProvider = ({
+export const GridProvider = ({
   children,
 }: {
   children: ReactNode | ReactNode[];
 }) => {
-  const [state, dispatch] = useReducer(GlobalReducer, initalState);
+  const [state, dispatch] = useReducer(GridReducer, initalState);
 
   const setSearchQuery = useCallback((query: string) => {
     dispatch({
@@ -53,10 +52,12 @@ export const GlobalProvider = ({
 
   const setSortBy = useCallback((sortBy: string) => {
     sessionStorage.setItem(StorageNames.SORT_BY, sortBy);
-    dispatch({
-      type: ActionKind.SET_SORT_BY,
-      payload: sortBy,
-    });
+    if (Object.values(SortOptionsEnum).includes(sortBy as SortOptionsEnum)) {
+      dispatch({
+        type: ActionKind.SET_SORT_BY,
+        payload: sortBy as SortOptionsEnum,
+      });
+    }
   }, []);
 
   const setShowSpecials = useCallback((show: boolean) => {
@@ -75,7 +76,9 @@ export const GlobalProvider = ({
 
     setShowSpecials(show);
 
-    const sortBy = sessionStorage.getItem(StorageNames.SORT_BY) || 'dateDesc';
+    const sortBy =
+      (sessionStorage.getItem(StorageNames.SORT_BY) as SortOptionsEnum) ||
+      'dateDesc';
 
     if (Object.keys(SortOptionsEnum).includes(sortBy)) {
       setSortBy(sortBy);
@@ -89,7 +92,7 @@ export const GlobalProvider = ({
   }, [setSortBy, setSearchQuery, setShowSpecials]);
 
   return (
-    <GlobalContext.Provider
+    <GridContext.Provider
       value={{
         showSpecials: state.showSpecials,
         setShowSpecials,
@@ -100,10 +103,6 @@ export const GlobalProvider = ({
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </GridContext.Provider>
   );
-};
-
-export const useGlobalState = () => {
-  return useContext(GlobalContext);
 };

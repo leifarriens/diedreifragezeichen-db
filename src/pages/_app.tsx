@@ -10,9 +10,9 @@ import NProgress from 'nprogress';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-import { GlobalProvider } from '@/context/GlobalContext';
 import Page from '@/layout/Page';
 import { queryClient } from '@/lib/query';
+import { GridProvider } from '@/modules/Grid';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -34,11 +34,11 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
       />
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={pageProps.session}>
-          <GlobalProvider>
+          <GridProvider>
             <Page>
               <Component {...pageProps} />
             </Page>
-          </GlobalProvider>
+          </GridProvider>
         </SessionProvider>
         {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
       </QueryClientProvider>

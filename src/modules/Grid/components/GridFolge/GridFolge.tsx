@@ -3,12 +3,12 @@ import { useRouter } from 'next/router';
 import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
 import { InView } from 'react-intersection-observer';
 
+import CommunityRating from '@/components/CommunityRating';
+import ListButton from '@/components/ListButton';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
-import type { Folge } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
 
-import CommunityRating from '../CommunityRating';
-import ListButton from '../ListButton';
 import {
   Background,
   Cover,
@@ -18,7 +18,7 @@ import {
 } from './StyledFolge';
 
 interface GridFolgeProps {
-  folge: Folge;
+  folge: FolgeWithId;
   userRating?: number | null;
   coverOnly?: boolean;
   style?: CSSProperties;
@@ -97,7 +97,10 @@ const GridFolge = memo(
 
             <div className="right">
               {userRating && <RatingBadge>{userRating}</RatingBadge>}
-              <ListButton folgeId={folge._id} folgeName={folge.name} />
+              <ListButton
+                folgeId={folge._id.toString()}
+                folgeName={folge.name}
+              />
             </div>
           </div>
         )}

@@ -2,8 +2,8 @@ import { useRouter } from 'next/router';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 
 import { useAltFolgen } from '@/hooks';
+import { Grid } from '@/modules/Grid';
 
-import { Grid } from '../Grid';
 import { Key, KeyContainer } from '../Key';
 import { Loader } from '../shared/Loader';
 

@@ -6,7 +6,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
-import { useGlobalState } from '@/context/GlobalContext';
+import { useGridState } from '@/modules/Grid';
 
 import LogoImg from '../../../../public/logo.png';
 import ProfileLink from '../ProfileLink';
@@ -14,7 +14,7 @@ import Search from './Search';
 import { CloseLoginButton, Container, HomeLink } from './StyledHeader';
 
 const Header = () => {
-  const { setSearchQuery } = useGlobalState();
+  const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
   const loading = status === 'loading';
   const router = useRouter();

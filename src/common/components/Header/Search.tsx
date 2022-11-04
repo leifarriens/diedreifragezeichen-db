@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
-import { GlobalContext } from '@/context/GlobalContext';
 import { useDebounceEffect } from '@/hooks';
+import { useGridState } from '@/modules/Grid';
 
 const Search = () => {
   const ref = useRef<HTMLInputElement | null>(null);
-  const { setSearchQuery, searchQuery } = useContext(GlobalContext);
+  const { setSearchQuery, searchQuery } = useGridState();
   const [value, setValue] = useState(searchQuery);
   const router = useRouter();
 
