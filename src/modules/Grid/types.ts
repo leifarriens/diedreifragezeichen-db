@@ -4,3 +4,8 @@ export enum SortOptionsEnum {
   rating = 'rating',
   popularity = 'popularity',
 }
+
+export type YearRange = {
+  min: Date;
+  max: Date;
+};
