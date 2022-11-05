@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
+import { getServerSession } from '@/lib/getServerSession';
 import { postFolgenRating } from '@/services/rating.service';
 import { parseQueryParam } from '@/utils/index';
 
@@ -11,7 +11,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   const folgeId = parseQueryParam(req.query.id);
 

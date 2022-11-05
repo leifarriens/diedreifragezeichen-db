@@ -1,10 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { getProviders, getSession } from 'next-auth/react';
+import { getProviders } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
 
 import Seo from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
+import { getServerSession } from '@/lib/getServerSession';
 import { LoginForm } from '@/modules/LoginForm';
 import { parseQueryParam } from '@/utils/index';
 
@@ -29,9 +30,10 @@ export default function SignIn({
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
+  res,
   query,
 }) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   const callbackUrl = parseQueryParam(query.callbackUrl);
 

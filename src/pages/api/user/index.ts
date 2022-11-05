@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
+import { getServerSession } from '@/lib/getServerSession';
 import { User } from '@/models/user';
 import { deleteUser } from '@/services/user.service';
 
@@ -9,7 +9,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session) {
     return res.status(401).send('Unauthorized');

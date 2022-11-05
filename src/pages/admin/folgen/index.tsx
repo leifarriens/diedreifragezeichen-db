@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
-import { getSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
@@ -9,6 +8,7 @@ import { DATE_FORMAT } from '@/constants/formats';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import dayjs from '@/lib/dayjs';
+import { getServerSession } from '@/lib/getServerSession';
 import type { FolgeWithId } from '@/models/folge';
 import { useGridState } from '@/modules/Grid';
 import { applyFilter } from '@/modules/Grid/utils/filter';
@@ -126,8 +126,9 @@ const Item = styled.article`
 
 export const getServerSideProps = async ({
   req,
+  res,
 }: GetServerSidePropsContext) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session || session.user.role !== 'Admin') {
     return {

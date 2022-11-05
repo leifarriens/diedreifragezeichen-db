@@ -1,10 +1,10 @@
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
+import { getServerSession } from '@/lib/getServerSession';
 import { Folge } from '@/models/folge';
 import { Rating } from '@/models/rating';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
@@ -45,8 +45,9 @@ function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
 
 export const getServerSideProps = async ({
   req,
+  res,
 }: GetServerSidePropsContext) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session) {
     return {
