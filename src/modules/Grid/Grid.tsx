@@ -1,17 +1,13 @@
 import dayjs from 'dayjs';
-import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
 
 import Switch from '@/components/shared/Switch';
 import type { FolgeWithId } from '@/models/folge';
-import { Rating } from '@/models/rating';
-import { getUserRatings } from '@/services/client';
 
 import GridFolge from './components/GridFolge/GridFolge';
 import MultiRangeInput from './components/MultiRangeInput';
 import Sort from './components/Sort';
-import { useGridState } from './hooks';
+import { useFolgenWithUserRatings, useGridState } from './hooks';
 import { useBackgroundSortTheme } from './hooks';
 import {
   FolgenContainer,
@@ -34,35 +30,15 @@ const initialYearRange = {
 };
 
 const Grid = (props: GridProps) => {
-  const { data: session, status } = useSession();
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGridState();
 
   const [yearRange, setYearRange] = useState(initialYearRange);
 
-  const [folgen, setFolgen] = useState(props.folgen);
+  const folgen = useFolgenWithUserRatings(props.folgen);
 
   useBackgroundSortTheme(sortBy, { enabled: withUi });
-
-  useQuery([session?.user.id, 'ratings'], () => getUserRatings(), {
-    enabled: status === 'authenticated' && !coverOnly,
-    onSuccess: (ratings) => {
-      const folgenWithUserRating = folgen.map((folge) => {
-        const rating = ratings.find(
-          (rating: Rating) => rating.folge == folge._id,
-        );
-
-        if (rating) {
-          folge.user_rating = rating.value;
-        }
-
-        return folge;
-      });
-
-      setFolgen(folgenWithUserRating);
-    },
-  });
 
   const filteredFolgen = useMemo(() => {
     if (!withFilters) return folgen;
