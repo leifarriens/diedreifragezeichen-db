@@ -1,12 +1,10 @@
 import { signIn, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import styled from 'styled-components';
 
-import { colors } from '@/constants/theme';
 import { useUserRating } from '@/hooks';
 
 import RatingInput from './RatingInput';
-import Toast from './shared/Toast';
 
 type RatingProps = {
   folge_id: string;
@@ -15,19 +13,18 @@ type RatingProps = {
 
 export default function Rating({ folge_id, folge_name }: RatingProps) {
   const { data: session, status } = useSession();
-  const [toasted, setToasted] = useState(false);
 
-  const { userRating, isLoading, mutate, error } = useUserRating(folge_id, {
+  const { userRating, isLoading, mutate } = useUserRating(folge_id, {
     onMutationSuccess() {
-      setToasted(true);
+      toast(
+        <span>
+          Bewertung für <i>{folge_name}</i> gespeichert
+        </span>,
+      );
     },
   });
 
   const disabled = status === 'loading' || isLoading;
-
-  useEffect(() => {
-    setToasted(false);
-  }, [folge_id]);
 
   function handleNewRating(newRating: number) {
     if (!session) return signIn();
@@ -47,20 +44,6 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
         onRate={handleNewRating}
         disabled={disabled}
       />
-      {toasted && (
-        <Toast
-          duration={3000}
-          onFadeOut={() => setToasted(false)}
-          color={colors.lightblue}
-        >
-          Bewertung für <i>{folge_name}</i> gespeichert
-        </Toast>
-      )}
-      {error && error.response?.status !== 404 && (
-        <Toast duration={3000} color={colors.red}>
-          Ein Fehler ist aufgetreten
-        </Toast>
-      )}
     </>
   );
 }

@@ -12,6 +12,7 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 
 import Page from '@/layout/Page';
 import { queryClient } from '@/lib/query';
+import { Toaster } from '@/lib/Toaster';
 import { GridProvider } from '@/modules/Grid';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
             </Page>
           </GridProvider>
         </SessionProvider>
+        <Toaster />
         {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
       </QueryClientProvider>
     </>
