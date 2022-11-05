@@ -1,6 +1,5 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import type { NextApiRequest, NextApiResponse } from 'next';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
@@ -8,46 +7,41 @@ import clientPromise from '@/db/authConn';
 
 const SESSION_MAX_AGE = 90 * 24 * 60 * 60; // 90 days
 
-// TODO: implement with getServerSession
+export const authOptions: NextAuthOptions = {
+  providers: [
+    ...(process.env.SPOTIFY_CLIENT_ID
+      ? [
+          SpotifyProvider({
+            clientId: process.env.SPOTIFY_CLIENT_ID,
+            clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+    ...(process.env.GOOGLE_CLIENT_ID
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+  ],
+  adapter: MongoDBAdapter(clientPromise),
+  pages: {
+    signIn: '/signin',
+  },
+  session: {
+    strategy: 'database',
+    maxAge: SESSION_MAX_AGE,
+  },
+  callbacks: {
+    async session({ session, user }) {
+      session.user.id = user.id;
+      session.user.role = user.role;
 
-export default async function auth(req: NextApiRequest, res: NextApiResponse) {
-  return await NextAuth(req, res, {
-    providers: [
-      ...(process.env.SPOTIFY_CLIENT_ID
-        ? [
-            SpotifyProvider({
-              clientId: process.env.SPOTIFY_CLIENT_ID,
-              clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-            }),
-          ]
-        : []),
-      ...(process.env.GOOGLE_CLIENT_ID
-        ? [
-            GoogleProvider({
-              clientId: process.env.GOOGLE_CLIENT_ID,
-              clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            }),
-          ]
-        : []),
-    ],
-    adapter: MongoDBAdapter(clientPromise),
-    jwt: {
-      secret: process.env.JWT_SECRET,
+      return session;
     },
-    pages: {
-      signIn: '/signin',
-    },
-    session: {
-      // jwt: true,
-      maxAge: SESSION_MAX_AGE,
-    },
-    callbacks: {
-      session: async ({ session, user }) => {
-        session.user.id = user.id;
-        session.user.role = user.role;
+  },
+};
 
-        return session;
-      },
-    },
-  });
-}
+export default NextAuth(authOptions);

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { colors } from '@/constants/theme';
 
 type ProfileLinkProps = {
-  image: string | null;
+  image: string | null | undefined;
 };
 
 function ProfileLink({ image }: ProfileLinkProps) {

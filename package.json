@@ -28,7 +28,7 @@
     "styled-components": "^5.3.6"
   },
   "dependencies": {
-    "@next-auth/mongodb-adapter": "^1.1.0",
+    "@next-auth/mongodb-adapter": "^1.1.1",
     "axios": "^1.0.0",
     "cheerio": "^1.0.0-rc.12",
     "classnames": "^2.3.2",
@@ -37,7 +37,7 @@
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.5",
     "next": "^12.3.1",
-    "next-auth": "^4.12.3",
+    "next-auth": "^4.15.1",
     "next-seo": "^5.5.0",
     "nprogress": "^0.2.0",
     "qs": "^6.11.0",

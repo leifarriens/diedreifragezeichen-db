@@ -224,10 +224,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@next-auth/mongodb-adapter@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@next-auth/mongodb-adapter/-/mongodb-adapter-1.1.0.tgz#7a7ce55c04d078ceef705a2ed7771d4e2d424438"
-  integrity sha512-jB63vZYwgyVQFNGXwNaxZODVAsdZZCuCvN+uY8mp0lXLIstd/4/GbevWK4eHlUvoteOOKlYJxW46FbRuuh+WBw==
+"@next-auth/mongodb-adapter@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@next-auth/mongodb-adapter/-/mongodb-adapter-1.1.1.tgz#255581e66988956bafea555497e92690ad6086fe"
+  integrity sha512-X5O4U4l2M8nyp/B3qF5GOr/JJw2ShKgWfTZRa80Y5CUzTPPmf09ggL5v5UwCmz9l2RIv2GUxO8hK4qrcaZvDRw==
 
 "@next/bundle-analyzer@^12.3.1":
   version "12.3.1"
@@ -2858,10 +2858,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-auth@^4.12.3:
-  version "4.12.3"
-  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.12.3.tgz#a4392c27d57c246128526a17b38971638f63b5a2"
-  integrity sha512-kfJjYOH2or/y+pEBkeA6O2MxIXOKXNiOKLKhrQHsaRqMDttEQX0yEK3xXVTB1yB7xbMLGcMvsIS3d23BC/K8/A==
+next-auth@^4.15.1:
+  version "4.15.1"
+  resolved "https://registry.yarnpkg.com/next-auth/-/next-auth-4.15.1.tgz#d427468a99fdd488fee6c67cc8fdb7f16ffe1df6"
+  integrity sha512-yB/cSEqslaXAsLZ3lvkJbB7bRR5JeZvfUXSw0CmWeP+TaMZWB85fG9PWdfBeFrDCLBsoyATw9FF6fzApE0SxSw==
   dependencies:
     "@babel/runtime" "^7.16.3"
     "@panva/hkdf" "^1.0.1"
