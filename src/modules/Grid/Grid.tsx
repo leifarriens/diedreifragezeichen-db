@@ -1,27 +1,24 @@
 import dayjs from 'dayjs';
-import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
 
-import { useGlobalState } from '@/context/GlobalContext';
-import { Folge } from '@/models/folge';
-import { Rating } from '@/models/rating';
-import { getUserRatings } from '@/services/client';
-import { applyFilter } from '@/utils/filter';
+import Switch from '@/components/shared/Switch';
+import type { FolgeWithId } from '@/models/folge';
 
-import Switch from '../shared/Switch';
-import GridFolge from './GridFolge';
-import MultiRangeInput from './MultiRangeInput';
-import Sort from './Sort';
+import GridFolge from './components/GridFolge/GridFolge';
+import MultiRangeInput from './components/MultiRangeInput';
+import Sort from './components/Sort';
+import { useFolgenWithUserRatings, useGridState } from './hooks';
+import { useBackgroundSortTheme } from './hooks';
 import {
   FolgenContainer,
   FolgenCounter,
   GridContainer,
   GridUI,
 } from './StyledGrid';
+import { applyFilter } from './utils/filter';
 
 type GridProps = {
-  folgen: Folge[];
+  folgen: FolgeWithId[];
   coverOnly?: boolean;
   withFilters?: boolean;
   withUi?: boolean;
@@ -33,33 +30,15 @@ const initialYearRange = {
 };
 
 const Grid = (props: GridProps) => {
-  const { data: session, status } = useSession();
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
-    useGlobalState();
+    useGridState();
 
   const [yearRange, setYearRange] = useState(initialYearRange);
 
-  const [folgen, setFolgen] = useState(props.folgen);
+  const folgen = useFolgenWithUserRatings(props.folgen);
 
-  useQuery([session?.user.id, 'ratings'], () => getUserRatings(), {
-    enabled: status === 'authenticated' && !coverOnly,
-    onSuccess: (ratings) => {
-      const folgenWithUserRating = folgen.map((folge) => {
-        const rating = ratings.find(
-          (rating: Rating) => rating.folge == folge._id,
-        );
-
-        if (rating) {
-          folge.user_rating = rating.value;
-        }
-
-        return folge;
-      });
-
-      setFolgen(folgenWithUserRating);
-    },
-  });
+  useBackgroundSortTheme(sortBy, { enabled: withUi });
 
   const filteredFolgen = useMemo(() => {
     if (!withFilters) return folgen;

@@ -1,15 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { getUserFolgenRating, getUserRatings } from '@/services/index';
+import { getServerSession } from '@/lib/getServerSession';
+import { getUserFolgenRating, getUserRatings } from '@/services/rating.service';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session) {
     return res.status(401).send('Unauthorized');

@@ -1,22 +1,22 @@
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
-import { getSession } from 'next-auth/react';
 import { useMemo } from 'react';
 import styled from 'styled-components';
 
 import Button from '@/components/shared/Button';
 import { DATE_FORMAT } from '@/constants/formats';
-import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import dayjs from '@/lib/dayjs';
-import type { Folge } from '@/models/folge';
-import { getFolgen } from '@/services/index';
-import { applyFilter } from '@/utils/filter';
+import { getServerSession } from '@/lib/getServerSession';
+import type { FolgeWithId } from '@/models/folge';
+import { useGridState } from '@/modules/Grid';
+import { applyFilter } from '@/modules/Grid/utils/filter';
+import { getFolgen } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
-export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
-  const { searchQuery } = useGlobalState();
+export default function AdminFolgen({ folgen }: { folgen: FolgeWithId[] }) {
+  const { searchQuery } = useGridState();
 
   const filteredFolgen = useMemo(
     () => applyFilter(folgen, { searchQuery }),
@@ -26,12 +26,11 @@ export default function AdminFolgen({ folgen }: { folgen: Folge[] }) {
   return (
     <Wrapper>
       {filteredFolgen.map((folge) => (
-        <Item key={folge._id}>
+        <Item key={folge._id.toString()}>
           <Background
             style={{ backgroundImage: `url(${folge.images[1].url})` }}
           />
           <div className="cover">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={folge.images[1].url} alt={folge.name} />
           </div>
           <div className="info">
@@ -127,8 +126,9 @@ const Item = styled.article`
 
 export const getServerSideProps = async ({
   req,
+  res,
 }: GetServerSidePropsContext) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session || session.user.role !== 'Admin') {
     return {

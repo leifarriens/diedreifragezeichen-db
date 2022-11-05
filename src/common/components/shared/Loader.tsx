@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import { RotatingLines } from 'react-loader-spinner';
 import styled, { keyframes } from 'styled-components';
 
 export const FullpageLoader = () => (
@@ -13,6 +14,16 @@ export const Loader = ({ animated = true }) => (
       <IndicatorIcon key={index} className={classnames({ animated })} />
     ))}
   </LoadingIndicator>
+);
+
+export const SpinningLoader = ({ width }: { width?: string }) => (
+  <RotatingLines
+    strokeColor="grey"
+    strokeWidth="5"
+    animationDuration="0.75"
+    width={width}
+    visible={true}
+  />
 );
 
 const FullpageContainer = styled.div`

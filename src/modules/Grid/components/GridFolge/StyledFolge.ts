@@ -2,23 +2,6 @@ import styled, { css, keyframes } from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
-export const Cover = styled.div`
-  position: relative;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  img {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    transition: border-radius 150ms, opacity 650ms ease-in;
-    transition-timing-function: ease-out;
-  }
-`;
-
 const bgWobble = keyframes`
   0% {
     transform: rotate(0deg) scale(2);

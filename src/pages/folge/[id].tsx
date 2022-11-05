@@ -1,24 +1,22 @@
 import { Types } from 'mongoose';
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { useInView } from 'react-intersection-observer';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
-import AltFolgen from '@/components/Folge/AltFolgen';
 import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import type { Folge as FolgeType } from '@/models/folge';
-import { getAllFolgenIds, getFolge } from '@/services/index';
+import type { FolgeWithId } from '@/models/folge';
+import RelatedFolgen from '@/modules/RelatedFolgen';
+import { getAllFolgenIds, getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
 type FolgePageProps = {
-  folge: FolgeType;
+  folge: FolgeWithId;
 };
 
-function Folge({ folge }: FolgePageProps) {
-  const { ref, inView } = useInView({ triggerOnce: true });
+export default function Folge({ folge }: FolgePageProps) {
   const number = !isNaN(parseInt(folge.number))
     ? `Folge ${parseInt(folge.number)}`
     : '';
@@ -32,7 +30,7 @@ function Folge({ folge }: FolgePageProps) {
       <Seo
         title={title}
         description={description}
-        canonicalpath={`/folgen/${folge.id}`}
+        canonicalpath={`/folgen/${folge._id.toString()}`}
         openGraph={{
           images: [
             {
@@ -51,14 +49,14 @@ function Folge({ folge }: FolgePageProps) {
         <FolgeComponent folge={folge} />
       </Wrapper>
 
-      <Wrapper ref={ref}>
-        <AltFolgen refFolgeId={folge._id.toString()} enabled={inView} />
+      <Wrapper>
+        <RelatedFolgen folgeId={folge._id.toString()} />
       </Wrapper>
     </>
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect();
 
   const data = await getAllFolgenIds();
@@ -66,11 +64,11 @@ export async function getStaticPaths() {
   const folgen = parseMongo(data);
 
   const paths = folgen.map((folge) => ({
-    params: { id: folge._id },
+    params: { id: folge._id.toString() },
   }));
 
   return { paths, fallback: 'blocking' };
-}
+};
 
 interface Params extends ParsedUrlQuery {
   id: string;
@@ -98,5 +96,3 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     revalidate: 10,
   };
 };
-
-export default Folge;

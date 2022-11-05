@@ -16,11 +16,11 @@ Get folge by folgeId
 
 GET `/api/folgen/{folgeId}`
 
-#### alts
+#### related
 
 Get alt folgen
 
-GET `/api/folgen/{folgeId}/alts`
+GET `/api/folgen/{folgeId}/related`
 
 #### ratings
 

@@ -1,7 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { getSession } from 'next-auth/react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
@@ -10,10 +9,11 @@ import { Form, Input, Select, Textarea } from '@/components/shared/Input';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
+import { getServerSession } from '@/lib/getServerSession';
 import { FolgeWithId } from '@/models/folge';
+import { Type } from '@/models/folge';
 import { deleteFolge, updateFolge } from '@/services/client';
-import { getFolge } from '@/services/index';
-import { FolgeType } from '@/types';
+import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
 type FormValues = {
@@ -22,7 +22,7 @@ type FormValues = {
   number: string;
   spotify_id: string;
   deezer_id: string;
-  type: FolgeType;
+  type: Type;
   inhalt: string;
 };
 
@@ -135,11 +135,12 @@ type Params = {
 
 export async function getServerSideProps({
   req,
+  res,
   params,
 }: GetServerSidePropsContext) {
   await dbConnect();
 
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session || session.user.role !== 'Admin') {
     return {

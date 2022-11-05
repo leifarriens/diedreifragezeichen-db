@@ -7,19 +7,13 @@ import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
-import { GlobalProvider } from '@/context/GlobalContext';
 import Page from '@/layout/Page';
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+import { queryClient } from '@/lib/query';
+import { Toaster } from '@/lib/Toaster';
+import { GridProvider } from '@/modules/Grid';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -41,12 +35,13 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
       />
       <QueryClientProvider client={queryClient}>
         <SessionProvider session={pageProps.session}>
-          <GlobalProvider>
+          <GridProvider>
             <Page>
               <Component {...pageProps} />
             </Page>
-          </GlobalProvider>
+          </GridProvider>
         </SessionProvider>
+        <Toaster />
         {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
       </QueryClientProvider>
     </>

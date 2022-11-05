@@ -1,23 +1,27 @@
-import type { Folge } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
+import { RatingWithFolge } from '@/types';
 
-import { RatingWithFolge } from '../types';
+import { SortOptionsEnum } from '../types';
 
-export const sortFolgen = (folgen: Folge[], sortBy = 'dateDesc') => {
+export const sortFolgen = (
+  folgen: FolgeWithId[],
+  sortBy = SortOptionsEnum.dateDesc,
+) => {
   switch (sortBy) {
-    case 'dateAsc':
+    case SortOptionsEnum.dateAsc:
       return sortFolgenByDateAsc(folgen);
-    case 'dateDesc':
+    case SortOptionsEnum.dateDesc:
       return sortFolgenByDateDesc(folgen);
-    case 'rating':
+    case SortOptionsEnum.rating:
       return sortFolgenByRating(folgen);
-    case 'popularity':
+    case SortOptionsEnum.popularity:
       return sortByPopularity(folgen);
     default:
       return sortFolgenByDateDesc(folgen);
   }
 };
 
-const sortFolgenByRating = (folgen: Folge[]) => {
+const sortFolgenByRating = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return a.rating - b.rating;
   });
@@ -25,7 +29,7 @@ const sortFolgenByRating = (folgen: Folge[]) => {
   return sorted.reverse();
 };
 
-const sortFolgenByDateAsc = (folgen: Folge[]) => {
+const sortFolgenByDateAsc = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return (
       new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
@@ -35,7 +39,7 @@ const sortFolgenByDateAsc = (folgen: Folge[]) => {
   return sorted;
 };
 
-const sortFolgenByDateDesc = (folgen: Folge[]) => {
+const sortFolgenByDateDesc = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return (
       new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
@@ -45,7 +49,7 @@ const sortFolgenByDateDesc = (folgen: Folge[]) => {
   return sorted.reverse();
 };
 
-const sortByPopularity = (folgen: Folge[]) => {
+const sortByPopularity = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return a.popularity - b.popularity;
   });
@@ -62,6 +66,6 @@ export const folgenSort: IDictionary = {
     return b.value - a.value;
   },
   byRatingDate: (a: RatingWithFolge, b: RatingWithFolge) => {
-    return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime();
+    return new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime();
   },
 };

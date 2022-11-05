@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
-export enum SortOptionsEnum {
-  dateDesc = 'dateDesc',
-  dateAsc = 'dateAsc',
-  rating = 'rating',
-  popularity = 'popularity',
-}
+import { SortOptionsEnum } from '../types';
 
 type SortProps = {
   currentSort: string;

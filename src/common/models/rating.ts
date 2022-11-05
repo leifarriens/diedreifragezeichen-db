@@ -1,14 +1,19 @@
 import mongoose from 'mongoose';
-// import Folge from './folge';
-export interface Rating {
-  user: mongoose.Types.ObjectId;
-  folge: mongoose.Types.ObjectId;
-  value: number;
-  comment: string;
-}
+import * as z from 'zod';
 
+import { MongoId } from '@/types';
+
+const ratingValidator = z.object({
+  user: z.instanceof(mongoose.Types.ObjectId),
+  folge: z.instanceof(mongoose.Types.ObjectId),
+  value: z.number().min(1).max(40),
+  created_at: z.date(),
+  updated_at: z.date(),
+});
+
+export type Rating = z.infer<typeof ratingValidator>;
 export interface RatingWithId extends Rating {
-  _id: string;
+  _id: MongoId;
 }
 
 const ratingSchema = new mongoose.Schema<Rating>(
@@ -28,7 +33,6 @@ const ratingSchema = new mongoose.Schema<Rating>(
       min: 1,
       max: 10,
     },
-    comment: { type: String },
   },
   {
     timestamps: {

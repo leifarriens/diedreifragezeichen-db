@@ -1,9 +1,9 @@
 import { Types } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
-import { deleteFolge, getFolge, updateFolge } from '@/services/index';
+import { getServerSession } from '@/lib/getServerSession';
+import { deleteFolge, getFolge, updateFolge } from '@/services/folge.service';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
@@ -33,7 +33,7 @@ export default async function handler(
       return res.status(404).end('Not Found');
     }
 
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res);
 
     if (!session || session.user.role !== 'Admin') {
       return res.status(403).end('Forbidden');
@@ -55,7 +55,7 @@ export default async function handler(
       return res.status(404).end('Not Found');
     }
 
-    const session = await getSession({ req });
+    const session = await getServerSession(req, res);
 
     if (!session || session.user.role !== 'Admin') {
       return res.status(403).end('Forbidden');

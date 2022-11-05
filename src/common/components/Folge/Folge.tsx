@@ -3,7 +3,7 @@ import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
-import { Folge as FolgeType } from '@/models/folge';
+import { FolgeWithId } from '@/models/folge';
 
 import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
@@ -20,7 +20,7 @@ import {
   ReleaseContainer,
 } from './StyledFolge';
 
-const Folge = ({ folge }: { folge: FolgeType }) => {
+const Folge = ({ folge }: { folge: FolgeWithId }) => {
   const {
     images,
     name,
@@ -64,7 +64,7 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
             />
           </RatingContainer>
 
-          <Rating folge_id={_id} folge_name={name} />
+          <Rating folge_id={_id.toString()} folge_name={name} />
 
           <Buttons>
             <Button
@@ -87,7 +87,11 @@ const Folge = ({ folge }: { folge: FolgeType }) => {
               </Button>
             )}
 
-            <ListButton folgeId={_id} folgeName={name} iconSize={28} />
+            <ListButton
+              folgeId={_id.toString()}
+              folgeName={name}
+              iconSize={28}
+            />
           </Buttons>
         </Content>
 

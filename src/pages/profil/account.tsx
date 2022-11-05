@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from 'next';
-import { getSession, signOut } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import { useMutation } from 'react-query';
 import styled from 'styled-components';
 
@@ -8,6 +8,7 @@ import Seo from '@/components/Seo/Seo';
 import Button from '@/components/shared/Button';
 // import Switch from '@/components/shared/Switch';
 import { colors } from '@/constants/theme';
+import { getServerSession } from '@/lib/getServerSession';
 import { deleteAccount } from '@/services/client';
 
 function AccountPage() {
@@ -66,8 +67,9 @@ function AccountPage() {
 
 export const getServerSideProps = async ({
   req,
+  res,
 }: GetServerSidePropsContext) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session) {
     return {

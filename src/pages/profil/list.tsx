@@ -1,17 +1,17 @@
 import { GetServerSidePropsContext } from 'next';
-import { getSession } from 'next-auth/react';
 
-import { Grid } from '@/components/Grid';
 import ProfilLayout from '@/components/Profil/Layout';
 import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
-import type { Folge } from '@/models/folge';
+import { getServerSession } from '@/lib/getServerSession';
+import type { FolgeWithId } from '@/models/folge';
 import { UserWithId } from '@/models/user';
-import { getUserWithList } from '@/services/index';
+import { Grid } from '@/modules/Grid';
+import { getUserWithList } from '@/services/user.service';
 import { parseMongo } from '@/utils/index';
 
 type UserWithList = {
-  list: Folge[];
+  list: FolgeWithId[];
 } & Omit<UserWithId, 'list'>;
 
 type MerklistePageProps = {
@@ -36,8 +36,9 @@ function Merkliste({ user }: MerklistePageProps) {
 
 export const getServerSideProps = async ({
   req,
+  res,
 }: GetServerSidePropsContext) => {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session) {
     return {

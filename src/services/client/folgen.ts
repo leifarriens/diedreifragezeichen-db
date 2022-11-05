@@ -18,8 +18,8 @@ export async function postUserRating({
   return data.value;
 }
 
-export async function getAltFolgen(folgeId: string) {
-  const { data } = await API.get<Folge[]>(`/folgen/${folgeId}/alts`, {
+export async function getRelatedFolgen(folgeId: string) {
+  const { data } = await API.get<FolgeWithId[]>(`/folgen/${folgeId}/related`, {
     params: {
       fields: 'images,name,rating,number_of_ratings',
     },
@@ -51,7 +51,7 @@ export const folge = {
   ratings: {
     postRating: postUserRating,
   },
-  alts: {
-    get: getAltFolgen,
+  related: {
+    get: getRelatedFolgen,
   },
 };

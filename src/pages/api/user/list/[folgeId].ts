@@ -1,14 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { getSession } from 'next-auth/react';
 
 import dbConnect from '@/db/connect';
+import { getServerSession } from '@/lib/getServerSession';
 import { User } from '@/models/user';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const session = await getSession({ req });
+  const session = await getServerSession(req, res);
 
   if (!session) {
     return res.status(401).send('Unauthorized');
@@ -26,17 +26,6 @@ export default async function handler(
       },
     );
 
-    // const user = await User.findOneAndUpdate(
-    //   { _id: userId },
-    //   {
-    //     $pull: { list: req.query.folgeId },
-    //   },
-    //   { new: true },
-    // );
-
-    // console.log(user);
-
-    // return res.json(user);
     return res.status(204).end();
   }
 

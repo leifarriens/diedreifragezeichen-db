@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import dbConnect from '@/db/connect';
-import { getAltFolgen } from '@/services/index';
+import { getRelatedFolgen } from '@/services/folge.service';
 import { parseQueryParam } from '@/utils/index';
 
 export default async function handler(
@@ -22,7 +22,7 @@ export default async function handler(
 
     const fields = fieldsQuery.match(/[^,]+/g) || [];
 
-    const folgen = await getAltFolgen(id, { fields });
+    const folgen = await getRelatedFolgen(id, { fields });
 
     return res.json(folgen);
   }

@@ -1,16 +1,25 @@
 import mongoose from 'mongoose';
+import * as z from 'zod';
 
-export interface User {
-  name: string;
-  email: string;
-  image: string;
-  emailVerified: boolean;
-  role: 'User' | 'Admin';
-  list: string[];
-}
+import { MongoId } from '@/types';
+
+const Role = z.enum(['User', 'Admin']);
+
+export type Role = z.infer<typeof Role>;
+
+const userValidator = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  image: z.string().nullable(),
+  emailVerified: z.boolean(),
+  role: Role,
+  list: z.array(z.instanceof(mongoose.Types.ObjectId)),
+});
+
+export type User = z.infer<typeof userValidator>;
 
 export interface UserWithId extends User {
-  _id: string;
+  _id: MongoId;
 }
 
 const userSchema = new mongoose.Schema<User>(

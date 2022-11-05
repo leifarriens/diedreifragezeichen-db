@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import dbConnect from '@/db/connect';
-import { getFolgen } from '@/services/index';
+import { getFolgen } from '@/services/folge.service';
 
 export default async function handler(
   req: NextApiRequest,

@@ -1,36 +1,27 @@
-import { InferGetStaticPropsType } from 'next';
+import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { Grid } from '@/components/Grid';
 import Seo from '@/components/Seo/Seo';
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
-import { useGlobalState } from '@/context/GlobalContext';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import { parseMongo, setBodyBgByStyle, unsetBodyBgStyle } from '@/utils/index';
+import { Grid } from '@/modules/Grid';
+import { parseMongo } from '@/utils/index';
 
-import { getFolgen } from '../services';
+import { getFolgen } from '../services/folge.service';
 
-function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
+const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
+  props,
+) => {
   const { data: session } = useSession();
-  const { sortBy } = useGlobalState();
-
-  useEffect(() => {
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    if (!isSafari) setBodyBgByStyle(sortBy);
-
-    return () => {
-      unsetBodyBgStyle();
-    };
-  }, [sortBy]);
 
   return (
     <>
-      <Seo title="Archiv" />
+      <Seo title="Archiv" canonicalpath="/" />
+
       <Wrapper>
         <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
 
@@ -46,7 +37,7 @@ function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
       </Wrapper>
     </>
   );
-}
+};
 
 const HomeFooter = styled.footer`
   text-align: center;
@@ -77,4 +68,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default Home;
+export default HomePage;

@@ -1,15 +1,14 @@
 import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
-import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import { RotatingLines } from 'react-loader-spinner';
 import { useMutation, useQueryClient } from 'react-query';
 
 import { colors } from '@/constants/theme';
 import { useUser } from '@/hooks';
 import { postFolgeList, removeFolgeList } from '@/services/client';
 
-import Toast from './shared/Toast';
+import { SpinningLoader } from './shared/Loader';
 
 type ListButtonProps = {
   folgeId: string;
@@ -21,24 +20,28 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: session, status } = useSession();
   const { data: user, isLoading: userLoading } = useUser();
   const queryClient = useQueryClient();
-  const [toasted, setToasted] = useState(false);
 
-  const isOnUserList = !user ? false : user.list.includes(folgeId);
+  const isOnUserList = !user
+    ? false
+    : user.list.map((id) => id.toString()).includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } = useMutation(
     postFolgeList,
     {
       onMutate: () => {
         if (user) {
-          const updatedUser = {
+          queryClient.setQueryData(['user', user?._id], {
             ...user,
             list: [...user.list, folgeId],
-          };
-          queryClient.setQueryData(['user', user?._id], updatedUser);
+          });
         }
       },
       onSuccess: () => {
-        setToasted(true);
+        toast.success(
+          <span>
+            <i>{folgeName}</i> zur <MerklistenLink /> hinzugefügt
+          </span>,
+        );
       },
     },
   );
@@ -47,14 +50,18 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     removeFolgeList,
     {
       onMutate: () => {
-        const updatedUser = {
+        queryClient.setQueryData(['user', user?._id], {
           ...user,
-          list: user?.list.filter((id) => id !== folgeId),
-        };
-        queryClient.setQueryData(['user', user?._id], updatedUser);
+          list: user?.list.filter((id) => id.toString() !== folgeId),
+        });
       },
       onSuccess: () => {
-        setToasted(true);
+        toast(
+          <span>
+            <i>{folgeName}</i> von der <MerklistenLink /> entfernt
+          </span>,
+          { style: { backgroundColor: colors.red } },
+        );
       },
     },
   );
@@ -76,56 +83,25 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   }
 
   if (isLoading) {
-    return (
-      <RotatingLines
-        strokeColor="grey"
-        strokeWidth="5"
-        animationDuration="0.75"
-        width={iconSize.toString()}
-        visible={true}
-      />
-    );
+    return <SpinningLoader width={iconSize.toString()} />;
   }
 
   return (
-    <>
-      {!isOnUserList ? (
-        <button
-          onClick={handleClick}
-          disabled={isLoading}
-          aria-label={`${folgeName} zur Merkliste hinzufügen`}
-        >
-          <BsBookmark size={iconSize} />
-        </button>
+    <button
+      onClick={handleClick}
+      disabled={isLoading}
+      aria-label={`${folgeName} ${
+        isOnUserList
+          ? 'von der Merkliste entfernen'
+          : 'zur Merkliste hinzufügen'
+      }`}
+    >
+      {isOnUserList ? (
+        <BsBookmarkFill size={iconSize} />
       ) : (
-        <button
-          onClick={handleClick}
-          disabled={isLoading}
-          aria-label={`${folgeName} von der Merkliste entfernen`}
-        >
-          <BsBookmarkFill size={iconSize} />
-        </button>
+        <BsBookmark size={iconSize} />
       )}
-
-      {toasted && (
-        <Toast
-          duration={3000}
-          onFadeOut={() => setToasted(false)}
-          color={isOnUserList ? colors.green : colors.red}
-        >
-          <i>{folgeName}</i>{' '}
-          {isOnUserList ? (
-            <span>
-              zur <MerklistenLink /> hinzugefügt
-            </span>
-          ) : (
-            <span>
-              von der <MerklistenLink /> entfernt
-            </span>
-          )}
-        </Toast>
-      )}
-    </>
+    </button>
   );
 }
 
