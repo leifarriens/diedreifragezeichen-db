@@ -1,15 +1,14 @@
 import { Types } from 'mongoose';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import { useInView } from 'react-intersection-observer';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
-import AltFolgen from '@/components/Folge/AltFolgen';
 import Seo from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import type { FolgeWithId } from '@/models/folge';
+import RelatedFolgen from '@/modules/RelatedFolgen';
 import { getAllFolgenIds, getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
@@ -18,7 +17,6 @@ type FolgePageProps = {
 };
 
 export default function Folge({ folge }: FolgePageProps) {
-  const { ref, inView } = useInView({ triggerOnce: true });
   const number = !isNaN(parseInt(folge.number))
     ? `Folge ${parseInt(folge.number)}`
     : '';
@@ -51,8 +49,8 @@ export default function Folge({ folge }: FolgePageProps) {
         <FolgeComponent folge={folge} />
       </Wrapper>
 
-      <Wrapper ref={ref}>
-        <AltFolgen refFolgeId={folge._id.toString()} enabled={inView} />
+      <Wrapper>
+        <RelatedFolgen folgeId={folge._id.toString()} />
       </Wrapper>
     </>
   );

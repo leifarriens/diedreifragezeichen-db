@@ -20,7 +20,9 @@ export async function getFolgen(options: FolgenOptions = {}) {
 
   const folgen = await Folge.find({
     ...(type && { type }),
-  }).select(fields);
+  })
+    .select(fields)
+    .sort('-release_date');
 
   return folgen;
 }
@@ -48,7 +50,10 @@ export async function deleteFolge(folgeId: string) {
   return Folge.deleteOne({ _id: folgeId });
 }
 
-export async function getAltFolgen(id: string, options: FolgenOptions = {}) {
+export async function getRelatedFolgen(
+  id: string,
+  options: FolgenOptions = {},
+) {
   const { fields = [], specials = false, limit = 20 } = options;
 
   fields.push('release_date');
