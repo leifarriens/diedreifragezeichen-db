@@ -1,3 +1,5 @@
+import axios from 'axios';
+import toast from 'react-hot-toast';
 import { QueryCache, QueryClient } from 'react-query';
 
 export const queryClient = new QueryClient({
@@ -7,9 +9,16 @@ export const queryClient = new QueryClient({
     },
   },
   queryCache: new QueryCache({
-    // TODO: query Errors should be handled here
-    onError: (error, query) => {
-      console.error(error, query);
+    onError: (error) => {
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status !== 404) {
+          toast.error(
+            error.response?.statusText || 'Ein Fehler ist aufgetreten :(',
+          );
+        }
+      } else {
+        console.error(error);
+      }
     },
   }),
 });
