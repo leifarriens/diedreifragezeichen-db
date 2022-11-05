@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { CSSProperties, memo, useEffect, useRef, useState } from 'react';
-import { InView } from 'react-intersection-observer';
+import { CSSProperties, memo, useEffect, useRef } from 'react';
 
 import CommunityRating from '@/components/CommunityRating';
 import ListButton from '@/components/ListButton';
@@ -9,13 +8,8 @@ import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
 
-import {
-  Background,
-  Cover,
-  FolgeContainer,
-  Overlay,
-  RatingBadge,
-} from './StyledFolge';
+import Cover from './Cover';
+import { FolgeContainer, RatingBadge } from './StyledFolge';
 
 interface GridFolgeProps {
   folge: FolgeWithId;
@@ -31,11 +25,6 @@ const GridFolge = memo(
     coverOnly = false,
     ...rest
   }: GridFolgeProps) => {
-    const [image, setImage] = useState({
-      url: '',
-      loading: true, // needs to be initial "true" to hide Image
-    });
-
     const router = useRouter();
     const ref = useRef<HTMLElement | null>(null);
 
@@ -48,38 +37,15 @@ const GridFolge = memo(
     const href = '/folge/' + folge._id;
     // const href = `/folge/${folge.name.split(' ').join('-').toLowerCase()}`;
 
-    const handleViewChange = (inView: boolean) => {
-      if (!inView) return;
-
-      setImage({ url: folge.images[1].url, loading: true });
-    };
-
     return (
       <FolgeContainer ref={ref} {...rest}>
         <Link href={href}>
           <a aria-label={folge.name}>
-            <InView as="div" onChange={handleViewChange} triggerOnce={true}>
-              {!coverOnly && (
-                <>
-                  <Background />
-                  <Overlay
-                    style={{ backgroundImage: `url(${folge.images[1].url})` }}
-                  />
-                </>
-              )}
-              <Cover>
-                <img
-                  style={{
-                    opacity: image.loading ? 0 : 1,
-                  }}
-                  src={image.url}
-                  alt={`${folge.name} Cover`}
-                  onLoad={() =>
-                    setImage((prev) => ({ ...prev, loading: false }))
-                  }
-                />
-              </Cover>
-            </InView>
+            <Cover
+              images={folge.images}
+              alt={`${folge.name} Cover`}
+              coverOnly={coverOnly}
+            />
           </a>
         </Link>
 

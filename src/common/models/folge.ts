@@ -5,13 +5,14 @@ import { MongoId } from '@/types';
 
 const Type = z.enum(['regular', 'special']);
 
-const Image = z.object({
+export const Image = z.object({
   url: z.string(),
   height: z.number(),
   width: z.number(),
 });
 
 export type Type = z.infer<typeof Type>;
+export type Image = z.infer<typeof Image>;
 
 const folgeValidator = z.object({
   name: z.string(),
