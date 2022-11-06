@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
 import { DATE_FORMAT } from '@/constants/formats';
