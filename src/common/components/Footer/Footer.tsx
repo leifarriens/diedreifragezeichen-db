@@ -7,13 +7,9 @@ export default function Footer() {
   return (
     <>
       <PageFooter>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
+        <Link href="/">Home</Link>
 
-        <Link href="/datenschutz">
-          <a>Datenschutz</a>
-        </Link>
+        <Link href="/datenschutz">Datenschutz</Link>
 
         <a
           href="https://github.com/leifarriens/diedreifragezeichen-db"

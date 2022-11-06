@@ -39,14 +39,12 @@ const GridFolge = memo(
 
     return (
       <FolgeContainer ref={ref} {...rest}>
-        <Link href={href}>
-          <a aria-label={folge.name}>
-            <Cover
-              images={folge.images}
-              alt={`${folge.name} Cover`}
-              coverOnly={coverOnly}
-            />
-          </a>
+        <Link href={href} aria-label={folge.name}>
+          <Cover
+            images={folge.images}
+            alt={`${folge.name} Cover`}
+            coverOnly={coverOnly}
+          />
         </Link>
 
         {!coverOnly && (

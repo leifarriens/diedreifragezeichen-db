@@ -27,7 +27,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
 
         {!session && (
           <HomeFooter>
-            <Link href={'/signin'} passHref>
+            <Link href={'/signin'} passHref legacyBehavior>
               <Button as="a" color={colors.red}>
                 Jetzt Bewerten!
               </Button>

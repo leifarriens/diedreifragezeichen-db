@@ -12,22 +12,25 @@ function Links() {
   return (
     <StyledLinks>
       <LinkWrapper maxWidth="1280px">
-        <Link href="/profil">
-          <a className={classnames({ active: pathname == '/profil' })}>
-            Bewertungen
-          </a>
+        <Link
+          href="/profil"
+          className={classnames({ active: pathname == '/profil' })}
+        >
+          Bewertungen
         </Link>
 
-        <Link href="/profil/list">
-          <a className={classnames({ active: pathname == '/profil/list' })}>
-            Merkliste
-          </a>
+        <Link
+          href="/profil/list"
+          className={classnames({ active: pathname == '/profil/list' })}
+        >
+          Merkliste
         </Link>
 
-        <Link href="/profil/account">
-          <a className={classnames({ active: pathname == '/profil/account' })}>
-            Account
-          </a>
+        <Link
+          href="/profil/account"
+          className={classnames({ active: pathname == '/profil/account' })}
+        >
+          Account
         </Link>
       </LinkWrapper>
     </StyledLinks>

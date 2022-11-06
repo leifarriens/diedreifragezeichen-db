@@ -118,7 +118,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
         </Button>
       </Form>
 
-      <Link href={`/folge/${folge._id}`} target="_blank">
+      <Link href={`/folge/${folge._id}`} target="_blank" legacyBehavior>
         <Button as="a">Öffnen</Button>
       </Link>
 

@@ -13,7 +13,7 @@ function ProfileLink({ image }: ProfileLinkProps) {
   const src = !image ? '/white_small.png' : image;
 
   return (
-    <Link href="/profil" passHref>
+    <Link href="/profil" passHref legacyBehavior>
       <Container>
         <Avatar
           src={src}

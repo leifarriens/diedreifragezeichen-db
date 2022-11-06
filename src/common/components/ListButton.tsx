@@ -106,9 +106,9 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
 }
 
 const MerklistenLink = () => (
-  <Link href="/profil/list">
-    {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
-    <a style={{ textDecoration: 'underline' }}>Merkliste</a>
+  // eslint-disable-next-line no-inline-styles/no-inline-styles
+  <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
+    Merkliste
   </Link>
 );
 

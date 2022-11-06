@@ -47,7 +47,7 @@ export default function AdminFolgen({ folgen }: { folgen: FolgeWithId[] }) {
               <span>Popularity: {folge.popularity}</span>
             </div>
             <div className="buttons">
-              <Link href={`/admin/folgen/${folge._id}`}>
+              <Link href={`/admin/folgen/${folge._id}`} legacyBehavior>
                 <Button as="a" size="small">
                   Bearbeiten
                 </Button>
