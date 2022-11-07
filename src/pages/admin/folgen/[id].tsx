@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,27 +11,25 @@ import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
-import { FolgeWithId } from '@/models/folge';
-import { Type } from '@/models/folge';
+import type { Folge, FolgeWithId } from '@/models/folge';
+import { folgeValidator } from '@/models/folge/folge.validator';
 import { deleteFolge, updateFolge } from '@/services/client';
 import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
-type FormValues = {
-  _id: string;
-  name: string;
-  number: string;
-  spotify_id: string;
-  deezer_id: string;
-  type: Type;
-  inhalt: string;
-};
+const validator = folgeValidator.pick({
+  name: true,
+  type: true,
+  number: true,
+  spotify_id: true,
+  deezer_id: true,
+  inhalt: true,
+});
 
 export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   const router = useRouter();
-  const { register, handleSubmit, formState, watch } = useForm<FormValues>({
+  const { register, handleSubmit, formState, watch } = useForm<Folge>({
     defaultValues: {
-      _id: folge._id.toString(),
       name: folge.name,
       type: folge.type,
       number: folge.number,
@@ -38,8 +37,12 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       deezer_id: folge.deezer_id,
       inhalt: folge.inhalt,
     },
+    resolver: zodResolver(validator),
+    mode: 'all',
   });
-  const onSubmit: SubmitHandler<FormValues> = (data) => mutate(data);
+
+  const onSubmit: SubmitHandler<Folge> = (data) =>
+    mutate({ _id: folge._id.toString(), ...data });
 
   const type = watch('type');
 
@@ -70,7 +73,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Id</span>
-          <Input {...register('_id')} disabled />
+          <Input defaultValue={folge._id.toString()} disabled />
         </label>
         <label>
           <span>Name</span>
@@ -112,6 +115,13 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
             spellCheck="true"
           />
         </label>
+
+        {Object.keys(formState.errors).length !== 0 &&
+          Object.entries(formState.errors).map(([name, value]) => (
+            <div key={name} style={{ color: colors.red }}>
+              <b>{name}</b>: {value.message}
+            </div>
+          ))}
 
         <Button type="submit" disabled={!isTouched || isLoading}>
           Speichern
