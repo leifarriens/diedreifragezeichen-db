@@ -11,8 +11,9 @@ function BackButton() {
   return (
     <ButtonContainer>
       <button
-        onClick={() => router.push(`/?ref=${router.query.id}`)}
+        type="button"
         aria-label="Zurück"
+        onClick={() => router.push(`/?ref=${router.query.id}`)}
       >
         <IoMdArrowBack size={28} color={colors.white} />
       </button>

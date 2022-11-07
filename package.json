@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/leifarriens/diedreifragezeichen-db#readme",
   "resolutions": {
-    "@types/react": "17.0.2",
+    "@types/react": "^18.0.25",
     "styled-components": "^5.3.6"
   },
   "dependencies": {
@@ -74,6 +74,7 @@
     "eslint": "^8.26.0",
     "eslint-config-next": "^13.0.2",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-no-inline-styles": "^1.0.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.10",

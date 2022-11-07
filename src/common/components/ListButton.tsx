@@ -88,6 +88,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       disabled={isLoading}
       aria-label={`${folgeName} ${
