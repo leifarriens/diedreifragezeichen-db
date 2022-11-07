@@ -1,3 +1,7 @@
+// NOTE: Models referenced in schema should be imported
+import '@/models/user';
+import '@/models/folge';
+
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
