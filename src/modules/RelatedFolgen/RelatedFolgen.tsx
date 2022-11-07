@@ -21,16 +21,18 @@ export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
 
   return (
     <div ref={ref}>
+      {/* FIXME: Key press cause unwanted behavior with accessible RatingInput -> */}
+      {/* Page Navigations to corr folge, when input is controlled with keys */}
       <KeyContainer>
         <Key
-          keyCode="ArrowLeft"
+          // keyCode="ArrowLeft"
           icon={FiArrowLeft}
           disabled={!prevId}
           label="Zur vorherigen Folge"
           onPress={() => router.push(`/folge/${prevId}`)}
         />
         <Key
-          keyCode="ArrowRight"
+          // keyCode="ArrowRight"
           icon={FiArrowRight}
           disabled={!nextId}
           label="Zur nächsten Folge"
