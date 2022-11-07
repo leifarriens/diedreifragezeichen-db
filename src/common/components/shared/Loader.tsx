@@ -8,7 +8,7 @@ export const FullpageLoader = () => (
   </FullpageContainer>
 );
 
-export const Loader = ({ animated = true }) => (
+export const Loader = ({ animated = true }: { animated?: boolean }) => (
   <LoadingIndicator className="loader">
     {Array.from({ length: 3 }).map((_, index) => (
       <IndicatorIcon key={index} className={classnames({ animated })} />

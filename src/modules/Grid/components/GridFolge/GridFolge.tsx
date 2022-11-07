@@ -18,59 +18,54 @@ interface GridFolgeProps {
   style?: CSSProperties;
 }
 
-const GridFolge = memo(
-  ({
-    folge,
-    userRating = null,
-    coverOnly = false,
-    ...rest
-  }: GridFolgeProps) => {
-    const router = useRouter();
-    const ref = useRef<HTMLElement | null>(null);
+const GridFolge = memo(function GridFolge({
+  folge,
+  userRating = null,
+  coverOnly = false,
+  ...rest
+}: GridFolgeProps) {
+  const router = useRouter();
+  const ref = useRef<HTMLElement | null>(null);
 
-    useEffect(() => {
-      if (router.query.ref === folge._id) {
-        ref.current?.scrollIntoView({ block: 'center' });
-      }
-    }, [router.query.ref, folge._id]);
+  useEffect(() => {
+    if (router.query.ref === folge._id) {
+      ref.current?.scrollIntoView({ block: 'center' });
+    }
+  }, [router.query.ref, folge._id]);
 
-    const href = '/folge/' + folge._id;
-    // const href = `/folge/${folge.name.split(' ').join('-').toLowerCase()}`;
+  const href = '/folge/' + folge._id;
+  // const href = `/folge/${folge.name.split(' ').join('-').toLowerCase()}`;
 
-    return (
-      <FolgeContainer ref={ref} {...rest}>
-        <Link href={href} aria-label={folge.name}>
-          <Cover
-            images={folge.images}
-            alt={`${folge.name} Cover`}
-            coverOnly={coverOnly}
-          />
-        </Link>
+  return (
+    <FolgeContainer ref={ref} {...rest}>
+      <Link href={href} aria-label={folge.name}>
+        <Cover
+          images={folge.images}
+          alt={`${folge.name} Cover`}
+          coverOnly={coverOnly}
+        />
+      </Link>
 
-        {!coverOnly && (
-          <div className="bottom">
-            <div>
-              <CommunityRating
-                numerOfRatings={folge.number_of_ratings}
-                rating={folge.rating}
-              />
-              <div className="release">
-                {dayjs(folge.release_date).format(DATE_FORMAT)}
-              </div>
-            </div>
-
-            <div className="right">
-              {userRating && <RatingBadge>{userRating}</RatingBadge>}
-              <ListButton
-                folgeId={folge._id.toString()}
-                folgeName={folge.name}
-              />
+      {!coverOnly && (
+        <div className="bottom">
+          <div>
+            <CommunityRating
+              numerOfRatings={folge.number_of_ratings}
+              rating={folge.rating}
+            />
+            <div className="release">
+              {dayjs(folge.release_date).format(DATE_FORMAT)}
             </div>
           </div>
-        )}
-      </FolgeContainer>
-    );
-  },
-);
+
+          <div className="right">
+            {userRating && <RatingBadge>{userRating}</RatingBadge>}
+            <ListButton folgeId={folge._id.toString()} folgeName={folge.name} />
+          </div>
+        </div>
+      )}
+    </FolgeContainer>
+  );
+});
 
 export default GridFolge;
