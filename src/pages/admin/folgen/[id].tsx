@@ -38,7 +38,9 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       inhalt: folge.inhalt,
     },
     resolver: zodResolver(validator),
+    mode: 'all',
   });
+
   const onSubmit: SubmitHandler<Folge> = (data) =>
     mutate({ _id: folge._id.toString(), ...data });
 
@@ -114,6 +116,13 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
           />
         </label>
 
+        {Object.keys(formState.errors).length !== 0 &&
+          Object.entries(formState.errors).map(([name, value]) => (
+            <div key={name} style={{ color: colors.red }}>
+              <b>{name}</b>: {value.message}
+            </div>
+          ))}
+
         <Button type="submit" disabled={!isTouched || isLoading}>
           Speichern
         </Button>
@@ -126,7 +135,6 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       <Button onClick={handleDelete} color={colors.red}>
         Löschen
       </Button>
-      {JSON.stringify(formState.errors)}
     </Wrapper>
   );
 }
