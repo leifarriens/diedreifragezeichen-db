@@ -15,16 +15,11 @@ export const Container = styled(Wrapper)`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-top: 48px;
-  padding-bottom: 48px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   pointer-events: none;
   justify-self: start;
   background: linear-gradient(0deg, transparent, ${colors.darkblue});
-
-  @media (max-width: 744px) {
-    padding-top: 18px;
-    padding-bottom: 18px;
-  }
 
   /* GRID */
   display: grid;
@@ -38,10 +33,11 @@ export const Container = styled(Wrapper)`
   grid-template-areas: 'logo search profile';
 
   @media (min-width: ${breakpoints.mobileHeader}) {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    grid-template-columns: auto 340px 1fr;
     grid-column-gap: 24px;
     grid-template-areas: 'logo search profile';
-    /* background: none; */
-    top: 0;
   }
 
   * {

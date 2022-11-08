@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import Headroom from 'react-headroom';
@@ -16,7 +17,6 @@ import { CloseLoginButton, Container, HomeLink } from './StyledHeader';
 const Header = () => {
   const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
-  const loading = status === 'loading';
   const router = useRouter();
 
   const handleHomeClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -48,10 +48,14 @@ const Header = () => {
 
         <Search />
 
-        {!loading && router.pathname !== '/signin' && (
-          <div className="right">
-            {!session ? (
-              <span>
+        <div className="right">
+          {status !== 'loading' && (
+            <>
+              {router.pathname === '/signin' ? (
+                <CloseLoginButton onClick={router.back}>
+                  <AiOutlineClose size={28} />
+                </CloseLoginButton>
+              ) : !session ? (
                 <Button
                   aria-label="Anmelden"
                   color={colors.red}
@@ -59,19 +63,12 @@ const Header = () => {
                 >
                   Anmelden
                 </Button>
-              </span>
-            ) : (
-              <ProfileLink image={session.user.image} />
-            )}
-          </div>
-        )}
-        {router.pathname === '/signin' && (
-          <div className="right">
-            <CloseLoginButton onClick={router.back}>
-              <AiOutlineClose size={28} />
-            </CloseLoginButton>
-          </div>
-        )}
+              ) : (
+                <ProfileLink image={session.user.image} />
+              )}
+            </>
+          )}
+        </div>
       </Container>
     </Headroom>
   );
