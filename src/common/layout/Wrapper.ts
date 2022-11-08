@@ -4,8 +4,8 @@ const Wrapper = styled.div<{ maxWidth?: string; center?: boolean }>`
   --maxWidth: ${(props) => props.maxWidth};
 
   flex: 1;
-  padding-left: 36px;
-  padding-right: 36px;
+  padding-left: 18px;
+  padding-right: 18px;
   width: ${({ maxWidth }) =>
     maxWidth ? 'min(var(--maxWidth), 100%)' : '100%'};
   margin: 0 auto;

@@ -21,6 +21,7 @@ const Button = styled.button<{
   background-color: ${({ color, ghost }) => !ghost && color && color};
   border-color: ${({ color, ghost }) => !ghost && color && color};
   border: ${(props) => props.ghost && 'None'};
+  white-space: nowrap;
 
   &:hover:not(:disabled) {
     color: ${({ color }) => !color && colors.black};

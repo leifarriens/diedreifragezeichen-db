@@ -2,7 +2,6 @@ import { useRouter } from 'next/router';
 import { IoMdArrowBack } from 'react-icons/io';
 import styled from 'styled-components';
 
-import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
 import Wrapper from '@/layout/Wrapper';
 
@@ -22,9 +21,7 @@ function BackButton() {
 }
 
 const ButtonContainer = styled(Wrapper)`
-  @media (max-width: ${breakpoints.mobileHeader}) {
-    margin-top: 16px;
-  }
+  margin-top: 2em;
 `;
 
 export default BackButton;
