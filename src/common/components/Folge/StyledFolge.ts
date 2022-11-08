@@ -3,38 +3,38 @@ import styled from 'styled-components';
 import { breakpoints } from '@/constants/layout';
 
 export const Container = styled.div`
+  padding: 2em;
   padding-top: 2em;
   margin-bottom: 6em;
 
   @media screen and (min-width: 720px) {
-    padding-top: 46px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 40px;
   }
 
-  @media screen and (min-width: 960px) {
+  @media screen and (min-width: 1080px) {
     grid-column-gap: 64px;
   }
 `;
 
 export const Cover = styled.div`
+  display: block;
   height: auto;
   width: 100%;
-  font-size: 0;
-  line-height: 0;
 
   img {
     height: auto;
     width: 100%;
     object-fit: cover;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px 4px #00000050;
   }
 `;
 
 export const Content = styled.div`
-  padding: 6px;
-
+  /* padding: 6px; */
+  display: none;
   h1 {
     margin-bottom: 0;
   }
@@ -49,8 +49,8 @@ export const Buttons = styled.div`
   display: flex;
   align-items: center;
 
-  > * {
-    margin-right: 1em;
+  * + * {
+    margin-left: 1em;
   }
 `;
 
