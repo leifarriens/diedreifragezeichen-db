@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId } from '@/types';
+import { MongoId, SchemaType } from '@/types';
 
 import { folgeValidator, Image, Type } from './folge.validator';
 
@@ -10,11 +10,13 @@ export type Image = z.infer<typeof Image>;
 
 export type Folge = z.infer<typeof folgeValidator>;
 
+type FolgeSchema = SchemaType<Folge>;
+
 export type FolgeWithId = Folge & {
   _id: MongoId;
 };
 
-const folgeSchema = new mongoose.Schema<Folge>(
+const folgeSchema = new mongoose.Schema<FolgeSchema>(
   {
     images: Array,
     name: String,

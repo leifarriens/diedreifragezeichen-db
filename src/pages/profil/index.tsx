@@ -1,43 +1,64 @@
-import { GetServerSidePropsContext } from 'next';
+import type {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+} from 'next';
+import React from 'react';
+import { InView } from 'react-intersection-observer';
+import { trpc } from 'utils/trpc';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import Seo from '@/components/Seo/Seo';
+import { Loader } from '@/components/shared/Loader';
 import dbConnect from '@/db/connect';
 import { getServerSession } from '@/lib/getServerSession';
 import { Folge } from '@/models/folge';
-import { Rating } from '@/models/rating';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
-import { RatingWithFolge } from '@/types';
-import { parseMongo } from '@/utils/index';
 
-type ProfilePageProps = {
-  ratings: RatingWithFolge[];
-  numberOfFolgen: number;
-};
+function Profile({
+  numberOfFolgen,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const limit = 20;
 
-function Profile({ ratings, numberOfFolgen }: ProfilePageProps) {
+  const { data, fetchNextPage, isFetching } =
+    trpc.user.infiniteRatings.useInfiniteQuery(
+      { limit },
+      {
+        getNextPageParam: (lastPage) => {
+          if (lastPage.offset + limit < lastPage.total) {
+            return lastPage.offset + limit;
+          }
+          return undefined;
+        },
+      },
+    );
+
   return (
     <>
       <Seo title="Bewertungen" canonicalpath="/profil" />
       <ProfilLayout>
-        <RatingProgress ratings={ratings} numberOfFolgen={numberOfFolgen} />
-
-        {ratings && ratings.length > 0 ? (
-          <FolgenContainer>
-            {ratings.map(({ _id, value, folge }) => {
-              return (
-                <GridFolge
-                  key={_id.toString()}
-                  folge={folge}
-                  userRating={value}
-                />
-              );
-            })}
-          </FolgenContainer>
-        ) : (
-          <p>Du hast noch keine Folgen bewertet.</p>
+        {data && (
+          <RatingProgress
+            numberOfRatings={data.pages[0].total}
+            numberOfFolgen={numberOfFolgen}
+          />
         )}
+
+        <FolgenContainer>
+          {data?.pages.map((groupe, i) => (
+            <React.Fragment key={i}>
+              {groupe.items.map((r) => {
+                return (
+                  <GridFolge key={r._id} folge={r.folge} userRating={r.value} />
+                );
+              })}
+            </React.Fragment>
+          ))}
+        </FolgenContainer>
+
+        {isFetching && <Loader />}
+
+        <InView onChange={(inView) => inView && fetchNextPage()} />
       </ProfilLayout>
     </>
   );
@@ -60,16 +81,10 @@ export const getServerSideProps = async ({
 
   await dbConnect();
 
-  const ratingsData = await Rating.find({ user: session.user.id })
-    .populate('folge')
-    .sort('-updated_at');
-  const ratings = parseMongo(ratingsData);
-
-  const numberOfFolgen = await Folge.countDocuments();
+  const numberOfFolgen = await Folge.count();
 
   return {
     props: {
-      ratings,
       numberOfFolgen,
     },
   };

@@ -26,7 +26,7 @@ export default function AdminFolgen({ folgen }: { folgen: FolgeWithId[] }) {
   return (
     <Wrapper>
       {filteredFolgen.map((folge) => (
-        <Item key={folge._id.toString()}>
+        <Item key={folge._id}>
           <Background
             style={{ backgroundImage: `url(${folge.images[1].url})` }}
           />

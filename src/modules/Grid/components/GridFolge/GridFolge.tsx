@@ -60,7 +60,7 @@ const GridFolge = memo(function GridFolge({
 
           <div className="right">
             {userRating && <RatingBadge>{userRating}</RatingBadge>}
-            <ListButton folgeId={folge._id.toString()} folgeName={folge.name} />
+            <ListButton folgeId={folge._id} folgeName={folge.name} />
           </div>
         </div>
       )}

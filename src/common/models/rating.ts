@@ -5,22 +5,25 @@ import '@/models/folge';
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId } from '@/types';
+import { MongoId, SchemaType } from '@/types';
 
-const ratingValidator = z.object({
-  user: z.instanceof(mongoose.Types.ObjectId),
-  folge: z.instanceof(mongoose.Types.ObjectId),
+export const ratingValidator = z.object({
+  user: z.instanceof(mongoose.Types.ObjectId).or(z.string()),
+  folge: z.instanceof(mongoose.Types.ObjectId).or(z.string()),
   value: z.number().min(1).max(40),
   created_at: z.date(),
   updated_at: z.date(),
 });
 
 export type Rating = z.infer<typeof ratingValidator>;
+
+type RatingSchema = SchemaType<Rating>;
+
 export interface RatingWithId extends Rating {
   _id: MongoId;
 }
 
-const ratingSchema = new mongoose.Schema<Rating>(
+const ratingSchema = new mongoose.Schema<RatingSchema>(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,

@@ -1,5 +1,6 @@
+import { Folge } from '@/models/folge';
+
 import { Rating } from '../common/models/rating';
-import { getFolge } from './folge.service';
 
 export async function postFolgenRating({
   folgeId,
@@ -10,7 +11,7 @@ export async function postFolgenRating({
   userId: string;
   userRating: number;
 }) {
-  const folge = await getFolge(folgeId);
+  const folge = await Folge.findById(folgeId);
 
   if (!folge) {
     throw Error('Folge not found');
@@ -27,7 +28,7 @@ export async function postFolgenRating({
       value: userRating,
     },
     { upsert: true, new: true },
-  );
+  ).lean();
 
   const folgenRatings = await Rating.find({ folge: folgeId });
 
@@ -52,7 +53,7 @@ export async function getUserRatings(
 ) {
   const { fields = [] } = options;
 
-  return Rating.find({ user: userId }).select(fields);
+  return Rating.find({ user: userId }).select(fields).lean();
 }
 
 export async function getUserFolgenRating({
@@ -62,5 +63,5 @@ export async function getUserFolgenRating({
   folgeId: string;
   userId: string;
 }) {
-  return Rating.findOne({ folge: folgeId, user: userId });
+  return Rating.findOne({ folge: folgeId, user: userId }).lean();
 }

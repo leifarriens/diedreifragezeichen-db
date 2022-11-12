@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { trpc } from 'utils/trpc';
 
 import Button from '@/components/shared/Button';
 import { Form, Input, Select, Textarea } from '@/components/shared/Input';
@@ -13,7 +13,6 @@ import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
 import type { Folge, FolgeWithId } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
-import { deleteFolge, updateFolge } from '@/services/client';
 import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
@@ -42,17 +41,17 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   });
 
   const onSubmit: SubmitHandler<Folge> = (data) =>
-    mutate({ _id: folge._id.toString(), ...data });
+    mutate({ folgeId: folge._id, update: data });
 
   const type = watch('type');
 
-  const { mutate, isLoading } = useMutation(updateFolge, {
+  const { mutate, isLoading } = trpc.folge.update.useMutation({
     onSuccess: () => {
       router.push('/admin/folgen');
     },
   });
 
-  const deleteMutation = useMutation(deleteFolge, {
+  const deleteMutation = trpc.folge.delete.useMutation({
     onSuccess: () => {
       router.replace('/admin/folgen');
     },
@@ -63,7 +62,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       'Löschen durch eingeben des Folgennames bestätigen.',
       '',
     );
-    if (confirm === folge.name) deleteMutation.mutate(folge._id.toString());
+    if (confirm === folge.name) deleteMutation.mutate({ folgeId: folge._id });
   }
 
   const isTouched = Object.keys(formState.touchedFields).length > 0;
@@ -73,7 +72,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Id</span>
-          <Input defaultValue={folge._id.toString()} disabled />
+          <Input defaultValue={folge._id} disabled />
         </label>
         <label>
           <span>Name</span>

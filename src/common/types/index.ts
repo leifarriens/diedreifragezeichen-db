@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Document } from 'mongoose';
 
 import type { FolgeWithId } from '@/models/folge';
 import type { RatingWithId } from '@/models/rating';
@@ -19,4 +19,6 @@ export type SpotifyAlbum = {
   artists: unknown;
 };
 
-export type MongoId = mongoose.Types.ObjectId | string;
+export type MongoId = string; //mongoose.Types.ObjectId | string;
+
+export type SchemaType<S> = S & Document<string>;

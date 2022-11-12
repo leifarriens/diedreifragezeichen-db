@@ -39,7 +39,6 @@ function Links() {
 
 const StyledLinks = styled.div`
   font-size: 1.65em;
-  /* margin-top: 1em; */
   margin-bottom: 1em;
   background-color: #000408;
   padding: 1em 0;
@@ -55,8 +54,9 @@ const StyledLinks = styled.div`
 `;
 
 const LinkWrapper = styled(Wrapper)`
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
 `;
 
 export default Links;

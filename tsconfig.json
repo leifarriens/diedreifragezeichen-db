@@ -32,7 +32,8 @@
       "@/db/*": ["db/*"],
       "@/services/*": ["services/*"],
       "@/lib/*": ["lib/*"],
-      "@/modules/*": ["modules/*"]
+      "@/modules/*": ["modules/*"],
+      "@/server/*": ["server/*"],
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

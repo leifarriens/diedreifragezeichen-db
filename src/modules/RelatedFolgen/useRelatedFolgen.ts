@@ -1,17 +1,10 @@
-import { useQuery, UseQueryOptions } from 'react-query';
-
-import type { FolgeWithId } from '@/models/folge';
-import { getRelatedFolgen } from '@/services/client';
+import { trpc } from 'utils/trpc';
 
 export function useRelatedFolgen(
   folgeId: string,
-  options?: UseQueryOptions<FolgeWithId[], unknown, FolgeWithId[], string[]>,
+  options: { enabled: boolean },
 ) {
-  const { data, isLoading } = useQuery(
-    [folgeId, 'related'],
-    () => getRelatedFolgen(folgeId),
-    options,
-  );
+  const { data, isLoading } = trpc.folge.related.useQuery({ folgeId }, options);
 
   if (!data) {
     return {

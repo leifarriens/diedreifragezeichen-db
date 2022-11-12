@@ -96,7 +96,7 @@ const Grid = (props: GridProps) => {
         <FolgenContainer>
           {filteredFolgen.map((folge) => (
             <GridFolge
-              key={folge._id.toString()}
+              key={folge._id}
               folge={folge}
               userRating={folge.user_rating}
               coverOnly={coverOnly}

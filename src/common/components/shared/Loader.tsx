@@ -53,6 +53,8 @@ const scaleAnimation = keyframes`
 const LoadingIndicator = styled.div`
   text-align: center;
   font-size: 42px;
+  margin: 1em 0;
+  line-height: 1;
 `;
 
 const IndicatorIcon = styled.div`

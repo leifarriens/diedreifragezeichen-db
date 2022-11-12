@@ -33,8 +33,6 @@ export const Cover = styled.div`
 `;
 
 export const Content = styled.div`
-  /* padding: 6px; */
-  display: none;
   h1 {
     margin-bottom: 0;
   }

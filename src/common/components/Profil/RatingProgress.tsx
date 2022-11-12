@@ -4,24 +4,25 @@ import { colors } from '@/constants/theme';
 import { RatingWithFolge } from '@/types';
 
 type RatingProgressProps = {
-  ratings: RatingWithFolge[];
+  numberOfRatings: number;
+  ratings?: RatingWithFolge[];
   numberOfFolgen: number;
 };
 
 export default function RatingProgress({
-  ratings,
+  numberOfRatings,
   numberOfFolgen,
 }: RatingProgressProps) {
   const ratetPercent =
-    ((ratings.length / numberOfFolgen) * 100).toFixed(0) + '%';
+    ((numberOfRatings / numberOfFolgen) * 100).toFixed(0) + '%';
 
   return (
     <PorgressContainer>
-      {ratings.length >= 2 && (
-        <p>Du hast bereits {ratings.length.toString()} Folgen bewertet</p>
+      {numberOfRatings >= 2 && (
+        <p>Du hast bereits {numberOfRatings.toString()} Folgen bewertet</p>
       )}
-      <progress value={ratings.length} max={numberOfFolgen} />
-      <span>{ratings.length.toString()}</span>
+      <progress value={numberOfRatings} max={numberOfFolgen} />
+      <span>{numberOfRatings.toString()}</span>
       <span>{ratetPercent.toString()}</span>
       <span>{numberOfFolgen}</span>
     </PorgressContainer>

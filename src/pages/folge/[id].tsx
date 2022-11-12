@@ -17,9 +17,7 @@ type FolgePageProps = {
 };
 
 export default function Folge({ folge }: FolgePageProps) {
-  const number = !isNaN(parseInt(folge.number))
-    ? `Folge ${parseInt(folge.number)}`
-    : '';
+  const number = folge.number ? `Folge ${parseInt(folge.number)}` : '';
   const title = `${number} ${folge.name}`;
   const description = `${title}: ${folge.inhalt}`;
 
@@ -30,7 +28,7 @@ export default function Folge({ folge }: FolgePageProps) {
       <Seo
         title={title}
         description={description}
-        canonicalpath={`/folgen/${folge._id.toString()}`}
+        canonicalpath={`/folgen/${folge._id}`}
         openGraph={{
           images: [
             {
@@ -50,7 +48,7 @@ export default function Folge({ folge }: FolgePageProps) {
       </Wrapper>
 
       <Wrapper>
-        <RelatedFolgen folgeId={folge._id.toString()} />
+        <RelatedFolgen folgeId={folge._id} />
       </Wrapper>
     </>
   );
@@ -64,7 +62,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const folgen = parseMongo(data);
 
   const paths = folgen.map((folge) => ({
-    params: { id: folge._id.toString() },
+    params: { id: folge._id },
   }));
 
   return { paths, fallback: 'blocking' };

@@ -35,6 +35,7 @@ export default function ScrollToTop() {
   return (
     <ScrollTopContainer ref={scrollTopRef} style={{ opacity: visible ? 1 : 0 }}>
       <button
+        type="button"
         aria-label="Scroll Top"
         onClick={handleClick}
         style={{
