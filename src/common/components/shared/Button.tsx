@@ -12,7 +12,8 @@ const Button = styled.button<{
   gap: 0.7em;
   color: ${colors.white};
   border: 1px solid ${colors.white};
-  padding: 0.7em 1.4em;
+  padding: 0.6em 1em;
+  line-height: 24px;
   border-radius: 8px;
   font-size: ${({ size }) => (size === 'small' ? '0.8em' : '1em')};
   font-weight: 500;
@@ -22,11 +23,13 @@ const Button = styled.button<{
   border-color: ${({ color, ghost }) => !ghost && color && color};
   border: ${(props) => props.ghost && 'None'};
   white-space: nowrap;
+  align-items: center;
 
   &:hover:not(:disabled) {
     color: ${({ color }) => !color && colors.black};
     background-color: ${({ color }) => (color ? color : colors.white)};
-    background-color: ${({ ghost, color }) => ghost && color};
+    background-color: ${({ ghost }) => ghost && '#c3b4fc1a'};
+    color: ${({ ghost }) => ghost && colors.lightblue};
   }
 
   :disabled {

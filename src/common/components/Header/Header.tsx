@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import Headroom from 'react-headroom';
@@ -63,7 +64,22 @@ const Header = () => {
                   Anmelden
                 </Button>
               ) : (
-                <ProfileLink image={session.user.image} />
+                <>
+                  <div className="buttons">
+                    <Link href="/profil/list" legacyBehavior passHref>
+                      <Button as="a" ghost>
+                        Merkliste
+                      </Button>
+                    </Link>
+                    <Link href="/profil" legacyBehavior passHref>
+                      <Button as="a" ghost>
+                        Bewertungen
+                      </Button>
+                    </Link>
+                  </div>
+
+                  <ProfileLink image={session.user.image} />
+                </>
               )}
             </>
           )}

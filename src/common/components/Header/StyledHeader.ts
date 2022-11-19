@@ -51,6 +51,16 @@ export const Container = styled(Wrapper)`
     align-items: center;
     justify-content: flex-end;
     grid-area: profile;
+
+    .buttons {
+      margin-right: 40px;
+      display: flex;
+      gap: 0.5rem;
+
+      @media screen and (max-width: 860px) {
+        display: none;
+      }
+    }
   }
 `;
 
