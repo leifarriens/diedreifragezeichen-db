@@ -26,8 +26,6 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
 
   const disabled = status === 'loading' || isLoading;
 
-  console.log(isLoading);
-
   function handleNewRating(newRating: number) {
     if (!session) return signIn();
 
