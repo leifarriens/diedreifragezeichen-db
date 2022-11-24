@@ -66,14 +66,14 @@ const Header = () => {
               ) : (
                 <>
                   <div className="buttons">
-                    <Link href="/profil/list" legacyBehavior passHref>
-                      <Button as="a" ghost>
-                        Merkliste
-                      </Button>
-                    </Link>
                     <Link href="/profil" legacyBehavior passHref>
                       <Button as="a" ghost>
                         Bewertungen
+                      </Button>
+                    </Link>
+                    <Link href="/profil/list" legacyBehavior passHref>
+                      <Button as="a" ghost>
+                        Merkliste
                       </Button>
                     </Link>
                   </div>
