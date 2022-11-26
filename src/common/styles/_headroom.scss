@@ -7,10 +7,10 @@
   transition: background-color 150ms ease;
 
   @media screen and (max-width: 540px) {
-    background-color: #001727;
+    // background-color: #001727;
     top: -1px !important; //fixes content leak on mobile safari
   }
-  
+
   // &--unfixed {}
 
   // &--scrolled {}
@@ -18,8 +18,8 @@
   // &--unpinned {}
 
   &--pinned {
-    @media screen and (max-width: 560px) {
-      // background-color: #001727;
+    @media screen and (max-width: 540px) {
+      background-color: #001727;
       box-shadow: 0px 12px 13px -5px rgb(0 0 0 / 35%);
     }
   }

@@ -1,8 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { trpc } from 'utils/trpc';
 
 import Button from '@/components/shared/Button';
 import { Form, Input, Select, Textarea } from '@/components/shared/Input';
@@ -10,27 +11,24 @@ import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
-import { FolgeWithId } from '@/models/folge';
-import { Type } from '@/models/folge';
-import { deleteFolge, updateFolge } from '@/services/client';
+import type { Folge, FolgeWithId } from '@/models/folge';
+import { folgeValidator } from '@/models/folge/folge.validator';
 import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
-type FormValues = {
-  _id: string;
-  name: string;
-  number: string;
-  spotify_id: string;
-  deezer_id: string;
-  type: Type;
-  inhalt: string;
-};
+const validator = folgeValidator.pick({
+  name: true,
+  type: true,
+  number: true,
+  spotify_id: true,
+  deezer_id: true,
+  inhalt: true,
+});
 
 export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   const router = useRouter();
-  const { register, handleSubmit, formState, watch } = useForm<FormValues>({
+  const { register, handleSubmit, formState, watch } = useForm<Folge>({
     defaultValues: {
-      _id: folge._id.toString(),
       name: folge.name,
       type: folge.type,
       number: folge.number,
@@ -38,18 +36,22 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       deezer_id: folge.deezer_id,
       inhalt: folge.inhalt,
     },
+    resolver: zodResolver(validator),
+    mode: 'all',
   });
-  const onSubmit: SubmitHandler<FormValues> = (data) => mutate(data);
+
+  const onSubmit: SubmitHandler<Folge> = (data) =>
+    mutate({ folgeId: folge._id, update: data });
 
   const type = watch('type');
 
-  const { mutate, isLoading } = useMutation(updateFolge, {
+  const { mutate, isLoading } = trpc.folge.update.useMutation({
     onSuccess: () => {
       router.push('/admin/folgen');
     },
   });
 
-  const deleteMutation = useMutation(deleteFolge, {
+  const deleteMutation = trpc.folge.delete.useMutation({
     onSuccess: () => {
       router.replace('/admin/folgen');
     },
@@ -60,7 +62,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       'Löschen durch eingeben des Folgennames bestätigen.',
       '',
     );
-    if (confirm === folge.name) deleteMutation.mutate(folge._id.toString());
+    if (confirm === folge.name) deleteMutation.mutate({ folgeId: folge._id });
   }
 
   const isTouched = Object.keys(formState.touchedFields).length > 0;
@@ -70,7 +72,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Id</span>
-          <Input {...register('_id')} disabled />
+          <Input defaultValue={folge._id} disabled />
         </label>
         <label>
           <span>Name</span>
@@ -113,12 +115,19 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
           />
         </label>
 
+        {Object.keys(formState.errors).length !== 0 &&
+          Object.entries(formState.errors).map(([name, value]) => (
+            <div key={name} style={{ color: colors.red }}>
+              <b>{name}</b>: {value.message}
+            </div>
+          ))}
+
         <Button type="submit" disabled={!isTouched || isLoading}>
           Speichern
         </Button>
       </Form>
 
-      <Link href={`/folge/${folge._id}`} target="_blank">
+      <Link href={`/folge/${folge._id}`} target="_blank" legacyBehavior>
         <Button as="a">Öffnen</Button>
       </Link>
 

@@ -1,43 +1,22 @@
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId } from '@/types';
+import { MongoId, SchemaType } from '@/types';
 
-const Type = z.enum(['regular', 'special']);
-
-export const Image = z.object({
-  url: z.string(),
-  height: z.number(),
-  width: z.number(),
-});
+import { folgeValidator, Image, Type } from './folge.validator';
 
 export type Type = z.infer<typeof Type>;
 export type Image = z.infer<typeof Image>;
 
-const folgeValidator = z.object({
-  name: z.string(),
-  number: z.string(),
-  type: Type,
-  images: z.array(Image),
-  rating: z.number().min(1).max(10),
-  number_of_ratings: z.number().int(),
-  popularity: z.number(),
-  user_rating: z.number().optional(),
-  inhalt: z.string(),
-  release_date: z.date(),
-  spotify_id: z.string(),
-  deezer_id: z.string(),
-  created_at: z.date(),
-  updated_at: z.date(),
-});
-
 export type Folge = z.infer<typeof folgeValidator>;
+
+type FolgeSchema = SchemaType<Folge>;
 
 export type FolgeWithId = Folge & {
   _id: MongoId;
 };
 
-const folgeSchema = new mongoose.Schema<Folge>(
+const folgeSchema = new mongoose.Schema<FolgeSchema>(
   {
     images: Array,
     name: String,

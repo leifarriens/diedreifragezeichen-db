@@ -7,12 +7,16 @@ export const Container = styled.div<{ disabled: boolean }>`
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
 
-export const IconContainer = styled.label`
+export const IconContainer = styled.form`
   display: block;
   position: relative;
   height: 60px;
   width: 100%;
   max-width: 350px;
+
+  &:has(input[type='range']:focus) {
+    box-shadow: var(--ui-outline);
+  }
 
   input[type='range'] {
     cursor: pointer;
@@ -36,7 +40,7 @@ export const IconContainer = styled.label`
   }
 `;
 
-export const FragezeichenContainer = styled.div`
+export const FragezeichenContainer = styled.label`
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-column-gap: 4px;

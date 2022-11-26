@@ -22,10 +22,10 @@ export function useBackgroundSortTheme(
 
       switch (sortBy) {
         case SortOptionsEnum.dateAsc:
-          background = `linear-gradient(0deg, ${gradient})`;
+          background = `linear-gradient(45deg, ${gradient})`;
           break;
         case SortOptionsEnum.dateDesc:
-          background = `linear-gradient(180deg, ${gradient})`;
+          background = `linear-gradient(225deg, ${gradient})`;
           break;
         default:
           background = '';

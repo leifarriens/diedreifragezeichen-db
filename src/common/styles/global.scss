@@ -38,10 +38,14 @@ $blue: #00a5e7;
   }
 }
 
+html {
+  box-sizing: border-box;
+}
+
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  box-sizing: inherit;
 }
 
 *:focus {
@@ -58,6 +62,7 @@ body {
 
 body {
   background-color: var(--color-bg);
+  // background: linear-gradient(45deg, var(--color-bg), red);
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -33,7 +33,7 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
       return;
     }
 
-    return mutate({ folgeId: folge_id, rating: newRating });
+    return mutate({ folgeId: folge_id, value: newRating });
   }
 
   return (

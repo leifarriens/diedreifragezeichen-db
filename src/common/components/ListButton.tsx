@@ -2,11 +2,10 @@ import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import { useMutation, useQueryClient } from 'react-query';
+import { trpc } from 'utils/trpc';
 
 import { colors } from '@/constants/theme';
 import { useUser } from '@/hooks';
-import { postFolgeList, removeFolgeList } from '@/services/client';
 
 import { SpinningLoader } from './shared/Loader';
 
@@ -19,18 +18,17 @@ type ListButtonProps = {
 function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: session, status } = useSession();
   const { data: user, isLoading: userLoading } = useUser();
-  const queryClient = useQueryClient();
+  const utils = trpc.useContext();
 
   const isOnUserList = !user
     ? false
-    : user.list.map((id) => id.toString()).includes(folgeId);
+    : user.list.map((id) => id).includes(folgeId);
 
-  const { mutate: mutateAdd, isLoading: addIsLoading } = useMutation(
-    postFolgeList,
-    {
+  const { mutate: mutateAdd, isLoading: addIsLoading } =
+    trpc.user.addToList.useMutation({
       onMutate: () => {
         if (user) {
-          queryClient.setQueryData(['user', user?._id], {
+          utils.user.self.setData(undefined, {
             ...user,
             list: [...user.list, folgeId],
           });
@@ -43,17 +41,17 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
           </span>,
         );
       },
-    },
-  );
+    });
 
-  const { mutate: mutateRemove, isLoading: removeIsLoading } = useMutation(
-    removeFolgeList,
-    {
+  const { mutate: mutateRemove, isLoading: removeIsLoading } =
+    trpc.user.removeFromList.useMutation({
       onMutate: () => {
-        queryClient.setQueryData(['user', user?._id], {
-          ...user,
-          list: user?.list.filter((id) => id.toString() !== folgeId),
-        });
+        if (user) {
+          utils.user.self.setData(undefined, {
+            ...user,
+            list: user.list.filter((id) => id !== folgeId),
+          });
+        }
       },
       onSuccess: () => {
         toast(
@@ -63,8 +61,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
           { style: { backgroundColor: colors.red } },
         );
       },
-    },
-  );
+    });
 
   const isLoading = userLoading || addIsLoading || removeIsLoading;
 
@@ -72,10 +69,10 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     if (!session) return signIn();
 
     if (!isOnUserList) {
-      return mutateAdd(folgeId);
+      return mutateAdd({ folgeId });
     }
 
-    return mutateRemove(folgeId);
+    return mutateRemove({ folgeId });
   }
 
   if (status === 'loading' || userLoading) {
@@ -88,6 +85,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
 
   return (
     <button
+      type="button"
       onClick={handleClick}
       disabled={isLoading}
       aria-label={`${folgeName} ${
@@ -106,9 +104,9 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
 }
 
 const MerklistenLink = () => (
-  <Link href="/profil/list">
-    {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
-    <a style={{ textDecoration: 'underline' }}>Merkliste</a>
+  // eslint-disable-next-line no-inline-styles/no-inline-styles
+  <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
+    Merkliste
   </Link>
 );
 

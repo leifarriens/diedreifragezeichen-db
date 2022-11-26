@@ -1,14 +1,10 @@
-import { AxiosError } from 'axios';
 import { useSession } from 'next-auth/react';
-import { useQuery } from 'react-query';
-
-import type { UserWithId } from '@/models/user';
-import { getUser } from '@/services/client';
+import { trpc } from 'utils/trpc';
 
 export function useUser() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
-  return useQuery<UserWithId, AxiosError>(['user', session?.user.id], getUser, {
+  return trpc.user.self.useQuery(undefined, {
     enabled: status === 'authenticated',
   });
 }

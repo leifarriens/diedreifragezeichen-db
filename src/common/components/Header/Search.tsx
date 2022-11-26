@@ -65,10 +65,6 @@ const SearchContainer = styled.div`
   width: 100%;
   grid-area: search;
 
-  @media (min-width: 744px) {
-    width: 350px;
-  }
-
   input {
     background-color: rgba(0, 0, 0, 0.45);
     color: #fff;

@@ -4,11 +4,11 @@ import '@/models/folge';
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId } from '@/types';
+import { MongoId, SchemaType } from '@/types';
 
 const Role = z.enum(['User', 'Admin']);
 
-export type Role = z.infer<typeof Role>;
+export type Role = z.infer<typeof Role> & mongoose.Document<string>;
 
 const userValidator = z.object({
   name: z.string(),
@@ -16,16 +16,18 @@ const userValidator = z.object({
   image: z.string().nullable(),
   emailVerified: z.boolean(),
   role: Role,
-  list: z.array(z.instanceof(mongoose.Types.ObjectId)),
+  list: z.array(z.instanceof(mongoose.Types.ObjectId).or(z.string())),
 });
 
 export type User = z.infer<typeof userValidator>;
+
+type UserSchema = SchemaType<User>;
 
 export interface UserWithId extends User {
   _id: MongoId;
 }
 
-const userSchema = new mongoose.Schema<User>(
+const userSchema = new mongoose.Schema<UserSchema>(
   {
     name: String,
     email: String,

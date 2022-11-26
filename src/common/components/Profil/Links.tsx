@@ -12,22 +12,25 @@ function Links() {
   return (
     <StyledLinks>
       <LinkWrapper maxWidth="1280px">
-        <Link href="/profil">
-          <a className={classnames({ active: pathname == '/profil' })}>
-            Bewertungen
-          </a>
+        <Link
+          href="/profil"
+          className={classnames({ active: pathname == '/profil' })}
+        >
+          Bewertungen
         </Link>
 
-        <Link href="/profil/list">
-          <a className={classnames({ active: pathname == '/profil/list' })}>
-            Merkliste
-          </a>
+        <Link
+          href="/profil/list"
+          className={classnames({ active: pathname == '/profil/list' })}
+        >
+          Merkliste
         </Link>
 
-        <Link href="/profil/account">
-          <a className={classnames({ active: pathname == '/profil/account' })}>
-            Account
-          </a>
+        <Link
+          href="/profil/account"
+          className={classnames({ active: pathname == '/profil/account' })}
+        >
+          Account
         </Link>
       </LinkWrapper>
     </StyledLinks>
@@ -36,7 +39,6 @@ function Links() {
 
 const StyledLinks = styled.div`
   font-size: 1.65em;
-  /* margin-top: 1em; */
   margin-bottom: 1em;
   background-color: #000408;
   padding: 1em 0;
@@ -52,8 +54,9 @@ const StyledLinks = styled.div`
 `;
 
 const LinkWrapper = styled(Wrapper)`
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
 `;
 
 export default Links;

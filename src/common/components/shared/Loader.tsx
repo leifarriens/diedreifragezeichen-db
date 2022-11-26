@@ -8,7 +8,7 @@ export const FullpageLoader = () => (
   </FullpageContainer>
 );
 
-export const Loader = ({ animated = true }) => (
+export const Loader = ({ animated = true }: { animated?: boolean }) => (
   <LoadingIndicator className="loader">
     {Array.from({ length: 3 }).map((_, index) => (
       <IndicatorIcon key={index} className={classnames({ animated })} />
@@ -53,6 +53,8 @@ const scaleAnimation = keyframes`
 const LoadingIndicator = styled.div`
   text-align: center;
   font-size: 42px;
+  margin: 1em 0;
+  line-height: 1;
 `;
 
 const IndicatorIcon = styled.div`

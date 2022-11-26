@@ -7,13 +7,9 @@ export default function Footer() {
   return (
     <>
       <PageFooter>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
+        <Link href="/">Home</Link>
 
-        <Link href="/datenschutz">
-          <a>Datenschutz</a>
-        </Link>
+        <Link href="/datenschutz">Datenschutz</Link>
 
         <a
           href="https://github.com/leifarriens/diedreifragezeichen-db"
@@ -41,7 +37,7 @@ export default function Footer() {
 const PageFooter = styled.div`
   text-align: center;
   margin-top: 94px;
-  margin-bottom: 47px;
+  margin-bottom: 2em;
   font-size: 0.85rem;
   color: ${colors.gray};
   line-height: 200%;

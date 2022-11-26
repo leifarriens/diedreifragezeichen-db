@@ -5,7 +5,7 @@ type KeyProps = {
   icon: React.ElementType<{ color: string; size: number }>;
   color?: string;
   size?: number;
-  keyCode: string;
+  keyCode?: string;
   disabled?: boolean;
   label: string;
   onPress?: () => void;
@@ -38,11 +38,12 @@ export function Key({
 
     window.addEventListener('keydown', onKeydown);
     window.addEventListener('keyup', onKeyup);
+
     return () => {
       window.removeEventListener('keydown', onKeydown);
       window.removeEventListener('keyup', onKeyup);
     };
-  });
+  }, [disabled, keyCode, onPress]);
 
   return (
     <KeyBox

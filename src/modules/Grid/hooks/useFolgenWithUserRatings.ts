@@ -1,26 +1,19 @@
 import { useSession } from 'next-auth/react';
-import { useQuery } from 'react-query';
+import { trpc } from 'utils/trpc';
 
 import { FolgeWithId } from '@/models/folge';
-import { getUserRatings } from '@/services/client';
 
 export function useFolgenWithUserRatings(folgen: FolgeWithId[]) {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
-  const { data } = useQuery(
-    [session?.user.id, 'ratings'],
-    () => getUserRatings(),
-    {
-      enabled: status === 'authenticated',
-    },
-  );
+  const { data } = trpc.user.ratings.useQuery(undefined, {
+    enabled: status === 'authenticated',
+  });
 
   if (!data) return folgen;
 
   return folgen.map((folge) => {
-    const rating = data.find(
-      (rating) => rating.folge.toString() == folge._id.toString(),
-    );
+    const rating = data.find((rating) => rating.folge == folge._id);
 
     if (rating) {
       folge.user_rating = rating.value;

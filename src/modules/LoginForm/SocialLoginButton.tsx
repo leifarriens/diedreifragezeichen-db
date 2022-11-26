@@ -28,7 +28,7 @@ export default function SocialLoginButton({
         color: color,
       }}
     >
-      <span>{icon}</span>
+      <i>{icon}</i>
       <span>Mit {name} anmelden</span>
     </StyledButton>
   );
@@ -42,7 +42,7 @@ const StyledButton = styled(Button)`
   align-items: center;
   font-weight: 600;
 
-  * + * {
-    margin-left: 6px;
+  i {
+    display: flex;
   }
 `;

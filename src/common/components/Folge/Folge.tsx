@@ -1,4 +1,4 @@
-import Image from 'next/future/image';
+import Image from 'next/image';
 import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
 import { DATE_FORMAT } from '@/constants/formats';
@@ -64,7 +64,7 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
             />
           </RatingContainer>
 
-          <Rating folge_id={_id.toString()} folge_name={name} />
+          <Rating folge_id={_id} folge_name={name} />
 
           <Buttons>
             <Button
@@ -87,11 +87,7 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
               </Button>
             )}
 
-            <ListButton
-              folgeId={_id.toString()}
-              folgeName={name}
-              iconSize={28}
-            />
+            <ListButton folgeId={_id} folgeName={name} iconSize={28} />
           </Buttons>
         </Content>
 

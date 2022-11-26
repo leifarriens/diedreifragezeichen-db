@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */ /* props from -> InferGetStaticPropsType */
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -27,7 +28,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
 
         {!session && (
           <HomeFooter>
-            <Link href={'/signin'} passHref>
+            <Link href={'/signin'} passHref legacyBehavior>
               <Button as="a" color={colors.red}>
                 Jetzt Bewerten!
               </Button>

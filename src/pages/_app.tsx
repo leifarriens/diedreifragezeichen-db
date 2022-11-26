@@ -1,19 +1,19 @@
 import '@/styles/global.scss';
 import '@/styles/nprogress.css';
 
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
-import { QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 
 import Page from '@/layout/Page';
-import { queryClient } from '@/lib/query';
 import { Toaster } from '@/lib/Toaster';
 import { GridProvider } from '@/modules/Grid';
+
+import { trpc } from '../utils/trpc';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -33,19 +33,17 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
         titleTemplate="Drei Fragezeichen DB | %s"
         description="Die drei Fragezeichen Folgen Archiv und Bewertungen"
       />
-      <QueryClientProvider client={queryClient}>
-        <SessionProvider session={pageProps.session}>
-          <GridProvider>
-            <Page>
-              <Component {...pageProps} />
-            </Page>
-          </GridProvider>
-        </SessionProvider>
-        <Toaster />
-        {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
-      </QueryClientProvider>
+      <SessionProvider session={pageProps.session}>
+        <GridProvider>
+          <Page>
+            <Component {...pageProps} />
+          </Page>
+        </GridProvider>
+      </SessionProvider>
+      <Toaster />
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
     </>
   );
 }
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);

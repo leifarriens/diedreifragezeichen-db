@@ -22,7 +22,8 @@ export async function getFolgen(options: FolgenOptions = {}) {
     ...(type && { type }),
   })
     .select(fields)
-    .sort('-release_date');
+    .sort('-release_date')
+    .lean();
 
   return folgen;
 }
@@ -30,7 +31,7 @@ export async function getFolgen(options: FolgenOptions = {}) {
 export async function getFolge(folgeId: string, options: FolgenOptions = {}) {
   const { fields = [] } = options;
 
-  const folge = await Folge.findById(folgeId).select(fields);
+  const folge = await Folge.findById(folgeId).select(fields).lean();
 
   return folge;
 }
@@ -39,7 +40,9 @@ export async function updateFolge(
   folgeId: string,
   update: UpdateQuery<Partial<FolgeWithId>>,
 ) {
-  const folge = await Folge.findByIdAndUpdate(folgeId, update, { new: true });
+  const folge = await Folge.findByIdAndUpdate(folgeId, update, {
+    new: true,
+  }).lean();
 
   return folge;
 }
@@ -59,7 +62,7 @@ export async function getRelatedFolgen(
   fields.push('release_date');
 
   const type = !specials ? 'regular' : null;
-  const current = await Folge.findById(id).select(fields);
+  const current = await Folge.findById(id).select(fields).lean();
 
   if (!current) {
     throw Error('Folge not found');
@@ -71,7 +74,8 @@ export async function getRelatedFolgen(
   })
     .sort({ release_date: -1 })
     .limit(limit / 2)
-    .select(fields);
+    .select(fields)
+    .lean();
 
   const next = await Folge.find({
     release_date: { $gt: current.release_date },
@@ -79,7 +83,8 @@ export async function getRelatedFolgen(
   })
     .sort({ release_date: 1 })
     .limit(limit / 2)
-    .select(fields);
+    .select(fields)
+    .lean();
 
   return [...previous.reverse(), current, ...next];
 }

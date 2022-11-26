@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
   Container,
@@ -31,6 +31,11 @@ function RatingInput({
     setRange(0);
   }, [defaultValue]);
 
+  const reset = useCallback(() => {
+    setRange(defaultValue);
+    setHover(null);
+  }, [defaultValue]);
+
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = Number(parseFloat(e.target.value));
 
@@ -42,10 +47,10 @@ function RatingInput({
     }
   };
 
-  const handleInputEnd = () => {
+  const handleInputEnd = useCallback(() => {
     setHover(null);
-    onRate(range);
-  };
+    if (range) onRate(range);
+  }, [range, onRate]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
     const rect = inputRef.current?.getBoundingClientRect();
@@ -81,6 +86,23 @@ function RatingInput({
     setHover(rounded < 1 ? 1 : rounded);
   };
 
+  useEffect(() => {
+    function handleKeyUp(e: KeyboardEvent) {
+      if (e.key === 'Enter') handleInputEnd();
+    }
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [reset, handleInputEnd]);
+
+  useEffect(() => {
+    if (range === defaultValue) {
+      inputRef.current?.blur();
+    }
+  }, [range, defaultValue]);
+
   const inputSettings = {
     type: 'range',
     min: 0.5, // needs to be 0.5 to equal input range and hover value
@@ -110,7 +132,8 @@ function RatingInput({
 
   return (
     <Container disabled={disabled}>
-      <IconContainer>
+      <IconContainer onSubmit={handleInputEnd}>
+        {/* DISCUSS: implement with <form> ? */}
         <input
           ref={inputRef}
           {...inputSettings}
@@ -120,7 +143,8 @@ function RatingInput({
           onTouchEnd={handleInputEnd}
           onTouchMove={handleTouchMove}
           onMouseMove={handleMouseMove}
-          onMouseOut={() => setHover(null)}
+          onMouseOut={reset}
+          onBlur={reset}
         />
 
         <FragezeichenContainer>
