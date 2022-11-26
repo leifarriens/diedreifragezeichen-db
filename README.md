@@ -36,4 +36,4 @@ GET `/api/folgen/{folgeId}`
 | ----------- | ------------ |
 | `200`       | OK           |
 | `304`       | Not modified |
-| `404`       | Not found |
+| `404`       | Not found    |

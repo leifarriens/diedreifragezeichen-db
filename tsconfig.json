@@ -33,7 +33,7 @@
       "@/services/*": ["services/*"],
       "@/lib/*": ["lib/*"],
       "@/modules/*": ["modules/*"],
-      "@/server/*": ["server/*"],
+      "@/server/*": ["server/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
