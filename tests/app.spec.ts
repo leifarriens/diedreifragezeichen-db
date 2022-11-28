@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 test('homepage has title and links to datenschutz page', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('/');
 
   await expect(page).toHaveTitle(/Drei Fragezeichen DB/);
 
