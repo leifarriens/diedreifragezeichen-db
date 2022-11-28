@@ -79,3 +79,6 @@ tsconfig.tsbuildinfo
 next-env.d.ts
 
 scrape-result.json
+/test-results/
+/playwright-report/
+/playwright/.cache/

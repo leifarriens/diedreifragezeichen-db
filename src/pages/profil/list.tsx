@@ -1,7 +1,7 @@
 import { GetServerSidePropsContext } from 'next';
 
 import ProfilLayout from '@/components/Profil/Layout';
-import Seo from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import { getServerSession } from '@/lib/getServerSession';
 import type { FolgeWithId } from '@/models/folge';
