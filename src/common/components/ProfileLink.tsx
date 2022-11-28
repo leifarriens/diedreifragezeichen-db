@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import classnames from 'classnames';
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
@@ -64,7 +65,7 @@ function ProfileLink({ image }: ProfileLinkProps) {
             </li>
             <hr />
             <li>
-              <button type="button" onClick={handleLinkClick}>
+              <button type="button" onClick={() => signOut()}>
                 Abmelden
               </button>
             </li>
