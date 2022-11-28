@@ -6,7 +6,7 @@ on:
       - main
   
 jobs:
-  setup:
+  test_setup:
     name: Test setup
     runs-on: ubuntu-latest
     outputs:
@@ -20,6 +20,8 @@ jobs:
           max_timeout: 800
       - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
   test:
+    needs: test_setup
+    name: E2E Test
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -36,7 +38,7 @@ jobs:
     - name: Run Playwright tests
       run: yarn test:e2e
       env:
-        PLAYWRIGHT_TEST_BASE_URL: ${{ needs.setup.outputs.preview_url }}
+        PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test_setup.outputs.preview_url }}
     - uses: actions/upload-artifact@v3
       if: always()
       with:
