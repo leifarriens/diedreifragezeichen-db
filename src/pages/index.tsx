@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 
-import Seo from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo';
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';

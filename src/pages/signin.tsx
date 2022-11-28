@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { getProviders } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
 
-import Seo from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
 import { LoginForm } from '@/modules/LoginForm';

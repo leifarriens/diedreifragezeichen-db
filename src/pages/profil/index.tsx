@@ -8,7 +8,7 @@ import { trpc } from 'utils/trpc';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
-import Seo from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo/Seo';
 import { Loader } from '@/components/shared/Loader';
 import dbConnect from '@/db/connect';
 import { getServerSession } from '@/lib/getServerSession';

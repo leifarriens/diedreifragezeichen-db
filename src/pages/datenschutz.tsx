@@ -4,7 +4,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import path from 'path';
 import styled from 'styled-components';
 
-import Seo from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import markdownToHtml from '@/utils/markdownToHtml';
 
