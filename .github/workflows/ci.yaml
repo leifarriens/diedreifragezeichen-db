@@ -25,6 +25,9 @@ jobs:
       - name: 📥 Install deps
         run: yarn install
 
+      - name: 🔒 Typecheck
+        run: yarn typecheck
+
       - name: 🔬 Lint
         run: yarn lint
 

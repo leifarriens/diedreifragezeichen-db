@@ -4,7 +4,7 @@ import { ParsedUrlQuery } from 'querystring';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
-import Seo from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import type { FolgeWithId } from '@/models/folge';

@@ -4,7 +4,7 @@ interface SeoProps extends NextSeoProps {
   canonicalpath?: string;
 }
 
-function Seo(props: SeoProps) {
+export function Seo(props: SeoProps) {
   return (
     <NextSeo
       canonical={`https://www.ddfdb.de${props.canonicalpath}`}
@@ -46,5 +46,3 @@ function getLastIndexOfPunctuation(string: string) {
 
   return -1;
 }
-
-export default Seo;
