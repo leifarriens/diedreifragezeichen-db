@@ -20,9 +20,8 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: user, isLoading: userLoading } = useUser();
   const utils = trpc.useContext();
 
-  const isOnUserList = !user
-    ? false
-    : user.list.map((id) => id).includes(folgeId);
+  const isOnUserList =
+    !user || !user.list ? false : user.list.map((id) => id).includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } =
     trpc.user.addToList.useMutation({
@@ -30,7 +29,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
         if (user) {
           utils.user.self.setData(undefined, {
             ...user,
-            list: [...user.list, folgeId],
+            list: user.list ? [...user.list, folgeId] : [folgeId],
           });
         }
       },
@@ -69,6 +68,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     if (!session) return signIn();
 
     if (!isOnUserList) {
+      console.log(folgeId);
       return mutateAdd({ folgeId });
     }
 
