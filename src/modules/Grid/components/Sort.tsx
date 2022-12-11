@@ -54,6 +54,7 @@ const Label = styled.label`
     border: 1px solid #fff;
     text-align: center;
     border-right: none;
+    font-weight: 600;
 
     @media (min-width: 480px) {
       padding: 8px 22px;
