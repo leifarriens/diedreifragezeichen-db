@@ -147,7 +147,7 @@ function RatingInput({
           onBlur={reset}
         />
 
-        <FragezeichenContainer>
+        <FragezeichenContainer aria-label="Folge Bewerten">
           {Array.from({ length: 10 }, (_, i) => (
             <FragezeichenIcon key={i} icon={getIcon(i)} />
           ))}

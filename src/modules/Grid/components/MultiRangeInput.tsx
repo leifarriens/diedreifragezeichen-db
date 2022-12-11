@@ -64,6 +64,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
     <Container>
       <RangeInput
         type="range"
+        aria-label="Slider Minimum"
         min={min}
         max={max}
         value={minVal}
@@ -79,6 +80,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
       />
       <RangeInput
         type="range"
+        aria-label="Slider Maximum"
         min={min}
         max={max}
         value={maxVal}
