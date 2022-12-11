@@ -47,18 +47,18 @@ const GridFolge = memo(function GridFolge({
       </Link>
 
       {!coverOnly && (
-        <div className="bottom">
+        <div className="flex items-center justify-between text-sm py-2 px-3">
           <div>
             <CommunityRating
               numerOfRatings={folge.number_of_ratings}
               rating={folge.rating}
             />
-            <div className="release">
+            <div className="font-extralight text-xs text-neutral-200">
               {dayjs(folge.release_date).format(DATE_FORMAT)}
             </div>
           </div>
 
-          <div className="right">
+          <div className="flex items-center gap-2">
             {userRating && <RatingBadge>{userRating}</RatingBadge>}
             <ListButton folgeId={folge._id} folgeName={folge.name} />
           </div>

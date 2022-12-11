@@ -2,7 +2,6 @@
 import { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
-import styled from 'styled-components';
 
 import { Seo } from '@/components/Seo';
 import Button from '@/components/shared/Button';
@@ -27,23 +26,18 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
         <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
 
         {!session && (
-          <HomeFooter>
+          <div className="text-center mt-32">
             <Link href={'/signin'} passHref legacyBehavior>
               <Button as="a" color={colors.red}>
                 Jetzt Bewerten!
               </Button>
             </Link>
-          </HomeFooter>
+          </div>
         )}
       </Wrapper>
     </>
   );
 };
-
-const HomeFooter = styled.footer`
-  text-align: center;
-  margin-top: 124px;
-`;
 
 export const getStaticProps = async () => {
   await dbConnect();

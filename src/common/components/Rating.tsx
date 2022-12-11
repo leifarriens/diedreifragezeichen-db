@@ -1,6 +1,5 @@
 import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
-import styled from 'styled-components';
 
 import { useUserRating } from '@/hooks';
 
@@ -38,7 +37,9 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
 
   return (
     <>
-      <Title>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</Title>
+      <div className="text-lg">
+        {userRating ? 'Deine Wertung:' : 'Bewerten:'}
+      </div>
       <RatingInput
         defaultValue={userRating}
         onRate={handleNewRating}
@@ -47,9 +48,3 @@ export default function Rating({ folge_id, folge_name }: RatingProps) {
     </>
   );
 }
-
-const Title = styled.div`
-  font-size: 1.05em;
-  color: #eee;
-  margin-bottom: 6px;
-`;

@@ -81,9 +81,3 @@ export const HomeLink = styled.a`
     width: auto;
   }
 `;
-
-export const CloseLoginButton = styled.button`
-  &:hover {
-    opacity: 0.85;
-  }
-`;

@@ -16,7 +16,7 @@ export default function Sort({ currentSort, onSortChange }: SortProps) {
   ];
 
   return (
-    <SortContainer>
+    <div className="flex">
       {sortVariants.map(({ name, value }) => (
         <Label key={value}>
           <input
@@ -29,13 +29,9 @@ export default function Sort({ currentSort, onSortChange }: SortProps) {
           <span>{name}</span>
         </Label>
       ))}
-    </SortContainer>
+    </div>
   );
 }
-
-const SortContainer = styled.div`
-  display: flex;
-`;
 
 const Label = styled.label`
   cursor: pointer;

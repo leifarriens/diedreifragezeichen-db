@@ -1,3 +1,4 @@
+import '@/styles/index.css';
 import '@/styles/global.scss';
 import '@/styles/nprogress.css';
 

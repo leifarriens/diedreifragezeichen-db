@@ -9,16 +9,7 @@ import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
 import Rating from '../Rating';
 import Button from '../shared/Button';
-import {
-  Background,
-  Buttons,
-  Container,
-  Content,
-  Cover,
-  Inhalt,
-  RatingContainer,
-  ReleaseContainer,
-} from './StyledFolge';
+import { Background, RatingContainer } from './StyledFolge';
 
 const Folge = ({ folge }: { folge: FolgeWithId }) => {
   const {
@@ -36,9 +27,10 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
 
   return (
     <>
-      <Container>
-        <Cover>
+      <div className="p-8 mb-24 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
+        <div className="block h-auto w-full">
           <Image
+            className="h-auto w-full object-cover shadow-2xl"
             src={images[0].url}
             alt={`${name} Cover`}
             width={512}
@@ -47,15 +39,17 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
             blurDataURL={images[2].url}
             priority
           />
-        </Cover>
-        <Content>
-          <h2>Die drei ???</h2>
-          <h1>{name}</h1>
-          <ReleaseContainer>
-            Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
-            <br />
-            {dayjs(release_date).fromNow()}
-          </ReleaseContainer>
+        </div>
+
+        <div>
+          <h2 className="text-2xl">Die drei ???</h2>
+          <h1 className="mb-0 leading-tight">{name}</h1>
+          <div className="text-lg mt-2 text-neutral-200">
+            <div>
+              Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
+            </div>
+            <div>{dayjs(release_date).fromNow()}</div>
+          </div>
 
           <RatingContainer>
             <CommunityRating
@@ -66,7 +60,7 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
 
           <Rating folge_id={_id} folge_name={name} />
 
-          <Buttons>
+          <div className="mt-6 flex items-center gap-4">
             <Button
               as="a"
               rel="noopener noreferrer"
@@ -88,20 +82,20 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
             )}
 
             <ListButton folgeId={_id} folgeName={name} iconSize={28} />
-          </Buttons>
-        </Content>
+          </div>
+        </div>
 
         <Background
           style={{ backgroundImage: `url(${images[0].url})` }}
           bigCover={isBigCover}
         />
-      </Container>
+      </div>
 
       {folge.inhalt && (
-        <Inhalt>
-          <h3>Zusammenfassung</h3>
-          <p>{folge.inhalt}</p>
-        </Inhalt>
+        <div className="text-lg text-neutral-200 rounded-lg mb-16 p-8 bg-neutral-900 bg-opacity-40">
+          <h3 className="text-2xl font-medium mb-4">Zusammenfassung</h3>
+          <p className="text-justify">{folge.inhalt}</p>
+        </div>
       )}
     </>
   );

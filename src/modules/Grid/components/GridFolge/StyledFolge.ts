@@ -99,30 +99,6 @@ export const FolgeContainer = styled.article`
   &:hover {
     ${hover};
   }
-
-  .bottom {
-    font-size: 0.85em;
-    padding: 6px 10px;
-    padding-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 0.8rem;
-
-    .release {
-      font-weight: 200;
-      font-size: 0.8em;
-    }
-
-    .right {
-      display: flex;
-      align-items: center;
-
-      * + * {
-        margin-left: 0.5em;
-      }
-    }
-  }
 `;
 
 export const RatingBadge = styled.span`

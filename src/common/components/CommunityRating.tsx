@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-
 type ComminityRatingProps = {
   numerOfRatings: number;
   rating: number;
@@ -7,18 +5,14 @@ type ComminityRatingProps = {
 
 function CommunityRating({ numerOfRatings, rating }: ComminityRatingProps) {
   return (
-    <Rating>
-      <span>{numerOfRatings >= 1 ? rating : '???'}</span>
+    <div>
+      {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
+      <span style={{ fontSize: '1.35em', fontWeight: 500 }}>
+        {numerOfRatings >= 1 ? rating : '???'}
+      </span>
       /10
-    </Rating>
+    </div>
   );
 }
-
-const Rating = styled.span`
-  span {
-    font-size: 1.35em;
-    font-weight: 500;
-  }
-`;
 
 export default CommunityRating;

@@ -17,7 +17,7 @@ export default function RatingProgress({
     ((numberOfRatings / numberOfFolgen) * 100).toFixed(0) + '%';
 
   return (
-    <PorgressContainer>
+    <ProgressContainer>
       {numberOfRatings >= 2 && (
         <p>Du hast bereits {numberOfRatings.toString()} Folgen bewertet</p>
       )}
@@ -25,11 +25,11 @@ export default function RatingProgress({
       <span>{numberOfRatings.toString()}</span>
       <span>{ratetPercent.toString()}</span>
       <span>{numberOfFolgen}</span>
-    </PorgressContainer>
+    </ProgressContainer>
   );
 }
 
-const PorgressContainer = styled.div`
+const ProgressContainer = styled.div`
   display: grid;
   grid-template-columns: auto 1fr auto;
   margin-bottom: 2em;
