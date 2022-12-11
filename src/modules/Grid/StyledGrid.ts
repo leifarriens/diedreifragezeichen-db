@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-export const GridContainer = styled.div`
-  flex: 1;
-`;
-
 export const GridUI = styled.div`
   margin-top: 22px;
   margin-bottom: 22px;

@@ -12,7 +12,7 @@ import { useGridState } from '@/modules/Grid';
 import LogoImg from '../../../../public/logo.png';
 import ProfileLink from '../ProfileLink';
 import Search from './Search';
-import { CloseLoginButton, Container, HomeLink } from './StyledHeader';
+import { Container, HomeLink } from './StyledHeader';
 
 const Header = () => {
   const { setSearchQuery } = useGridState();
@@ -52,9 +52,13 @@ const Header = () => {
           {status !== 'loading' && (
             <>
               {router.pathname === '/signin' ? (
-                <CloseLoginButton onClick={router.back}>
+                <button
+                  type="button"
+                  className="hover:opacity-80"
+                  onClick={router.back}
+                >
                   <AiOutlineClose size={28} />
-                </CloseLoginButton>
+                </button>
               ) : !session ? (
                 <Button
                   aria-label="Anmelden"

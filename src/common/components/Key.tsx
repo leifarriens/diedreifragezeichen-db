@@ -73,10 +73,3 @@ const KeyBox = styled.button<{ color: string; opacity: number }>`
     opacity: 0.5;
   }
 `;
-
-export const KeyContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 48px;
-  grid-column: 1/3;
-`;

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 
-import { Key, KeyContainer } from '@/components/Key';
+import { Key } from '@/components/Key';
 import { Loader } from '@/components/shared/Loader';
 import { Grid } from '@/modules/Grid';
 
@@ -23,7 +23,7 @@ export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
     <div ref={ref}>
       {/* FIXME: Key press cause unwanted behavior with accessible RatingInput -> */}
       {/* Page Navigations to corr folge, when input is controlled with keys */}
-      <KeyContainer>
+      <div className="flex justify-center mb-12">
         <Key
           // keyCode="ArrowLeft"
           icon={FiArrowLeft}
@@ -38,7 +38,7 @@ export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
           label="Zur nächsten Folge"
           onPress={() => router.push(`/folge/${nextId}`)}
         />
-      </KeyContainer>
+      </div>
 
       {!related ? <Loader /> : <Grid folgen={related} />}
     </div>

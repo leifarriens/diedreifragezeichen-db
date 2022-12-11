@@ -11,7 +11,10 @@ function Links() {
 
   return (
     <StyledLinks>
-      <LinkWrapper maxWidth="1280px">
+      <Wrapper
+        maxWidth="1280px"
+        className="grid grid-cols-3 justify-items-center"
+      >
         <Link
           href="/profil"
           className={classnames({ active: pathname == '/profil' })}
@@ -32,7 +35,7 @@ function Links() {
         >
           Account
         </Link>
-      </LinkWrapper>
+      </Wrapper>
     </StyledLinks>
   );
 }
@@ -51,12 +54,6 @@ const StyledLinks = styled.div`
       border-bottom-color: ${colors.lightblue};
     }
   }
-`;
-
-const LinkWrapper = styled(Wrapper)`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
 `;
 
 export default Links;

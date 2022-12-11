@@ -9,12 +9,7 @@ import MultiRangeInput from './components/MultiRangeInput';
 import Sort from './components/Sort';
 import { useFolgenWithUserRatings, useGridState } from './hooks';
 import { useBackgroundSortTheme } from './hooks';
-import {
-  FolgenContainer,
-  FolgenCounter,
-  GridContainer,
-  GridUI,
-} from './StyledGrid';
+import { FolgenContainer, FolgenCounter, GridUI } from './StyledGrid';
 import { applyFilter } from './utils/filter';
 
 type GridProps = {
@@ -63,7 +58,7 @@ const Grid = (props: GridProps) => {
   }, [yearRange]);
 
   return (
-    <GridContainer>
+    <div className="flex-1">
       {withUi && (
         <>
           <GridUI>
@@ -104,7 +99,7 @@ const Grid = (props: GridProps) => {
           ))}
         </FolgenContainer>
       )}
-    </GridContainer>
+    </div>
   );
 };
 
