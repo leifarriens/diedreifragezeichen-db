@@ -9,13 +9,6 @@ export const queryClientConfig: QueryClientConfig = {
     queries: {
       refetchOnWindowFocus: false,
       retry: false,
-      onError: (error) => {
-        if (error instanceof TRPCClientError) {
-          if (error.data.code !== 'NOT_FOUND') {
-            toast.error('Ein Fehler ist aufgetreten :(');
-          }
-        }
-      },
     },
     mutations: {
       onError: (error) => {
