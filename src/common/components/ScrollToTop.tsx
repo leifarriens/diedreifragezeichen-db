@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineArrowUp } from 'react-icons/ai';
-import styled from 'styled-components';
 
 export default function ScrollToTop() {
   const scrollTopRef = useRef<HTMLDivElement | null>(null);
@@ -33,10 +32,15 @@ export default function ScrollToTop() {
   };
 
   return (
-    <ScrollTopContainer ref={scrollTopRef} style={{ opacity: visible ? 1 : 0 }}>
+    <div
+      ref={scrollTopRef}
+      className="fixed z-20 bottom-0 right-0 w-20 h-20 grid place-items-center transition-opacity duration-150 ease-in"
+      style={{ opacity: visible ? 1 : 0 }}
+    >
       <button
         type="button"
-        aria-label="Scroll Top"
+        aria-label="Zum Seitenanfang scrollen"
+        className="transition-transform duration-200 ease-in"
         onClick={handleClick}
         style={{
           transform: atBottom ? `translateY(-100%)` : `translateY(0px)`,
@@ -44,23 +48,6 @@ export default function ScrollToTop() {
       >
         <AiOutlineArrowUp size={32} />
       </button>
-    </ScrollTopContainer>
+    </div>
   );
 }
-
-const ScrollTopContainer = styled.div`
-  position: fixed;
-  z-index: 15;
-  bottom: 0;
-  right: 0;
-  opacity: 0;
-  transition: all 200ms ease-in;
-  width: 80px;
-  height: 80px;
-  display: grid;
-  place-items: center;
-
-  button {
-    transition: transform 200ms ease-in;
-  }
-`;

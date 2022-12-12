@@ -1,5 +1,9 @@
 @use 'headroom';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 $ddfDark: #001727;
 $ddfRed: #c50009;
 $ddfBlue: #00a5e7;
@@ -38,16 +42,6 @@ $blue: #00a5e7;
   }
 }
 
-html {
-  box-sizing: border-box;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
-
 *:focus {
   outline: none;
   box-shadow: var(--ui-outline);
@@ -55,46 +49,27 @@ html {
 
 html,
 body {
-  font-family: system-ui, sans-serif;
   font-size: var(--font-size-base);
   color: var(--color-text);
 }
 
 body {
   background-color: var(--color-bg);
-  // background: linear-gradient(45deg, var(--color-bg), red);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-h1,
-h2,
-h3 {
-  font-family: Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-h1 {
-  font-size: 3.6rem;
-  font-size: clamp(1.6rem, 5vw, 3rem);
-  margin-bottom: 1em;
-}
+// h1 {
+//   font-size: 3.6rem;
+//   font-size: clamp(1.6rem, 5vw, 3rem);
+//   margin-bottom: 1em;
+// }
 
 .container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 button {

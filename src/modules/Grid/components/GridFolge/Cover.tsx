@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import styled from 'styled-components';
 
 import { Image } from '@/models/folge';
 
@@ -28,11 +27,12 @@ export default function Cover({ images, alt, coverOnly }: CoverProps) {
           />
         </>
       )}
-      <CoverContainer>
+      <div className="relative w-full h-auto aspect-square flex justify-center items-center overflow-hidden">
         {inView && (
           <img
             src={src}
             alt={alt}
+            className="shadow-lg rounded-xl transition-all duration-150 ease-in"
             style={{
               visibility: !isLoaded ? 'hidden' : 'visible',
               opacity: !isLoaded ? 0 : 1,
@@ -40,25 +40,7 @@ export default function Cover({ images, alt, coverOnly }: CoverProps) {
             onLoad={() => setIsLoaded(true)}
           />
         )}
-      </CoverContainer>
+      </div>
     </div>
   );
 }
-
-export const CoverContainer = styled.div`
-  position: relative;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-
-  img {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    border-radius: 12px;
-    transition: border-radius 150ms, opacity 150ms ease-in;
-    transition-timing-function: ease-out;
-  }
-`;

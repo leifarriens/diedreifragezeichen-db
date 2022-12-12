@@ -62,16 +62,16 @@ export const LoginForm = ({
   error: string;
 }) => (
   <FormContainer>
-    <h1>Anmelden</h1>
+    <h1 className="font-serif text-center text-5xl font-semibold mb-10">
+      Anmelden
+    </h1>
     {error && (
       <>
-        {error === 'OAuthAccountNotLinked' ? (
-          <FormError>
-            Email Adresse ist bereits mit einem anderen Provider registriert!
-          </FormError>
-        ) : (
-          <FormError>Fehler bei der der Anmeldung</FormError>
-        )}
+        <div className="text-center p-3 rounded-lg mb-4 text-xs bg-red-600">
+          {error === 'OAuthAccountNotLinked'
+            ? 'Email Adresse ist bereits mit einem anderen Provider registriert!'
+            : 'Fehler bei der der Anmeldung'}
+        </div>
         <hr />
       </>
     )}
@@ -108,20 +108,4 @@ const FormContainer = styled.div`
     border-bottom: 1px solid ${colors.white};
     box-shadow: none;
   }
-
-  h1 {
-    text-align: center;
-    font-size: 3em;
-    margin-bottom: 0.8em;
-  }
-`;
-
-const FormError = styled.div`
-  text-align: center;
-  background-color: ${colors.red};
-  border-radius: 8px;
-  padding: 1em;
-  margin-bottom: 1em;
-  font-weight: 600;
-  font-size: 0.7em;
 `;

@@ -48,7 +48,7 @@ const Search = () => {
         name="search"
         value={value}
         placeholder="Name, Nummer oder Erscheinungsjahr"
-        onKeyPress={handleKeyDown}
+        onKeyDown={handleKeyDown}
         onChange={handleSearchChange}
       />
       {searchQuery && (

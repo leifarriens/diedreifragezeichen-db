@@ -6,7 +6,11 @@ module.exports = {
     './src/common/components/**/*.tsx',
   ],
   theme: {
+    fontFamily: {
+      sans: ['system-ui', 'sans-serif'],
+      serif: ['Cochin', 'Georgia', 'serif'],
+    },
     extend: {},
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

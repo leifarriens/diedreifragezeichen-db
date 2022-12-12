@@ -9,7 +9,7 @@ import MultiRangeInput from './components/MultiRangeInput';
 import Sort from './components/Sort';
 import { useFolgenWithUserRatings, useGridState } from './hooks';
 import { useBackgroundSortTheme } from './hooks';
-import { FolgenContainer, FolgenCounter, GridUI } from './StyledGrid';
+import { FolgenContainer, GridUI } from './StyledGrid';
 import { applyFilter } from './utils/filter';
 
 type GridProps = {
@@ -78,12 +78,10 @@ const Grid = (props: GridProps) => {
             />
           </GridUI>
 
-          <FolgenCounter>
-            <span>
-              {filteredFolgen.length}{' '}
-              {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
-            </span>
-          </FolgenCounter>
+          <div className="mb-8">
+            {filteredFolgen.length}{' '}
+            {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
+          </div>
         </>
       )}
 

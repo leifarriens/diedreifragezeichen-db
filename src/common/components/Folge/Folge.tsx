@@ -9,7 +9,7 @@ import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
 import Rating from '../Rating';
 import Button from '../shared/Button';
-import { Background, RatingContainer } from './StyledFolge';
+import { Background } from './StyledFolge';
 
 const Folge = ({ folge }: { folge: FolgeWithId }) => {
   const {
@@ -28,35 +28,36 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
   return (
     <>
       <div className="p-8 mb-24 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
-        <div className="block h-auto w-full">
-          <Image
-            className="h-auto w-full object-cover shadow-2xl"
-            src={images[0].url}
-            alt={`${name} Cover`}
-            width={512}
-            height={512}
-            placeholder="blur"
-            blurDataURL={images[2].url}
-            priority
-          />
-        </div>
+        <Image
+          className="w-full object-cover shadow-2xl mb-4"
+          src={images[0].url}
+          alt={`${name} Cover`}
+          width={512}
+          height={512}
+          placeholder="blur"
+          blurDataURL={images[2].url}
+          priority
+        />
 
         <div>
-          <h2 className="text-2xl">Die drei ???</h2>
-          <h1 className="mb-0 leading-tight">{name}</h1>
-          <div className="text-lg mt-2 text-neutral-200">
+          <h2 className="font-serif text-2xl font-thin lg:text-3xl mb-2">
+            Die drei ???
+          </h2>
+          <h1 className="font-serif font-semibold text-4xl lg:text-5xl">
+            {name}
+          </h1>
+          <div className="text-lg mt-2 text-neutral-300">
             <div>
               Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
             </div>
             <div>{dayjs(release_date).fromNow()}</div>
           </div>
 
-          <RatingContainer>
-            <CommunityRating
-              numerOfRatings={number_of_ratings}
-              rating={rating}
-            />
-          </RatingContainer>
+          <CommunityRating
+            className="font-serif text-3xl my-4"
+            numerOfRatings={number_of_ratings}
+            rating={rating}
+          />
 
           <Rating folge_id={_id} folge_name={name} />
 
@@ -92,7 +93,7 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
       </div>
 
       {folge.inhalt && (
-        <div className="text-lg text-neutral-200 rounded-lg mb-16 p-8 bg-neutral-900 bg-opacity-40">
+        <div className="text-lg text-neutral-200 rounded-lg mb-16 p-8 bg-black bg-opacity-30">
           <h3 className="text-2xl font-medium mb-4">Zusammenfassung</h3>
           <p className="text-justify">{folge.inhalt}</p>
         </div>

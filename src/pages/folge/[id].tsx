@@ -43,7 +43,7 @@ export default function Folge({ folge }: FolgePageProps) {
       />
       <BackButton />
 
-      <Wrapper maxWidth="1180px">
+      <Wrapper maxWidth="1280px">
         <FolgeComponent folge={folge} />
       </Wrapper>
 

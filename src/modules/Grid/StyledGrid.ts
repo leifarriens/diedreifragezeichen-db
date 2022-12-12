@@ -43,11 +43,3 @@ export const FolgenContainer = styled.div`
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 `;
-
-export const FolgenCounter = styled.div`
-  margin-bottom: 2em;
-
-  > :not(:last-child) {
-    margin-right: 12px;
-  }
-`;

@@ -33,17 +33,14 @@ function ProfileLink({ image }: ProfileLinkProps) {
 
   return (
     <Container ref={ref}>
-      <AvatarButton
-        type="button"
-        onClick={() => setIsMenuOpen((curr) => !curr)}
-      >
+      <button type="button" onClick={() => setIsMenuOpen((curr) => !curr)}>
         <Avatar
           src={src}
           referrerPolicy="no-referrer"
           className={classnames({ placeholder: !image })}
           alt=""
         />
-      </AvatarButton>
+      </button>
 
       {isMenuOpen && (
         <div className="menu">
@@ -132,13 +129,6 @@ const Container = styled.div`
       }
     }
   }
-`;
-
-const AvatarButton = styled.button`
-  font-size: 1em;
-  padding: 0;
-  display: flex;
-  border-radius: 50%;
 `;
 
 const Avatar = styled.img`
