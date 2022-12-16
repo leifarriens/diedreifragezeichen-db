@@ -60,15 +60,4 @@ export const FragezeichenIcon = styled.span<{ icon: string }>`
   background-repeat: no-repeat;
   height: 60px;
   width: 100%;
-
-  &:hover {
-    background-image: url('/blue_small.png');
-  }
-`;
-
-export const HoverValue = styled.div`
-  min-width: 35px;
-  text-align: right;
-  font-size: 24px;
-  margin-top: -12px;
 `;

@@ -4,7 +4,6 @@ import {
   Container,
   FragezeichenContainer,
   FragezeichenIcon,
-  HoverValue,
   IconContainer,
 } from './StyledRatingInput';
 
@@ -153,9 +152,9 @@ function RatingInput({
           ))}
         </FragezeichenContainer>
       </IconContainer>
-      <HoverValue>
+      <div className="max-w-xl text-right text-2xl ml-1 -mt-3">
         {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)}
-      </HoverValue>
+      </div>
     </Container>
   );
 }
