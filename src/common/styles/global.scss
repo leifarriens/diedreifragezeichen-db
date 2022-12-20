@@ -60,6 +60,12 @@ body {
   flex-direction: column;
 }
 
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 button {
   border: 0;
   background-color: transparent;
