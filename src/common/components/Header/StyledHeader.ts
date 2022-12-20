@@ -66,8 +66,8 @@ export const Container = styled(Wrapper)`
 
 export const HomeLink = styled.a`
   cursor: pointer;
-  display: flex;
   height: 28px;
+  width: auto;
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -78,6 +78,9 @@ export const HomeLink = styled.a`
   }
 
   img {
+    object-fit: contain;
+    min-width: 43px;
+    height: 100%;
     width: auto;
   }
 `;
