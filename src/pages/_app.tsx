@@ -2,6 +2,7 @@ import '@/styles/global.scss';
 import '@/styles/nprogress.css';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Analytics } from '@vercel/analytics/react';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import { Session } from 'next-auth';
@@ -42,6 +43,7 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
       </SessionProvider>
       <Toaster />
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+      {process.env.NODE_ENV === 'production' && <Analytics />}
     </>
   );
 }
