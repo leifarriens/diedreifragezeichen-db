@@ -17,6 +17,7 @@ type ProviderButton = {
   icon: React.ReactElement;
   bgColor: string;
   color: string;
+  disabled?: boolean;
 };
 
 const size = 20;
@@ -26,6 +27,7 @@ const providerButtons: ProviderButtons = {
     icon: <FaSpotify size={size} />,
     bgColor: '#1ED760',
     color: colors.white,
+    disabled: true,
   },
   facebook: {
     icon: <FaFacebook size={size} />,
@@ -80,6 +82,7 @@ export const LoginForm = ({
         key={provider.id}
         name={provider.name}
         onClick={() => signIn(provider.id)}
+        disabled={provider.disabled}
         {...providerButtons[provider.id]}
       />
     ))}

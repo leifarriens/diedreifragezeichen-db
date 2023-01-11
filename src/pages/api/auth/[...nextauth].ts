@@ -9,19 +9,19 @@ const SESSION_MAX_AGE = 90 * 24 * 60 * 60; // 90 days
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    ...(process.env.SPOTIFY_CLIENT_ID
-      ? [
-          SpotifyProvider({
-            clientId: process.env.SPOTIFY_CLIENT_ID,
-            clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-          }),
-        ]
-      : []),
     ...(process.env.GOOGLE_CLIENT_ID
       ? [
           GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+    ...(process.env.SPOTIFY_CLIENT_ID
+      ? [
+          SpotifyProvider({
+            clientId: process.env.SPOTIFY_CLIENT_ID,
+            clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
           }),
         ]
       : []),
