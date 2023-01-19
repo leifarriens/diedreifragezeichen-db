@@ -23,7 +23,7 @@ export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
     <div ref={ref}>
       {/* FIXME: Key press cause unwanted behavior with accessible RatingInput -> */}
       {/* Page Navigations to corr folge, when input is controlled with keys */}
-      <div className="flex justify-center mb-12">
+      <div className="mb-12 flex justify-center">
         <Key
           // keyCode="ArrowLeft"
           icon={FiArrowLeft}

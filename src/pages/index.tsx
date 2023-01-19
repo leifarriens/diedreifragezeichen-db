@@ -26,7 +26,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
         <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
 
         {!session && (
-          <div className="text-center mt-32">
+          <div className="mt-32 text-center">
             <Link href={'/signin'} passHref legacyBehavior>
               <Button as="a" color={colors.red}>
                 Jetzt Bewerten!

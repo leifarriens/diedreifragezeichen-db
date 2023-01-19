@@ -27,9 +27,9 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
 
   return (
     <>
-      <div className="p-8 mb-24 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
+      <div className="mb-24 p-8 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
         <Image
-          className="w-full object-cover shadow-2xl mb-4"
+          className="mb-4 w-full object-cover shadow-2xl"
           src={images[0].url}
           alt={`${name} Cover`}
           width={512}
@@ -40,13 +40,13 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
         />
 
         <div>
-          <h2 className="font-serif text-2xl font-thin lg:text-3xl mb-2">
+          <h2 className="mb-2 font-serif text-2xl font-thin lg:text-3xl">
             Die drei ???
           </h2>
-          <h1 className="font-serif font-semibold text-4xl lg:text-5xl">
+          <h1 className="font-serif text-4xl font-semibold lg:text-5xl">
             {name}
           </h1>
-          <div className="text-lg mt-2 text-neutral-300">
+          <div className="mt-2 text-lg text-neutral-300">
             <div>
               Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
             </div>
@@ -54,7 +54,7 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
           </div>
 
           <CommunityRating
-            className="font-serif text-3xl my-4"
+            className="my-4 font-serif text-3xl"
             numerOfRatings={number_of_ratings}
             rating={rating}
           />
@@ -93,8 +93,8 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
       </div>
 
       {folge.inhalt && (
-        <div className="text-lg text-neutral-200 rounded-lg mb-16 p-8 bg-black bg-opacity-30">
-          <h3 className="text-2xl font-medium mb-4">Zusammenfassung</h3>
+        <div className="mb-16 rounded-lg bg-black bg-opacity-30 p-8 text-lg text-neutral-200">
+          <h3 className="mb-4 text-2xl font-medium">Zusammenfassung</h3>
           <p className="text-justify">{folge.inhalt}</p>
         </div>
       )}

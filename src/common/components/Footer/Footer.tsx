@@ -3,16 +3,16 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <>
-      <div className="text-center mt-24 mb-10 text-sm text-neutral-400">
+      <div className="mt-24 mb-10 text-center text-sm text-neutral-400">
         <Link
-          className="transition-colors duration-150 mr-3 hover:text-neutral-200"
+          className="mr-3 transition-colors duration-150 hover:text-neutral-200"
           href="/"
         >
           Home
         </Link>
 
         <Link
-          className="transition-colors duration-150 mr-3 hover:text-neutral-200"
+          className="mr-3 transition-colors duration-150 hover:text-neutral-200"
           href="/datenschutz"
         >
           Datenschutz

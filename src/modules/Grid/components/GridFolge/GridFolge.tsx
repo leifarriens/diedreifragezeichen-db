@@ -47,13 +47,13 @@ const GridFolge = memo(function GridFolge({
       </Link>
 
       {!coverOnly && (
-        <div className="flex items-center justify-between text-sm py-2 px-3">
+        <div className="flex items-center justify-between py-2 px-3 text-sm">
           <div>
             <CommunityRating
               numerOfRatings={folge.number_of_ratings}
               rating={folge.rating}
             />
-            <div className="font-extralight text-xs text-neutral-200">
+            <div className="text-xs font-extralight text-neutral-200">
               {dayjs(folge.release_date).format(DATE_FORMAT)}
             </div>
           </div>

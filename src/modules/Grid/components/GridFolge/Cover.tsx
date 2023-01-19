@@ -27,12 +27,12 @@ export default function Cover({ images, alt, coverOnly }: CoverProps) {
           />
         </>
       )}
-      <div className="relative w-full h-auto aspect-square flex justify-center items-center overflow-hidden">
+      <div className="relative flex aspect-square h-auto w-full items-center justify-center overflow-hidden">
         {inView && (
           <img
             src={src}
             alt={alt}
-            className="shadow-lg rounded-xl transition-all duration-150 ease-in"
+            className="rounded-xl shadow-lg transition-all duration-150 ease-in"
             style={{
               visibility: !isLoaded ? 'hidden' : 'visible',
               opacity: !isLoaded ? 0 : 1,

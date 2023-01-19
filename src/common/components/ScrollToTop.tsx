@@ -34,7 +34,7 @@ export default function ScrollToTop() {
   return (
     <div
       ref={scrollTopRef}
-      className="fixed z-20 bottom-0 right-0 w-20 h-20 grid place-items-center transition-opacity duration-150 ease-in"
+      className="fixed bottom-0 right-0 z-20 grid h-20 w-20 place-items-center transition-opacity duration-150 ease-in"
       style={{ opacity: visible ? 1 : 0 }}
     >
       <button

@@ -64,12 +64,12 @@ export const LoginForm = ({
   error: string;
 }) => (
   <FormContainer>
-    <h1 className="font-serif text-center text-5xl font-semibold mb-10">
+    <h1 className="mb-10 text-center font-serif text-5xl font-semibold">
       Anmelden
     </h1>
     {error && (
       <>
-        <div className="text-center p-3 rounded-lg mb-4 text-xs bg-red-600">
+        <div className="mb-4 rounded-lg bg-red-600 p-3 text-center text-xs">
           {error === 'OAuthAccountNotLinked'
             ? 'Email Adresse ist bereits mit einem anderen Provider registriert!'
             : 'Fehler bei der der Anmeldung'}
