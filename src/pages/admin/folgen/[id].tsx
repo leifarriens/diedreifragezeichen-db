@@ -9,7 +9,6 @@ import Button from '@/components/shared/Button';
 import { Form, Input, Select, Textarea } from '@/components/shared/Input';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
 import type { Folge, FolgeWithId } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
@@ -67,8 +66,26 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
 
   const isTouched = Object.keys(formState.touchedFields).length > 0;
 
+  const cover = folge.images[1];
+
   return (
-    <Wrapper maxWidth="720px">
+    <div className="relative mx-auto mt-24 w-full max-w-3xl p-8 pt-64">
+      <div className="absolute left-0 top-0 flex w-full -translate-y-24 justify-center">
+        <img
+          src={cover.url}
+          width={cover.width}
+          height={cover.height}
+          alt=""
+          className="shadow-xl"
+        />
+      </div>
+      <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl">
+        <div
+          className="absolute inset-0 -z-10 bg-none bg-cover bg-no-repeat blur-3xl brightness-50"
+          style={{ backgroundImage: `url(${folge.images[2].url})` }}
+        />
+      </div>
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <label>
           <span>Id</span>
@@ -122,19 +139,23 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
             </div>
           ))}
 
-        <Button type="submit" disabled={!isTouched || isLoading}>
-          Speichern
-        </Button>
+        <div className="flex justify-end gap-2">
+          <Link href={`/folge/${folge._id}`} target="_blank" legacyBehavior>
+            <Button type="button" as="a">
+              Öffnen
+            </Button>
+          </Link>
+
+          <Button type="button" onClick={handleDelete} color={colors.red}>
+            Löschen
+          </Button>
+
+          <Button type="submit" disabled={!isTouched || isLoading}>
+            Speichern
+          </Button>
+        </div>
       </Form>
-
-      <Link href={`/folge/${folge._id}`} target="_blank" legacyBehavior>
-        <Button as="a">Öffnen</Button>
-      </Link>
-
-      <Button onClick={handleDelete} color={colors.red}>
-        Löschen
-      </Button>
-    </Wrapper>
+    </div>
   );
 }
 
