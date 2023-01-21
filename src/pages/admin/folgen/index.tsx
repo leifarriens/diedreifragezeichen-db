@@ -28,7 +28,7 @@ export default function AdminFolgen({ folgen }: { folgen: FolgeWithId[] }) {
       {filteredFolgen.map((folge) => (
         <article
           key={folge._id}
-          className="before:contents[''] relative mb-8 grid grid-cols-[180px_1fr] gap-4"
+          className="relative mb-8 grid grid-cols-[180px_1fr] gap-4"
         >
           <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl">
             <div

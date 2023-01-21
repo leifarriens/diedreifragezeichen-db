@@ -18,6 +18,11 @@ const shared = css`
 
 export const Input = styled.input`
   ${shared};
+
+  &:disabled {
+    filter: brightness(50%);
+    cursor: not-allowed;
+  }
 `;
 
 export const Select = styled.select`
