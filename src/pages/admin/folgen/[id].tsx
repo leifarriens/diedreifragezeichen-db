@@ -122,18 +122,22 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
             </div>
           ))}
 
-        <Button type="submit" disabled={!isTouched || isLoading}>
-          Speichern
-        </Button>
+        <div className="flex justify-end gap-2">
+          <Link href={`/folge/${folge._id}`} target="_blank" legacyBehavior>
+            <Button type="button" as="a">
+              Öffnen
+            </Button>
+          </Link>
+
+          <Button type="button" onClick={handleDelete} color={colors.red}>
+            Löschen
+          </Button>
+
+          <Button type="submit" disabled={!isTouched || isLoading}>
+            Speichern
+          </Button>
+        </div>
       </Form>
-
-      <Link href={`/folge/${folge._id}`} target="_blank" legacyBehavior>
-        <Button as="a">Öffnen</Button>
-      </Link>
-
-      <Button onClick={handleDelete} color={colors.red}>
-        Löschen
-      </Button>
     </Wrapper>
   );
 }
