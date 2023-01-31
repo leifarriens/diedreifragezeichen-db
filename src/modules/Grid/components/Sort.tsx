@@ -16,17 +16,20 @@ export default function Sort({ currentSort, onSortChange }: SortProps) {
   ];
 
   return (
-    <div className="flex">
+    <div className="flex divide-x-0">
       {sortVariants.map(({ name, value }) => (
-        <Label key={value}>
+        <Label key={value} className="block w-full cursor-pointer">
           <input
+            className="w-0 opacity-0"
             type="radio"
             name="sort"
             value={value}
             checked={value === currentSort ? true : false}
             onChange={(e) => onSortChange(e.target.value)}
           />
-          <span>{name}</span>
+          <span className="inline-block w-full border border-white py-2 px-4 text-center font-semibold">
+            {name}
+          </span>
         </Label>
       ))}
     </div>
@@ -34,29 +37,6 @@ export default function Sort({ currentSort, onSortChange }: SortProps) {
 }
 
 const Label = styled.label`
-  cursor: pointer;
-  width: 100%;
-  display: block;
-
-  input {
-    opacity: 0;
-    width: 0;
-  }
-
-  span {
-    width: 100%;
-    display: inline-block;
-    padding: 6px 18px;
-    border: 1px solid #fff;
-    text-align: center;
-    border-right: none;
-    font-weight: 600;
-
-    @media (min-width: 480px) {
-      padding: 8px 22px;
-    }
-  }
-
   input:hover ~ span {
     background-color: #fff;
     color: #2196f3;

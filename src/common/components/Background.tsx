@@ -19,6 +19,7 @@ export const Background = styled.div<{ bigCover: boolean }>`
   }
 
   /* Disables blurred background on firefox due to bad filter performance */
+  /* jk its just my firefox */
   @-moz-document url-prefix() {
     /* filter: none; */
     display: none;
