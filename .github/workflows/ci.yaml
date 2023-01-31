@@ -22,11 +22,14 @@ jobs:
       - name: 🐈 Install yarn
         run: npm install -g yarn
 
-      - name: 📥 Install deps
-        run: yarn install
+      - name: 📦 Install deps
+        run: yarn install --frozen-lockfile
 
       - name: 🔒 Typecheck
         run: yarn typecheck
+
+      - name: 🧪 Running Unit Tests
+        run: yarn test
 
       - name: 🔬 Lint
         run: yarn lint
