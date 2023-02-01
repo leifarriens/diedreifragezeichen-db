@@ -9,8 +9,8 @@ import {
 
 type RatingInputProps = {
   defaultValue: number | undefined;
-  disabled: boolean;
-  onRate: (newRating: number) => void;
+  disabled?: boolean;
+  onRate?: (newRating: number) => void;
 };
 
 function RatingInput({
@@ -48,7 +48,7 @@ function RatingInput({
 
   const handleInputEnd = useCallback(() => {
     setHover(null);
-    if (range) onRate(range);
+    if (range && onRate) onRate(range);
   }, [range, onRate]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -137,6 +137,7 @@ function RatingInput({
           ref={inputRef}
           {...inputSettings}
           value={range}
+          aria-label="Rating Slider"
           onChange={handleValueChange}
           onMouseUp={handleInputEnd}
           onTouchEnd={handleInputEnd}
