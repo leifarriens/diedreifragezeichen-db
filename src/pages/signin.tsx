@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (session) {
     return {
       redirect: {
-        destination: callbackUrl || process.env.NEXTAUTH_URL || '/',
+        destination: callbackUrl || '/',
         permanent: false,
       },
     };
