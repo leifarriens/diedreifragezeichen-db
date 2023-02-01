@@ -3,10 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
-import styled from 'styled-components';
 
 import { Loader } from '@/common/components/shared/Loader';
-import { colors } from '@/constants/theme';
 import { useDebounceEffect } from '@/hooks';
 import { useGridState } from '@/modules/Grid';
 
@@ -46,6 +44,18 @@ const Search = () => {
     }
   };
 
+  useEffect(() => {
+    function handleRouteChange() {
+      setValue('');
+    }
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
@@ -53,23 +63,33 @@ const Search = () => {
   const clearInput = () => setValue('');
 
   return (
-    <div>
-      <SearchContainer>
-        <input
-          ref={ref}
-          name="search"
-          value={value}
-          placeholder="Name, Nummer oder Erscheinungsjahr"
-          onKeyDown={handleKeyDown}
-          onChange={handleSearchChange}
-        />
-        {searchQuery && (
-          <ClearButton color={colors.white} onClick={clearInput}>
-            <AiOutlineCloseCircle size="20" />
-          </ClearButton>
-        )}
-      </SearchContainer>
-      <SearchResults query={searchQuery} />
+    <div
+      className="relative w-full"
+      // eslint-disable-next-line no-inline-styles/no-inline-styles
+      style={{ gridArea: 'search' }}
+    >
+      <input
+        ref={ref}
+        autoComplete="off"
+        name="search"
+        value={value}
+        placeholder="Name, Nummer oder Erscheinungsjahr"
+        className="w-full rounded-3xl bg-black bg-opacity-80 py-[10px] px-6 text-white backdrop-blur-sm backdrop-brightness-50 transition-all"
+        onKeyDown={handleKeyDown}
+        onChange={handleSearchChange}
+      />
+
+      {value && (
+        <button
+          type="button"
+          className="absolute right-4 top-1/2 -translate-y-[45%] text-neutral-300"
+          onClick={clearInput}
+        >
+          <AiOutlineCloseCircle size={20} />
+        </button>
+      )}
+
+      {router.pathname !== '/' && <SearchResults query={searchQuery} />}
     </div>
   );
 };
@@ -77,24 +97,24 @@ const Search = () => {
 function SearchResults({ query }: { query: string }) {
   const { data, isInitialLoading } = trpc.folge.search.useInfiniteQuery(
     { query },
-    { enabled: query.length > 2 },
+    { enabled: query.length > 1 },
   );
 
   return (
     <div className="relative">
-      <div className="absolute left-0 top-2 w-full overflow-hidden rounded-lg bg-black">
+      <div className="absolute top-4 left-0 w-full overflow-hidden rounded-lg bg-black">
         {isInitialLoading && <Loader />}
         {data?.pages.map((groupe, i) => (
           <React.Fragment key={i}>
-            {groupe.items.map((folge) => {
+            {groupe.items.map(({ _id, name, images }) => {
               return (
                 <Link
-                  key={folge._id}
-                  href={`/folge/${folge._id}`}
+                  key={_id}
+                  href={`/folge/${_id}`}
                   className="flex items-center gap-4 px-4 py-3 hover:bg-neutral-800 hover:bg-opacity-80"
                 >
-                  <img src={folge.images[2].url} className="h-12 w-12" alt="" />
-                  <div>{folge.name}</div>
+                  <img src={images[2].url} className="h-12 w-12" alt="" />
+                  <div>{name}</div>
                 </Link>
               );
             })}
@@ -104,33 +124,5 @@ function SearchResults({ query }: { query: string }) {
     </div>
   );
 }
-
-const SearchContainer = styled.div`
-  position: relative;
-  width: 100%;
-  grid-area: search;
-
-  input {
-    background-color: rgba(0, 0, 0, 0.45);
-    color: #fff;
-    font-family: inherit;
-    font-size: 16px;
-    padding: 10px 24px;
-    border-radius: 25px;
-    border: none;
-    width: 100%;
-    transition: all 150ms ease;
-    backdrop-filter: brightness(35%) blur(2px);
-  }
-`;
-
-const ClearButton = styled.button`
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-40%);
-  color: ${(props) => props.color};
-  opacity: 0.65;
-`;
 
 export default Search;
