@@ -1,6 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import { Folge } from '@/common/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { ratingValidator } from '@/models/rating';
 import {
@@ -20,6 +21,34 @@ import {
 } from '../trpc';
 
 export const folgeRouter = router({
+  search: publicProcedure
+    .input(
+      z.object({
+        query: z.string(),
+        limit: z.number().default(5),
+        cursor: z.number().default(0),
+      }),
+    )
+    .query(async ({ input }) => {
+      const limit = input.limit;
+      const offset = input.cursor;
+
+      const query = { name: { $regex: input.query, $options: 'i' } };
+      const folgen = await Folge.find(query)
+        .limit(limit)
+        .skip(offset)
+        .select('name images')
+        .lean();
+
+      const total = await Folge.countDocuments(query);
+
+      return {
+        items: folgen,
+        limit,
+        offset,
+        total,
+      };
+    }),
   all: publicProcedure.query(async () => {
     const folgen = await getFolgen();
 
