@@ -6,6 +6,7 @@ import { SessionProviderProps } from 'next-auth/react';
 import { Background } from '@/common/components/Background';
 import { Folge, Image } from '@/common/models/folge';
 import { Seo } from '@/components/Seo/Seo';
+import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
 import { LoginForm } from '@/modules/LoginForm';
@@ -49,13 +50,15 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (session) {
     return {
       redirect: {
-        destination: callbackUrl || process.env.NEXTAUTH_URL || '/',
+        destination: callbackUrl || '/',
         permanent: false,
       },
     };
   }
 
   const providers = await getProviders();
+
+  await dbConnect();
 
   const folge = await Folge.findOne({ type: 'regular' })
     .sort('-release_date')
