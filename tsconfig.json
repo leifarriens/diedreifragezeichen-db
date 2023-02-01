@@ -20,20 +20,14 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
+      "@/*": ["./*"],
       "@/components/*": ["common/components/*"],
       "@/context/*": ["common/context/*"],
       "@/hooks": ["common/hooks/index.ts"],
       "@/models/*": ["common/models/*"],
       "@/styles/*": ["common/styles/*"],
       "@/utils/*": ["common/utils/*"],
-      "@/types": ["common/types/index.ts"],
-      "@/layout/*": ["common/layout/*"],
-      "@/constants/*": ["constants/*"],
-      "@/db/*": ["db/*"],
-      "@/services/*": ["services/*"],
-      "@/lib/*": ["lib/*"],
-      "@/modules/*": ["modules/*"],
-      "@/server/*": ["server/*"]
+      "@/types": ["common/types/index.ts"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

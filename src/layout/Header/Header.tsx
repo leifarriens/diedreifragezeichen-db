@@ -9,8 +9,8 @@ import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import { useGridState } from '@/modules/Grid';
 
-import LogoImg from '../../../../public/logo.png';
-import ProfileLink from '../ProfileLink';
+import LogoImg from '../../../public/logo.png';
+import ProfileLink from './ProfileLink';
 import Search from './Search';
 import { Container, HomeLink } from './StyledHeader';
 

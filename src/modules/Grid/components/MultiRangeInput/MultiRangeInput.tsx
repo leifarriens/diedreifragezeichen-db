@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { useDebounceEffect } from '@/common/hooks/useDebounce';
 import { colors } from '@/constants/theme';
-import { useDebounceEffect } from '@/hooks';
 
 export type RangeChangeEvent = {
   min: number;
@@ -13,7 +13,7 @@ export type RangeChangeEvent = {
 type MultiRangeInputProps = {
   min: number;
   max: number;
-  onChange: (event: RangeChangeEvent) => void;
+  onChange?: (event: RangeChangeEvent) => void;
 };
 
 const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
@@ -53,7 +53,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
 
   useDebounceEffect(
     () => {
-      onChange({ min: minVal, max: maxVal });
+      onChange && onChange({ min: minVal, max: maxVal });
     },
 
     150,

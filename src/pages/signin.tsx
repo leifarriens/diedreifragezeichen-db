@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { getProviders } from 'next-auth/react';
 import { SessionProviderProps } from 'next-auth/react';
 
+import { Background } from '@/common/components/Background';
+import { Folge, Image } from '@/common/models/folge';
 import { Seo } from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import { getServerSession } from '@/lib/getServerSession';
@@ -11,8 +13,10 @@ import { parseQueryParam } from '@/utils/index';
 
 export default function SignIn({
   providers,
+  background,
 }: {
   providers: SessionProviderProps;
+  background: Image;
 }) {
   const router = useRouter();
   const error = router.query?.error as string;
@@ -24,6 +28,11 @@ export default function SignIn({
       <Wrapper maxWidth="720px">
         <LoginForm providers={providers} error={error} />
       </Wrapper>
+
+      <Background
+        style={{ backgroundImage: `url(${background.url})` }}
+        bigCover={true}
+      />
     </>
   );
 }
@@ -40,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   if (session) {
     return {
       redirect: {
-        destination: callbackUrl || process.env.NEXTAUTH_URL || '',
+        destination: callbackUrl || '/',
         permanent: false,
       },
     };
@@ -48,7 +57,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const providers = await getProviders();
 
+  const folge = await Folge.findOne({ type: 'regular' })
+    .sort('-release_date')
+    .select('images');
+
+  const background = folge?.images[2];
+
   return {
-    props: { providers },
+    props: { providers, background },
   };
 };

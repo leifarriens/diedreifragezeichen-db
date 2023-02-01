@@ -2,7 +2,7 @@
 import classnames from 'classnames';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
