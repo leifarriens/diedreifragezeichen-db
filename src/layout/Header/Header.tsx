@@ -4,8 +4,11 @@ import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
 import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
+import { FiLogIn } from 'react-icons/fi';
 
+import { useBreakpoint } from '@/common/hooks/useBreakpoint';
 import Button from '@/components/shared/Button';
+import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
 import { useGridState } from '@/modules/Grid';
 
@@ -18,6 +21,7 @@ const Header = () => {
   const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
   const router = useRouter();
+  const desktop = useBreakpoint(parseInt(breakpoints.mobileHeader));
 
   const handleHomeClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -43,12 +47,20 @@ const Header = () => {
     <Headroom>
       <Container>
         <HomeLink href="/" onClick={handleHomeClick}>
-          <Image src={LogoImg} alt="Logo" />
+          <Image
+            src={LogoImg}
+            className="h-full w-auto object-contain"
+            alt="Logo"
+          />
         </HomeLink>
 
         <Search />
 
-        <div className="right">
+        <div
+          // eslint-disable-next-line no-inline-styles/no-inline-styles
+          style={{ gridArea: 'profile' }}
+          className="flex flex-shrink-0 flex-grow basis-auto items-center justify-end"
+        >
           {status !== 'loading' && (
             <>
               {router.pathname === '/signin' ? (
@@ -65,11 +77,11 @@ const Header = () => {
                   color={colors.red}
                   onClick={() => signIn()}
                 >
-                  Anmelden
+                  {desktop ? 'Anmelden' : <FiLogIn size={18} />}
                 </Button>
               ) : (
                 <>
-                  <div className="buttons">
+                  <div className="mr-4 hidden gap-2 lg:flex">
                     <Link href="/profil" legacyBehavior passHref>
                       <Button as="a" ghost>
                         Bewertungen
