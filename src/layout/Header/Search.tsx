@@ -74,7 +74,7 @@ const Search = () => {
         name="search"
         value={value}
         placeholder="Name, Nummer oder Erscheinungsjahr"
-        className="w-full rounded-3xl bg-black bg-opacity-80 py-[10px] px-6 text-white backdrop-blur-sm backdrop-brightness-50 transition-all"
+        className="w-full rounded-3xl bg-black bg-opacity-80 py-[8px] px-6 text-[16px] text-white backdrop-blur-sm backdrop-brightness-50 transition-all sm:py-[10px]"
         onKeyDown={handleKeyDown}
         onChange={handleSearchChange}
       />
@@ -97,30 +97,50 @@ const Search = () => {
 function SearchResults({ query }: { query: string }) {
   const { data, isInitialLoading } = trpc.folge.search.useInfiniteQuery(
     { query },
-    { enabled: query.length > 1 },
+    {
+      enabled: query.length > 1,
+      trpc: {
+        abortOnUnmount: true,
+      },
+    },
   );
+
+  if (!isInitialLoading && !data) return null;
 
   return (
     <div className="relative">
-      <div className="absolute top-4 left-0 w-full overflow-hidden rounded-lg bg-black">
+      <ul className="absolute top-4 left-0 w-full overflow-hidden rounded-lg bg-black py-2">
         {isInitialLoading && <Loader />}
         {data?.pages.map((groupe, i) => (
           <React.Fragment key={i}>
             {groupe.items.map(({ _id, name, images }) => {
               return (
-                <Link
+                <li
                   key={_id}
-                  href={`/folge/${_id}`}
-                  className="flex items-center gap-4 px-4 py-3 hover:bg-neutral-800 hover:bg-opacity-80"
+                  className="px-1 hover:bg-neutral-800 hover:bg-opacity-80"
                 >
-                  <img src={images[2].url} className="h-12 w-12" alt="" />
-                  <div>{name}</div>
-                </Link>
+                  <Link
+                    href={`/folge/${_id}`}
+                    className="flex items-center gap-3 px-3 py-2"
+                  >
+                    <img
+                      src={images[2].url}
+                      className="h-14 w-14 rounded-sm"
+                      alt=""
+                    />
+                    <div>{name}</div>
+                  </Link>
+                </li>
               );
             })}
           </React.Fragment>
         ))}
-      </div>
+        {data?.pages.length === 1 && data.pages[0].items.length === 0 && (
+          <div className="py-3 text-center text-neutral-300">
+            Keine Ergebnisse
+          </div>
+        )}
+      </ul>
     </div>
   );
 }
