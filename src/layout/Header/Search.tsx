@@ -62,6 +62,9 @@ const Search = () => {
 
   const clearInput = () => setValue('');
 
+  const hideSearchResults =
+    router.pathname === '/' || router.pathname.indexOf('admin') !== -1;
+
   return (
     <div
       className="relative w-full"
@@ -89,7 +92,7 @@ const Search = () => {
         </button>
       )}
 
-      {router.pathname !== '/' && <SearchResults query={searchQuery} />}
+      {!hideSearchResults && <SearchResults query={searchQuery} />}
     </div>
   );
 };
