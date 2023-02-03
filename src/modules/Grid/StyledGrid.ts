@@ -25,12 +25,12 @@ export const FolgenContainer = styled.div`
 
   @media screen and (min-width: 480px) {
     grid-gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 
   @media screen and (min-width: 720px) {
     grid-gap: 16px;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 
   @media screen and (min-width: 1020px) {

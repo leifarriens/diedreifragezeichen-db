@@ -56,22 +56,6 @@ body {
 body {
   background-color: var(--color-bg);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-button {
-  border: 0;
-  background-color: transparent;
-  font-family: inherit;
-  cursor: pointer;
-  color: #fff;
 }
 
 #toastPortal {

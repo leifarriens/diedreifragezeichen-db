@@ -11,9 +11,9 @@ type LayoutProps = {
 
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div className="page-container">
+    <div className="flex min-h-screen flex-col">
       <Header />
-      <Main className="flex-1 ">{children}</Main>
+      <Main className="flex-1">{children}</Main>
       <Footer />
       <ScrollToTop />
     </div>
