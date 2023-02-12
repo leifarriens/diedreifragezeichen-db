@@ -9,11 +9,11 @@ export const GridUI = styled.div`
   align-items: center;
 
   @media (min-width: 820px) {
-    grid-template-columns: 420px 1fr;
+    grid-template-columns: 380px 1fr;
   }
 
   @media (min-width: 1180px) {
-    grid-template-columns: 420px 1fr auto;
+    grid-template-columns: 380px 1fr auto;
   }
 `;
 

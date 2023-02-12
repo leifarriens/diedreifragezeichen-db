@@ -41,10 +41,9 @@ const SwitchContainer = styled.div`
   [type='checkbox'] + label {
     position: relative;
     cursor: pointer;
-    font-size: 1.1rem;
     line-height: 1.45;
     height: calc(var(--checkHeight) + 2px);
-    padding-left: 64px;
+    padding-left: 60px;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -57,7 +56,7 @@ const SwitchContainer = styled.div`
     border-radius: var(--checkHeight);
     border: 1px solid rgb(133, 133, 133);
     background-color: #eee;
-    margin-right: 15px;
+    margin-right: 12px;
     transition: background-color 0.5s linear;
     position: absolute;
     left: 0px;

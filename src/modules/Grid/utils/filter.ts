@@ -43,20 +43,26 @@ export const filterByQuery = (folgen: FolgeWithId[], searchQuery: string) => {
   return folgen.filter(filterFolge);
 };
 
+export const filterUnrated = (folgen: FolgeWithId[], onlyUnrated = false) => {
+  return onlyUnrated ? folgen.filter((folge) => !folge.user_rating) : folgen;
+};
+
 type FilterOptions = {
   showSpecials?: boolean;
   searchQuery: string;
   sortBy?: SortOptionsEnum;
   yearRange?: YearRange;
+  onlyUnrated?: boolean;
 };
 
 export const applyFilter = (
   folgen: FolgeWithId[],
-  { showSpecials, searchQuery, sortBy, yearRange }: FilterOptions,
+  { showSpecials, searchQuery, sortBy, yearRange, onlyUnrated }: FilterOptions,
 ) => {
   let filtered: FolgeWithId[] = [];
 
   filtered = filterSpecial(folgen, showSpecials);
+  filtered = filterUnrated(filtered, onlyUnrated);
   filtered = filterYearRange(filtered, yearRange);
   filtered = filterByQuery(filtered, searchQuery);
   filtered = sortFolgen(filtered, sortBy);
