@@ -29,58 +29,28 @@ export const Container = styled(Wrapper)`
   grid-template-areas:
     'logo - profile'
     'search search search';
-  grid-column-gap: 16px;
+  grid-column-gap: 10px;
   grid-template-areas: 'logo search profile';
 
   @media (min-width: ${breakpoints.mobileHeader}) {
     padding-top: 48px;
     padding-bottom: 48px;
     grid-template-columns: auto 340px 1fr;
-    grid-column-gap: 24px;
+    grid-column-gap: 20px;
     grid-template-areas: 'logo search profile';
   }
 
   * {
     pointer-events: all;
   }
-
-  .right {
-    flex: 1 0 auto;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    grid-area: profile;
-
-    .buttons {
-      margin-right: 40px;
-      display: flex;
-      gap: 0.5rem;
-
-      @media screen and (max-width: 860px) {
-        display: none;
-      }
-    }
-  }
 `;
 
 export const HomeLink = styled.a`
-  cursor: pointer;
-  height: 28px;
+  height: 26px;
   width: auto;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
   grid-area: logo;
 
   @media (min-width: ${breakpoints.mobileHeader}) {
     height: 36px;
-  }
-
-  img {
-    object-fit: contain;
-    min-width: 43px;
-    height: 100%;
-    width: auto;
   }
 `;
