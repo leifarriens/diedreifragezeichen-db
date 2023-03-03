@@ -85,14 +85,12 @@ const Grid = (props: GridProps) => {
             <div className="flex gap-3">
               {status === 'authenticated' && (
                 <Switch
-                  id="unrated"
                   checked={onlyUnrated}
                   label="Nicht bewerted"
                   onChange={setOnlyUnrated}
                 />
               )}
               <Switch
-                id="specials"
                 checked={showSpecials}
                 label="Specials"
                 onChange={setShowSpecials}

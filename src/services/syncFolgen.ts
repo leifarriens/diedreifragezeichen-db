@@ -27,7 +27,7 @@ export default async function syncFolgen() {
 
   try {
     const allAlbums = await SpotifyApi.getAllAlbums();
-    const dbFolgen = await FolgeModel.find({});
+    const dbFolgen = await FolgeModel.find({}).select('spotify_id');
 
     if (!allAlbums) {
       throw Error('Invalid item response from spotify');
@@ -66,9 +66,8 @@ export default async function syncFolgen() {
      */
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
-    if (added.length > 0) {
-      await writeExtraMetaData(added);
-    }
+    const folgen = await FolgeModel.find({});
+    await writeExtraMetaData(folgen);
 
     return {
       notInDb: {
@@ -116,8 +115,8 @@ async function writeExtraMetaData(folgen: FolgeWithId[]) {
       updateOne: {
         filter: { _id: new ObjectId(folge._id) },
         update: {
-          ...(entry && { inhalt: entry.body }),
-          ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+          ...(!folge.inhalt && entry && { inhalt: entry.body }),
+          ...(!folge.deezer_id && deezerAlbum && { deezer_id: deezerAlbum.id }),
         },
       },
     };

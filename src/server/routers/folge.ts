@@ -7,11 +7,11 @@ import { ratingValidator } from '@/models/rating';
 import {
   deleteFolge,
   getFolge,
-  getFolgen,
   getRelatedFolgen,
   updateFolge,
 } from '@/services/folge.service';
 import { postFolgenRating } from '@/services/rating.service';
+import syncFolgen from '@/services/syncFolgen';
 
 import {
   adminProcedure,
@@ -49,11 +49,39 @@ export const folgeRouter = router({
         total,
       };
     }),
-  all: publicProcedure.query(async () => {
-    const folgen = await getFolgen();
+  all: adminProcedure
+    .input(
+      z.object({
+        query: z.string(),
+        specials: z.boolean().default(true),
+        cursor: z.number().default(0),
+      }),
+    )
+    .query(async ({ input }) => {
+      const limit = 40;
+      const offset = input.cursor;
+      const type = !input.specials ? 'regular' : null;
 
-    return folgen;
-  }),
+      const query = {
+        name: { $regex: input.query, $options: 'i' },
+        ...(type && { type }),
+      };
+
+      const folgen = await Folge.find(query)
+        .limit(limit)
+        .skip(offset)
+        .sort('-release_date')
+        .lean();
+
+      const total = await Folge.countDocuments(query);
+
+      return {
+        items: folgen,
+        limit,
+        offset,
+        total,
+      };
+    }),
   byId: publicProcedure
     .input(
       z.object({
@@ -112,4 +140,9 @@ export const folgeRouter = router({
     .mutation(async ({ input }) => {
       return deleteFolge(input.folgeId);
     }),
+  sync: adminProcedure.mutation(async () => {
+    const result = await syncFolgen();
+    console.log(result);
+    return result;
+  }),
 });
