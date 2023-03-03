@@ -7,7 +7,6 @@ import { ratingValidator } from '@/models/rating';
 import {
   deleteFolge,
   getFolge,
-  getFolgen,
   getRelatedFolgen,
   updateFolge,
 } from '@/services/folge.service';
