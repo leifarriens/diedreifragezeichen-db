@@ -1,13 +1,15 @@
+import { useId } from 'react';
 import styled from 'styled-components';
 
 interface SwitchProps {
-  id: string;
   checked: boolean;
   label?: string;
   onChange?: (checked: boolean) => void;
 }
 
-const Switch = ({ id, label, checked, onChange, ...rest }: SwitchProps) => {
+const Switch = ({ label, checked, onChange, ...rest }: SwitchProps) => {
+  const id = useId();
+
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (onChange) onChange(e.target.checked);
   }

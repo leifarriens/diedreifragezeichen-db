@@ -20,7 +20,7 @@ export const folgeValidator = z.object({
   inhalt: z.string().optional(),
   release_date: z.date(),
   spotify_id: z.string().length(22),
-  deezer_id: z.string().length(9).optional(),
+  deezer_id: z.string().optional(),
   created_at: z.date(),
   updated_at: z.date(),
 });
