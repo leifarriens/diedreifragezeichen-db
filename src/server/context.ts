@@ -2,12 +2,12 @@ import { inferAsyncReturnType } from '@trpc/server';
 import type { CreateNextContextOptions } from '@trpc/server/adapters/next';
 
 import dbConnect from '@/db/connect';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 
 export const createContext = async ({ req, res }: CreateNextContextOptions) => {
   await dbConnect();
 
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   return {
     session,

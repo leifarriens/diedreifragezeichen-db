@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import ProfilLayout from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import type { FolgeWithId } from '@/models/folge';
 import { UserWithId } from '@/models/user';
 import { Grid } from '@/modules/Grid';
@@ -38,7 +38,7 @@ export const getServerSideProps = async ({
   req,
   res,
 }: GetServerSidePropsContext) => {
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   if (!session) {
     return {

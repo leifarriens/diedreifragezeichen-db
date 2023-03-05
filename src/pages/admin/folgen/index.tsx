@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { GetServerSidePropsContext } from 'next';
 import React from 'react';
+import toast from 'react-hot-toast';
 import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
 import { RouterOutput, trpc } from 'utils/trpc';
@@ -10,7 +11,7 @@ import Switch from '@/common/components/shared/Switch';
 import Button from '@/components/shared/Button';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
 
 export default function AdminFolgen() {
@@ -37,7 +38,11 @@ export default function AdminFolgen() {
   );
 
   const { mutate, isLoading: isSyncing } = trpc.folge.sync.useMutation({
-    onSuccess() {
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      toast.success(`Sync success. Added ${data.added} folgen to db`);
       refetch();
     },
   });
@@ -198,7 +203,7 @@ export const getServerSideProps = async ({
   req,
   res,
 }: GetServerSidePropsContext) => {
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   if (!session || session.user.role !== 'Admin') {
     return {

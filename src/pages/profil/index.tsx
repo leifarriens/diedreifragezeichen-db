@@ -11,7 +11,7 @@ import RatingProgress from '@/components/Profil/RatingProgress';
 import { Seo } from '@/components/Seo/Seo';
 import { Loader } from '@/components/shared/Loader';
 import dbConnect from '@/db/connect';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { Folge } from '@/models/folge';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
 
@@ -68,7 +68,7 @@ export const getServerSideProps = async ({
   req,
   res,
 }: GetServerSidePropsContext) => {
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   if (!session) {
     return {
