@@ -11,7 +11,7 @@ import Switch from '@/common/components/shared/Switch';
 import Button from '@/components/shared/Button';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
 
 export default function AdminFolgen() {
@@ -203,7 +203,7 @@ export const getServerSideProps = async ({
   req,
   res,
 }: GetServerSidePropsContext) => {
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   if (!session || session.user.role !== 'Admin') {
     return {

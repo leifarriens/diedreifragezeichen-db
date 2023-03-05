@@ -9,7 +9,7 @@ import Button from '@/components/shared/Button';
 import { Form, Input, Select, Textarea } from '@/components/shared/Input';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import type { Folge, FolgeWithId } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { getFolge } from '@/services/folge.service';
@@ -172,7 +172,7 @@ export async function getServerSideProps({
 }: GetServerSidePropsContext) {
   await dbConnect();
 
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   if (!session || session.user.role !== 'Admin') {
     return {

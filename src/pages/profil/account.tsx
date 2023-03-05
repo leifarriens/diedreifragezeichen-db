@@ -8,7 +8,7 @@ import { Seo } from '@/components/Seo/Seo';
 import Button from '@/components/shared/Button';
 // import Switch from '@/components/shared/Switch';
 import { colors } from '@/constants/theme';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 
 function AccountPage() {
   const { mutate } = trpc.user.delete.useMutation({
@@ -68,7 +68,7 @@ export const getServerSideProps = async ({
   req,
   res,
 }: GetServerSidePropsContext) => {
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   if (!session) {
     return {

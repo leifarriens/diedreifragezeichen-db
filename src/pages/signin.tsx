@@ -8,7 +8,7 @@ import { Folge, Image } from '@/common/models/folge';
 import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
-import { getServerSession } from '@/lib/getServerSession';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { LoginForm } from '@/modules/LoginForm';
 import { parseQueryParam } from '@/utils/index';
 
@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   res,
   query,
 }) => {
-  const session = await getServerSession(req, res);
+  const session = await getServerAuthSesion(req, res);
 
   const callbackUrl = parseQueryParam(query.callbackUrl);
 
