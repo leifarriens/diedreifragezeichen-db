@@ -67,7 +67,8 @@ export default async function syncFolgen() {
     await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
 
     const folgen = await FolgeModel.find({});
-    await writeExtraMetaData(folgen);
+    await writeInhalte(folgen);
+    await writeDeezerIds(folgen);
 
     return {
       notInDb: {
@@ -93,34 +94,54 @@ export default async function syncFolgen() {
   }
 }
 
-async function writeExtraMetaData(folgen: FolgeWithId[]) {
+async function writeInhalte(folgen: FolgeWithId[]) {
   const inhalte = await getAllInhalte();
+
+  const writes = folgen
+    .filter((folge) => !folge.inhalt)
+    .map((folge) => {
+      const inhtaltExp = folge.name
+        .replace('und', '')
+        .replace('???', '')
+        .trim();
+      const entry = inhalte.find(({ name }) =>
+        new RegExp(inhtaltExp, 'i').test(name),
+      );
+
+      return {
+        updateOne: {
+          filter: { _id: new ObjectId(folge._id) },
+          update: {
+            ...(entry && { inhalt: entry.body }),
+          },
+        },
+      };
+    });
+
+  return FolgeModel.bulkWrite(writes);
+}
+
+async function writeDeezerIds(folgen: FolgeWithId[]) {
   const deezerAlbums = await DeezerApi.getAllAlbums();
 
-  const writes = folgen.map((folge) => {
-    // Inhalt
-    const inhtaltExp = folge.name.replace('und', '').replace('???', '').trim();
-    const entry = inhalte.find(({ name }) =>
-      new RegExp(inhtaltExp, 'i').test(name),
-    );
+  const writes = folgen
+    .filter((folge) => !folge.deezer_id)
+    .map((folge) => {
+      const deezerAlbum = deezerAlbums.find((album) =>
+        album.title
+          .replaceAll(' ', '')
+          .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
+      );
 
-    // DeezerId
-    const deezerAlbum = deezerAlbums.find((album) =>
-      album.title
-        .replaceAll(' ', '')
-        .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
-    );
-
-    return {
-      updateOne: {
-        filter: { _id: new ObjectId(folge._id) },
-        update: {
-          ...(!folge.inhalt && entry && { inhalt: entry.body }),
-          ...(!folge.deezer_id && deezerAlbum && { deezer_id: deezerAlbum.id }),
+      return {
+        updateOne: {
+          filter: { _id: new ObjectId(folge._id) },
+          update: {
+            ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+          },
         },
-      },
-    };
-  });
+      };
+    });
 
   return FolgeModel.bulkWrite(writes);
 }
