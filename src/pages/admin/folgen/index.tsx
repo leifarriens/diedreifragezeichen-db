@@ -20,7 +20,7 @@ export default function AdminFolgen() {
   const {
     data,
     refetch,
-    isLoading,
+    isInitialLoading,
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
@@ -42,14 +42,14 @@ export default function AdminFolgen() {
       toast.error(error.message);
     },
     onSuccess(data) {
-      toast.success(`Sync success. Added ${data.added} folgen to db`);
+      toast.success(`Sync success. Added ${data.added.amount} folgen to db`);
       refetch();
     },
   });
 
   return (
     <div className="mx-auto w-full max-w-7xl px-8">
-      <div className="mb-12 flex justify-between">
+      <div className="mb-12 flex items-center justify-between">
         <div>
           <Switch
             checked={showSpecials}
@@ -63,6 +63,8 @@ export default function AdminFolgen() {
         </Button>
       </div>
 
+      {isInitialLoading && <Loader />}
+
       {data?.pages.map((groupe, i) => (
         <React.Fragment key={i}>
           {groupe.items.map((folge) => (
@@ -71,7 +73,7 @@ export default function AdminFolgen() {
         </React.Fragment>
       ))}
 
-      {isLoading || (isFetchingNextPage && <Loader />)}
+      {isFetchingNextPage && <Loader />}
 
       {hasNextPage && (
         <InView onChange={(inView) => inView && fetchNextPage()} />
@@ -158,7 +160,6 @@ function AdminFolge({
         </div>
 
         <div className="mt-4">
-          <h4 className="mb-1 text-xl font-semibold">Actions</h4>
           <div className="flex gap-2 text-sm">
             <Button
               as="a"

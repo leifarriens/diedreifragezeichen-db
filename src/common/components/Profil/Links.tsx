@@ -1,59 +1,46 @@
 import classnames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 
-import { colors } from '@/constants/theme';
 import Wrapper from '@/layout/Wrapper';
 
 function Links() {
-  const { pathname } = useRouter();
-
   return (
-    <StyledLinks>
+    <div className="mb-4 bg-black py-6 text-2xl">
       <Wrapper
         maxWidth="1280px"
         className="grid grid-cols-3 justify-items-center"
       >
-        <Link
-          href="/profil"
-          className={classnames({ active: pathname == '/profil' })}
-        >
-          Bewertungen
-        </Link>
-
-        <Link
-          href="/profil/list"
-          className={classnames({ active: pathname == '/profil/list' })}
-        >
-          Merkliste
-        </Link>
-
-        <Link
-          href="/profil/account"
-          className={classnames({ active: pathname == '/profil/account' })}
-        >
-          Account
-        </Link>
+        <ProfileTabLink path="/" label="Bewertungen" />
+        <ProfileTabLink path="/list" label="Merkliste" />
+        <ProfileTabLink path="/account" label="Account" />
       </Wrapper>
-    </StyledLinks>
+    </div>
   );
 }
 
-const StyledLinks = styled.div`
-  font-size: 1.65em;
-  margin-bottom: 1em;
-  background-color: #000408;
-  padding: 1em 0;
+interface ProfileTabLinkProps {
+  path: string;
+  label: string;
+}
 
-  a {
-    border-bottom: 4px solid transparent;
+function ProfileTabLink({ path, label }: ProfileTabLinkProps) {
+  const { pathname } = useRouter();
+  const href = `/profil${path}`;
 
-    &:hover,
-    &.active {
-      border-bottom-color: ${colors.lightblue};
-    }
-  }
-`;
+  return (
+    <Link
+      href={href}
+      className={classnames(
+        'border-b-4 border-transparent hover:border-b-ddfLightblue',
+        {
+          'border-b-ddfLightblue': pathname == href,
+        },
+      )}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export default Links;

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import classnames from 'classnames';
 import Link from 'next/link';
+import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -8,12 +9,12 @@ import styled from 'styled-components';
 import { colors } from '@/constants/theme';
 
 type ProfileLinkProps = {
-  image: string | null | undefined;
+  user?: Session['user'];
 };
 
-function ProfileLink({ image }: ProfileLinkProps) {
+function ProfileLink({ user }: ProfileLinkProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const src = !image ? '/white_small.png' : image;
+  const src = !user?.image ? '/white_small.png' : user.image;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -37,7 +38,7 @@ function ProfileLink({ image }: ProfileLinkProps) {
         <Avatar
           src={src}
           referrerPolicy="no-referrer"
-          className={classnames({ placeholder: !image })}
+          className={classnames({ placeholder: !user?.image })}
           alt=""
         />
       </button>
@@ -60,6 +61,13 @@ function ProfileLink({ image }: ProfileLinkProps) {
                 Account
               </Link>
             </li>
+            {user?.role === 'Admin' && (
+              <li>
+                <Link href="/admin/folgen" onClick={handleLinkClick}>
+                  Admin
+                </Link>
+              </li>
+            )}
             <hr />
             <li>
               <button type="button" onClick={() => signOut()}>
@@ -74,6 +82,7 @@ function ProfileLink({ image }: ProfileLinkProps) {
 }
 
 const Container = styled.div`
+  --item-padding: 0.75em 1em;
   position: relative;
 
   button {
@@ -98,7 +107,7 @@ const Container = styled.div`
 
       a {
         display: block;
-        padding: 1em;
+        padding: var(--item-padding);
       }
 
       li {
@@ -125,7 +134,7 @@ const Container = styled.div`
         width: 100%;
         text-align: left;
         border-radius: 0;
-        padding: 1em;
+        padding: var(--item-padding);
       }
     }
   }
