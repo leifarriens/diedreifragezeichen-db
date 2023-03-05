@@ -30,6 +30,8 @@ async function dbConnect() {
       maxConnecting: 5000,
     };
 
+    mongoose.set('strictQuery', true);
+
     cached.promise = mongoose.connect(DATABASE_URL, opts).then((mongoose) => {
       return mongoose;
     });

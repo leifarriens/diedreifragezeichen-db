@@ -142,7 +142,7 @@ export const folgeRouter = router({
     }),
   sync: adminProcedure.mutation(async () => {
     const result = await syncFolgen();
-    console.log(result);
+
     return result;
   }),
 });
