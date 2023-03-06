@@ -1,7 +1,5 @@
-import Axios, { AxiosResponse } from 'axios';
+import Axios from 'axios';
 import { load } from 'cheerio';
-import cliProgress from 'cli-progress';
-
 const RESOURCE_URL =
   'https://play-europa.de/produktwelt/hoerspiele/produktliste/die-drei';
 
@@ -15,40 +13,37 @@ export async function getAllInhalte() {
 
   const pages = Array.from({ length: numberOfPages }).map((_, i) => i + 1);
 
-  const promises = pages.map((pageNunber) => {
-    return Axios.get(RESOURCE_URL, {
-      params: {
-        page: pageNunber,
-      },
-    });
-  });
+  try {
+    const pageResponses = await Promise.all(pages.map(getPage));
 
-  const bar = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+    const pageData = pageResponses.map(({ data }) => {
+      const html = load(data);
 
-  const pageResponses = await promisesWithProgress(promises, bar);
+      const page: InhaltData[] = [];
 
-  const pageData = pageResponses.map(({ data }) => {
-    const html = load(data);
+      html('.news-teaser-body').each(function () {
+        const el = html(this);
 
-    const page: InhaltData[] = [];
+        const name = el.find('h5').text();
+        const body = el.find('p').text();
 
-    html('.news-teaser-body').each(function () {
-      const el = html(this);
+        page.push({ name, body });
+      });
 
-      const name = el.find('h5').text();
-      const body = el.find('p').text();
-
-      page.push({ name, body });
+      return page;
     });
 
-    return page;
-  });
+    // eslint-disable-next-line prefer-spread
+    const array: InhaltData[] = [];
+    const result: InhaltData[] = array.concat.apply([], pageData);
 
-  // eslint-disable-next-line prefer-spread
-  const array: InhaltData[] = [];
-  const result: InhaltData[] = array.concat.apply([], pageData);
-
-  return result;
+    return result;
+  } catch (error) {
+    if (Axios.isAxiosError(error)) {
+      console.warn(error.response?.data);
+    }
+    return null;
+  }
 }
 
 // utils
@@ -59,18 +54,18 @@ async function getNumberOfPages() {
   return parseInt(html('.pagination').find('li:nth-last-child(2)').text());
 }
 
-// helpers
-function promisesWithProgress(
-  promises: Promise<AxiosResponse<string>>[],
-  progressBar: cliProgress.SingleBar,
-) {
-  progressBar.start(promises.length, 0);
+async function getPage(pageNumber: number) {
+  await sleep(1000 * pageNumber);
 
-  for (const p of promises) {
-    p.then(() => {
-      progressBar.increment(1);
-    });
-  }
+  const res = Axios.get(RESOURCE_URL, {
+    params: {
+      page: pageNumber,
+    },
+  });
 
-  return Promise.all(promises);
+  return res;
+}
+
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
