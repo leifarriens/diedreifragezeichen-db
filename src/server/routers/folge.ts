@@ -11,7 +11,6 @@ import {
   updateFolge,
 } from '@/services/folge.service';
 import { postFolgenRating } from '@/services/rating.service';
-import syncFolgen from '@/services/syncFolgen';
 
 import {
   adminProcedure,
@@ -140,9 +139,4 @@ export const folgeRouter = router({
     .mutation(async ({ input }) => {
       return deleteFolge(input.folgeId);
     }),
-  sync: adminProcedure.mutation(async () => {
-    const result = await syncFolgen();
-
-    return result;
-  }),
 });
