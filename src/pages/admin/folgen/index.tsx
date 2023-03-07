@@ -37,16 +37,6 @@ export default function AdminFolgen() {
     },
   );
 
-  const { mutate, isLoading: isSyncing } = trpc.folge.sync.useMutation({
-    onError(error) {
-      toast.error(error.message);
-    },
-    onSuccess(data) {
-      toast.success(`Sync success. Added ${data.added.amount} folgen to db`);
-      refetch();
-    },
-  });
-
   return (
     <div className="mx-auto w-full max-w-7xl px-8">
       <div className="mb-12 flex items-center justify-between">
@@ -57,10 +47,7 @@ export default function AdminFolgen() {
             label="Specials anzeigen"
           />
         </div>
-        <Button onClick={() => mutate()} disabled={isSyncing}>
-          <FaSyncAlt className={classNames({ 'animate-spin': isSyncing })} />
-          Sync
-        </Button>
+        <SyncController onSyncSuccess={() => refetch()} />
       </div>
 
       {isInitialLoading && <Loader />}
@@ -78,6 +65,77 @@ export default function AdminFolgen() {
       {hasNextPage && (
         <InView onChange={(inView) => inView && fetchNextPage()} />
       )}
+    </div>
+  );
+}
+
+function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
+  const folgenSync = trpc.sync.folgen.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      toast.success(`Folgen sync success. Added ${data.length} folgen to db`);
+      onSyncSuccess();
+    },
+  });
+
+  const inhaltSync = trpc.sync.inhalte.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      toast.success(`Inhalte sync success. Wrote ${data.nModified} updates`);
+      onSyncSuccess();
+    },
+  });
+
+  const deezerSync = trpc.sync.deezer.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      console.log(data);
+      toast.success(`Deezer sync success. Wrote ${data.nModified} updates`);
+      onSyncSuccess();
+    },
+  });
+
+  const isSyncing =
+    folgenSync.isLoading || inhaltSync.isLoading || deezerSync.isLoading;
+
+  return (
+    <div className="flex gap-2">
+      <Button
+        size="small"
+        onClick={() => folgenSync.mutate()}
+        disabled={isSyncing}
+      >
+        <FaSyncAlt
+          className={classNames({ 'animate-spin': folgenSync.isLoading })}
+        />
+        Sync Folgen
+      </Button>
+      <Button
+        size="small"
+        onClick={() => inhaltSync.mutate()}
+        disabled={isSyncing}
+      >
+        <FaSyncAlt
+          className={classNames({ 'animate-spin': inhaltSync.isLoading })}
+        />
+        Sync Inhalte
+      </Button>
+      {/* <Button
+        size="small"
+        onClick={() => deezerSync.mutate()}
+        disabled={isSyncing}
+      >
+        <FaSyncAlt
+          className={classNames({ 'animate-spin': deezerSync.isLoading })}
+        />
+        Sync Deezer
+      </Button> */}
     </div>
   );
 }

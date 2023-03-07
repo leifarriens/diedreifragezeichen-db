@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import dbConnect from '@/db/connect';
-import syncFolgen from '@/services/syncFolgen';
+import { syncDeezer, syncFolgen, syncInhalte } from '@/services/syncFolgen';
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,12 +20,27 @@ export default async function handler(
       return res.status(401).end('Invalid App Key provided');
     }
 
+    const slug = req.query.slug?.[0] as 'folgen' | 'inhalte' | 'deezer';
+
     try {
       await dbConnect();
 
-      const result = await syncFolgen();
+      if (slug === 'folgen') {
+        const result = await syncFolgen();
+        return res.status(200).json(result);
+      }
 
-      return res.status(201).json(result);
+      if (slug === 'inhalte') {
+        const result = await syncInhalte();
+        return res.status(200).json(result);
+      }
+
+      if (slug === 'deezer') {
+        const result = await syncDeezer();
+        return res.status(200).json(result);
+      }
+
+      return res.status(404).end();
     } catch (err) {
       console.error(err);
       return res.status(500).end();

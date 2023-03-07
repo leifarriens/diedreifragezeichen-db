@@ -11,6 +11,7 @@ const DeezerApi = {
   }),
 };
 
+// FIXME: onyl returns 25
 export const getAllAlbums = async () => {
   try {
     const { data } = await DeezerApi.artist.get<{

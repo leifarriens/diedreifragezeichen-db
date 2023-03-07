@@ -13,37 +13,30 @@ export async function getAllInhalte() {
 
   const pages = Array.from({ length: numberOfPages }).map((_, i) => i + 1);
 
-  try {
-    const pageResponses = await Promise.all(pages.map(getPage));
+  const pageResponses = await Promise.all(pages.map(getPage));
 
-    const pageData = pageResponses.map(({ data }) => {
-      const html = load(data);
+  const pageData = pageResponses.map(({ data }) => {
+    const html = load(data);
 
-      const page: InhaltData[] = [];
+    const page: InhaltData[] = [];
 
-      html('.news-teaser-body').each(function () {
-        const el = html(this);
+    html('.news-teaser-body').each(function () {
+      const el = html(this);
 
-        const name = el.find('h5').text();
-        const body = el.find('p').text();
+      const name = el.find('h5').text();
+      const body = el.find('p').text();
 
-        page.push({ name, body });
-      });
-
-      return page;
+      page.push({ name, body });
     });
 
-    // eslint-disable-next-line prefer-spread
-    const array: InhaltData[] = [];
-    const result: InhaltData[] = array.concat.apply([], pageData);
+    return page;
+  });
 
-    return result;
-  } catch (error) {
-    if (Axios.isAxiosError(error)) {
-      console.warn(error.response?.data);
-    }
-    return null;
-  }
+  // eslint-disable-next-line prefer-spread
+  const array: InhaltData[] = [];
+  const result: InhaltData[] = array.concat.apply([], pageData);
+
+  return result;
 }
 
 // utils
@@ -55,8 +48,6 @@ async function getNumberOfPages() {
 }
 
 async function getPage(pageNumber: number) {
-  await sleep(1000 * pageNumber);
-
   const res = Axios.get(RESOURCE_URL, {
     params: {
       page: pageNumber,
@@ -64,8 +55,4 @@ async function getPage(pageNumber: number) {
   });
 
   return res;
-}
-
-function sleep(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
