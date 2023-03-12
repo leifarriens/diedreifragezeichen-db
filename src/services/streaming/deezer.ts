@@ -11,7 +11,6 @@ const DeezerApi = {
   }),
 };
 
-// FIXME: onyl returns 25
 export const getAllAlbums = async () => {
   try {
     const { data } = await DeezerApi.artist.get<{
@@ -19,7 +18,7 @@ export const getAllAlbums = async () => {
         id: string | number;
         title: string;
       }[];
-    }>(`/${artist.deezerId}/albums`);
+    }>(`/${artist.deezerId}/albums`, { params: { limit: 500 } });
     return data.data;
   } catch (e) {
     const error = e as AxiosError;

@@ -126,7 +126,7 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
         />
         Sync Inhalte
       </Button>
-      {/* <Button
+      <Button
         size="small"
         onClick={() => deezerSync.mutate()}
         disabled={isSyncing}
@@ -135,7 +135,7 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
           className={classNames({ 'animate-spin': deezerSync.isLoading })}
         />
         Sync Deezer
-      </Button> */}
+      </Button>
     </div>
   );
 }
@@ -161,7 +161,7 @@ function AdminFolge({
 
       <div>
         <div className="-translate-x-4 -translate-y-4">
-          <img src={folge.images[1].url} alt={folge.name} />
+          <img src={folge.images[1].url} alt={folge.name} loading="lazy" />
         </div>
         <div className="p-4 pt-0 text-sm text-neutral-200">
           <div>Rating: {folge.rating}</div>
