@@ -1,5 +1,6 @@
 name: Sync Folgen
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 5 * * 5'
 jobs:
@@ -9,10 +10,10 @@ jobs:
       - name: Sync Folgen
         run: |
           curl --request GET \
-          --url '${{ vars.SITE_URL }}/api/sync/folgen' \
+          --url '${{ env.SITE_URL }}/api/sync/folgen' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
       - name: Sync Folgen
         run: |
           curl --request GET \
-          --url '${{ vars.SITE_URL }}/api/sync/inhalte' \
+          --url '${{ env.SITE_URL }}/api/sync/inhalte' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
