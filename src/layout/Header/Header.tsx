@@ -56,50 +56,48 @@ const Header = () => {
 
         <Search />
 
-        <div
-          // eslint-disable-next-line no-inline-styles/no-inline-styles
-          style={{ gridArea: 'profile' }}
-          className="flex flex-shrink-0 flex-grow basis-auto items-center justify-end"
-        >
-          {status !== 'loading' && (
-            <>
-              {router.pathname === '/signin' ? (
-                <button
-                  type="button"
-                  className="hover:opacity-80"
-                  onClick={router.back}
-                >
-                  <AiOutlineClose size={28} />
-                </button>
-              ) : !session ? (
-                <Button
-                  aria-label="Anmelden"
-                  color={colors.red}
-                  onClick={() => signIn()}
-                >
-                  {desktop ? 'Anmelden' : <FiLogIn size={18} />}
-                </Button>
-              ) : (
-                <>
-                  <div className="mr-4 hidden gap-2 lg:flex">
-                    <Link href="/profil" legacyBehavior passHref>
-                      <Button as="a" ghost>
-                        Bewertungen
-                      </Button>
-                    </Link>
-                    <Link href="/profil/list" legacyBehavior passHref>
-                      <Button as="a" ghost>
-                        Merkliste
-                      </Button>
-                    </Link>
-                  </div>
+        {status !== 'loading' && (
+          <div
+            // eslint-disable-next-line no-inline-styles/no-inline-styles
+            style={{ gridArea: 'profile' }}
+            className="flex flex-shrink-0 flex-grow basis-auto animate-fadein items-center justify-end"
+          >
+            {router.pathname === '/signin' ? (
+              <button
+                type="button"
+                className="hover:opacity-80"
+                onClick={router.back}
+              >
+                <AiOutlineClose size={28} />
+              </button>
+            ) : !session ? (
+              <Button
+                aria-label="Anmelden"
+                color={colors.red}
+                onClick={() => signIn()}
+              >
+                {desktop ? 'Anmelden' : <FiLogIn size={18} />}
+              </Button>
+            ) : (
+              <>
+                <div className="mr-4 hidden gap-2 lg:flex">
+                  <Link href="/profil" legacyBehavior passHref>
+                    <Button as="a" ghost>
+                      Bewertungen
+                    </Button>
+                  </Link>
+                  <Link href="/profil/list" legacyBehavior passHref>
+                    <Button as="a" ghost>
+                      Merkliste
+                    </Button>
+                  </Link>
+                </div>
 
-                  <ProfileLink user={session.user} />
-                </>
-              )}
-            </>
-          )}
-        </div>
+                <ProfileLink user={session.user} />
+              </>
+            )}
+          </div>
+        )}
       </Container>
     </Headroom>
   );
