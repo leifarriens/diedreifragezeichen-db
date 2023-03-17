@@ -133,9 +133,12 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
         {Object.keys(formState.errors).length !== 0 &&
           Object.entries(formState.errors).map(([name, value]) => (
             <div key={name} style={{ color: colors.red }}>
-              <>
-                <b>{name}</b>: {value.message}
-              </>
+              <b>{name}</b>:{' '}
+              <span>
+                {typeof value.message === 'string'
+                  ? value.message
+                  : value.message?.message}
+              </span>
             </div>
           ))}
 

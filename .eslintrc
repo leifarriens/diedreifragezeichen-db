@@ -40,12 +40,26 @@
     "react",
     "simple-import-sort",
     "eslint-plugin-no-inline-styles",
+    "jsx-a11y",
     "prettier"
   ],
   "rules": {
     "react/display-name": "error",
     "react/button-has-type": "warn",
     "react/function-component-definition": "warn",
+    "react/hook-use-state": "warn",
+    "react/jsx-fragments": ["warn", "syntax"],
+    // DISCUSS: rule does not fit case where a handler function is passed as prop
+    // "react/jsx-handler-names": ["warn", {
+    //   "eventHandlerPrefix": "handle",
+    //   "eventHandlerPropPrefix": "on",
+    //   "checkLocalVariables": true,
+    //   "checkInlineFunction": true
+    // }],
+    // "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-useless-fragment": "warn",
+    // "react/jsx-no-leaked-render": "warn",
+    "react/no-invalid-html-attribute": "warn",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "no-inline-styles/no-inline-styles": "warn",
