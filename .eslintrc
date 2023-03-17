@@ -44,8 +44,19 @@
     "prettier"
   ],
   "rules": {
-    "react/display-name": "error",
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": false }
+    ],
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/mouse-events-have-key-events": "error",
+    "no-inline-styles/no-inline-styles": "warn",
+    "prettier/prettier": "warn",
     "react/button-has-type": "warn",
+    "react/display-name": "error",
     "react/function-component-definition": "warn",
     "react/hook-use-state": "warn",
     "react/jsx-fragments": ["warn", "syntax"],
@@ -57,29 +68,21 @@
     //   "checkInlineFunction": true
     // }],
     // "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-leaked-render": "warn",
     "react/jsx-no-useless-fragment": "warn",
-    // "react/jsx-no-leaked-render": "warn",
     "react/no-invalid-html-attribute": "warn",
-    "jsx-a11y/label-has-associated-control": "off",
-    "jsx-a11y/mouse-events-have-key-events": "error",
-    "no-inline-styles/no-inline-styles": "warn",
-    "simple-import-sort/imports": "warn",
     "simple-import-sort/exports": "warn",
-    "prettier/prettier": "warn",
-    "@typescript-eslint/no-empty-function": "off",
-    "@typescript-eslint/consistent-type-imports": "warn",
-    "@typescript-eslint/no-misused-promises": [
-      "error",
-      { "checksVoidReturn": false }
-    ],
-    "@next/next/no-img-element": "off"
+    "simple-import-sort/imports": "warn"
   },
   "overrides": [
     {
       "files": ["*/pages/**/*.tsx"],
       "rules": {
         // Next.js page components are typed as arrow functions using the 'NextPage' type helper
-        "react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }]
+        "react/function-component-definition": [
+          "warn",
+          { "namedComponents": "arrow-function" }
+        ]
       }
     }
   ]
