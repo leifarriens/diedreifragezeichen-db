@@ -25,7 +25,7 @@ const initialYearRange = {
   max: dayjs().year(),
 };
 
-const Grid = (props: GridProps) => {
+function Grid(props: GridProps) {
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGridState();
@@ -119,6 +119,6 @@ const Grid = (props: GridProps) => {
       )}
     </div>
   );
-};
+}
 
 export default Grid;

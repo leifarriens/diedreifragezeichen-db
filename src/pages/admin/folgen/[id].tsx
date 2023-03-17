@@ -1,7 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import type { ParsedUrlQuery } from 'querystring';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 import { trpc } from 'utils/trpc';
@@ -25,7 +26,7 @@ const validator = folgeValidator.pick({
   inhalt: true,
 });
 
-export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
+const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
   const router = useRouter();
   const { register, handleSubmit, formState, watch } = useForm<Folge>({
     defaultValues: {
@@ -156,12 +157,11 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       </Form>
     </div>
   );
-}
+};
 
-interface Params {
+interface Params extends ParsedUrlQuery {
   id: string;
 }
-
 export async function getServerSideProps({
   req,
   res,
@@ -192,3 +192,5 @@ export async function getServerSideProps({
     },
   };
 }
+
+export default AdminFolge;

@@ -9,20 +9,17 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
-    "eslint-config-next",
     "plugin:@typescript-eslint/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@typescript-eslint/strict",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:jsx-a11y/recommended",
+    "eslint-config-next",
     "prettier"
   ],
   "parserOptions": {
     "project": "./tsconfig.json",
-    // "ecmaFeatures": {
-    //   "jsx": true
-    // },
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
@@ -48,6 +45,7 @@
   "rules": {
     "react/display-name": "error",
     "react/button-has-type": "warn",
+    "react/function-component-definition": "warn",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "no-inline-styles/no-inline-styles": "warn",
@@ -61,5 +59,14 @@
       { "checksVoidReturn": false }
     ],
     "@next/next/no-img-element": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*/pages/**/*.tsx"],
+      "rules": {
+        // Next.js page components are typed as arrow functions using the 'NextPage' type helper
+        "react/function-component-definition": ["warn", { "namedComponents": "arrow-function" }]
+      }
+    }
+  ]
 }

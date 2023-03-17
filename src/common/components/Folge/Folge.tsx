@@ -11,7 +11,7 @@ import ListButton from '../ListButton';
 import Rating from '../Rating';
 import Button from '../shared/Button';
 
-const Folge = ({ folge }: { folge: FolgeWithId }) => {
+function Folge({ folge }: { folge: FolgeWithId }) {
   const {
     images,
     name,
@@ -100,6 +100,6 @@ const Folge = ({ folge }: { folge: FolgeWithId }) => {
       )}
     </>
   );
-};
+}
 
 export default Folge;

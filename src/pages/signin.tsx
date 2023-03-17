@@ -1,6 +1,7 @@
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
+  NextPage,
 } from 'next';
 import { useRouter } from 'next/router';
 import { getProviders } from 'next-auth/react';
@@ -14,10 +15,9 @@ import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { LoginForm } from '@/modules/LoginForm';
 import { parseQueryParam } from '@/utils/index';
 
-export default function SignIn({
-  providers,
-  backgroundSrc,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+const SignIn: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ providers, backgroundSrc }) => {
   const router = useRouter();
   const error = router.query.error as string;
 
@@ -35,7 +35,7 @@ export default function SignIn({
       />
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
@@ -69,3 +69,5 @@ export const getServerSideProps = async ({
     props: { providers, backgroundSrc },
   };
 };
+
+export default SignIn;

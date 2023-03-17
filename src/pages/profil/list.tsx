@@ -18,7 +18,7 @@ interface MerklistePageProps {
   user: UserWithList;
 }
 
-function Merkliste({ user }: MerklistePageProps) {
+const Merkliste = ({ user }: MerklistePageProps) => {
   return (
     <>
       <Seo title="Merkliste" canonicalpath="/profil/list" />
@@ -32,7 +32,7 @@ function Merkliste({ user }: MerklistePageProps) {
       </ProfilLayout>
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,

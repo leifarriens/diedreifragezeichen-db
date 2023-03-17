@@ -10,7 +10,7 @@ import { useGridState } from '@/modules/Grid';
 
 import { trpc } from '../../utils/trpc';
 
-const Search = () => {
+function Search() {
   const ref = useRef<HTMLInputElement | null>(null);
   const { setSearchQuery, searchQuery } = useGridState();
   const [value, setValue] = useState(searchQuery);
@@ -95,7 +95,7 @@ const Search = () => {
       {!hideSearchResults && <SearchResults query={searchQuery} />}
     </div>
   );
-};
+}
 
 function SearchResults({ query }: { query: string }) {
   const { data, isInitialLoading } = trpc.folge.search.useInfiniteQuery(

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import type { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
@@ -15,7 +15,7 @@ import dayjs from '@/lib/dayjs';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
 
-export default function AdminFolgen() {
+const AdminFolgen: NextPage = () => {
   const { searchQuery, showSpecials, setShowSpecials } = useGridState();
 
   const {
@@ -72,9 +72,9 @@ export default function AdminFolgen() {
       )}
     </div>
   );
-}
+};
 
-function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
+const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
   const folgenSync = trpc.sync.folgen.useMutation({
     onError(error) {
       toast.error(error.message);
@@ -143,13 +143,13 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
       </Button>
     </div>
   );
-}
+};
 
-function AdminFolge({
+const AdminFolge = ({
   folge,
 }: {
   folge: RouterOutput['folge']['all']['items'][number];
-}) {
+}) => {
   const propCheck = (value: unknown) => (value ? '🟢' : '🔴');
 
   return (
@@ -261,7 +261,7 @@ function AdminFolge({
       </div>
     </article>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
@@ -282,3 +282,5 @@ export const getServerSideProps = async ({
     props: {},
   };
 };
+
+export default AdminFolgen;

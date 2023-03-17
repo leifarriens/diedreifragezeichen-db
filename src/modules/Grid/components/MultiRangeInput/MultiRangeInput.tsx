@@ -16,7 +16,7 @@ interface MultiRangeInputProps {
   onChange?: (event: RangeChangeEvent) => void;
 }
 
-const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
+function MultiRangeInput({ min, max, onChange }: MultiRangeInputProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -102,7 +102,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
       </div>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   --slider-height: 8px;

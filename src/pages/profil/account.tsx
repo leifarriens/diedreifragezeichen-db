@@ -10,7 +10,7 @@ import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 
-function AccountPage() {
+const AccountPage = () => {
   const { mutate } = trpc.user.delete.useMutation({
     onSuccess: () => signOut(),
   });
@@ -60,7 +60,7 @@ function AccountPage() {
       </ProfilLayout>
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,

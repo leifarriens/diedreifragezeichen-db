@@ -13,9 +13,9 @@ import { parseMongo } from '@/utils/index';
 
 import { getFolgen } from '../services/folge.service';
 
-const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
-  props,
-) => {
+const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  folgen,
+}) => {
   const { data: session } = useSession();
 
   return (
@@ -23,7 +23,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
       <Seo title="Archiv" canonicalpath="/" />
 
       <Wrapper>
-        <Grid folgen={props.folgen} coverOnly={false} withFilters withUi />
+        <Grid folgen={folgen} coverOnly={false} withFilters withUi />
 
         {!session && (
           <div className="mt-32 text-center">

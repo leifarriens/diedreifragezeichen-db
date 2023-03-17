@@ -1,5 +1,5 @@
 import { Types } from 'mongoose';
-import type { GetStaticPaths, GetStaticProps } from 'next';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 
 import BackButton from '@/components/BackButton';
@@ -16,7 +16,7 @@ interface FolgePageProps {
   folge: FolgeWithId;
 }
 
-export default function Folge({ folge }: FolgePageProps) {
+const Folge: NextPage<FolgePageProps> = ({ folge }) => {
   const number = folge.number ? `Folge ${parseInt(folge.number)}` : '';
   const title = `${number} ${folge.name}`;
 
@@ -51,7 +51,7 @@ export default function Folge({ folge }: FolgePageProps) {
       </Wrapper>
     </>
   );
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect();
@@ -93,3 +93,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     revalidate: 10,
   };
 };
+
+export default Folge;

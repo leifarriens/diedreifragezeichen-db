@@ -103,11 +103,13 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   );
 }
 
-const MerklistenLink = () => (
-  // eslint-disable-next-line no-inline-styles/no-inline-styles
-  <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
-    Merkliste
-  </Link>
-);
+function MerklistenLink() {
+  return (
+    // eslint-disable-next-line no-inline-styles/no-inline-styles
+    <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
+      Merkliste
+    </Link>
+  );
+}
 
 export default ListButton;

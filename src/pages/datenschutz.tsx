@@ -7,10 +7,10 @@ import { Seo } from '@/components/Seo/Seo';
 import Wrapper from '@/layout/Wrapper';
 import markdownToHtml from '@/utils/markdownToHtml';
 
-function Datenschutz({
+const Datenschutz = ({
   title,
   html,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Seo title={title} canonicalpath="/datenschutz" />
@@ -23,7 +23,7 @@ function Datenschutz({
       </Wrapper>
     </>
   );
-}
+};
 
 const directory = path.join(process.cwd(), 'src', 'content');
 

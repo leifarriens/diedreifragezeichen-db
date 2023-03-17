@@ -2,29 +2,35 @@ import classnames from 'classnames';
 import { RotatingLines } from 'react-loader-spinner';
 import styled, { keyframes } from 'styled-components';
 
-export const FullpageLoader = () => (
-  <FullpageContainer>
-    <Loader />
-  </FullpageContainer>
-);
+export function FullpageLoader() {
+  return (
+    <FullpageContainer>
+      <Loader />
+    </FullpageContainer>
+  );
+}
 
-export const Loader = ({ animated = true }: { animated?: boolean }) => (
-  <LoadingIndicator className="loader">
-    {Array.from({ length: 3 }).map((_, index) => (
-      <IndicatorIcon key={index} className={classnames({ animated })} />
-    ))}
-  </LoadingIndicator>
-);
+export function Loader({ animated = true }: { animated?: boolean }) {
+  return (
+    <LoadingIndicator className="loader">
+      {Array.from({ length: 3 }).map((_, index) => (
+        <IndicatorIcon key={index} className={classnames({ animated })} />
+      ))}
+    </LoadingIndicator>
+  );
+}
 
-export const SpinningLoader = ({ width }: { width?: string }) => (
-  <RotatingLines
-    strokeColor="grey"
-    strokeWidth="5"
-    animationDuration="0.75"
-    width={width}
-    visible={true}
-  />
-);
+export function SpinningLoader({ width }: { width?: string }) {
+  return (
+    <RotatingLines
+      strokeColor="grey"
+      strokeWidth="5"
+      animationDuration="0.75"
+      width={width}
+      visible={true}
+    />
+  );
+}
 
 const FullpageContainer = styled.div`
   z-index: 999px;

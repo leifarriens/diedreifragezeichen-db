@@ -31,11 +31,11 @@ enum StorageNames {
 
 export const GridContext = createContext<GridState>(initalState);
 
-export const GridProvider = ({
+export function GridProvider({
   children,
 }: {
   children: ReactNode | ReactNode[];
-}) => {
+}) {
   const [state, dispatch] = useReducer(GridReducer, initalState);
 
   const setSearchQuery = useCallback((query: string) => {
@@ -103,4 +103,4 @@ export const GridProvider = ({
       {children}
     </GridContext.Provider>
   );
-};
+}

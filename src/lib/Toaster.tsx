@@ -2,7 +2,7 @@ import { Toaster } from 'react-hot-toast';
 
 import { colors } from '@/constants/theme';
 
-const CustomToaster = () => {
+function CustomToaster() {
   return (
     <Toaster
       position="bottom-center"
@@ -29,6 +29,6 @@ const CustomToaster = () => {
       }}
     />
   );
-};
+}
 
 export { CustomToaster as Toaster };

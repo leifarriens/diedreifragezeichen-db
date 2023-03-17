@@ -18,7 +18,7 @@ import ProfileLink from './ProfileLink';
 import Search from './Search';
 import { Container, HomeLink } from './StyledHeader';
 
-const Header = () => {
+function Header() {
   const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -103,6 +103,6 @@ const Header = () => {
       </Container>
     </Headroom>
   );
-};
+}
 
 export default Header;

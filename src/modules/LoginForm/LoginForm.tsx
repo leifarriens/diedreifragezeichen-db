@@ -55,7 +55,7 @@ const providerButtons: ProviderButtons = {
   },
 };
 
-export const LoginForm = ({
+export function LoginForm({
   providers,
   error,
 }: {
@@ -64,32 +64,34 @@ export const LoginForm = ({
     ClientSafeProvider
   > | null;
   error: string;
-}) => (
-  <FormContainer>
-    <h1 className="mb-10 text-center font-serif text-5xl font-semibold">
-      Anmelden
-    </h1>
-    {error && (
-      <>
-        <div className="mb-4 rounded-lg bg-red-600 p-3 text-center text-xs">
-          {error === 'OAuthAccountNotLinked'
-            ? 'Email Adresse ist bereits mit einem anderen Provider registriert!'
-            : 'Fehler bei der der Anmeldung'}
-        </div>
-        <hr />
-      </>
-    )}
-    {providers &&
-      Object.values(providers).map((provider) => (
-        <SocialLoginButton
-          key={provider.id}
-          name={provider.name}
-          onClick={() => signIn(provider.id)}
-          {...providerButtons[provider.id]}
-        />
-      ))}
-  </FormContainer>
-);
+}) {
+  return (
+    <FormContainer>
+      <h1 className="mb-10 text-center font-serif text-5xl font-semibold">
+        Anmelden
+      </h1>
+      {error && (
+        <>
+          <div className="mb-4 rounded-lg bg-red-600 p-3 text-center text-xs">
+            {error === 'OAuthAccountNotLinked'
+              ? 'Email Adresse ist bereits mit einem anderen Provider registriert!'
+              : 'Fehler bei der der Anmeldung'}
+          </div>
+          <hr />
+        </>
+      )}
+      {providers &&
+        Object.values(providers).map((provider) => (
+          <SocialLoginButton
+            key={provider.id}
+            name={provider.name}
+            onClick={() => signIn(provider.id)}
+            {...providerButtons[provider.id]}
+          />
+        ))}
+    </FormContainer>
+  );
+}
 
 const FormContainer = styled.div`
   margin-top: 20vh;
