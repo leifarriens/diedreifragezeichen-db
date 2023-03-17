@@ -1,6 +1,7 @@
-import { UpdateQuery } from 'mongoose';
+import type { UpdateQuery } from 'mongoose';
 
-import { Folge, FolgeWithId } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
+import { Folge } from '@/models/folge';
 import { Rating } from '@/models/rating';
 
 type FolgenOptions = {

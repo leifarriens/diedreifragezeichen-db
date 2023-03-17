@@ -1,11 +1,11 @@
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import type { FolgeWithId } from '@/models/folge';
-import { UserWithId } from '@/models/user';
+import type { UserWithId } from '@/models/user';
 import { Grid } from '@/modules/Grid';
 import { getUserWithList } from '@/services/user.service';
 import { parseMongo } from '@/utils/index';

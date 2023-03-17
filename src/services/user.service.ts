@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import clientPromise from '@/db/authConn';
-import { FolgeWithId } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
 import { User } from '@/models/user';
 
 export async function getUserWithList(userId: string) {

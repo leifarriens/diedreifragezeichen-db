@@ -52,6 +52,7 @@
     "simple-import-sort/exports": "warn",
     "prettier/prettier": "warn",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/consistent-type-imports": "warn",
     "@next/next/no-img-element": "off"
   }
 }

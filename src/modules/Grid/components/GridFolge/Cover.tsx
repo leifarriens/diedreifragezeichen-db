@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import { Image } from '@/models/folge';
+import type { Image } from '@/models/folge';
 
 import { Background, Overlay } from './StyledFolge';
 

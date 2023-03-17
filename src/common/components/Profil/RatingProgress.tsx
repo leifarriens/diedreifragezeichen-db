@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
-import { RatingWithFolge } from '@/types';
+import type { RatingWithFolge } from '@/types';
 
 type RatingProgressProps = {
   numberOfRatings: number;

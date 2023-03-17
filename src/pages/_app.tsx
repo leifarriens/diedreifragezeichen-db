@@ -3,9 +3,9 @@ import '@/styles/nprogress.css';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/react';
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import Router from 'next/router';
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';

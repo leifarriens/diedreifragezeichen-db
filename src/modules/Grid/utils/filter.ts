@@ -2,7 +2,7 @@ import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
 
 import type { YearRange } from '../types';
-import { SortOptionsEnum } from '../types';
+import type { SortOptionsEnum } from '../types';
 import { sortFolgen } from './sort';
 
 export const filterSpecial = (folgen: FolgeWithId[], showSpecials = true) => {

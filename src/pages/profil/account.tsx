@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import { trpc } from 'utils/trpc';

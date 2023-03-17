@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { ParsedUrlQuery } from 'querystring';
+import type { GetStaticPaths, GetStaticProps } from 'next';
+import type { ParsedUrlQuery } from 'querystring';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */ /* props from -> InferGetStaticPropsType */
-import { InferGetStaticPropsType, NextPage } from 'next';
+import type { InferGetStaticPropsType, NextPage } from 'next';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 

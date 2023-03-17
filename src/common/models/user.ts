@@ -4,7 +4,7 @@ import '@/models/folge';
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId, SchemaType } from '@/types';
+import type { MongoId, SchemaType } from '@/types';
 
 const Role = z.enum(['User', 'Admin']);
 

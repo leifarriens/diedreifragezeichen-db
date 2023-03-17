@@ -1,6 +1,6 @@
 import fs from 'fs';
 import matter from 'gray-matter';
-import { GetStaticProps, InferGetStaticPropsType } from 'next';
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import path from 'path';
 
 import { Seo } from '@/components/Seo/Seo';

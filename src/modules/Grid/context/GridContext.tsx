@@ -1,11 +1,6 @@
 import qs from 'qs';
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useReducer,
-} from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useReducer } from 'react';
 
 import { SortOptionsEnum } from '@/modules/Grid/types';
 

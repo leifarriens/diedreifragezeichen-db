@@ -1,5 +1,5 @@
 import type { Folge } from '@/models/folge';
-import { SpotifyAlbum } from '@/types';
+import type { SpotifyAlbum } from '@/types';
 
 export default function convertFolge({
   name,

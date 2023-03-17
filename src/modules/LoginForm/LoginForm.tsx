@@ -1,5 +1,5 @@
+import type { SessionProviderProps } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
-import { SessionProviderProps } from 'next-auth/react';
 import { FaApple, FaDiscord, FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';

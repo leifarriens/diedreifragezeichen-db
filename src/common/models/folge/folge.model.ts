@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import * as z from 'zod';
+import type * as z from 'zod';
 
-import { MongoId, SchemaType } from '@/types';
+import type { MongoId, SchemaType } from '@/types';
 
-import { folgeValidator, Image, Type } from './folge.validator';
+import type { folgeValidator, Image, Type } from './folge.validator';
 
 export type Type = z.infer<typeof Type>;
 export type Image = z.infer<typeof Image>;

@@ -1,6 +1,6 @@
 import { httpBatchLink } from '@trpc/client';
 import { createTRPCNext } from '@trpc/next';
-import { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
+import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
 
 import { queryClientConfig } from '@/lib/query';

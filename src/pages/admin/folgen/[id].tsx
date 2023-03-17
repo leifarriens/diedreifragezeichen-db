@@ -1,8 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { trpc } from 'utils/trpc';
 
 import Button from '@/components/shared/Button';

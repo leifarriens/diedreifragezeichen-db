@@ -5,7 +5,7 @@ import '@/models/folge';
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId, SchemaType } from '@/types';
+import type { MongoId, SchemaType } from '@/types';
 
 export const ratingValidator = z.object({
   user: z.instanceof(mongoose.Types.ObjectId).or(z.string()),

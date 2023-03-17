@@ -4,7 +4,7 @@ import { FaDeezer, FaSpotify } from 'react-icons/fa';
 import { Background } from '@/common/components/Background';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
-import { FolgeWithId } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
 
 import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';

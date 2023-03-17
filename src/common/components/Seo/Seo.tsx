@@ -1,4 +1,5 @@
-import { NextSeo, NextSeoProps } from 'next-seo';
+import type { NextSeoProps } from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 interface SeoProps extends NextSeoProps {
   canonicalpath?: string;

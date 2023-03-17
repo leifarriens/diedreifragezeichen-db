@@ -1,4 +1,4 @@
-import { SortOptionsEnum } from '@/modules/Grid/types';
+import type { SortOptionsEnum } from '@/modules/Grid/types';
 
 import type { GridState } from './GridContext';
 

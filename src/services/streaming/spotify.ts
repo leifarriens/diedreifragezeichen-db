@@ -1,7 +1,8 @@
-import Axios, { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
+import Axios from 'axios';
 import qs from 'qs';
 
-import { SpotifyAlbum } from '@/types';
+import type { SpotifyAlbum } from '@/types';
 
 import artist from '../../../config/artist.json';
 

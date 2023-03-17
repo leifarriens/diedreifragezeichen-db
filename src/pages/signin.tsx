@@ -1,10 +1,11 @@
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
+import { type SessionProviderProps } from 'next-auth/react';
 import { getProviders } from 'next-auth/react';
-import { SessionProviderProps } from 'next-auth/react';
 
 import { Background } from '@/common/components/Background';
-import { Folge, Image } from '@/common/models/folge';
+import type { Image } from '@/common/models/folge';
+import { Folge } from '@/common/models/folge';
 import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
