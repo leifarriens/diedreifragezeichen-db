@@ -1,12 +1,12 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import Wrapper from '@/layout/Wrapper';
 
 import Links from './Links';
 
-type ProfileLayoutProps = {
+interface ProfileLayoutProps {
   children: ReactNode | ReactNode[];
-};
+}
 
 function ProfilLayout({ children }: ProfileLayoutProps) {
   return (

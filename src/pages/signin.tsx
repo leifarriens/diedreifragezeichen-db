@@ -1,10 +1,13 @@
-import { GetServerSideProps } from 'next';
+import type {
+  GetServerSidePropsContext,
+  InferGetServerSidePropsType,
+  NextPage,
+} from 'next';
 import { useRouter } from 'next/router';
 import { getProviders } from 'next-auth/react';
-import { SessionProviderProps } from 'next-auth/react';
 
 import { Background } from '@/common/components/Background';
-import { Folge, Image } from '@/common/models/folge';
+import { Folge } from '@/common/models/folge';
 import { Seo } from '@/components/Seo/Seo';
 import dbConnect from '@/db/connect';
 import Wrapper from '@/layout/Wrapper';
@@ -12,15 +15,11 @@ import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { LoginForm } from '@/modules/LoginForm';
 import { parseQueryParam } from '@/utils/index';
 
-export default function SignIn({
-  providers,
-  background,
-}: {
-  providers: SessionProviderProps;
-  background: Image;
-}) {
+const SignIn: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = ({ providers, backgroundSrc }) => {
   const router = useRouter();
-  const error = router.query?.error as string;
+  const error = router.query.error as string;
 
   return (
     <>
@@ -31,18 +30,18 @@ export default function SignIn({
       </Wrapper>
 
       <Background
-        style={{ backgroundImage: `url(${background.url})` }}
+        style={{ backgroundImage: `url(${backgroundSrc})` }}
         bigCover={true}
       />
     </>
   );
-}
+};
 
-export const getServerSideProps: GetServerSideProps = async ({
+export const getServerSideProps = async ({
   req,
   res,
   query,
-}) => {
+}: GetServerSidePropsContext) => {
   const session = await getServerAuthSesion(req, res);
 
   const callbackUrl = parseQueryParam(query.callbackUrl);
@@ -64,9 +63,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     .sort('-release_date')
     .select('images');
 
-  const background = folge?.images[2];
+  const backgroundSrc = folge?.images[2]?.url ?? '';
 
   return {
-    props: { providers, background },
+    props: { providers, backgroundSrc },
   };
 };
+
+export default SignIn;

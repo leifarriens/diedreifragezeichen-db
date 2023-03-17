@@ -1,5 +1,5 @@
 export const parseMongo = <T>(mongoResponse: T): T => {
-  return JSON.parse(JSON.stringify(mongoResponse));
+  return JSON.parse(JSON.stringify(mongoResponse)) as T;
 };
 
 export const parseQueryParam = (param: string | string[] | undefined) => {

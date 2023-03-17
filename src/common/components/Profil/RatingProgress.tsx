@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
-import { RatingWithFolge } from '@/types';
+import type { RatingWithFolge } from '@/types';
 
-type RatingProgressProps = {
+interface RatingProgressProps {
   numberOfRatings: number;
   ratings?: RatingWithFolge[];
   numberOfFolgen: number;
-};
+}
 
 export default function RatingProgress({
   numberOfRatings,

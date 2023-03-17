@@ -13,19 +13,19 @@ import { useBackgroundSortTheme } from './hooks';
 import { FolgenContainer, GridUI } from './StyledGrid';
 import { applyFilter } from './utils/filter';
 
-type GridProps = {
+interface GridProps {
   folgen: FolgeWithId[];
   coverOnly?: boolean;
   withFilters?: boolean;
   withUi?: boolean;
-};
+}
 
 const initialYearRange = {
   min: 1979,
   max: dayjs().year(),
 };
 
-const Grid = (props: GridProps) => {
+function Grid(props: GridProps) {
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGridState();
@@ -105,7 +105,7 @@ const Grid = (props: GridProps) => {
         </>
       )}
 
-      {props.folgen && props.folgen.length > 0 && (
+      {props.folgen.length > 0 && (
         <FolgenContainer>
           {filteredFolgen.map((folge) => (
             <GridFolge
@@ -119,6 +119,6 @@ const Grid = (props: GridProps) => {
       )}
     </div>
   );
-};
+}
 
 export default Grid;

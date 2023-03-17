@@ -7,7 +7,7 @@ interface SwitchProps {
   onChange?: (checked: boolean) => void;
 }
 
-const Switch = ({ label, checked, onChange, ...rest }: SwitchProps) => {
+function Switch({ label, checked, onChange, ...rest }: SwitchProps) {
   const id = useId();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -26,7 +26,7 @@ const Switch = ({ label, checked, onChange, ...rest }: SwitchProps) => {
       <label htmlFor={id}>{label}</label>
     </SwitchContainer>
   );
-};
+}
 
 const SwitchContainer = styled.div`
   --checkWidth: 50px;

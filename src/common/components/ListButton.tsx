@@ -9,11 +9,11 @@ import { useUser } from '@/hooks';
 
 import { SpinningLoader } from './shared/Loader';
 
-type ListButtonProps = {
+interface ListButtonProps {
   folgeId: string;
   folgeName: string;
   iconSize?: string | number;
-};
+}
 
 function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: session, status } = useSession();
@@ -21,7 +21,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const utils = trpc.useContext();
 
   const isOnUserList =
-    !user || !user.list ? false : user.list.map((id) => id).includes(folgeId);
+    user?.list && user.list.map((id) => id).includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } =
     trpc.user.addToList.useMutation({
@@ -29,7 +29,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
         if (user) {
           utils.user.self.setData(undefined, {
             ...user,
-            list: user.list ? [...user.list, folgeId] : [folgeId],
+            list: [...user.list, folgeId],
           });
         }
       },
@@ -103,11 +103,13 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   );
 }
 
-const MerklistenLink = () => (
-  // eslint-disable-next-line no-inline-styles/no-inline-styles
-  <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
-    Merkliste
-  </Link>
-);
+function MerklistenLink() {
+  return (
+    // eslint-disable-next-line no-inline-styles/no-inline-styles
+    <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
+      Merkliste
+    </Link>
+  );
+}
 
 export default ListButton;

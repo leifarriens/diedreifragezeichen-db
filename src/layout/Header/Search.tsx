@@ -10,7 +10,7 @@ import { useGridState } from '@/modules/Grid';
 
 import { trpc } from '../../utils/trpc';
 
-const Search = () => {
+function Search() {
   const ref = useRef<HTMLInputElement | null>(null);
   const { setSearchQuery, searchQuery } = useGridState();
   const [value, setValue] = useState(searchQuery);
@@ -28,12 +28,12 @@ const Search = () => {
     if (searchQuery === '') setValue('');
   }, [searchQuery]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       ref.current?.blur();
 
       if (router.pathname !== '/') {
-        router.push({ pathname: '/' });
+        await router.push({ pathname: '/' });
       }
     }
 
@@ -63,7 +63,7 @@ const Search = () => {
   const clearInput = () => setValue('');
 
   const hideSearchResults =
-    router.pathname === '/' || router.pathname.indexOf('admin') !== -1;
+    router.pathname === '/' || router.pathname.includes('admin');
 
   return (
     <div
@@ -95,7 +95,7 @@ const Search = () => {
       {!hideSearchResults && <SearchResults query={searchQuery} />}
     </div>
   );
-};
+}
 
 function SearchResults({ query }: { query: string }) {
   const { data, isInitialLoading } = trpc.folge.search.useInfiniteQuery(

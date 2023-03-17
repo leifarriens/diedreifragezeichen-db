@@ -1,10 +1,11 @@
 import classNames from 'classnames';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
-import { RouterOutput, trpc } from 'utils/trpc';
+import type { RouterOutput } from 'utils/trpc';
+import { trpc } from 'utils/trpc';
 
 import { Loader } from '@/common/components/shared/Loader';
 import Switch from '@/common/components/shared/Switch';
@@ -14,7 +15,7 @@ import dayjs from '@/lib/dayjs';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
 
-export default function AdminFolgen() {
+const AdminFolgen: NextPage = () => {
   const { searchQuery, showSpecials, setShowSpecials } = useGridState();
 
   const {
@@ -63,13 +64,17 @@ export default function AdminFolgen() {
       {isFetchingNextPage && <Loader />}
 
       {hasNextPage && (
-        <InView onChange={(inView) => inView && fetchNextPage()} />
+        <InView
+          onChange={(inView) => {
+            inView && fetchNextPage();
+          }}
+        />
       )}
     </div>
   );
-}
+};
 
-function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
+const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
   const folgenSync = trpc.sync.folgen.useMutation({
     onError(error) {
       toast.error(error.message);
@@ -138,13 +143,13 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
       </Button>
     </div>
   );
-}
+};
 
-function AdminFolge({
+const AdminFolge = ({
   folge,
 }: {
   folge: RouterOutput['folge']['all']['items'][number];
-}) {
+}) => {
   const propCheck = (value: unknown) => (value ? '🟢' : '🔴');
 
   return (
@@ -256,7 +261,7 @@ function AdminFolge({
       </div>
     </article>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
@@ -277,3 +282,5 @@ export const getServerSideProps = async ({
     props: {},
   };
 };
+
+export default AdminFolgen;

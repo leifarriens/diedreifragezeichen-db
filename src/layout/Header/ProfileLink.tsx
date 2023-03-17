@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 import classnames from 'classnames';
 import Link from 'next/link';
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
-type ProfileLinkProps = {
+interface ProfileLinkProps {
   user?: Session['user'];
-};
+}
 
 function ProfileLink({ user }: ProfileLinkProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

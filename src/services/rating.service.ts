@@ -32,9 +32,7 @@ export async function postFolgenRating({
 
   const folgenRatings = await Rating.find({ folge: folgeId });
 
-  const ratingsSum = folgenRatings.reduce((curr, acc) => {
-    return curr + acc.value;
-  }, 0) as number;
+  const ratingsSum = folgenRatings.reduce((curr, acc) => curr + acc.value, 0);
 
   const rating = ratingsSum / folgenRatings.length;
 

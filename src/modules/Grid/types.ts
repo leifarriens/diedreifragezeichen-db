@@ -5,7 +5,7 @@ export enum SortOptionsEnum {
   popularity = 'popularity',
 }
 
-export type YearRange = {
+export interface YearRange {
   min: Date;
   max: Date;
-};
+}

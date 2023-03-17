@@ -1,5 +1,6 @@
+import type { BuiltInProviderType } from 'next-auth/providers';
+import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
-import { SessionProviderProps } from 'next-auth/react';
 import { FaApple, FaDiscord, FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMail } from 'react-icons/hi';
@@ -9,16 +10,14 @@ import { colors } from '@/constants/theme';
 
 import SocialLoginButton from './SocialLoginButton';
 
-type ProviderButtons = {
-  [name: string]: ProviderButton;
-};
+type ProviderButtons = Record<string, ProviderButton>;
 
-type ProviderButton = {
+interface ProviderButton {
   icon: React.ReactElement;
   bgColor: string;
   color: string;
   disabled?: boolean;
-};
+}
 
 const size = 20;
 
@@ -56,38 +55,43 @@ const providerButtons: ProviderButtons = {
   },
 };
 
-export const LoginForm = ({
+export function LoginForm({
   providers,
   error,
 }: {
-  providers: SessionProviderProps;
+  providers: Record<
+    LiteralUnion<BuiltInProviderType>,
+    ClientSafeProvider
+  > | null;
   error: string;
-}) => (
-  <FormContainer>
-    <h1 className="mb-10 text-center font-serif text-5xl font-semibold">
-      Anmelden
-    </h1>
-    {error && (
-      <>
-        <div className="mb-4 rounded-lg bg-red-600 p-3 text-center text-xs">
-          {error === 'OAuthAccountNotLinked'
-            ? 'Email Adresse ist bereits mit einem anderen Provider registriert!'
-            : 'Fehler bei der der Anmeldung'}
-        </div>
-        <hr />
-      </>
-    )}
-    {Object.values(providers).map((provider) => (
-      <SocialLoginButton
-        key={provider.id}
-        name={provider.name}
-        onClick={() => signIn(provider.id)}
-        disabled={provider.disabled}
-        {...providerButtons[provider.id]}
-      />
-    ))}
-  </FormContainer>
-);
+}) {
+  return (
+    <FormContainer>
+      <h1 className="mb-10 text-center font-serif text-5xl font-semibold">
+        Anmelden
+      </h1>
+      {error && (
+        <>
+          <div className="mb-4 rounded-lg bg-red-600 p-3 text-center text-xs">
+            {error === 'OAuthAccountNotLinked'
+              ? 'Email Adresse ist bereits mit einem anderen Provider registriert!'
+              : 'Fehler bei der der Anmeldung'}
+          </div>
+          <hr />
+        </>
+      )}
+      {providers &&
+        Object.values(providers).map((provider) => (
+          <SocialLoginButton
+            key={provider.id}
+            name={provider.name}
+            onClick={() => signIn(provider.id)}
+            {...providerButtons[provider.id]}
+          />
+        ))}
+    </FormContainer>
+  );
+}
 
 const FormContainer = styled.div`
   margin-top: 20vh;

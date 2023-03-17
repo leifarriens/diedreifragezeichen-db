@@ -23,11 +23,11 @@ export default function ScrollToTop() {
     setAtBottom(innerHeight + scrollY >= document.body.offsetHeight - 20);
   };
 
-  const handleClick = () => {
+  const handleClick = async () => {
     window.scroll({ top: 0, behavior: 'smooth' });
 
     if (router.query.ref) {
-      router.replace('/', '/', { shallow: true }); // removes url query params
+      await router.replace('/', '/', { shallow: true }); // removes url query params
     }
   };
 

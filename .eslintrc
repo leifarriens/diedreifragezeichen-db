@@ -9,16 +9,17 @@
   "parser": "@typescript-eslint/parser",
   "extends": [
     "eslint:recommended",
-    "eslint-config-next",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict",
     "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
     "plugin:jsx-a11y/recommended",
+    "eslint-config-next",
     "prettier"
   ],
   "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
+    "project": "./tsconfig.json",
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
@@ -39,19 +40,50 @@
     "react",
     "simple-import-sort",
     "eslint-plugin-no-inline-styles",
+    "jsx-a11y",
     "prettier"
   ],
   "rules": {
-    "react/react-in-jsx-scope": "off",
-    "react/display-name": "error",
-    "react/button-has-type": "warn",
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": false }
+    ],
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "no-inline-styles/no-inline-styles": "warn",
-    "simple-import-sort/imports": "warn",
-    "simple-import-sort/exports": "warn",
     "prettier/prettier": "warn",
-    "@typescript-eslint/no-empty-function": "off",
-    "@next/next/no-img-element": "off"
-  }
+    "react/button-has-type": "warn",
+    "react/display-name": "error",
+    "react/function-component-definition": "warn",
+    "react/hook-use-state": "warn",
+    "react/jsx-fragments": ["warn", "syntax"],
+    // DISCUSS: rule does not fit case where a handler function is passed as prop
+    // "react/jsx-handler-names": ["warn", {
+    //   "eventHandlerPrefix": "handle",
+    //   "eventHandlerPropPrefix": "on",
+    //   "checkLocalVariables": true,
+    //   "checkInlineFunction": true
+    // }],
+    // "react/jsx-no-constructed-context-values": "error",
+    "react/jsx-no-leaked-render": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/no-invalid-html-attribute": "warn",
+    "simple-import-sort/exports": "warn",
+    "simple-import-sort/imports": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*/pages/**/*.tsx"],
+      "rules": {
+        // Next.js page components are typed as arrow functions using the 'NextPage' type helper
+        "react/function-component-definition": [
+          "warn",
+          { "namedComponents": "arrow-function" }
+        ]
+      }
+    }
+  ]
 }

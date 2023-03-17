@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 import { trpc } from 'utils/trpc';
@@ -10,11 +10,9 @@ import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 
-function AccountPage() {
+const AccountPage = () => {
   const { mutate } = trpc.user.delete.useMutation({
-    onSuccess: () => {
-      signOut();
-    },
+    onSuccess: () => signOut(),
   });
 
   function handleDelete() {
@@ -62,7 +60,7 @@ function AccountPage() {
       </ProfilLayout>
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,

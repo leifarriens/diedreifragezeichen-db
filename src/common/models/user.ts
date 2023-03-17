@@ -4,7 +4,7 @@ import '@/models/folge';
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId, SchemaType } from '@/types';
+import type { MongoId, SchemaType } from '@/types';
 
 const Role = z.enum(['User', 'Admin']);
 
@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema<UserSchema>(
 
 const getModel = () => mongoose.model('User', userSchema);
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 export const User = (mongoose.models.User || getModel()) as ReturnType<
   typeof getModel
 >;

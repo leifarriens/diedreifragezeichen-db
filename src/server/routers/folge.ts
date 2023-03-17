@@ -68,7 +68,7 @@ export const folgeRouter = router({
         ...(type && { type }),
       };
 
-      const sort: { [key: string]: SortOrder } = { [input.sort]: -1 };
+      const sort: Record<string, SortOrder> = { [input.sort]: -1 };
 
       const folgen = await Folge.find(query)
         .limit(limit)

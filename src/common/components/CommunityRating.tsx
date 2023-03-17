@@ -1,8 +1,8 @@
-type ComminityRatingProps = {
+interface ComminityRatingProps {
   numerOfRatings: number;
   rating: number;
   className?: string;
-};
+}
 
 function CommunityRating({
   numerOfRatings,

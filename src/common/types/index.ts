@@ -1,4 +1,4 @@
-import { Document } from 'mongoose';
+import type { Document } from 'mongoose';
 
 import type { FolgeWithId } from '@/models/folge';
 import type { RatingWithId } from '@/models/rating';
@@ -7,7 +7,7 @@ export type RatingWithFolge = RatingWithId & {
   folge: FolgeWithId;
 };
 
-export type SpotifyAlbum = {
+export interface SpotifyAlbum {
   id: string;
   name: string;
   images: {
@@ -17,7 +17,7 @@ export type SpotifyAlbum = {
   }[];
   release_date: Date;
   artists: unknown;
-};
+}
 
 export type MongoId = string; //mongoose.Types.ObjectId | string;
 

@@ -1,24 +1,20 @@
 import qs from 'qs';
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useReducer,
-} from 'react';
+import type { ReactNode } from 'react';
+import { useMemo } from 'react';
+import { createContext, useCallback, useEffect, useReducer } from 'react';
 
 import { SortOptionsEnum } from '@/modules/Grid/types';
 
 import GridReducer, { ActionKind } from './GridReducer';
 
-export type GridState = {
+export interface GridState {
   showSpecials: boolean;
   searchQuery: string;
   sortBy: SortOptionsEnum;
   setShowSpecials: (show: boolean) => void;
   setSearchQuery: (query: string) => void;
   setSortBy: (query: string) => void;
-};
+}
 
 const initalState = {
   showSpecials: false,
@@ -36,11 +32,11 @@ enum StorageNames {
 
 export const GridContext = createContext<GridState>(initalState);
 
-export const GridProvider = ({
+export function GridProvider({
   children,
 }: {
   children: ReactNode | ReactNode[];
-}) => {
+}) {
   const [state, dispatch] = useReducer(GridReducer, initalState);
 
   const setSearchQuery = useCallback((query: string) => {
@@ -71,14 +67,17 @@ export const GridProvider = ({
 
   useEffect(() => {
     const show = localStorage.getItem(StorageNames.SHOW_SPECIALS)
-      ? JSON.parse(localStorage.getItem(StorageNames.SHOW_SPECIALS) || '')
+      ? (JSON.parse(
+          localStorage.getItem(StorageNames.SHOW_SPECIALS) ?? '',
+        ) as boolean)
       : false;
 
     setShowSpecials(show);
 
     const sortBy =
-      (sessionStorage.getItem(StorageNames.SORT_BY) as SortOptionsEnum) ||
-      'dateDesc';
+      (sessionStorage.getItem(StorageNames.SORT_BY) as
+        | SortOptionsEnum
+        | undefined) ?? 'dateDesc';
 
     if (Object.keys(SortOptionsEnum).includes(sortBy)) {
       setSortBy(sortBy);
@@ -87,22 +86,27 @@ export const GridProvider = ({
     const queryString = qs.parse(window.location.search, {
       ignoreQueryPrefix: true,
     });
-    const searchQuery = queryString.search?.toString() || '';
+    const searchQuery = queryString.search?.toString() ?? '';
     setSearchQuery(searchQuery);
   }, [setSortBy, setSearchQuery, setShowSpecials]);
 
-  return (
-    <GridContext.Provider
-      value={{
-        showSpecials: state.showSpecials,
-        setShowSpecials,
-        searchQuery: state.searchQuery,
-        setSearchQuery,
-        sortBy: state.sortBy,
-        setSortBy,
-      }}
-    >
-      {children}
-    </GridContext.Provider>
-  );
-};
+  const value = useMemo(() => {
+    return {
+      showSpecials: state.showSpecials,
+      setShowSpecials,
+      searchQuery: state.searchQuery,
+      setSearchQuery,
+      sortBy: state.sortBy,
+      setSortBy,
+    };
+  }, [
+    setSearchQuery,
+    setShowSpecials,
+    setSortBy,
+    state.searchQuery,
+    state.sortBy,
+    state.showSpecials,
+  ]);
+
+  return <GridContext.Provider value={value}>{children}</GridContext.Provider>;
+}

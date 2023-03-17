@@ -1,5 +1,6 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import type { NextAuthOptions } from 'next-auth';
+import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
@@ -35,7 +36,7 @@ export const authOptions: NextAuthOptions = {
     maxAge: SESSION_MAX_AGE,
   },
   callbacks: {
-    async session({ session, user }) {
+    session({ session, user }) {
       session.user.id = user.id;
       session.user.role = user.role;
 

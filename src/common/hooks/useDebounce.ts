@@ -25,5 +25,5 @@ export function useDebounceEffect(
     }, delay);
     return () => clearTimeout(debounce);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [delay, ...(deps || [])]);
+  }, [delay, ...(deps ?? [])]);
 }

@@ -7,6 +7,7 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 
 import { useBreakpoint } from '@/common/hooks/useBreakpoint';
+import { parseQueryParam } from '@/common/utils';
 import Button from '@/components/shared/Button';
 import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
@@ -17,27 +18,28 @@ import ProfileLink from './ProfileLink';
 import Search from './Search';
 import { Container, HomeLink } from './StyledHeader';
 
-const Header = () => {
+function Header() {
   const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
   const router = useRouter();
   const desktop = useBreakpoint(parseInt(breakpoints.mobileHeader));
+  const refFolgeId = parseQueryParam(router.query.id);
 
-  const handleHomeClick = (e: React.MouseEvent<HTMLElement>) => {
+  const handleHomeClick = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
 
     setSearchQuery('');
 
     if (router.route === '/') {
       if (router.query.ref) {
-        router.replace('/', '/', { shallow: true }); // removes url query params
+        await router.replace('/', '/', { shallow: true }); // removes url query params
       }
 
       return window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     if (router.query.id) {
-      return router.push(`/?ref=${router.query.id}`);
+      return router.push(`/?ref=${refFolgeId}`);
     }
 
     return router.push('/');
@@ -101,6 +103,6 @@ const Header = () => {
       </Container>
     </Headroom>
   );
-};
+}
 
 export default Header;

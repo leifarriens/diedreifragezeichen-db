@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { CSSProperties, memo, useEffect, useRef } from 'react';
+import type { CSSProperties } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
 import CommunityRating from '@/components/CommunityRating';
 import ListButton from '@/components/ListButton';

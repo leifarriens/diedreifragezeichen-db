@@ -1,9 +1,9 @@
 import { useSession } from 'next-auth/react';
 import { trpc } from 'utils/trpc';
 
-type QueryOptions = {
+interface QueryOptions {
   onMutationSuccess: () => void;
-};
+}
 
 export function useUserRating(
   folge_id: string,
@@ -21,14 +21,13 @@ export function useUserRating(
   );
 
   const mutation = trpc.folge.addRating.useMutation({
-    onSuccess: () => {
-      utils.user.rating.invalidate();
+    onSuccess: async () => {
+      await utils.user.rating.invalidate();
       onMutationSuccess();
     },
   });
 
   const isLoading = query.isFetching || mutation.isLoading;
-  const error = query.error || mutation.error;
 
-  return { userRating: query.data, isLoading, error, mutate: mutation.mutate };
+  return { userRating: query.data, isLoading, mutate: mutation.mutate };
 }

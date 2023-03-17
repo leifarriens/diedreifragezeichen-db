@@ -1,4 +1,5 @@
-import Axios, { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
+import Axios from 'axios';
 
 import artist from '../../../config/artist.json';
 

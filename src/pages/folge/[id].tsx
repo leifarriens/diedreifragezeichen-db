@@ -1,6 +1,6 @@
 import { Types } from 'mongoose';
-import { GetStaticPaths, GetStaticProps } from 'next';
-import { ParsedUrlQuery } from 'querystring';
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
+import type { ParsedUrlQuery } from 'querystring';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
@@ -12,14 +12,13 @@ import RelatedFolgen from '@/modules/RelatedFolgen';
 import { getAllFolgenIds, getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
-type FolgePageProps = {
+interface FolgePageProps {
   folge: FolgeWithId;
-};
+}
 
-export default function Folge({ folge }: FolgePageProps) {
+const Folge: NextPage<FolgePageProps> = ({ folge }) => {
   const number = folge.number ? `Folge ${parseInt(folge.number)}` : '';
   const title = `${number} ${folge.name}`;
-  const description = `${title}: ${folge.inhalt}`;
 
   const ogImage = folge.images[1];
 
@@ -27,7 +26,7 @@ export default function Folge({ folge }: FolgePageProps) {
     <>
       <Seo
         title={title}
-        description={description}
+        description={folge.inhalt && `${title}: ${folge.inhalt}`}
         canonicalpath={`/folgen/${folge._id}`}
         openGraph={{
           images: [
@@ -52,7 +51,7 @@ export default function Folge({ folge }: FolgePageProps) {
       </Wrapper>
     </>
   );
-}
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect();
@@ -94,3 +93,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     revalidate: 10,
   };
 };
+
+export default Folge;

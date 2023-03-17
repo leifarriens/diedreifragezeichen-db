@@ -5,18 +5,18 @@ import styled, { css } from 'styled-components';
 import { useDebounceEffect } from '@/common/hooks/useDebounce';
 import { colors } from '@/constants/theme';
 
-export type RangeChangeEvent = {
+export interface RangeChangeEvent {
   min: number;
   max: number;
-};
+}
 
-type MultiRangeInputProps = {
+interface MultiRangeInputProps {
   min: number;
   max: number;
   onChange?: (event: RangeChangeEvent) => void;
-};
+}
 
-const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
+function MultiRangeInput({ min, max, onChange }: MultiRangeInputProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -53,7 +53,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
 
   useDebounceEffect(
     () => {
-      onChange && onChange({ min: minVal, max: maxVal });
+      onChange?.({ min: minVal, max: maxVal });
     },
 
     150,
@@ -102,7 +102,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
       </div>
     </Container>
   );
-};
+}
 
 const Container = styled.div`
   --slider-height: 8px;

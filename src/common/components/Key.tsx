@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-type KeyProps = {
+interface KeyProps {
   icon: React.ElementType<{ color: string; size: number }>;
   color?: string;
   size?: number;
@@ -9,7 +9,7 @@ type KeyProps = {
   disabled?: boolean;
   label: string;
   onPress?: () => void;
-};
+}
 
 export function Key({
   icon: Icon,

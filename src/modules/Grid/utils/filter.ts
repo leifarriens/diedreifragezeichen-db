@@ -2,7 +2,7 @@ import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
 
 import type { YearRange } from '../types';
-import { SortOptionsEnum } from '../types';
+import type { SortOptionsEnum } from '../types';
 import { sortFolgen } from './sort';
 
 export const filterSpecial = (folgen: FolgeWithId[], showSpecials = true) => {
@@ -27,7 +27,7 @@ export const filterYearRange = (
 
 export const filterByQuery = (folgen: FolgeWithId[], searchQuery: string) => {
   const filterFolge = (folge: FolgeWithId) => {
-    const name = folge.number + folge.name;
+    const name = folge.name.concat(folge.number);
 
     if (name.match(new RegExp(searchQuery, 'i'))) {
       return true;
@@ -47,13 +47,13 @@ export const filterUnrated = (folgen: FolgeWithId[], onlyUnrated = false) => {
   return onlyUnrated ? folgen.filter((folge) => !folge.user_rating) : folgen;
 };
 
-type FilterOptions = {
+interface FilterOptions {
   showSpecials?: boolean;
   searchQuery: string;
   sortBy?: SortOptionsEnum;
   yearRange?: YearRange;
   onlyUnrated?: boolean;
-};
+}
 
 export const applyFilter = (
   folgen: FolgeWithId[],

@@ -5,7 +5,7 @@ import '@/models/folge';
 import mongoose from 'mongoose';
 import * as z from 'zod';
 
-import { MongoId, SchemaType } from '@/types';
+import type { MongoId, SchemaType } from '@/types';
 
 export const ratingValidator = z.object({
   user: z.instanceof(mongoose.Types.ObjectId).or(z.string()),
@@ -52,6 +52,7 @@ const ratingSchema = new mongoose.Schema<RatingSchema>(
 
 const getModel = () => mongoose.model('Rating', ratingSchema);
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 export const Rating = (mongoose.models.Rating || getModel()) as ReturnType<
   typeof getModel
 >;

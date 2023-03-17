@@ -5,14 +5,18 @@ import styled from 'styled-components';
 import { colors } from '@/constants/theme';
 import Wrapper from '@/layout/Wrapper';
 
+import { parseQueryParam } from '../utils';
+
 function BackButton() {
   const router = useRouter();
+  const folgeId = parseQueryParam(router.query.id);
+
   return (
     <ButtonContainer>
       <button
         type="button"
         aria-label="Zurück"
-        onClick={() => router.push(`/?ref=${router.query.id}`)}
+        onClick={() => router.push(`/?ref=${folgeId}`)}
       >
         <IoMdArrowBack size={28} color={colors.white} />
       </button>

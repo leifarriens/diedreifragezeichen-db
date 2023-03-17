@@ -15,9 +15,9 @@ import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { Folge } from '@/models/folge';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
 
-function Profile({
+const Profile = ({
   numberOfFolgen,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const limit = 20;
 
   const { data, fetchNextPage, isFetching } =
@@ -62,7 +62,7 @@ function Profile({
       </ProfilLayout>
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
