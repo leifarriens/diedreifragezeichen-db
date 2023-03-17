@@ -1,4 +1,5 @@
 import { TRPCError } from '@trpc/server';
+import type { SortOrder } from 'mongoose';
 import { z } from 'zod';
 
 import { Folge } from '@/common/models/folge';
@@ -53,6 +54,7 @@ export const folgeRouter = router({
       z.object({
         query: z.string(),
         specials: z.boolean().default(true),
+        sort: z.enum(['release_date', 'rating']).default('release_date'),
         cursor: z.number().default(0),
       }),
     )
@@ -66,10 +68,12 @@ export const folgeRouter = router({
         ...(type && { type }),
       };
 
+      const sort: { [key: string]: SortOrder } = { [input.sort]: -1 };
+
       const folgen = await Folge.find(query)
         .limit(limit)
         .skip(offset)
-        .sort('-release_date')
+        .sort(sort)
         .lean();
 
       const total = await Folge.countDocuments(query);
