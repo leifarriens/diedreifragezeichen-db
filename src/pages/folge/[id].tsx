@@ -12,9 +12,9 @@ import RelatedFolgen from '@/modules/RelatedFolgen';
 import { getAllFolgenIds, getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
-type FolgePageProps = {
+interface FolgePageProps {
   folge: FolgeWithId;
-};
+}
 
 export default function Folge({ folge }: FolgePageProps) {
   const number = folge.number ? `Folge ${parseInt(folge.number)}` : '';

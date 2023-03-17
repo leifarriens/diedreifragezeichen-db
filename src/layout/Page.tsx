@@ -5,9 +5,9 @@ import Header from './Header';
 import Main from './Main';
 import ScrollToTop from './ScrollToTop';
 
-type LayoutProps = {
+interface LayoutProps {
   children: ReactNode | ReactNode[];
-};
+}
 
 export default function Layout({ children }: LayoutProps) {
   return (

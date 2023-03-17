@@ -7,11 +7,11 @@ import {
   IconContainer,
 } from './StyledRatingInput';
 
-type RatingInputProps = {
+interface RatingInputProps {
   defaultValue: number | undefined;
   disabled?: boolean;
   onRate?: (newRating: number) => void;
-};
+}
 
 function RatingInput({
   defaultValue = 0,

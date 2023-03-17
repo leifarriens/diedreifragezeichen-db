@@ -7,7 +7,7 @@ export type RatingWithFolge = RatingWithId & {
   folge: FolgeWithId;
 };
 
-export type SpotifyAlbum = {
+export interface SpotifyAlbum {
   id: string;
   name: string;
   images: {
@@ -17,7 +17,7 @@ export type SpotifyAlbum = {
   }[];
   release_date: Date;
   artists: unknown;
-};
+}
 
 export type MongoId = string; //mongoose.Types.ObjectId | string;
 

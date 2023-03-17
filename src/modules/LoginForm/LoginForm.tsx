@@ -10,16 +10,14 @@ import { colors } from '@/constants/theme';
 
 import SocialLoginButton from './SocialLoginButton';
 
-type ProviderButtons = {
-  [name: string]: ProviderButton;
-};
+type ProviderButtons = Record<string, ProviderButton>;
 
-type ProviderButton = {
+interface ProviderButton {
   icon: React.ReactElement;
   bgColor: string;
   color: string;
   disabled?: boolean;
-};
+}
 
 const size = 20;
 
@@ -62,7 +60,7 @@ export const LoginForm = ({
   error,
 }: {
   providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
+    LiteralUnion<BuiltInProviderType>,
     ClientSafeProvider
   > | null;
   error: string;

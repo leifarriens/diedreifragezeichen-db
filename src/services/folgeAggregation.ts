@@ -6,7 +6,7 @@ import { Folge } from '../common/models/folge';
 const folgeAggregation = ({
   queryFields,
 }: {
-  queryFields: { [key: string]: string | number };
+  queryFields: Record<string, string | number>;
 }) => [
   {
     $lookup: {
@@ -45,11 +45,11 @@ const folgeAggregation = ({
   { $unset: ['__v', 'ratings'] },
 ];
 
-type GetFolgenOptions = {
+interface GetFolgenOptions {
   fields?: string[];
   specials?: boolean;
   limit?: number;
-};
+}
 
 export async function getFolgen(options: GetFolgenOptions = {}) {
   const { fields = [] } = options;

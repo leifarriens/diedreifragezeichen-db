@@ -47,13 +47,13 @@ export const filterUnrated = (folgen: FolgeWithId[], onlyUnrated = false) => {
   return onlyUnrated ? folgen.filter((folge) => !folge.user_rating) : folgen;
 };
 
-type FilterOptions = {
+interface FilterOptions {
   showSpecials?: boolean;
   searchQuery: string;
   sortBy?: SortOptionsEnum;
   yearRange?: YearRange;
   onlyUnrated?: boolean;
-};
+}
 
 export const applyFilter = (
   folgen: FolgeWithId[],

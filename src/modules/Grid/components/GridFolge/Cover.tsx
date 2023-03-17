@@ -5,11 +5,11 @@ import type { Image } from '@/models/folge';
 
 import { Background, Overlay } from './StyledFolge';
 
-type CoverProps = {
+interface CoverProps {
   images: Image[];
   alt: string;
   coverOnly: boolean;
-};
+}
 
 export default function Cover({ images, alt, coverOnly }: CoverProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0 });

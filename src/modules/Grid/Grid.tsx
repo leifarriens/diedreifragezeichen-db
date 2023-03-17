@@ -13,12 +13,12 @@ import { useBackgroundSortTheme } from './hooks';
 import { FolgenContainer, GridUI } from './StyledGrid';
 import { applyFilter } from './utils/filter';
 
-type GridProps = {
+interface GridProps {
   folgen: FolgeWithId[];
   coverOnly?: boolean;
   withFilters?: boolean;
   withUi?: boolean;
-};
+}
 
 const initialYearRange = {
   min: 1979,
@@ -105,7 +105,7 @@ const Grid = (props: GridProps) => {
         </>
       )}
 
-      {props.folgen && props.folgen.length > 0 && (
+      {props.folgen.length > 0 && (
         <FolgenContainer>
           {filteredFolgen.map((folge) => (
             <GridFolge

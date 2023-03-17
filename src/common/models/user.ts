@@ -49,6 +49,7 @@ const userSchema = new mongoose.Schema<UserSchema>(
 
 const getModel = () => mongoose.model('User', userSchema);
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 export const User = (mongoose.models.User || getModel()) as ReturnType<
   typeof getModel
 >;

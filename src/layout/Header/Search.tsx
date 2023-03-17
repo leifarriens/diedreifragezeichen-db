@@ -63,7 +63,7 @@ const Search = () => {
   const clearInput = () => setValue('');
 
   const hideSearchResults =
-    router.pathname === '/' || router.pathname.indexOf('admin') !== -1;
+    router.pathname === '/' || router.pathname.includes('admin');
 
   return (
     <div

@@ -57,9 +57,10 @@ const sortByPopularity = (folgen: FolgeWithId[]) => {
   return sorted.reverse();
 };
 
-interface IDictionary {
-  [id: string]: (a: RatingWithFolge, b: RatingWithFolge) => number;
-}
+type IDictionary = Record<
+  string,
+  (a: RatingWithFolge, b: RatingWithFolge) => number
+>;
 
 export const folgenSort: IDictionary = {
   byUserRating: (a: RatingWithFolge, b: RatingWithFolge) => {

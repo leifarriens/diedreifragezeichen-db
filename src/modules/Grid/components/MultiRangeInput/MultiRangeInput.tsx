@@ -5,16 +5,16 @@ import styled, { css } from 'styled-components';
 import { useDebounceEffect } from '@/common/hooks/useDebounce';
 import { colors } from '@/constants/theme';
 
-export type RangeChangeEvent = {
+export interface RangeChangeEvent {
   min: number;
   max: number;
-};
+}
 
-type MultiRangeInputProps = {
+interface MultiRangeInputProps {
   min: number;
   max: number;
   onChange?: (event: RangeChangeEvent) => void;
-};
+}
 
 const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
   const [minVal, setMinVal] = useState(min);
@@ -53,7 +53,7 @@ const MultiRangeInput = ({ min, max, onChange }: MultiRangeInputProps) => {
 
   useDebounceEffect(
     () => {
-      onChange && onChange({ min: minVal, max: maxVal });
+      onChange?.({ min: minVal, max: maxVal });
     },
 
     150,

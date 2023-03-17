@@ -8,9 +8,9 @@ import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
-type ProfileLinkProps = {
+interface ProfileLinkProps {
   user?: Session['user'];
-};
+}
 
 function ProfileLink({ user }: ProfileLinkProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

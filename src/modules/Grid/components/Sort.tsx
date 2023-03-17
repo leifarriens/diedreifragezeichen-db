@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 import { SortOptionsEnum } from '../types';
 
-type SortProps = {
+interface SortProps {
   currentSort: string;
   onSortChange: (value: string) => void;
-};
+}
 
 export default function Sort({ currentSort, onSortChange }: SortProps) {
   const sortVariants = [

@@ -3,10 +3,10 @@ import { load } from 'cheerio';
 const RESOURCE_URL =
   'https://play-europa.de/produktwelt/hoerspiele/produktliste/die-drei';
 
-type InhaltData = {
+interface InhaltData {
   name: string;
   body: string;
-};
+}
 
 export async function getAllInhalte() {
   const numberOfPages = await getNumberOfPages();

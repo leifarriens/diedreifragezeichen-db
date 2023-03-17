@@ -19,7 +19,7 @@ export default function SignIn({
   backgroundSrc,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const error = router.query?.error as string;
+  const error = router.query.error as string;
 
   return (
     <>

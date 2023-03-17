@@ -20,7 +20,7 @@ export default async function handler(
       return res.status(401).end('Invalid App Key provided');
     }
 
-    const slug = req.query.slug?.[0] as 'folgen' | 'inhalte' | 'deezer';
+    const slug = req.query.slug?.[0];
 
     try {
       await dbConnect();

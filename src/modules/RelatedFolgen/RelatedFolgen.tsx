@@ -8,9 +8,9 @@ import { Grid } from '@/modules/Grid';
 
 import { useRelatedFolgen } from './useRelatedFolgen';
 
-type RelatedFolgenProps = {
+interface RelatedFolgenProps {
   folgeId: string;
-};
+}
 
 export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
   const router = useRouter();

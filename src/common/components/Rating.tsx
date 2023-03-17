@@ -5,10 +5,10 @@ import { useUserRating } from '@/hooks';
 
 import RatingInput from './RatingInput';
 
-type RatingProps = {
+interface RatingProps {
   folge_id: string;
   folge_name: string;
-};
+}
 
 export default function Rating({ folge_id, folge_name }: RatingProps) {
   const { data: session, status } = useSession();

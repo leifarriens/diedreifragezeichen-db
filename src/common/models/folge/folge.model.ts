@@ -41,6 +41,7 @@ const folgeSchema = new mongoose.Schema<FolgeSchema>(
 
 const getModel = () => mongoose.model('Folge', folgeSchema);
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 export const Folge = (mongoose.models.Folge || getModel()) as ReturnType<
   typeof getModel
 >;

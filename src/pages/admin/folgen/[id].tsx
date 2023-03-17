@@ -158,9 +158,9 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   );
 }
 
-type Params = {
+interface Params {
   id: string;
-};
+}
 
 export async function getServerSideProps({
   req,

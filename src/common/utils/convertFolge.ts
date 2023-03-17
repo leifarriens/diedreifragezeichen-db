@@ -24,7 +24,7 @@ export default function convertFolge({
     folge.name = name;
   }
 
-  folge.number = name.match(/\d/g)?.join('') || '';
+  folge.number = name.match(/\d/g)?.join('') ?? '';
 
   return folge;
 }

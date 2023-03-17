@@ -14,9 +14,9 @@ type UserWithList = {
   list: FolgeWithId[];
 } & Omit<UserWithId, 'list'>;
 
-type MerklistePageProps = {
+interface MerklistePageProps {
   user: UserWithList;
-};
+}
 
 function Merkliste({ user }: MerklistePageProps) {
   return (

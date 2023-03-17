@@ -52,6 +52,7 @@ const ratingSchema = new mongoose.Schema<RatingSchema>(
 
 const getModel = () => mongoose.model('Rating', ratingSchema);
 
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 export const Rating = (mongoose.models.Rating || getModel()) as ReturnType<
   typeof getModel
 >;
