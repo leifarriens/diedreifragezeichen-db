@@ -64,7 +64,11 @@ export default function AdminFolgen() {
       {isFetchingNextPage && <Loader />}
 
       {hasNextPage && (
-        <InView onChange={(inView) => inView && fetchNextPage()} />
+        <InView
+          onChange={(inView) => {
+            inView && fetchNextPage();
+          }}
+        />
       )}
     </div>
   );

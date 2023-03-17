@@ -11,11 +11,13 @@
     "eslint:recommended",
     "eslint-config-next",
     "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier"
   ],
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     },
@@ -53,6 +55,10 @@
     "prettier/prettier": "warn",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": false }
+    ],
     "@next/next/no-img-element": "off"
   }
 }

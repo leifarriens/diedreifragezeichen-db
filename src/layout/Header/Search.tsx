@@ -28,12 +28,12 @@ const Search = () => {
     if (searchQuery === '') setValue('');
   }, [searchQuery]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       ref.current?.blur();
 
       if (router.pathname !== '/') {
-        router.push({ pathname: '/' });
+        await router.push({ pathname: '/' });
       }
     }
 

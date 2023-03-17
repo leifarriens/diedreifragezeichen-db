@@ -21,8 +21,8 @@ export function useUserRating(
   );
 
   const mutation = trpc.folge.addRating.useMutation({
-    onSuccess: () => {
-      utils.user.rating.invalidate();
+    onSuccess: async () => {
+      await utils.user.rating.invalidate();
       onMutationSuccess();
     },
   });

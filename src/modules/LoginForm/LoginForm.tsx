@@ -1,4 +1,5 @@
-import type { SessionProviderProps } from 'next-auth/react';
+import type { BuiltInProviderType } from 'next-auth/providers';
+import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
 import { FaApple, FaDiscord, FaFacebook, FaSpotify } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -60,7 +61,10 @@ export const LoginForm = ({
   providers,
   error,
 }: {
-  providers: SessionProviderProps;
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null;
   error: string;
 }) => (
   <FormContainer>
@@ -77,15 +81,15 @@ export const LoginForm = ({
         <hr />
       </>
     )}
-    {Object.values(providers).map((provider) => (
-      <SocialLoginButton
-        key={provider.id}
-        name={provider.name}
-        onClick={() => signIn(provider.id)}
-        disabled={provider.disabled}
-        {...providerButtons[provider.id]}
-      />
-    ))}
+    {providers &&
+      Object.values(providers).map((provider) => (
+        <SocialLoginButton
+          key={provider.id}
+          name={provider.name}
+          onClick={() => signIn(provider.id)}
+          {...providerButtons[provider.id]}
+        />
+      ))}
   </FormContainer>
 );
 

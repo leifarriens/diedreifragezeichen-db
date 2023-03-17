@@ -19,7 +19,6 @@ type FolgePageProps = {
 export default function Folge({ folge }: FolgePageProps) {
   const number = folge.number ? `Folge ${parseInt(folge.number)}` : '';
   const title = `${number} ${folge.name}`;
-  const description = `${title}: ${folge.inhalt}`;
 
   const ogImage = folge.images[1];
 
@@ -27,7 +26,7 @@ export default function Folge({ folge }: FolgePageProps) {
     <>
       <Seo
         title={title}
-        description={description}
+        description={folge.inhalt && `${title}: ${folge.inhalt}`}
         canonicalpath={`/folgen/${folge._id}`}
         openGraph={{
           images: [

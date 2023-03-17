@@ -29,14 +29,14 @@ export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
           icon={FiArrowLeft}
           disabled={!prevId}
           label="Zur vorherigen Folge"
-          onPress={() => router.push(`/folge/${prevId}`)}
+          onPress={() => prevId && router.push(`/folge/${prevId}`)}
         />
         <Key
           // keyCode="ArrowRight"
           icon={FiArrowRight}
           disabled={!nextId}
           label="Zur nächsten Folge"
-          onPress={() => router.push(`/folge/${nextId}`)}
+          onPress={() => nextId && router.push(`/folge/${nextId}`)}
         />
       </div>
 

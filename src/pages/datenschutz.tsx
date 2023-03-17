@@ -1,6 +1,6 @@
 import fs from 'fs';
 import matter from 'gray-matter';
-import type { GetStaticProps, InferGetStaticPropsType } from 'next';
+import type { InferGetStaticPropsType } from 'next';
 import path from 'path';
 
 import { Seo } from '@/components/Seo/Seo';
@@ -27,20 +27,19 @@ function Datenschutz({
 
 const directory = path.join(process.cwd(), 'src', 'content');
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps = async () => {
   const fullPath = path.join(directory, 'datenschutz.md');
 
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-  const { data, content } = matter(fileContents);
+  const file = matter(fileContents);
 
-  const html = await markdownToHtml(content || '');
+  const title = file.data.title as string;
+
+  const html = await markdownToHtml(file.content);
 
   return {
-    props: {
-      title: data.title,
-      html,
-    },
+    props: { title, html },
   };
 };
 

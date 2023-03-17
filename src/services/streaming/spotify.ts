@@ -27,7 +27,7 @@ const SpotifyAPI = {
 
 const getBearerToken = async () => {
   try {
-    const response = await SpotifyAPI.accounts.post(
+    const response = await SpotifyAPI.accounts.post<{ access_token: string }>(
       '/token',
       qs.stringify({
         grant_type: 'client_credentials',
@@ -39,6 +39,7 @@ const getBearerToken = async () => {
     console.log(error);
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
+    throw Error(error.response?.statusText);
   }
 };
 

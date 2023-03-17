@@ -46,15 +46,11 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   const type = watch('type');
 
   const { mutate, isLoading } = trpc.folge.update.useMutation({
-    onSuccess: () => {
-      router.push('/admin/folgen');
-    },
+    onSuccess: () => router.push('/admin/folgen'),
   });
 
   const deleteMutation = trpc.folge.delete.useMutation({
-    onSuccess: () => {
-      router.replace('/admin/folgen');
-    },
+    onSuccess: () => router.replace('/admin/folgen'),
   });
 
   function handleDelete() {

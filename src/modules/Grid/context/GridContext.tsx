@@ -66,7 +66,9 @@ export const GridProvider = ({
 
   useEffect(() => {
     const show = localStorage.getItem(StorageNames.SHOW_SPECIALS)
-      ? JSON.parse(localStorage.getItem(StorageNames.SHOW_SPECIALS) || '')
+      ? (JSON.parse(
+          localStorage.getItem(StorageNames.SHOW_SPECIALS) || '',
+        ) as boolean)
       : false;
 
     setShowSpecials(show);

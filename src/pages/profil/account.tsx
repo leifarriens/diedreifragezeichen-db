@@ -12,9 +12,7 @@ import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 
 function AccountPage() {
   const { mutate } = trpc.user.delete.useMutation({
-    onSuccess: () => {
-      signOut();
-    },
+    onSuccess: () => signOut(),
   });
 
   function handleDelete() {

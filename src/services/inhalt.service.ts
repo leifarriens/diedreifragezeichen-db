@@ -41,14 +41,14 @@ export async function getAllInhalte() {
 
 // utils
 async function getNumberOfPages() {
-  const { data } = await Axios(RESOURCE_URL);
+  const { data } = await Axios.get<string>(RESOURCE_URL);
   const html = load(data);
 
   return parseInt(html('.pagination').find('li:nth-last-child(2)').text());
 }
 
 async function getPage(pageNumber: number) {
-  const res = Axios.get(RESOURCE_URL, {
+  const res = Axios.get<string>(RESOURCE_URL, {
     params: {
       page: pageNumber,
     },
