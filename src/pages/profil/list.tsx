@@ -1,11 +1,11 @@
 import type { GetServerSidePropsContext } from 'next';
-import { trpc } from 'utils/trpc';
 
 import { Loader } from '@/common/components/shared/Loader';
 import ProfilLayout from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo/Seo';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { Grid } from '@/modules/Grid';
+import { trpc } from '@/utils/trpc';
 
 const Merkliste = () => {
   const { data, isLoading } = trpc.user.listWithFolgen.useQuery();

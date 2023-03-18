@@ -2,9 +2,9 @@ import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
-import { trpc } from 'utils/trpc';
 
 import { colors } from '@/constants/theme';
+import { trpc } from '@/utils/trpc';
 
 import { SpinningLoader } from './shared/Loader';
 
