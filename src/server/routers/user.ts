@@ -18,6 +18,10 @@ export const userRouter = router({
   list: authedProcedure.query(async ({ ctx }) => {
     const user = await User.findById(ctx.session?.user.id).lean();
 
+    if (!user) {
+      throw new TRPCError({ code: 'NOT_FOUND' });
+    }
+
     return user.list.map((id) => id.toString());
   }),
   ratings: authedProcedure.query(async ({ ctx }) => {
