@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { useDebounceEffect } from '@/common/hooks/useDebounce';
+import { useDebounceEffect } from '@/common/hooks';
 import { colors } from '@/constants/theme';
 
 export interface RangeChangeEvent {
