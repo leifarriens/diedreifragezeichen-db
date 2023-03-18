@@ -11,7 +11,7 @@ function Links() {
         maxWidth="1280px"
         className="grid grid-cols-3 justify-items-center"
       >
-        <ProfileTabLink path="/" label="Bewertungen" />
+        <ProfileTabLink path="" label="Bewertungen" />
         <ProfileTabLink path="/list" label="Merkliste" />
         <ProfileTabLink path="/account" label="Account" />
       </Wrapper>
@@ -34,7 +34,7 @@ function ProfileTabLink({ path, label }: ProfileTabLinkProps) {
       className={classnames(
         'border-b-4 border-transparent hover:border-b-ddfLightblue',
         {
-          'border-b-ddfLightblue': pathname == href,
+          'border-b-ddfLightblue': pathname === href,
         },
       )}
     >
