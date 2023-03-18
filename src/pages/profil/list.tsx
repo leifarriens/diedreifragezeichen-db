@@ -8,20 +8,22 @@ import { Grid } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';
 
 const MerklistPage = () => {
-  const { data, isLoading } = trpc.user.listWithFolgen.useQuery();
+  const { data, isLoading, error } = trpc.user.listWithFolgen.useQuery();
+
+  const emptyList = error?.data?.code === 'NOT_FOUND' || data?.length === 0;
 
   return (
     <>
       <Seo title="Merkliste" canonicalpath="/profil/list" />
 
       <ProfilLayout>
-        {data && <Grid folgen={data} />}
+        {isLoading && <Loader />}
 
-        {data?.length === 0 && (
-          <p className="text-center">Noch keine Folgen auf der Merkliste</p>
+        {emptyList && (
+          <p className="text-center">Keine Folgen auf der Merkliste</p>
         )}
 
-        {isLoading && <Loader />}
+        {data && <Grid folgen={data} />}
       </ProfilLayout>
     </>
   );
