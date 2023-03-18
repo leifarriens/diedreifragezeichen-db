@@ -1,34 +1,23 @@
 import type { GetServerSidePropsContext } from 'next';
+import { trpc } from 'utils/trpc';
 
+import { Loader } from '@/common/components/shared/Loader';
 import ProfilLayout from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo/Seo';
-import dbConnect from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
-import type { FolgeWithId } from '@/models/folge';
-import type { UserWithId } from '@/models/user';
 import { Grid } from '@/modules/Grid';
-import { getUserWithList } from '@/services/user.service';
-import { parseMongo } from '@/utils/index';
 
-type UserWithList = {
-  list: FolgeWithId[];
-} & Omit<UserWithId, 'list'>;
+const Merkliste = () => {
+  const { data, isLoading } = trpc.user.listWithFolgen.useQuery();
 
-interface MerklistePageProps {
-  user: UserWithList;
-}
-
-const Merkliste = ({ user }: MerklistePageProps) => {
   return (
     <>
       <Seo title="Merkliste" canonicalpath="/profil/list" />
 
       <ProfilLayout>
-        {user.list.length > 0 ? (
-          <Grid folgen={user.list.reverse()} />
-        ) : (
-          <p>Du hast noch keine Folgen auf der Merkliste.</p>
-        )}
+        {data && <Grid folgen={data} />}
+
+        {isLoading && <Loader />}
       </ProfilLayout>
     </>
   );
@@ -49,17 +38,7 @@ export const getServerSideProps = async ({
     };
   }
 
-  await dbConnect();
-
-  const userData = await getUserWithList(session.user.id);
-
-  const user = parseMongo(userData);
-
-  return {
-    props: {
-      user,
-    },
-  };
+  return { props: {} };
 };
 
 export default Merkliste;
