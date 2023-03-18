@@ -1,7 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import 'next-auth';
 
-import { DefaultUser } from 'next-auth';
+import type { DefaultUser } from 'next-auth';
 
 import type { Role } from '@/models/user';
 

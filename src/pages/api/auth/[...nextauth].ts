@@ -1,6 +1,7 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter';
 import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
+import DiscordProvider from 'next-auth/providers/discord';
 import GoogleProvider from 'next-auth/providers/google';
 import SpotifyProvider from 'next-auth/providers/spotify';
 
@@ -15,6 +16,14 @@ export const authOptions: NextAuthOptions = {
           GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+    ...(process.env.DISCORD_CLIENT_ID
+      ? [
+          DiscordProvider({
+            clientId: process.env.DISCORD_CLIENT_ID,
+            clientSecret: process.env.DISCORD_CLIENT_SECRET,
           }),
         ]
       : []),
