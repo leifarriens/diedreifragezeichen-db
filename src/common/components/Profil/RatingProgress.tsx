@@ -17,12 +17,13 @@ export default function RatingProgress({
     ((numberOfRatings / numberOfFolgen) * 100).toFixed(0) + '%';
 
   return (
-    <div className="my-8  rounded-xl bg-black p-10 shadow-xl">
-      {numberOfRatings >= 2 && (
-        <p className="col-span-3 mb-4">
-          Du hast bereits {numberOfRatings.toString()} Folgen bewertet
-        </p>
-      )}
+    <div className="my-8 rounded-xl bg-black p-10 shadow-xl">
+      <p className="col-span-3 mb-4">
+        {numberOfRatings === 0 && 'Du hast noch keine Folgen bewertet'}
+        {numberOfRatings === 1 && 'Du hast breits eine Folge bewertet'}
+        {numberOfRatings > 1 &&
+          `Du hast bereits ${numberOfRatings.toString()} Folgen bewertet`}
+      </p>
       <ProgressBar
         className="col-span-3 mb-1 h-6 w-full appearance-none"
         value={numberOfRatings}

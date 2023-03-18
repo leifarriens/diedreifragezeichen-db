@@ -5,6 +5,8 @@ declare global {
       SPOTIFY_CLIENT_SECRET: string;
       GOOGLE_CLIENT_ID: string;
       GOOGLE_CLIENT_SECRET: string;
+      DISCORD_CLIENT_ID: string;
+      DISCORD_CLIENT_SECRET: string;
       MONGO_URI: string;
       MONGO_DATABASE: string;
       DEEZER_API_KEY: string;
