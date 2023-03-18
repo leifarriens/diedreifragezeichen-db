@@ -1,7 +1,3 @@
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
 
@@ -9,15 +5,10 @@ import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import { Seo } from '@/components/Seo/Seo';
 import { Loader } from '@/components/shared/Loader';
-import dbConnect from '@/db/connect';
-import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
-import { Folge } from '@/models/folge';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';
 
-const Profile = ({
-  numberOfFolgen,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const ProfilePage = () => {
   const limit = 20;
 
   const { data, fetchNextPage, isFetching } =
@@ -36,11 +27,12 @@ const Profile = ({
   return (
     <>
       <Seo title="Bewertungen" canonicalpath="/profil" />
+
       <ProfilLayout>
         {data && (
           <RatingProgress
             numberOfRatings={data.pages[0].total}
-            numberOfFolgen={numberOfFolgen}
+            numberOfFolgen={200}
           />
         )}
 
@@ -64,30 +56,4 @@ const Profile = ({
   );
 };
 
-export const getServerSideProps = async ({
-  req,
-  res,
-}: GetServerSidePropsContext) => {
-  const session = await getServerAuthSesion(req, res);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/api/auth/signin',
-        permanent: false,
-      },
-    };
-  }
-
-  await dbConnect();
-
-  const numberOfFolgen = await Folge.count();
-
-  return {
-    props: {
-      numberOfFolgen,
-    },
-  };
-};
-
-export default Profile;
+export default ProfilePage;
