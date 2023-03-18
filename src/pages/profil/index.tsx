@@ -1,12 +1,12 @@
 import React from 'react';
 import { InView } from 'react-intersection-observer';
-import { trpc } from 'utils/trpc';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import { Seo } from '@/components/Seo/Seo';
 import { Loader } from '@/components/shared/Loader';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
+import { trpc } from '@/utils/trpc';
 
 const ProfilePage = () => {
   const limit = 20;

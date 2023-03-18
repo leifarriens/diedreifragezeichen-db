@@ -1,5 +1,6 @@
 import { useSession } from 'next-auth/react';
-import { trpc } from 'utils/trpc';
+
+import { trpc } from '@/utils/trpc';
 
 export function useUser() {
   const { status } = useSession();

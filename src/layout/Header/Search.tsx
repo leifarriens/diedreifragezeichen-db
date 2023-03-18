@@ -7,8 +7,7 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { Loader } from '@/common/components/shared/Loader';
 import { useDebounceEffect } from '@/hooks';
 import { useGridState } from '@/modules/Grid';
-
-import { trpc } from '../../utils/trpc';
+import { trpc } from '@/utils/trpc';
 
 function Search() {
   const ref = useRef<HTMLInputElement | null>(null);
