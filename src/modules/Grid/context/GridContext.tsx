@@ -1,6 +1,5 @@
 import qs from 'qs';
 import type { ReactNode } from 'react';
-import { useMemo } from 'react';
 import { createContext, useCallback, useEffect, useReducer } from 'react';
 
 import { SortOptionsEnum } from '@/modules/Grid/types';
@@ -90,23 +89,18 @@ export function GridProvider({
     setSearchQuery(searchQuery);
   }, [setSortBy, setSearchQuery, setShowSpecials]);
 
-  const value = useMemo(() => {
-    return {
-      showSpecials: state.showSpecials,
-      setShowSpecials,
-      searchQuery: state.searchQuery,
-      setSearchQuery,
-      sortBy: state.sortBy,
-      setSortBy,
-    };
-  }, [
-    setSearchQuery,
-    setShowSpecials,
-    setSortBy,
-    state.searchQuery,
-    state.sortBy,
-    state.showSpecials,
-  ]);
-
-  return <GridContext.Provider value={value}>{children}</GridContext.Provider>;
+  return (
+    <GridContext.Provider
+      value={{
+        showSpecials: state.showSpecials,
+        setShowSpecials,
+        searchQuery: state.searchQuery,
+        setSearchQuery,
+        sortBy: state.sortBy,
+        setSortBy,
+      }}
+    >
+      {children}
+    </GridContext.Provider>
+  );
 }

@@ -27,9 +27,9 @@ export const filterYearRange = (
 
 export const filterByQuery = (folgen: FolgeWithId[], searchQuery: string) => {
   const filterFolge = (folge: FolgeWithId) => {
-    const name = folge.name.concat(folge.number);
-
-    if (name.match(new RegExp(searchQuery, 'i'))) {
+    if (
+      folge.name.concat(folge.number ?? '').match(new RegExp(searchQuery, 'i'))
+    ) {
       return true;
     }
 

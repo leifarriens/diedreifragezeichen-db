@@ -5,8 +5,8 @@ import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import { trpc } from 'utils/trpc';
 
 import { colors } from '@/constants/theme';
-import { useUser } from '@/hooks';
 
+// import { useUser } from '@/hooks';
 import { SpinningLoader } from './shared/Loader';
 
 interface ListButtonProps {
@@ -17,21 +17,18 @@ interface ListButtonProps {
 
 function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: session, status } = useSession();
-  const { data: user, isLoading: userLoading } = useUser();
+  // const { data: user, isLoading: userLoading } = useUser();
+  const { data: list, isLoading: listLoading } = trpc.user.list.useQuery();
   const utils = trpc.useContext();
 
-  const isOnUserList =
-    user?.list && user.list.map((id) => id).includes(folgeId);
+  const isOnUserList = list?.map((id) => id).includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: addIsLoading } =
     trpc.user.addToList.useMutation({
       onMutate: () => {
-        if (user) {
-          utils.user.self.setData(undefined, {
-            ...user,
-            list: [...user.list, folgeId],
-          });
-        }
+        utils.user.list.setData(undefined, (curr) =>
+          curr ? [...curr, folgeId] : [folgeId],
+        );
       },
       onSuccess: () => {
         toast.success(
@@ -45,12 +42,9 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { mutate: mutateRemove, isLoading: removeIsLoading } =
     trpc.user.removeFromList.useMutation({
       onMutate: () => {
-        if (user) {
-          utils.user.self.setData(undefined, {
-            ...user,
-            list: user.list.filter((id) => id !== folgeId),
-          });
-        }
+        utils.user.list.setData(undefined, (curr) =>
+          curr ? curr.filter((id) => id !== folgeId) : [],
+        );
       },
       onSuccess: () => {
         toast(
@@ -62,7 +56,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
       },
     });
 
-  const isLoading = userLoading || addIsLoading || removeIsLoading;
+  const isLoading = listLoading || addIsLoading || removeIsLoading;
 
   function handleClick() {
     if (!session) return signIn();
@@ -75,7 +69,7 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     return mutateRemove({ folgeId });
   }
 
-  if (status === 'loading' || userLoading) {
+  if (status === 'loading' || listLoading) {
     return null;
   }
 
