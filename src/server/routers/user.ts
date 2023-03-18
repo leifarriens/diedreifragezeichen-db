@@ -70,24 +70,6 @@ export const userRouter = router({
         total,
       };
     }),
-  rating: authedProcedure
-    .input(
-      z.object({
-        folgeId: z.string(),
-      }),
-    )
-    .query(async ({ ctx, input: { folgeId } }) => {
-      const rating = await getUserFolgenRating({
-        folgeId,
-        userId: ctx.user.id,
-      });
-
-      if (!rating) {
-        throw new TRPCError({ code: 'NOT_FOUND' });
-      }
-
-      return rating.value;
-    }),
   addToList: authedProcedure
     .input(
       z.object({
