@@ -1,7 +1,6 @@
 import type { GetServerSidePropsContext } from 'next';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
-import { trpc } from '@/utils/trpc';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo/Seo';
@@ -9,6 +8,7 @@ import Button from '@/components/shared/Button';
 // import Switch from '@/components/shared/Switch';
 import { colors } from '@/constants/theme';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
+import { trpc } from '@/utils/trpc';
 
 const AccountPage = () => {
   const { mutate } = trpc.user.delete.useMutation({

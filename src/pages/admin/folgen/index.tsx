@@ -4,8 +4,6 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
-import type { RouterOutput } from '@/utils/trpc';
-import { trpc } from '@/utils/trpc';
 
 import { Loader } from '@/common/components/shared/Loader';
 import Switch from '@/common/components/shared/Switch';
@@ -14,6 +12,8 @@ import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
+import type { RouterOutput } from '@/utils/trpc';
+import { trpc } from '@/utils/trpc';
 
 const AdminFolgen: NextPage = () => {
   const { searchQuery, showSpecials, setShowSpecials } = useGridState();
