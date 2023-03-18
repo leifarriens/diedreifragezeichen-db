@@ -14,6 +14,10 @@ const MerklistPage = () => {
       <ProfilLayout>
         {data && <Grid folgen={data} />}
 
+        {data?.length === 0 && (
+          <p className="text-center">Noch keine Folgen auf der Merkliste</p>
+        )}
+
         {isLoading && <Loader />}
       </ProfilLayout>
     </>
