@@ -4,8 +4,10 @@ import styled from 'styled-components';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo';
-import Button from '@/components/shared/Button';
-// import Switch from '@/components/shared/Switch';
+import {
+  Button,
+  // Switch
+} from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { trpc } from '@/utils/trpc';

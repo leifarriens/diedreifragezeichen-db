@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared';
 
 interface SocialLoginButtonProps {
   name: string;

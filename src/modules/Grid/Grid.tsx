@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 
-import Switch from '@/components/shared/Switch';
+import { Switch } from '@/components/shared';
 import type { FolgeWithId } from '@/models/folge';
 
 import GridFolge from './components/GridFolge/GridFolge';

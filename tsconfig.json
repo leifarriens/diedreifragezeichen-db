@@ -23,7 +23,7 @@
       "@/*": ["./*"],
       "@/components/*": ["common/components/*"],
       "@/context/*": ["common/context/*"],
-      "@/hooks": ["common/hooks/*"],
+      "@/common/hooks": ["common/hooks/"],
       "@/models/*": ["common/models/*"],
       "@/styles/*": ["common/styles/*"],
       "@/utils/*": ["common/utils/*"],

@@ -9,7 +9,7 @@ import type { FolgeWithId } from '@/models/folge';
 import CommunityRating from '../CommunityRating';
 import ListButton from '../ListButton';
 import Rating from '../Rating';
-import Button from '../shared/Button';
+import { Button } from '../shared';
 
 function Folge({ folge }: { folge: FolgeWithId }) {
   const {

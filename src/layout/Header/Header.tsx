@@ -6,9 +6,9 @@ import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 
-import { useBreakpoint } from '@/common/hooks';
+import { useBreakpoint } from '@/common/hooks/';
 import { parseQueryParam } from '@/common/utils';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared';
 import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
 import { useGridState } from '@/modules/Grid';

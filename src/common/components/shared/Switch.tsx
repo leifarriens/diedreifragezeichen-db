@@ -7,7 +7,7 @@ interface SwitchProps {
   onChange?: (checked: boolean) => void;
 }
 
-function Switch({ label, checked, onChange, ...rest }: SwitchProps) {
+export function Switch({ label, checked, onChange, ...rest }: SwitchProps) {
   const id = useId();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -91,5 +91,3 @@ const SwitchContainer = styled.div`
     box-shadow: var(--ui-outline);
   }
 `;
-
-export default Switch;

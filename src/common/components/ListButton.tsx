@@ -6,7 +6,7 @@ import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
 
-import { SpinningLoader } from './shared/Loader';
+import { SpinningLoader } from './shared';
 
 interface ListButtonProps {
   folgeId: string;

@@ -5,7 +5,7 @@ import { InView } from 'react-intersection-observer';
 import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
 import { Seo } from '@/components/Seo';
-import { Loader } from '@/components/shared/Loader';
+import { Loader } from '@/components/shared';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';

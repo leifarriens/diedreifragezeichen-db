@@ -6,8 +6,7 @@ import type { ParsedUrlQuery } from 'querystring';
 import type { SubmitHandler } from 'react-hook-form';
 import { useForm } from 'react-hook-form';
 
-import Button from '@/components/shared/Button';
-import { Form, Input, Select, Textarea } from '@/components/shared/Input';
+import { Button, Form, Input, Select, Textarea } from '@/components/shared';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';

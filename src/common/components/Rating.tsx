@@ -1,7 +1,7 @@
 import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 
-import { useUserRating } from '@/hooks';
+import { useUserRating } from '@/common/hooks';
 
 import RatingInput from './RatingInput';
 
