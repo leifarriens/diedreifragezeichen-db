@@ -1,3 +1,4 @@
+import type { GetServerSidePropsContext } from 'next/types';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 
@@ -6,6 +7,7 @@ import { Seo } from '@/components/Seo/Seo';
 import Button from '@/components/shared/Button';
 // import Switch from '@/components/shared/Switch';
 import { colors } from '@/constants/theme';
+import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { trpc } from '@/utils/trpc';
 
 const AccountPage = () => {
@@ -58,6 +60,26 @@ const AccountPage = () => {
       </ProfilLayout>
     </>
   );
+};
+
+export const getServerSideProps = async ({
+  req,
+  res,
+}: GetServerSidePropsContext) => {
+  const session = await getServerAuthSesion(req, res);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/api/auth/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 const SectionBox = styled.div`
