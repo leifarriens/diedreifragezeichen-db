@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 import { Button, Form, Input, Select, Textarea } from '@/components/shared';
 import { colors } from '@/constants/theme';
-import dbConnect from '@/db/connect';
+import { dbConnect } from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import type { Folge, FolgeWithId } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';

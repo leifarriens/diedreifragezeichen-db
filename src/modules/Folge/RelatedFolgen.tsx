@@ -5,14 +5,13 @@ import { useInView } from 'react-intersection-observer';
 import { Key } from '@/components/Key';
 import { Loader } from '@/components/shared';
 import { Grid } from '@/modules/Grid';
-
-import { useRelatedFolgen } from './useRelatedFolgen';
+import { trpc } from '@/utils/trpc';
 
 interface RelatedFolgenProps {
   folgeId: string;
 }
 
-export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
+export function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
   const router = useRouter();
   const { ref, inView } = useInView({ triggerOnce: true });
   const { related, prevId, nextId } = useRelatedFolgen(folgeId, {
@@ -43,4 +42,26 @@ export default function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
       {!related ? <Loader /> : <Grid folgen={related} />}
     </div>
   );
+}
+
+function useRelatedFolgen(folgeId: string, options: { enabled: boolean }) {
+  const { data, isLoading } = trpc.folge.related.useQuery({ folgeId }, options);
+
+  if (!data) {
+    return {
+      related: undefined,
+      prevId: undefined,
+      nextId: undefined,
+    };
+  }
+
+  const currentIndex = data.findIndex((folge) => folge._id === folgeId);
+
+  return {
+    isLoading,
+    related: data,
+    prevId: currentIndex !== 0 ? data[currentIndex - 1]._id : null,
+    nextId:
+      currentIndex !== data.length - 1 ? data[currentIndex + 1]._id : null,
+  };
 }

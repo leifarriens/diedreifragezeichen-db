@@ -3,13 +3,12 @@ import { useRouter } from 'next/router';
 import type { CSSProperties } from 'react';
 import { memo, useEffect, useRef } from 'react';
 
-import CommunityRating from '@/components/CommunityRating';
-import ListButton from '@/components/ListButton';
+import { ListButton } from '@/components/ListButton';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
 
-import Cover from './Cover';
+import { Cover } from './Cover';
 import { FolgeContainer, RatingBadge } from './StyledFolge';
 
 interface GridFolgeProps {
@@ -19,7 +18,7 @@ interface GridFolgeProps {
   style?: CSSProperties;
 }
 
-const GridFolge = memo(function GridFolge({
+export const GridFolge = memo(function GridFolge({
   folge,
   userRating = null,
   coverOnly = false,
@@ -50,10 +49,12 @@ const GridFolge = memo(function GridFolge({
       {!coverOnly && (
         <div className="flex items-center justify-between py-2 px-3 text-sm">
           <div>
-            <CommunityRating
-              numerOfRatings={folge.number_of_ratings}
-              rating={folge.rating}
-            />
+            <div>
+              <span className="text-xl font-medium">
+                {folge.number_of_ratings >= 1 ? folge.rating : '???'}
+              </span>
+              /10
+            </div>
             <div className="text-xs font-extralight text-neutral-200">
               {dayjs(folge.release_date).format(DATE_FORMAT)}
             </div>
@@ -68,5 +69,3 @@ const GridFolge = memo(function GridFolge({
     </FolgeContainer>
   );
 });
-
-export default GridFolge;

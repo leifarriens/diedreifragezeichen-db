@@ -5,7 +5,7 @@ import path from 'path';
 
 import { Seo } from '@/components/Seo';
 import { Wrapper } from '@/layout';
-import markdownToHtml from '@/utils/markdownToHtml';
+import { markdownToHtml } from '@/utils/markdownToHtml';
 
 const Datenschutz = ({
   title,

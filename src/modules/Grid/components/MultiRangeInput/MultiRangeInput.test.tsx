@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import { describe, expect, test, vi } from 'vitest';
 
-import MultiRangeInput from './MultiRangeInput';
+import { MultiRangeInput } from './MultiRangeInput';
 
 describe('MultiRangeInput', () => {
   const min = 1;

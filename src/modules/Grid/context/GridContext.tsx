@@ -4,7 +4,7 @@ import { createContext, useCallback, useEffect, useReducer } from 'react';
 
 import { SortOptionsEnum } from '@/modules/Grid/types';
 
-import GridReducer, { ActionKind } from './GridReducer';
+import { ActionKind, GridReducer } from './GridReducer';
 
 export interface GridState {
   showSpecials: boolean;

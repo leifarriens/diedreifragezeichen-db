@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import { AiOutlineArrowUp } from 'react-icons/ai';
 
-export default function ScrollToTop() {
+export function ScrollToTop() {
   const scrollTopRef = useRef<HTMLDivElement | null>(null);
   const [visible, setVisible] = useState(false);
   const [atBottom, setAtBottom] = useState(false);

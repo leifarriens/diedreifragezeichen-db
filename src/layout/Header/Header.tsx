@@ -15,11 +15,11 @@ import { useGridState } from '@/modules/Grid';
 
 import LogoImg from '../../../public/logo.png';
 import { MerklistButton } from './MerklistButton';
-import ProfileLink from './ProfileLink';
-import Search from './Search';
+import { ProfileLink } from './ProfileLink';
+import { Search } from './Search';
 import { Container, HomeLink } from './StyledHeader';
 
-function Header() {
+export function Header() {
   const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
   const router = useRouter();
@@ -101,5 +101,3 @@ function Header() {
     </Headroom>
   );
 }
-
-export default Header;

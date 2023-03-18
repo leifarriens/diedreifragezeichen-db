@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { Wrapper } from '@/layout';
 
-function Links() {
+export function Links() {
   return (
     <div className="mb-4 bg-black py-6 text-2xl">
       <Wrapper
@@ -42,5 +42,3 @@ function ProfileTabLink({ path, label }: ProfileTabLinkProps) {
     </Link>
   );
 }
-
-export default Links;

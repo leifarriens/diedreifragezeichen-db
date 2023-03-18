@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-import Footer from '../Footer';
-import Header from '../Header';
-import Main from './Main';
-import ScrollToTop from './ScrollToTop';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
+import { Main } from './Main';
+import { ScrollToTop } from './ScrollToTop';
 
 interface LayoutProps {
   children: ReactNode | ReactNode[];

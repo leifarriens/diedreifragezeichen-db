@@ -2,16 +2,15 @@ import Image from 'next/image';
 import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
 import { Background } from '@/common/components/Background';
+import { ListButton } from '@/components/ListButton';
+import { Button } from '@/components/shared';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
 
-import CommunityRating from '../CommunityRating';
-import ListButton from '../ListButton';
-import Rating from '../Rating';
-import { Button } from '../shared';
+import { CommunityRating, UserRating } from './Rating';
 
-function Folge({ folge }: { folge: FolgeWithId }) {
+export function Folge({ folge }: { folge: FolgeWithId }) {
   const {
     images,
     name,
@@ -59,7 +58,7 @@ function Folge({ folge }: { folge: FolgeWithId }) {
             rating={rating}
           />
 
-          <Rating folge_id={_id} folge_name={name} />
+          <UserRating folge_id={_id} folge_name={name} />
 
           <div className="mt-6 flex items-center gap-4">
             <Button
@@ -101,5 +100,3 @@ function Folge({ folge }: { folge: FolgeWithId }) {
     </>
   );
 }
-
-export default Folge;

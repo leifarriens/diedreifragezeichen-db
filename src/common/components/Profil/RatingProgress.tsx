@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
 
-export default function RatingProgress() {
+export function RatingProgress() {
   const totalQuery = trpc.folge.total.useQuery();
   const ratingsQuery = trpc.user.ratings.useQuery();
 

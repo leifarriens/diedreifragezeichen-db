@@ -1,6 +1,6 @@
 import { ObjectId } from 'mongodb';
 
-import clientPromise from '@/db/authConn';
+import { clientPromise } from '@/db/authConn';
 
 export async function deleteUser(userId: string) {
   const client = await clientPromise;

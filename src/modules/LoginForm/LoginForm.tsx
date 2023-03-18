@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
-import SocialLoginButton from './SocialLoginButton';
+import { SocialLoginButton } from './SocialLoginButton';
 
 type ProviderButtons = Record<string, ProviderButton>;
 

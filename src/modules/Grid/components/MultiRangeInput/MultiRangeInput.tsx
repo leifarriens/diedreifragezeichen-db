@@ -16,7 +16,7 @@ interface MultiRangeInputProps {
   onChange?: (event: RangeChangeEvent) => void;
 }
 
-function MultiRangeInput({ min, max, onChange }: MultiRangeInputProps) {
+export function MultiRangeInput({ min, max, onChange }: MultiRangeInputProps) {
   const [minVal, setMinVal] = useState(min);
   const [maxVal, setMaxVal] = useState(max);
   const minValRef = useRef<HTMLInputElement>(null);
@@ -221,5 +221,3 @@ const RangeInput = styled.input`
     }
   }
 `;
-
-export default MultiRangeInput;

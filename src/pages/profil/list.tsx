@@ -1,7 +1,7 @@
 import type { GetServerSidePropsContext } from 'next/types';
 
 import { Loader } from '@/common/components/shared';
-import ProfilLayout from '@/components/Profil/Layout';
+import { ProfilLayout } from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { Grid } from '@/modules/Grid';

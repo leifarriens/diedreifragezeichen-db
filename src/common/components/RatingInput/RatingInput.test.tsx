@@ -1,7 +1,7 @@
 import { cleanup, render } from '@testing-library/react';
 import { afterEach, describe, expect, test } from 'vitest';
 
-import RatingInput from './RatingInput';
+import { RatingInput } from './RatingInput';
 
 afterEach(() => {
   cleanup();

@@ -12,7 +12,7 @@ interface SocialLoginButtonProps {
   disabled?: boolean;
 }
 
-export default function SocialLoginButton({
+export function SocialLoginButton({
   name,
   icon,
   bgColor,

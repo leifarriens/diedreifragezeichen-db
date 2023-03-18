@@ -1,1 +1,1 @@
-export { default } from './MultiRangeInput';
+export * from './MultiRangeInput';

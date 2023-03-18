@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import dbConnect from '@/db/connect';
+import { dbConnect } from '@/db/connect';
 import { Folge } from '@/models/folge';
 import { parseQueryParam } from '@/utils/index';
 

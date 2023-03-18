@@ -3,10 +3,9 @@ import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
+import { SpinningLoader } from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
-
-import { SpinningLoader } from './shared';
 
 interface ListButtonProps {
   folgeId: string;
@@ -14,7 +13,11 @@ interface ListButtonProps {
   iconSize?: string | number;
 }
 
-function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
+export function ListButton({
+  folgeId,
+  folgeName,
+  iconSize = 20,
+}: ListButtonProps) {
   const { data: session, status } = useSession();
   const { data: list, isLoading: listLoading } = trpc.user.list.useQuery();
   const utils = trpc.useContext();
@@ -98,11 +101,8 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
 
 function MerklistenLink() {
   return (
-    // eslint-disable-next-line no-inline-styles/no-inline-styles
-    <Link href="/profil/list" style={{ textDecoration: 'underline' }}>
+    <Link href="/profil/list" className="underline">
       Merkliste
     </Link>
   );
 }
-
-export default ListButton;

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export default function Footer() {
+export function Footer() {
   return (
     <>
       <div className="mt-24 mb-10 text-center text-sm text-neutral-400">

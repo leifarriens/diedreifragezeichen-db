@@ -1,12 +1,7 @@
 import type { Folge } from '@/models/folge';
 import type { SpotifyAlbum } from '@/types';
 
-export default function convertFolge({
-  name,
-  images,
-  id,
-  release_date,
-}: SpotifyAlbum) {
+export function convertFolge({ name, images, id, release_date }: SpotifyAlbum) {
   const folge = {
     images,
     release_date,

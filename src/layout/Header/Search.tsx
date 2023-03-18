@@ -9,7 +9,7 @@ import { useDebounceEffect } from '@/common/hooks';
 import { useGridState } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';
 
-function Search() {
+export function Search() {
   const ref = useRef<HTMLInputElement | null>(null);
   const { setSearchQuery, searchQuery } = useGridState();
   const [value, setValue] = useState(searchQuery);
@@ -146,5 +146,3 @@ function SearchResults({ query }: { query: string }) {
     </div>
   );
 }
-
-export default Search;

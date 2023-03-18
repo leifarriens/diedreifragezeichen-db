@@ -2,7 +2,7 @@ import type { GetServerSidePropsContext } from 'next/types';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 
-import ProfilLayout from '@/components/Profil/Layout';
+import { ProfilLayout } from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo';
 import {
   Button,

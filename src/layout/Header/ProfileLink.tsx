@@ -12,7 +12,7 @@ interface ProfileLinkProps {
   user?: Session['user'];
 }
 
-function ProfileLink({ user }: ProfileLinkProps) {
+export function ProfileLink({ user }: ProfileLinkProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const src = !user?.image ? '/white_small.png' : user.image;
   const ref = useRef<HTMLDivElement>(null);
@@ -153,5 +153,3 @@ const Avatar = styled.img`
     background-color: ${colors.gray};
   }
 `;
-
-export default ProfileLink;

@@ -1,18 +1,16 @@
 import { useRouter } from 'next/router';
 import { IoMdArrowBack } from 'react-icons/io';
-import styled from 'styled-components';
 
+import { parseQueryParam } from '@/common/utils';
 import { colors } from '@/constants/theme';
 import { Wrapper } from '@/layout';
 
-import { parseQueryParam } from '../utils';
-
-function BackButton() {
+export function BackButton() {
   const router = useRouter();
   const folgeId = parseQueryParam(router.query.id);
 
   return (
-    <ButtonContainer>
+    <Wrapper className="mt-8">
       <button
         type="button"
         aria-label="Zurück"
@@ -20,12 +18,6 @@ function BackButton() {
       >
         <IoMdArrowBack size={28} color={colors.white} />
       </button>
-    </ButtonContainer>
+    </Wrapper>
   );
 }
-
-const ButtonContainer = styled(Wrapper)`
-  margin-top: 2em;
-`;
-
-export default BackButton;
