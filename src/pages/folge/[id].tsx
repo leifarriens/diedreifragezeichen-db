@@ -4,9 +4,9 @@ import type { ParsedUrlQuery } from 'querystring';
 
 import BackButton from '@/components/BackButton';
 import FolgeComponent from '@/components/Folge';
-import { Seo } from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo';
 import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
+import { Wrapper } from '@/layout';
 import type { FolgeWithId } from '@/models/folge';
 import RelatedFolgen from '@/modules/RelatedFolgen';
 import { getAllFolgenIds, getFolge } from '@/services/folge.service';

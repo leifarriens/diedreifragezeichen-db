@@ -7,7 +7,7 @@ import { Seo } from '@/components/Seo';
 import Button from '@/components/shared/Button';
 import { colors } from '@/constants/theme';
 import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
+import { Wrapper } from '@/layout';
 import { Grid } from '@/modules/Grid';
 import { parseMongo } from '@/utils/index';
 

@@ -3,7 +3,7 @@ import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 
 import ProfilLayout from '@/components/Profil/Layout';
-import { Seo } from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo';
 import Button from '@/components/shared/Button';
 // import Switch from '@/components/shared/Switch';
 import { colors } from '@/constants/theme';

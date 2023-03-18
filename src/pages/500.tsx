@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 
-import Wrapper from '@/layout/Wrapper';
+import { Wrapper } from '@/layout';
 
 const InternalServerError: NextPage = () => {
   return (

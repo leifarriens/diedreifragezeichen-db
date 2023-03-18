@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import Footer from './Footer';
-import Header from './Header';
+import Footer from '../Footer';
+import Header from '../Header';
 import Main from './Main';
 import ScrollToTop from './ScrollToTop';
 
@@ -9,7 +9,7 @@ interface LayoutProps {
   children: ReactNode | ReactNode[];
 }
 
-export default function Layout({ children }: LayoutProps) {
+export function Page({ children }: LayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />

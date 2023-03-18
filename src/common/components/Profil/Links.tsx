@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Wrapper from '@/layout/Wrapper';
+import { Wrapper } from '@/layout';
 
 function Links() {
   return (

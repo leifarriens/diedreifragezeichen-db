@@ -3,7 +3,7 @@ import { IoMdArrowBack } from 'react-icons/io';
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
-import Wrapper from '@/layout/Wrapper';
+import { Wrapper } from '@/layout';
 
 import { parseQueryParam } from '../utils';
 

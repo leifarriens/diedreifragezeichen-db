@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div<{ maxWidth?: string; center?: boolean }>`
+export const Wrapper = styled.div<{ maxWidth?: string; center?: boolean }>`
   --maxWidth: ${(props) => props.maxWidth};
 
   flex: 1;
@@ -27,5 +27,3 @@ const Wrapper = styled.div<{ maxWidth?: string; center?: boolean }>`
     padding-right: 80px;
   }
 `;
-
-export default Wrapper;

@@ -3,8 +3,8 @@ import matter from 'gray-matter';
 import type { InferGetStaticPropsType } from 'next';
 import path from 'path';
 
-import { Seo } from '@/components/Seo/Seo';
-import Wrapper from '@/layout/Wrapper';
+import { Seo } from '@/components/Seo';
+import { Wrapper } from '@/layout';
 import markdownToHtml from '@/utils/markdownToHtml';
 
 const Datenschutz = ({

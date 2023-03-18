@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import Wrapper from '@/layout/Wrapper';
+import { Wrapper } from '@/layout';
 
 import Links from './Links';
 
