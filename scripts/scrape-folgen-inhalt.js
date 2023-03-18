@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const Axios = require('axios');
 const cheerio = require('cheerio');
 const cliProgress = require('cli-progress');
