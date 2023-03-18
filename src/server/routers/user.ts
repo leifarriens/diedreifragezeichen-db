@@ -11,9 +11,14 @@ import { authedProcedure, router } from '../trpc';
 
 export const userRouter = router({
   self: authedProcedure.query(async ({ ctx }) => {
-    const user = User.findById(ctx.session?.user.id).lean();
+    const user = await User.findById(ctx.session?.user.id).lean();
 
     return user;
+  }),
+  list: authedProcedure.query(async ({ ctx }) => {
+    const user = await User.findById(ctx.session?.user.id).lean();
+
+    return user.list.map((id) => id.toString());
   }),
   ratings: authedProcedure.query(async ({ ctx }) => {
     const ratings = await getUserRatings(ctx.user.id, {
