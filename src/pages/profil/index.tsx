@@ -14,7 +14,7 @@ const ProfilePage = () => {
   const limit = 20;
 
   const { data, fetchNextPage, isFetching } =
-    trpc.user.infiniteRatings.useInfiniteQuery(
+    trpc.user.ratedFolgen.useInfiniteQuery(
       { limit },
       {
         getNextPageParam: (lastPage) => {
@@ -31,12 +31,7 @@ const ProfilePage = () => {
       <Seo title="Bewertungen" canonicalpath="/profil" />
 
       <ProfilLayout>
-        {data && (
-          <RatingProgress
-            numberOfRatings={data.pages[0].total}
-            numberOfFolgen={200}
-          />
-        )}
+        <RatingProgress />
 
         <FolgenContainer>
           {data?.pages.map((groupe, i) => (

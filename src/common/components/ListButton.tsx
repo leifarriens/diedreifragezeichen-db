@@ -62,7 +62,6 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
     if (!session) return signIn();
 
     if (!isOnUserList) {
-      console.log(folgeId);
       return mutateAdd({ folgeId });
     }
 

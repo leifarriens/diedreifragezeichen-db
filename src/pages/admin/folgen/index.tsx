@@ -96,7 +96,6 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
       toast.error(error.message);
     },
     onSuccess(data) {
-      console.log(data);
       toast.success(`Deezer sync success. Wrote ${data.nModified} updates`);
       onSyncSuccess();
     },

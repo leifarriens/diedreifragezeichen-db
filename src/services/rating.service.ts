@@ -53,13 +53,3 @@ export async function getUserRatings(
 
   return Rating.find({ user: userId }).select(fields).lean();
 }
-
-export async function getUserFolgenRating({
-  folgeId,
-  userId,
-}: {
-  folgeId: string;
-  userId: string;
-}) {
-  return Rating.findOne({ folge: folgeId, user: userId }).lean();
-}

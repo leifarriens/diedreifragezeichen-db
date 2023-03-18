@@ -1,20 +1,16 @@
 import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
-import type { RatingWithFolge } from '@/types';
+import { trpc } from '@/utils/trpc';
 
-interface RatingProgressProps {
-  numberOfRatings: number;
-  ratings?: RatingWithFolge[];
-  numberOfFolgen: number;
-}
+export default function RatingProgress() {
+  const totalQuery = trpc.folge.total.useQuery();
+  const ratingsQuery = trpc.user.ratings.useQuery();
 
-export default function RatingProgress({
-  numberOfRatings,
-  numberOfFolgen,
-}: RatingProgressProps) {
-  const ratetPercent =
-    ((numberOfRatings / numberOfFolgen) * 100).toFixed(0) + '%';
+  const numberOfFolgen = totalQuery.data;
+  const numberOfRatings = ratingsQuery.data?.length;
+
+  if (!numberOfFolgen || numberOfRatings === undefined) return null;
 
   return (
     <div className="my-8 rounded-xl bg-black p-10 shadow-xl">
@@ -26,12 +22,18 @@ export default function RatingProgress({
       </p>
       <ProgressBar
         className="col-span-3 mb-1 h-6 w-full appearance-none"
-        value={numberOfRatings}
+        value={numberOfFolgen ? numberOfRatings : 0}
         max={numberOfFolgen}
       />
       <div className="grid grid-cols-[auto_1fr_auto] justify-items-center font-bold">
         <span>{numberOfRatings.toString()}</span>
-        <span>{ratetPercent.toString()}</span>
+        <span>
+          {numberOfFolgen
+            ? (
+                ((numberOfRatings / numberOfFolgen) * 100).toFixed(0) + '%'
+              ).toString()
+            : ''}
+        </span>
         <span>{numberOfFolgen}</span>
       </div>
     </div>
