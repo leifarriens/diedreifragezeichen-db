@@ -13,8 +13,7 @@ import NProgress from 'nprogress';
 import Page from '@/layout/Page';
 import { Toaster } from '@/lib/Toaster';
 import { GridProvider } from '@/modules/Grid';
-
-import { trpc } from '../utils/trpc';
+import { trpc } from '@/utils/trpc';
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());

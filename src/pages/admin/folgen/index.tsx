@@ -4,8 +4,8 @@ import React from 'react';
 import toast from 'react-hot-toast';
 import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
-import type { RouterOutput } from 'utils/trpc';
-import { trpc } from 'utils/trpc';
+import type { RouterOutput } from '@/utils/trpc';
+import { trpc } from '@/utils/trpc';
 
 import { Loader } from '@/common/components/shared/Loader';
 import Switch from '@/common/components/shared/Switch';

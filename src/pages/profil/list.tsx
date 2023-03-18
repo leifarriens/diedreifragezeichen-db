@@ -1,5 +1,5 @@
 import type { GetServerSidePropsContext } from 'next';
-import { trpc } from 'utils/trpc';
+import { trpc } from '@/utils/trpc';
 
 import { Loader } from '@/common/components/shared/Loader';
 import ProfilLayout from '@/components/Profil/Layout';

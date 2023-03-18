@@ -4,7 +4,7 @@ import type {
 } from 'next';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
-import { trpc } from 'utils/trpc';
+import { trpc } from '@/utils/trpc';
 
 import ProfilLayout from '@/components/Profil/Layout';
 import RatingProgress from '@/components/Profil/RatingProgress';
