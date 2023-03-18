@@ -14,6 +14,7 @@ import { colors } from '@/constants/theme';
 import { useGridState } from '@/modules/Grid';
 
 import LogoImg from '../../../public/logo.png';
+import { MerklistButton } from './MerklistButton';
 import ProfileLink from './ProfileLink';
 import Search from './Search';
 import { Container, HomeLink } from './StyledHeader';
@@ -88,11 +89,7 @@ function Header() {
                       Bewertungen
                     </Button>
                   </Link>
-                  <Link href="/profil/list" legacyBehavior passHref>
-                    <Button as="a" ghost>
-                      Merkliste
-                    </Button>
-                  </Link>
+                  <MerklistButton />
                 </div>
 
                 <ProfileLink user={session.user} />

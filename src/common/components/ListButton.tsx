@@ -6,7 +6,6 @@ import { trpc } from 'utils/trpc';
 
 import { colors } from '@/constants/theme';
 
-// import { useUser } from '@/hooks';
 import { SpinningLoader } from './shared/Loader';
 
 interface ListButtonProps {
@@ -17,7 +16,6 @@ interface ListButtonProps {
 
 function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
   const { data: session, status } = useSession();
-  // const { data: user, isLoading: userLoading } = useUser();
   const { data: list, isLoading: listLoading } = trpc.user.list.useQuery();
   const utils = trpc.useContext();
 
@@ -30,12 +28,13 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
           curr ? [...curr, folgeId] : [folgeId],
         );
       },
-      onSuccess: () => {
+      onSuccess: async () => {
         toast.success(
           <span>
             <i>{folgeName}</i> zur <MerklistenLink /> hinzugefügt
           </span>,
         );
+        await utils.user.listWithFolgen.invalidate();
       },
     });
 
@@ -46,13 +45,14 @@ function ListButton({ folgeId, folgeName, iconSize = 20 }: ListButtonProps) {
           curr ? curr.filter((id) => id !== folgeId) : [],
         );
       },
-      onSuccess: () => {
+      onSuccess: async () => {
         toast(
           <span>
             <i>{folgeName}</i> von der <MerklistenLink /> entfernt
           </span>,
           { style: { backgroundColor: colors.red } },
         );
+        await utils.user.listWithFolgen.invalidate();
       },
     });
 
