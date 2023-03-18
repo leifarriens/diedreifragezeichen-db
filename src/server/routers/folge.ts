@@ -85,6 +85,24 @@ export const folgeRouter = router({
         total,
       };
     }),
+  total: publicProcedure
+    .input(
+      z
+        .object({
+          specials: z.boolean().default(true),
+        })
+        .default({
+          specials: true,
+        }),
+    )
+    .query(async ({ input }) => {
+      const type = !input.specials ? 'regular' : null;
+
+      const filter = { ...(type && { type }) };
+      const total = await Folge.countDocuments(filter);
+
+      return total;
+    }),
   byId: publicProcedure
     .input(
       z.object({
