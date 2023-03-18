@@ -76,6 +76,7 @@
   },
   "overrides": [
     {
+      // FIXME: Doesnt override pages/profile/*
       "files": ["*/pages/**/*.tsx"],
       "rules": {
         // Next.js page components are typed as arrow functions using the 'NextPage' type helper

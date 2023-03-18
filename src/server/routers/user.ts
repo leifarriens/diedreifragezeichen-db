@@ -24,6 +24,16 @@ export const userRouter = router({
 
     return user.list.map((id) => id.toString());
   }),
+  listWithFolgen: authedProcedure.query(async ({ ctx }) => {
+    const user = await User.findById(ctx.session?.user.id)
+      .populate<{ list: FolgeWithId[] }>({
+        path: 'list',
+        options: { sort: ['updated_at'] },
+      })
+      .lean();
+
+    return user?.list.reverse();
+  }),
   ratings: authedProcedure.query(async ({ ctx }) => {
     const ratings = await getUserRatings(ctx.user.id, {
       fields: ['-_id', 'folge', 'value'],
