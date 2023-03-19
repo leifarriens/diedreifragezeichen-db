@@ -13,7 +13,7 @@ import { colors } from '@/constants/theme';
 import { useBreakpoint } from '@/hooks';
 import { useGridState } from '@/modules/Grid';
 
-import LogoImg from '../../../public/logo.png';
+import LogoImg from '../../../../public/logo.png';
 import { MerklistButton } from './MerklistButton';
 import { ProfileLink } from './ProfileLink';
 import { Search } from './Search';
