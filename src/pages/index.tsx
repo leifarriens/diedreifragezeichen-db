@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 
 import { Seo } from '@/components/Seo';
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared';
 import { colors } from '@/constants/theme';
-import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
+import { dbConnect } from '@/db/connect';
+import { Wrapper } from '@/layout';
 import { Grid } from '@/modules/Grid';
 import { parseMongo } from '@/utils/index';
 

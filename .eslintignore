@@ -1,4 +1,6 @@
 .next/
 node_modules/
 next.config.js
+migrations/
 scripts/
+vitest.config.ts

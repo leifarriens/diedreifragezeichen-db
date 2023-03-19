@@ -2,13 +2,11 @@ import { Types } from 'mongoose';
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import type { ParsedUrlQuery } from 'querystring';
 
-import BackButton from '@/components/BackButton';
-import FolgeComponent from '@/components/Folge';
-import { Seo } from '@/components/Seo/Seo';
-import dbConnect from '@/db/connect';
-import Wrapper from '@/layout/Wrapper';
+import { Seo } from '@/components/Seo';
+import { dbConnect } from '@/db/connect';
+import { Wrapper } from '@/layout';
 import type { FolgeWithId } from '@/models/folge';
-import RelatedFolgen from '@/modules/RelatedFolgen';
+import { BackButton, Folge, RelatedFolgen } from '@/modules/Folge';
 import { getAllFolgenIds, getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
@@ -16,7 +14,7 @@ interface FolgePageProps {
   folge: FolgeWithId;
 }
 
-const Folge: NextPage<FolgePageProps> = ({ folge }) => {
+const FolgePage: NextPage<FolgePageProps> = ({ folge }) => {
   const number = folge.number ? `Folge ${parseInt(folge.number)}` : '';
   const title = `${number} ${folge.name}`;
 
@@ -43,7 +41,7 @@ const Folge: NextPage<FolgePageProps> = ({ folge }) => {
       <BackButton />
 
       <Wrapper maxWidth="1280px">
-        <FolgeComponent folge={folge} />
+        <Folge folge={folge} />
       </Wrapper>
 
       <Wrapper>
@@ -94,4 +92,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 };
 
-export default Folge;
+export default FolgePage;

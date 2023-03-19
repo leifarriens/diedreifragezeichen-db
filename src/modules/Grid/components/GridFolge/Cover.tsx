@@ -11,7 +11,7 @@ interface CoverProps {
   coverOnly: boolean;
 }
 
-export default function Cover({ images, alt, coverOnly }: CoverProps) {
+export function Cover({ images, alt, coverOnly }: CoverProps) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
 

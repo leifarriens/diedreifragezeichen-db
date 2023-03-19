@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { colors } from '@/constants/theme';
 
-const Button = styled.button<{
+export const Button = styled.button<{
   color?: string;
   ghost?: boolean;
   size?: 'default' | 'small';
@@ -37,5 +37,3 @@ const Button = styled.button<{
     cursor: not-allowed;
   }
 `;
-
-export default Button;

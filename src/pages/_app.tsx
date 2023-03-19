@@ -10,7 +10,7 @@ import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import NProgress from 'nprogress';
 
-import Page from '@/layout/Page';
+import { Page } from '@/layout';
 import { Toaster } from '@/lib/Toaster';
 import { GridProvider } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';

@@ -1,6 +1,5 @@
 import { Folge } from '@/models/folge';
-
-import { Rating } from '../common/models/rating';
+import { Rating } from '@/models/rating';
 
 export async function postFolgenRating({
   folgeId,

@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import { Folge as FolgeModel } from '@/models/folge';
-import convertFolge from '@/utils/convertFolge';
+import { convertFolge } from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
 import { getAllInhalte } from './inhalt.service';

@@ -51,6 +51,7 @@
       "error",
       { "checksVoidReturn": false }
     ],
+    "import/no-default-export": "error",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "no-inline-styles/no-inline-styles": "warn",
@@ -76,9 +77,10 @@
   },
   "overrides": [
     {
-      // FIXME: Doesnt override pages/profile/*
-      "files": ["*/pages/**/*.tsx"],
+      "files": ["src/pages/**/*.{ts,tsx}"],
       "rules": {
+        // Next.js pages are exported using default export
+        "import/no-default-export": "off",
         // Next.js page components are typed as arrow functions using the 'NextPage' type helper
         "react/function-component-definition": [
           "warn",

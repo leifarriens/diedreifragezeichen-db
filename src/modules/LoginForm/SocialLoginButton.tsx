@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared';
 
 interface SocialLoginButtonProps {
   name: string;
@@ -12,7 +12,7 @@ interface SocialLoginButtonProps {
   disabled?: boolean;
 }
 
-export default function SocialLoginButton({
+export function SocialLoginButton({
   name,
   icon,
   bgColor,

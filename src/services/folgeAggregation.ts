@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import type { Folge as FolgeType } from '../common/models/folge';
-import { Folge } from '../common/models/folge';
+import type { Folge as FolgeType } from '@/models/folge';
+import { Folge } from '@/models/folge';
 
 const folgeAggregation = ({
   queryFields,

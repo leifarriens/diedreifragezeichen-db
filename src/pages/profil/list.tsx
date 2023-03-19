@@ -1,10 +1,10 @@
 import type { GetServerSidePropsContext } from 'next/types';
 
-import { Loader } from '@/common/components/shared/Loader';
-import ProfilLayout from '@/components/Profil/Layout';
-import { Seo } from '@/components/Seo/Seo';
+import { Seo } from '@/components/Seo';
+import { Loader } from '@/components/shared';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { Grid } from '@/modules/Grid';
+import { ProfilLayout } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const MerklistPage = () => {

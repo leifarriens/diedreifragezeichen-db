@@ -2,7 +2,7 @@ import { TRPCError } from '@trpc/server';
 import type { SortOrder } from 'mongoose';
 import { z } from 'zod';
 
-import { Folge } from '@/common/models/folge';
+import { Folge } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { ratingValidator } from '@/models/rating';
 import {

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import dbConnect from '@/db/connect';
+import { dbConnect } from '@/db/connect';
 import { syncDeezer, syncFolgen, syncInhalte } from '@/services/syncFolgen';
 
 export default async function handler(
