@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
-import { Wrapper } from '@/layout';
+
+import { Wrapper } from '../Wrapper';
 
 /**
  * Headroom styles are injected by styles/global.scss

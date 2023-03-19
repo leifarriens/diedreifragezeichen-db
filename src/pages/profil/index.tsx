@@ -2,11 +2,11 @@ import type { GetServerSidePropsContext } from 'next/types';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
 
-import { ProfilLayout, RatingProgress } from '@/components/Profil';
 import { Seo } from '@/components/Seo';
 import { Loader } from '@/components/shared';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
+import { ProfilLayout, RatingProgress } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const ProfilePage = () => {

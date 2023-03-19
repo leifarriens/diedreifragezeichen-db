@@ -22,12 +22,10 @@
     "paths": {
       "@/*": ["./*"],
       "@/components/*": ["common/components/*"],
-      "@/context/*": ["common/context/*"],
-      "@/common/hooks": ["common/hooks/"],
-      "@/models/*": ["common/models/*"],
+      "@/layout": ["common/layout"],
+      "@/hooks": ["common/hooks"],
       "@/styles/*": ["common/styles/*"],
-      "@/utils/*": ["common/utils/*"],
-      "@/types": ["common/types/index.ts"]
+      "@/utils/*": ["common/utils/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,

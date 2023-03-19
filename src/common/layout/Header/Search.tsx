@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import React from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 
-import { Loader } from '@/common/components/shared';
-import { useDebounceEffect } from '@/common/hooks';
+import { Loader } from '@/components/shared';
+import { useDebounceEffect } from '@/hooks';
 import { useGridState } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';
 

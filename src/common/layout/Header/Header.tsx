@@ -6,11 +6,11 @@ import Headroom from 'react-headroom';
 import { AiOutlineClose } from 'react-icons/ai';
 import { FiLogIn } from 'react-icons/fi';
 
-import { useBreakpoint } from '@/common/hooks/';
 import { parseQueryParam } from '@/common/utils';
 import { Button } from '@/components/shared';
 import { breakpoints } from '@/constants/layout';
 import { colors } from '@/constants/theme';
+import { useBreakpoint } from '@/hooks';
 import { useGridState } from '@/modules/Grid';
 
 import LogoImg from '../../../public/logo.png';

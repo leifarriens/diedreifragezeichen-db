@@ -2,11 +2,10 @@ import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { Switch } from '@/components/shared';
+import { MultiRangeInput, Switch } from '@/components/shared';
 import type { FolgeWithId } from '@/models/folge';
 
 import { GridFolge } from './components/GridFolge';
-import { MultiRangeInput } from './components/MultiRangeInput';
 import { Sort } from './components/Sort';
 import { useFolgenWithUserRatings, useGridState } from './hooks';
 import { useBackgroundSortTheme } from './hooks';

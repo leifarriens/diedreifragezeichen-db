@@ -2,8 +2,8 @@ import classnames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
-import { useDebounceEffect } from '@/common/hooks';
 import { colors } from '@/constants/theme';
+import { useDebounceEffect } from '@/hooks';
 
 export interface RangeChangeEvent {
   min: number;

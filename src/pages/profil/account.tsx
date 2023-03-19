@@ -2,7 +2,6 @@ import type { GetServerSidePropsContext } from 'next/types';
 import { signOut } from 'next-auth/react';
 import styled from 'styled-components';
 
-import { ProfilLayout } from '@/components/Profil/Layout';
 import { Seo } from '@/components/Seo';
 import {
   Button,
@@ -10,6 +9,7 @@ import {
 } from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
+import { ProfilLayout } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const AccountPage = () => {

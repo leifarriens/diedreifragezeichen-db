@@ -6,12 +6,11 @@ import type {
 import { useRouter } from 'next/router';
 import { getProviders } from 'next-auth/react';
 
-import { Background } from '@/common/components/Background';
-import { Folge } from '@/common/models/folge';
 import { Seo } from '@/components/Seo';
 import { dbConnect } from '@/db/connect';
-import { Wrapper } from '@/layout';
+import { Background, Wrapper } from '@/layout';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
+import { Folge } from '@/models/folge';
 import { LoginForm } from '@/modules/LoginForm';
 import { parseQueryParam } from '@/utils/index';
 

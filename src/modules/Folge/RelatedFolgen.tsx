@@ -2,8 +2,7 @@ import { useRouter } from 'next/router';
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import { useInView } from 'react-intersection-observer';
 
-import { Key } from '@/components/Key';
-import { Loader } from '@/components/shared';
+import { Key, Loader } from '@/components/shared';
 import { Grid } from '@/modules/Grid';
 import { trpc } from '@/utils/trpc';
 

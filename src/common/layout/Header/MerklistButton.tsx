@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { Button } from '@/common/components/shared';
-import { useUserList } from '@/common/hooks';
+import { Button } from '@/components/shared';
+import { useUserList } from '@/hooks';
 
 export function MerklistButton() {
   const { data } = useUserList();

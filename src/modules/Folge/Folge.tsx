@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import { FaDeezer, FaSpotify } from 'react-icons/fa';
 
-import { Background } from '@/common/components/Background';
 import { ListButton } from '@/components/ListButton';
 import { Button } from '@/components/shared';
 import { DATE_FORMAT } from '@/constants/formats';
+import { Background } from '@/layout';
 import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
 

@@ -1,8 +1,8 @@
 import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 
-import { useUserRating } from '@/common/hooks';
 import { RatingInput } from '@/components/RatingInput';
+import { useUserRating } from '@/hooks';
 
 interface UserRatingProps {
   folge_id: string;
