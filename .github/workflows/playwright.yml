@@ -25,16 +25,24 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: 'yarn'
+
       - name: Install yarn
         run: npm install -g yarn
+
       - name: Install dependencies
         run: yarn
+
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium
+
       - name: Run Playwright tests
         run: yarn test:e2e
         env:
