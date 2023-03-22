@@ -3,4 +3,5 @@ node_modules/
 next.config.js
 migrations/
 scripts/
+tests/
 vitest.config.ts
