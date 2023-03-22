@@ -3,7 +3,7 @@ name: Playwright Tests
 on:
   pull_request:
     branches:
-      - development
+      - staging
 
 jobs:
   test_setup:
