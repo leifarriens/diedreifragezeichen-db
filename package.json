@@ -12,7 +12,8 @@
     "typecheck": "tsc",
     "prepare": "husky install",
     "test": "vitest",
-    "test:e2e": "npx playwright test"
+    "test:e2e": "npx playwright test",
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
