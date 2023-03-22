@@ -4,3 +4,4 @@ next.config.js
 migrations/
 scripts/
 vitest.config.ts
+playwright.config.ts

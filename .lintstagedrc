@@ -1,4 +1,4 @@
 {
-  "*.ts": ["eslint --cache --fix", "prettier --write"],
-  "*.tsx": ["eslint --cache --fix", "prettier --write"]
+  "*.ts": ["yarn lint:fix --cache", "yarn format"],
+  "*.tsx": ["yarn lint:fix --cache", "yarn format"]
 }
