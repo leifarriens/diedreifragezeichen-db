@@ -1,1 +1,1 @@
-export { default } from './RatingInput';
+export * from './RatingInput';

@@ -4,16 +4,36 @@ import { z } from 'zod';
 import type { FolgeWithId } from '@/models/folge';
 import { Rating } from '@/models/rating';
 import { User } from '@/models/user';
-import { getUserFolgenRating, getUserRatings } from '@/services/rating.service';
+import { getUserRatings } from '@/services/rating.service';
 import { deleteUser } from '@/services/user.service';
 
 import { authedProcedure, router } from '../trpc';
 
 export const userRouter = router({
   self: authedProcedure.query(async ({ ctx }) => {
-    const user = User.findById(ctx.session?.user.id).lean();
+    const user = await User.findById(ctx.session?.user.id).lean();
 
     return user;
+  }),
+  list: authedProcedure.query(async ({ ctx }) => {
+    const user = await User.findById(ctx.session?.user.id).lean();
+
+    if (!user?.list) {
+      throw new TRPCError({ code: 'NOT_FOUND' });
+    }
+
+    return user.list.map((id) => id.toString());
+  }),
+  listWithFolgen: authedProcedure.query(async ({ ctx }) => {
+    const user = await User.findById(ctx.session?.user.id)
+      .populate<{ list: FolgeWithId[] }>({ path: 'list' })
+      .lean();
+
+    if (!user?.list) {
+      throw new TRPCError({ code: 'NOT_FOUND' });
+    }
+
+    return user.list;
   }),
   ratings: authedProcedure.query(async ({ ctx }) => {
     const ratings = await getUserRatings(ctx.user.id, {
@@ -22,7 +42,7 @@ export const userRouter = router({
 
     return ratings;
   }),
-  infiniteRatings: authedProcedure
+  ratedFolgen: authedProcedure
     .input(
       z.object({
         limit: z.number().int().min(1).max(50).nullish(),
@@ -50,24 +70,6 @@ export const userRouter = router({
         offset,
         total,
       };
-    }),
-  rating: authedProcedure
-    .input(
-      z.object({
-        folgeId: z.string(),
-      }),
-    )
-    .query(async ({ ctx, input: { folgeId } }) => {
-      const rating = await getUserFolgenRating({
-        folgeId,
-        userId: ctx.user.id,
-      });
-
-      if (!rating) {
-        throw new TRPCError({ code: 'NOT_FOUND' });
-      }
-
-      return rating.value;
     }),
   addToList: authedProcedure
     .input(

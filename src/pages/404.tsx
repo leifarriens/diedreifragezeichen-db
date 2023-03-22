@@ -1,9 +1,13 @@
-import Wrapper from '@/layout/Wrapper';
+import type { NextPage } from 'next';
 
-export default function NotFound() {
+import { Wrapper } from '@/layout';
+
+const NotFound: NextPage = () => {
   return (
     <Wrapper>
       <h1>Nichts im Archiv</h1>
     </Wrapper>
   );
-}
+};
+
+export default NotFound;

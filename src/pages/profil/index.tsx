@@ -1,27 +1,19 @@
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from 'next';
+import type { GetServerSidePropsContext } from 'next/types';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
-import { trpc } from 'utils/trpc';
 
-import ProfilLayout from '@/components/Profil/Layout';
-import RatingProgress from '@/components/Profil/RatingProgress';
-import { Seo } from '@/components/Seo/Seo';
-import { Loader } from '@/components/shared/Loader';
-import dbConnect from '@/db/connect';
+import { Seo } from '@/components/Seo';
+import { Loader } from '@/components/shared';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
-import { Folge } from '@/models/folge';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
+import { ProfilLayout, RatingProgress } from '@/modules/Profil';
+import { trpc } from '@/utils/trpc';
 
-function Profile({
-  numberOfFolgen,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+const ProfilePage = () => {
   const limit = 20;
 
   const { data, fetchNextPage, isFetching } =
-    trpc.user.infiniteRatings.useInfiniteQuery(
+    trpc.user.ratedFolgen.useInfiniteQuery(
       { limit },
       {
         getNextPageParam: (lastPage) => {
@@ -36,13 +28,9 @@ function Profile({
   return (
     <>
       <Seo title="Bewertungen" canonicalpath="/profil" />
+
       <ProfilLayout>
-        {data && (
-          <RatingProgress
-            numberOfRatings={data.pages[0].total}
-            numberOfFolgen={numberOfFolgen}
-          />
-        )}
+        <RatingProgress />
 
         <FolgenContainer>
           {data?.pages.map((groupe, i) => (
@@ -62,7 +50,7 @@ function Profile({
       </ProfilLayout>
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
@@ -79,15 +67,9 @@ export const getServerSideProps = async ({
     };
   }
 
-  await dbConnect();
-
-  const numberOfFolgen = await Folge.count();
-
   return {
-    props: {
-      numberOfFolgen,
-    },
+    props: {},
   };
 };
 
-export default Profile;
+export default ProfilePage;

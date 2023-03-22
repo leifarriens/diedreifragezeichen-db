@@ -1,4 +1,4 @@
-import { SortOptionsEnum } from '@/modules/Grid/types';
+import type { SortOptionsEnum } from '@/modules/Grid/types';
 
 import type { GridState } from './GridContext';
 
@@ -13,7 +13,7 @@ type Action =
   | { type: ActionKind.SET_SEARCH_QUERY; payload: string }
   | { type: ActionKind.SET_SORT_BY; payload: SortOptionsEnum };
 
-export default function GridReducer(state: GridState, action: Action) {
+export function GridReducer(state: GridState, action: Action) {
   switch (action.type) {
     case ActionKind.SET_SHOW_SPECIALS:
       return {

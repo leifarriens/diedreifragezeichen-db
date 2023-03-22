@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import dbConnect from '@/db/connect';
+import { dbConnect } from '@/db/connect';
 import { syncDeezer, syncFolgen, syncInhalte } from '@/services/syncFolgen';
 
 export default async function handler(
@@ -20,7 +20,7 @@ export default async function handler(
       return res.status(401).end('Invalid App Key provided');
     }
 
-    const slug = req.query.slug?.[0] as 'folgen' | 'inhalte' | 'deezer';
+    const slug = req.query.slug?.[0];
 
     try {
       await dbConnect();

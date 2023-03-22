@@ -1,13 +1,14 @@
-import { NextSeo, NextSeoProps } from 'next-seo';
+import type { NextSeoProps } from 'next-seo';
+import { NextSeo } from 'next-seo';
 
 interface SeoProps extends NextSeoProps {
   canonicalpath?: string;
 }
 
-export function Seo(props: SeoProps) {
+export function Seo({ canonicalpath = '', description, ...rest }: SeoProps) {
   return (
     <NextSeo
-      canonical={`https://www.ddfdb.de${props.canonicalpath}`}
+      canonical={`https://www.ddfdb.de${canonicalpath}`}
       twitter={{ cardType: 'summary' }}
       openGraph={{
         images: [
@@ -16,8 +17,8 @@ export function Seo(props: SeoProps) {
           },
         ],
       }}
-      {...props}
-      description={cutString(props.description, 185)}
+      {...rest}
+      description={cutString(description, 185)}
     />
   );
 }

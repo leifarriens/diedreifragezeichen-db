@@ -1,9 +1,10 @@
 import { useSession } from 'next-auth/react';
-import { trpc } from 'utils/trpc';
 
-type QueryOptions = {
+import { trpc } from '@/utils/trpc';
+
+interface QueryOptions {
   onMutationSuccess: () => void;
-};
+}
 
 export function useUserRating(
   folge_id: string,
@@ -12,23 +13,23 @@ export function useUserRating(
   const { status } = useSession();
   const utils = trpc.useContext();
 
-  const query = trpc.user.rating.useQuery(
-    { folgeId: folge_id },
-    {
-      enabled: status === 'authenticated',
-      retry: false,
-    },
-  );
+  const ratingsQuery = trpc.user.ratings.useQuery(undefined, {
+    enabled: status === 'authenticated',
+  });
+
+  const userRating = ratingsQuery.data?.find(
+    (rating) => rating.folge === folge_id,
+  )?.value;
 
   const mutation = trpc.folge.addRating.useMutation({
-    onSuccess: () => {
-      utils.user.rating.invalidate();
+    onSuccess: async () => {
+      await utils.user.ratings.invalidate();
+      await utils.user.ratedFolgen.invalidate(undefined, { type: 'all' });
       onMutationSuccess();
     },
   });
 
-  const isLoading = query.isFetching || mutation.isLoading;
-  const error = query.error || mutation.error;
+  const isLoading = ratingsQuery.isFetching || mutation.isLoading;
 
-  return { userRating: query.data, isLoading, error, mutate: mutation.mutate };
+  return { userRating, isLoading, mutate: mutation.mutate };
 }

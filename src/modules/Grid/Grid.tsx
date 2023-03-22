@@ -2,30 +2,29 @@ import dayjs from 'dayjs';
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 
-import Switch from '@/components/shared/Switch';
+import { MultiRangeInput, Switch } from '@/components/shared';
 import type { FolgeWithId } from '@/models/folge';
 
-import GridFolge from './components/GridFolge/GridFolge';
-import MultiRangeInput from './components/MultiRangeInput';
-import Sort from './components/Sort';
+import { GridFolge } from './components/GridFolge';
+import { Sort } from './components/Sort';
 import { useFolgenWithUserRatings, useGridState } from './hooks';
 import { useBackgroundSortTheme } from './hooks';
 import { FolgenContainer, GridUI } from './StyledGrid';
 import { applyFilter } from './utils/filter';
 
-type GridProps = {
+interface GridProps {
   folgen: FolgeWithId[];
   coverOnly?: boolean;
   withFilters?: boolean;
   withUi?: boolean;
-};
+}
 
 const initialYearRange = {
   min: 1979,
   max: dayjs().year(),
 };
 
-const Grid = (props: GridProps) => {
+export function Grid(props: GridProps) {
   const { coverOnly = false, withFilters = false, withUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGridState();
@@ -105,7 +104,7 @@ const Grid = (props: GridProps) => {
         </>
       )}
 
-      {props.folgen && props.folgen.length > 0 && (
+      {props.folgen.length > 0 && (
         <FolgenContainer>
           {filteredFolgen.map((folge) => (
             <GridFolge
@@ -119,6 +118,4 @@ const Grid = (props: GridProps) => {
       )}
     </div>
   );
-};
-
-export default Grid;
+}

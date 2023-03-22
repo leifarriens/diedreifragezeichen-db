@@ -1,18 +1,18 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-import Button from '@/components/shared/Button';
+import { Button } from '@/components/shared';
 
-type SocialLoginButtonProps = {
+interface SocialLoginButtonProps {
   name: string;
   icon: ReactNode;
   bgColor: string;
   color: string;
   onClick: () => void;
   disabled?: boolean;
-};
+}
 
-export default function SocialLoginButton({
+export function SocialLoginButton({
   name,
   icon,
   bgColor,

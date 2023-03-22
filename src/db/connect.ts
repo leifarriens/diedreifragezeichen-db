@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import mongoose from 'mongoose';
 
 const DATABASE_URL = process.env.DATABASE_URL ?? '';
@@ -19,7 +22,7 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 
-async function dbConnect() {
+export async function dbConnect() {
   if (cached.conn) {
     return cached.conn;
   }
@@ -39,5 +42,3 @@ async function dbConnect() {
   cached.conn = await cached.promise;
   return cached.conn;
 }
-
-export default dbConnect;

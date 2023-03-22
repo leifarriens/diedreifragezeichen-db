@@ -1,24 +1,19 @@
 import qs from 'qs';
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useReducer,
-} from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useCallback, useEffect, useReducer } from 'react';
 
 import { SortOptionsEnum } from '@/modules/Grid/types';
 
-import GridReducer, { ActionKind } from './GridReducer';
+import { ActionKind, GridReducer } from './GridReducer';
 
-export type GridState = {
+export interface GridState {
   showSpecials: boolean;
   searchQuery: string;
   sortBy: SortOptionsEnum;
   setShowSpecials: (show: boolean) => void;
   setSearchQuery: (query: string) => void;
   setSortBy: (query: string) => void;
-};
+}
 
 const initalState = {
   showSpecials: false,
@@ -36,11 +31,11 @@ enum StorageNames {
 
 export const GridContext = createContext<GridState>(initalState);
 
-export const GridProvider = ({
+export function GridProvider({
   children,
 }: {
   children: ReactNode | ReactNode[];
-}) => {
+}) {
   const [state, dispatch] = useReducer(GridReducer, initalState);
 
   const setSearchQuery = useCallback((query: string) => {
@@ -71,14 +66,17 @@ export const GridProvider = ({
 
   useEffect(() => {
     const show = localStorage.getItem(StorageNames.SHOW_SPECIALS)
-      ? JSON.parse(localStorage.getItem(StorageNames.SHOW_SPECIALS) || '')
+      ? (JSON.parse(
+          localStorage.getItem(StorageNames.SHOW_SPECIALS) ?? '',
+        ) as boolean)
       : false;
 
     setShowSpecials(show);
 
     const sortBy =
-      (sessionStorage.getItem(StorageNames.SORT_BY) as SortOptionsEnum) ||
-      'dateDesc';
+      (sessionStorage.getItem(StorageNames.SORT_BY) as
+        | SortOptionsEnum
+        | undefined) ?? 'dateDesc';
 
     if (Object.keys(SortOptionsEnum).includes(sortBy)) {
       setSortBy(sortBy);
@@ -87,7 +85,7 @@ export const GridProvider = ({
     const queryString = qs.parse(window.location.search, {
       ignoreQueryPrefix: true,
     });
-    const searchQuery = queryString.search?.toString() || '';
+    const searchQuery = queryString.search?.toString() ?? '';
     setSearchQuery(searchQuery);
   }, [setSortBy, setSearchQuery, setShowSpecials]);
 
@@ -105,4 +103,4 @@ export const GridProvider = ({
       {children}
     </GridContext.Provider>
   );
-};
+}

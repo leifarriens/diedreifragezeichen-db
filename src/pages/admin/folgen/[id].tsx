@@ -1,19 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { trpc } from 'utils/trpc';
+import type { ParsedUrlQuery } from 'querystring';
+import type { SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-import Button from '@/components/shared/Button';
-import { Form, Input, Select, Textarea } from '@/components/shared/Input';
+import { Button, Form, Input, Select, Textarea } from '@/components/shared';
 import { colors } from '@/constants/theme';
-import dbConnect from '@/db/connect';
+import { dbConnect } from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import type { Folge, FolgeWithId } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
+import { trpc } from '@/utils/trpc';
 
 const validator = folgeValidator.pick({
   name: true,
@@ -24,7 +25,7 @@ const validator = folgeValidator.pick({
   inhalt: true,
 });
 
-export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
+const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
   const router = useRouter();
   const { register, handleSubmit, formState, watch } = useForm<Folge>({
     defaultValues: {
@@ -45,15 +46,11 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
   const type = watch('type');
 
   const { mutate, isLoading } = trpc.folge.update.useMutation({
-    onSuccess: () => {
-      router.push('/admin/folgen');
-    },
+    onSuccess: () => router.push('/admin/folgen'),
   });
 
   const deleteMutation = trpc.folge.delete.useMutation({
-    onSuccess: () => {
-      router.replace('/admin/folgen');
-    },
+    onSuccess: () => router.replace('/admin/folgen'),
   });
 
   function handleDelete() {
@@ -135,9 +132,7 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
         {Object.keys(formState.errors).length !== 0 &&
           Object.entries(formState.errors).map(([name, value]) => (
             <div key={name} style={{ color: colors.red }}>
-              <>
-                <b>{name}</b>: {value.message}
-              </>
+              <b>{name}</b>: <span>{value.message}</span>
             </div>
           ))}
 
@@ -159,12 +154,11 @@ export default function AdminFolge({ folge }: { folge: FolgeWithId }) {
       </Form>
     </div>
   );
-}
-
-type Params = {
-  id: string;
 };
 
+interface Params extends ParsedUrlQuery {
+  id: string;
+}
 export async function getServerSideProps({
   req,
   res,
@@ -195,3 +189,5 @@ export async function getServerSideProps({
     },
   };
 }
+
+export default AdminFolge;

@@ -1,7 +1,8 @@
-import Axios, { AxiosError } from 'axios';
+import type { AxiosError } from 'axios';
+import Axios from 'axios';
 import qs from 'qs';
 
-import { SpotifyAlbum } from '@/types';
+import type { SpotifyAlbum } from '@/types';
 
 import artist from '../../../config/artist.json';
 
@@ -26,7 +27,7 @@ const SpotifyAPI = {
 
 const getBearerToken = async () => {
   try {
-    const response = await SpotifyAPI.accounts.post(
+    const response = await SpotifyAPI.accounts.post<{ access_token: string }>(
       '/token',
       qs.stringify({
         grant_type: 'client_credentials',
@@ -38,6 +39,7 @@ const getBearerToken = async () => {
     console.log(error);
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
+    throw Error(error.response?.statusText);
   }
 };
 

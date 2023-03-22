@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-import type { Folge as FolgeType } from '../common/models/folge';
-import { Folge } from '../common/models/folge';
+import type { Folge as FolgeType } from '@/models/folge';
+import { Folge } from '@/models/folge';
 
 const folgeAggregation = ({
   queryFields,
 }: {
-  queryFields: { [key: string]: string | number };
+  queryFields: Record<string, string | number>;
 }) => [
   {
     $lookup: {
@@ -45,11 +45,11 @@ const folgeAggregation = ({
   { $unset: ['__v', 'ratings'] },
 ];
 
-type GetFolgenOptions = {
+interface GetFolgenOptions {
   fields?: string[];
   specials?: boolean;
   limit?: number;
-};
+}
 
 export async function getFolgen(options: GetFolgenOptions = {}) {
   const { fields = [] } = options;

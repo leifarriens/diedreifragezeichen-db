@@ -2,12 +2,12 @@ import styled from 'styled-components';
 
 import { SortOptionsEnum } from '../types';
 
-type SortProps = {
+interface SortProps {
   currentSort: string;
   onSortChange: (value: string) => void;
-};
+}
 
-export default function Sort({ currentSort, onSortChange }: SortProps) {
+export function Sort({ currentSort, onSortChange }: SortProps) {
   const sortVariants = [
     { name: 'Neuste', value: SortOptionsEnum.dateDesc },
     { name: 'Älteste', value: SortOptionsEnum.dateAsc },

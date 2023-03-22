@@ -1,15 +1,6 @@
 import { ObjectId } from 'mongodb';
 
-import clientPromise from '@/db/authConn';
-import { FolgeWithId } from '@/models/folge';
-import { User } from '@/models/user';
-
-export async function getUserWithList(userId: string) {
-  return User.findById(userId).populate<{ list: FolgeWithId[] }>({
-    path: 'list',
-    options: { sort: ['updated_at'] },
-  });
-}
+import { clientPromise } from '@/db/authConn';
 
 export async function deleteUser(userId: string) {
   const client = await clientPromise;

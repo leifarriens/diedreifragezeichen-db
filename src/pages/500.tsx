@@ -1,9 +1,13 @@
-import Wrapper from '@/layout/Wrapper';
+import type { NextPage } from 'next';
 
-export default function InternalServerError() {
+import { Wrapper } from '@/layout';
+
+const InternalServerError: NextPage = () => {
   return (
     <Wrapper>
       <h1>Server Fehler beim Laden der Seite</h1>
     </Wrapper>
   );
-}
+};
+
+export default InternalServerError;

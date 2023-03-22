@@ -1,12 +1,7 @@
 import type { Folge } from '@/models/folge';
-import { SpotifyAlbum } from '@/types';
+import type { SpotifyAlbum } from '@/types';
 
-export default function convertFolge({
-  name,
-  images,
-  id,
-  release_date,
-}: SpotifyAlbum) {
+export function convertFolge({ name, images, id, release_date }: SpotifyAlbum) {
   const folge = {
     images,
     release_date,
@@ -24,7 +19,7 @@ export default function convertFolge({
     folge.name = name;
   }
 
-  folge.number = name.match(/\d/g)?.join('') || '';
+  folge.number = name.match(/\d/g)?.join('') ?? '';
 
   return folge;
 }

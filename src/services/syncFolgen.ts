@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 
 import { Folge as FolgeModel } from '@/models/folge';
-import convertFolge from '@/utils/convertFolge';
+import { convertFolge } from '@/utils/convertFolge';
 
 import blacklist from '../../config/blacklist.json';
 import { getAllInhalte } from './inhalt.service';
@@ -11,10 +11,6 @@ import * as SpotifyApi from './streaming/spotify';
 export async function syncFolgen() {
   const allAlbums = await SpotifyApi.getAllAlbums();
   const dbFolgen = await FolgeModel.find({}).select('spotify_id');
-
-  if (!allAlbums) {
-    throw Error('Invalid item response from spotify');
-  }
 
   const notInDbAlbums = allAlbums.filter((album) => {
     const isInDb = dbFolgen.find((folge) => folge.spotify_id === album.id);

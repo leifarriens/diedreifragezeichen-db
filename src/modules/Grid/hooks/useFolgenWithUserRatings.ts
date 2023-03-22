@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react';
-import { trpc } from 'utils/trpc';
 
-import { FolgeWithId } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
+import { trpc } from '@/utils/trpc';
 
 export function useFolgenWithUserRatings(folgen: FolgeWithId[]) {
   const { status } = useSession();

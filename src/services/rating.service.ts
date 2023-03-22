@@ -1,6 +1,5 @@
 import { Folge } from '@/models/folge';
-
-import { Rating } from '../common/models/rating';
+import { Rating } from '@/models/rating';
 
 export async function postFolgenRating({
   folgeId,
@@ -32,9 +31,7 @@ export async function postFolgenRating({
 
   const folgenRatings = await Rating.find({ folge: folgeId });
 
-  const ratingsSum = folgenRatings.reduce((curr, acc) => {
-    return curr + acc.value;
-  }, 0) as number;
+  const ratingsSum = folgenRatings.reduce((curr, acc) => curr + acc.value, 0);
 
   const rating = ratingsSum / folgenRatings.length;
 
@@ -54,14 +51,4 @@ export async function getUserRatings(
   const { fields = [] } = options;
 
   return Rating.find({ user: userId }).select(fields).lean();
-}
-
-export async function getUserFolgenRating({
-  folgeId,
-  userId,
-}: {
-  folgeId: string;
-  userId: string;
-}) {
-  return Rating.findOne({ folge: folgeId, user: userId }).lean();
 }

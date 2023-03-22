@@ -1,38 +1,33 @@
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext } from 'next/types';
 
-import ProfilLayout from '@/components/Profil/Layout';
-import { Seo } from '@/components/Seo/Seo';
-import dbConnect from '@/db/connect';
+import { Seo } from '@/components/Seo';
+import { Loader } from '@/components/shared';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
-import type { FolgeWithId } from '@/models/folge';
-import { UserWithId } from '@/models/user';
 import { Grid } from '@/modules/Grid';
-import { getUserWithList } from '@/services/user.service';
-import { parseMongo } from '@/utils/index';
+import { ProfilLayout } from '@/modules/Profil';
+import { trpc } from '@/utils/trpc';
 
-type UserWithList = {
-  list: FolgeWithId[];
-} & Omit<UserWithId, 'list'>;
+const MerklistPage = () => {
+  const { data, isLoading, error } = trpc.user.listWithFolgen.useQuery();
 
-type MerklistePageProps = {
-  user: UserWithList;
-};
+  const emptyList = error?.data?.code === 'NOT_FOUND' || data?.length === 0;
 
-function Merkliste({ user }: MerklistePageProps) {
   return (
     <>
       <Seo title="Merkliste" canonicalpath="/profil/list" />
 
       <ProfilLayout>
-        {user.list.length > 0 ? (
-          <Grid folgen={user.list.reverse()} />
-        ) : (
-          <p>Du hast noch keine Folgen auf der Merkliste.</p>
+        {isLoading && <Loader />}
+
+        {emptyList && (
+          <p className="text-center">Keine Folgen auf der Merkliste</p>
         )}
+
+        {data && <Grid folgen={data} />}
       </ProfilLayout>
     </>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
@@ -49,17 +44,9 @@ export const getServerSideProps = async ({
     };
   }
 
-  await dbConnect();
-
-  const userData = await getUserWithList(session.user.id);
-
-  const user = parseMongo(userData);
-
   return {
-    props: {
-      user,
-    },
+    props: {},
   };
 };
 
-export default Merkliste;
+export default MerklistPage;

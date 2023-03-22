@@ -1,20 +1,18 @@
 import classNames from 'classnames';
-import { GetServerSidePropsContext } from 'next';
+import type { GetServerSidePropsContext, NextPage } from 'next';
 import React from 'react';
 import toast from 'react-hot-toast';
 import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
-import { RouterOutput, trpc } from 'utils/trpc';
 
-import { Loader } from '@/common/components/shared/Loader';
-import Switch from '@/common/components/shared/Switch';
-import Button from '@/components/shared/Button';
+import { Button, Loader, Switch } from '@/components/shared';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
+import { type RouterOutput, trpc } from '@/utils/trpc';
 
-export default function AdminFolgen() {
+const AdminFolgen: NextPage = () => {
   const { searchQuery, showSpecials, setShowSpecials } = useGridState();
 
   const {
@@ -67,9 +65,9 @@ export default function AdminFolgen() {
       )}
     </div>
   );
-}
+};
 
-function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
+const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
   const folgenSync = trpc.sync.folgen.useMutation({
     onError(error) {
       toast.error(error.message);
@@ -95,7 +93,6 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
       toast.error(error.message);
     },
     onSuccess(data) {
-      console.log(data);
       toast.success(`Deezer sync success. Wrote ${data.nModified} updates`);
       onSyncSuccess();
     },
@@ -126,7 +123,7 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
         />
         Sync Inhalte
       </Button>
-      {/* <Button
+      <Button
         size="small"
         onClick={() => deezerSync.mutate()}
         disabled={isSyncing}
@@ -135,16 +132,16 @@ function SyncController({ onSyncSuccess }: { onSyncSuccess: () => void }) {
           className={classNames({ 'animate-spin': deezerSync.isLoading })}
         />
         Sync Deezer
-      </Button> */}
+      </Button>
     </div>
   );
-}
+};
 
-function AdminFolge({
+const AdminFolge = ({
   folge,
 }: {
   folge: RouterOutput['folge']['all']['items'][number];
-}) {
+}) => {
   const propCheck = (value: unknown) => (value ? '🟢' : '🔴');
 
   return (
@@ -161,7 +158,7 @@ function AdminFolge({
 
       <div>
         <div className="-translate-x-4 -translate-y-4">
-          <img src={folge.images[1].url} alt={folge.name} />
+          <img src={folge.images[1].url} alt={folge.name} loading="lazy" />
         </div>
         <div className="p-4 pt-0 text-sm text-neutral-200">
           <div>Rating: {folge.rating}</div>
@@ -256,7 +253,7 @@ function AdminFolge({
       </div>
     </article>
   );
-}
+};
 
 export const getServerSideProps = async ({
   req,
@@ -277,3 +274,5 @@ export const getServerSideProps = async ({
     props: {},
   };
 };
+
+export default AdminFolgen;

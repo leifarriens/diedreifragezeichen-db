@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import dbConnect from '@/db/connect';
+import { dbConnect } from '@/db/connect';
 import { getFolge } from '@/services/folge.service';
 import { parseQueryParam } from '@/utils/index';
 
