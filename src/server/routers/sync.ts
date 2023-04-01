@@ -1,4 +1,4 @@
-import { syncDeezer, syncFolgen, syncInhalte } from '@/services/syncFolgen';
+import { syncDeezer, syncFolgen, syncInhalte } from '@/services/sync.service';
 
 import { adminProcedure, router } from '../trpc';
 

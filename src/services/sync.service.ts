@@ -3,11 +3,15 @@ import { ObjectId } from 'mongodb';
 import { Folge as FolgeModel } from '@/models/folge';
 import { convertFolge } from '@/utils/convertFolge';
 
-import blacklist from '../../config/blacklist.json';
+import blacklist from '../../config/ignorelist.json';
 import { getAllInhalte } from './inhalt.service';
 import * as DeezerApi from './streaming/deezer';
 import * as SpotifyApi from './streaming/spotify';
 
+/**
+ * The `syncFolgen` service adds all folgen from the spotify api
+ * that are not in the ddfdb.
+ */
 export async function syncFolgen() {
   const allAlbums = await SpotifyApi.getAllAlbums();
   const dbFolgen = await FolgeModel.find({}).select('spotify_id');
@@ -34,6 +38,10 @@ export async function syncFolgen() {
   return result;
 }
 
+/**
+ * The `syncInhalte` service updates all folgen without a `inhalt`
+ * with the found `body` from the `getAllInhalte` service.
+ */
 export async function syncInhalte() {
   const inhalte = await getAllInhalte();
 
@@ -60,11 +68,15 @@ export async function syncInhalte() {
       };
     });
 
-  const result = FolgeModel.bulkWrite(writes);
+  const result = await FolgeModel.bulkWrite(writes);
 
   return result;
 }
 
+/**
+ * The `syncDezzer` service updates all folgen without a `deezer_id`
+ * with the found `deezerAlbum.id` from the deezer api.
+ */
 export async function syncDeezer() {
   const deezerAlbums = await DeezerApi.getAllAlbums();
 
