@@ -12,9 +12,9 @@ interface RelatedFolgenProps {
 
 export function RelatedFolgen({ folgeId }: RelatedFolgenProps) {
   const router = useRouter();
-  const { ref, inView } = useInView({ triggerOnce: true });
+  const { ref, inView: isInView } = useInView({ triggerOnce: true });
   const { related, prevId, nextId } = useRelatedFolgen(folgeId, {
-    enabled: inView,
+    enabled: isInView,
   });
 
   return (

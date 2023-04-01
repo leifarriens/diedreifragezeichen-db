@@ -1,11 +1,10 @@
-/* eslint-disable @next/next/no-img-element */
-import classnames from 'classnames';
 import Link from 'next/link';
 import type { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import { Avatar } from '@/common/components/shared';
 import { colors } from '@/constants/theme';
 
 interface ProfileLinkProps {
@@ -14,7 +13,6 @@ interface ProfileLinkProps {
 
 export function ProfileLink({ user }: ProfileLinkProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const src = !user?.image ? '/white_small.png' : user.image;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -35,12 +33,7 @@ export function ProfileLink({ user }: ProfileLinkProps) {
   return (
     <Container ref={ref}>
       <button type="button" onClick={() => setIsMenuOpen((curr) => !curr)}>
-        <Avatar
-          src={src}
-          referrerPolicy="no-referrer"
-          className={classnames({ placeholder: !user?.image })}
-          alt=""
-        />
+        <Avatar url={user?.image} />
       </button>
 
       {isMenuOpen && (
@@ -137,19 +130,5 @@ const Container = styled.div`
         padding: var(--item-padding);
       }
     }
-  }
-`;
-
-const Avatar = styled.img`
-  border-radius: 50%;
-  width: 2.6em;
-  height: 2.6em;
-  object-fit: cover;
-  box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 50%);
-
-  &.placeholder {
-    object-fit: contain;
-    padding: 0.5em;
-    background-color: ${colors.gray};
   }
 `;

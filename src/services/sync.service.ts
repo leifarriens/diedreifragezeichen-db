@@ -1,13 +1,18 @@
+import type { AnyBulkWriteOperation } from 'mongodb';
 import { ObjectId } from 'mongodb';
 
 import { Folge as FolgeModel } from '@/models/folge';
 import { convertFolge } from '@/utils/convertFolge';
 
-import blacklist from '../../config/blacklist.json';
+import ignorelist from '../../config/ignorelist.json';
 import { getAllInhalte } from './inhalt.service';
 import * as DeezerApi from './streaming/deezer';
 import * as SpotifyApi from './streaming/spotify';
 
+/**
+ * The `syncFolgen` service adds all folgen from the spotify api
+ * that are not in the ddfdb.
+ */
 export async function syncFolgen() {
   const allAlbums = await SpotifyApi.getAllAlbums();
   const dbFolgen = await FolgeModel.find({}).select('spotify_id');
@@ -17,7 +22,7 @@ export async function syncFolgen() {
 
     if (
       isInDb ||
-      blacklist.includes(album.id) ||
+      ignorelist.includes(album.id) ||
       album.name.match(/liest|Kopfhörer/g)
     ) {
       return false;
@@ -27,13 +32,17 @@ export async function syncFolgen() {
 
   const addToDb = notInDbAlbums.map((album) => convertFolge(album));
 
-  await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
+  await FolgeModel.deleteMany({ spotify_id: { $in: ignorelist } });
 
   const result = await FolgeModel.insertMany(addToDb);
 
   return result;
 }
 
+/**
+ * The `syncInhalte` service updates all folgen without a `inhalt`
+ * with the found `body` from the `getAllInhalte` service.
+ */
 export async function syncInhalte() {
   const inhalte = await getAllInhalte();
 
@@ -41,7 +50,7 @@ export async function syncInhalte() {
 
   const writes = folgen
     .filter((folge) => !folge.inhalt)
-    .map((folge) => {
+    .reduce<AnyBulkWriteOperation[]>((curr, folge) => {
       const inhtaltExp = folge.name
         .replace('und', '')
         .replace('???', '')
@@ -50,21 +59,27 @@ export async function syncInhalte() {
         new RegExp(inhtaltExp, 'i').test(name),
       );
 
-      return {
-        updateOne: {
-          filter: { _id: new ObjectId(folge._id) },
-          update: {
-            ...(inhalt && { inhalt: inhalt.body }),
+      if (inhalt) {
+        curr.push({
+          updateOne: {
+            filter: { _id: new ObjectId(folge._id) },
+            update: { inhalt: inhalt.body },
           },
-        },
-      };
-    });
+        });
+      }
 
-  const result = FolgeModel.bulkWrite(writes);
+      return curr;
+    }, []);
 
-  return result;
+  const result = await FolgeModel.bulkWrite(writes);
+
+  return { result, writes };
 }
 
+/**
+ * The `syncDezzer` service updates all folgen without a `deezer_id`
+ * with the found `deezerAlbum.id` from the deezer api.
+ */
 export async function syncDeezer() {
   const deezerAlbums = await DeezerApi.getAllAlbums();
 
@@ -72,24 +87,26 @@ export async function syncDeezer() {
 
   const writes = folgen
     .filter((folge) => !folge.deezer_id)
-    .map((folge) => {
+    .reduce<AnyBulkWriteOperation[]>((curr, folge) => {
       const deezerAlbum = deezerAlbums.find((album) =>
         album.title
           .replaceAll(' ', '')
           .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
       );
 
-      return {
-        updateOne: {
-          filter: { _id: new ObjectId(folge._id) },
-          update: {
-            ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+      if (deezerAlbum) {
+        curr.push({
+          updateOne: {
+            filter: { _id: new ObjectId(folge._id) },
+            update: { deezer_id: deezerAlbum.id },
           },
-        },
-      };
-    });
+        });
+      }
+
+      return curr;
+    }, []);
 
   const result = await FolgeModel.bulkWrite(writes);
 
-  return result;
+  return { result, writes };
 }

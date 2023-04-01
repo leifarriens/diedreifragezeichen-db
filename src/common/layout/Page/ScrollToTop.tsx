@@ -4,8 +4,8 @@ import { AiOutlineArrowUp } from 'react-icons/ai';
 
 export function ScrollToTop() {
   const scrollTopRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-  const [atBottom, setAtBottom] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isAtBottom, setIsAtBottom] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -19,8 +19,8 @@ export function ScrollToTop() {
   const handleVisibility = () => {
     const { scrollY, innerHeight } = window;
 
-    setVisible(scrollY >= 100);
-    setAtBottom(innerHeight + scrollY >= document.body.offsetHeight - 20);
+    setIsVisible(scrollY >= 100);
+    setIsAtBottom(innerHeight + scrollY >= document.body.offsetHeight - 20);
   };
 
   const handleClick = async () => {
@@ -35,7 +35,7 @@ export function ScrollToTop() {
     <div
       ref={scrollTopRef}
       className="fixed bottom-0 right-0 z-20 grid h-20 w-20 place-items-center transition-opacity duration-150 ease-in"
-      style={{ opacity: visible ? 1 : 0 }}
+      style={{ opacity: isVisible ? 1 : 0 }}
     >
       <button
         type="button"
@@ -43,7 +43,7 @@ export function ScrollToTop() {
         className="transition-transform duration-200 ease-in"
         onClick={handleClick}
         style={{
-          transform: atBottom ? `translateY(-100%)` : `translateY(0px)`,
+          transform: isAtBottom ? `translateY(-100%)` : `translateY(0px)`,
         }}
       >
         <AiOutlineArrowUp size={32} />
