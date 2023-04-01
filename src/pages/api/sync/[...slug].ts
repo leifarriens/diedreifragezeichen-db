@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 import { dbConnect } from '@/db/connect';
-import { syncDeezer, syncFolgen, syncInhalte } from '@/services/syncFolgen';
+import { syncDeezer, syncFolgen, syncInhalte } from '@/services/sync.service';
 
 export default async function handler(
   req: NextApiRequest,

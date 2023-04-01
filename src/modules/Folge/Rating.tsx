@@ -22,7 +22,7 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
     },
   });
 
-  const disabled = status === 'loading' || isLoading;
+  const isDisabled = status === 'loading' || isLoading;
 
   function handleNewRating(newRating: number) {
     if (!session) return signIn();
@@ -42,7 +42,7 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
       <RatingInput
         defaultValue={userRating}
         onRate={handleNewRating}
-        disabled={disabled}
+        disabled={isDisabled}
       />
     </>
   );

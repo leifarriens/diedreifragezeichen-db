@@ -10,7 +10,7 @@ import { trpc } from '@/utils/trpc';
 const MerklistPage = () => {
   const { data, isLoading, error } = trpc.user.listWithFolgen.useQuery();
 
-  const emptyList = error?.data?.code === 'NOT_FOUND' || data?.length === 0;
+  const isEmptyList = error?.data?.code === 'NOT_FOUND' || data?.length === 0;
 
   return (
     <>
@@ -19,7 +19,7 @@ const MerklistPage = () => {
       <ProfilLayout>
         {isLoading && <Loader />}
 
-        {emptyList && (
+        {isEmptyList && (
           <p className="text-center">Keine Folgen auf der Merkliste</p>
         )}
 

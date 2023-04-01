@@ -12,7 +12,10 @@ interface CoverProps {
 }
 
 export function Cover({ images, alt, coverOnly }: CoverProps) {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0 });
+  const { ref, inView: isInView } = useInView({
+    triggerOnce: true,
+    threshold: 0,
+  });
   const [isLoaded, setIsLoaded] = useState(false);
 
   const src = images[1].url;
@@ -28,7 +31,7 @@ export function Cover({ images, alt, coverOnly }: CoverProps) {
         </>
       )}
       <div className="relative flex aspect-square h-auto w-full items-center justify-center overflow-hidden">
-        {inView && (
+        {isInView && (
           <img
             src={src}
             alt={alt}

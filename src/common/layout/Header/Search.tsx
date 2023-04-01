@@ -61,7 +61,7 @@ export function Search() {
 
   const clearInput = () => setValue('');
 
-  const hideSearchResults =
+  const shouldHideSearchResults =
     router.pathname === '/' || router.pathname.includes('admin');
 
   return (
@@ -91,7 +91,7 @@ export function Search() {
         </button>
       )}
 
-      {!hideSearchResults && <SearchResults query={searchQuery} />}
+      {!shouldHideSearchResults && <SearchResults query={searchQuery} />}
     </div>
   );
 }

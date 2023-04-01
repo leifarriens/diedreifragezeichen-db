@@ -20,18 +20,18 @@ export function Key({
   keyCode,
   disabled = false,
 }: KeyProps) {
-  const [keydown, setKeydown] = useState(false);
+  const [isKeydown, setIsKeydown] = useState(false);
 
   useEffect(() => {
     function onKeydown(e: KeyboardEvent) {
       if (e.key === keyCode) {
-        setKeydown(true);
+        setIsKeydown(true);
       }
     }
 
     function onKeyup(e: KeyboardEvent) {
       if (e.key === keyCode) {
-        setKeydown(false);
+        setIsKeydown(false);
         if (onPress && !disabled) onPress();
       }
     }
@@ -51,7 +51,7 @@ export function Key({
       disabled={disabled}
       onClick={onPress}
       aria-label={label}
-      opacity={keydown || disabled ? 0.5 : 1}
+      opacity={isKeydown || disabled ? 0.5 : 1}
     >
       <Icon color={color} size={size} />
     </KeyBox>

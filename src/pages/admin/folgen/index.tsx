@@ -83,7 +83,9 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
       toast.error(error.message);
     },
     onSuccess(data) {
-      toast.success(`Inhalte sync success. Wrote ${data.nModified} updates`);
+      toast.success(
+        `Inhalte sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
+      );
       onSyncSuccess();
     },
   });
@@ -93,7 +95,9 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
       toast.error(error.message);
     },
     onSuccess(data) {
-      toast.success(`Deezer sync success. Wrote ${data.nModified} updates`);
+      toast.success(
+        `Deezer sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
+      );
       onSyncSuccess();
     },
   });

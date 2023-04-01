@@ -19,12 +19,12 @@ export function ListButton({
   iconSize = 20,
 }: ListButtonProps) {
   const { data: session, status } = useSession();
-  const { data: list, isLoading: listLoading } = trpc.user.list.useQuery();
+  const { data: list, isLoading: isListLoading } = trpc.user.list.useQuery();
   const utils = trpc.useContext();
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);
 
-  const { mutate: mutateAdd, isLoading: addIsLoading } =
+  const { mutate: mutateAdd, isLoading: isAddLoaing } =
     trpc.user.addToList.useMutation({
       onMutate: () => {
         utils.user.list.setData(undefined, (curr) =>
@@ -41,7 +41,7 @@ export function ListButton({
       },
     });
 
-  const { mutate: mutateRemove, isLoading: removeIsLoading } =
+  const { mutate: mutateRemove, isLoading: isRemoveLoading } =
     trpc.user.removeFromList.useMutation({
       onMutate: () => {
         utils.user.list.setData(undefined, (curr) =>
@@ -59,7 +59,7 @@ export function ListButton({
       },
     });
 
-  const isLoading = listLoading || addIsLoading || removeIsLoading;
+  const isLoading = isListLoading || isAddLoaing || isRemoveLoading;
 
   function handleClick() {
     if (!session) return signIn();
@@ -71,7 +71,7 @@ export function ListButton({
     return mutateRemove({ folgeId });
   }
 
-  if (status === 'loading' || listLoading) {
+  if (status === 'loading' || isListLoading) {
     return null;
   }
 
