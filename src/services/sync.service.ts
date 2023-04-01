@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import { Folge as FolgeModel } from '@/models/folge';
 import { convertFolge } from '@/utils/convertFolge';
 
-import blacklist from '../../config/ignorelist.json';
+import ignorelist from '../../config/ignorelist.json';
 import { getAllInhalte } from './inhalt.service';
 import * as DeezerApi from './streaming/deezer';
 import * as SpotifyApi from './streaming/spotify';
@@ -21,7 +21,7 @@ export async function syncFolgen() {
 
     if (
       isInDb ||
-      blacklist.includes(album.id) ||
+      ignorelist.includes(album.id) ||
       album.name.match(/liest|Kopfhörer/g)
     ) {
       return false;
@@ -31,7 +31,7 @@ export async function syncFolgen() {
 
   const addToDb = notInDbAlbums.map((album) => convertFolge(album));
 
-  await FolgeModel.deleteMany({ spotify_id: { $in: blacklist } });
+  await FolgeModel.deleteMany({ spotify_id: { $in: ignorelist } });
 
   const result = await FolgeModel.insertMany(addToDb);
 
