@@ -24,17 +24,37 @@ export const userRouter = router({
 
     return user.list.map((id) => id.toString());
   }),
-  listWithFolgen: authedProcedure.query(async ({ ctx }) => {
-    const user = await User.findById(ctx.session?.user.id)
-      .populate<{ list: FolgeWithId[] }>({ path: 'list' })
-      .lean();
+  listWithFolgen: authedProcedure
+    .input(
+      z.object({
+        limit: z.number().int().min(1).max(50).default(20),
+        cursor: z.number().default(0),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = input.limit;
+      const offset = input.cursor;
 
-    if (!user?.list) {
-      throw new TRPCError({ code: 'NOT_FOUND' });
-    }
+      const user = await User.findById(ctx.session?.user.id).select('list');
 
-    return user.list;
-  }),
+      if (!user?.list) {
+        throw new TRPCError({ code: 'NOT_FOUND' });
+      }
+
+      const total = user.list.length;
+
+      const { list } = await user.populate<{ list: FolgeWithId[] }>({
+        path: 'list',
+        options: { limit, skip: offset },
+      });
+
+      return {
+        items: list,
+        limit,
+        offset,
+        total,
+      };
+    }),
   ratings: authedProcedure.query(async ({ ctx }) => {
     const ratings = await getUserRatings(ctx.user.id, {
       fields: ['-_id', 'folge', 'value'],
@@ -45,13 +65,13 @@ export const userRouter = router({
   ratedFolgen: authedProcedure
     .input(
       z.object({
-        limit: z.number().int().min(1).max(50).nullish(),
-        cursor: z.number().nullish(),
+        limit: z.number().int().min(1).max(50).default(20),
+        cursor: z.number().default(0),
       }),
     )
     .query(async ({ ctx, input }) => {
-      const limit = input.limit ?? 20;
-      const offset = input.cursor ?? 0;
+      const limit = input.limit;
+      const offset = input.cursor;
 
       const filter = { user: ctx.user.id };
 
