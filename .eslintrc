@@ -46,6 +46,15 @@
   "rules": {
     "@next/next/no-img-element": "off",
     "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": "variable",
+        "types": ["boolean"],
+        "format": ["PascalCase"],
+        "prefix": ["is", "should", "has", "can", "did", "will", "show"]
+      }
+    ],
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/no-misused-promises": [
       "error",

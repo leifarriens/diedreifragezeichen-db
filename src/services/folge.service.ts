@@ -7,7 +7,7 @@ import { Rating } from '@/models/rating';
 interface FolgenOptions {
   fields?: string[];
   limit?: number;
-  specials?: boolean;
+  showSpecials?: boolean;
 }
 
 export async function getAllFolgenIds() {
@@ -15,9 +15,9 @@ export async function getAllFolgenIds() {
 }
 
 export async function getFolgen(options: FolgenOptions = {}) {
-  const { fields = [], specials = true } = options;
+  const { fields = [], showSpecials = true } = options;
 
-  const type = !specials ? 'regular' : null;
+  const type = !showSpecials ? 'regular' : null;
 
   const folgen = await Folge.find({
     ...(type && { type }),
@@ -58,11 +58,11 @@ export async function getRelatedFolgen(
   id: string,
   options: FolgenOptions = {},
 ) {
-  const { fields = [], specials = false, limit = 20 } = options;
+  const { fields = [], showSpecials = false, limit = 20 } = options;
 
   fields.push('release_date');
 
-  const type = !specials ? 'regular' : null;
+  const type = !showSpecials ? 'regular' : null;
   const current = await Folge.findById(id).select(fields).lean();
 
   if (!current) {

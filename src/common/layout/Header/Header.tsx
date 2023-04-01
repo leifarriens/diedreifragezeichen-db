@@ -23,7 +23,7 @@ export function Header() {
   const { setSearchQuery } = useGridState();
   const { data: session, status } = useSession();
   const router = useRouter();
-  const desktop = useBreakpoint(parseInt(breakpoints.mobileHeader));
+  const isDesktop = useBreakpoint(parseInt(breakpoints.mobileHeader));
   const refFolgeId = parseQueryParam(router.query.id);
 
   const handleHomeClick = async (e: React.MouseEvent<HTMLElement>) => {
@@ -79,7 +79,7 @@ export function Header() {
                 color={colors.red}
                 onClick={() => signIn()}
               >
-                {desktop ? 'Anmelden' : <FiLogIn size={18} />}
+                {isDesktop ? 'Anmelden' : <FiLogIn size={18} />}
               </Button>
             ) : (
               <>

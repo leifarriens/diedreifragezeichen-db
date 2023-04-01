@@ -14,9 +14,9 @@ import { applyFilter } from './utils/filter';
 
 interface GridProps {
   folgen: FolgeWithId[];
-  coverOnly?: boolean;
-  withFilters?: boolean;
-  withUi?: boolean;
+  showCoverOnly?: boolean;
+  isFiltered?: boolean;
+  showUi?: boolean;
 }
 
 const initialYearRange = {
@@ -25,25 +25,25 @@ const initialYearRange = {
 };
 
 export function Grid(props: GridProps) {
-  const { coverOnly = false, withFilters = false, withUi = false } = props;
+  const { showCoverOnly = false, isFiltered = false, showUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGridState();
-  const [onlyUnrated, setOnlyUnrated] = useState(false);
+  const [showOnlyUnrated, setShowOnlyUnrated] = useState(false);
   const { status } = useSession();
 
   const [yearRange, setYearRange] = useState(initialYearRange);
 
   const folgen = useFolgenWithUserRatings(props.folgen);
 
-  useBackgroundSortTheme(sortBy, { enabled: withUi });
+  useBackgroundSortTheme(sortBy, { enabled: showUi });
 
   const filteredFolgen = useMemo(() => {
-    if (!withFilters) return folgen;
+    if (!isFiltered) return folgen;
     return applyFilter(folgen, {
       showSpecials,
       searchQuery,
       sortBy,
-      onlyUnrated,
+      showOnlyUnrated,
       yearRange: {
         min: dayjs().year(yearRange.min).toDate(),
         max: dayjs().year(yearRange.max).toDate(),
@@ -54,9 +54,9 @@ export function Grid(props: GridProps) {
     showSpecials,
     searchQuery,
     sortBy,
-    withFilters,
+    isFiltered,
     yearRange,
-    onlyUnrated,
+    showOnlyUnrated,
   ]);
 
   useEffect(() => {
@@ -70,7 +70,7 @@ export function Grid(props: GridProps) {
 
   return (
     <div className="flex-1">
-      {withUi && (
+      {showUi && (
         <>
           <GridUI>
             <Sort currentSort={sortBy} onSortChange={setSortBy} />
@@ -84,9 +84,9 @@ export function Grid(props: GridProps) {
             <div className="flex gap-3">
               {status === 'authenticated' && (
                 <Switch
-                  checked={onlyUnrated}
+                  checked={showOnlyUnrated}
                   label="Nicht bewerted"
-                  onChange={setOnlyUnrated}
+                  onChange={setShowOnlyUnrated}
                 />
               )}
               <Switch
@@ -111,7 +111,7 @@ export function Grid(props: GridProps) {
               key={folge._id}
               folge={folge}
               userRating={folge.user_rating}
-              coverOnly={coverOnly}
+              coverOnly={showCoverOnly}
             />
           ))}
         </FolgenContainer>
