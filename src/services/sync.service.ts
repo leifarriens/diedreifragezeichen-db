@@ -1,3 +1,4 @@
+import type { AnyBulkWriteOperation } from 'mongodb';
 import { ObjectId } from 'mongodb';
 
 import { Folge as FolgeModel } from '@/models/folge';
@@ -49,7 +50,7 @@ export async function syncInhalte() {
 
   const writes = folgen
     .filter((folge) => !folge.inhalt)
-    .map((folge) => {
+    .reduce<AnyBulkWriteOperation[]>((curr, folge) => {
       const inhtaltExp = folge.name
         .replace('und', '')
         .replace('???', '')
@@ -58,19 +59,21 @@ export async function syncInhalte() {
         new RegExp(inhtaltExp, 'i').test(name),
       );
 
-      return {
-        updateOne: {
-          filter: { _id: new ObjectId(folge._id) },
-          update: {
-            ...(inhalt && { inhalt: inhalt.body }),
+      if (inhalt) {
+        curr.push({
+          updateOne: {
+            filter: { _id: new ObjectId(folge._id) },
+            update: { inhalt: inhalt.body },
           },
-        },
-      };
-    });
+        });
+      }
+
+      return curr;
+    }, []);
 
   const result = await FolgeModel.bulkWrite(writes);
 
-  return result;
+  return { result, writes };
 }
 
 /**
@@ -84,24 +87,26 @@ export async function syncDeezer() {
 
   const writes = folgen
     .filter((folge) => !folge.deezer_id)
-    .map((folge) => {
+    .reduce<AnyBulkWriteOperation[]>((curr, folge) => {
       const deezerAlbum = deezerAlbums.find((album) =>
         album.title
           .replaceAll(' ', '')
           .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
       );
 
-      return {
-        updateOne: {
-          filter: { _id: new ObjectId(folge._id) },
-          update: {
-            ...(deezerAlbum && { deezer_id: deezerAlbum.id }),
+      if (deezerAlbum) {
+        curr.push({
+          updateOne: {
+            filter: { _id: new ObjectId(folge._id) },
+            update: { deezer_id: deezerAlbum.id },
           },
-        },
-      };
-    });
+        });
+      }
+
+      return curr;
+    }, []);
 
   const result = await FolgeModel.bulkWrite(writes);
 
-  return result;
+  return { result, writes };
 }
