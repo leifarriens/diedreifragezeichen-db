@@ -52,8 +52,6 @@ Before working on a new feature checkout a new branch:
 git checkout -b feature/awesome
 ```
 
-Bugfixes can be committed directly to the `main` branch.
-
 ### Pull request
 
 Create a pull request to the original repo.
