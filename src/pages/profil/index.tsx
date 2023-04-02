@@ -10,15 +10,13 @@ import { ProfilLayout, RatingProgress } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const ProfilePage = () => {
-  const limit = 20;
-
   const { data, fetchNextPage, isFetching } =
     trpc.user.ratedFolgen.useInfiniteQuery(
-      { limit },
+      { limit: 20 },
       {
         getNextPageParam: (lastPage) => {
-          if (lastPage.offset + limit < lastPage.total) {
-            return lastPage.offset + limit;
+          if (lastPage.offset + lastPage.limit < lastPage.total) {
+            return lastPage.offset + lastPage.limit;
           }
           return undefined;
         },

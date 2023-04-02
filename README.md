@@ -14,10 +14,11 @@ GET `/api/folgen`
 
 ##### Query parameters
 
-| Param  | Description                                          |
-| ------ | ---------------------------------------------------- |
-| limit  | Type `number` - limits the listes items (max 20)     |
-| offset | Type `number` - skips the `offset` amount of results |
+| Param  | Description                                                                                                                              |
+| ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| limit  | Type `number` - limits the listed items (max 20)                                                                                         |
+| offset | Type `number` - skips the `offset` amount of results                                                                                     |
+| sort   | Type `string` - determines the order of the returned data. Possible values are: `['release_date', '-release_date', 'rating', '-rating']` |
 
 ##### HTTP response status codes
 
@@ -25,6 +26,7 @@ GET `/api/folgen`
 | ----------- | ------------ |
 | `200`       | OK           |
 | `304`       | Not modified |
+| `400`       | Bad request  |
 
 ### Get folge by folgeId
 
