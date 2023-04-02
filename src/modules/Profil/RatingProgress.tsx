@@ -4,7 +4,10 @@ import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
 
 export function RatingProgress() {
-  const totalQuery = trpc.folge.total.useQuery();
+  const totalQuery = trpc.folge.total.useQuery(undefined, {
+    staleTime: Infinity,
+    cacheTime: Infinity,
+  });
   const ratingsQuery = trpc.user.ratings.useQuery();
 
   const numberOfFolgen = totalQuery.data;

@@ -24,7 +24,7 @@ const MerklistPage = () => {
     );
 
   const isEmptyList =
-    error?.data?.code === 'NOT_FOUND' || data?.pages.length === 0;
+    error?.data?.code === 'NOT_FOUND' || data?.pages[0].items.length === 0;
 
   return (
     <>
