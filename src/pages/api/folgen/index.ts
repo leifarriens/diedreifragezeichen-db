@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
 
 import { dbConnect } from '@/db/connect';
+import { Apikey } from '@/models/apikey';
 import { Folge } from '@/models/folge';
 
 const queryParamsSchema = z.object({
@@ -10,6 +11,7 @@ const queryParamsSchema = z.object({
   sort: z
     .enum(['release_date', '-release_date', 'rating', '-rating'])
     .default('-release_date'),
+  apikey: z.string().uuid('Malformed apikey'),
 });
 
 export default async function handler(
@@ -17,12 +19,14 @@ export default async function handler(
   res: NextApiResponse,
 ) {
   if (req.method === 'GET') {
-    await dbConnect();
-
     const result = queryParamsSchema.safeParse(req.query);
 
     if (!result.success) {
-      return res.status(400).json({
+      const isUnauthorized = !!result.error.errors.find(({ path }) =>
+        path.includes('apikey'),
+      );
+
+      return res.status(isUnauthorized ? 401 : 400).json({
         errors: Object.fromEntries(
           result.error.issues.map(({ path, message }) => [
             path.join('.'),
@@ -32,9 +36,15 @@ export default async function handler(
       });
     }
 
-    const offset = result.data.offset;
-    const limit = result.data.limit;
-    const sort = result.data.sort;
+    const { apikey, offset, limit, sort } = result.data;
+
+    await dbConnect();
+
+    if (!(await Apikey.findOne({ token: apikey }))) {
+      return res.status(403).json({
+        errors: { apikey: 'Invalid apikey' },
+      });
+    }
 
     const total = await Folge.count();
 

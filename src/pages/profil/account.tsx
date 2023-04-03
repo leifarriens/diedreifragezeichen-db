@@ -1,5 +1,9 @@
+import classNames from 'classnames';
 import type { GetServerSidePropsContext } from 'next/types';
 import { signOut } from 'next-auth/react';
+import { useRef } from 'react';
+import { toast } from 'react-hot-toast';
+import { FiCopy } from 'react-icons/fi';
 import styled from 'styled-components';
 
 import { Seo } from '@/components/Seo';
@@ -13,7 +17,7 @@ import { ProfilLayout } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const AccountPage = () => {
-  const { mutate } = trpc.user.delete.useMutation({
+  const deleteMutation = trpc.user.delete.useMutation({
     onSuccess: () => signOut(),
   });
 
@@ -22,7 +26,7 @@ const AccountPage = () => {
       'Bitte geben Sie "Löschen" ein um ihren Account unwiderruflich zu löschen',
       '',
     );
-    if (confirm === 'Löschen') mutate();
+    if (confirm === 'Löschen') deleteMutation.mutate();
   }
 
   return (
@@ -59,7 +63,56 @@ const AccountPage = () => {
             </Button>
           </div>
         </SectionBox>
+        <SectionBox>
+          <h3>API key</h3>
+          <div className="split">
+            <Apikey />
+          </div>
+        </SectionBox>
       </ProfilLayout>
+    </>
+  );
+};
+
+const Apikey = () => {
+  const ref = useRef<HTMLInputElement | null>(null);
+  const apikeyMutation = trpc.user.apikey.useMutation();
+
+  async function handleCopyClick() {
+    if (apikeyMutation.data?.token) {
+      await navigator.clipboard.writeText(apikeyMutation.data.token);
+      toast('API key copied to clipboard');
+    }
+  }
+
+  return (
+    <>
+      <div className="flex items-center gap-2">
+        <input
+          ref={ref}
+          type="text"
+          value={apikeyMutation.data?.token ?? ''}
+          disabled={!apikeyMutation.isSuccess}
+          className={classNames(
+            'w-[36ch] rounded bg-neutral-800 bg-opacity-60 py-1 text-center',
+          )}
+          onFocus={(e) => e.target.select()}
+        />
+        <button
+          type="button"
+          disabled={!apikeyMutation.isSuccess}
+          onClick={handleCopyClick}
+        >
+          <FiCopy size={22} />
+        </button>
+      </div>
+
+      <Button
+        onClick={() => apikeyMutation.mutate({})}
+        color={colors.lightblue}
+      >
+        Generieren
+      </Button>
     </>
   );
 };
