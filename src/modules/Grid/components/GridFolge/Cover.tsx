@@ -22,10 +22,12 @@ export function Cover({ images, alt, coverOnly }: CoverProps) {
 
   return (
     <div ref={ref}>
-      {!coverOnly && isLoaded && (
+      {!coverOnly && (
         <>
           <Background />
-          <Overlay style={{ backgroundImage: `url(${src})` }} />
+          <Overlay
+            style={{ ...(isLoaded && { backgroundImage: `url(${src})` }) }}
+          />
         </>
       )}
       <div className="relative flex aspect-square h-auto w-full items-center justify-center overflow-hidden">

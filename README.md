@@ -6,6 +6,14 @@ Read the [Contribution Guide](CONTRIBUTING.md).
 
 ## API
 
+### API access
+
+Get your `apikey` from your [Account page](http://www.ddfdb.de/profil/account) and add it as a query param to your request url.
+
+| Param  | Description                 |
+| ------ | --------------------------- |
+| apikey | Type `string` - user apikey |
+
 ### Lists all folgen
 
 GET `/api/folgen`

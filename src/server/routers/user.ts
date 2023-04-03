@@ -1,6 +1,7 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
+import { Apikey, apikeyValidator } from '@/models/apikey';
 import type { FolgeWithId } from '@/models/folge';
 import { Rating } from '@/models/rating';
 import { User } from '@/models/user';
@@ -122,4 +123,13 @@ export const userRouter = router({
   delete: authedProcedure.mutation(async ({ ctx }) => {
     return deleteUser(ctx.user.id);
   }),
+  apikey: authedProcedure
+    .input(apikeyValidator.pick({ token: true }))
+    .mutation(async ({ ctx, input }) => {
+      return Apikey.findOneAndUpdate(
+        { user: ctx.user.id },
+        { $set: { token: input.token } },
+        { upsert: true, new: true },
+      );
+    }),
 });
