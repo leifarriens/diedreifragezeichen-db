@@ -107,10 +107,7 @@ const Apikey = () => {
         </button>
       </div>
 
-      <Button
-        onClick={() => apikeyMutation.mutate({})}
-        color={colors.lightblue}
-      >
+      <Button onClick={() => apikeyMutation.mutate()} color={colors.lightblue}>
         Generieren
       </Button>
     </>

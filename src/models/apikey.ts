@@ -1,7 +1,6 @@
 // NOTE: Models referenced in schema should be imported
 import '@/models/user';
 
-import { randomUUID } from 'crypto';
 import mongoose from 'mongoose';
 import { z } from 'zod';
 
@@ -9,7 +8,7 @@ import type { SchemaType } from '@/types';
 
 export const apikeyValidator = z.object({
   user: z.instanceof(mongoose.Types.ObjectId).or(z.string()),
-  token: z.string().uuid().default(randomUUID()),
+  token: z.string().uuid(),
   created_at: z.date(),
   updated_at: z.date(),
 });
