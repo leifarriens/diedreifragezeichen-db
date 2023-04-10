@@ -1,0 +1,6 @@
+{
+  "buildCommand": "next build",
+  "framework": "nextjs",
+  "regions": ["fra1"],
+  "crons": []
+}
