@@ -1,6 +1,8 @@
 import { TRPCError } from '@trpc/server';
+import { randomUUID } from 'crypto';
 import { z } from 'zod';
 
+import { Apikey } from '@/models/apikey';
 import type { FolgeWithId } from '@/models/folge';
 import { Rating } from '@/models/rating';
 import { User } from '@/models/user';
@@ -121,5 +123,14 @@ export const userRouter = router({
     }),
   delete: authedProcedure.mutation(async ({ ctx }) => {
     return deleteUser(ctx.user.id);
+  }),
+  apikey: authedProcedure.mutation(async ({ ctx }) => {
+    const token = randomUUID();
+
+    return Apikey.findOneAndUpdate(
+      { user: ctx.user.id },
+      { $set: { token } },
+      { upsert: true, new: true },
+    );
   }),
 });

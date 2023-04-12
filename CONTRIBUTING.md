@@ -34,6 +34,12 @@ yarn
 
 Before you can run the project locally you have to set every required environment variable defined in the `.env.example` file.
 
+You can run a mongoDB locally with docker:
+
+```sh
+docker compose up -d
+```
+
 Run the project in development mode:
 
 ```sh
@@ -44,7 +50,7 @@ yarn dev
 
 However you setup your mongoDB instance you have to populate it with the DDF Folgen. Perform a request with the `APP_KEY` as the Bearer Token using your favorite HTTP client:
 
-`GET http://localhost:3000/api/folgen/sync`
+`GET http://localhost:3000/api/sync/folgen`
 
 Before working on a new feature checkout a new branch:
 
