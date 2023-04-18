@@ -12,11 +12,11 @@ jobs:
           curl --request GET \
           --url 'https://www.ddfdb.de/api/sync/folgen' \
           --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
-      # - name: Sync Inhalte
-      #   run: |
-      #     curl --request GET \
-      #     --url 'https://www.ddfdb.de/api/sync/inhalte' \
-      #     --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
+      - name: Sync Inhalte
+        run: |
+          curl --request GET \
+          --url 'https://www.ddfdb.de/api/sync/inhalte' \
+          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
       - name: Sync Deezer
         run: |
           curl --request GET \
