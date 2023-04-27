@@ -23,7 +23,7 @@ const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <Seo title="Archiv" canonicalpath="/" />
 
       <Wrapper>
-        <Grid folgen={folgen} showCoverOnly={false} isFiltered showUi />
+        <Grid folgen={folgen} isFiltered showUi />
 
         {!session && (
           <div className="mt-32 text-center">
