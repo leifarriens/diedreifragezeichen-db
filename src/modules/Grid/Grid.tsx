@@ -14,7 +14,6 @@ import { applyFilter } from './utils/filter';
 
 interface GridProps {
   folgen: FolgeWithId[];
-  showCoverOnly?: boolean;
   isFiltered?: boolean;
   showUi?: boolean;
 }
@@ -25,7 +24,7 @@ const initialYearRange = {
 };
 
 export function Grid(props: GridProps) {
-  const { showCoverOnly = false, isFiltered = false, showUi = false } = props;
+  const { isFiltered = false, showUi = false } = props;
   const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
     useGridState();
   const [showOnlyUnrated, setShowOnlyUnrated] = useState(false);
@@ -111,7 +110,6 @@ export function Grid(props: GridProps) {
               key={folge._id}
               folge={folge}
               userRating={folge.user_rating}
-              coverOnly={showCoverOnly}
             />
           ))}
         </FolgenContainer>
