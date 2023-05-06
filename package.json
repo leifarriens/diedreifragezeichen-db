@@ -46,7 +46,7 @@
     "dayjs": "^1.11.7",
     "gray-matter": "^4.0.3",
     "mongodb": "^5.4.0",
-    "mongoose": "6.9.0",
+    "mongoose": "^7.1.0",
     "next": "~13.4.1",
     "next-auth": "^4.22.1",
     "next-seo": "^6.0.0",
