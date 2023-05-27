@@ -14,14 +14,12 @@ import { FolgeContainer, RatingBadge } from './StyledFolge';
 interface GridFolgeProps {
   folge: FolgeWithId;
   userRating?: number | null;
-  coverOnly?: boolean;
   style?: CSSProperties;
 }
 
 export const GridFolge = memo(function GridFolge({
   folge,
   userRating = null,
-  coverOnly = false,
   ...rest
 }: GridFolgeProps) {
   const router = useRouter();
@@ -39,33 +37,27 @@ export const GridFolge = memo(function GridFolge({
   return (
     <FolgeContainer ref={ref} {...rest}>
       <Link href={href} aria-label={folge.name}>
-        <Cover
-          images={folge.images}
-          alt={`${folge.name} Cover`}
-          coverOnly={coverOnly}
-        />
+        <Cover images={folge.images} alt={`${folge.name} Cover`} />
       </Link>
 
-      {!coverOnly && (
-        <div className="flex items-center justify-between py-2 px-3 text-sm">
+      <div className="flex items-center justify-between py-2 px-3 text-sm">
+        <div>
           <div>
-            <div>
-              <span className="text-xl font-medium">
-                {folge.number_of_ratings >= 1 ? folge.rating : '???'}
-              </span>
-              /10
-            </div>
-            <div className="text-xs font-extralight text-neutral-200">
-              {dayjs(folge.release_date).format(DATE_FORMAT)}
-            </div>
+            <span className="text-xl font-medium">
+              {folge.number_of_ratings >= 1 ? folge.rating : '???'}
+            </span>
+            /10
           </div>
-
-          <div className="flex items-center gap-2">
-            {userRating && <RatingBadge>{userRating}</RatingBadge>}
-            <ListButton folgeId={folge._id} folgeName={folge.name} />
+          <div className="text-xs font-extralight text-neutral-200">
+            {dayjs(folge.release_date).format(DATE_FORMAT)}
           </div>
         </div>
-      )}
+
+        <div className="flex items-center gap-2">
+          {userRating && <RatingBadge>{userRating}</RatingBadge>}
+          <ListButton folgeId={folge._id} folgeName={folge.name} />
+        </div>
+      </div>
     </FolgeContainer>
   );
 });

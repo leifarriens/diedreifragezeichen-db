@@ -8,10 +8,9 @@ import { Background, Overlay } from './StyledFolge';
 interface CoverProps {
   images: Image[];
   alt: string;
-  coverOnly: boolean;
 }
 
-export function Cover({ images, alt, coverOnly }: CoverProps) {
+export function Cover({ images, alt }: CoverProps) {
   const { ref, inView: isInView } = useInView({
     triggerOnce: true,
     threshold: 0,
@@ -22,12 +21,10 @@ export function Cover({ images, alt, coverOnly }: CoverProps) {
 
   return (
     <div ref={ref}>
-      {!coverOnly && isLoaded && (
-        <>
-          <Background />
-          <Overlay style={{ backgroundImage: `url(${src})` }} />
-        </>
-      )}
+      <Background />
+      <Overlay
+        style={{ ...(isLoaded && { backgroundImage: `url(${src})` }) }}
+      />
       <div className="relative flex aspect-square h-auto w-full items-center justify-center overflow-hidden">
         {isInView && (
           <img
