@@ -76,12 +76,16 @@ const AccountPage = () => {
 
 const Apikey = () => {
   const ref = useRef<HTMLInputElement | null>(null);
-  const apikeyMutation = trpc.user.apikey.useMutation();
+  const apikeyMutation = trpc.user.apikey.useMutation({
+    onSuccess() {
+      toast('Neuer API key generiert');
+    },
+  });
 
   async function handleCopyClick() {
     if (apikeyMutation.data?.token) {
       await navigator.clipboard.writeText(apikeyMutation.data.token);
-      toast('API key copied to clipboard');
+      toast('API in im clipboard gespeichert');
     }
   }
 
@@ -94,7 +98,7 @@ const Apikey = () => {
           value={apikeyMutation.data?.token ?? ''}
           disabled={!apikeyMutation.isSuccess}
           className={classNames(
-            'w-[36ch] rounded bg-neutral-800 bg-opacity-60 py-1 text-center',
+            'rounded bg-neutral-800 bg-opacity-60 py-1 text-center sm:w-[36ch]',
           )}
           onFocus={(e) => e.target.select()}
         />
@@ -107,7 +111,11 @@ const Apikey = () => {
         </button>
       </div>
 
-      <Button onClick={() => apikeyMutation.mutate()} color={colors.lightblue}>
+      <Button
+        onClick={() => apikeyMutation.mutate()}
+        color={colors.lightblue}
+        disabled={apikeyMutation.isLoading}
+      >
         Generieren
       </Button>
     </>
