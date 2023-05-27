@@ -98,7 +98,7 @@ const Apikey = () => {
           value={apikeyMutation.data?.token ?? ''}
           disabled={!apikeyMutation.isSuccess}
           className={classNames(
-            'w-[36ch] rounded bg-neutral-800 bg-opacity-60 py-1 text-center',
+            'rounded bg-neutral-800 bg-opacity-60 py-1 text-center sm:w-[36ch]',
           )}
           onFocus={(e) => e.target.select()}
         />
