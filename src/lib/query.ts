@@ -2,8 +2,6 @@ import type { QueryClientConfig } from '@tanstack/react-query';
 import { TRPCClientError } from '@trpc/client';
 import toast from 'react-hot-toast';
 
-import type { AppRouter } from '@/server/routers/_app';
-
 export const queryClientConfig: QueryClientConfig = {
   defaultOptions: {
     queries: {
@@ -12,7 +10,7 @@ export const queryClientConfig: QueryClientConfig = {
     },
     mutations: {
       onError: (error) => {
-        if (error instanceof TRPCClientError<AppRouter>) {
+        if (error instanceof TRPCClientError) {
           toast.error(`Ein Fehler ist aufgetreten: ${error.message}`);
         }
       },

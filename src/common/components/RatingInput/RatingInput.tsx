@@ -153,7 +153,7 @@ export function RatingInput({
           ))}
         </FragezeichenContainer>
       </IconContainer>
-      <div className="ml-1 -mt-3 max-w-xl text-right text-2xl">
+      <div className="-mt-3 ml-1 max-w-xl text-right text-2xl">
         {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)}
       </div>
     </Container>

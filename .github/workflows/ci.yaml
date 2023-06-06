@@ -40,7 +40,6 @@ jobs:
 
   test-setup:
     name: E2E Test setup ⚗️
-    needs: ci
     runs-on: ubuntu-latest
     outputs:
       preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}

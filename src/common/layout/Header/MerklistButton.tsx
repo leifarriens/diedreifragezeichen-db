@@ -11,7 +11,7 @@ export function MerklistButton() {
       <Button as="a" ghost className="relative">
         Merkliste
         {data && data.length > 0 && (
-          <span className="w-min-5 absolute -top-1 -right-1 flex h-5 items-center justify-center rounded-full bg-ddfRed p-1 text-xs text-white">
+          <span className="w-min-5 absolute -right-1 -top-1 flex h-5 items-center justify-center rounded-full bg-ddfRed p-1 text-xs text-white">
             {data.length.toString()}
           </span>
         )}

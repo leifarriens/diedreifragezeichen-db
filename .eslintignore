@@ -6,4 +6,4 @@ scripts/
 vitest.config.ts
 playwright.config.ts
 tests/
-vitest.config.ts
+tailwind.config.js
