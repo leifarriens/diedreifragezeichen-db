@@ -40,7 +40,7 @@ export const GridFolge = memo(function GridFolge({
         <Cover images={folge.images} alt={`${folge.name} Cover`} />
       </Link>
 
-      <div className="flex items-center justify-between py-2 px-3 text-sm">
+      <div className="flex items-center justify-between px-3 py-2 text-sm">
         <div>
           <div>
             <span className="text-xl font-medium">
