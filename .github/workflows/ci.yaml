@@ -37,3 +37,52 @@ jobs:
 
       - name: 📝 Format
         run: yarn format --loglevel silent
+
+  test-setup:
+    name: E2E Test setup ⚗️
+    needs: ci
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+    steps:
+      - name: Wait for Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        id: waitForVercelPreviewDeployment
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 800
+      - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
+
+  e2e-test:
+    needs: test-setup
+    name: E2E Test 🧪
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
+      - name: Install yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Playwright tests
+        run: yarn test:e2e
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test-setup.outputs.preview_url }}
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
