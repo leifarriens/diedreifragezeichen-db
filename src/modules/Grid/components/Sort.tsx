@@ -2,13 +2,15 @@ import styled from 'styled-components';
 
 import { SortOptionsEnum } from '../types';
 
+type SortKey = keyof typeof SortOptionsEnum;
+
 interface SortProps {
-  currentSort: string;
-  onSortChange: (value: string) => void;
+  currentSort: SortKey;
+  onSortChange: (value: SortKey) => void;
 }
 
 export function Sort({ currentSort, onSortChange }: SortProps) {
-  const sortVariants = [
+  const sortVariants: { name: string; value: SortOptionsEnum }[] = [
     { name: 'Neuste', value: SortOptionsEnum.dateDesc },
     { name: 'Älteste', value: SortOptionsEnum.dateAsc },
     { name: 'Beste', value: SortOptionsEnum.rating },
@@ -25,9 +27,9 @@ export function Sort({ currentSort, onSortChange }: SortProps) {
             name="sort"
             value={value}
             checked={value === currentSort ? true : false}
-            onChange={(e) => onSortChange(e.target.value)}
+            onChange={(e) => onSortChange(e.target.value as SortKey)}
           />
-          <span className="inline-block w-full border border-white py-2 px-4 text-center font-semibold">
+          <span className="inline-block w-full border border-white px-4 py-2 text-center font-semibold">
             {name}
           </span>
         </Label>
