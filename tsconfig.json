@@ -2,12 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "es6",
-      "es7",
-      "esnext",
-      "dom"
-    ],
+    "lib": ["es6", "es7", "esnext", "dom"],
     "allowJs": true,
     "jsx": "preserve",
     "removeComments": false,
@@ -25,24 +20,12 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@/components/*": [
-        "common/components/*"
-      ],
-      "@/layout": [
-        "common/layout"
-      ],
-      "@/hooks": [
-        "common/hooks"
-      ],
-      "@/styles/*": [
-        "common/styles/*"
-      ],
-      "@/utils/*": [
-        "common/utils/*"
-      ]
+      "@/*": ["./*"],
+      "@/components/*": ["common/components/*"],
+      "@/layout": ["common/layout"],
+      "@/hooks": ["common/hooks"],
+      "@/styles/*": ["common/styles/*"],
+      "@/utils/*": ["common/utils/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -60,14 +43,6 @@
       }
     ]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "tests"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "tests"]
 }
