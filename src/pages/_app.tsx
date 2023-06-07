@@ -2,7 +2,6 @@ import '@/styles/global.scss';
 import '@/styles/nprogress.css';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Analytics } from '@vercel/analytics/react';
 import type { AppProps } from 'next/app';
 import Router from 'next/router';
 import type { Session } from 'next-auth';
@@ -41,7 +40,6 @@ const MyApp = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
         </GridProvider>
       </SessionProvider>
       <Toaster />
-      <Analytics />
       {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
     </>
   );
