@@ -8,24 +8,29 @@ import { ActionKind, GridReducer } from './GridReducer';
 
 export interface GridState {
   showSpecials: boolean;
+  showOnlyUnrated: boolean;
   searchQuery: string;
   sortBy: SortOptionsEnum;
   setShowSpecials: (show: boolean) => void;
+  setShowOnlyUnrated: (show: boolean) => void;
   setSearchQuery: (query: string) => void;
   setSortBy: (query: string) => void;
 }
 
 const initalState = {
   showSpecials: false,
+  showOnlyUnrated: false,
   searchQuery: '',
   sortBy: SortOptionsEnum.dateDesc,
   setShowSpecials: () => {},
+  setShowOnlyUnrated: () => {},
   setSearchQuery: () => {},
   setSortBy: () => {},
 };
 
 enum StorageNames {
   SHOW_SPECIALS = 'show_specials',
+  SHOW_ONLY_RUNRATED = 'show_only_unrated',
   SORT_BY = 'sort_by',
 }
 
@@ -64,6 +69,18 @@ export function GridProvider({
     });
   }, []);
 
+  const setShowOnlyUnrated = useCallback((onlyUnrated: boolean) => {
+    localStorage.setItem(
+      StorageNames.SHOW_ONLY_RUNRATED,
+      JSON.stringify(onlyUnrated),
+    );
+
+    dispatch({
+      type: ActionKind.SET_SHOW_ONLY_UNRATED,
+      payload: onlyUnrated,
+    });
+  }, []);
+
   useEffect(() => {
     const show = localStorage.getItem(StorageNames.SHOW_SPECIALS)
       ? (JSON.parse(
@@ -72,6 +89,14 @@ export function GridProvider({
       : false;
 
     setShowSpecials(show);
+
+    const onlyUnrated = localStorage.getItem(StorageNames.SHOW_ONLY_RUNRATED)
+      ? (JSON.parse(
+          localStorage.getItem(StorageNames.SHOW_ONLY_RUNRATED) ?? '',
+        ) as boolean)
+      : false;
+
+    setShowOnlyUnrated(onlyUnrated);
 
     const sortBy =
       (sessionStorage.getItem(StorageNames.SORT_BY) as
@@ -93,6 +118,8 @@ export function GridProvider({
     <GridContext.Provider
       value={{
         showSpecials: state.showSpecials,
+        setShowOnlyUnrated,
+        showOnlyUnrated: state.showOnlyUnrated,
         setShowSpecials,
         searchQuery: state.searchQuery,
         setSearchQuery,

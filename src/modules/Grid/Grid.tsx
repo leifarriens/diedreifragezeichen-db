@@ -25,9 +25,8 @@ const initialYearRange = {
 
 export function Grid(props: GridProps) {
   const { isFiltered = false, showUi = false } = props;
-  const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials } =
+  const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials, showOnlyUnrated, setShowOnlyUnrated } =
     useGridState();
-  const [showOnlyUnrated, setShowOnlyUnrated] = useState(false);
   const { status } = useSession();
 
   const [yearRange, setYearRange] = useState(initialYearRange);
