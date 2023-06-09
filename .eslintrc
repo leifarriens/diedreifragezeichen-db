@@ -40,8 +40,7 @@
     "react",
     "simple-import-sort",
     "eslint-plugin-no-inline-styles",
-    "jsx-a11y",
-    "prettier"
+    "jsx-a11y"
   ],
   "rules": {
     "@next/next/no-img-element": "off",
@@ -64,7 +63,6 @@
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "no-inline-styles/no-inline-styles": "warn",
-    "prettier/prettier": "warn",
     "react/button-has-type": "warn",
     "react/display-name": "error",
     "react/function-component-definition": "warn",

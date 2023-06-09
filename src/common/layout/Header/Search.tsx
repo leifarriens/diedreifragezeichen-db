@@ -76,7 +76,7 @@ export function Search() {
         name="search"
         value={value}
         placeholder="Name, Nummer oder Erscheinungsjahr"
-        className="w-full rounded-3xl bg-black bg-opacity-80 py-[8px] px-6 text-[16px] text-white backdrop-blur-sm backdrop-brightness-50 transition-all sm:py-[10px]"
+        className="w-full rounded-3xl bg-black bg-opacity-80 px-6 py-[8px] text-[16px] text-white backdrop-blur-sm backdrop-brightness-50 transition-all sm:py-[10px]"
         onKeyDown={handleKeyDown}
         onChange={handleSearchChange}
       />
@@ -111,7 +111,7 @@ function SearchResults({ query }: { query: string }) {
 
   return (
     <div className="relative">
-      <ul className="absolute top-4 left-0 w-full overflow-hidden rounded-lg bg-black py-2">
+      <ul className="absolute left-0 top-4 w-full overflow-hidden rounded-lg bg-black py-2">
         {isInitialLoading && <Loader />}
         {data?.pages.map((groupe, i) => (
           <React.Fragment key={i}>
