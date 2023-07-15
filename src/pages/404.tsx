@@ -4,8 +4,8 @@ import { Wrapper } from '@/layout';
 
 const NotFound: NextPage = () => {
   return (
-    <Wrapper>
-      <h1>Nichts im Archiv</h1>
+    <Wrapper className="flex items-center justify-center">
+      <h1 className="text-4xl font-bold">Nichts im Archiv</h1>
     </Wrapper>
   );
 };

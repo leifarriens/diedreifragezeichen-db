@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server';
 import type { SortOrder } from 'mongoose';
 import { z } from 'zod';
 
+import { AllFolgenSortOptions } from '@/constants/enums';
 import { Folge } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { ratingValidator } from '@/models/rating';
@@ -33,11 +34,16 @@ export const folgeRouter = router({
       const limit = input.limit;
       const offset = input.cursor;
 
-      const query = { name: { $regex: input.query, $options: 'i' } };
+      const query = {
+        $or: [
+          { name: { $regex: input.query, $options: 'i' } },
+          { number: { $regex: input.query, $options: 'i' } },
+        ],
+      };
       const folgen = await Folge.find(query)
         .limit(limit)
         .skip(offset)
-        .select('name images')
+        .select('name number images')
         .lean();
 
       const total = await Folge.countDocuments(query);
