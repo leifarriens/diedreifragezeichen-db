@@ -151,7 +151,9 @@ const AdminFolge = ({
   return (
     <article
       key={folge._id}
-      className="relative mb-8 grid grid-cols-[180px_1fr] gap-4"
+      className={classNames('relative mb-8 grid grid-cols-[180px_1fr] gap-4', {
+        'opacity-50 saturate-0': folge.isHidden,
+      })}
     >
       <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl">
         <div
@@ -172,10 +174,13 @@ const AdminFolge = ({
       </div>
 
       <div className="flex flex-col py-4 pr-4">
-        <h3 className="mb-2 text-2xl font-semibold">
-          {folge.number && `${folge.number}: `}
-          {folge.name}
-        </h3>
+        <div className="flex justify-between">
+          <h3 className="mb-2 text-2xl font-semibold">
+            {folge.number && `${folge.number}: `}
+            {folge.name}
+          </h3>
+          {folge.isHidden && <FaRegEyeSlash size={24} />}
+        </div>
 
         <div className="flex-1 text-sm">
           <div>
