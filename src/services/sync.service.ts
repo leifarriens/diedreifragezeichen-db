@@ -21,6 +21,7 @@ export async function syncFolgen() {
     const isInDb = dbFolgen.find((folge) => folge.spotify_id === album.id);
 
     if (
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
       isInDb ||
       ignorelist.includes(album.id) ||
       album.name.match(/liest|Kopfhörer/g)
