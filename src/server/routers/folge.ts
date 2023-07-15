@@ -54,7 +54,7 @@ export const folgeRouter = router({
       z.object({
         query: z.string(),
         specials: z.boolean().default(true),
-        sort: z.enum(['release_date', 'rating']).default('release_date'),
+        sort: AllFolgenSortOptions,
         cursor: z.number().default(0),
       }),
     )
@@ -64,7 +64,10 @@ export const folgeRouter = router({
       const type = !input.specials ? 'regular' : null;
 
       const query = {
-        name: { $regex: input.query, $options: 'i' },
+        $or: [
+          { name: { $regex: input.query, $options: 'i' } },
+          { number: { $regex: input.query, $options: 'i' } },
+        ],
         ...(type && { type }),
       };
 
