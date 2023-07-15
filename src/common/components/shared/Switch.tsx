@@ -23,7 +23,7 @@ export function Switch({ label, checked, onChange, ...rest }: SwitchProps) {
         onChange={handleChange}
         {...rest}
       />
-      <label htmlFor={id} className="whitespace-nowrap">
+      <label htmlFor={id} className="whitespace-nowrap font-semibold">
         {label}
       </label>
     </SwitchContainer>

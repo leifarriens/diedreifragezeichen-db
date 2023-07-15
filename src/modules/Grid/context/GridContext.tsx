@@ -90,13 +90,15 @@ export function GridProvider({
 
     setShowSpecials(show);
 
-    const onlyUnrated = localStorage.getItem(StorageNames.SHOW_ONLY_RUNRATED)
+    const showOnlyUnrated = localStorage.getItem(
+      StorageNames.SHOW_ONLY_RUNRATED,
+    )
       ? (JSON.parse(
           localStorage.getItem(StorageNames.SHOW_ONLY_RUNRATED) ?? '',
         ) as boolean)
       : false;
 
-    setShowOnlyUnrated(onlyUnrated);
+    setShowOnlyUnrated(showOnlyUnrated);
 
     const sortBy =
       (sessionStorage.getItem(StorageNames.SORT_BY) as
@@ -112,7 +114,7 @@ export function GridProvider({
     });
     const searchQuery = queryString.search?.toString() ?? '';
     setSearchQuery(searchQuery);
-  }, [setSortBy, setSearchQuery, setShowSpecials]);
+  }, [setSortBy, setSearchQuery, setShowSpecials, setShowOnlyUnrated]);
 
   return (
     <GridContext.Provider

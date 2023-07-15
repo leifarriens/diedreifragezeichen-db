@@ -25,8 +25,15 @@ const initialYearRange = {
 
 export function Grid(props: GridProps) {
   const { isFiltered = false, showUi = false } = props;
-  const { searchQuery, sortBy, setSortBy, showSpecials, setShowSpecials, showOnlyUnrated, setShowOnlyUnrated } =
-    useGridState();
+  const {
+    searchQuery,
+    sortBy,
+    setSortBy,
+    showSpecials,
+    setShowSpecials,
+    showOnlyUnrated,
+    setShowOnlyUnrated,
+  } = useGridState();
   const { status } = useSession();
 
   const [yearRange, setYearRange] = useState(initialYearRange);
@@ -95,9 +102,12 @@ export function Grid(props: GridProps) {
             </div>
           </GridUI>
 
-          <div className="mb-8">
+          <div className="mb-8 font-semibold">
             {filteredFolgen.length}{' '}
             {filteredFolgen.length === 1 ? 'Folge' : 'Folgen'}
+            {showOnlyUnrated && (
+              <span className="text-neutral-400"> (nicht bewertet)</span>
+            )}
           </div>
         </>
       )}
