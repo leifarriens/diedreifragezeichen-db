@@ -77,7 +77,7 @@ export const userRouter = router({
 
       const filter = { user: ctx.user.id };
 
-      const total = await Rating.count(filter);
+      const total = await Rating.countDocuments(filter);
 
       const ratings = await Rating.find(filter)
         .sort('-updated_at')

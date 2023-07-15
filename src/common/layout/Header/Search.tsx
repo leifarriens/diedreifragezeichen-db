@@ -115,7 +115,7 @@ function SearchResults({ query }: { query: string }) {
         {isInitialLoading && <Loader />}
         {data?.pages.map((groupe, i) => (
           <React.Fragment key={i}>
-            {groupe.items.map(({ _id, name, images }) => {
+            {groupe.items.map(({ _id, name, number, images }) => {
               return (
                 <li
                   key={_id}
@@ -130,7 +130,10 @@ function SearchResults({ query }: { query: string }) {
                       className="h-14 w-14 rounded-sm"
                       alt=""
                     />
-                    <div>{name}</div>
+                    <div className="font-semibold">
+                      {number && <span>{Number(number).toString()}: </span>}
+                      {name}
+                    </div>
                   </Link>
                 </li>
               );
