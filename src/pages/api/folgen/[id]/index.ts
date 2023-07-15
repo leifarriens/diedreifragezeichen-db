@@ -49,7 +49,7 @@ export default async function handler(
 
     const folge = await getFolge(id);
 
-    if (!folge) return res.status(404).end('Not Found');
+    if (!folge || folge.isHidden) return res.status(404).end('Not Found');
 
     return res.json(folge);
   }

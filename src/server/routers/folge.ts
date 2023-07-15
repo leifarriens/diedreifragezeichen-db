@@ -98,7 +98,12 @@ export const folgeRouter = router({
     .query(async ({ input }) => {
       const type = !input.specials ? 'regular' : null;
 
-      const filter = { ...(type && { type }) };
+      const filter = {
+        ...(type && { type }),
+        isHidden: {
+          $ne: true,
+        },
+      };
       const total = await Folge.countDocuments(filter);
 
       return total;
@@ -112,7 +117,7 @@ export const folgeRouter = router({
     .query(async ({ input }) => {
       const folge = await getFolge(input.id);
 
-      if (!folge) {
+      if (!folge || folge.isHidden) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
 

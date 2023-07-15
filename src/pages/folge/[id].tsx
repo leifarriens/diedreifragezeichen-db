@@ -82,7 +82,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const folge = await getFolge(id);
 
-  if (!folge) return { notFound: true };
+  if (!folge || folge.isHidden) return { notFound: true };
 
   return {
     props: {
