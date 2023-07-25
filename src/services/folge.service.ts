@@ -20,6 +20,7 @@ export async function getFolgen(options: FolgenOptions = {}) {
   const type = !showSpecials ? 'regular' : null;
 
   const folgen = await Folge.find({
+    isHidden: { $ne: true },
     ...(type && { type }),
   })
     .select(fields)

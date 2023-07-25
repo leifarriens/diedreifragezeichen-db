@@ -4,9 +4,16 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { ParsedUrlQuery } from 'querystring';
 import type { SubmitHandler } from 'react-hook-form';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
-import { Button, Form, Input, Select, Textarea } from '@/components/shared';
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  Switch,
+  Textarea,
+} from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { dbConnect } from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
@@ -17,6 +24,7 @@ import { parseMongo } from '@/utils/index';
 import { trpc } from '@/utils/trpc';
 
 const validator = folgeValidator.pick({
+  isHidden: true,
   name: true,
   type: true,
   number: true,
@@ -27,8 +35,9 @@ const validator = folgeValidator.pick({
 
 const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
   const router = useRouter();
-  const { register, handleSubmit, formState, watch } = useForm<Folge>({
+  const { register, handleSubmit, formState, watch, control } = useForm<Folge>({
     defaultValues: {
+      isHidden: folge.isHidden,
       name: folge.name,
       type: folge.type,
       number: folge.number,
@@ -61,8 +70,6 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
     if (confirm === folge.name) deleteMutation.mutate({ folgeId: folge._id });
   }
 
-  const isTouched = Object.keys(formState.touchedFields).length > 0;
-
   const cover = folge.images[1];
 
   return (
@@ -84,6 +91,18 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
       </div>
 
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          control={control}
+          name="isHidden"
+          render={({ field: { value, onChange } }) => (
+            <Switch
+              checked={value || false}
+              onChange={onChange}
+              label="Is Hidden"
+            />
+          )}
+        />
+
         <label>
           <span>Id</span>
           <Input defaultValue={folge._id} disabled />
@@ -147,7 +166,7 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
             Löschen
           </Button>
 
-          <Button type="submit" disabled={!isTouched || isLoading}>
+          <Button type="submit" disabled={!formState.isDirty || isLoading}>
             Speichern
           </Button>
         </div>

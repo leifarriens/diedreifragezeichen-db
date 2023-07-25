@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server';
 import type { SortOrder } from 'mongoose';
 import { z } from 'zod';
 
+import { AllFolgenSortOptions } from '@/constants/enums';
 import { Folge } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { ratingValidator } from '@/models/rating';
@@ -33,11 +34,16 @@ export const folgeRouter = router({
       const limit = input.limit;
       const offset = input.cursor;
 
-      const query = { name: { $regex: input.query, $options: 'i' } };
+      const query = {
+        $or: [
+          { name: { $regex: input.query, $options: 'i' } },
+          { number: { $regex: input.query, $options: 'i' } },
+        ],
+      };
       const folgen = await Folge.find(query)
         .limit(limit)
         .skip(offset)
-        .select('name images')
+        .select('name number images')
         .lean();
 
       const total = await Folge.countDocuments(query);
@@ -54,7 +60,7 @@ export const folgeRouter = router({
       z.object({
         query: z.string(),
         specials: z.boolean().default(true),
-        sort: z.enum(['release_date', 'rating']).default('release_date'),
+        sort: AllFolgenSortOptions,
         cursor: z.number().default(0),
       }),
     )
@@ -64,7 +70,10 @@ export const folgeRouter = router({
       const type = !input.specials ? 'regular' : null;
 
       const query = {
-        name: { $regex: input.query, $options: 'i' },
+        $or: [
+          { name: { $regex: input.query, $options: 'i' } },
+          { number: { $regex: input.query, $options: 'i' } },
+        ],
         ...(type && { type }),
       };
 
@@ -98,7 +107,12 @@ export const folgeRouter = router({
     .query(async ({ input }) => {
       const type = !input.specials ? 'regular' : null;
 
-      const filter = { ...(type && { type }) };
+      const filter = {
+        ...(type && { type }),
+        isHidden: {
+          $ne: true,
+        },
+      };
       const total = await Folge.countDocuments(filter);
 
       return total;
@@ -112,7 +126,7 @@ export const folgeRouter = router({
     .query(async ({ input }) => {
       const folge = await getFolge(input.id);
 
-      if (!folge) {
+      if (!folge || folge.isHidden) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }
 

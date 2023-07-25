@@ -1,20 +1,24 @@
 import classNames from 'classnames';
 import type { GetServerSidePropsContext, NextPage } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaDeezer, FaSpotify, FaSyncAlt } from 'react-icons/fa';
+import { FaDeezer, FaRegEyeSlash, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
+import type { z } from 'zod';
 
-import { Button, Loader, Switch } from '@/components/shared';
+import { Button, Loader, Select, Switch } from '@/components/shared';
+import { AllFolgenSortOptions } from '@/constants/enums';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { useGridState } from '@/modules/Grid';
 import { type RouterOutput, trpc } from '@/utils/trpc';
 
+type SortOptions = z.infer<typeof AllFolgenSortOptions>;
+
 const AdminFolgen: NextPage = () => {
   const { searchQuery, showSpecials, setShowSpecials } = useGridState();
-
+  const [sort, setSort] = useState<SortOptions>();
   const {
     data,
     refetch,
@@ -23,7 +27,7 @@ const AdminFolgen: NextPage = () => {
     fetchNextPage,
     hasNextPage,
   } = trpc.folge.all.useInfiniteQuery(
-    { query: searchQuery, specials: showSpecials },
+    { query: searchQuery, specials: showSpecials, sort },
     {
       getNextPageParam: (lastPage) => {
         if (lastPage.offset + lastPage.limit < lastPage.total) {
@@ -35,10 +39,27 @@ const AdminFolgen: NextPage = () => {
     },
   );
 
+  function handleSortChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    if (!e.target.value) return;
+
+    const value = e.target.value as SortOptions;
+
+    setSort(value);
+  }
+
   return (
     <div className="mx-auto w-full max-w-7xl px-8">
       <div className="mb-12 flex items-center justify-between">
-        <div>
+        <div className="flex items-center gap-x-4">
+          <Select value={sort} onChange={handleSortChange}>
+            {Object.keys(AllFolgenSortOptions.removeDefault().Values).map(
+              (value) => (
+                <option key={value} value={value}>
+                  {value}
+                </option>
+              ),
+            )}
+          </Select>
           <Switch
             checked={showSpecials}
             onChange={setShowSpecials}
@@ -151,7 +172,9 @@ const AdminFolge = ({
   return (
     <article
       key={folge._id}
-      className="relative mb-8 grid grid-cols-[180px_1fr] gap-4"
+      className={classNames('relative mb-8 grid grid-cols-[180px_1fr] gap-4', {
+        'opacity-50 saturate-0': folge.isHidden,
+      })}
     >
       <div className="absolute inset-0 -z-10 overflow-hidden rounded-xl">
         <div
@@ -172,10 +195,13 @@ const AdminFolge = ({
       </div>
 
       <div className="flex flex-col py-4 pr-4">
-        <h3 className="mb-2 text-2xl font-semibold">
-          {folge.number && `${folge.number}: `}
-          {folge.name}
-        </h3>
+        <div className="flex justify-between">
+          <h3 className="mb-2 text-2xl font-semibold">
+            {folge.number && `${folge.number}: `}
+            {folge.name}
+          </h3>
+          {folge.isHidden && <FaRegEyeSlash size={24} />}
+        </div>
 
         <div className="flex-1 text-sm">
           <div>

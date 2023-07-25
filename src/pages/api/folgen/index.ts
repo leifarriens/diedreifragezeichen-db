@@ -46,9 +46,13 @@ export default async function handler(
       });
     }
 
-    const total = await Folge.count();
+    const filter = { isHidden: { $ne: true } };
+    const total = await Folge.countDocuments(filter);
 
-    const folgen = await Folge.find({}).sort(sort).skip(offset).limit(limit);
+    const folgen = await Folge.find(filter)
+      .sort(sort)
+      .skip(offset)
+      .limit(limit);
 
     return res.json({
       items: folgen,
