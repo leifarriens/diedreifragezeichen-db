@@ -28,5 +28,5 @@ test('folgen can be filtered and links to folge', async ({ page }) => {
 
   await folge.getByRole('link').click();
 
-  await expect(page).toHaveTitle('Drei Fragezeichen DB | Folge 125 Feuermond');
+  await expect(page).toHaveTitle('Folge 125 Feuermond | Drei Fragezeichen DB');
 });
