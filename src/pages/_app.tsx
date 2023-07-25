@@ -29,7 +29,7 @@ const MyApp = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
           site_name: 'Die drei Fragezeichen DB',
         }}
         defaultTitle="Drei Fragezeichen DB"
-        titleTemplate="Drei Fragezeichen DB | %s"
+        titleTemplate="%s | Drei Fragezeichen DB"
         description="Die drei Fragezeichen Folgen Archiv und Bewertungen"
       />
       <SessionProvider session={pageProps.session}>
