@@ -1,7 +1,9 @@
 import { TRPCError } from '@trpc/server';
 import { randomUUID } from 'crypto';
+import type { SortOrder } from 'mongoose';
 import { z } from 'zod';
 
+import { RatingsSortOptions } from '@/constants/enums';
 import { Apikey } from '@/models/apikey';
 import type { FolgeWithId } from '@/models/folge';
 import { Rating } from '@/models/rating';
@@ -67,6 +69,7 @@ export const userRouter = router({
   ratedFolgen: authedProcedure
     .input(
       z.object({
+        sort: RatingsSortOptions,
         limit: z.number().int().min(1).max(50).default(20),
         cursor: z.number().default(0),
       }),
@@ -79,8 +82,10 @@ export const userRouter = router({
 
       const total = await Rating.countDocuments(filter);
 
+      const sort: Record<string, SortOrder> = { [input.sort]: -1 };
+
       const ratings = await Rating.find(filter)
-        .sort('-updated_at')
+        .sort(sort)
         .limit(limit)
         .skip(offset)
         .populate<{ folge: FolgeWithId }>({ path: 'folge' })
