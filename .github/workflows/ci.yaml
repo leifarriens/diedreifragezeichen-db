@@ -3,7 +3,8 @@ name: CI
 on:
   pull_request:
     branches:
-      - main
+      - production
+      - staging
       - development
 
 jobs:
