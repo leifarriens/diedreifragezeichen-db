@@ -6,7 +6,7 @@ import { trpc } from '@/utils/trpc';
 export function useFolgenWithUserRatings(folgen: FolgeWithId[]) {
   const { status } = useSession();
 
-  const { data } = trpc.user.ratings.useQuery(undefined, {
+  const { data } = trpc.rating.userRatings.useQuery(undefined, {
     enabled: status === 'authenticated',
   });
 

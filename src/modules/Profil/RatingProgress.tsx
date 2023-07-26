@@ -8,7 +8,7 @@ export function RatingProgress() {
     staleTime: Infinity,
     cacheTime: Infinity,
   });
-  const ratingsQuery = trpc.user.ratings.useQuery();
+  const ratingsQuery = trpc.rating.userRatings.useQuery();
 
   const numberOfFolgen = totalQuery.data;
   const numberOfRatings = ratingsQuery.data?.length;

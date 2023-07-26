@@ -13,7 +13,7 @@ export function useUserRating(
   const { status } = useSession();
   const utils = trpc.useContext();
 
-  const ratingsQuery = trpc.user.ratings.useQuery(undefined, {
+  const ratingsQuery = trpc.rating.userRatings.useQuery(undefined, {
     enabled: status === 'authenticated',
   });
 
@@ -21,10 +21,12 @@ export function useUserRating(
     (rating) => rating.folge === folge_id,
   )?.value;
 
-  const mutation = trpc.folge.addRating.useMutation({
+  const mutation = trpc.rating.add.useMutation({
     onSuccess: async () => {
-      await utils.user.ratings.invalidate();
-      await utils.user.ratedFolgen.invalidate(undefined, { type: 'all' });
+      await utils.rating.userRatings.invalidate();
+      await utils.rating.userRatingsWithFolgen.invalidate(undefined, {
+        type: 'all',
+      });
       onMutationSuccess();
     },
   });
