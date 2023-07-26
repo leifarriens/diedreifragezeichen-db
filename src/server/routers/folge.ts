@@ -5,21 +5,14 @@ import { z } from 'zod';
 import { AllFolgenSortOptions } from '@/constants/enums';
 import { Folge } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
-import { ratingValidator } from '@/models/rating';
 import {
   deleteFolge,
   getFolge,
   getRelatedFolgen,
   updateFolge,
 } from '@/services/folge.service';
-import { postFolgenRating } from '@/services/rating.service';
 
-import {
-  adminProcedure,
-  authedProcedure,
-  publicProcedure,
-  router,
-} from '../trpc';
+import { adminProcedure, publicProcedure, router } from '../trpc';
 
 export const folgeRouter = router({
   search: publicProcedure
@@ -140,23 +133,6 @@ export const folgeRouter = router({
       });
 
       return folgen;
-    }),
-  addRating: authedProcedure
-    .input(
-      z
-        .object({
-          folgeId: z.string(),
-        })
-        .merge(ratingValidator.pick({ value: true })),
-    )
-    .mutation(async ({ ctx, input: { folgeId, value } }) => {
-      const rating = await postFolgenRating({
-        folgeId,
-        userId: ctx.user.id,
-        userRating: value,
-      });
-
-      return rating.value;
     }),
   update: adminProcedure
     .input(

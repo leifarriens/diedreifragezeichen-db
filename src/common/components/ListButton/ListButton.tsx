@@ -19,15 +19,15 @@ export function ListButton({
   iconSize = 20,
 }: ListButtonProps) {
   const { data: session, status } = useSession();
-  const { data: list, isLoading: isListLoading } = trpc.user.list.useQuery();
+  const { data: list, isLoading: isListLoading } = trpc.list.all.useQuery();
   const utils = trpc.useContext();
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);
 
   const { mutate: mutateAdd, isLoading: isAddLoaing } =
-    trpc.user.addToList.useMutation({
+    trpc.list.add.useMutation({
       onMutate: () => {
-        utils.user.list.setData(undefined, (curr) =>
+        utils.list.all.setData(undefined, (curr) =>
           curr ? [...curr, folgeId] : [folgeId],
         );
       },
@@ -37,14 +37,14 @@ export function ListButton({
             <i>{folgeName}</i> zur <MerklistenLink /> hinzugefügt
           </span>,
         );
-        await utils.user.listWithFolgen.invalidate();
+        await utils.list.allFolgen.invalidate();
       },
     });
 
   const { mutate: mutateRemove, isLoading: isRemoveLoading } =
-    trpc.user.removeFromList.useMutation({
+    trpc.list.remove.useMutation({
       onMutate: () => {
-        utils.user.list.setData(undefined, (curr) =>
+        utils.list.all.setData(undefined, (curr) =>
           curr ? curr.filter((id) => id !== folgeId) : [],
         );
       },
@@ -55,7 +55,7 @@ export function ListButton({
           </span>,
           { style: { backgroundColor: colors.red } },
         );
-        await utils.user.listWithFolgen.invalidate();
+        await utils.list.allFolgen.invalidate();
       },
     });
 

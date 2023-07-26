@@ -19,7 +19,7 @@ export function Search() {
     () => {
       setSearchQuery(value);
     },
-    50,
+    150,
     [value, setSearchQuery],
   );
 

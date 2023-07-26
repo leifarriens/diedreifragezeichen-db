@@ -1,35 +1,41 @@
 import { useSession } from 'next-auth/react';
+import { useCallback, useMemo } from 'react';
 
 import { trpc } from '@/utils/trpc';
 
-interface QueryOptions {
-  onMutationSuccess: () => void;
-}
-
-export function useUserRating(
-  folge_id: string,
-  { onMutationSuccess }: QueryOptions,
-) {
+export function useUserRating(folge_id: string) {
   const { status } = useSession();
   const utils = trpc.useContext();
 
-  const ratingsQuery = trpc.user.ratings.useQuery(undefined, {
+  const ratingsQuery = trpc.rating.userRatings.useQuery(undefined, {
     enabled: status === 'authenticated',
   });
 
-  const userRating = ratingsQuery.data?.find(
-    (rating) => rating.folge === folge_id,
-  )?.value;
+  const userRating = useMemo(
+    () => ratingsQuery.data?.find((rating) => rating.folge === folge_id)?.value,
+    [ratingsQuery.data, folge_id],
+  );
 
-  const mutation = trpc.folge.addRating.useMutation({
+  const invalidateRatings = useCallback(async () => {
+    await utils.rating.userRatings.invalidate();
+    await utils.rating.userRatingsWithFolgen.invalidate(undefined, {
+      type: 'all',
+    });
+  }, [utils.rating]);
+
+  const addMutation = trpc.rating.add.useMutation({
     onSuccess: async () => {
-      await utils.user.ratings.invalidate();
-      await utils.user.ratedFolgen.invalidate(undefined, { type: 'all' });
-      onMutationSuccess();
+      await invalidateRatings();
     },
   });
 
-  const isLoading = ratingsQuery.isFetching || mutation.isLoading;
+  const revokeMutation = trpc.rating.revoke.useMutation({
+    onSuccess: async () => {
+      await invalidateRatings();
+    },
+  });
 
-  return { userRating, isLoading, mutate: mutation.mutate };
+  const isLoading = ratingsQuery.isFetching || addMutation.isLoading;
+
+  return { userRating, isLoading, revokeMutation, addMutation };
 }

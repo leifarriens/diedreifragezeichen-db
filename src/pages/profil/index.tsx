@@ -14,7 +14,7 @@ import { trpc } from '@/utils/trpc';
 const ProfilePage = () => {
   const [sort, setSort] = useState<RatingsSortOptions>('updated_at');
   const { data, fetchNextPage, isFetching } =
-    trpc.user.ratedFolgen.useInfiniteQuery(
+    trpc.rating.userRatingsWithFolgen.useInfiniteQuery(
       { limit: 20, sort },
       {
         getNextPageParam: (lastPage) => {

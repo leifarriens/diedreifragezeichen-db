@@ -11,7 +11,7 @@ import { trpc } from '@/utils/trpc';
 
 const MerklistPage = () => {
   const { data, isFetching, error, fetchNextPage } =
-    trpc.user.listWithFolgen.useInfiniteQuery(
+    trpc.list.allFolgen.useInfiniteQuery(
       { limit: 20 },
       {
         getNextPageParam: (lastPage) => {
