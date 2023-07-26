@@ -12,15 +12,8 @@ interface UserRatingProps {
 export function UserRating({ folge_id, folge_name }: UserRatingProps) {
   const { data: session, status } = useSession();
 
-  const { userRating, isLoading, mutate } = useUserRating(folge_id, {
-    onMutationSuccess() {
-      toast(
-        <span>
-          Bewertung für <i>{folge_name}</i> gespeichert
-        </span>,
-      );
-    },
-  });
+  const { userRating, isLoading, addMutation, revokeMutation } =
+    useUserRating(folge_id);
 
   const isDisabled = status === 'loading' || isLoading;
 
@@ -31,13 +24,46 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
       return;
     }
 
-    return mutate({ folgeId: folge_id, value: newRating });
+    return addMutation.mutate(
+      { folgeId: folge_id, value: newRating },
+      {
+        onSuccess() {
+          toast(
+            <span>
+              Bewertung für <i>{folge_name}</i> gespeichert
+            </span>,
+          );
+        },
+      },
+    );
+  }
+
+  function handleRevokeRating() {
+    revokeMutation.mutate(
+      { folgeId: folge_id },
+      {
+        onSuccess() {
+          toast.error(
+            <span>
+              Bewertung für <i>{folge_name}</i> entfernt
+            </span>,
+          );
+        },
+      },
+    );
   }
 
   return (
     <>
-      <div className="text-lg">
-        {userRating ? 'Deine Wertung:' : 'Bewerten:'}
+      <div className="group mb-1 inline-block text-lg">
+        <span>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</span>
+        <button
+          type="button"
+          className="ml-1 hidden text-sm hover:underline group-hover:inline"
+          onClick={handleRevokeRating}
+        >
+          Entfernen
+        </button>
       </div>
       <RatingInput
         defaultValue={userRating}

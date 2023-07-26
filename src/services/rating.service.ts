@@ -44,6 +44,49 @@ export async function postFolgenRating({
   return ratingResult;
 }
 
+export async function deleteFolgenRating({
+  folgeId,
+  userId,
+}: {
+  folgeId: string;
+  userId: string;
+}) {
+  const rating = await Rating.findOneAndDelete({
+    folge: folgeId,
+    user: userId,
+  });
+
+  if (!rating) {
+    throw new Error('Rating not found');
+  }
+
+  const folge = await Folge.findById(rating.folge);
+
+  if (!folge) {
+    throw Error('Folge not found');
+  }
+
+  const folgenRatings = await Rating.find({ folge: rating.folge }).select(
+    'value',
+  );
+
+  if (folgenRatings.length === 0) {
+    folge.rating = 0;
+    folge.number_of_ratings = 0;
+    folge.popularity = 0;
+  } else {
+    const ratingsSum = folgenRatings.reduce((curr, acc) => curr + acc.value, 0);
+
+    const newRating = ratingsSum / folgenRatings.length;
+
+    folge.rating = parseFloat(newRating.toFixed(1));
+    folge.number_of_ratings = folgenRatings.length;
+    folge.popularity = ratingsSum;
+  }
+
+  await folge.save();
+}
+
 export async function getUserRatings(
   userId: string,
   options: { fields: string[] },

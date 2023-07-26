@@ -2,14 +2,7 @@ import { useSession } from 'next-auth/react';
 
 import { trpc } from '@/utils/trpc';
 
-interface QueryOptions {
-  onMutationSuccess: () => void;
-}
-
-export function useUserRating(
-  folge_id: string,
-  { onMutationSuccess }: QueryOptions,
-) {
+export function useUserRating(folge_id: string) {
   const { status } = useSession();
   const utils = trpc.useContext();
 
@@ -21,17 +14,25 @@ export function useUserRating(
     (rating) => rating.folge === folge_id,
   )?.value;
 
-  const mutation = trpc.rating.add.useMutation({
+  const addMutation = trpc.rating.add.useMutation({
     onSuccess: async () => {
       await utils.rating.userRatings.invalidate();
       await utils.rating.userRatingsWithFolgen.invalidate(undefined, {
         type: 'all',
       });
-      onMutationSuccess();
     },
   });
 
-  const isLoading = ratingsQuery.isFetching || mutation.isLoading;
+  const revokeMutation = trpc.rating.revoke.useMutation({
+    onSuccess: async () => {
+      await utils.rating.userRatings.invalidate();
+      await utils.rating.userRatingsWithFolgen.invalidate(undefined, {
+        type: 'all',
+      });
+    },
+  });
 
-  return { userRating, isLoading, mutate: mutation.mutate };
+  const isLoading = ratingsQuery.isFetching || addMutation.isLoading;
+
+  return { userRating, isLoading, revokeMutation, addMutation };
 }

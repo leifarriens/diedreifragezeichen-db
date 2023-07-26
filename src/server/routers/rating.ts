@@ -4,7 +4,11 @@ import { z } from 'zod';
 import { RatingsSortOptions } from '@/constants/enums';
 import type { FolgeWithId } from '@/models/folge';
 import { Rating, ratingValidator } from '@/models/rating';
-import { getUserRatings, postFolgenRating } from '@/services/rating.service';
+import {
+  deleteFolgenRating,
+  getUserRatings,
+  postFolgenRating,
+} from '@/services/rating.service';
 
 import { authedProcedure, router } from '../trpc';
 
@@ -28,6 +32,21 @@ export const ratingRouter = router({
       });
 
       return rating.value;
+    }),
+  /**
+   * Revoke a user rating
+   */
+  revoke: authedProcedure
+    .input(
+      z.object({
+        folgeId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      return deleteFolgenRating({
+        folgeId: input.folgeId,
+        userId: ctx.user.id,
+      });
     }),
   /**
    * Get all user ratings
