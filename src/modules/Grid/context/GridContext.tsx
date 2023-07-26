@@ -1,6 +1,12 @@
 import qs from 'qs';
 import type { ReactNode } from 'react';
-import { createContext, useCallback, useEffect, useReducer } from 'react';
+import {
+  createContext,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 
 import { SortOptionsEnum } from '@/modules/Grid/types';
 
@@ -116,20 +122,19 @@ export function GridProvider({
     setSearchQuery(searchQuery);
   }, [setSortBy, setSearchQuery, setShowSpecials, setShowOnlyUnrated]);
 
-  return (
-    <GridContext.Provider
-      value={{
-        showSpecials: state.showSpecials,
-        setShowOnlyUnrated,
-        showOnlyUnrated: state.showOnlyUnrated,
-        setShowSpecials,
-        searchQuery: state.searchQuery,
-        setSearchQuery,
-        sortBy: state.sortBy,
-        setSortBy,
-      }}
-    >
-      {children}
-    </GridContext.Provider>
+  const value = useMemo(
+    () => ({
+      showSpecials: state.showSpecials,
+      setShowOnlyUnrated,
+      showOnlyUnrated: state.showOnlyUnrated,
+      setShowSpecials,
+      searchQuery: state.searchQuery,
+      setSearchQuery,
+      sortBy: state.sortBy,
+      setSortBy,
+    }),
+    [state, setSearchQuery, setShowOnlyUnrated, setShowSpecials, setSortBy],
   );
+
+  return <GridContext.Provider value={value}>{children}</GridContext.Provider>;
 }
