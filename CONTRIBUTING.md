@@ -20,10 +20,10 @@ Create a fork of the repository and clone it to your local machine:
 git clone https://github.com/{username}/diedreifragezeichen-db.git
 ```
 
-Checkout the `main` branch:
+Checkout the `development` branch:
 
 ```sh
-git checkout main
+git checkout development
 ```
 
 Install the dependencies using yarn:
