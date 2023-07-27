@@ -9,6 +9,7 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint ./src --fix",
     "format": "prettier --write .",
+    "format:check": "prettier . --check --log-level silent",
     "typecheck": "tsc",
     "prepare": "husky install",
     "test": "vitest",
