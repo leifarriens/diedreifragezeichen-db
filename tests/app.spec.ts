@@ -24,6 +24,9 @@ test('folgen can be filtered and links to folge', async ({ page }) => {
 
   await searchInput.fill('feuermond');
 
+  // tests started to fail without await reorder of the grid
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   const folge = page.getByRole('article').first();
 
   await folge.getByRole('link').click();

@@ -22,11 +22,11 @@ export function GridReducer(state: GridState, action: Action) {
         ...state,
         showSpecials: action.payload,
       };
-      case ActionKind.SET_SHOW_ONLY_UNRATED:
-        return {
-          ...state,
-          showOnlyUnrated: action.payload
-        };
+    case ActionKind.SET_SHOW_ONLY_UNRATED:
+      return {
+        ...state,
+        showOnlyUnrated: action.payload,
+      };
     case ActionKind.SET_SEARCH_QUERY:
       return {
         ...state,
