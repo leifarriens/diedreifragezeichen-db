@@ -29,4 +29,5 @@ runs:
           ${{ runner.os }}-pnpm-store-
 
     - name: 📦 Install deps
+      shell: bash
       run: pnpm install --frozen-lockfile
