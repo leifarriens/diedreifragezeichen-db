@@ -52,7 +52,7 @@ jobs:
         run: pnpm lint
 
       - name: 📝 Format
-        run: pnpm format --loglevel silent
+        run: pnpm format --log-level silent
 
   test-setup:
     name: E2E Test setup ⚗️
