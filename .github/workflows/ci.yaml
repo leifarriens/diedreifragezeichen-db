@@ -15,29 +15,44 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup node
+      - name: Install Node.js
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
-          cache: 'yarn'
 
-      - name: 🐈 Install yarn
-        run: npm install -g yarn
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: 📦 Install deps
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: 🔒 Typecheck
-        run: yarn typecheck
+        run: pnpm typecheck
 
       - name: 🧪 Running Unit Tests
-        run: yarn test
+        run: pnpm test
 
       - name: 🔬 Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: 📝 Format
-        run: yarn format --loglevel silent
+        run: pnpm format --loglevel silent
 
   test-setup:
     name: E2E Test setup ⚗️
@@ -62,22 +77,33 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Install yarn
-        run: npm install -g yarn
+          version: 8
+          run_install: false
 
-      - name: Install dependencies
-        run: yarn
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: 📦 Install deps
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: yarn test:e2e
+        run: pnpm test:e2e
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test-setup.outputs.preview_url }}
       - uses: actions/upload-artifact@v3
