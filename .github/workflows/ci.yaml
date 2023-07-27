@@ -17,6 +17,9 @@ jobs:
     name: CI ⚡
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
       - name: Setup CI environment
         uses: ./.github/actions/setup-ci
 
