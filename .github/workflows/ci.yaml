@@ -20,11 +20,8 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup CI environment
+      - name: 🏗️ Setup CI environment
         uses: ./.github/actions/setup-ci
-
-      - name: 📦 Install deps
-        run: pnpm install --frozen-lockfile
 
       - name: 🔒 Typecheck
         run: pnpm typecheck
