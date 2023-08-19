@@ -94,6 +94,19 @@
           { "namedComponents": "arrow-function" }
         ]
       }
+    },
+    {
+      "files": ["src/**/*.{ts,tsx}"],
+      "excludedFiles": ["src/services/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-syntax": [
+          "warn",
+          {
+            "selector": "CallExpression[callee.object.name='console'][callee.property.name!=/^(warn|error|info|trace)$/]",
+            "message": "Unexpected property on console object was called"
+          }
+        ]
+      }
     }
   ]
 }
