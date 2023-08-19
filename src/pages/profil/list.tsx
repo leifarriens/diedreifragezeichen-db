@@ -10,9 +10,7 @@ import { FolgenContainer, GridFolge } from '@/modules/Grid';
 import { ProfilLayout } from '@/modules/Profil';
 
 const MerklistPage = () => {
-  const {
-    query: { data, isFetching, error, fetchNextPage },
-  } = useUserListFolgen();
+  const { data, isFetching, error, fetchNextPage } = useUserListFolgen();
 
   const isEmptyList =
     error?.data?.code === 'NOT_FOUND' || data?.pages[0].items.length === 0;
@@ -23,7 +21,9 @@ const MerklistPage = () => {
 
       <ProfilLayout>
         {isEmptyList && (
-          <p className="text-center">Keine Folgen auf der Merkliste</p>
+          <p className="my-16 text-center text-xl font-semibold">
+            Keine Folgen auf der Merkliste
+          </p>
         )}
 
         <FolgenContainer>

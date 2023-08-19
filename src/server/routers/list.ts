@@ -47,7 +47,7 @@ export const listRouter = router({
       });
 
       return {
-        items: list,
+        items: list.reverse(),
         limit,
         offset,
         total,
