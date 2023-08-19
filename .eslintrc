@@ -59,7 +59,6 @@
       { "checksVoidReturn": false }
     ],
     "@typescript-eslint/no-confusing-void-expression": "off",
-    "import/no-default-export": "error",
     "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/mouse-events-have-key-events": "error",
     "no-inline-styles/no-inline-styles": "warn",
@@ -83,6 +82,13 @@
     "simple-import-sort/imports": "warn"
   },
   "overrides": [
+    {
+      // prevent config files to be affected
+      "files": ["src/**"],
+      "rules": {
+        "import/no-default-export": "error"
+      }
+    },
     {
       "files": ["src/pages/**/*.{ts,tsx}"],
       "rules": {

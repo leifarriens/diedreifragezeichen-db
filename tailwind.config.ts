@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from 'tailwindcss';
+
+export default {
   content: ['./src/**/*.tsx'],
   theme: {
     fontFamily: {
@@ -12,8 +13,8 @@ module.exports = {
       },
       keyframes: {
         'fade-in': {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 100 },
+          '0%': { opacity: '0' },
+          '100%': { opacity: '100' },
         },
       },
       colors: {
@@ -24,4 +25,4 @@ module.exports = {
     },
   },
   plugins: [require('@tailwindcss/typography')],
-};
+} satisfies Config;
