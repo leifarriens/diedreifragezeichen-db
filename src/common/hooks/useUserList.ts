@@ -15,29 +15,31 @@ export function useUserList() {
   });
 }
 
-export function useUserListFolgen({
-  queryEnabled,
-}: { queryEnabled?: boolean } = {}) {
+const limit = 10;
+
+export function useUserListFolgen() {
   const { status } = useSession();
+
+  return trpc.list.allFolgen.useInfiniteQuery(
+    { limit },
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.offset + lastPage.limit < lastPage.total) {
+          return lastPage.offset + lastPage.limit;
+        }
+        return undefined;
+      },
+      staleTime,
+      cacheTime,
+      enabled: status === 'authenticated',
+    },
+  );
+}
+
+export function useUserListFolgenUtils() {
   const utils = trpc.useContext();
 
-  const limit = 20;
-
   return {
-    query: trpc.list.allFolgen.useInfiniteQuery(
-      { limit },
-      {
-        getNextPageParam: (lastPage) => {
-          if (lastPage.offset + lastPage.limit < lastPage.total) {
-            return lastPage.offset + lastPage.limit;
-          }
-          return undefined;
-        },
-        staleTime,
-        cacheTime,
-        enabled: queryEnabled && status === 'authenticated',
-      },
-    ),
     setDataRemoveFolge: (folgeId: string) => {
       utils.list.allFolgen.setInfiniteData({ limit }, (data) => {
         if (!data) {

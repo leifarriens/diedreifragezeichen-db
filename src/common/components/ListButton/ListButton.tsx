@@ -3,7 +3,7 @@ import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
-import { useUserList, useUserListFolgen } from '@/common/hooks';
+import { useUserList, useUserListFolgenUtils } from '@/common/hooks';
 import { SpinningLoader } from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
@@ -22,7 +22,7 @@ export function ListButton({
   const { data: session, status } = useSession();
   const { data: list, isLoading: isListLoading } = useUserList();
   const utils = trpc.useContext();
-  const { setDataRemoveFolge } = useUserListFolgen({ queryEnabled: false });
+  const { setDataRemoveFolge } = useUserListFolgenUtils();
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);
 
