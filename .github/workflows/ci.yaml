@@ -1,6 +1,11 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - production
+      - staging
+      - development
   pull_request:
     branches:
       - production
@@ -15,29 +20,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-
-      - name: 🐈 Install yarn
-        run: npm install -g yarn
-
-      - name: 📦 Install deps
-        run: yarn install --frozen-lockfile
+      - name: 🏗️ Setup CI environment
+        uses: ./.github/actions/setup-ci
 
       - name: 🔒 Typecheck
-        run: yarn typecheck
+        run: pnpm typecheck
 
       - name: 🧪 Running Unit Tests
-        run: yarn test
+        run: pnpm test
 
       - name: 🔬 Lint
-        run: yarn lint
+        run: pnpm lint
 
       - name: 📝 Format
-        run: yarn format --loglevel silent
+        run: pnpm format:check
 
   test-setup:
     name: E2E Test setup ⚗️
@@ -46,7 +42,7 @@ jobs:
       preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
     steps:
       - name: Wait for Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.2.0
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
         id: waitForVercelPreviewDeployment
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -62,22 +58,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
-      - name: Install yarn
-        run: npm install -g yarn
-
-      - name: Install dependencies
-        run: yarn
+      - name: 🏗️ Setup CI environment
+        uses: ./.github/actions/setup-ci
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: yarn test:e2e
+        run: pnpm test:e2e
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test-setup.outputs.preview_url }}
       - uses: actions/upload-artifact@v3

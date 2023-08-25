@@ -1,4 +1,4 @@
 {
-  "*.ts": ["yarn lint:fix --cache", "yarn format"],
-  "*.tsx": ["yarn lint:fix --cache", "yarn format"]
+  "*.ts": ["pnpm lint:fix --cache", "pnpm format"],
+  "*.tsx": ["pnpm lint:fix --cache", "pnpm format"]
 }

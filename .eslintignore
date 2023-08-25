@@ -3,7 +3,4 @@ node_modules/
 next.config.js
 migrations/
 scripts/
-vitest.config.ts
-playwright.config.ts
 tests/
-tailwind.config.js

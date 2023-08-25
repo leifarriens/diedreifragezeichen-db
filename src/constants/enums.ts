@@ -21,6 +21,6 @@ export const RatingsSortOptions = z
 export type RatingsSortOptions = z.infer<typeof RatingsSortOptions>;
 
 export enum RatingsSortOptionsNames {
-  'updated_at' = 'Zuletzt hinzugefügt',
+  'updated_at' = 'Zuletzt bewertet',
   'value' = 'Deine Bewertung',
 }
