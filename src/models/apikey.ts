@@ -8,6 +8,7 @@ import type { SchemaType } from '@/types';
 
 export const apikeyValidator = z.object({
   user: z.instanceof(mongoose.Types.ObjectId).or(z.string()),
+  name: z.string().optional(),
   token: z.string().uuid(),
   created_at: z.date(),
   updated_at: z.date(),
@@ -22,6 +23,7 @@ const apikeySchema = new mongoose.Schema<SchemaType<Apikey>>(
       ref: 'User',
       required: true,
     },
+    name: String,
     token: { type: String, required: true },
   },
   {
