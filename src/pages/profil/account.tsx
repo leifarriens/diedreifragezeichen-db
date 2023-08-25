@@ -1,9 +1,5 @@
-import classNames from 'classnames';
 import type { GetServerSidePropsContext } from 'next/types';
 import { signOut } from 'next-auth/react';
-import { useRef } from 'react';
-import { toast } from 'react-hot-toast';
-import { FiCopy } from 'react-icons/fi';
 import styled from 'styled-components';
 
 import { Seo } from '@/components/Seo';
@@ -13,7 +9,7 @@ import {
 } from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
-import { ProfilLayout } from '@/modules/Profil';
+import { Apikey, ProfilLayout } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const AccountPage = () => {
@@ -64,60 +60,10 @@ const AccountPage = () => {
           </div>
         </SectionBox>
         <SectionBox>
-          <h3>API key</h3>
-          <div className="split">
-            <Apikey />
-          </div>
+          <h3>API keys</h3>
+          <Apikey />
         </SectionBox>
       </ProfilLayout>
-    </>
-  );
-};
-
-const Apikey = () => {
-  const ref = useRef<HTMLInputElement | null>(null);
-  const apikeyMutation = trpc.user.apikey.useMutation({
-    onSuccess() {
-      toast('Neuer API key generiert');
-    },
-  });
-
-  async function handleCopyClick() {
-    if (apikeyMutation.data?.token) {
-      await navigator.clipboard.writeText(apikeyMutation.data.token);
-      toast('API in im clipboard gespeichert');
-    }
-  }
-
-  return (
-    <>
-      <div className="flex items-center gap-2">
-        <input
-          ref={ref}
-          type="text"
-          value={apikeyMutation.data?.token ?? ''}
-          disabled={!apikeyMutation.isSuccess}
-          className={classNames(
-            'rounded bg-neutral-800 bg-opacity-60 py-1 text-center sm:w-[36ch]',
-          )}
-          onFocus={(e) => e.target.select()}
-        />
-        <button
-          type="button"
-          disabled={!apikeyMutation.isSuccess}
-          onClick={handleCopyClick}
-        >
-          <FiCopy size={22} />
-        </button>
-      </div>
-
-      <Button
-        onClick={() => apikeyMutation.mutate()}
-        color={colors.lightblue}
-        disabled={apikeyMutation.isLoading}
-      >
-        Generieren
-      </Button>
     </>
   );
 };
