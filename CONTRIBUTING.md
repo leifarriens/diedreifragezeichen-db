@@ -3,7 +3,7 @@
 ## Prerequisites
 
 - Node.js version >=16.17.0
-- yarn version 1.22.19
+- pnpm version >=8.6.0
 - mongoDB version >=6.0.1
 
 ## Note
@@ -26,10 +26,10 @@ Checkout the `development` branch:
 git checkout development
 ```
 
-Install the dependencies using yarn:
+Install the dependencies using pnpm:
 
 ```sh
-yarn
+pnpm i
 ```
 
 Before you can run the project locally you have to set every required environment variable defined in the `.env.example` file.
@@ -43,7 +43,7 @@ docker compose up -d
 Run the project in development mode:
 
 ```sh
-yarn dev
+pnpm dev
 ```
 
 ### Sync Folgen to your (local) Database

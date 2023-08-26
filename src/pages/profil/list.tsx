@@ -2,26 +2,15 @@ import type { GetServerSidePropsContext } from 'next/types';
 import React from 'react';
 import { InView } from 'react-intersection-observer';
 
+import { useUserListFolgen } from '@/common/hooks';
 import { Seo } from '@/components/Seo';
 import { Loader } from '@/components/shared';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
 import { FolgenContainer, GridFolge } from '@/modules/Grid';
 import { ProfilLayout } from '@/modules/Profil';
-import { trpc } from '@/utils/trpc';
 
 const MerklistPage = () => {
-  const { data, isFetching, error, fetchNextPage } =
-    trpc.list.allFolgen.useInfiniteQuery(
-      { limit: 20 },
-      {
-        getNextPageParam: (lastPage) => {
-          if (lastPage.offset + lastPage.limit < lastPage.total) {
-            return lastPage.offset + lastPage.limit;
-          }
-          return undefined;
-        },
-      },
-    );
+  const { data, isFetching, error, fetchNextPage } = useUserListFolgen();
 
   const isEmptyList =
     error?.data?.code === 'NOT_FOUND' || data?.pages[0].items.length === 0;
@@ -32,7 +21,9 @@ const MerklistPage = () => {
 
       <ProfilLayout>
         {isEmptyList && (
-          <p className="text-center">Keine Folgen auf der Merkliste</p>
+          <p className="my-16 text-center text-xl font-semibold">
+            Keine Folgen auf der Merkliste
+          </p>
         )}
 
         <FolgenContainer>

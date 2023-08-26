@@ -3,6 +3,7 @@ import { signIn, useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
+import { useUserList, useUserListFolgenUtils } from '@/common/hooks';
 import { SpinningLoader } from '@/components/shared';
 import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
@@ -19,8 +20,9 @@ export function ListButton({
   iconSize = 20,
 }: ListButtonProps) {
   const { data: session, status } = useSession();
-  const { data: list, isLoading: isListLoading } = trpc.list.all.useQuery();
+  const { data: list, isLoading: isListLoading } = useUserList();
   const utils = trpc.useContext();
+  const { setDataRemoveFolge } = useUserListFolgenUtils();
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);
 
@@ -47,15 +49,15 @@ export function ListButton({
         utils.list.all.setData(undefined, (curr) =>
           curr ? curr.filter((id) => id !== folgeId) : [],
         );
+        setDataRemoveFolge(folgeId);
       },
-      onSuccess: async () => {
+      onSuccess: () => {
         toast(
           <span>
             <i>{folgeName}</i> von der <MerklistenLink /> entfernt
           </span>,
           { style: { backgroundColor: colors.red } },
         );
-        await utils.list.allFolgen.invalidate();
       },
     });
 
