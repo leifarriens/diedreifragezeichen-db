@@ -4,7 +4,7 @@ import { MongoClient } from 'mongodb';
 const DATABASE_URL = process.env.DATABASE_URL ?? '';
 
 let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+let clientPromise: null | Promise<MongoClient>;
 
 if (!DATABASE_URL) {
   throw new Error('Please add your Mongo URI to .env.local');
@@ -18,8 +18,6 @@ if (process.env.NODE_ENV === 'development') {
     client = new MongoClient(DATABASE_URL);
     global._mongoClientPromise = client.connect();
   }
-  // FIXME: why is this assignment unsafe?
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   clientPromise = global._mongoClientPromise;
 } else {
   // In production mode, it's best to not use a global variable.
