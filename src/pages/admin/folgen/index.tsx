@@ -95,18 +95,6 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
     },
   });
 
-  const inhaltSync = trpc.sync.inhalte.useMutation({
-    onError(error) {
-      toast.error(error.message);
-    },
-    onSuccess(data) {
-      toast.success(
-        `Inhalte sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
-      );
-      onSyncSuccess();
-    },
-  });
-
   const deezerSync = trpc.sync.deezer.useMutation({
     onError(error) {
       toast.error(error.message);
@@ -119,8 +107,35 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
     },
   });
 
+  const weblinkSync = trpc.sync.weblink.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      toast.success(
+        `Weblink sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
+      );
+      onSyncSuccess();
+    },
+  });
+
+  const detailSync = trpc.sync.details.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      toast.success(
+        `Detail sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
+      );
+      onSyncSuccess();
+    },
+  });
+
   const isSyncing =
-    folgenSync.isLoading || inhaltSync.isLoading || deezerSync.isLoading;
+    folgenSync.isLoading ||
+    deezerSync.isLoading ||
+    weblinkSync.isLoading ||
+    detailSync.isLoading;
 
   return (
     <div className="flex gap-2">
@@ -136,16 +151,6 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
       </Button>
       <Button
         size="small"
-        onClick={() => inhaltSync.mutate()}
-        disabled={isSyncing}
-      >
-        <FaSyncAlt
-          className={classNames({ 'animate-spin': inhaltSync.isLoading })}
-        />
-        Sync Inhalte
-      </Button>
-      <Button
-        size="small"
         onClick={() => deezerSync.mutate()}
         disabled={isSyncing}
       >
@@ -153,6 +158,26 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
           className={classNames({ 'animate-spin': deezerSync.isLoading })}
         />
         Sync Deezer
+      </Button>
+      <Button
+        size="small"
+        onClick={() => weblinkSync.mutate()}
+        disabled={isSyncing}
+      >
+        <FaSyncAlt
+          className={classNames({ 'animate-spin': weblinkSync.isLoading })}
+        />
+        Sync Weblinks
+      </Button>
+      <Button
+        size="small"
+        onClick={() => detailSync.mutate()}
+        disabled={isSyncing}
+      >
+        <FaSyncAlt
+          className={classNames({ 'animate-spin': detailSync.isLoading })}
+        />
+        Sync Details
       </Button>
     </div>
   );
@@ -164,6 +189,18 @@ const AdminFolge = ({
   folge: RouterOutput['folge']['all']['items'][number];
 }) => {
   const propCheck = (value: unknown) => (value ? '🟢' : '🔴');
+
+  const utils = trpc.useContext();
+
+  const detailsSync = trpc.sync.folgeDetails.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    async onSuccess() {
+      toast.success(`Details sync success for ${folge.name}.`);
+      await utils.folge.all.invalidate();
+    },
+  });
 
   return (
     <article
@@ -196,7 +233,24 @@ const AdminFolge = ({
             {folge.number && `${folge.number}: `}
             {folge.name}
           </h3>
-          {folge.isHidden && <FaRegEyeSlash size={24} />}
+          <div className="flex gap-2">
+            {folge.isHidden && <FaRegEyeSlash size={24} />}
+            <Button
+              size="small"
+              ghost
+              onClick={() =>
+                detailsSync.mutate({ folgeId: folge._id.toString() })
+              }
+              disabled={detailsSync.isLoading}
+            >
+              <FaSyncAlt
+                className={classNames({
+                  'animate-spin': detailsSync.isLoading,
+                })}
+              />
+              Sync Details
+            </Button>
+          </div>
         </div>
 
         <div className="flex-1 text-sm">
@@ -213,6 +267,13 @@ const AdminFolge = ({
           </div>
         )}
 
+        {folge.sprecher && (
+          <div className="mt-4">
+            <h4 className="mb-1 text-xl font-semibold">Sprecher</h4>
+            <p className="text-sm text-neutral-300">{folge.sprecher}</p>
+          </div>
+        )}
+
         <div className="mt-4">
           <table className="border-collapse">
             <thead>
@@ -223,7 +284,13 @@ const AdminFolge = ({
                 <th className="border-b-2 border-r-2 border-slate-600 px-2">
                   DeezerId
                 </th>
-                <th className="border-b-2 border-slate-600 px-2">Inhalt</th>
+                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                  Inhalt
+                </th>
+                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                  Weblink
+                </th>
+                <th className="border-b-2 border-slate-600 px-2">Sprecher</th>
               </tr>
             </thead>
             <tbody>
@@ -234,7 +301,13 @@ const AdminFolge = ({
                 <td className="border-r-2 border-slate-600">
                   {propCheck(folge.deezer_id)}
                 </td>
-                <td>{propCheck(folge.inhalt)}</td>
+                <td className="border-r-2 border-slate-600">
+                  {propCheck(folge.inhalt)}
+                </td>
+                <td className="border-r-2 border-slate-600">
+                  {propCheck(folge.weblink)}
+                </td>
+                <td>{propCheck(folge.sprecher)}</td>
               </tr>
             </tbody>
           </table>
@@ -272,6 +345,18 @@ const AdminFolge = ({
                 size="small"
               >
                 <FaDeezer size="1.4em" /> Auf Deezer anhören
+              </Button>
+            )}
+
+            {folge.weblink && (
+              <Button
+                as="a"
+                target="_blank"
+                rel="noopener noreferrer"
+                href={folge.weblink}
+                size="small"
+              >
+                dreifragezeichen.de
               </Button>
             )}
           </div>

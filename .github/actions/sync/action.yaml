@@ -1,0 +1,41 @@
+name: 'Sync DDFDB'
+description: 'Sync folgen, weblinks & inhalte'
+
+inputs:
+  ACTION_KEY:
+    description: 'Action key to run sync jobs'
+    required: true
+  BASE_URL:
+    description: 'Base URL of environment to sync'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Sync Folgen
+      shell: bash
+      run: |
+        curl --request GET \
+        --url '${{ inputs.BASE_URL }}/api/sync/folgen' \
+        --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
+
+    - name: Sync Deezer
+      shell: bash
+      run: |
+        curl --request GET \
+        --url '${{ inputs.BASE_URL }}/api/sync/deezer' \
+        --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
+
+    - name: Sync Weblinks
+      shell: bash
+      run: |
+        curl --request GET \
+        --url '${{ inputs.BASE_URL }}/api/sync/weblinks' \
+        --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
+
+    - name: Sync Details
+      shell: bash
+      run: |
+        curl --request GET \
+        --url '${{ inputs.BASE_URL }}/api/sync/details' \
+        --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
