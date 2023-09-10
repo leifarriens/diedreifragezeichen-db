@@ -27,19 +27,25 @@ export const folgeRouter = router({
       const limit = input.limit;
       const offset = input.cursor;
 
-      const query = {
-        $or: [
-          { name: { $regex: input.query, $options: 'i' } },
-          { number: { $regex: input.query, $options: 'i' } },
+      const filter = {
+        $and: [
+          { isHidden: { $ne: true } },
+          {
+            $or: [
+              { name: { $regex: input.query, $options: 'i' } },
+              { number: { $regex: input.query, $options: 'i' } },
+            ],
+          },
         ],
       };
-      const folgen = await Folge.find(query)
+
+      const folgen = await Folge.find(filter)
         .limit(limit)
         .skip(offset)
         .select('name number images')
         .lean();
 
-      const total = await Folge.countDocuments(query);
+      const total = await Folge.countDocuments(filter);
 
       return {
         items: folgen,
