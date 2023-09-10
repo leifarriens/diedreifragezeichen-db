@@ -7,18 +7,17 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Sync Folgen
-        run: |
-          curl --request GET \
-          --url 'https://www.ddfdb.de/api/sync/folgen' \
-          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
-      - name: Sync Inhalte
-        run: |
-          curl --request GET \
-          --url 'https://www.ddfdb.de/api/sync/inhalte' \
-          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
-      - name: Sync Deezer
-        run: |
-          curl --request GET \
-          --url 'https://www.ddfdb.de/api/sync/deezer' \
-          --header 'Authorization: Bearer ${{ secrets.ACTION_KEY }}'
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🔄️ Sync production
+        uses: ./.github/actions/sync
+        with:
+          ACTION_KEY: ${{ secrets.ACTION_KEY }}
+          BASE_URL: 'https://www.ddfdb.de'
+
+      - name: 🔄️ Sync development
+        uses: ./.github/actions/sync
+        with:
+          ACTION_KEY: ${{ secrets.ACTION_KEY }}
+          BASE_URL: 'https://development.ddfdb.de'
