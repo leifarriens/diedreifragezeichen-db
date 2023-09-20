@@ -233,23 +233,25 @@ const AdminFolge = ({
             {folge.number && `${folge.number}: `}
             {folge.name}
           </h3>
-          <div className="flex gap-2">
+          <div className="flex items-center gap-2">
             {folge.isHidden && <FaRegEyeSlash size={24} />}
-            <Button
-              size="small"
-              ghost
-              onClick={() =>
-                detailsSync.mutate({ folgeId: folge._id.toString() })
-              }
-              disabled={detailsSync.isLoading}
-            >
-              <FaSyncAlt
-                className={classNames({
-                  'animate-spin': detailsSync.isLoading,
-                })}
-              />
-              Sync Details
-            </Button>
+            {folge.weblink && (
+              <Button
+                size="small"
+                ghost
+                onClick={() =>
+                  detailsSync.mutate({ folgeId: folge._id.toString() })
+                }
+                disabled={detailsSync.isLoading}
+              >
+                <FaSyncAlt
+                  className={classNames({
+                    'animate-spin': detailsSync.isLoading,
+                  })}
+                />
+                Sync Details
+              </Button>
+            )}
           </div>
         </div>
 
