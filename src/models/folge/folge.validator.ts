@@ -22,6 +22,8 @@ export const folgeValidator = z.object({
   spotify_id: z.string().length(22),
   deezer_id: z.string().optional(),
   isHidden: z.boolean().default(false),
+  weblink: z.string().optional(),
+  sprecher: z.string().optional(),
   created_at: z.date(),
   updated_at: z.date(),
 });

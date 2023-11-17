@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         ]
       : []),
   ],
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: clientPromise ? MongoDBAdapter(clientPromise) : undefined,
   pages: {
     signIn: '/signin',
   },

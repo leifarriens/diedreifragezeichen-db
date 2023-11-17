@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FaDeezer, FaSpotify } from 'react-icons/fa';
+import { FaClone, FaDeezer, FaSpotify } from 'react-icons/fa';
 
 import { ListButton } from '@/components/ListButton';
 import { Button } from '@/components/shared';
@@ -21,6 +21,9 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
     number,
     spotify_id,
     deezer_id,
+    weblink,
+    inhalt,
+    sprecher,
   } = folge;
   const isBigCover = Number(number) >= 125;
 
@@ -60,28 +63,44 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
 
           <UserRating folge_id={_id} folge_name={name} />
 
-          <div className="mt-6 flex items-center gap-4">
-            <Button
-              as="a"
-              rel="noopener noreferrer"
-              href={`spotify:album:${spotify_id}`}
-              size="small"
-            >
-              <FaSpotify size="1.4em" /> Auf Spotify anhören
-            </Button>
-
-            {deezer_id && (
+          <div className="mt-6 space-y-4">
+            <div className="flex items-center gap-4">
               <Button
                 as="a"
                 rel="noopener noreferrer"
-                href={`deezer://album/${deezer_id}`}
+                href={`spotify:album:${spotify_id}`}
                 size="small"
               >
-                <FaDeezer size="1.4em" /> Auf Deezer anhören
+                <FaSpotify size="1.4em" /> Auf Spotify anhören
               </Button>
-            )}
 
-            <ListButton folgeId={_id} folgeName={name} iconSize={28} />
+              {deezer_id && (
+                <Button
+                  as="a"
+                  rel="noopener noreferrer"
+                  href={`deezer://album/${deezer_id}`}
+                  size="small"
+                >
+                  <FaDeezer size="1.4em" /> Auf Deezer anhören
+                </Button>
+              )}
+
+              <ListButton folgeId={_id} folgeName={name} iconSize={28} />
+            </div>
+
+            <div className="flex items-start gap-4">
+              {weblink && (
+                <Button
+                  as="a"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={weblink}
+                  size="small"
+                >
+                  <FaClone size="1.4em" /> dreifragezeichen.de
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -91,10 +110,17 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
         />
       </div>
 
-      {folge.inhalt && (
+      {inhalt && (
         <div className="mb-16 rounded-lg bg-black bg-opacity-30 p-8 text-lg text-neutral-200">
           <h3 className="mb-4 text-2xl font-medium">Zusammenfassung</h3>
-          <p className="text-justify">{folge.inhalt}</p>
+          <p className="text-justify">{inhalt}</p>
+        </div>
+      )}
+
+      {sprecher && (
+        <div className="mb-16 rounded-lg bg-black bg-opacity-30 p-8 text-lg text-neutral-200">
+          <h3 className="mb-4 text-2xl font-medium">Sprecher</h3>
+          <p className="whitespace-pre-wrap text-justify">{sprecher}</p>
         </div>
       )}
     </>

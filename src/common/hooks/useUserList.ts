@@ -15,7 +15,7 @@ export function useUserList() {
   });
 }
 
-const limit = 10;
+const limit = 20;
 
 export function useUserListFolgen() {
   const { status } = useSession();

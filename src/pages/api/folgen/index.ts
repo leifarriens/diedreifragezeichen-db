@@ -12,6 +12,7 @@ const queryParamsSchema = z.object({
     .enum(['release_date', '-release_date', 'rating', '-rating'])
     .default('-release_date'),
   apikey: z.string().uuid('Malformed apikey'),
+  query: z.string().optional(),
 });
 
 export default async function handler(
@@ -36,7 +37,7 @@ export default async function handler(
       });
     }
 
-    const { apikey, offset, limit, sort } = result.data;
+    const { apikey, offset, limit, sort, query } = result.data;
 
     await dbConnect();
 
@@ -46,7 +47,20 @@ export default async function handler(
       });
     }
 
-    const filter = { isHidden: { $ne: true } };
+    const filter = {
+      $and: [
+        { isHidden: { $ne: true } },
+        query
+          ? {
+              $or: [
+                { name: { $regex: query, $options: 'i' } },
+                { number: { $regex: query, $options: 'i' } },
+              ],
+            }
+          : {},
+      ],
+    };
+
     const total = await Folge.countDocuments(filter);
 
     const folgen = await Folge.find(filter)

@@ -1,12 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div<{ disabled: boolean }>`
-  display: flex;
-  width: 100%;
-  pointer-events: ${(props) => (props.disabled ? 'none' : 'all')};
-  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
-`;
-
 export const IconContainer = styled.form`
   display: block;
   position: relative;

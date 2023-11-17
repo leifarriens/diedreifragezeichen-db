@@ -30,7 +30,9 @@ const validator = folgeValidator.pick({
   number: true,
   spotify_id: true,
   deezer_id: true,
+  weblink: true,
   inhalt: true,
+  sprecher: true,
 });
 
 const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
@@ -43,7 +45,9 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
       number: folge.number,
       spotify_id: folge.spotify_id,
       deezer_id: folge.deezer_id,
+      weblink: folge.weblink,
       inhalt: folge.inhalt,
+      sprecher: folge.sprecher,
     },
     resolver: zodResolver(validator),
     mode: 'all',
@@ -71,6 +75,15 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
   }
 
   const cover = folge.images[1];
+
+  function customRegister(name: keyof typeof formState.dirtyFields) {
+    const isDirty = formState.dirtyFields[name];
+
+    return {
+      className: isDirty ? '!border-orange-400' : '',
+      ...register(name),
+    };
+  }
 
   return (
     <div className="relative mx-auto mt-24 w-full max-w-3xl p-8 pt-64">
@@ -107,14 +120,15 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
           <span>Id</span>
           <Input defaultValue={folge._id} disabled />
         </label>
+
         <label>
           <span>Name</span>
-          <Input type="text" {...register('name')} />
+          <Input type="text" {...customRegister('name')} />
         </label>
 
         <label>
           <span>Type</span>
-          <Select {...register('type')}>
+          <Select {...customRegister('type')}>
             <option value="regular">regular</option>
             <option value="special">special</option>
           </Select>
@@ -123,29 +137,35 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
         {type === 'regular' && (
           <label>
             <span>Number</span>
-            <Input type="text" {...register('number')} />
+            <Input type="text" {...customRegister('number')} />
           </label>
         )}
 
         <label>
           <span>Spotify Id</span>
-          <Input type="text" {...register('spotify_id')} />
+          <Input type="text" {...customRegister('spotify_id')} />
         </label>
 
         <label>
           <span>Deezer Id</span>
-          <Input type="text" {...register('deezer_id')} />
+          <Input type="text" {...customRegister('deezer_id')} />
+        </label>
+
+        <label>
+          <span>Weblink</span>
+          <Input type="text" {...customRegister('weblink')} />
         </label>
 
         <label>
           <span>Inhalt</span>
 
-          <Textarea
-            {...register('inhalt')}
-            // eslint-disable-next-line no-inline-styles/no-inline-styles
-            style={{ height: '225px' }}
-            spellCheck="true"
-          />
+          <Textarea {...customRegister('inhalt')} spellCheck="true" />
+        </label>
+
+        <label>
+          <span>Sprecher</span>
+
+          <Textarea {...customRegister('sprecher')} spellCheck="true" />
         </label>
 
         {Object.keys(formState.errors).length !== 0 &&

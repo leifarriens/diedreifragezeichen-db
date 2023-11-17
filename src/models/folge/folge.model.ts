@@ -30,6 +30,8 @@ const folgeSchema = new mongoose.Schema<FolgeSchema>(
     spotify_id: String,
     deezer_id: String,
     isHidden: Boolean,
+    weblink: String,
+    sprecher: String,
   },
   {
     collection: 'folgen',

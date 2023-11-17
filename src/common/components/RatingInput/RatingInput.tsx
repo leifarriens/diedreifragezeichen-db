@@ -1,7 +1,7 @@
+import classNames from 'classnames';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import {
-  Container,
   FragezeichenContainer,
   FragezeichenIcon,
   IconContainer,
@@ -130,9 +130,12 @@ export function RatingInput({
   };
 
   return (
-    <Container disabled={disabled}>
+    <div
+      className={classNames('flex w-full', {
+        'pointer-events-none opacity-50': disabled,
+      })}
+    >
       <IconContainer onSubmit={handleInputEnd}>
-        {/* DISCUSS: implement with <form> ? */}
         <input
           ref={inputRef}
           {...inputSettings}
@@ -156,6 +159,6 @@ export function RatingInput({
       <div className="-mt-3 ml-1 max-w-xl text-right text-2xl">
         {hover ? hover.toFixed(1) : range > 0 && range.toFixed(1)}
       </div>
-    </Container>
+    </div>
   );
 }
