@@ -26,6 +26,7 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
     sprecher,
   } = folge;
   const isBigCover = Number(number) >= 125;
+  const isReleased = dayjs(release_date).isBefore(dayjs());
 
   return (
     <>
@@ -50,7 +51,8 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
           </h1>
           <div className="mt-2 text-lg text-neutral-300">
             <div>
-              Veröffentlicht am {dayjs(release_date).format(DATE_FORMAT)}
+              {isReleased ? 'Veröffentlicht am' : 'Wird veröffentlicht am'}{' '}
+              {dayjs(release_date).format(DATE_FORMAT)}
             </div>
             <div>{dayjs(release_date).fromNow()}</div>
           </div>

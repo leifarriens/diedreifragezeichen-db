@@ -24,6 +24,7 @@ export const GridFolge = memo(function GridFolge({
 }: GridFolgeProps) {
   const router = useRouter();
   const ref = useRef<HTMLElement | null>(null);
+  const isReleased = dayjs(folge.release_date).isBefore(dayjs());
 
   useEffect(() => {
     if (router.query.ref === folge._id) {
@@ -49,6 +50,7 @@ export const GridFolge = memo(function GridFolge({
             /10
           </div>
           <div className="text-xs font-extralight text-neutral-200">
+            {!isReleased && 'Erscheint am '}
             {dayjs(folge.release_date).format(DATE_FORMAT)}
           </div>
         </div>
