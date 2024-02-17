@@ -51,7 +51,7 @@ export async function deleteFolgenRating({
   folgeId: string;
   userId: string;
 }) {
-  const rating = await Rating.findOneAndDelete({
+  const { value: rating} = await Rating.findOneAndDelete({
     folge: folgeId,
     user: userId,
   });

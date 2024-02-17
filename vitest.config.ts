@@ -6,7 +6,6 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom',
-    threads: true,
     exclude: [...configDefaults.exclude, './tests/**'],
   },
   resolve: {
