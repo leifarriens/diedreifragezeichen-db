@@ -44,6 +44,6 @@ export const userRouter = router({
   deleteApikey: authedProcedure
     .input(z.object({ keyId: z.string() }))
     .mutation(async ({ input }) => {
-      return Apikey.findByIdAndDelete(input.keyId);
+      await Apikey.findByIdAndDelete(input.keyId);
     }),
 });

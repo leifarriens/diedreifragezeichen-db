@@ -9,7 +9,7 @@ import { isSafari } from '@/utils/index';
  * @param sortBy
  */
 export function useBackgroundSortTheme(
-  sortBy: string,
+  sortBy: SortOptionsEnum,
   { enabled = true }: { enabled?: boolean } = {},
 ) {
   useEffect(() => {
