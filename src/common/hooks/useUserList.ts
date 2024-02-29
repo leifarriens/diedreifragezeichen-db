@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 import { trpc } from '@/utils/trpc';
 
@@ -32,6 +33,9 @@ export function useUserListFolgen() {
       staleTime,
       cacheTime,
       enabled: status === 'authenticated',
+      onError() {
+        toast.error('Fehler beim laden der Merkliste');
+      },
     },
   );
 }

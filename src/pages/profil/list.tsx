@@ -10,7 +10,8 @@ import { FolgenContainer, GridFolge } from '@/modules/Grid';
 import { ProfilLayout } from '@/modules/Profil';
 
 const MerklistPage = () => {
-  const { data, isFetching, error, fetchNextPage } = useUserListFolgen();
+  const { data, isFetching, error, isError, fetchNextPage } =
+    useUserListFolgen();
 
   const isEmptyList =
     error?.data?.code === 'NOT_FOUND' || data?.pages[0].items.length === 0;
@@ -26,19 +27,27 @@ const MerklistPage = () => {
           </p>
         )}
 
-        <FolgenContainer>
-          {data?.pages.map((groupe, i) => (
-            <React.Fragment key={i}>
-              {groupe.items.map((folge) => {
-                return <GridFolge key={folge._id} folge={folge} />;
-              })}
-            </React.Fragment>
-          ))}
-        </FolgenContainer>
+        {isError ? (
+          <p className="my-16 text-center text-xl font-semibold text-ddfRed">
+            Fehler beim laden der Merkliste
+          </p>
+        ) : (
+          <>
+            <FolgenContainer>
+              {data?.pages.map((groupe, i) => (
+                <React.Fragment key={i}>
+                  {groupe.items.map((folge) => {
+                    return <GridFolge key={folge._id} folge={folge} />;
+                  })}
+                </React.Fragment>
+              ))}
+            </FolgenContainer>
 
-        {isFetching && <Loader />}
+            {isFetching && <Loader />}
 
-        <InView onChange={(inView) => inView && fetchNextPage()} />
+            <InView onChange={(inView) => inView && fetchNextPage()} />
+          </>
+        )}
       </ProfilLayout>
     </>
   );
