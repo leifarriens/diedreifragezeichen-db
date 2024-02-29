@@ -22,7 +22,8 @@ export function ListButton({
   const { data: session, status } = useSession();
   const { data: list, isLoading: isListLoading } = useUserList();
   const utils = trpc.useUtils();
-  const { setDataRemoveFolge } = useUserListFolgenUtils();
+  const { setDataRemoveFolge, invalidateUserFolgenList } =
+    useUserListFolgenUtils();
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);
 
@@ -39,7 +40,7 @@ export function ListButton({
             <i>{folgeName}</i> zur <MerklistenLink /> hinzugefügt
           </span>,
         );
-        await utils.list.allFolgen.invalidate();
+        await invalidateUserFolgenList();
       },
     });
 

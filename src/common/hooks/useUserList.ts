@@ -40,6 +40,12 @@ export function useUserListFolgenUtils() {
   const utils = trpc.useUtils();
 
   return {
+    invalidateUserFolgenList: async () => {
+      await utils.list.allFolgen.invalidate(undefined, {
+        type: 'all',
+        fetchStatus: 'idle',
+      });
+    },
     setDataRemoveFolge: (folgeId: string) => {
       utils.list.allFolgen.setInfiniteData({ limit }, (data) => {
         if (!data) {
@@ -55,6 +61,7 @@ export function useUserListFolgenUtils() {
             items: page.items.filter(
               (folge) => folge._id.toString() !== folgeId,
             ),
+            total: page.total - 1,
           })),
         };
       });
