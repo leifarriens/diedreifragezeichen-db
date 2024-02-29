@@ -30,8 +30,6 @@ export function useUserListFolgen() {
         }
         return undefined;
       },
-      staleTime,
-      cacheTime,
       enabled: status === 'authenticated',
       onError() {
         toast.error('Fehler beim laden der Merkliste');
@@ -45,10 +43,7 @@ export function useUserListFolgenUtils() {
 
   return {
     invalidateUserFolgenList: async () => {
-      await utils.list.allFolgen.invalidate(undefined, {
-        type: 'all',
-        fetchStatus: 'idle',
-      });
+      await utils.list.allFolgen.invalidate();
     },
     setDataRemoveFolge: (folgeId: string) => {
       utils.list.allFolgen.setInfiniteData({ limit }, (data) => {
