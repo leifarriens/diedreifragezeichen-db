@@ -21,7 +21,7 @@ export function ListButton({
 }: ListButtonProps) {
   const { data: session, status } = useSession();
   const { data: list, isLoading: isListLoading } = useUserList();
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
   const { setDataRemoveFolge } = useUserListFolgenUtils();
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);

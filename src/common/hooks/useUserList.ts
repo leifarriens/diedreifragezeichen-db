@@ -37,7 +37,7 @@ export function useUserListFolgen() {
 }
 
 export function useUserListFolgenUtils() {
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   return {
     setDataRemoveFolge: (folgeId: string) => {

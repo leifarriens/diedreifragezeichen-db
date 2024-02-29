@@ -5,7 +5,7 @@ import { trpc } from '@/utils/trpc';
 
 export function useUserRating(folge_id: string) {
   const { status } = useSession();
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   const ratingsQuery = trpc.rating.userRatings.useQuery(undefined, {
     enabled: status === 'authenticated',

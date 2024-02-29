@@ -13,7 +13,7 @@ import dayjs from '../../lib/dayjs';
 
 export function Apikey() {
   const apiKeysQuery = trpc.user.apikeys.useQuery();
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   const deleteMutation = trpc.user.deleteApikey.useMutation({
     async onSuccess() {
@@ -83,7 +83,7 @@ export function Apikey() {
 
 function CreateDialog() {
   const [name, setName] = useState('');
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   const createApikeyMutation = trpc.user.createApikey.useMutation({
     async onSuccess() {

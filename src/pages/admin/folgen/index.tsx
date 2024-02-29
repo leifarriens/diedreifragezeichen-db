@@ -190,7 +190,7 @@ const AdminFolge = ({
 }) => {
   const propCheck = (value: unknown) => (value ? '🟢' : '🔴');
 
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   const detailsSync = trpc.sync.folgeDetails.useMutation({
     onError(error) {
