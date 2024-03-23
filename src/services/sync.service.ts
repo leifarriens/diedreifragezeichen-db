@@ -48,6 +48,7 @@ export async function syncDeezer() {
   const deezerAlbums = await DeezerApi.getAllAlbums();
 
   const folgen = await FolgeModel.find({});
+  console.log(deezerAlbums);
 
   const writes = folgen
     .filter((folge) => !folge.deezer_id)

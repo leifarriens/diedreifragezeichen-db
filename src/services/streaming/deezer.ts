@@ -6,9 +6,6 @@ import artist from '../../../config/artist.json';
 const DeezerApi = {
   artist: Axios.create({
     baseURL: 'https://api.deezer.com/artist',
-    headers: {
-      Authorization: `Bearer ${process.env.DEEZER_API_KEY}`,
-    },
   }),
 };
 
