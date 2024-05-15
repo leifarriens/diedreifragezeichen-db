@@ -82,27 +82,28 @@ export async function syncDeezer() {
 export async function syncWeblinks() {
   const weblinks = await getAllWeblinks();
 
-  const folgen = await FolgeModel.find({});
+  const folgen = await FolgeModel.find({
+    weblink: { $exists: true, $ne: '' },
+    isHidden: { $ne: true },
+  });
 
-  const writes = folgen
-    .filter((folge) => !folge.weblink)
-    .reduce<AnyBulkWriteOperation[]>((curr, folge) => {
-      const exp = folge.name.replace('und', '').replace('???', '').trim();
-      const weblink = weblinks.find(({ title }) =>
-        new RegExp(exp, 'i').test(title),
-      );
+  const writes = folgen.reduce<AnyBulkWriteOperation[]>((curr, folge) => {
+    const exp = folge.name.replace('und', '').replace('???', '').trim();
+    const weblink = weblinks.find(({ title }) =>
+      new RegExp(exp, 'i').test(title),
+    );
 
-      if (weblink) {
-        curr.push({
-          updateOne: {
-            filter: { _id: new ObjectId(folge._id) },
-            update: { weblink: weblink.url },
-          },
-        });
-      }
+    if (weblink) {
+      curr.push({
+        updateOne: {
+          filter: { _id: new ObjectId(folge._id) },
+          update: { weblink: weblink.url },
+        },
+      });
+    }
 
-      return curr;
-    }, []);
+    return curr;
+  }, []);
 
   const result = await FolgeModel.bulkWrite(writes);
 
@@ -141,7 +142,7 @@ export async function syncFolgenDetails(folgeId: string) {
  */
 export async function syncDetails() {
   let folgen = await FolgeModel.find({
-    $or: [{ isHidden: false }, { isHidden: { $exists: false } }],
+    $or: [{ isHidden: false }, { isHidden: { $ne: false } }],
   });
 
   folgen = folgen.filter(
