@@ -60,15 +60,13 @@ export async function deleteFolgenRating({
     throw new Error('Rating not found');
   }
 
-  const folge = await Folge.findById(rating.folge);
+  const folge = await Folge.findById(folgeId);
 
   if (!folge) {
     throw Error('Folge not found');
   }
 
-  const folgenRatings = await Rating.find({ folge: rating.folge }).select(
-    'value',
-  );
+  const folgenRatings = await Rating.find({ folge: folgeId }).select('value');
 
   if (folgenRatings.length === 0) {
     folge.rating = 0;
