@@ -28,7 +28,7 @@ const MerklistPage = () => {
         )}
 
         {isError ? (
-          <p className="my-16 text-center text-xl font-semibold text-ddfRed">
+          <p className="text-ddfRed my-16 text-center text-xl font-semibold">
             Fehler beim laden der Merkliste
           </p>
         ) : (

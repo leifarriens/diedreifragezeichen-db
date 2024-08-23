@@ -24,16 +24,16 @@ jobs:
         uses: ./.github/actions/setup-ci
 
       - name: 🔒 Typecheck
-        run: pnpm typecheck
+        run: pnpm --filter=web typecheck
 
       - name: 🧪 Running Unit Tests
-        run: pnpm test
+        run: pnpm --filter=web test
 
       - name: 🔬 Lint
-        run: pnpm lint
+        run: pnpm --filter=web lint
 
       - name: 📝 Format
-        run: pnpm format:check
+        run: pnpm --filter=web format:check
 
   test-setup:
     name: E2E Test setup ⚗️

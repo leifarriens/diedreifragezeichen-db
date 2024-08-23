@@ -63,7 +63,7 @@ export function Header() {
           <div
             // eslint-disable-next-line no-inline-styles/no-inline-styles
             style={{ gridArea: 'profile' }}
-            className="flex flex-shrink-0 flex-grow basis-auto animate-fadein items-center justify-end"
+            className="animate-fadein flex flex-shrink-0 flex-grow basis-auto items-center justify-end"
           >
             {router.pathname === '/signin' ? (
               <button

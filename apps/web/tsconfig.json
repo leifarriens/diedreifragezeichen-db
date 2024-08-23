@@ -1,9 +1,10 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    // "target": "esnext",
+    // "module": "esnext",
     "lib": ["es6", "es7", "esnext", "dom"],
-    "allowJs": true,
+    // "allowJs": true,
     "jsx": "preserve",
     "removeComments": false,
     "strict": true,
@@ -28,20 +29,21 @@
       "@/utils/*": ["common/utils/*"]
     },
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    // "esModuleInterop": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "skipLibCheck": true,
+    // "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "resolveJsonModule": true,
+    // "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
     "plugins": [
       {
         "name": "next"
       }
-    ]
+    ],
+    "module": "esnext"
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules", "tests"]
