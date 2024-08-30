@@ -131,11 +131,24 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
     },
   });
 
+  const upcSync = trpc.sync.upc.useMutation({
+    onError(error) {
+      toast.error(error.message);
+    },
+    onSuccess(data) {
+      toast.success(
+        `Upc sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
+      );
+      onSyncSuccess();
+    },
+  });
+
   const isSyncing =
     folgenSync.isLoading ||
     deezerSync.isLoading ||
     weblinkSync.isLoading ||
-    detailSync.isLoading;
+    detailSync.isLoading ||
+    upcSync.isLoading;
 
   return (
     <div className="flex gap-2">
@@ -178,6 +191,16 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
           className={classNames({ 'animate-spin': detailSync.isLoading })}
         />
         Sync Details
+      </Button>
+      <Button
+        size="small"
+        onClick={() => upcSync.mutate()}
+        disabled={isSyncing}
+      >
+        <FaSyncAlt
+          className={classNames({ 'animate-spin': upcSync.isLoading })}
+        />
+        Sync UPCs
       </Button>
     </div>
   );
@@ -260,6 +283,7 @@ const AdminFolge = ({
             Release Date: {dayjs(folge.release_date).format(DATE_FORMAT)}
           </div>
           <div>Updated At: {dayjs(folge.updated_at).format(DATE_FORMAT)}</div>
+          <div>UPC: {folge.upc}</div>
         </div>
 
         {folge.inhalt && (
@@ -292,7 +316,10 @@ const AdminFolge = ({
                 <th className="border-b-2 border-r-2 border-slate-600 px-2">
                   Weblink
                 </th>
-                <th className="border-b-2 border-slate-600 px-2">Sprecher</th>
+                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                  Sprecher
+                </th>
+                <th className="border-b-2 border-slate-600 px-2">UPC</th>
               </tr>
             </thead>
             <tbody>
@@ -309,7 +336,10 @@ const AdminFolge = ({
                 <td className="border-r-2 border-slate-600">
                   {propCheck(folge.weblink)}
                 </td>
-                <td>{propCheck(folge.sprecher)}</td>
+                <td className="border-r-2 border-slate-600">
+                  {propCheck(folge.sprecher)}
+                </td>
+                <td>{propCheck(folge.upc)}</td>
               </tr>
             </tbody>
           </table>
