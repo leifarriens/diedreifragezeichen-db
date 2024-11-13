@@ -39,10 +39,6 @@ module.exports = async (phase) => {
   if (phase === PHASE_DEVELOPMENT_SERVER) {
     return {
       ...nextConfig,
-      env: {
-        // TODO: Implement
-        minRatingsToDisplay: 1,
-      },
     };
   }
 
@@ -53,9 +49,6 @@ module.exports = async (phase) => {
       removeConsole: {
         exclude: ['error'],
       },
-    },
-    env: {
-      minRatingsToDisplay: 5,
     },
   });
 };
