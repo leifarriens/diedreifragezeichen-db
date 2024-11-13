@@ -2,6 +2,7 @@ import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
 
 import {
+  syncAllFolgenUpcs,
   syncDeezer,
   syncDetails,
   syncFolgen,
@@ -14,6 +15,11 @@ import { adminProcedure, router } from '../trpc';
 export const syncRouter = router({
   folgen: adminProcedure.mutation(async () => {
     const result = await syncFolgen();
+
+    return result;
+  }),
+  upc: adminProcedure.mutation(async () => {
+    const result = await syncAllFolgenUpcs();
 
     return result;
   }),

@@ -3,6 +3,7 @@ import Axios from 'axios';
 import qs from 'qs';
 
 import type { SpotifyAlbum } from '@/types';
+import type { SpotifyFullAlbum } from '@/types/album';
 
 import artist from '../../../config/artist.json';
 
@@ -23,9 +24,12 @@ const SpotifyAPI = {
   artists: Axios.create({
     baseURL: 'https://api.spotify.com/v1/artists',
   }),
+  albums: Axios.create({
+    baseURL: 'https://api.spotify.com/v1/albums',
+  }),
 };
 
-const getBearerToken = async () => {
+export const getBearerToken = async () => {
   try {
     const response = await SpotifyAPI.accounts.post<{ access_token: string }>(
       '/token',
@@ -80,6 +84,26 @@ export const getAllAlbums = async () => {
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
 
+    throw Error(JSON.stringify(error.response?.data));
+  }
+};
+
+export const getAlbum = async (albumId: string, bearerToken: string) => {
+  console.log('GET album', albumId);
+  try {
+    const response = await SpotifyAPI.albums.get<SpotifyFullAlbum>(
+      `/${albumId}`,
+      {
+        headers: { Authorization: 'Bearer ' + bearerToken },
+      },
+    );
+    console.log(response.status);
+    return response.data;
+  } catch (e) {
+    const error = e as AxiosError;
+    console.log(error);
+    console.log(error.response?.statusText);
+    console.log(JSON.stringify(error.response?.data));
     throw Error(JSON.stringify(error.response?.data));
   }
 };

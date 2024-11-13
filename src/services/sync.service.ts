@@ -2,6 +2,7 @@ import type { AnyBulkWriteOperation } from 'mongodb';
 import { ObjectId } from 'mongodb';
 
 import { Folge as FolgeModel } from '@/models/folge';
+import type { SpotifyFullAlbum } from '@/types/album';
 import { convertFolge } from '@/utils/convertFolge';
 
 import ignorelist from '../../config/ignorelist.json';
@@ -38,6 +39,51 @@ export async function syncFolgen() {
   const result = await FolgeModel.insertMany(addToDb);
 
   return result;
+}
+
+export async function syncAllFolgenUpcs() {
+  const folgen = await FolgeModel.find({}).select('spotify_id upc');
+
+  const folgenWithMissingUpcs = folgen.filter((folge) => !folge.upc);
+
+  console.info(`Found ${folgenWithMissingUpcs.length} folgen without upc`);
+
+  const bearerToken = await SpotifyApi.getBearerToken();
+
+  const fullAlbums: SpotifyFullAlbum[] = [];
+
+  for (const folge of folgenWithMissingUpcs) {
+    const fullAlbum = await SpotifyApi.getAlbum(folge.spotify_id, bearerToken);
+    fullAlbums.push(fullAlbum);
+  }
+
+  const writes = folgenWithMissingUpcs.reduce<AnyBulkWriteOperation[]>(
+    (curr, folge) => {
+      const fullAlbum = fullAlbums.find(
+        (album) => album.id === folge.spotify_id,
+      );
+
+      if (fullAlbum?.external_ids?.upc) {
+        curr.push({
+          updateOne: {
+            filter: { _id: new ObjectId(folge._id) },
+            update: {
+              upc: fullAlbum.external_ids.upc,
+            },
+          },
+        });
+      }
+
+      return curr;
+    },
+    [],
+  );
+
+  const result = await FolgeModel.bulkWrite(writes);
+
+  console.info(`Wrote ${writes.length} updates`);
+
+  return { result, writes };
 }
 
 /**

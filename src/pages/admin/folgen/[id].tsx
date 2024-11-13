@@ -33,6 +33,7 @@ const validator = folgeValidator.pick({
   weblink: true,
   inhalt: true,
   sprecher: true,
+  upc: true,
 });
 
 const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
@@ -48,6 +49,7 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
       weblink: folge.weblink,
       inhalt: folge.inhalt,
       sprecher: folge.sprecher,
+      upc: folge.upc,
     },
     resolver: zodResolver(validator),
     mode: 'all',
@@ -166,6 +168,11 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
           <span>Sprecher</span>
 
           <Textarea {...customRegister('sprecher')} spellCheck="true" />
+        </label>
+
+        <label>
+          <span>Upc</span>
+          <Input type="text" {...customRegister('upc')} />
         </label>
 
         {Object.keys(formState.errors).length !== 0 &&

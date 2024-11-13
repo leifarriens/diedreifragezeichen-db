@@ -32,6 +32,7 @@ const folgeSchema = new mongoose.Schema<FolgeSchema>(
     isHidden: Boolean,
     weblink: String,
     sprecher: String,
+    upc: String,
   },
   {
     collection: 'folgen',

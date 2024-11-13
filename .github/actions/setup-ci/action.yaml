@@ -9,10 +9,9 @@ runs:
       with:
         node-version-file: '.nvmrc'
 
-    - uses: pnpm/action-setup@v3
+    - uses: pnpm/action-setup@v4
       name: Install pnpm
       with:
-        version: 8
         run_install: false
 
     - name: 🚢 Get pnpm store directory
