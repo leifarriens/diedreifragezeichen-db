@@ -22,7 +22,12 @@ module.exports = async (phase) => {
       ignoreDuringBuilds: true,
     },
     images: {
-      domains: ['i.scdn.co'],
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'i.scdn.co',
+        },
+      ],
     },
     async rewrites() {
       return [];
