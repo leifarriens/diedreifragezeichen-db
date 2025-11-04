@@ -145,7 +145,7 @@ function CreateDialog() {
                 <Button
                   type="submit"
                   color={colors.lightblue}
-                  disabled={createApikeyMutation.isLoading}
+                  disabled={createApikeyMutation.isPending}
                 >
                   API key erstellen
                 </Button>

@@ -1,4 +1,4 @@
-import type { QueryClientConfig } from '@tanstack/react-query';
+import { QueryClient, type QueryClientConfig } from '@tanstack/react-query';
 import { TRPCClientError } from '@trpc/client';
 import toast from 'react-hot-toast';
 
@@ -17,3 +17,5 @@ export const queryClientConfig: QueryClientConfig = {
     },
   },
 };
+
+export const queryClient = new QueryClient(queryClientConfig);

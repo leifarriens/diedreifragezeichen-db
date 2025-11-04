@@ -97,23 +97,24 @@ export function Search() {
 }
 
 function SearchResults({ query }: { query: string }) {
-  const { data, isInitialLoading } = trpc.folge.search.useInfiniteQuery(
+  const { data, isFetching } = trpc.folge.search.useInfiniteQuery(
     { query },
     {
       enabled: query.length > 1,
+      getNextPageParam: (lastPage) => lastPage.offset,
       trpc: {
         abortOnUnmount: true,
       },
     },
   );
 
-  if (!isInitialLoading && !data) return null;
+  if (!data) return null;
 
   return (
     <div className="relative">
       <ul className="absolute left-0 top-4 w-full overflow-hidden rounded-lg bg-black py-2">
-        {isInitialLoading && <Loader />}
-        {data?.pages.map((groupe, i) => (
+        {isFetching && <Loader />}
+        {data.pages.map((groupe, i) => (
           <React.Fragment key={i}>
             {groupe.items.map(({ _id, name, number, images }) => {
               return (
@@ -140,7 +141,7 @@ function SearchResults({ query }: { query: string }) {
             })}
           </React.Fragment>
         ))}
-        {data?.pages.length === 1 && data.pages[0].items.length === 0 && (
+        {data.pages.length === 1 && data.pages[0].items.length === 0 && (
           <div className="py-3 text-center text-neutral-300">
             Keine Ergebnisse
           </div>

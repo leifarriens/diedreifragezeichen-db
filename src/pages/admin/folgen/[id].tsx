@@ -60,7 +60,7 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
 
   const type = watch('type');
 
-  const { mutate, isLoading } = trpc.folge.update.useMutation({
+  const { mutate, isPending } = trpc.folge.update.useMutation({
     onSuccess: () => router.push('/admin/folgen'),
   });
 
@@ -193,7 +193,7 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
             Löschen
           </Button>
 
-          <Button type="submit" disabled={!formState.isDirty || isLoading}>
+          <Button type="submit" disabled={!formState.isDirty || isPending}>
             Speichern
           </Button>
         </div>

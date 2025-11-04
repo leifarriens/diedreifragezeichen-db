@@ -3,7 +3,7 @@ import { createTRPCNext } from '@trpc/next';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
 
-import { queryClientConfig } from '@/lib/query';
+import { queryClient } from '@/lib/query';
 import type { AppRouter } from '@/server/routers/_app';
 
 function getBaseUrl() {
@@ -22,16 +22,17 @@ function getBaseUrl() {
 export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
-      transformer: superjson,
       links: [
         httpBatchLink({
           url: `${getBaseUrl()}/api/trpc`,
+          transformer: superjson,
         }),
       ],
-      queryClientConfig,
+      queryClient,
     };
   },
   ssr: false,
+  transformer: superjson,
 });
 
 export type RouterInput = inferRouterInputs<AppRouter>;

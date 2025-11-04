@@ -6,7 +6,7 @@ import { trpc } from '@/utils/trpc';
 export function RatingProgress() {
   const totalQuery = trpc.folge.total.useQuery(undefined, {
     staleTime: Infinity,
-    cacheTime: Infinity,
+    gcTime: Infinity,
   });
   const ratingsQuery = trpc.rating.userRatings.useQuery();
 

@@ -143,62 +143,62 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
     },
   });
 
-  const isSyncing =
-    folgenSync.isLoading ||
-    deezerSync.isLoading ||
-    weblinkSync.isLoading ||
-    detailSync.isLoading ||
-    upcSync.isLoading;
+  const isPending =
+    folgenSync.isPending ||
+    deezerSync.isPending ||
+    weblinkSync.isPending ||
+    detailSync.isPending ||
+    upcSync.isPending;
 
   return (
     <div className="flex gap-2">
       <Button
         size="small"
         onClick={() => folgenSync.mutate()}
-        disabled={isSyncing}
+        disabled={isPending}
       >
         <FaSyncAlt
-          className={classNames({ 'animate-spin': folgenSync.isLoading })}
+          className={classNames({ 'animate-spin': folgenSync.isPending })}
         />
         Sync Folgen
       </Button>
       <Button
         size="small"
         onClick={() => deezerSync.mutate()}
-        disabled={isSyncing}
+        disabled={isPending}
       >
         <FaSyncAlt
-          className={classNames({ 'animate-spin': deezerSync.isLoading })}
+          className={classNames({ 'animate-spin': deezerSync.isPending })}
         />
         Sync Deezer
       </Button>
       <Button
         size="small"
         onClick={() => weblinkSync.mutate()}
-        disabled={isSyncing}
+        disabled={isPending}
       >
         <FaSyncAlt
-          className={classNames({ 'animate-spin': weblinkSync.isLoading })}
+          className={classNames({ 'animate-spin': weblinkSync.isPending })}
         />
         Sync Weblinks
       </Button>
       <Button
         size="small"
         onClick={() => detailSync.mutate()}
-        disabled={isSyncing}
+        disabled={isPending}
       >
         <FaSyncAlt
-          className={classNames({ 'animate-spin': detailSync.isLoading })}
+          className={classNames({ 'animate-spin': detailSync.isPending })}
         />
         Sync Details
       </Button>
       <Button
         size="small"
         onClick={() => upcSync.mutate()}
-        disabled={isSyncing}
+        disabled={isPending}
       >
         <FaSyncAlt
-          className={classNames({ 'animate-spin': upcSync.isLoading })}
+          className={classNames({ 'animate-spin': upcSync.isPending })}
         />
         Sync UPCs
       </Button>
@@ -265,11 +265,11 @@ const AdminFolge = ({
                 onClick={() =>
                   detailsSync.mutate({ folgeId: folge._id.toString() })
                 }
-                disabled={detailsSync.isLoading}
+                disabled={detailsSync.isPending}
               >
                 <FaSyncAlt
                   className={classNames({
-                    'animate-spin': detailsSync.isLoading,
+                    'animate-spin': detailsSync.isPending,
                   })}
                 />
                 Sync Details
