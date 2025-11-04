@@ -35,7 +35,7 @@ export function useUserRating(folge_id: string) {
     },
   });
 
-  const isLoading = ratingsQuery.isFetching || addMutation.isLoading;
+  const isLoading = ratingsQuery.isFetching || addMutation.isPending;
 
   return { userRating, isLoading, revokeMutation, addMutation };
 }

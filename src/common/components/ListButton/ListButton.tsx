@@ -27,7 +27,7 @@ export function ListButton({
 
   const isOnUserList = list?.map((id) => id).includes(folgeId);
 
-  const { mutate: mutateAdd, isLoading: isAddLoaing } =
+  const { mutate: mutateAdd, isPending: isAddPending } =
     trpc.list.add.useMutation({
       onMutate: () => {
         utils.list.all.setData(undefined, (curr) =>
@@ -44,7 +44,7 @@ export function ListButton({
       },
     });
 
-  const { mutate: mutateRemove, isLoading: isRemoveLoading } =
+  const { mutate: mutateRemove, isPending: isAddLoading } =
     trpc.list.remove.useMutation({
       onMutate: () => {
         utils.list.all.setData(undefined, (curr) =>
@@ -62,7 +62,7 @@ export function ListButton({
       },
     });
 
-  const isLoading = isListLoading || isAddLoaing || isRemoveLoading;
+  const isLoading = isListLoading || isAddPending || isAddLoading;
 
   function handleClick() {
     if (!session) return signIn();

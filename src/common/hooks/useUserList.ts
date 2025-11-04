@@ -1,10 +1,11 @@
 import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 import { trpc } from '@/utils/trpc';
 
 const staleTime = 5 * 1000 * 60;
-const cacheTime = 5 * 1000 * 60;
+const gcTime = 5 * 1000 * 60;
 
 export function useUserList() {
   const { status } = useSession();
@@ -12,7 +13,7 @@ export function useUserList() {
   return trpc.list.all.useQuery(undefined, {
     enabled: status === 'authenticated',
     staleTime,
-    cacheTime,
+    gcTime,
   });
 }
 
@@ -21,7 +22,7 @@ const limit = 20;
 export function useUserListFolgen() {
   const { status } = useSession();
 
-  return trpc.list.allFolgen.useInfiniteQuery(
+  const infiniteQuery = trpc.list.allFolgen.useInfiniteQuery(
     { limit },
     {
       getNextPageParam: (lastPage) => {
@@ -31,11 +32,14 @@ export function useUserListFolgen() {
         return undefined;
       },
       enabled: status === 'authenticated',
-      onError() {
-        toast.error('Fehler beim laden der Merkliste');
-      },
     },
   );
+
+  useEffect(() => {
+    toast.error('Fehler beim laden der Merkliste');
+  }, [infiniteQuery.error]);
+
+  return infiniteQuery;
 }
 
 export function useUserListFolgenUtils() {
