@@ -41,7 +41,7 @@
     "@trpc/client": "^11.7.2",
     "@trpc/next": "^11.7.2",
     "@trpc/react-query": "^11.7.2",
-    "@trpc/server": "^11.7.2",
+    "@trpc/server": "^11.8.0",
     "@vercel/analytics": "^1.6.1",
     "axios": "^1.13.2",
     "cheerio": "1.0.0-rc.12",
