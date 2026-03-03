@@ -17,7 +17,7 @@ export function Apikey() {
 
   const deleteMutation = trpc.user.deleteApikey.useMutation({
     async onSuccess() {
-      toast.error('API key entfernt');
+      toast('API key entfernt');
       await utils.user.apikeys.refetch();
     },
   });

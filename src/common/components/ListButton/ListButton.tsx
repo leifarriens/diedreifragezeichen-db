@@ -5,7 +5,6 @@ import { BsBookmark, BsBookmarkFill } from 'react-icons/bs';
 
 import { useUserList, useUserListFolgenUtils } from '@/common/hooks';
 import { SpinningLoader } from '@/components/shared';
-import { colors } from '@/constants/theme';
 import { trpc } from '@/utils/trpc';
 
 interface ListButtonProps {
@@ -57,7 +56,6 @@ export function ListButton({
           <span>
             <i>{folgeName}</i> von der <MerklistenLink /> entfernt
           </span>,
-          { style: { backgroundColor: colors.red } },
         );
       },
     });

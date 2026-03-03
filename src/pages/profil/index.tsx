@@ -1,5 +1,6 @@
+import { useRouter } from 'next/router';
 import type { GetServerSidePropsContext } from 'next/types';
-import React, { useState } from 'react';
+import React from 'react';
 import { InView } from 'react-intersection-observer';
 
 import { Seo } from '@/components/Seo';
@@ -12,7 +13,14 @@ import { ProfilLayout, RatingProgress } from '@/modules/Profil';
 import { trpc } from '@/utils/trpc';
 
 const ProfilePage = () => {
-  const [sort, setSort] = useState<RatingsSortOptions>('updated_at');
+  const router = useRouter();
+  const querySort = router.query.sort as string;
+  const sort = (
+    ratingsSortOptions.includes(querySort as RatingsSortOptions)
+      ? querySort
+      : 'updated_at'
+  ) as RatingsSortOptions;
+
   const { data, fetchNextPage, isFetching } =
     trpc.rating.userRatingsWithFolgen.useInfiniteQuery(
       { limit: 20, sort },
@@ -31,7 +39,14 @@ const ProfilePage = () => {
 
     const value = e.target.value as RatingsSortOptions;
 
-    setSort(value);
+    void router.replace(
+      {
+        pathname: router.pathname,
+        query: { ...router.query, sort: value },
+      },
+      undefined,
+      { shallow: true, scroll: false },
+    );
   }
 
   return (

@@ -43,7 +43,7 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
       { folgeId: folge_id },
       {
         onSuccess() {
-          toast.error(
+          toast(
             <span>
               Bewertung für <i>{folge_name}</i> entfernt
             </span>,
