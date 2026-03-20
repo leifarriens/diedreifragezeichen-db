@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { revalidateTag } from 'next/cache';
 
 import { dbConnect } from '@/db/connect';
 import {
@@ -33,6 +34,7 @@ export default async function handler(
 
       if (slug === 'folgen') {
         const result = await syncFolgen();
+        revalidateTag('folgen-list');
         return res.status(200).json(result);
       }
 
@@ -53,10 +55,12 @@ export default async function handler(
           const result = await syncFolgenDetails(req.query.slug[1]);
           if (!result) return res.send(404);
 
+          revalidateTag('folgen-list');
           return res.status(200).json(result);
         }
 
         const result = await syncDetails();
+        revalidateTag('folgen-list');
         return res.status(200).json(result);
       }
 
