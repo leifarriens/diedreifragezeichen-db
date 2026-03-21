@@ -9,7 +9,6 @@ module.exports = async (phase) => {
    */
   const nextConfig = {
     // ...cfg.defaultConfig,
-    swcMinify: true,
     poweredByHeader: false,
     reactStrictMode: true,
     compiler: {
