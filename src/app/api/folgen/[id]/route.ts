@@ -4,6 +4,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+import { PUBLIC_API_CACHE_CONFIG } from '@/constants/api-caching';
 import { dbConnect } from '@/db/connect';
 import { validateApikey } from '@/lib/validateApikey';
 import { getFolge } from '@/services/folge.service';
@@ -58,7 +59,7 @@ export async function GET(
   if (apikeyError) return apikeyError;
 
   const getCachedFolge = unstable_cache(() => fetchFolge(id), ['folge', id], {
-    revalidate: 3600,
+    revalidate: PUBLIC_API_CACHE_CONFIG.server.revalidate,
     tags: ['folgen-list', `folge-${id}`],
   });
 
@@ -70,7 +71,7 @@ export async function GET(
 
   return NextResponse.json(folge, {
     headers: {
-      'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600',
+      'Cache-Control': PUBLIC_API_CACHE_CONFIG.cdn['Cache-Control'],
     },
   });
 }

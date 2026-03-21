@@ -3,6 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
+import { PUBLIC_API_CACHE_CONFIG } from '@/constants/api-caching';
 import { dbConnect } from '@/db/connect';
 import { validateApikey } from '@/lib/validateApikey';
 import { Folge } from '@/models/folge';
@@ -81,14 +82,17 @@ export async function GET(request: NextRequest) {
   const getCachedFolgen = unstable_cache(
     () => fetchFolgen(offset, limit, sort, query),
     ['folgen-list', String(offset), String(limit), sort, query ?? ''],
-    { revalidate: 3600, tags: ['folgen-list'] },
+    {
+      revalidate: PUBLIC_API_CACHE_CONFIG.server.revalidate,
+      tags: ['folgen-list'],
+    },
   );
 
   const data = await getCachedFolgen();
 
   return NextResponse.json(data, {
     headers: {
-      'Cache-Control': 'public, s-maxage=1800, stale-while-revalidate=3600',
+      'Cache-Control': PUBLIC_API_CACHE_CONFIG.cdn['Cache-Control'],
     },
   });
 }
