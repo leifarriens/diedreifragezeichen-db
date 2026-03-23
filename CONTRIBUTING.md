@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-- Node.js version >=16.17.0
-- pnpm version >=8.6.0
-- mongoDB version >=6.0.1
+- Node.js version >=20.19.0
+- pnpm version >=10.30.1
+- MongoDB version >=8 (or use `docker compose up -d` from this repo)
 
 ## Note
 
