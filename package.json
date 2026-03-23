@@ -74,6 +74,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^15.5.14",
     "@playwright/test": "^1.58.2",
+    "@tailwindcss/postcss": "^4.2.2",
     "@tailwindcss/typography": "^0.5.19",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/react": "^16.3.2",
@@ -89,7 +90,6 @@
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^6.0.1",
-    "autoprefixer": "^10.4.27",
     "cli-progress": "^3.12.0",
     "dotenv": "^16.6.1",
     "eslint": "^8.57.1",

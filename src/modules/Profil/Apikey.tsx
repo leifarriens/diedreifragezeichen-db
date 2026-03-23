@@ -121,7 +121,7 @@ function CreateDialog() {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-40" />
-        <Dialog.Content className="fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] max-w-[480px] translate-x-[-50%] translate-y-[-50%] rounded-xl bg-black p-8 focus:outline-none">
+        <Dialog.Content className="fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-120 translate-x-[-50%] translate-y-[-50%] rounded-xl bg-black p-8 focus:outline-hidden">
           <Dialog.Title className="mb-2 text-lg font-semibold">
             Neuen API key generieren
           </Dialog.Title>

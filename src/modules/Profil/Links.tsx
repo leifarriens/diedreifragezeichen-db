@@ -32,7 +32,7 @@ function ProfileTabLink({ path, label }: ProfileTabLinkProps) {
     <Link
       href={href}
       className={classnames(
-        'border-b-4 border-transparent hover:border-b-ddfLightblue',
+        'hover:border-b-ddfLightblue border-b-4 border-transparent',
         {
           'border-b-ddfLightblue': pathname === href,
         },

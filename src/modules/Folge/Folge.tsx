@@ -113,16 +113,16 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
       </div>
 
       {inhalt && (
-        <div className="mb-16 rounded-lg bg-black bg-opacity-30 p-8 text-lg text-neutral-200">
+        <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
           <h3 className="mb-4 text-2xl font-medium">Zusammenfassung</h3>
           <p className="text-justify">{inhalt}</p>
         </div>
       )}
 
       {sprecher && (
-        <div className="mb-16 rounded-lg bg-black bg-opacity-30 p-8 text-lg text-neutral-200">
+        <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
           <h3 className="mb-4 text-2xl font-medium">Sprecher</h3>
-          <p className="whitespace-pre-wrap text-justify">{sprecher}</p>
+          <p className="text-justify whitespace-pre-wrap">{sprecher}</p>
         </div>
       )}
     </>

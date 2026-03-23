@@ -6,7 +6,7 @@ import { colors } from '@/constants/theme';
 import { Wrapper } from '../Wrapper';
 
 /**
- * Headroom styles are injected by styles/global.scss
+ * Headroom styles are injected by styles/global.css
  */
 
 export const Container = styled(Wrapper)`
