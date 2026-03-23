@@ -59,7 +59,7 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
         <span>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</span>
         <button
           type="button"
-          className="ml-1 hidden text-sm hover:underline group-hover:inline"
+          className="ml-1 hidden text-sm group-hover:inline hover:underline"
           onClick={handleRevokeRating}
         >
           Entfernen

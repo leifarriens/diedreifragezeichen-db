@@ -36,7 +36,9 @@ export function useUserListFolgen() {
   );
 
   useEffect(() => {
-    toast.error('Fehler beim laden der Merkliste');
+    if (infiniteQuery.error) {
+      toast.error('Fehler beim laden der Merkliste');
+    }
   }, [infiniteQuery.error]);
 
   return infiniteQuery;

@@ -1,9 +1,10 @@
-import react from '@vitejs/plugin-react';
 import path from 'path';
 import { configDefaults, defineConfig } from 'vitest/config';
 
 export default defineConfig({
-  plugins: [react()],
+  esbuild: {
+    jsx: 'automatic',
+  },
   test: {
     environment: 'jsdom',
     exclude: [...configDefaults.exclude, './tests/**'],

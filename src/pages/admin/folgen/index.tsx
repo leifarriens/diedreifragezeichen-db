@@ -304,19 +304,19 @@ const AdminFolge = ({
           <table className="border-collapse">
             <thead>
               <tr>
-                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                <th className="border-r-2 border-b-2 border-slate-600 px-2">
                   SpotifyId
                 </th>
-                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                <th className="border-r-2 border-b-2 border-slate-600 px-2">
                   DeezerId
                 </th>
-                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                <th className="border-r-2 border-b-2 border-slate-600 px-2">
                   Inhalt
                 </th>
-                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                <th className="border-r-2 border-b-2 border-slate-600 px-2">
                   Weblink
                 </th>
-                <th className="border-b-2 border-r-2 border-slate-600 px-2">
+                <th className="border-r-2 border-b-2 border-slate-600 px-2">
                   Sprecher
                 </th>
                 <th className="border-b-2 border-slate-600 px-2">UPC</th>

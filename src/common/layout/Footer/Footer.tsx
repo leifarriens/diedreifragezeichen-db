@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function Footer() {
   return (
-    <div className="mb-10 mt-24 space-y-3 text-sm text-neutral-400">
+    <div className="mt-24 mb-10 space-y-3 text-sm text-neutral-400">
       <div className="text-center">
         <Link
           className="mr-3 transition-colors duration-150 hover:text-neutral-200"

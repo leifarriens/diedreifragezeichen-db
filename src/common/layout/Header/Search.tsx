@@ -76,7 +76,7 @@ export function Search() {
         name="search"
         value={value}
         placeholder="Name, Nummer oder Erscheinungsjahr"
-        className="w-full rounded-3xl bg-black bg-opacity-80 px-6 py-[8px] text-[16px] text-white backdrop-blur-sm backdrop-brightness-50 transition-all sm:py-[10px]"
+        className="w-full rounded-3xl bg-black/80 px-6 py-2 text-[16px] text-white backdrop-blur-xs backdrop-brightness-50 transition-all sm:py-2.5"
         onKeyDown={handleKeyDown}
         onChange={handleSearchChange}
       />
@@ -84,7 +84,7 @@ export function Search() {
       {value && (
         <button
           type="button"
-          className="absolute right-4 top-1/2 -translate-y-[45%] text-neutral-300"
+          className="absolute top-1/2 right-4 -translate-y-[45%] text-neutral-300"
           onClick={clearInput}
         >
           <AiOutlineCloseCircle size={20} />
@@ -112,23 +112,20 @@ function SearchResults({ query }: { query: string }) {
 
   return (
     <div className="relative">
-      <ul className="absolute left-0 top-4 w-full overflow-hidden rounded-lg bg-black py-2">
+      <ul className="absolute top-4 left-0 w-full overflow-hidden rounded-lg bg-black">
         {isFetching && <Loader />}
         {data.pages.map((groupe, i) => (
           <React.Fragment key={i}>
             {groupe.items.map(({ _id, name, number, images }) => {
               return (
-                <li
-                  key={_id}
-                  className="px-1 hover:bg-neutral-800 hover:bg-opacity-80"
-                >
+                <li key={_id} className="p-1 hover:bg-neutral-800/80">
                   <Link
                     href={`/folge/${_id}`}
                     className="flex items-center gap-3 px-3 py-2"
                   >
                     <img
                       src={images[2].url}
-                      className="h-14 w-14 rounded-sm"
+                      className="h-14 w-14 rounded-xs"
                       alt=""
                     />
                     <div className="font-semibold">

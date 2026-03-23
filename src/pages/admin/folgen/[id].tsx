@@ -89,7 +89,7 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
 
   return (
     <div className="relative mx-auto mt-24 w-full max-w-3xl p-8 pt-64">
-      <div className="absolute left-0 top-0 flex w-full -translate-y-24 justify-center">
+      <div className="absolute top-0 left-0 flex w-full -translate-y-24 justify-center">
         <img
           src={cover.url}
           width={cover.width}

@@ -1,5 +1,5 @@
-import type { AnyBulkWriteOperation } from 'mongodb';
 import { ObjectId } from 'mongodb';
+import type { AnyBulkWriteOperation } from 'mongoose';
 
 import { Folge as FolgeModel } from '@/models/folge';
 import type { SpotifyFullAlbum } from '@/types/album';

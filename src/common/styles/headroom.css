@@ -1,0 +1,19 @@
+.headroom-wrapper {
+  z-index: 999;
+  pointer-events: none;
+}
+
+.headroom {
+  transition: background-color 150ms ease;
+}
+
+@media screen and (max-width: 540px) {
+  .headroom {
+    top: -1px !important;
+  }
+
+  .headroom--pinned {
+    background-color: #001727;
+    box-shadow: 0 12px 13px -5px rgb(0 0 0 / 35%);
+  }
+}

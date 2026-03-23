@@ -1,4 +1,4 @@
-import '@/styles/global.scss';
+import '@/styles/global.css';
 import '@/styles/nprogress.css';
 
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';

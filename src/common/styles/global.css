@@ -1,26 +1,12 @@
-@use 'headroom';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-$ddfDark: #001727;
-$ddfRed: #c50009;
-$ddfBlue: #00a5e7;
-
-$white: #fff;
-$black: #01080e;
-$lightblack: #061c31;
-$red: #c50009;
-$blue: #00a5e7;
+@config '../../../tailwind.config.ts';
+@import 'tailwindcss';
+@import './headroom.css';
 
 :root {
-  /* global static */
   --font-size-base: 12px;
   --color-bg: #001727;
   --color-text: #fff;
   --ui-outline: 0 0 0 3px hsl(197, 100%, 80%);
-
   --color-ddfblue: #00a5e7;
 }
 
@@ -71,8 +57,12 @@ body {
   flex-wrap: wrap-reverse;
   align-items: center;
   max-height: 100vh;
+}
 
-  div + div {
-    margin-bottom: 1em;
-  }
+#toastPortal div + div {
+  margin-bottom: 1em;
+}
+
+button {
+  cursor: pointer;
 }

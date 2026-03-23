@@ -1,4 +1,3 @@
-import type { BuiltInProviderType } from 'next-auth/providers';
 import type { ClientSafeProvider, LiteralUnion } from 'next-auth/react';
 import { signIn } from 'next-auth/react';
 import { FaApple, FaDiscord, FaFacebook, FaSpotify } from 'react-icons/fa';
@@ -59,10 +58,7 @@ export function LoginForm({
   providers,
   error,
 }: {
-  providers: Record<
-    LiteralUnion<BuiltInProviderType>,
-    ClientSafeProvider
-  > | null;
+  providers: Record<LiteralUnion<string>, ClientSafeProvider> | null;
   error: string;
 }) {
   return (
