@@ -51,12 +51,12 @@ export async function deleteFolgenRating({
   folgeId: string;
   userId: string;
 }) {
-  const { value: rating } = await Rating.findOneAndDelete({
+  const deletedRating = await Rating.findOneAndDelete({
     folge: folgeId,
     user: userId,
   });
 
-  if (!rating) {
+  if (!deletedRating) {
     throw new Error('Rating not found');
   }
 
