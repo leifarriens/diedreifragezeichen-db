@@ -93,11 +93,11 @@ const FormContainer = styled.div`
   margin-top: 20vh;
 
   @media screen and (min-width: 640px) {
-    border: 2px solid #001727;
+    border: 1px solid #001727;
     border-radius: 16px;
     padding: 64px 72px;
     padding-bottom: 82px;
-    background-color: #001e33;
+    background-color: #001e3330;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   }
 

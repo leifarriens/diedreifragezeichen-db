@@ -3,11 +3,10 @@ import type { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth';
 import DiscordProvider from 'next-auth/providers/discord';
 import GoogleProvider from 'next-auth/providers/google';
-import SpotifyProvider from 'next-auth/providers/spotify';
 
 import { clientPromise } from '@/db/authConn';
 
-const SESSION_MAX_AGE = 90 * 24 * 60 * 60; // 90 days
+const SESSION_MAX_AGE = 180 * 24 * 60 * 60; // 180 days
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -24,14 +23,6 @@ export const authOptions: NextAuthOptions = {
           DiscordProvider({
             clientId: process.env.DISCORD_CLIENT_ID,
             clientSecret: process.env.DISCORD_CLIENT_SECRET,
-          }),
-        ]
-      : []),
-    ...(process.env.SPOTIFY_CLIENT_ID
-      ? [
-          SpotifyProvider({
-            clientId: process.env.SPOTIFY_CLIENT_ID,
-            clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
           }),
         ]
       : []),
