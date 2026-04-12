@@ -1,8 +1,8 @@
 export const PUBLIC_API_CACHE_CONFIG = {
   server: {
-    revalidate: 900, // 15 minutes
+    revalidate: 300, // 5 minutes
   },
   cdn: {
-    'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
+    'Cache-Control': 'public, s-maxage=28800, stale-while-revalidate=43200',
   },
 } as const;
