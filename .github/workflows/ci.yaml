@@ -55,7 +55,7 @@ jobs:
           max_timeout: 800
 
       - name: Log resolved deployment URL
-        run: echo ${{ github.event_name == 'pull_request' && steps.waitForVercelPreviewDeployment.outputs.url || 'https://www.ddfdb.de' }}
+        run: echo ${{ github.event_name == 'pull_request' && steps.waitForVercelPreviewDeployment.outputs.url || steps.waitForVercelProductionDeployment.outputs.url }}
 
   e2e-test:
     needs: test-setup
