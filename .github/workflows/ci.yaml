@@ -41,6 +41,7 @@ jobs:
         id: waitForVercelPreviewDeployment
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          vercel_protection_bypass_header: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           max_timeout: 800
 
       - name: Wait for Vercel Production
@@ -50,10 +51,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: production
+          vercel_protection_bypass_header: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
           max_timeout: 800
 
       - name: Log resolved deployment URL
-        run: echo ${{ github.event_name == 'pull_request' && steps.waitForVercelPreviewDeployment.outputs.url || steps.waitForVercelProductionDeployment.outputs.url }}
+        run: echo ${{ github.event_name == 'pull_request' && steps.waitForVercelPreviewDeployment.outputs.url || 'https://www.ddfdb.de' }}
 
   e2e-test:
     needs: test-setup
@@ -89,6 +91,8 @@ jobs:
         run: pnpm test:e2e
         env:
           PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test-setup.outputs.deployment_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
