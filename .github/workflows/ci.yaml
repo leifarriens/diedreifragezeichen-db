@@ -33,15 +33,33 @@ jobs:
     name: E2E Test setup ⚗️
     runs-on: ubuntu-latest
     outputs:
-      preview_url: ${{ steps.waitForVercelPreviewDeployment.outputs.url }}
+      deployment_url: ${{ github.event_name == 'pull_request' && steps.waitForVercelPreviewDeployment.outputs.url || steps.waitForVercelProductionDeployment.outputs.url }}
     steps:
       - name: Wait for Vercel Preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        if: github.event_name == 'pull_request'
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.3
         id: waitForVercelPreviewDeployment
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          vercel_protection_bypass_header: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          path: /manifest.json
+          check_interval: 10
           max_timeout: 800
-      - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
+
+      - name: Wait for Vercel Production
+        if: github.event_name == 'push'
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.3
+        id: waitForVercelProductionDeployment
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: production
+          vercel_protection_bypass_header: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+          path: /manifest.json
+          check_interval: 10
+          max_timeout: 800
+
+      - name: Log resolved deployment URL
+        run: echo ${{ github.event_name == 'pull_request' && steps.waitForVercelPreviewDeployment.outputs.url || steps.waitForVercelProductionDeployment.outputs.url }}
 
   e2e-test:
     needs: test-setup
@@ -76,7 +94,9 @@ jobs:
       - name: Run Playwright tests
         run: pnpm test:e2e
         env:
-          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test-setup.outputs.preview_url }}
+          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.test-setup.outputs.deployment_url }}
+          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
