@@ -1,6 +1,16 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "next build",
   "framework": "nextjs",
   "regions": ["fra1"],
-  "crons": []
+  "crons": [
+    {
+      "path": "/api/sync/folgen",
+      "schedule": "0 5 * * 5"
+    },
+    {
+      "path": "/api/sync/weblinks",
+      "schedule": "0 6 * * 5"
+    }
+  ]
 }

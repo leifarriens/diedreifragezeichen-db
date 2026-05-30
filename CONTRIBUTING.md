@@ -48,7 +48,7 @@ pnpm dev
 
 ### Sync Folgen to your (local) Database
 
-However you setup your mongoDB instance you have to populate it with the DDF Folgen. Perform a request with the `APP_KEY` as the Bearer Token using your favorite HTTP client:
+However you setup your mongoDB instance you have to populate it with the DDF Folgen. Perform a request with the `CRON_SECRET` as the Bearer Token using your favorite HTTP client:
 
 `POST http://localhost:3000/api/sync/folgen`
 

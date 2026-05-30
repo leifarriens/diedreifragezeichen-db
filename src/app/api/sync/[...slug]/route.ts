@@ -21,10 +21,10 @@ export async function POST(
     return new NextResponse('No App Key provided', { status: 401 });
   }
 
-  const { APP_KEY } = process.env;
+  const { CRON_SECRET } = process.env;
   const token = authorization.split(' ')[1];
 
-  if (token !== APP_KEY) {
+  if (token !== CRON_SECRET) {
     return new NextResponse('Invalid App Key provided', { status: 401 });
   }
 
