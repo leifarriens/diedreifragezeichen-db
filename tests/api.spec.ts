@@ -13,7 +13,7 @@ test('/api/folgen/someid requires auth', async ({ page, request }) => {
 });
 
 test('/api/sync requires auth', async ({ page, request }) => {
-  const res = await request.get('/api/sync/folgen');
+  const res = await request.post('/api/sync/folgen');
 
   expect(res.status()).toBe(401);
 });

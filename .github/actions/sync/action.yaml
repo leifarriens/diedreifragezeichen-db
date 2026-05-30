@@ -15,27 +15,27 @@ runs:
     - name: Sync Folgen
       shell: bash
       run: |
-        curl --request GET \
+        curl --request POST \
         --url '${{ inputs.BASE_URL }}/api/sync/folgen' \
         --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
 
     - name: Sync Deezer
       shell: bash
       run: |
-        curl --request GET \
+        curl --request POST \
         --url '${{ inputs.BASE_URL }}/api/sync/deezer' \
         --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
 
     - name: Sync Weblinks
       shell: bash
       run: |
-        curl --request GET \
+        curl --request POST \
         --url '${{ inputs.BASE_URL }}/api/sync/weblinks' \
         --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'
 
     - name: Sync Details
       shell: bash
       run: |
-        curl --request GET \
+        curl --request POST \
         --url '${{ inputs.BASE_URL }}/api/sync/details' \
         --header 'Authorization: Bearer ${{ inputs.ACTION_KEY }}'

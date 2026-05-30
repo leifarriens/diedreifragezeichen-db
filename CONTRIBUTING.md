@@ -50,7 +50,7 @@ pnpm dev
 
 However you setup your mongoDB instance you have to populate it with the DDF Folgen. Perform a request with the `APP_KEY` as the Bearer Token using your favorite HTTP client:
 
-`GET http://localhost:3000/api/sync/folgen`
+`POST http://localhost:3000/api/sync/folgen`
 
 Before working on a new feature checkout a new branch:
 
