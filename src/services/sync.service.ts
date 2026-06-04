@@ -93,7 +93,7 @@ export async function syncWeblinks() {
   const weblinks = await getAllWeblinks();
 
   const folgen = await FolgeModel.find({
-    weblink: { $exists: true, $ne: '' },
+    $or: [{ weblink: { $exists: false } }, { weblink: '' }, { weblink: null }],
     isHidden: { $ne: true },
   });
 
@@ -107,9 +107,11 @@ export async function syncWeblinks() {
       curr.push({
         updateOne: {
           filter: { _id: new ObjectId(folge._id) },
-          update: { weblink: weblink.url },
+          update: { $set: { weblink: weblink.url } },
         },
       });
+    } else {
+      console.warn(`No weblink found for "${folge.name}"`);
     }
 
     return curr;
