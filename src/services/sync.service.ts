@@ -7,7 +7,6 @@ import { convertFolge } from '@/utils/convertFolge';
 
 import ignorelist from '../../config/ignorelist.json';
 import { getAllWeblinks, getFolgenDetails } from './details.service';
-import * as DeezerApi from './streaming/deezer';
 import * as SpotifyApi from './streaming/spotify';
 
 /**
@@ -82,41 +81,6 @@ export async function syncAllFolgenUpcs() {
   const result = await FolgeModel.bulkWrite(writes);
 
   console.info(`Wrote ${writes.length} updates`);
-
-  return { result, writes };
-}
-
-/**
- * The `syncDezzer` service updates all folgen without a `deezer_id`
- * with the found `deezerAlbum.id` from the deezer api.
- */
-export async function syncDeezer() {
-  const deezerAlbums = await DeezerApi.getAllAlbums();
-
-  const folgen = await FolgeModel.find({});
-
-  const writes = folgen
-    .filter((folge) => !folge.deezer_id)
-    .reduce<AnyBulkWriteOperation[]>((curr, folge) => {
-      const deezerAlbum = deezerAlbums.find((album) =>
-        album.title
-          .replaceAll(' ', '')
-          .match(new RegExp(folge.name.replaceAll(' ', ''), 'i')),
-      );
-
-      if (deezerAlbum) {
-        curr.push({
-          updateOne: {
-            filter: { _id: new ObjectId(folge._id) },
-            update: { deezer_id: deezerAlbum.id },
-          },
-        });
-      }
-
-      return curr;
-    }, []);
-
-  const result = await FolgeModel.bulkWrite(writes);
 
   return { result, writes };
 }

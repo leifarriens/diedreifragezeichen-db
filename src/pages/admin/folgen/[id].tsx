@@ -148,9 +148,9 @@ const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
           <Input type="text" {...customRegister('spotify_id')} />
         </label>
 
-        <label>
-          <span>Deezer Id</span>
-          <Input type="text" {...customRegister('deezer_id')} />
+        <label className="opacity-50">
+          <span>Deezer Id (DEPRECATED)</span>
+          <Input disabled type="text" {...customRegister('deezer_id')} />
         </label>
 
         <label>

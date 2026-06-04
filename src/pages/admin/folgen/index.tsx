@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import type { GetServerSidePropsContext, NextPage } from 'next';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaDeezer, FaRegEyeSlash, FaSpotify, FaSyncAlt } from 'react-icons/fa';
+import { FaRegEyeSlash, FaSpotify, FaSyncAlt } from 'react-icons/fa';
 import { InView } from 'react-intersection-observer';
 
 import { Button, Loader, Select, Switch } from '@/components/shared';
@@ -95,18 +95,6 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
     },
   });
 
-  const deezerSync = trpc.sync.deezer.useMutation({
-    onError(error) {
-      toast.error(error.message);
-    },
-    onSuccess(data) {
-      toast.success(
-        `Deezer sync success. Wrote ${data.result.modifiedCount.toString()} updates`,
-      );
-      onSyncSuccess();
-    },
-  });
-
   const weblinkSync = trpc.sync.weblink.useMutation({
     onError(error) {
       toast.error(error.message);
@@ -145,7 +133,6 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
 
   const isPending =
     folgenSync.isPending ||
-    deezerSync.isPending ||
     weblinkSync.isPending ||
     detailSync.isPending ||
     upcSync.isPending;
@@ -161,16 +148,6 @@ const SyncController = ({ onSyncSuccess }: { onSyncSuccess: () => void }) => {
           className={classNames({ 'animate-spin': folgenSync.isPending })}
         />
         Sync Folgen
-      </Button>
-      <Button
-        size="small"
-        onClick={() => deezerSync.mutate()}
-        disabled={isPending}
-      >
-        <FaSyncAlt
-          className={classNames({ 'animate-spin': deezerSync.isPending })}
-        />
-        Sync Deezer
       </Button>
       <Button
         size="small"
@@ -308,9 +285,6 @@ const AdminFolge = ({
                   SpotifyId
                 </th>
                 <th className="border-r-2 border-b-2 border-slate-600 px-2">
-                  DeezerId
-                </th>
-                <th className="border-r-2 border-b-2 border-slate-600 px-2">
                   Inhalt
                 </th>
                 <th className="border-r-2 border-b-2 border-slate-600 px-2">
@@ -326,9 +300,6 @@ const AdminFolge = ({
               <tr className="text-center">
                 <td className="border-r-2 border-slate-600">
                   {propCheck(folge.spotify_id)}
-                </td>
-                <td className="border-r-2 border-slate-600">
-                  {propCheck(folge.deezer_id)}
                 </td>
                 <td className="border-r-2 border-slate-600">
                   {propCheck(folge.inhalt)}
@@ -368,17 +339,6 @@ const AdminFolge = ({
             >
               <FaSpotify size="1.4em" /> Auf Spotify anhören
             </Button>
-
-            {folge.deezer_id && (
-              <Button
-                as="a"
-                rel="noopener noreferrer"
-                href={`deezer://album/${folge.deezer_id}`}
-                size="small"
-              >
-                <FaDeezer size="1.4em" /> Auf Deezer anhören
-              </Button>
-            )}
 
             {folge.weblink && (
               <Button

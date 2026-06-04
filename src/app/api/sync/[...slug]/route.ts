@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server';
 
 import { dbConnect } from '@/db/connect';
 import {
-  syncDeezer,
   syncDetails,
   syncFolgen,
   syncFolgenDetails,
@@ -66,11 +65,6 @@ export async function POST(
 
       const result = await syncDetails();
       revalidateTag('folgen-list');
-      return NextResponse.json(result);
-    }
-
-    if (action === 'deezer') {
-      const result = await syncDeezer();
       return NextResponse.json(result);
     }
 

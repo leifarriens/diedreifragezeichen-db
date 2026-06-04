@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FaClone, FaDeezer, FaSpotify } from 'react-icons/fa';
+import { FaClone, FaSpotify } from 'react-icons/fa';
 
 import { ListButton } from '@/components/ListButton';
 import { Button } from '@/components/shared';
@@ -20,7 +20,6 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
     rating,
     number,
     spotify_id,
-    deezer_id,
     weblink,
     inhalt,
     sprecher,
@@ -75,17 +74,6 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
               >
                 <FaSpotify size="1.4em" /> Auf Spotify anhören
               </Button>
-
-              {deezer_id && (
-                <Button
-                  as="a"
-                  rel="noopener noreferrer"
-                  href={`deezer://album/${deezer_id}`}
-                  size="small"
-                >
-                  <FaDeezer size="1.4em" /> Auf Deezer anhören
-                </Button>
-              )}
 
               <ListButton folgeId={_id} folgeName={name} iconSize={28} />
             </div>

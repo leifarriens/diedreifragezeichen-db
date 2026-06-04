@@ -3,7 +3,6 @@ import { z } from 'zod';
 
 import {
   syncAllFolgenUpcs,
-  syncDeezer,
   syncDetails,
   syncFolgen,
   syncFolgenDetails,
@@ -20,11 +19,6 @@ export const syncRouter = router({
   }),
   upc: adminProcedure.mutation(async () => {
     const result = await syncAllFolgenUpcs();
-
-    return result;
-  }),
-  deezer: adminProcedure.mutation(async () => {
-    const result = await syncDeezer();
 
     return result;
   }),
