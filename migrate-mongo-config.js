@@ -3,7 +3,7 @@ require('dotenv').config({ path: '.env.local' });
 
 const config = {
   mongodb: {
-    url: process.env.MONGO_URI,
+    url: process.env.DATABASE_URL,
     databaseName: process.env.MONGO_DATABASE,
     options: {
       useNewUrlParser: true,

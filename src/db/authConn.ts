@@ -1,7 +1,7 @@
 // This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
 import { MongoClient } from 'mongodb';
 
-const DATABASE_URL = process.env.DATABASE_URL ?? '';
+const DATABASE_URL = process.env.DATABASE_URL;
 
 let client: MongoClient;
 let clientPromise: null | Promise<MongoClient>;
