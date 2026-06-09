@@ -75,10 +75,6 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
                 <FaSpotify size="1.4em" /> Auf Spotify anhören
               </Button>
 
-              <ListButton folgeId={_id} folgeName={name} iconSize={28} />
-            </div>
-
-            <div className="flex items-start gap-4">
               {weblink && (
                 <Button
                   as="a"
@@ -90,6 +86,8 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
                   <FaClone size="1.4em" /> dreifragezeichen.de
                 </Button>
               )}
+
+              <ListButton folgeId={_id} folgeName={name} iconSize={28} />
             </div>
           </div>
         </div>
