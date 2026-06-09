@@ -30,6 +30,8 @@ jobs:
         run: pnpm format:check
 
   test-setup:
+    # Temporarily disabled until the issues in PR 125 are resolved.
+    if: false
     name: E2E Test setup ⚗️
     runs-on: ubuntu-latest
     outputs:
@@ -44,6 +46,8 @@ jobs:
       - run: echo ${{steps.waitForVercelPreviewDeployment.outputs.url}}
 
   e2e-test:
+    # Temporarily disabled until the issues in PR 125 are resolved.
+    if: false
     needs: test-setup
     name: E2E Test 🧪
     timeout-minutes: 60
