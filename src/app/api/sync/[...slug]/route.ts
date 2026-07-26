@@ -10,7 +10,7 @@ import {
   syncWeblinks,
 } from '@/services/sync.service';
 
-export async function POST(
+async function handler(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string[] }> },
 ) {
@@ -74,3 +74,7 @@ export async function POST(
     return new NextResponse(null, { status: 500 });
   }
 }
+
+// Vercel cron jobs invoke their target path with GET, so the sync actions have
+// to be reachable via GET as well. POST is kept for manual/local invocation.
+export { handler as GET, handler as POST };
