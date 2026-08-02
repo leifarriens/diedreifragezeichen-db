@@ -6,7 +6,7 @@ import { Seo } from '@/components/Seo';
 import { dbConnect } from '@/db/connect';
 import { Wrapper } from '@/layout';
 import type { FolgeWithId } from '@/models/folge';
-import { BackButton, Folge, RelatedFolgen } from '@/modules/Folge';
+import { Folge, RelatedFolgen } from '@/modules/Folge';
 import { getAllFolgenIds, getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
 
@@ -38,7 +38,6 @@ const FolgePage: NextPage<FolgePageProps> = ({ folge }) => {
           ],
         }}
       />
-      <BackButton />
 
       <Wrapper maxWidth="1280px">
         <Folge folge={folge} />

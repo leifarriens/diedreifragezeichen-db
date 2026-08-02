@@ -11,28 +11,72 @@ import { trpc } from '@/utils/trpc';
 
 export function Search() {
   const ref = useRef<HTMLInputElement | null>(null);
-  const { setSearchQuery, searchQuery } = useGridState();
-  const [value, setValue] = useState(searchQuery);
   const router = useRouter();
+  const { setSearchQuery } = useGridState();
+  const [value, setValue] = useState('');
+  const pendingSearchQueries = useRef(new Set<string>());
+  const urlSearchQuery =
+    typeof router.query.search === 'string' ? router.query.search : '';
 
   useDebounceEffect(
     () => {
+      if (!router.isReady || router.pathname !== '/') return;
+
       setSearchQuery(value);
+
+      if (urlSearchQuery !== value) {
+        pendingSearchQueries.current.add(value);
+        void router.replace(
+          {
+            pathname: '/',
+            query: value ? { search: value } : {},
+          },
+          undefined,
+          { shallow: true },
+        );
+      }
     },
     150,
-    [value, setSearchQuery],
+    [
+      router.isReady,
+      router.pathname,
+      router.replace,
+      setSearchQuery,
+      urlSearchQuery,
+      value,
+    ],
   );
 
   useEffect(() => {
-    if (searchQuery === '') setValue('');
-  }, [searchQuery]);
+    if (!router.isReady) return;
+
+    if (router.pathname === '/') {
+      if (pendingSearchQueries.current.delete(urlSearchQuery)) {
+        return;
+      }
+
+      setValue(urlSearchQuery);
+      setSearchQuery(urlSearchQuery);
+    } else {
+      setValue('');
+    }
+  }, [
+    router.asPath,
+    router.isReady,
+    router.pathname,
+    setSearchQuery,
+    urlSearchQuery,
+  ]);
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       ref.current?.blur();
 
       if (router.pathname !== '/') {
-        await router.push({ pathname: '/' });
+        await router.push({
+          pathname: '/',
+          query: value ? { search: value } : {},
+        });
       }
     }
 
@@ -42,18 +86,6 @@ export function Search() {
       setValue('');
     }
   };
-
-  useEffect(() => {
-    function handleRouteChange() {
-      setValue('');
-    }
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router.events]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
@@ -84,14 +116,14 @@ export function Search() {
       {value && (
         <button
           type="button"
-          className="absolute top-1/2 right-4 -translate-y-[45%] text-neutral-300"
+          className="absolute top-1/2 right-4 translate-y-[-45%] text-neutral-300"
           onClick={clearInput}
         >
           <AiOutlineCloseCircle size={20} />
         </button>
       )}
 
-      {!shouldHideSearchResults && <SearchResults query={searchQuery} />}
+      {!shouldHideSearchResults && <SearchResults query={value} />}
     </div>
   );
 }

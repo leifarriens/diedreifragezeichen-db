@@ -32,7 +32,7 @@ export function Header() {
     setSearchQuery('');
 
     if (router.route === '/') {
-      if (router.query.ref) {
+      if (router.query.ref ?? router.query.search) {
         await router.replace('/', '/', { shallow: true }); // removes url query params
       }
 

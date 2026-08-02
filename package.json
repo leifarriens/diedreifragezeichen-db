@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "description": "Die drei Fragezeichen Folgen Archiv und Bewertungen",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint ./src --cache --cache-location .cache/.eslintcache",
