@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { FiHeart } from 'react-icons/fi';
 
 import { Button } from '@/components/shared';
 import { useUserList } from '@/hooks';
@@ -9,6 +10,7 @@ export function MerklistButton() {
   return (
     <Link href="/profil/list" legacyBehavior passHref>
       <Button as="a" ghost className="relative">
+        <FiHeart size={18} />
         Merkliste
         {data && data.length > 0 && (
           <span className="bg-ddfRed absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full p-1 text-xs text-white">

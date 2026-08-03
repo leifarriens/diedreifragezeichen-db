@@ -260,6 +260,7 @@ const AdminFolge = ({
             Release Date: {dayjs(folge.release_date).format(DATE_FORMAT)}
           </div>
           <div>Updated At: {dayjs(folge.updated_at).format(DATE_FORMAT)}</div>
+          <div>SpotifyId: {folge.spotify_id}</div>
           <div>UPC: {folge.upc}</div>
         </div>
 

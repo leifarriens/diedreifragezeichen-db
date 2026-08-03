@@ -10,7 +10,7 @@ export function Avatar({ url }: AvatarProps) {
   return (
     <img
       src={src}
-      className={classNames('h-10 w-10 rounded-full shadow-md', {
+      className={classNames('h-9 w-9 rounded-full shadow-md', {
         'object-cover': url,
         'bg-gray-500 object-contain p-2': !url,
       })}

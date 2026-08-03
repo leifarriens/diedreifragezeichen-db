@@ -1,10 +1,11 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { signIn, useSession } from 'next-auth/react';
-import Headroom from 'react-headroom';
+import { useEffect, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import { FiLogIn } from 'react-icons/fi';
+import { FiLogIn, FiStar } from 'react-icons/fi';
 
 import { parseQueryParam } from '@/common/utils';
 import { Button } from '@/components/shared';
@@ -25,6 +26,16 @@ export function Header() {
   const router = useRouter();
   const isDesktop = useBreakpoint(parseInt(breakpoints.mobileHeader));
   const refFolgeId = parseQueryParam(router.query.id);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleHomeClick = async (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
@@ -47,8 +58,15 @@ export function Header() {
   };
 
   return (
-    <Headroom>
-      <Container>
+    <div className="sticky top-0 z-50 w-full sm:px-8 sm:py-8">
+      <Container
+        className={classNames(
+          'bg-ddfDarkblue flex items-center justify-between gap-4 px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6',
+          {
+            'sm:bg-ddfLightblue/10! shadow-lg sm:backdrop-blur-lg': isScrolled,
+          },
+        )}
+      >
         <HomeLink href="/" onClick={handleHomeClick}>
           <Image
             src={LogoImg}
@@ -86,6 +104,7 @@ export function Header() {
                 <div className="mr-4 hidden gap-2 lg:flex">
                   <Link href="/profil" legacyBehavior passHref>
                     <Button as="a" ghost>
+                      <FiStar size={18} />
                       Bewertungen
                     </Button>
                   </Link>
@@ -98,6 +117,6 @@ export function Header() {
           </div>
         )}
       </Container>
-    </Headroom>
+    </div>
   );
 }

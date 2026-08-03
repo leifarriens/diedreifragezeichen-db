@@ -20,7 +20,7 @@ export function Sort({ currentSort, onSortChange }: SortProps) {
   return (
     <div className="flex divide-x-0">
       {sortVariants.map(({ name, value }) => (
-        <Label key={value} className="block w-full">
+        <Label key={value} className="block w-full cursor-pointer">
           <input
             className="w-0 opacity-0"
             type="radio"
