@@ -66,7 +66,7 @@ export const folgeRouter = router({
     .query(async ({ input }) => {
       const limit = 40;
       const offset = input.cursor;
-      const type = !input.specials ? 'regular' : null;
+      const type: 'regular' | null = !input.specials ? 'regular' : null;
 
       const query = {
         $or: [
@@ -104,7 +104,7 @@ export const folgeRouter = router({
         }),
     )
     .query(async ({ input }) => {
-      const type = !input.specials ? 'regular' : null;
+      const type: 'regular' | null = !input.specials ? 'regular' : null;
 
       const filter = {
         ...(type && { type }),

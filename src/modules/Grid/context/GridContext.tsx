@@ -108,8 +108,7 @@ export function GridProvider({
 
     const sortBy =
       (sessionStorage.getItem(StorageNames.SORT_BY) as
-        | SortOptionsEnum
-        | undefined) ?? 'dateDesc';
+        SortOptionsEnum | undefined) ?? 'dateDesc';
 
     if (Object.keys(SortOptionsEnum).includes(sortBy)) {
       setSortBy(sortBy);
