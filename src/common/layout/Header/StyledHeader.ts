@@ -2,10 +2,6 @@ import styled from 'styled-components';
 
 import { breakpoints } from '@/constants/layout';
 
-/**
- * Headroom styles are injected by styles/global.css
- */
-
 export const Container = styled.div`
   pointer-events: none;
 

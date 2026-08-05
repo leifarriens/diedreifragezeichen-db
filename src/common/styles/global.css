@@ -1,6 +1,5 @@
 @config '../../../tailwind.config.ts';
 @import 'tailwindcss';
-@import './headroom.css';
 
 :root {
   --font-size-base: 12px;
