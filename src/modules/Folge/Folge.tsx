@@ -72,7 +72,7 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
                 href={`spotify:album:${spotify_id}`}
                 size="small"
               >
-                <FaSpotify size="1.4em" /> Auf Spotify anhören
+                <FaSpotify size={24} />
               </Button>
 
               {weblink && (
@@ -83,7 +83,7 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
                   href={weblink}
                   size="small"
                 >
-                  <FaClone size="1.4em" /> dreifragezeichen.de
+                  <FaClone size={24} /> dreifragezeichen.de
                 </Button>
               )}
 

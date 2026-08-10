@@ -12,7 +12,7 @@ export const Button = styled.button<{
   gap: 0.7em;
   color: ${colors.white};
   border: 1px solid ${colors.white};
-  padding: 0.6em 1em;
+  padding: 10px 12px;
   line-height: 24px;
   border-radius: 8px;
   font-size: ${({ size }) => (size === 'small' ? '0.8em' : '1em')};
