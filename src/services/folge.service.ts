@@ -32,7 +32,7 @@ export async function getFolgen(options: FolgenOptions = {}) {
 }
 
 export async function getPublicFolgen(options: FolgenOptions = {}) {
-  const folgen = await getFolgen(options);
+  const folgen = await getFolgen(withPublicRatingFields(options));
 
   return folgen.map((folge) => maskFolgeForPublic(folge));
 }
@@ -47,7 +47,7 @@ export async function getPublicFolge(
   folgeId: string,
   options: FolgenOptions = {},
 ) {
-  const folge = await getFolge(folgeId, options);
+  const folge = await getFolge(folgeId, withPublicRatingFields(options));
 
   return folge ? maskFolgeForPublic(folge) : null;
 }
@@ -109,7 +109,19 @@ export async function getPublicRelatedFolgen(
   id: string,
   options: FolgenOptions = {},
 ) {
-  const folgen = await getRelatedFolgen(id, options);
+  const folgen = await getRelatedFolgen(id, withPublicRatingFields(options));
 
   return folgen.map((folge) => maskFolgeForPublic(folge));
+}
+
+function withPublicRatingFields(options: FolgenOptions): FolgenOptions {
+  if (!options.fields?.length) return options;
+
+  const fields = new Set(options.fields);
+  fields.delete('-rating');
+  fields.delete('-number_of_ratings');
+  fields.add('rating');
+  fields.add('number_of_ratings');
+
+  return { ...options, fields: [...fields] };
 }

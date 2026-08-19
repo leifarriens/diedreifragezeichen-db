@@ -75,22 +75,22 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
   );
 }
 
-interface ComminityRatingProps {
-  numerOfRatings: number;
+interface CommunityRatingProps {
+  numberOfRatings: number;
   rating: number;
   className?: string;
 }
 
 export function CommunityRating({
-  numerOfRatings,
+  numberOfRatings,
   rating,
   className,
-}: ComminityRatingProps) {
+}: CommunityRatingProps) {
   return (
     <div className={className}>
       {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
       <span style={{ fontSize: '1.35em', fontWeight: 500 }}>
-        {numerOfRatings >= MIN_NUMBER_OF_RATINGS ? rating : '???'}
+        {numberOfRatings >= MIN_NUMBER_OF_RATINGS ? rating : '???'}
       </span>
       /10
     </div>

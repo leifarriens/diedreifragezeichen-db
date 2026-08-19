@@ -58,7 +58,7 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
 
           <CommunityRating
             className="my-4 font-serif text-3xl"
-            numerOfRatings={number_of_ratings}
+            numberOfRatings={number_of_ratings}
             rating={rating}
           />
 

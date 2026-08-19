@@ -22,6 +22,18 @@ describe('maskFolgeForPublic', () => {
     ).toMatchObject({ rating: 0, number_of_ratings: 2 });
   });
 
+  test('masks invalid ratings even at or above the minimum', () => {
+    expect(
+      maskFolgeForPublic({
+        rating: Number.NaN,
+        number_of_ratings: MIN_NUMBER_OF_RATINGS,
+      }),
+    ).toMatchObject({
+      rating: 0,
+      number_of_ratings: MIN_NUMBER_OF_RATINGS,
+    });
+  });
+
   test('keeps ratings at or above the minimum', () => {
     expect(
       maskFolgeForPublic({
