@@ -6,17 +6,16 @@ import { Button } from '@/components/shared';
 import { DATE_FORMAT } from '@/constants/formats';
 import { Background } from '@/layout';
 import dayjs from '@/lib/dayjs';
-import type { FolgeWithId } from '@/models/folge';
+import type { PublicFolge } from '@/utils/maskFolgeForPublic';
 
 import { CommunityRating, UserRating } from './Rating';
 
-export function Folge({ folge }: { folge: FolgeWithId }) {
+export function Folge({ folge }: { folge: PublicFolge }) {
   const {
     images,
     name,
     release_date,
     _id,
-    number_of_ratings,
     rating,
     number,
     spotify_id,
@@ -58,7 +57,6 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
 
           <CommunityRating
             className="my-4 font-serif text-3xl"
-            numerOfRatings={number_of_ratings}
             rating={rating}
           />
 

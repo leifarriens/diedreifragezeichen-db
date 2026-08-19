@@ -3,6 +3,7 @@ import type { UpdateQuery } from 'mongoose';
 import type { FolgeWithId } from '@/models/folge';
 import { Folge } from '@/models/folge';
 import { Rating } from '@/models/rating';
+import { maskFolgeForPublic } from '@/utils/maskFolgeForPublic';
 
 interface FolgenOptions {
   fields?: string[];
@@ -30,12 +31,25 @@ export async function getFolgen(options: FolgenOptions = {}) {
   return folgen;
 }
 
+export async function getPublicFolgen(options: FolgenOptions = {}) {
+  const folgen = await getFolgen(options);
+
+  return folgen.map((folge) => maskFolgeForPublic(folge));
+}
+
 export async function getFolge(folgeId: string, options: FolgenOptions = {}) {
   const { fields = [] } = options;
 
-  const folge = await Folge.findById(folgeId).select(fields).lean();
+  return Folge.findById(folgeId).select(fields).lean();
+}
 
-  return folge;
+export async function getPublicFolge(
+  folgeId: string,
+  options: FolgenOptions = {},
+) {
+  const folge = await getFolge(folgeId, options);
+
+  return folge ? maskFolgeForPublic(folge) : null;
 }
 
 export async function updateFolge(
@@ -89,4 +103,13 @@ export async function getRelatedFolgen(
     .lean();
 
   return [...previous.reverse(), current, ...next];
+}
+
+export async function getPublicRelatedFolgen(
+  id: string,
+  options: FolgenOptions = {},
+) {
+  const folgen = await getRelatedFolgen(id, options);
+
+  return folgen.map((folge) => maskFolgeForPublic(folge));
 }

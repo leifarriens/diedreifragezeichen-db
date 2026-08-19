@@ -5,13 +5,13 @@ import type { ParsedUrlQuery } from 'querystring';
 import { Seo } from '@/components/Seo';
 import { dbConnect } from '@/db/connect';
 import { Wrapper } from '@/layout';
-import type { FolgeWithId } from '@/models/folge';
 import { Folge, RelatedFolgen } from '@/modules/Folge';
-import { getAllFolgenIds, getFolge } from '@/services/folge.service';
+import { getAllFolgenIds, getPublicFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
+import type { PublicFolge } from '@/utils/maskFolgeForPublic';
 
 interface FolgePageProps {
-  folge: FolgeWithId;
+  folge: PublicFolge;
 }
 
 const FolgePage: NextPage<FolgePageProps> = ({ folge }) => {
@@ -79,7 +79,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const folge = await getFolge(id);
+  const folge = await getPublicFolge(id);
 
   if (!folge || folge.isHidden) return { notFound: true };
 

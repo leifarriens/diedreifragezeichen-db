@@ -59,7 +59,7 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
         <span>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</span>
         <button
           type="button"
-          className="ml-1 hidden text-sm group-hover:inline hover:underline"
+          className="ml-2 hidden text-sm group-hover:inline hover:underline"
           onClick={handleRevokeRating}
         >
           Entfernen
@@ -75,21 +75,16 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
 }
 
 interface ComminityRatingProps {
-  numerOfRatings: number;
-  rating: number;
+  rating: number | null;
   className?: string;
 }
 
-export function CommunityRating({
-  numerOfRatings,
-  rating,
-  className,
-}: ComminityRatingProps) {
+export function CommunityRating({ rating, className }: ComminityRatingProps) {
   return (
     <div className={className}>
       {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
       <span style={{ fontSize: '1.35em', fontWeight: 500 }}>
-        {numerOfRatings >= 1 ? rating : '???'}
+        {rating !== null ? rating : '???'}
       </span>
       /10
     </div>

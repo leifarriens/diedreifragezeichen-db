@@ -9,6 +9,7 @@ import {
   getUserRatings,
   postFolgenRating,
 } from '@/services/rating.service';
+import { maskFolgeForPublic } from '@/utils/maskFolgeForPublic';
 
 import { authedProcedure, router } from '../trpc';
 
@@ -87,7 +88,10 @@ export const ratingRouter = router({
         .lean();
 
       return {
-        items: ratings,
+        items: ratings.map((rating) => ({
+          ...rating,
+          folge: maskFolgeForPublic(rating.folge),
+        })),
         limit,
         offset,
         total,

@@ -10,7 +10,7 @@ import { Wrapper } from '@/layout';
 import { Grid } from '@/modules/Grid';
 import { parseMongo } from '@/utils/index';
 
-import { getFolgen } from '../services/folge.service';
+import { getPublicFolgen } from '../services/folge.service';
 
 const HomePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   folgen,
@@ -42,7 +42,7 @@ export const getStaticProps = async () => {
   await dbConnect();
 
   const folgen = parseMongo(
-    await getFolgen({
+    await getPublicFolgen({
       fields: [
         'name',
         'number',
