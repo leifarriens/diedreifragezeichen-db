@@ -35,7 +35,7 @@ async function handler(
 
     if (action === 'folgen') {
       const result = await syncFolgen();
-      revalidateTag('folgen-list');
+      revalidateTag('folgen-list', 'max');
       return NextResponse.json(result);
     }
 
@@ -59,12 +59,12 @@ async function handler(
           return new NextResponse(null, { status: 404 });
         }
 
-        revalidateTag('folgen-list');
+        revalidateTag('folgen-list', 'max');
         return NextResponse.json(result);
       }
 
       const result = await syncDetails();
-      revalidateTag('folgen-list');
+      revalidateTag('folgen-list', 'max');
       return NextResponse.json(result);
     }
 

@@ -16,20 +16,13 @@ export function useBackgroundSortTheme(
     const element = document.body;
 
     if (enabled && !isSafari()) {
-      let background = '';
-
       const gradient = `${colors.blueShades[0]} 0%, ${colors.blueShades[1]} 50%, ${colors.blueShades[2]} 100%`;
-
-      switch (sortBy) {
-        case SortOptionsEnum.dateAsc:
-          background = `linear-gradient(45deg, ${gradient})`;
-          break;
-        case SortOptionsEnum.dateDesc:
-          background = `linear-gradient(225deg, ${gradient})`;
-          break;
-        default:
-          background = '';
-      }
+      const background =
+        sortBy === SortOptionsEnum.dateAsc
+          ? `linear-gradient(45deg, ${gradient})`
+          : sortBy === SortOptionsEnum.dateDesc
+            ? `linear-gradient(225deg, ${gradient})`
+            : '';
 
       element.style.background = background;
     }

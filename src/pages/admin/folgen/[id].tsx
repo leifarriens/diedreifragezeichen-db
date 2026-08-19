@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import type { ParsedUrlQuery } from 'querystring';
 import type { SubmitHandler } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
+import type { z } from 'zod';
 
 import {
   Button,
@@ -17,7 +18,7 @@ import {
 import { colors } from '@/constants/theme';
 import { dbConnect } from '@/db/connect';
 import { getServerAuthSesion } from '@/lib/getServerAuthSesion';
-import type { Folge, FolgeWithId } from '@/models/folge';
+import type { FolgeWithId } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import { getFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
@@ -35,27 +36,29 @@ const validator = folgeValidator.pick({
   sprecher: true,
   upc: true,
 });
+type AdminFolgeFormValues = z.input<typeof validator>;
 
 const AdminFolge: NextPage<{ folge: FolgeWithId }> = ({ folge }) => {
   const router = useRouter();
-  const { register, handleSubmit, formState, watch, control } = useForm<Folge>({
-    defaultValues: {
-      isHidden: folge.isHidden,
-      name: folge.name,
-      type: folge.type,
-      number: folge.number,
-      spotify_id: folge.spotify_id,
-      deezer_id: folge.deezer_id,
-      weblink: folge.weblink,
-      inhalt: folge.inhalt,
-      sprecher: folge.sprecher,
-      upc: folge.upc,
-    },
-    resolver: zodResolver(validator),
-    mode: 'all',
-  });
+  const { register, handleSubmit, formState, watch, control } =
+    useForm<AdminFolgeFormValues>({
+      defaultValues: {
+        isHidden: folge.isHidden,
+        name: folge.name,
+        type: folge.type,
+        number: folge.number,
+        spotify_id: folge.spotify_id,
+        deezer_id: folge.deezer_id,
+        weblink: folge.weblink,
+        inhalt: folge.inhalt,
+        sprecher: folge.sprecher,
+        upc: folge.upc,
+      },
+      resolver: zodResolver(validator),
+      mode: 'all',
+    });
 
-  const onSubmit: SubmitHandler<Folge> = (data) =>
+  const onSubmit: SubmitHandler<AdminFolgeFormValues> = (data) =>
     mutate({ folgeId: folge._id, update: data });
 
   const type = watch('type');

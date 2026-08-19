@@ -54,11 +54,11 @@ const Label = styled.label`
     box-shadow: var(--ui-outline);
   }
 
-  :first-child span {
+  &:first-child span {
     border-radius: 8px 0 0 8px;
   }
 
-  :last-child span {
+  &:last-child span {
     border-radius: 0 8px 8px 0;
     border-right: 1px solid #fff;
   }

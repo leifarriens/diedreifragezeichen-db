@@ -7,7 +7,7 @@ import type { AppProps } from 'next/app';
 import Router from 'next/router';
 import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
-import { DefaultSeo } from 'next-seo';
+import { generateDefaultSeo } from 'next-seo/pages';
 import NProgress from 'nprogress';
 
 import { Page } from '@/layout';
@@ -22,17 +22,17 @@ Router.events.on('routeChangeError', () => NProgress.done());
 const MyApp = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
   return (
     <>
-      <DefaultSeo
-        openGraph={{
+      {generateDefaultSeo({
+        openGraph: {
           type: 'website',
           locale: 'de_DE',
           url: 'https://diedreifragezeichen-db.de',
           site_name: 'Die drei Fragezeichen DB',
-        }}
-        defaultTitle="Drei Fragezeichen DB"
-        titleTemplate="%s | Drei Fragezeichen DB"
-        description="Die drei Fragezeichen Folgen Archiv und Bewertungen"
-      />
+        },
+        defaultTitle: 'Drei Fragezeichen DB',
+        titleTemplate: '%s | Drei Fragezeichen DB',
+        description: 'Die drei Fragezeichen Folgen Archiv und Bewertungen',
+      })}
       <SessionProvider session={pageProps.session}>
         <GridProvider>
           <Page>

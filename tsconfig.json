@@ -2,9 +2,14 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": ["es6", "es7", "esnext", "dom"],
+    "lib": [
+      "es6",
+      "es7",
+      "esnext",
+      "dom"
+    ],
     "allowJs": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "removeComments": false,
     "strict": true,
     "noImplicitAny": true,
@@ -18,14 +23,25 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "bundler",
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["common/components/*"],
-      "@/layout": ["common/layout"],
-      "@/hooks": ["common/hooks"],
-      "@/styles/*": ["common/styles/*"],
-      "@/utils/*": ["common/utils/*"]
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/common/components/*"
+      ],
+      "@/layout": [
+        "./src/common/layout"
+      ],
+      "@/hooks": [
+        "./src/common/hooks"
+      ],
+      "@/styles/*": [
+        "./src/common/styles/*"
+      ],
+      "@/utils/*": [
+        "./src/common/utils/*"
+      ]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -44,6 +60,16 @@
     ],
     "tsBuildInfoFile": ".cache/tsbuildinfo.json"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "tests"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mts",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "tests"
+  ]
 }

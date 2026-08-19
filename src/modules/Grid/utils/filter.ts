@@ -70,13 +70,10 @@ export const applyFilter = (
     showOnlyUnrated,
   }: FilterOptions,
 ) => {
-  let filtered: FolgeWithId[] = [];
+  const filteredBySpecials = filterSpecial(folgen, showSpecials);
+  const filteredByRating = filterUnrated(filteredBySpecials, showOnlyUnrated);
+  const filteredByYear = filterYearRange(filteredByRating, yearRange);
+  const filteredByQuery = filterByQuery(filteredByYear, searchQuery);
 
-  filtered = filterSpecial(folgen, showSpecials);
-  filtered = filterUnrated(filtered, showOnlyUnrated);
-  filtered = filterYearRange(filtered, yearRange);
-  filtered = filterByQuery(filtered, searchQuery);
-  filtered = sortFolgen(filtered, sortBy);
-
-  return filtered;
+  return sortFolgen(filteredByQuery, sortBy);
 };
