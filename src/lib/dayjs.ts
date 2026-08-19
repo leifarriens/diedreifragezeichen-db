@@ -1,4 +1,3 @@
-/* eslint-disable import/no-default-export */
 import 'dayjs/locale/de';
 
 import dayjs from 'dayjs';

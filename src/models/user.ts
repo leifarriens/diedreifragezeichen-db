@@ -10,6 +10,7 @@ const Role = z.enum(['User', 'Admin']);
 
 export type Role = z.infer<typeof Role> & mongoose.Document<string>;
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- used to derive the User type
 const userValidator = z.object({
   name: z.string(),
   email: z.string().email(),

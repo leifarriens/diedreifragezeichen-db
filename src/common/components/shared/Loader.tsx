@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-import { RotatingLines } from 'react-loader-spinner';
 import styled, { keyframes } from 'styled-components';
 
 export function FullpageLoader() {
@@ -21,16 +20,23 @@ export function Loader({ animated = true }: { animated?: boolean }) {
 }
 
 export function SpinningLoader({ width }: { width?: string }) {
-  return (
-    <RotatingLines
-      strokeColor="grey"
-      strokeWidth="5"
-      animationDuration="0.75"
-      width={width}
-      visible={true}
-    />
-  );
+  return <SpinningIndicator $width={width} aria-label="Loading" />;
 }
+
+const SpinningIndicator = styled.div<{ $width?: string }>`
+  width: ${({ $width }) => $width ?? '35px'};
+  aspect-ratio: 1;
+  border: 5px solid #808080;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 const FullpageContainer = styled.div`
   z-index: 999px;

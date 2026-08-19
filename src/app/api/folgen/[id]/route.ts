@@ -32,7 +32,7 @@ export async function GET(
   const result = queryParamsSchema.safeParse(searchParams);
 
   if (!result.success) {
-    const isUnauthorized = !!result.error.errors.find(({ path }) =>
+    const isUnauthorized = !!result.error.issues.find(({ path }) =>
       path.includes('apikey'),
     );
 

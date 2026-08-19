@@ -43,7 +43,7 @@ export const getBearerToken = async () => {
     console.log(error);
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
-    throw Error(error.response?.statusText);
+    throw new Error(error.response?.statusText, { cause: e });
   }
 };
 
@@ -84,7 +84,7 @@ export const getAllAlbums = async () => {
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
 
-    throw Error(JSON.stringify(error.response?.data));
+    throw new Error(JSON.stringify(error.response?.data), { cause: e });
   }
 };
 
@@ -104,6 +104,6 @@ export const getAlbum = async (albumId: string, bearerToken: string) => {
     console.log(error);
     console.log(error.response?.statusText);
     console.log(JSON.stringify(error.response?.data));
-    throw Error(JSON.stringify(error.response?.data));
+    throw new Error(JSON.stringify(error.response?.data), { cause: e });
   }
 };
