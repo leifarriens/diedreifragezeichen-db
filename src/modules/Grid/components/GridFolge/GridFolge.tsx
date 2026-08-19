@@ -6,13 +6,14 @@ import { memo, useEffect, useRef } from 'react';
 import { ListButton } from '@/components/ListButton';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
-import type { PublicFolge } from '@/utils/maskFolgeForPublic';
+import type { FolgeWithId } from '@/models/folge';
+import { MIN_NUMBER_OF_RATINGS } from '@/utils/maskFolgeForPublic';
 
 import { Cover } from './Cover';
 import { FolgeContainer, RatingBadge } from './StyledFolge';
 
 interface GridFolgeProps {
-  folge: PublicFolge;
+  folge: FolgeWithId;
   userRating?: number | null;
   style?: CSSProperties;
 }
@@ -45,7 +46,9 @@ export const GridFolge = memo(function GridFolge({
         <div>
           <div>
             <span className="text-xl font-medium">
-              {folge.rating !== null ? folge.rating : '???'}
+              {folge.number_of_ratings >= MIN_NUMBER_OF_RATINGS
+                ? folge.rating
+                : '???'}
             </span>
             /10
           </div>

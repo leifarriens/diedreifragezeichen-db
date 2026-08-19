@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState } from 'react';
 
 import { MultiRangeInput, Switch } from '@/components/shared';
-import type { PublicFolge } from '@/utils/maskFolgeForPublic';
+import type { FolgeWithId } from '@/models/folge';
 
 import { GridFolge } from './components/GridFolge';
 import { Sort } from './components/Sort';
@@ -13,7 +13,7 @@ import { FolgenContainer, GridUI } from './StyledGrid';
 import { applyFilter } from './utils/filter';
 
 interface GridProps {
-  folgen: PublicFolge[];
+  folgen: FolgeWithId[];
   isFiltered?: boolean;
   showUi?: boolean;
 }

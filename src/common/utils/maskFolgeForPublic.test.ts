@@ -10,16 +10,16 @@ describe('maskFolgeForPublic', () => {
     expect(MIN_NUMBER_OF_RATINGS).toBe(3);
   });
 
-  test('masks ratings below the minimum as null', () => {
+  test('masks ratings below the minimum as zero', () => {
     expect(
       maskFolgeForPublic({ rating: 8.5, number_of_ratings: 0 }),
-    ).toMatchObject({ rating: null, number_of_ratings: 0 });
+    ).toMatchObject({ rating: 0, number_of_ratings: 0 });
     expect(
       maskFolgeForPublic({
         rating: 8.5,
         number_of_ratings: 2,
       }),
-    ).toMatchObject({ rating: null, number_of_ratings: 2 });
+    ).toMatchObject({ rating: 0, number_of_ratings: 2 });
   });
 
   test('keeps ratings at or above the minimum', () => {

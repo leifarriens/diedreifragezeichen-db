@@ -5,13 +5,13 @@ import type { ParsedUrlQuery } from 'querystring';
 import { Seo } from '@/components/Seo';
 import { dbConnect } from '@/db/connect';
 import { Wrapper } from '@/layout';
+import type { FolgeWithId } from '@/models/folge';
 import { Folge, RelatedFolgen } from '@/modules/Folge';
 import { getAllFolgenIds, getPublicFolge } from '@/services/folge.service';
 import { parseMongo } from '@/utils/index';
-import type { PublicFolge } from '@/utils/maskFolgeForPublic';
 
 interface FolgePageProps {
-  folge: PublicFolge;
+  folge: FolgeWithId;
 }
 
 const FolgePage: NextPage<FolgePageProps> = ({ folge }) => {

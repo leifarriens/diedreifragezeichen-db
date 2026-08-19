@@ -1,10 +1,10 @@
+import type { FolgeWithId } from '@/models/folge';
 import type { RatingWithFolge } from '@/types';
-import type { PublicFolge } from '@/utils/maskFolgeForPublic';
 
 import { SortOptionsEnum } from '../types';
 
 export const sortFolgen = (
-  folgen: PublicFolge[],
+  folgen: FolgeWithId[],
   sortBy = SortOptionsEnum.dateDesc,
 ) => {
   switch (sortBy) {
@@ -21,15 +21,15 @@ export const sortFolgen = (
   }
 };
 
-const sortFolgenByRating = (folgen: PublicFolge[]) => {
+const sortFolgenByRating = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
-    return (a.rating ?? 0) - (b.rating ?? 0);
+    return a.rating - b.rating;
   });
 
   return sorted.reverse();
 };
 
-const sortFolgenByDateAsc = (folgen: PublicFolge[]) => {
+const sortFolgenByDateAsc = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return (
       new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
@@ -39,7 +39,7 @@ const sortFolgenByDateAsc = (folgen: PublicFolge[]) => {
   return sorted;
 };
 
-const sortFolgenByDateDesc = (folgen: PublicFolge[]) => {
+const sortFolgenByDateDesc = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return (
       new Date(a.release_date).getTime() - new Date(b.release_date).getTime()
@@ -49,7 +49,7 @@ const sortFolgenByDateDesc = (folgen: PublicFolge[]) => {
   return sorted.reverse();
 };
 
-const sortByPopularity = (folgen: PublicFolge[]) => {
+const sortByPopularity = (folgen: FolgeWithId[]) => {
   const sorted = [...folgen].sort((a, b) => {
     return a.popularity - b.popularity;
   });

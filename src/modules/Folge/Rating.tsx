@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 import { RatingInput } from '@/components/RatingInput';
 import { useUserRating } from '@/hooks';
+import { MIN_NUMBER_OF_RATINGS } from '@/utils/maskFolgeForPublic';
 
 interface UserRatingProps {
   folge_id: string;
@@ -75,16 +76,21 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
 }
 
 interface ComminityRatingProps {
-  rating: number | null;
+  numerOfRatings: number;
+  rating: number;
   className?: string;
 }
 
-export function CommunityRating({ rating, className }: ComminityRatingProps) {
+export function CommunityRating({
+  numerOfRatings,
+  rating,
+  className,
+}: ComminityRatingProps) {
   return (
     <div className={className}>
       {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
       <span style={{ fontSize: '1.35em', fontWeight: 500 }}>
-        {rating !== null ? rating : '???'}
+        {numerOfRatings >= MIN_NUMBER_OF_RATINGS ? rating : '???'}
       </span>
       /10
     </div>

@@ -1,18 +1,18 @@
 import dayjs from '@/lib/dayjs';
-import type { PublicFolge } from '@/utils/maskFolgeForPublic';
+import type { FolgeWithId } from '@/models/folge';
 
 import type { YearRange } from '../types';
 import type { SortOptionsEnum } from '../types';
 import { sortFolgen } from './sort';
 
-export const filterSpecial = (folgen: PublicFolge[], showSpecials = true) => {
+export const filterSpecial = (folgen: FolgeWithId[], showSpecials = true) => {
   return !showSpecials
     ? folgen.filter((folge) => folge.type !== 'special')
     : folgen;
 };
 
 export const filterYearRange = (
-  folgen: PublicFolge[],
+  folgen: FolgeWithId[],
   yearRange: YearRange | undefined,
 ) => {
   if (!yearRange) return folgen;
@@ -25,8 +25,8 @@ export const filterYearRange = (
   });
 };
 
-export const filterByQuery = (folgen: PublicFolge[], searchQuery: string) => {
-  const filterFolge = (folge: PublicFolge) => {
+export const filterByQuery = (folgen: FolgeWithId[], searchQuery: string) => {
+  const filterFolge = (folge: FolgeWithId) => {
     if (
       folge.name.concat(folge.number ?? '').match(new RegExp(searchQuery, 'i'))
     ) {
@@ -44,7 +44,7 @@ export const filterByQuery = (folgen: PublicFolge[], searchQuery: string) => {
 };
 
 export const filterUnrated = (
-  folgen: PublicFolge[],
+  folgen: FolgeWithId[],
   showOnlyUnrated = false,
 ) => {
   return showOnlyUnrated
@@ -61,7 +61,7 @@ interface FilterOptions {
 }
 
 export const applyFilter = (
-  folgen: PublicFolge[],
+  folgen: FolgeWithId[],
   {
     showSpecials,
     searchQuery,

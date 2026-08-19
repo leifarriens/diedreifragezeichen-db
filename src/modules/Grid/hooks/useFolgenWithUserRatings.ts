@@ -1,10 +1,10 @@
 import { useSession } from 'next-auth/react';
 import { useMemo } from 'react';
 
-import type { PublicFolge } from '@/utils/maskFolgeForPublic';
+import type { FolgeWithId } from '@/models/folge';
 import { trpc } from '@/utils/trpc';
 
-export function useFolgenWithUserRatings(folgen: PublicFolge[]) {
+export function useFolgenWithUserRatings(folgen: FolgeWithId[]) {
   const { status } = useSession();
 
   const { data } = trpc.rating.userRatings.useQuery(undefined, {
