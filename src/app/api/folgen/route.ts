@@ -7,6 +7,7 @@ import { PUBLIC_API_CACHE_CONFIG } from '@/constants/api-caching';
 import { dbConnect } from '@/db/connect';
 import { validateApikey } from '@/lib/validateApikey';
 import { Folge } from '@/models/folge';
+import { maskFolgeForPublic } from '@/utils/maskFolgeForPublic';
 
 const queryParamsSchema = z.object({
   offset: z.coerce.number().min(0).default(0),
@@ -44,8 +45,10 @@ async function fetchFolgen(
 
   const folgen = await Folge.find(filter).sort(sort).skip(offset).limit(limit);
 
+  const parsed = JSON.parse(JSON.stringify(folgen)) as typeof folgen;
+
   return {
-    items: JSON.parse(JSON.stringify(folgen)) as typeof folgen,
+    items: parsed.map((folge) => maskFolgeForPublic(folge)),
     limit,
     offset,
     total,

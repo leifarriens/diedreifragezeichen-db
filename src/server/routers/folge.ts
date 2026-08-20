@@ -7,8 +7,8 @@ import { Folge } from '@/models/folge';
 import { folgeValidator } from '@/models/folge/folge.validator';
 import {
   deleteFolge,
-  getFolge,
-  getRelatedFolgen,
+  getPublicFolge,
+  getPublicRelatedFolgen,
   updateFolge,
 } from '@/services/folge.service';
 
@@ -123,7 +123,7 @@ export const folgeRouter = router({
       }),
     )
     .query(async ({ input }) => {
-      const folge = await getFolge(input.id);
+      const folge = await getPublicFolge(input.id);
 
       if (!folge || folge.isHidden) {
         throw new TRPCError({ code: 'NOT_FOUND' });
@@ -134,7 +134,7 @@ export const folgeRouter = router({
   related: publicProcedure
     .input(z.object({ folgeId: z.string() }))
     .query(async ({ input }) => {
-      const folgen = await getRelatedFolgen(input.folgeId, {
+      const folgen = await getPublicRelatedFolgen(input.folgeId, {
         fields: ['images', 'name', 'rating', 'number_of_ratings'],
       });
 

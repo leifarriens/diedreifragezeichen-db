@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 
 import { RatingInput } from '@/components/RatingInput';
 import { useUserRating } from '@/hooks';
+import { MIN_NUMBER_OF_RATINGS } from '@/utils/maskFolgeForPublic';
 
 interface UserRatingProps {
   folge_id: string;
@@ -59,7 +60,7 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
         <span>{userRating ? 'Deine Wertung:' : 'Bewerten:'}</span>
         <button
           type="button"
-          className="ml-1 hidden text-sm group-hover:inline hover:underline"
+          className="ml-2 hidden text-sm group-hover:inline hover:underline"
           onClick={handleRevokeRating}
         >
           Entfernen
@@ -74,22 +75,22 @@ export function UserRating({ folge_id, folge_name }: UserRatingProps) {
   );
 }
 
-interface ComminityRatingProps {
-  numerOfRatings: number;
+interface CommunityRatingProps {
+  numberOfRatings: number;
   rating: number;
   className?: string;
 }
 
 export function CommunityRating({
-  numerOfRatings,
+  numberOfRatings,
   rating,
   className,
-}: ComminityRatingProps) {
+}: CommunityRatingProps) {
   return (
     <div className={className}>
       {/* eslint-disable-next-line no-inline-styles/no-inline-styles */}
       <span style={{ fontSize: '1.35em', fontWeight: 500 }}>
-        {numerOfRatings >= 1 ? rating : '???'}
+        {numberOfRatings >= MIN_NUMBER_OF_RATINGS ? rating : '???'}
       </span>
       /10
     </div>

@@ -7,6 +7,7 @@ import { ListButton } from '@/components/ListButton';
 import { DATE_FORMAT } from '@/constants/formats';
 import dayjs from '@/lib/dayjs';
 import type { FolgeWithId } from '@/models/folge';
+import { MIN_NUMBER_OF_RATINGS } from '@/utils/maskFolgeForPublic';
 
 import { Cover } from './Cover';
 import { FolgeContainer, RatingBadge } from './StyledFolge';
@@ -45,7 +46,9 @@ export const GridFolge = memo(function GridFolge({
         <div>
           <div>
             <span className="text-xl font-medium">
-              {folge.number_of_ratings >= 1 ? folge.rating : '???'}
+              {folge.number_of_ratings >= MIN_NUMBER_OF_RATINGS
+                ? folge.rating
+                : '???'}
             </span>
             /10
           </div>

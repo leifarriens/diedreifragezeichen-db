@@ -3,6 +3,8 @@ import { z } from 'zod';
 
 import type { FolgeWithId } from '@/models/folge';
 import { User } from '@/models/user';
+import { parseMongo } from '@/utils/index';
+import { maskFolgeForPublic } from '@/utils/maskFolgeForPublic';
 
 import { authedProcedure, router } from '../trpc';
 
@@ -46,8 +48,12 @@ export const listRouter = router({
         options: { limit, skip: offset },
       });
 
+      const items = parseMongo(list)
+        .reverse()
+        .map((folge) => maskFolgeForPublic(folge));
+
       return {
-        items: list.reverse(),
+        items,
         limit,
         offset,
         total,

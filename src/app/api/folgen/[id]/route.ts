@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { PUBLIC_API_CACHE_CONFIG } from '@/constants/api-caching';
 import { dbConnect } from '@/db/connect';
 import { validateApikey } from '@/lib/validateApikey';
-import { getFolge } from '@/services/folge.service';
+import { getPublicFolge } from '@/services/folge.service';
 
 const queryParamsSchema = z.object({
   apikey: z.string().uuid('Malformed apikey'),
@@ -16,7 +16,7 @@ const queryParamsSchema = z.object({
 async function fetchFolge(id: string) {
   await dbConnect();
 
-  const folge = await getFolge(id);
+  const folge = await getPublicFolge(id);
 
   if (!folge || folge.isHidden) return null;
 
