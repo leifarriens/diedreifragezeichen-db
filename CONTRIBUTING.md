@@ -1,63 +1,24 @@
-# diedreifragezeichen-db Contribution Guide
+# Contribution Guide
 
-## Prerequisites
+## Setup
 
-- Node.js version >=20.19.0
-- pnpm version >=10.30.1
-- MongoDB version >=8 (or use `docker compose up -d` from this repo)
+- Node.js v24.14.0 (`.nvmrc`), pnpm 10.30.1, MongoDB 8.0.20 (or Docker)
 
-## Note
+Before larger features: start a [Discussion](https://github.com/leifarriens/diedreiffragezeichen-db/discussions).
 
-Before putting a lot of work into a new feature please start a [Discussion](https://github.com/leifarriens/diedreifragezeichen-db/discussions) at the original repo to evaluate with other contributors.
-
-## Getting started
-
-### Local development setup
-
-Create a fork of the repository and clone it to your local machine:
+Fork, clone, then:
 
 ```sh
-git clone https://github.com/{username}/diedreifragezeichen-db.git
-```
-
-Checkout the `development` branch:
-
-```sh
-git checkout development
-```
-
-Install the dependencies using pnpm:
-
-```sh
-pnpm i
-```
-
-Before you can run the project locally you have to set every required environment variable defined in the `.env.example` file.
-
-You can run a mongoDB locally with docker:
-
-```sh
-docker compose up -d
-```
-
-Run the project in development mode:
-
-```sh
+pnpm install
+cp .env.example .env.local   # fill in required values
+docker compose up -d         # optional, for MongoDB
 pnpm dev
 ```
 
-### Sync Folgen to your (local) Database
+## Populate database
 
-However you setup your mongoDB instance you have to populate it with the DDF Folgen. Perform a request with the `CRON_SECRET` as the Bearer Token using your favorite HTTP client:
+`POST /api/sync/folgen` with `CRON_SECRET` as Bearer token (e.g. `curl -X POST -H "Authorization: Bearer $CRON_SECRET" http://localhost:3000/api/sync/folgen`).
 
-`POST http://localhost:3000/api/sync/folgen`
+## Pull requests
 
-Before working on a new feature checkout a new branch:
-
-```sh
-git checkout -b feature/awesome
-```
-
-### Pull request
-
-Create a pull request to the original repo.
+Branches for work (`feat/...`, `fix/...`, ...); PR against `main` in the original repo.
