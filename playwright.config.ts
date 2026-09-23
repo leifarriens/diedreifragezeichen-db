@@ -1,6 +1,10 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 import { devices } from '@playwright/test';
 
+const hasVercelAutomationBypassSecret = Boolean(
+  process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+);
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
@@ -39,7 +43,15 @@ export default {
     baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL ?? 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: hasVercelAutomationBypassSecret ? 'off' : 'on-first-retry',
+    extraHTTPHeaders: {
+      ...(hasVercelAutomationBypassSecret
+        ? {
+            'x-vercel-protection-bypass':
+              process.env.VERCEL_AUTOMATION_BYPASS_SECRET,
+          }
+        : {}),
+    },
   },
 
   /* Configure projects for major browsers */
