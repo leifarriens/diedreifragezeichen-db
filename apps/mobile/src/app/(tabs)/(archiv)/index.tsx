@@ -5,7 +5,7 @@ import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 import { useFolgen } from "@/api/use-folgen";
 import logo from "@/assets/logo.png";
-import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
+import { FolgenList } from "@/components/folgen-list/folgen-list";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
 import { createFolgenQuery } from "@/features/folgen/query";
 import { type SortOption } from "@/features/folgen/sort";
@@ -81,7 +81,7 @@ export default function ArchivScreen() {
         }}
       />
 
-      <FolgenGrid
+      <FolgenList
         detailPathname="/(tabs)/(archiv)/[folgeId]"
         folgen={episodes ?? []}
         ListEmptyComponent={

@@ -1,6 +1,6 @@
-import { NativeStackHeaderItem } from "expo-router";
+import type { NativeStackHeaderItem } from "expo-router";
 
-import { SORT_OPTIONS, SortOption } from "./sort";
+import { SORT_OPTIONS, type SortOption } from "./sort";
 
 export const headerSortMenu = ({
   setSortBy,

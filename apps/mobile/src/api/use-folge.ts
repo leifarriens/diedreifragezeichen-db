@@ -1,7 +1,9 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { Folge } from "./types";
-import { folgenQueryKey, FolgenResponse } from "./use-folgen";
+import type { Folge } from "./types";
+import type { FolgenResponse } from "./use-folgen";
+
+import { folgenQueryKey } from "./use-folgen";
 
 export function useFolge(folgeId: string) {
   const queryClient = useQueryClient();

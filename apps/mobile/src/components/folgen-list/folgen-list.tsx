@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 import Animated, { LinearTransition } from "react-native-reanimated";
 
-import { Folge } from "@/api/types";
+import type { Folge } from "@/api/types";
 
-import { type FolgeDetailPathname, FolgenGridItem } from "./folgen-grid-item";
+import { type FolgeDetailPathname, FolgenListItem } from "./folgen-list-item";
 
 const archiveKeyExtractor = (item: Folge) => item._id;
 
-export interface FolgenGridProps extends Pick<
+export interface FolgenListProps extends Pick<
   React.ComponentProps<typeof Animated.FlatList>,
   "ListEmptyComponent" | "ListHeaderComponent"
 > {
@@ -16,14 +16,14 @@ export interface FolgenGridProps extends Pick<
   folgen: Folge[];
 }
 
-export function FolgenGrid({
+export function FolgenList({
   detailPathname,
   folgen,
   ...rest
-}: FolgenGridProps) {
+}: FolgenListProps) {
   const renderItem = useCallback(
     ({ item }: { item: Folge }) => (
-      <FolgenGridItem detailPathname={detailPathname} item={item} />
+      <FolgenListItem detailPathname={detailPathname} item={item} />
     ),
     [detailPathname],
   );

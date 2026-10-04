@@ -1,8 +1,10 @@
 import { useRouter } from "expo-router";
 import { memo } from "react";
-import { Pressable } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
-import { Folge } from "@/api/types";
+import type { Folge } from "@/api/types";
+
+import { formatDate } from "@/lib/date";
 import { HapticFeedback } from "@/lib/haptic-feedback";
 
 import { Cover } from "../cover";
@@ -12,13 +14,15 @@ export type FolgeDetailPathname =
   | "/(tabs)/gehoert/[folgeId]"
   | "/(tabs)/gespeichert/[folgeId]";
 
-export const FolgenGridItem = memo(function FolgenGridItem({
-  detailPathname,
-  item,
-}: {
+export interface FolgenListItemProps {
   detailPathname: FolgeDetailPathname;
   item: Folge;
-}) {
+}
+
+export const FolgenListItem = memo(function FolgenGridItem({
+  detailPathname,
+  item,
+}: FolgenListItemProps) {
   const router = useRouter();
 
   function handlePress() {
@@ -33,12 +37,16 @@ export const FolgenGridItem = memo(function FolgenGridItem({
   const image = item.images.at(1) ?? item.images.at(0);
 
   return (
-    <Pressable
-      className="gap-2 p-2"
-      onPress={handlePress}
-      style={{ flexGrow: 0, flexShrink: 0, width: "50%" }}
-    >
-      {image && <Cover image={image} />}
-    </Pressable>
+    <View className="mb-2 w-1/2 shrink-0 grow-0 gap-1 px-2">
+      <Pressable onPress={handlePress}>
+        {image && <Cover image={image} />}
+      </Pressable>
+
+      <View>
+        <Text className="text-sm text-neutral-300">
+          {formatDate(item.release_date)}
+        </Text>
+      </View>
+    </View>
   );
 });

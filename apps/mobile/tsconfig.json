@@ -1,5 +1,5 @@
 {
-  "extends": "expo/tsconfig.base.json",
+  "extends": ["@ddfdb/tsconfig/base.json", "expo/tsconfig.base.json"],
   "compilerOptions": {
     "strict": true,
     "paths": {
@@ -12,6 +12,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "*.config.mjs"
   ]
 }

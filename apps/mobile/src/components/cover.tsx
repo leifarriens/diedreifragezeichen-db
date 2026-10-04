@@ -1,4 +1,6 @@
-import { Image, ImageProps } from "expo-image";
+import type { ImageProps } from "expo-image";
+
+import { Image } from "expo-image";
 
 interface CoverProps extends ImageProps {
   image: {

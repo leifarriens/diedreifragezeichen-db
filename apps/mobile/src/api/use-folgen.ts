@@ -1,6 +1,6 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-import { Folge } from "./types";
+import type { Folge } from "./types";
 
 export const folgenQueryKey = ["folgen"] as const;
 

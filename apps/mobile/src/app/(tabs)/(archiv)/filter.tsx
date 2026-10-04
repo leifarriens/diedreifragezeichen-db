@@ -123,7 +123,7 @@ export default function ArchiveFilterScreen() {
         contentContainerClassName="px-8"
         contentInsetAdjustmentBehavior="automatic"
       >
-        <View className="gap-6 flex-1">
+        <View className="flex-1 gap-6">
           <View className="gap-3">
             <Text className="text-base font-semibold">Erscheinungsdatum</Text>
             {dateBounds ? (
@@ -165,7 +165,7 @@ export default function ArchiveFilterScreen() {
           />
         </View>
 
-        <View className="items-center mt-24">
+        <View className="mt-24 items-center">
           <UIButton label="Zurücksetzen" onPress={reset} size="regular" />
         </View>
       </ScrollView>
@@ -174,8 +174,12 @@ export default function ArchiveFilterScreen() {
 }
 
 function dateOnlyToDate(value: string) {
-  const [year, month, day] = value.split("-").map(Number);
-  return new Date(year, month - 1, day);
+  const date = parseDateOnly(value);
+  if (!date) {
+    throw new RangeError(`Invalid date-only value: ${value}`);
+  }
+
+  return date;
 }
 
 function DatePickerRow({

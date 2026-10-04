@@ -4,10 +4,11 @@ import { Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { useShallow } from "zustand/react/shallow";
 
-import { Folge } from "@/api/types";
+import type { Folge } from "@/api/types";
+
 import { Cover } from "@/components/cover";
 import { UIButton } from "@/components/ui/button";
-import dayjs, { DATE_FORMAT } from "@/lib/date";
+import dayjs, { formatDate } from "@/lib/date";
 import { HapticFeedback } from "@/lib/haptic-feedback";
 import { useFolgeStatus, useFolgeStore } from "@/stores/use-folge-store";
 
@@ -39,7 +40,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           </View>
         )}
 
-        <View className="flex-row gap-3 items-center mt-3 justify-between">
+        <View className="mt-3 flex-row items-center justify-between gap-3">
           <Link
             asChild
             href={`https://open.spotify.com/intl-de/album/${folge.spotify_id}`}
@@ -118,7 +119,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         <View className="mt-3">
           <Text className="text-xl text-white">
             {isReleased ? "Veröffentlicht am" : "Wird veröffentlicht am"}{" "}
-            {dayjs(release_date).format(DATE_FORMAT)}
+            {formatDate(release_date)}
           </Text>
           <Text className="text-xl text-white">
             {dayjs(release_date).fromNow()}
@@ -126,8 +127,8 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         </View>
 
         <View className="my-5">
-          <Text className="text-white text-3xl font-bold">Inhalt</Text>
-          <Text className="text-lg text-justify text-white mt-2">
+          <Text className="text-3xl font-bold text-white">Inhalt</Text>
+          <Text className="mt-2 text-justify text-lg text-white">
             {folge.inhalt}
           </Text>
         </View>

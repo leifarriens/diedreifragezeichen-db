@@ -59,6 +59,7 @@ export function UIButton({
     controlSize(size),
     buttonStyle(intents[intent].variant),
   ];
+  const seedColor = intents[intent].backgroundColor;
 
   if (icon && (!label || iconOnly)) {
     modifiers.push(labelStyle("iconOnly"), buttonBorderShape("circle"));
@@ -73,18 +74,22 @@ export function UIButton({
   }
 
   return (
-    <Host matchContents seedColor={intents[intent].backgroundColor}>
+    <Host matchContents {...(seedColor === undefined ? {} : { seedColor })}>
       <Button modifiers={modifiers} {...rest}>
         <Row alignment="center" spacing={6}>
           {icon ? (
             <Icon
-              accessibilityLabel={iconOnly ? label : undefined}
-              color={iconColor}
+              {...(iconOnly && label !== undefined
+                ? { accessibilityLabel: label }
+                : {})}
+              {...(iconColor === undefined ? {} : { color: iconColor })}
               name={icon}
               size={iconSize}
             />
           ) : null}
-          {(!iconOnly || Platform.OS === "web") && <Text>{label}</Text>}
+          {(!iconOnly || Platform.OS === "web") && label !== undefined && (
+            <Text>{label}</Text>
+          )}
         </Row>
       </Button>
     </Host>

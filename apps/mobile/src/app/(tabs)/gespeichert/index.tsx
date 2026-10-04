@@ -1,9 +1,10 @@
 import { Stack } from "expo-router";
 import { useState } from "react";
 
+import type { SortOption } from "@/features/folgen/sort";
+
 import { FolgeCollection } from "@/components/folge-collection";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
-import { SortOption } from "@/features/folgen/sort";
 
 export default function GespeichertScreen() {
   const [sortBy, setSortBy] = useState<SortOption>("dateDesc");

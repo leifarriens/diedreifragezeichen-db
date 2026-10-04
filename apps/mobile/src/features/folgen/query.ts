@@ -93,11 +93,18 @@ function createQuery(
 
       return results;
     },
-    search: (term) =>
-      createQuery(folgen, {
-        ...options,
-        search: term.trim() || undefined,
-      }),
+    search: (term) => {
+      const nextOptions = { ...options };
+      const trimmedTerm = term.trim();
+
+      if (trimmedTerm) {
+        nextOptions.search = trimmedTerm;
+      } else {
+        delete nextOptions.search;
+      }
+
+      return createQuery(folgen, nextOptions);
+    },
     showSpecials: (show) =>
       createQuery(folgen, { ...options, showSpecials: show }),
     sort: (sortBy) => createQuery(folgen, { ...options, sortBy }),

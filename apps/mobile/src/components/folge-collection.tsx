@@ -1,19 +1,19 @@
 import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import type { FolgeDetailPathname } from "@/components/folgen-grid/folgen-grid-item";
+import type { FolgeDetailPathname } from "@/components/folgen-list/folgen-list-item";
 import type { SortOption } from "@/features/folgen/sort";
 
 import { useFolgen } from "@/api/use-folgen";
 import {
-  FolgenGrid,
-  type FolgenGridProps,
-} from "@/components/folgen-grid/folgen-grid";
+  FolgenList,
+  type FolgenListProps,
+} from "@/components/folgen-list/folgen-list";
 import { createFolgenQuery } from "@/features/folgen/query";
 import { useFolgeStore } from "@/stores/use-folge-store";
 
 interface FolgeCollectionProps extends Pick<
-  FolgenGridProps,
+  FolgenListProps,
   "ListHeaderComponent"
 > {
   emptyMessage: string;
@@ -61,7 +61,7 @@ export function FolgeCollection({
       : "/(tabs)/gespeichert/[folgeId]";
 
   return (
-    <FolgenGrid
+    <FolgenList
       detailPathname={detailPathname}
       emptyMessage={emptyMessage}
       folgen={searchedFolgen}
