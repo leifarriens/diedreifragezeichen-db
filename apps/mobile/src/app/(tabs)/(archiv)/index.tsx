@@ -9,11 +9,13 @@ import { FolgenList } from "@/components/folgen-list/folgen-list";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
 import { createFolgenQuery } from "@/features/folgen/query";
 import { type SortOption } from "@/features/folgen/sort";
+import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useArchiveFilters } from "@/providers/archive-filter-provider";
 
 export default function ArchivScreen() {
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const debouncedSearch = useDebouncedValue(search);
   const [sortBy, setSortBy] = useState<SortOption>("dateDesc");
   const { filters } = useArchiveFilters();
   const deferredShowSpecials = useDeferredValue(filters.showSpecials);
@@ -24,7 +26,7 @@ export default function ArchivScreen() {
     () =>
       query.data
         ? createFolgenQuery(query.data)
-            .search(search)
+            .search(debouncedSearch)
             .dateRange({
               endDate: filters.endDate,
               startDate: filters.startDate,
@@ -32,7 +34,7 @@ export default function ArchivScreen() {
             .sort(sortBy)
             .results()
         : undefined,
-    [query.data, search, sortBy, filters.startDate, filters.endDate],
+    [query.data, debouncedSearch, sortBy, filters.startDate, filters.endDate],
   );
 
   const episodes = useMemo(

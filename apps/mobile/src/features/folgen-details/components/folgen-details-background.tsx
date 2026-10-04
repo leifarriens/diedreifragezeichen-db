@@ -1,23 +1,25 @@
 import { BlurView } from "expo-blur";
 import { StyleSheet, View } from "react-native";
-import Animated from "react-native-reanimated";
+import Animated, { FadeIn } from "react-native-reanimated";
 
-import type { FolgeImage } from "@/api/types";
+import { AsyncImage } from "@/components/async-image";
+
+const AnimatedAsyncImage = Animated.createAnimatedComponent(AsyncImage);
 
 export function BlurBackground({
   folgeId,
-  image,
+  imageUrl,
 }: {
   folgeId: string;
-  image: FolgeImage;
+  imageUrl: string;
 }) {
   return (
     <View style={StyleSheet.absoluteFill}>
-      <Animated.Image
-        resizeMode="cover"
+      <AnimatedAsyncImage
+        entering={FadeIn}
         sharedTransitionTag={`folge-${folgeId}`}
-        source={{ uri: image.url }}
         style={StyleSheet.absoluteFill}
+        uri={imageUrl}
       />
       <BlurView
         intensity={100}

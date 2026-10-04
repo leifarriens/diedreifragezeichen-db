@@ -5,7 +5,7 @@ import type { Folge } from "@/api/types";
 
 import { type FolgeDetailPathname, FolgenListItem } from "./folgen-list-item";
 
-const archiveKeyExtractor = (item: Folge) => item._id;
+const archiveKeyExtractor = (item: Folge) => String(item.id);
 
 export interface FolgenListProps extends Pick<
   React.ComponentProps<typeof Animated.FlatList>,

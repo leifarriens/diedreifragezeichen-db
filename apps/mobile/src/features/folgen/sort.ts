@@ -1,4 +1,4 @@
-export type SortOption = "dateAsc" | "dateDesc" | "popularity" | "rating";
+export type SortOption = "dateAsc" | "dateDesc";
 
 export const SORT_OPTIONS: { label: string; value: SortOption }[] = [
   { label: "Neuste", value: "dateDesc" },

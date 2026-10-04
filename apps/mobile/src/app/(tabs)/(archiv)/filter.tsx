@@ -26,7 +26,10 @@ export default function ArchiveFilterScreen() {
   const [filterDraft, setFilterDraft] = useState<ArchiveFilters>(filters);
   const dateBounds = useMemo(() => {
     const releaseDates = (query.data ?? [])
-      .map((folge) => dayjs(folge.release_date))
+      .flatMap((folge) =>
+        folge.release_date === null ? [] : [folge.release_date],
+      )
+      .map((releaseDate) => dayjs(releaseDate))
       .filter((date) => date.isValid())
       .map((date) => date.format("YYYY-MM-DD"))
       .sort();

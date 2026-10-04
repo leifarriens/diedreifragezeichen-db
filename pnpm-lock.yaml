@@ -199,6 +199,9 @@ importers:
 
   apps/mobile:
     dependencies:
+      '@ddfdb/archiv':
+        specifier: workspace:*
+        version: link:../../services/archiv
       '@expo/material-symbols':
         specifier: ^0.1.1
         version: 0.1.1
@@ -365,6 +368,8 @@ importers:
         version: 6.0.3
 
   configs/typescript: {}
+
+  services/archiv: {}
 
 packages:
 

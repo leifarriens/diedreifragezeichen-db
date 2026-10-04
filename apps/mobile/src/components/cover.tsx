@@ -1,25 +1,51 @@
-import type { ImageProps } from "expo-image";
+import { StyleSheet, useColorScheme, View } from "react-native";
 
-import { Image } from "expo-image";
+import { DdfColors } from "@/Theme";
 
-interface CoverProps extends ImageProps {
-  image: {
-    height: number;
-    url: string;
-    width: number;
-  };
+import { AsyncImage } from "./async-image";
+
+interface CoverProps {
+  imageUrl: null | string;
 }
 
-export function Cover({ image }: CoverProps) {
+export function Cover({ imageUrl }: CoverProps) {
+  if (!imageUrl) {
+    return <ImagePlaceholder />;
+  }
+
   return (
-    <Image
-      cachePolicy="disk"
-      source={{ uri: image.url }}
-      style={{
-        aspectRatio: image.width / image.height,
-        borderRadius: 14,
-        width: "100%",
-      }}
+    <AsyncImage
+      placeholder={<ImagePlaceholder />}
+      style={styles.cover}
+      uri={imageUrl}
     />
   );
 }
+
+function ImagePlaceholder() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <View
+      accessibilityLabel="Kein Cover verfügbar"
+      accessibilityRole="image"
+      style={[
+        styles.cover,
+        {
+          backgroundColor:
+            colorScheme === "dark"
+              ? DdfColors.dark.surface
+              : DdfColors.light.surface,
+        },
+      ]}
+    />
+  );
+}
+
+const styles = StyleSheet.create({
+  cover: {
+    aspectRatio: 1,
+    borderRadius: 14,
+    width: "100%" as const,
+  },
+});

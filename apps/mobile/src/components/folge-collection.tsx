@@ -10,6 +10,7 @@ import {
   type FolgenListProps,
 } from "@/components/folgen-list/folgen-list";
 import { createFolgenQuery } from "@/features/folgen/query";
+import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useFolgeStore } from "@/stores/use-folge-store";
 
 interface FolgeCollectionProps extends Pick<
@@ -30,6 +31,7 @@ export function FolgeCollection({
   sortBy,
 }: FolgeCollectionProps) {
   const query = useFolgen();
+  const debouncedSearch = useDebouncedValue(search);
   const ids = useFolgeStore((state) =>
     kind === "played" ? state.playedFolgeIds : state.bookmarkedFolgeIds,
   );
@@ -39,12 +41,13 @@ export function FolgeCollection({
     if (!query.data) return [];
 
     const idSet = new Set(ids);
-    return query.data.filter((folge) => idSet.has(folge._id));
+    return query.data.filter((folge) => idSet.has(String(folge.id)));
   }, [ids, query.data]);
 
   const searchedFolgen = useMemo(
-    () => createFolgenQuery(folgen).search(search).sort(sortBy).results(),
-    [folgen, search, sortBy],
+    () =>
+      createFolgenQuery(folgen).search(debouncedSearch).sort(sortBy).results(),
+    [folgen, debouncedSearch, sortBy],
   );
 
   if (!hasHydrated) {

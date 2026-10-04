@@ -1,7 +1,8 @@
 packages:
   - "apps/*"
-  - "packages/*"
   - "configs/**"
+  - "packages/*"
+  - "services/*"
   - "!**/test/**"
 
 overrides:

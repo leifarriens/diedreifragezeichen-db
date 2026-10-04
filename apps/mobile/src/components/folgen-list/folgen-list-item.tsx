@@ -27,26 +27,29 @@ export const FolgenListItem = memo(function FolgenGridItem({
 
   function handlePress() {
     router.push({
-      params: { folgeId: item._id },
+      params: { folgeId: item.id },
       pathname: detailPathname,
     });
 
     HapticFeedback.selection();
   }
 
-  const image = item.images.at(1) ?? item.images.at(0);
+  const image = item.cover;
 
   return (
     <View className="mb-2 w-1/2 shrink-0 grow-0 gap-1 px-2">
       <Pressable onPress={handlePress}>
-        {image && <Cover image={image} />}
+        <Cover imageUrl={image} />
       </Pressable>
 
-      <View>
-        <Text className="text-sm text-neutral-300">
-          {formatDate(item.release_date)}
-        </Text>
-      </View>
+      {item.release_date ? (
+        <View>
+          <Text className="text-sm text-neutral-300">
+            {formatDate(item.release_date)}
+          </Text>
+          <Text className="text-sm text-neutral-300">{item.id}</Text>
+        </View>
+      ) : null}
     </View>
   );
 });

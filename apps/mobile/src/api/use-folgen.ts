@@ -4,22 +4,16 @@ import type { Folge } from "./types";
 
 export const folgenQueryKey = ["folgen"] as const;
 
-export interface FolgenResponse {
-  items: Folge[];
-  total: number;
-}
-
 export function useFolgen() {
   return useQuery({
     ...getFolgenQueryOptions(),
-    select: (response) => response.items,
   });
 }
 
 export function useFolgenTotal() {
   return useQuery({
     ...getFolgenQueryOptions(),
-    select: (response) => response.total,
+    select: (response) => response.length,
   });
 }
 
@@ -27,20 +21,14 @@ function getFolgenQueryOptions() {
   return {
     gcTime: Infinity,
     placeholderData: keepPreviousData, // Prevents hard loading state
-    queryFn: async (): Promise<FolgenResponse> => {
-      const apiUrl: unknown = process.env.EXPO_PUBLIC_DDFDB_API_URL;
-      const apiKey: unknown = process.env.EXPO_PUBLIC_DDFDB_API_KEY;
+    queryFn: async (): Promise<Folge[]> => {
+      const apiUrl: unknown = process.env.EXPO_PUBLIC_DDFDB_ARCHIV_API_URL;
 
-      if (
-        typeof apiUrl !== "string" ||
-        !apiUrl ||
-        typeof apiKey !== "string" ||
-        !apiKey
-      ) {
+      if (typeof apiUrl !== "string" || !apiUrl) {
         throw new Error("Die API-Konfiguration fehlt.");
       }
 
-      const url = `${apiUrl.replace(/\/$/, "")}/folgen?limit=300&apikey=${encodeURIComponent(apiKey)}`;
+      const url = `${apiUrl.replace(/\/$/, "")}/folgen?limit=300`;
 
       const res = await fetch(url);
 
@@ -50,7 +38,7 @@ function getFolgenQueryOptions() {
         );
       }
 
-      return (await res.json()) as FolgenResponse;
+      return (await res.json()) as Folge[];
     },
     queryKey: folgenQueryKey,
     staleTime: Infinity,

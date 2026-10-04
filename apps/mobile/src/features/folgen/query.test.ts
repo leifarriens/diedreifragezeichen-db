@@ -4,30 +4,26 @@ import type { Folge } from "../../api/types";
 
 import { createFolgenQuery } from "./query";
 
-function episode(id: string, overrides: Partial<Folge> = {}): Folge {
+function episode(id: number, overrides: Partial<Folge> = {}): Folge {
   return {
-    _id: id,
-    created_at: "2022-01-01T00:00:00.000Z",
-    images: [],
-    inhalt: "",
-    name: `Episode ${id}`,
+    artwork: null,
+    collection: "serie",
+    cover: null,
+    description: null,
+    id,
+    links: {},
     number: id,
-    number_of_ratings: 0,
-    popularity: 0,
-    rating: 0,
     release_date: "2022-01-01",
-    spotify_id: "",
-    sprecher: "",
-    type: "episode",
-    updated_at: "2022-01-01T00:00:00.000Z",
-    weblink: "",
+    title: `Episode ${String(id)}`,
+    total_duration: null,
+    weblink: null,
     ...overrides,
   };
 }
 
 describe("createFolgenQuery", () => {
-  it("preserves input order and includes specials when no operation is configured", () => {
-    const folgen = [episode("2", { type: "special" }), episode("1")];
+  it("preserves input order and includes all Folgen when no operation is configured", () => {
+    const folgen = [episode(2), episode(1)];
     const results = createFolgenQuery(folgen).results();
 
     expect(results).toEqual(folgen);
@@ -37,9 +33,9 @@ describe("createFolgenQuery", () => {
 
   it("searches titles, numbers, and exact release years case-insensitively", () => {
     const folgen = [
-      episode("1", { name: "Das große Abenteuer" }),
-      episode("42", { name: "Ein ruhiger Tag" }),
-      episode("3", { release_date: "2020-03-11" }),
+      episode(1, { title: "Das große Abenteuer" }),
+      episode(42, { title: "Ein ruhiger Tag" }),
+      episode(3, { release_date: "2020-03-11" }),
     ];
 
     expect(createFolgenQuery(folgen).search(" ABENTEUER ").results()).toEqual([
@@ -55,8 +51,8 @@ describe("createFolgenQuery", () => {
 
   it("treats search input literally and clears a search when given whitespace", () => {
     const folgen = [
-      episode("1", { name: "Die [Sonderfolge]" }),
-      episode("2", { name: "Ein Abenteuer" }),
+      episode(1, { title: "Die [Sonderfolge]" }),
+      episode(2, { title: "Ein Abenteuer" }),
     ];
 
     expect(createFolgenQuery(folgen).search("[").results()).toEqual([
@@ -69,10 +65,10 @@ describe("createFolgenQuery", () => {
 
   it("filters an inclusive date range with either boundary optional", () => {
     const folgen = [
-      episode("1", { release_date: "2022-01-01T08:00:00" }),
-      episode("2", { release_date: "2022-01-02T18:00:00" }),
-      episode("3", { release_date: "2022-01-03T08:00:00" }),
-      episode("4", { release_date: "not-a-date" }),
+      episode(1, { release_date: "2022-01-01T08:00:00" }),
+      episode(2, { release_date: "2022-01-02T18:00:00" }),
+      episode(3, { release_date: "2022-01-03T08:00:00" }),
+      episode(4, { release_date: null }),
     ];
 
     expect(
@@ -97,93 +93,66 @@ describe("createFolgenQuery", () => {
     ).toEqual(folgen);
   });
 
-  it("applies special visibility only when configured", () => {
-    const folgen = [episode("1"), episode("2", { type: "special" })];
+  it("filters specials by collection rather than inferring from number", () => {
+    const numbered = episode(1);
+    const special = episode(2, { collection: "spezial", number: null });
+    const unnumberedSeries = episode(3, { number: null });
+    const folgen = [numbered, special, unnumberedSeries];
 
     expect(createFolgenQuery(folgen).results()).toEqual(folgen);
     expect(createFolgenQuery(folgen).showSpecials(false).results()).toEqual([
-      folgen[0],
+      numbered,
+      unnumberedSeries,
     ]);
     expect(createFolgenQuery(folgen).showSpecials(true).results()).toEqual(
       folgen,
     );
   });
 
-  it("sorts by every supported option, keeping ties stable and invalid dates last", () => {
-    const tieA = episode("tie-a", {
-      popularity: 7,
-      rating: 4,
-      release_date: "2022-01-02",
-    });
-    const old = episode("old", {
-      popularity: 1,
-      rating: 2,
-      release_date: "2022-01-01",
-    });
-    const invalid = episode("invalid", {
-      popularity: 7,
-      rating: 5,
-      release_date: "not-a-date",
-    });
-    const recent = episode("recent", {
-      popularity: 3,
-      rating: 1,
-      release_date: "2022-01-03",
-    });
-    const tieB = episode("tie-b", {
-      popularity: 7,
-      rating: 4,
-      release_date: "2022-01-02",
-    });
+  it("sorts by release date, keeping ties stable and invalid dates last", () => {
+    const tieA = episode(1, { release_date: "2022-01-02" });
+    const old = episode(2, { release_date: "2022-01-01" });
+    const invalid = episode(3, { release_date: null });
+    const recent = episode(4, { release_date: "2022-01-03" });
+    const tieB = episode(5, { release_date: "2022-01-02" });
     const folgen = [tieA, old, invalid, recent, tieB];
 
     expect(
       createFolgenQuery(folgen)
         .sort("dateAsc")
         .results()
-        .map((folge) => folge._id),
-    ).toEqual(["old", "tie-a", "tie-b", "recent", "invalid"]);
+        .map((folge) => folge.id),
+    ).toEqual([2, 1, 5, 4, 3]);
     expect(
       createFolgenQuery(folgen)
         .sort("dateDesc")
         .results()
-        .map((folge) => folge._id),
-    ).toEqual(["recent", "tie-a", "tie-b", "old", "invalid"]);
-    expect(
-      createFolgenQuery(folgen)
-        .sort("popularity")
-        .results()
-        .map((folge) => folge._id),
-    ).toEqual(["tie-a", "invalid", "tie-b", "recent", "old"]);
-    expect(
-      createFolgenQuery(folgen)
-        .sort("rating")
-        .results()
-        .map((folge) => folge._id),
-    ).toEqual(["invalid", "tie-a", "tie-b", "old", "recent"]);
+        .map((folge) => folge.id),
+    ).toEqual([4, 1, 5, 2, 3]);
   });
 
   it("combines filters and sorting without mutating the source or other query branches", () => {
-    const special = episode("special", {
-      name: "Road Special",
+    const special = episode(1, {
+      collection: "spezial",
+      number: null,
       release_date: "2022-01-02",
-      type: "special",
+      title: "Road Special",
     });
-    const later = episode("later", {
-      name: "Road West",
+    const later = episode(2, {
       release_date: "2022-01-03",
+      title: "Road West",
     });
-    const earlier = episode("earlier", {
-      name: "Road East",
+    const earlier = episode(3, {
       release_date: "2022-01-02",
+      title: "Road East",
     });
-    const outsideRange = episode("outside", {
-      name: "Road Far Away",
+    const outsideRange = episode(4, {
       release_date: "2021-12-31",
+      title: "Road Far Away",
     });
-    const unrelated = episode("unrelated", {
-      name: "A Different Journey",
+    const unrelated = episode(5, {
       release_date: "2022-01-04",
+      title: "A Different Journey",
     });
     const folgen = [special, earlier, outsideRange, later, unrelated];
     const baseQuery = createFolgenQuery(folgen).search("road");
@@ -206,17 +175,17 @@ describe("createFolgenQuery", () => {
 
   it("operates only on the supplied collection subset", () => {
     const saved = [
-      episode("saved-1", { name: "Saved Adventure" }),
-      episode("saved-2", { name: "Saved Journey" }),
+      episode(1, { title: "Saved Adventure" }),
+      episode(2, { title: "Saved Journey" }),
     ];
-    const allFolgen = [...saved, episode("other", { name: "Other Adventure" })];
+    const allFolgen = [...saved, episode(3, { title: "Other Adventure" })];
 
     expect(
       createFolgenQuery(saved)
         .search("adventure")
         .results()
-        .map((folge) => folge._id),
-    ).toEqual(["saved-1"]);
+        .map((folge) => folge.id),
+    ).toEqual([1]);
     expect(allFolgen).toHaveLength(3);
   });
 });

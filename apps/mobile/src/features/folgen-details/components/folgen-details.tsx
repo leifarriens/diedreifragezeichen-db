@@ -1,5 +1,5 @@
 import { Icon } from "@expo/ui";
-import { Link } from "expo-router";
+import { type Href, Link } from "expo-router";
 import { Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { useShallow } from "zustand/react/shallow";
@@ -17,8 +17,8 @@ interface FolgeDetailsProps {
 }
 
 export function FolgeDetails({ folge }: FolgeDetailsProps) {
-  const { images, name, release_date } = folge;
-  const { isBookmarked, isPlayed } = useFolgeStatus(folge._id);
+  const { cover, links, release_date, title } = folge;
+  const { isBookmarked, isPlayed } = useFolgeStatus(String(folge.id));
 
   const { hasHydrated, toggleBookmark, togglePlayed } = useFolgeStore(
     useShallow((state) => ({
@@ -29,24 +29,20 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
   );
 
   const isReleased = dayjs(release_date).isBefore(dayjs());
-  const image = images.at(0);
 
   return (
     <View>
       <View className="px-5">
-        {image && (
-          <View className="mt-5">
-            <Cover image={image} />
-          </View>
-        )}
+        <View className="mt-5">
+          <Cover imageUrl={cover} />
+        </View>
 
         <View className="mt-3 flex-row items-center justify-between gap-3">
-          <Link
-            asChild
-            href={`https://open.spotify.com/intl-de/album/${folge.spotify_id}`}
-          >
-            <UIButton icon="play" label="Play" />
-          </Link>
+          {links.spotify && (
+            <Link asChild href={links.spotify as Href}>
+              <UIButton icon="play" label="Play" />
+            </Link>
+          )}
 
           <View className="flex-row gap-3">
             <UIButton
@@ -72,7 +68,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
               }
               onPress={() => {
                 HapticFeedback.button();
-                toggleBookmark(folge._id);
+                toggleBookmark(String(folge.id));
               }}
             />
             <UIButton
@@ -96,11 +92,12 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
               }
               onPress={() => {
                 HapticFeedback.button();
-                togglePlayed(folge._id);
+                togglePlayed(String(folge.id));
               }}
             />
+
             {folge.weblink ? (
-              <Link asChild href={folge.weblink}>
+              <Link asChild href={folge.weblink as Href}>
                 <UIButton icon="network" />
               </Link>
             ) : null}
@@ -113,25 +110,29 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           <Text className="text-[20px] font-semibold text-white">
             Die drei ???
           </Text>
-          <Text className="text-[34px] font-bold text-white">{name}</Text>
+          <Text className="text-[34px] font-bold text-white">{title}</Text>
         </View>
 
-        <View className="mt-3">
-          <Text className="text-xl text-white">
-            {isReleased ? "Veröffentlicht am" : "Wird veröffentlicht am"}{" "}
-            {formatDate(release_date)}
-          </Text>
-          <Text className="text-xl text-white">
-            {dayjs(release_date).fromNow()}
-          </Text>
-        </View>
+        {release_date ? (
+          <View className="mt-3">
+            <Text className="text-xl text-white">
+              {isReleased ? "Veröffentlicht am" : "Wird veröffentlicht am"}{" "}
+              {formatDate(release_date)}
+            </Text>
+            <Text className="text-xl text-white">
+              {dayjs(release_date).fromNow()}
+            </Text>
+          </View>
+        ) : null}
 
-        <View className="my-5">
-          <Text className="text-3xl font-bold text-white">Inhalt</Text>
-          <Text className="mt-2 text-justify text-lg text-white">
-            {folge.inhalt}
-          </Text>
-        </View>
+        {folge.description ? (
+          <View className="my-5">
+            <Text className="text-3xl font-bold text-white">Inhalt</Text>
+            <Text className="mt-2 text-justify text-lg text-white">
+              {folge.description}
+            </Text>
+          </View>
+        ) : null}
       </Animated.View>
     </View>
   );

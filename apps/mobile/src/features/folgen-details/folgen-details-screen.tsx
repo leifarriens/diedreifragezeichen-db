@@ -20,7 +20,7 @@ export function FolgenDetailsScreen() {
   }
 
   const folge = folgeQuery.data;
-  const backgroundImage = folge.images.at(-1) ?? folge.images.at(0);
+  const backgroundImage = folge.artwork;
 
   return (
     <>
@@ -32,7 +32,7 @@ export function FolgenDetailsScreen() {
       />
 
       {backgroundImage && (
-        <BlurBackground folgeId={folge._id} image={backgroundImage} />
+        <BlurBackground folgeId={String(folge.id)} imageUrl={backgroundImage} />
       )}
 
       <ScrollView

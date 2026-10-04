@@ -31,9 +31,9 @@ export function createFolgenQuery(folgen: readonly Folge[]): FolgenQuery {
   return createQuery(folgen, {});
 }
 
-function compareDates(a: string, b: string, direction: -1 | 1) {
-  const aTime = dayjs(a).valueOf();
-  const bTime = dayjs(b).valueOf();
+function compareDates(a: null | string, b: null | string, direction: -1 | 1) {
+  const aTime = a === null ? Number.NaN : dayjs(a).valueOf();
+  const bTime = b === null ? Number.NaN : dayjs(b).valueOf();
   const aIsValid = Number.isFinite(aTime);
   const bIsValid = Number.isFinite(bTime);
 
@@ -54,10 +54,6 @@ function compareFolgen(a: Folge, b: Folge, sortBy: SortOption) {
       return compareDates(a.release_date, b.release_date, 1);
     case "dateDesc":
       return compareDates(a.release_date, b.release_date, -1);
-    case "popularity":
-      return b.popularity - a.popularity;
-    case "rating":
-      return b.rating - a.rating;
   }
 }
 
@@ -83,7 +79,7 @@ function createQuery(
       }
 
       if (options.showSpecials === false) {
-        results = results.filter((folge) => folge.type !== "special");
+        results = results.filter((folge) => folge.collection !== "spezial");
       }
 
       const sortBy = options.sortBy;
@@ -120,6 +116,8 @@ function filterByDateRange(
   }
 
   return folgen.filter((folge) => {
+    if (folge.release_date === null) return false;
+
     const releaseDate = dayjs(folge.release_date);
     return (
       releaseDate.isValid() &&
@@ -135,12 +133,16 @@ function filterBySearch(folgen: readonly Folge[], term: string) {
 
   return folgen.filter((folge) => {
     if (
-      folge.name.toLowerCase().includes(normalizedTerm) ||
-      folge.number.toLowerCase().includes(normalizedTerm)
+      folge.title.toLowerCase().includes(normalizedTerm) ||
+      (folge.number !== null &&
+        String(folge.number).toLowerCase().includes(normalizedTerm))
     ) {
       return true;
     }
 
-    return dayjs(folge.release_date).year().toString() === term;
+    return (
+      folge.release_date !== null &&
+      dayjs(folge.release_date).year().toString() === term
+    );
   });
 }

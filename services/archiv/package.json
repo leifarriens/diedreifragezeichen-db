@@ -1,0 +1,17 @@
+{
+  "name": "@ddfdb/archiv",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Standalone Go HTTP service for Folge metadata",
+  "exports": {
+    "./contracts": "./dist/folge.ts"
+  },
+  "scripts": {
+    "build": "go tool tygo generate",
+    "dev": "go tool air",
+    "lint": "test -z \"$(gofmt -l .)\" && go vet ./...",
+    "typecheck": "go test -run '^$' ./...",
+    "test": "go test ./..."
+  }
+}
