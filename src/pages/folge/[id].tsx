@@ -25,7 +25,7 @@ const FolgePage: NextPage<FolgePageProps> = ({ folge }) => {
       <Seo
         title={title}
         description={folge.inhalt && `${title}: ${folge.inhalt}`}
-        canonicalpath={`/folgen/${folge._id}`}
+        canonicalpath={`/folge/${folge._id}`}
         openGraph={{
           images: [
             {

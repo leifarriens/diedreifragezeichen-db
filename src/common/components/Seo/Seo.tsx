@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import type { NextSeoProps } from 'next-seo/pages';
 import { generateNextSeo } from 'next-seo/pages';
 
@@ -7,7 +8,7 @@ interface SeoProps extends NextSeoProps {
 
 export function Seo({ canonicalpath = '', description, ...rest }: SeoProps) {
   return (
-    <>
+    <Head>
       {generateNextSeo({
         canonical: `https://www.ddfdb.de${canonicalpath}`,
         twitter: { cardType: 'summary' },
@@ -21,7 +22,7 @@ export function Seo({ canonicalpath = '', description, ...rest }: SeoProps) {
         ...rest,
         description: cutString(description, 185),
       })}
-    </>
+    </Head>
   );
 }
 

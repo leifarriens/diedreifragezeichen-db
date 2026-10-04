@@ -4,6 +4,7 @@ import '@/styles/nprogress.css';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Analytics } from '@vercel/analytics/next';
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import Router from 'next/router';
 import type { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
@@ -22,17 +23,19 @@ Router.events.on('routeChangeError', () => NProgress.done());
 const MyApp = ({ Component, pageProps }: AppProps<{ session: Session }>) => {
   return (
     <>
-      {generateDefaultSeo({
-        openGraph: {
-          type: 'website',
-          locale: 'de_DE',
-          url: 'https://diedreifragezeichen-db.de',
-          site_name: 'Die drei Fragezeichen DB',
-        },
-        defaultTitle: 'Drei Fragezeichen DB',
-        titleTemplate: '%s | Drei Fragezeichen DB',
-        description: 'Die drei Fragezeichen Folgen Archiv und Bewertungen',
-      })}
+      <Head>
+        {generateDefaultSeo({
+          openGraph: {
+            type: 'website',
+            locale: 'de_DE',
+            url: 'https://diedreifragezeichen-db.de',
+            site_name: 'Die drei Fragezeichen DB',
+          },
+          defaultTitle: 'Drei Fragezeichen DB',
+          titleTemplate: '%s | Drei Fragezeichen DB',
+          description: 'Die drei Fragezeichen Folgen Archiv und Bewertungen',
+        })}
+      </Head>
       <SessionProvider session={pageProps.session}>
         <GridProvider>
           <Page>
