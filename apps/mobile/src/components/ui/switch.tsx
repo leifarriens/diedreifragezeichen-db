@@ -4,7 +4,10 @@ import { DdfColors } from "@/Theme";
 
 export function UISwitch({ ...rest }: SwitchProps) {
   return (
-    <Host matchContents seedColor={DdfColors.light.primary}>
+    <Host
+      matchContents={{ vertical: true }}
+      seedColor={DdfColors.light.primary}
+    >
       <Switch {...rest} />
     </Host>
   );

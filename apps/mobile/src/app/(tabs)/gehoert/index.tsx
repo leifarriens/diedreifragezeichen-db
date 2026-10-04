@@ -1,0 +1,40 @@
+import { Stack } from "expo-router";
+import { useState } from "react";
+
+import { FolgeCollection } from "@/components/folge-collection";
+import { PlayedFolgenProgress } from "@/components/played-folgen-progress";
+import { headerSortMenu } from "@/features/folgen/header-sort-menu";
+import { SortOption } from "@/features/folgen/sort";
+
+export default function GehoertScreen() {
+  const [sortBy, setSortBy] = useState<SortOption>("dateDesc");
+  const [search, setSearch] = useState("");
+
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          headerSearchBarOptions: {
+            hideWhenScrolling: false,
+            onChangeText: (event) => {
+              setSearch(event.nativeEvent.text);
+            },
+            placeholder: "Titel, Nummer oder Erscheinungsjahr",
+            placement: "integratedCentered",
+          },
+          title: "Gehört",
+          unstable_headerRightItems: () =>
+            headerSortMenu({ setSortBy, sortBy }),
+        }}
+      />
+
+      <FolgeCollection
+        emptyMessage="Noch keine Folgen als gehört markiert."
+        kind="played"
+        ListHeaderComponent={PlayedFolgenProgress}
+        search={search}
+        sortBy={sortBy}
+      />
+    </>
+  );
+}

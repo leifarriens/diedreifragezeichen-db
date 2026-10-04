@@ -1,8 +1,8 @@
 import type { ButtonProps, IconName } from "@expo/ui";
-import type { ColorValue } from "react-native";
 
 import { Button, Host, Icon, Row, Text } from "@expo/ui";
 import {
+  accessibilityLabel,
   buttonBorderShape,
   buttonStyle,
   controlSize,
@@ -10,6 +10,7 @@ import {
   type ModifierConfig,
   tint,
 } from "@expo/ui/swift-ui/modifiers";
+import { type ColorValue, Platform } from "react-native";
 
 export interface UIButtonProps extends Omit<
   ButtonProps,
@@ -17,6 +18,7 @@ export interface UIButtonProps extends Omit<
 > {
   icon?: IconName;
   iconColor?: ColorValue | undefined;
+  iconOnly?: boolean;
   iconSize?: number;
   intent?: NativeButtonIntent;
   size?: Parameters<typeof controlSize>[0];
@@ -45,6 +47,7 @@ const intents: Record<
 export function UIButton({
   icon,
   iconColor,
+  iconOnly = false,
   iconSize = 20,
   intent = "default",
   label,
@@ -57,8 +60,12 @@ export function UIButton({
     buttonStyle(intents[intent].variant),
   ];
 
-  if (icon && !label) {
+  if (icon && (!label || iconOnly)) {
     modifiers.push(labelStyle("iconOnly"), buttonBorderShape("circle"));
+  }
+
+  if (iconOnly && label && Platform.OS === "ios") {
+    modifiers.push(accessibilityLabel(label));
   }
 
   if (tintColor) {
@@ -69,8 +76,15 @@ export function UIButton({
     <Host matchContents seedColor={intents[intent].backgroundColor}>
       <Button modifiers={modifiers} {...rest}>
         <Row alignment="center" spacing={6}>
-          {icon ? <Icon color={iconColor} name={icon} size={iconSize} /> : null}
-          <Text>{label}</Text>
+          {icon ? (
+            <Icon
+              accessibilityLabel={iconOnly ? label : undefined}
+              color={iconColor}
+              name={icon}
+              size={iconSize}
+            />
+          ) : null}
+          {(!iconOnly || Platform.OS === "web") && <Text>{label}</Text>}
         </Row>
       </Button>
     </Host>

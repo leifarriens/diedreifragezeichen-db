@@ -4,11 +4,30 @@ import { Folge } from "./types";
 
 export const folgenQueryKey = ["folgen"] as const;
 
+export interface FolgenResponse {
+  items: Folge[];
+  total: number;
+}
+
 export function useFolgen() {
   return useQuery({
+    ...getFolgenQueryOptions(),
+    select: (response) => response.items,
+  });
+}
+
+export function useFolgenTotal() {
+  return useQuery({
+    ...getFolgenQueryOptions(),
+    select: (response) => response.total,
+  });
+}
+
+function getFolgenQueryOptions() {
+  return {
     gcTime: Infinity,
     placeholderData: keepPreviousData, // Prevents hard loading state
-    queryFn: async () => {
+    queryFn: async (): Promise<FolgenResponse> => {
       const apiUrl: unknown = process.env.EXPO_PUBLIC_DDFDB_API_URL;
       const apiKey: unknown = process.env.EXPO_PUBLIC_DDFDB_API_KEY;
 
@@ -31,11 +50,9 @@ export function useFolgen() {
         );
       }
 
-      const json = (await res.json()) as { items: Folge[] };
-
-      return json.items;
+      return (await res.json()) as FolgenResponse;
     },
     queryKey: folgenQueryKey,
     staleTime: Infinity,
-  });
+  };
 }

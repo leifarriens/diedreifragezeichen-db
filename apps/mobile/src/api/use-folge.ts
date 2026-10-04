@@ -1,15 +1,15 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { Folge } from "./types";
-import { folgenQueryKey } from "./use-folgen";
+import { folgenQueryKey, FolgenResponse } from "./use-folgen";
 
 export function useFolge(folgeId: string) {
   const queryClient = useQueryClient();
 
   return useQuery({
     initialData: () => {
-      const folgen = queryClient.getQueryData<Folge[]>(folgenQueryKey);
-      const folge = folgen?.find((f) => f._id === folgeId);
+      const folgen = queryClient.getQueryData<FolgenResponse>(folgenQueryKey);
+      const folge = folgen?.items.find((f) => f._id === folgeId);
 
       return folge;
     },

@@ -6,5 +6,6 @@
     "**/.cache/**": true,
     "**/.git": true,
     "**/.turbo/**": true
-  }
+  },
+  "conventionalCommits.scopes": ["mobile"]
 }
