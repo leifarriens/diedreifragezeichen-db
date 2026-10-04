@@ -1,0 +1,34 @@
+{
+  "name": "@ddfdb/monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "description": "No Frameworks included Typescript Monorepo Template with Linter, Tests & CI",
+  "type": "module",
+  "scripts": {
+    "dev": "turbo dev",
+    "format": "prettier . --write --cache --cache-location .cache/.prettiercache",
+    "build": "turbo build --continue",
+    "lint": "turbo lint --continue",
+    "lint:fix": "turbo lint --continue -- --fix",
+    "postinstall": "sherif",
+    "lint:ws": "sherif",
+    "test": "turbo test",
+    "typecheck": "turbo typecheck --continue",
+    "turbo": "turbo"
+  },
+  "devDependencies": {
+    "@turbo/gen": "^2.11.4",
+    "@types/node": "^24.13.3",
+    "prettier": "^3.9.8",
+    "sherif": "^1.13.0",
+    "turbo": "^2.11.4"
+  },
+  "author": "Leif Arriens",
+  "license": "MIT",
+  "sherif": {
+    "ignoreRule": [
+      "non-existant-packages"
+    ]
+  },
+  "packageManager": "pnpm@12.7.0"
+}

@@ -1,0 +1,10 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "files.exclude": {
+    "**/.cache/**": true,
+    "**/.git": true,
+    "**/.turbo/**": true
+  }
+}

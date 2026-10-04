@@ -1,0 +1,27 @@
+{
+  "name": "@ddfdb/eslint-config",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./base": "./base.js",
+    "./react": "./react.js"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "eslint-config-turbo": "^2.11.1",
+    "eslint-plugin-perfectionist": "^5.11.1",
+    "typescript-eslint": "^8.70.0"
+  },
+  "devDependencies": {
+    "@ddfdb/tsconfig": "workspace:*",
+    "@eslint-react/eslint-plugin": "^5.18.8",
+    "@eslint/js": "^10.0.0",
+    "eslint": "catalog:",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "typescript": "catalog:"
+  }
+}
