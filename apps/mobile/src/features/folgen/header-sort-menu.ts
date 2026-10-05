@@ -1,28 +1,32 @@
 import type { NativeStackHeaderItem } from "expo-router";
 
-import { SORT_OPTIONS, type SortOption } from "./sort";
+import { type CollectionSortOption, SORT_OPTIONS } from "./sort";
 
-export const headerSortMenu = ({
+export function headerSortMenu({
+  options = SORT_OPTIONS,
   setSortBy,
   sortBy,
 }: {
-  setSortBy: (value: SortOption) => void;
-  sortBy: SortOption;
-}): NativeStackHeaderItem[] => [
-  {
-    icon: { name: "arrow.up.arrow.down", type: "sfSymbol" },
-    label: "Sortieren",
-    menu: {
-      items: SORT_OPTIONS.map(({ label, value }) => ({
-        label,
-        onPress: () => {
-          setSortBy(value);
-        },
-        state: sortBy === value ? ("on" as const) : ("off" as const),
-        type: "action" as const,
-      })),
-      title: "Sortieren nach",
+  options?: readonly { label: string; value: CollectionSortOption }[];
+  setSortBy: (value: CollectionSortOption) => void;
+  sortBy: CollectionSortOption;
+}): NativeStackHeaderItem[] {
+  return [
+    {
+      icon: { name: "arrow.up.arrow.down", type: "sfSymbol" },
+      label: "Sortieren",
+      menu: {
+        items: options.map(({ label, value }) => ({
+          label,
+          onPress: () => {
+            setSortBy(value);
+          },
+          state: sortBy === value ? ("on" as const) : ("off" as const),
+          type: "action" as const,
+        })),
+        title: "Sortieren nach",
+      },
+      type: "menu",
     },
-    type: "menu",
-  },
-];
+  ];
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://turborepo.dev/schema.v2.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": ["APP_ENV", "EXPO_OS"],
+      "outputs": [".expo/**", "dist/**"]
+    }
+  }
+}

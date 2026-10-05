@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import type { FolgeDetailPathname } from "@/features/folgen/components/folgen-list/folgen-list-item";
-import type { SortOption } from "@/features/folgen/sort";
+import type { CollectionSortOption } from "@/features/folgen/sort";
 
 import { useFolgen } from "@/api/use-folgen";
 import {
@@ -10,17 +10,18 @@ import {
   type FolgenListProps,
 } from "@/features/folgen/components/folgen-list/folgen-list";
 import { createFolgenQuery } from "@/features/folgen/query";
+import { sortFolgenByAddedAt } from "@/features/folgen/sort";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useFolgeStore } from "@/stores/use-folge-store";
 
 interface FolgeCollectionProps extends Pick<
   FolgenListProps,
-  "ListHeaderComponent"
+  "ListHeaderComponent" | "viewMode"
 > {
   emptyMessage: string;
   kind: "bookmarked" | "played";
   search: string;
-  sortBy: SortOption;
+  sortBy: CollectionSortOption;
 }
 
 export function FolgeCollection({
@@ -29,26 +30,35 @@ export function FolgeCollection({
   ListHeaderComponent,
   search,
   sortBy,
+  viewMode,
 }: FolgeCollectionProps) {
   const query = useFolgen();
   const debouncedSearch = useDebouncedValue(search);
-  const ids = useFolgeStore((state) =>
-    kind === "played" ? state.playedFolgeIds : state.bookmarkedFolgeIds,
+  const savedFolgen = useFolgeStore((state) =>
+    kind === "played" ? state.playedFolgen : state.bookmarkedFolgen,
   );
   const hasHydrated = useFolgeStore((state) => state.hasHydrated);
 
   const folgen = useMemo(() => {
     if (!query.data) return [];
 
-    const idSet = new Set(ids);
+    const idSet = new Set(savedFolgen.map((folge) => folge.folgeId));
     return query.data.filter((folge) => idSet.has(String(folge.id)));
-  }, [ids, query.data]);
+  }, [query.data, savedFolgen]);
 
-  const searchedFolgen = useMemo(
-    () =>
-      createFolgenQuery(folgen).search(debouncedSearch).sort(sortBy).results(),
-    [folgen, debouncedSearch, sortBy],
-  );
+  const searchedFolgen = useMemo(() => {
+    const query = createFolgenQuery(folgen).search(debouncedSearch);
+
+    if (sortBy === "addedAtAsc" || sortBy === "addedAtDesc") {
+      const addedAtById = new Map(
+        savedFolgen.map(({ addedAt, folgeId }) => [folgeId, addedAt]),
+      );
+      const direction = sortBy === "addedAtAsc" ? 1 : -1;
+      return sortFolgenByAddedAt(query.results(), addedAtById, direction);
+    }
+
+    return query.sort(sortBy).results();
+  }, [folgen, debouncedSearch, savedFolgen, sortBy]);
 
   if (!hasHydrated) {
     return (
@@ -63,12 +73,15 @@ export function FolgeCollection({
       ? "/(tabs)/gehoert/[folgeId]"
       : "/(tabs)/gespeichert/[folgeId]";
 
+  // Keep the viewport fixed when sorting reorders existing list items.
   return (
     <FolgenList
       detailPathname={detailPathname}
       emptyMessage={emptyMessage}
       folgen={searchedFolgen}
       ListHeaderComponent={ListHeaderComponent}
+      maintainVisibleContentPosition={{ disabled: true }}
+      viewMode={viewMode}
     />
   );
 }

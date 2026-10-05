@@ -1,6 +1,5 @@
 import * as Haptics from "expo-haptics";
 
-// eslint-disable-next-line turbo/no-undeclared-env-vars
 const isIos = process.env.EXPO_OS === "ios";
 
 /**

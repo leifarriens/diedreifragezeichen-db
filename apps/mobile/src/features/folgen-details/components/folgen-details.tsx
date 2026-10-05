@@ -8,6 +8,7 @@ import type { Folge } from "@/api/types";
 
 import { Cover } from "@/components/cover";
 import { UIButton } from "@/components/ui/button";
+import { formatFolgenSubtitle } from "@/features/folgen/format-folgen-subtitle";
 import dayjs, { formatDate } from "@/lib/date";
 import { HapticFeedback } from "@/lib/haptic-feedback";
 import { useFolgeStatus, useFolgeStore } from "@/stores/use-folge-store";
@@ -41,7 +42,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
 
       <View className="mt-5 items-center">
         <Text className="text-[20px] font-semibold text-white">
-          Die drei ??? {number ? `Folge: ${String(number)}` : ""}
+          {formatFolgenSubtitle(number)}
         </Text>
 
         <Text className="text-center text-[34px] font-bold text-white">
@@ -49,7 +50,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         </Text>
 
         {release_date ? (
-          <Text className="text-lg text-neutral-300">
+          <Text className="text-base text-neutral-300">
             {isReleased ? "Veröffentlicht am" : "Wird veröffentlicht am"}{" "}
             {formatDate(release_date)} • {dayjs(release_date).fromNow()}
           </Text>
@@ -106,7 +107,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           />
 
           {folge.weblink && isExternalHref(folge.weblink) ? (
-            <Link asChild href={folge.weblink}>
+            <Link asChild href={folge.weblink} target="_blank">
               <UIButton icon="network" />
             </Link>
           ) : null}

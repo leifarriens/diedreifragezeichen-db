@@ -49,13 +49,8 @@ export function SettingsScreen() {
                 selectedValue={streamingService ?? ""}
                 testID="streaming-service-picker"
               >
-                {/* <Picker.Item label="Bitte auswählen" value="" /> */}
-                {STREAMING_SERVICES.map((service) => (
-                  <Picker.Item
-                    key={service.value}
-                    label={service.label}
-                    value={service.value}
-                  />
+                {Object.entries(STREAMING_SERVICES).map(([value, label]) => (
+                  <Picker.Item key={value} label={label} value={value} />
                 ))}
               </Picker>
             </Row>

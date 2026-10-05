@@ -18,6 +18,7 @@ export default function DashboardStackLayout() {
         <Stack.Screen
           name="filter"
           options={{
+            contentStyle: { backgroundColor: "transparent" },
             presentation: "formSheet",
             sheetAllowedDetents: [0.5],
             title: "Filter",

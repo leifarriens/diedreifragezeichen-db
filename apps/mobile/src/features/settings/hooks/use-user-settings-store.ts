@@ -3,15 +3,9 @@ import { Platform } from "react-native";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export const STREAMING_SERVICES = [
-  { label: "Amazon Music", value: "amazon_music" },
-  { label: "Apple Music", value: "apple_music" },
-  { label: "Deezer", value: "deezer" },
-  { label: "Spotify", value: "spotify" },
-  { label: "YouTube Music", value: "youtube_music" },
-] as const;
+import type { FolgenListViewMode } from "@/features/folgen/components/folgen-list/types";
 
-export const STREAMING_SERVICES_ = {
+export const STREAMING_SERVICES = {
   amazon_music: "Amazon Music",
   apple_music: "Apple Music",
   deezer: "Deezer",
@@ -19,10 +13,12 @@ export const STREAMING_SERVICES_ = {
   youtube_music: "YouTube Music",
 } as const;
 
-export type StreamingService = (typeof STREAMING_SERVICES)[number]["value"];
+export type StreamingService = keyof typeof STREAMING_SERVICES;
 
 interface UserSettingsStore {
+  folgenListViewMode: FolgenListViewMode | null;
   hasHydrated: boolean;
+  setFolgenListViewMode: (viewMode: FolgenListViewMode | null) => void;
   setHasHydrated: () => void;
   setStreamingService: (service: null | StreamingService) => void;
   streamingService: null | StreamingService;
@@ -31,7 +27,11 @@ interface UserSettingsStore {
 export const useUserSettingsStore = create<UserSettingsStore>()(
   persist(
     (set) => ({
+      folgenListViewMode: "grid",
       hasHydrated: false,
+      setFolgenListViewMode: (folgenListViewMode) => {
+        set({ folgenListViewMode });
+      },
       setHasHydrated: () => {
         set({ hasHydrated: true });
       },
@@ -49,7 +49,10 @@ export const useUserSettingsStore = create<UserSettingsStore>()(
         }
         state.setHasHydrated();
       },
-      partialize: ({ streamingService }) => ({ streamingService }),
+      partialize: ({ folgenListViewMode, streamingService }) => ({
+        folgenListViewMode,
+        streamingService,
+      }),
       storage:
         Platform.OS === "web" && typeof window === "undefined"
           ? undefined

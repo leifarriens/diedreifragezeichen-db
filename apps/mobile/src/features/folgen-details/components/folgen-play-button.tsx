@@ -5,7 +5,7 @@ import type { Folge } from "@/api/types";
 
 import { UIButton } from "@/components/ui/button";
 import {
-  STREAMING_SERVICES_,
+  STREAMING_SERVICES,
   useUserSettingsStore,
 } from "@/features/settings/hooks/use-user-settings-store";
 
@@ -32,9 +32,9 @@ export function FolgenPlayButton({ links }: FolgenPlayButtonProps) {
   }
 
   return (
-    <Link asChild href={streamingLink}>
+    <Link asChild href={streamingLink} target="_blank">
       <UIButton
-        accessibilityLabel={`Auf ${STREAMING_SERVICES_[streamingService]} Abspielen`}
+        accessibilityLabel={`Auf ${STREAMING_SERVICES[streamingService]} Abspielen`}
         icon="play"
         intent="prominent"
         label="Play"

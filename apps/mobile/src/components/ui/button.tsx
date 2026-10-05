@@ -1,5 +1,3 @@
-import type { ButtonProps, IconName } from "@expo/ui";
-
 import { Button, Host, Icon, Row, Text } from "@expo/ui";
 import {
   accessibilityLabel as accessibilityLabelModifier,
@@ -12,27 +10,19 @@ import {
 } from "@expo/ui/swift-ui/modifiers";
 import { type ColorValue, Platform } from "react-native";
 
-export interface UIButtonProps extends Omit<
-  ButtonProps,
-  "modifiers" | "variant"
-> {
-  accessibilityLabel?: string | undefined;
-  icon?: IconName;
-  iconColor?: ColorValue | undefined;
-  iconOnly?: boolean;
-  iconSize?: number;
-  intent?: NativeButtonIntent;
-  size?: Parameters<typeof controlSize>[0];
-  tintColor?: Parameters<typeof tint>[0];
-}
+import type {
+  NativeButtonIntent,
+  NativeButtonStyle,
+  UIButtonProps,
+} from "./button.types";
 
-type NativeButtonIntent = "default" | "prominent";
+export type { UIButtonProps } from "./button.types";
 
 const intents: Record<
   NativeButtonIntent,
   {
     backgroundColor: ColorValue | undefined;
-    variant: Parameters<typeof buttonStyle>[0];
+    variant: NativeButtonStyle;
   }
 > = {
   default: {

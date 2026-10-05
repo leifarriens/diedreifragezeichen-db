@@ -1,13 +1,14 @@
 import { Stack } from "expo-router";
 import { useState } from "react";
 
-import type { SortOption } from "@/features/folgen/sort";
+import type { CollectionSortOption } from "@/features/folgen/sort";
 
 import { FolgeCollection } from "@/features/folgen/components/folge-collection";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
+import { COLLECTION_SORT_OPTIONS } from "@/features/folgen/sort";
 
 export default function GespeichertScreen() {
-  const [sortBy, setSortBy] = useState<SortOption>("dateDesc");
+  const [sortBy, setSortBy] = useState<CollectionSortOption>("addedAtDesc");
   const [search, setSearch] = useState("");
 
   return (
@@ -23,8 +24,13 @@ export default function GespeichertScreen() {
             placement: "integratedCentered",
           },
           title: "Gespeichert",
-          unstable_headerRightItems: () =>
-            headerSortMenu({ setSortBy, sortBy }),
+          unstable_headerRightItems: () => [
+            ...headerSortMenu({
+              options: COLLECTION_SORT_OPTIONS,
+              setSortBy,
+              sortBy,
+            }),
+          ],
         }}
       />
 
@@ -33,6 +39,7 @@ export default function GespeichertScreen() {
         kind="bookmarked"
         search={search}
         sortBy={sortBy}
+        viewMode="list"
       />
     </>
   );

@@ -46,7 +46,12 @@ it("starts with Spotify selected and hydrates automatically", async () => {
 
 it("offers exactly the five supported streaming services", async () => {
   const { STREAMING_SERVICES } = await loadStore();
-  expect(STREAMING_SERVICES).toEqual([
+  expect(
+    Object.entries(STREAMING_SERVICES).map(([value, label]) => ({
+      label,
+      value,
+    })),
+  ).toEqual([
     { label: "Amazon Music", value: "amazon_music" },
     { label: "Apple Music", value: "apple_music" },
     { label: "Deezer", value: "deezer" },
@@ -57,17 +62,17 @@ it("offers exactly the five supported streaming services", async () => {
 
 it("persists each selection without storing actions or hydration state", async () => {
   const { STREAMING_SERVICES, useUserSettingsStore } = await loadStore();
-  for (const { value } of STREAMING_SERVICES) {
+  for (const value of Object.keys(STREAMING_SERVICES) as (keyof typeof STREAMING_SERVICES)[]) {
     useUserSettingsStore.getState().setStreamingService(value);
     expect(useUserSettingsStore.getState().streamingService).toBe(value);
     expect(JSON.parse(saved.get("user-settings") ?? "null")).toEqual({
-      state: { streamingService: value },
+      state: { folgenListViewMode: "grid", streamingService: value },
       version: 1,
     });
   }
   useUserSettingsStore.getState().setStreamingService(null);
   expect(JSON.parse(saved.get("user-settings") ?? "null")).toEqual({
-    state: { streamingService: null },
+    state: { folgenListViewMode: "grid", streamingService: null },
     version: 1,
   });
 });
@@ -80,6 +85,19 @@ it("restores the selected service after a fresh module load", async () => {
   expect(second.useUserSettingsStore.getState().streamingService).toBe(
     "deezer",
   );
+});
+
+it("persists and restores the selected Folgen list view mode", async () => {
+  const first = await loadStore();
+  first.useUserSettingsStore.getState().setFolgenListViewMode("list");
+  expect(JSON.parse(saved.get("user-settings") ?? "null")).toEqual({
+    state: { folgenListViewMode: "list", streamingService: "spotify" },
+    version: 1,
+  });
+
+  vi.resetModules();
+  const second = await loadStore();
+  expect(second.useUserSettingsStore.getState().folgenListViewMode).toBe("list");
 });
 
 it("notifies subscribers when the selected service changes", async () => {

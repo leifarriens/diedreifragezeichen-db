@@ -3,14 +3,19 @@ import { Platform } from "react-native";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+export interface SavedFolge {
+  addedAt: number;
+  folgeId: string;
+}
+
 interface FolgeStore {
-  bookmarkedFolgeIds: string[];
+  bookmarkedFolgen: SavedFolge[];
   getFolgeStatus: (folgeId: string) => {
     isBookmarked: boolean;
     isPlayed: boolean;
   };
   hasHydrated: boolean;
-  playedFolgeIds: string[];
+  playedFolgen: SavedFolge[];
   setHasHydrated: () => void;
   toggleBookmark: (folgeId: string) => void;
   togglePlayed: (folgeId: string) => void;
@@ -19,28 +24,50 @@ interface FolgeStore {
 export const useFolgeStore = create<FolgeStore>()(
   persist(
     (set, get) => ({
-      bookmarkedFolgeIds: [],
+      bookmarkedFolgen: [],
       getFolgeStatus: (folgeId) => ({
-        isBookmarked: get().bookmarkedFolgeIds.includes(folgeId),
-        isPlayed: get().playedFolgeIds.includes(folgeId),
+        isBookmarked: get().bookmarkedFolgen.some(
+          (folge) => folge.folgeId === folgeId,
+        ),
+        isPlayed: get().playedFolgen.some((folge) => folge.folgeId === folgeId),
       }),
       hasHydrated: false,
-      playedFolgeIds: [],
+      playedFolgen: [],
       setHasHydrated: () => {
         set({ hasHydrated: true });
       },
       toggleBookmark: (folgeId) => {
         set((state) => ({
-          bookmarkedFolgeIds: toggleId(state.bookmarkedFolgeIds, folgeId),
+          bookmarkedFolgen: toggleFolge(state.bookmarkedFolgen, folgeId),
         }));
       },
       togglePlayed: (folgeId) => {
         set((state) => ({
-          playedFolgeIds: toggleId(state.playedFolgeIds, folgeId),
+          playedFolgen: toggleFolge(state.playedFolgen, folgeId),
         }));
       },
     }),
     {
+      migrate: (persistedState) => {
+        const state =
+          typeof persistedState === "object" && persistedState !== null
+            ? (persistedState as Record<string, unknown>)
+            : {};
+        const migratedAt = Date.now();
+
+        return {
+          bookmarkedFolgen: migrateFolgen(
+            state.bookmarkedFolgen,
+            state.bookmarkedFolgeIds,
+            migratedAt,
+          ),
+          playedFolgen: migrateFolgen(
+            state.playedFolgen,
+            state.playedFolgeIds,
+            migratedAt,
+          ),
+        };
+      },
       name: "folge-preferences",
       onRehydrateStorage: (state) => (_state, error: unknown) => {
         if (error) {
@@ -49,29 +76,62 @@ export const useFolgeStore = create<FolgeStore>()(
         }
         state.setHasHydrated();
       },
-      partialize: ({ bookmarkedFolgeIds, playedFolgeIds }) => ({
-        bookmarkedFolgeIds,
-        playedFolgeIds,
+      partialize: ({ bookmarkedFolgen, playedFolgen }) => ({
+        bookmarkedFolgen,
+        playedFolgen,
       }),
       storage:
         Platform.OS === "web" && typeof window === "undefined"
           ? undefined
           : createJSONStorage(() => AsyncStorage),
-      version: 1,
+      version: 2,
     },
   ),
 );
 
 export function useFolgeStatus(folgeId: string) {
   const isBookmarked = useFolgeStore((state) =>
-    state.bookmarkedFolgeIds.includes(folgeId),
+    state.bookmarkedFolgen.some((folge) => folge.folgeId === folgeId),
   );
   const isPlayed = useFolgeStore((state) =>
-    state.playedFolgeIds.includes(folgeId),
+    state.playedFolgen.some((folge) => folge.folgeId === folgeId),
   );
   return { isBookmarked, isPlayed };
 }
 
-function toggleId(ids: string[], id: string) {
-  return ids.includes(id) ? ids.filter((value) => value !== id) : [...ids, id];
+function isSaved(folgen: SavedFolge[], folgeId: string) {
+  return folgen.some((folge) => folge.folgeId === folgeId);
+}
+
+function isSavedFolge(folge: unknown): folge is SavedFolge {
+  return (
+    typeof folge === "object" &&
+    folge !== null &&
+    "folgeId" in folge &&
+    typeof folge.folgeId === "string" &&
+    "addedAt" in folge &&
+    typeof folge.addedAt === "number"
+  );
+}
+
+function migrateFolgen(
+  savedFolgen: unknown,
+  legacyIds: unknown,
+  migratedAt: number,
+): SavedFolge[] {
+  if (Array.isArray(savedFolgen)) {
+    return savedFolgen.filter(isSavedFolge);
+  }
+
+  if (!Array.isArray(legacyIds)) return [];
+
+  return legacyIds.flatMap((folgeId): SavedFolge[] =>
+    typeof folgeId === "string" ? [{ addedAt: migratedAt, folgeId }] : [],
+  );
+}
+
+function toggleFolge(folgen: SavedFolge[], folgeId: string): SavedFolge[] {
+  return isSaved(folgen, folgeId)
+    ? folgen.filter((folge) => folge.folgeId !== folgeId)
+    : [...folgen, { addedAt: Date.now(), folgeId }];
 }

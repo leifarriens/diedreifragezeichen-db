@@ -4,27 +4,37 @@ import { View } from "react-native";
 
 import type { Folge } from "@/api/types";
 
+import type { FolgenListViewMode } from "./types";
+
 import { type FolgeDetailPathname, FolgenListItem } from "./folgen-list-item";
 
 export interface FolgenListProps extends Pick<
   FlashListProps<Folge>,
-  "ListEmptyComponent" | "ListHeaderComponent"
+  | "ListEmptyComponent"
+  | "ListHeaderComponent"
+  | "maintainVisibleContentPosition"
 > {
   detailPathname: FolgeDetailPathname;
   emptyMessage?: string;
   folgen: Folge[];
+  viewMode: FolgenListViewMode;
 }
 
 export function FolgenList({
   detailPathname,
   folgen,
+  viewMode,
   ...rest
 }: FolgenListProps) {
   const renderItem = useCallback(
     ({ item }: { item: Folge }) => (
-      <FolgenListItem detailPathname={detailPathname} item={item} />
+      <FolgenListItem
+        detailPathname={detailPathname}
+        item={item}
+        viewMode={viewMode}
+      />
     ),
-    [detailPathname],
+    [detailPathname, viewMode],
   );
 
   return (
@@ -33,9 +43,12 @@ export function FolgenList({
       contentContainerClassName="px-3 py-3"
       contentInsetAdjustmentBehavior="automatic"
       data={folgen}
-      ItemSeparatorComponent={FolgenListSeparator}
+      ItemSeparatorComponent={
+        viewMode === "grid" ? FolgenListSeparator : undefined
+      }
+      key={viewMode}
       keyExtractor={archiveKeyExtractor}
-      numColumns={2}
+      numColumns={viewMode === "grid" ? 2 : 1}
       renderItem={renderItem}
       {...rest}
     />

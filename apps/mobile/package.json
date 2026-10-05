@@ -9,17 +9,20 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "build": "expo export --platform web",
     "lint": "eslint --cache --cache-location .cache/.eslintcache",
     "test": "vitest run",
     "typecheck": "expo export --platform web && tsc --noEmit"
   },
   "dependencies": {
     "@ddfdb/archiv": "workspace:*",
+    "@expo/config": "^58.0.2",
     "@expo/material-symbols": "^0.1.1",
     "@expo/ui": "~58.0.12",
     "@react-native-async-storage/async-storage": "2.2.0",
     "@shopify/flash-list": "2.3.2",
     "@tanstack/react-query": "5.104.0",
+    "clsx": "^2.1.1",
     "dayjs": "^1.11.23",
     "expo": "~58.0.3",
     "expo-blur": "~58.0.3",
@@ -47,6 +50,7 @@
     "react-native-screens": "~4.28.0",
     "react-native-web": "~0.21.3",
     "react-native-worklets": "0.13.0",
+    "tailwind-merge": "^3.7.0",
     "zustand": "^5.0.15"
   },
   "devDependencies": {

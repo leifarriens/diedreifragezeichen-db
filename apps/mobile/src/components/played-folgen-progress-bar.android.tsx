@@ -1,8 +1,6 @@
 import { Host } from "@expo/ui";
 import { LinearProgressIndicator } from "@expo/ui/jetpack-compose";
-import { useColorScheme } from "react-native";
-
-import { DdfColors } from "@/Theme";
+import { useTheme } from "expo-router";
 
 interface PlayedFolgenProgressBarProps {
   progress: number;
@@ -11,8 +9,7 @@ interface PlayedFolgenProgressBarProps {
 export function PlayedFolgenProgressBar({
   progress,
 }: PlayedFolgenProgressBarProps) {
-  const colorScheme = useColorScheme();
-  const colors = DdfColors[colorScheme === "dark" ? "dark" : "light"];
+  const theme = useTheme();
 
   return (
     <Host
@@ -20,9 +17,9 @@ export function PlayedFolgenProgressBar({
       style={{ height: 24, width: "100%" }}
     >
       <LinearProgressIndicator
-        color={colors.accent}
+        color={theme.colors.primary}
         progress={progress}
-        trackColor={colors.border}
+        trackColor={theme.colors.border}
       />
     </Host>
   );

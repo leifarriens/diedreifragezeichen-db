@@ -1,6 +1,5 @@
-import { StyleSheet, useColorScheme, View } from "react-native";
-
-import { DdfColors } from "@/Theme";
+import { useTheme } from "expo-router";
+import { StyleSheet, View } from "react-native";
 
 import { AsyncImage } from "./async-image";
 
@@ -23,7 +22,7 @@ export function Cover({ imageUrl }: CoverProps) {
 }
 
 function ImagePlaceholder() {
-  const colorScheme = useColorScheme();
+  const theme = useTheme();
 
   return (
     <View
@@ -32,10 +31,7 @@ function ImagePlaceholder() {
       style={[
         styles.cover,
         {
-          backgroundColor:
-            colorScheme === "dark"
-              ? DdfColors.dark.surface
-              : DdfColors.light.surface,
+          backgroundColor: theme.colors.card,
         },
       ]}
     />

@@ -1,6 +1,5 @@
-import { useColorScheme, View } from "react-native";
-
-import { DdfColors } from "@/Theme";
+import { useTheme } from "expo-router";
+import { View } from "react-native";
 
 interface PlayedFolgenProgressBarProps {
   progress: number;
@@ -9,20 +8,19 @@ interface PlayedFolgenProgressBarProps {
 export function PlayedFolgenProgressBar({
   progress,
 }: PlayedFolgenProgressBarProps) {
-  const colorScheme = useColorScheme();
-  const colors = DdfColors[colorScheme === "dark" ? "dark" : "light"];
+  const theme = useTheme();
 
   return (
     <View
       accessibilityLabel="Anteil gehörter Folgen"
       accessibilityValue={{ max: 100, min: 0, now: progress * 100 }}
       className="h-2 w-full overflow-hidden rounded-full"
-      style={{ backgroundColor: colors.border }}
+      style={{ backgroundColor: theme.colors.border }}
     >
       <View
         className="h-full rounded-full"
         style={{
-          backgroundColor: colors.accent,
+          backgroundColor: theme.colors.primary,
           width: `${(progress * 100).toString()}%`,
         }}
       />

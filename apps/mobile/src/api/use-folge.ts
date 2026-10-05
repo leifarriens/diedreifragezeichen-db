@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { Folge } from "./types";
 
+import { archivApi } from "./archiv";
 import { folgenQueryKey } from "./use-folgen";
 
 export function useFolge(folgeId: string) {
@@ -15,22 +16,7 @@ export function useFolge(folgeId: string) {
       return folge;
     },
     queryFn: async () => {
-      const apiUrl: unknown = process.env.EXPO_PUBLIC_DDFDB_ARCHIV_API_URL;
-
-      if (typeof apiUrl !== "string" || !apiUrl) {
-        throw new Error("Die API-Konfiguration fehlt.");
-      }
-
-      const response = await fetch(
-        `${apiUrl.replace(/\/$/, "")}/folgen/${folgeId}`,
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const json = (await response.json()) as Folge;
-
-      return json;
+      return archivApi.getFolgeById(folgeId);
     },
     queryKey: ["folge", folgeId],
   });

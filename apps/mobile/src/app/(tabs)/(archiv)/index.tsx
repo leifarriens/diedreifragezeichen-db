@@ -1,11 +1,11 @@
-import { Image } from "expo-image";
 import { Stack, useRouter } from "expo-router";
 import { useDeferredValue, useMemo, useState } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 import { useFolgen } from "@/api/use-folgen";
-import logo from "@/assets/logo.png";
+import { Logo } from "@/components/logo";
 import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
+import { useViewMode } from "@/features/folgen/components/folgen-list/view-mode";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
 import { createFolgenQuery } from "@/features/folgen/query";
 import { type SortOption } from "@/features/folgen/sort";
@@ -21,6 +21,7 @@ export default function ArchivScreen() {
   const deferredShowSpecials = useDeferredValue(filters.showSpecials);
   const query = useFolgen();
   const { error, fetchStatus, isError, isLoading, refetch } = query;
+  const { viewMode, viewModeMenu } = useViewMode();
 
   const searchableEpisodes = useMemo(
     () =>
@@ -58,17 +59,11 @@ export default function ArchivScreen() {
             placement: "integratedCentered",
           },
           headerShown: true,
-          headerTitle: () => (
-            <Image
-              contentFit="contain"
-              source={logo}
-              style={{ height: 30, width: 80 }}
-            />
-          ),
+          headerTitle: () => <Logo />,
           title: "",
           unstable_headerLeftItems: () => [
             {
-              icon: { name: "filemenu.and.pointer.arrow", type: "sfSymbol" },
+              icon: { name: "line.3.horizontal.decrease", type: "sfSymbol" },
               label: "Filter",
               onPress() {
                 router.navigate("/(tabs)/(archiv)/filter");
@@ -76,8 +71,17 @@ export default function ArchivScreen() {
               type: "button",
             },
           ],
-          unstable_headerRightItems: () =>
-            headerSortMenu({ setSortBy, sortBy }),
+          unstable_headerRightItems: () => [
+            ...viewModeMenu,
+            ...headerSortMenu({
+              setSortBy: (value) => {
+                if (value === "dateAsc" || value === "dateDesc") {
+                  setSortBy(value);
+                }
+              },
+              sortBy,
+            }),
+          ],
         }}
       />
 
@@ -104,6 +108,7 @@ export default function ArchivScreen() {
             )}
           </View>
         }
+        viewMode={viewMode}
       />
     </>
   );

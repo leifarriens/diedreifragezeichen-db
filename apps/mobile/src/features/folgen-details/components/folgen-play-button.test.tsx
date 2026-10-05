@@ -19,7 +19,7 @@ vi.mock("expo-router", () => ({ Link: "Link" }));
 vi.mock("react-native", () => ({ View: "View" }));
 vi.mock("@/components/ui/button", () => ({ UIButton: "UIButton" }));
 vi.mock("@/features/settings/hooks/use-user-settings-store", () => ({
-  STREAMING_SERVICES_: {
+  STREAMING_SERVICES: {
     amazon_music: "Amazon Music",
     apple_music: "Apple Music",
     deezer: "Deezer",

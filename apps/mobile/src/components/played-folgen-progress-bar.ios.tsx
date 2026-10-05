@@ -1,8 +1,6 @@
 import { Host } from "@expo/ui";
 import { ProgressView } from "@expo/ui/swift-ui";
-import { useColorScheme } from "react-native";
-
-import { DdfColors } from "@/Theme";
+import { useTheme } from "expo-router";
 
 interface PlayedFolgenProgressBarProps {
   progress: number;
@@ -11,13 +9,12 @@ interface PlayedFolgenProgressBarProps {
 export function PlayedFolgenProgressBar({
   progress,
 }: PlayedFolgenProgressBarProps) {
-  const colorScheme = useColorScheme();
-  const colors = DdfColors[colorScheme === "dark" ? "dark" : "light"];
+  const theme = useTheme();
 
   return (
     <Host
       accessibilityLabel="Anteil gehörter Folgen"
-      seedColor={colors.accent}
+      seedColor={theme.colors.primary}
       style={{ height: 24, width: "100%" }}
     >
       <ProgressView value={progress} />
