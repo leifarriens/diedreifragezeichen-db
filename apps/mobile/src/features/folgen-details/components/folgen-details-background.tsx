@@ -21,7 +21,7 @@ export function BlurBackground({
       <BlurView
         intensity={100}
         style={StyleSheet.absoluteFill}
-        tint="systemThickMaterialDark"
+        tint="systemMaterial"
       />
     </Animated.View>
   );

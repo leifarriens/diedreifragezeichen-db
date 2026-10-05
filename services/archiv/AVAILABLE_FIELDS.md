@@ -18,7 +18,7 @@ This is a field inventory for the upstream SQLite schema downloaded from [`metad
 | `release_date`   | `hörspiel.veröffentlichungsdatum`; `null` when missing                                                                                                                                                                                                                       |
 | `total_duration` | Sum of the chapter track durations. For multipart entries, sum the child-part chapter durations. `null` when no chapter duration is available.                                                                                                                               |
 | `links`          | Object keyed by available service names (`apple_music`, `spotify`, `bookbeat`, `amazon_music`, `amazon`, `youtube_music`, `deezer`); each value is that service's URL. URLs are formed from the corresponding IDs using the same URL patterns as the upstream JSON exporter. |
-| `cover`          | `hörspiel.urlCoverDreifragezeichen`, the official CDN cover URL; `null` when missing                                                                                                                                                                                         |
+| `cover`          | First non-empty URL among `hörspiel.urlCoverDreifragezeichen`, `hörspiel.urlCoverApple` (iTunes), and `hörspiel.urlCoverKosmos`, in that order; `null` when all are missing                                                                                                                                                                                         |
 | `weblink`        | `hörspiel.urlDreifragezeichen`, the official product page URL corresponding to upstream `links.dreifragezeichen`; `null` when missing                                                                                                                                        |
 | `artwork`        | Link to the upstream artwork asset when `hörspiel.artwork` is nonzero. Numbered collections use their formatted number; other collections use the upstream title-derived directory name. `null` when missing.                                                                |
 
@@ -53,7 +53,7 @@ One row per audio play. This is the main source for list and detail fields.
 | `idYouTubeMusic`           | TEXT        | Yes      | YouTube Music identifier                                       |
 | `idDeezer`                 | TEXT        | Yes      | Deezer identifier                                              |
 
-The image URL fields are directly usable as external image links. The selected API exposes `urlCoverDreifragezeichen` as `cover`; the artwork asset URL is derived from the collection path and title or number.
+The image URL fields are directly usable as external image links. The selected API exposes the first available URL from `urlCoverDreifragezeichen`, `urlCoverApple`, then `urlCoverKosmos` as `cover`; the artwork asset URL is derived from the collection path and title or number.
 
 ## Collections and numbering
 

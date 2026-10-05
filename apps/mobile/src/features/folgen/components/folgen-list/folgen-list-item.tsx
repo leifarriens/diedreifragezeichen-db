@@ -1,11 +1,10 @@
-import { useRouter } from "expo-router";
+import { Link } from "expo-router";
 import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
 
 import type { Folge } from "@/api/types";
 
 import { formatDate } from "@/lib/date";
-import { HapticFeedback } from "@/lib/haptic-feedback";
 
 import { Cover } from "../../../../components/cover";
 
@@ -23,24 +22,20 @@ export const FolgenListItem = memo(function FolgenGridItem({
   detailPathname,
   item,
 }: FolgenListItemProps) {
-  const router = useRouter();
-
-  function handlePress() {
-    router.push({
-      params: { folgeId: item.id },
-      pathname: detailPathname,
-    });
-
-    HapticFeedback.selection();
-  }
-
   const image = item.cover;
 
   return (
     <View className="mb-2 w-full gap-2 px-2">
-      <Pressable onPress={handlePress}>
-        <Cover imageUrl={image} />
-      </Pressable>
+      <Link
+        asChild
+        href={{ params: { folgeId: item.id }, pathname: detailPathname }}
+      >
+        <Link.AppleZoom>
+          <Pressable>
+            <Cover imageUrl={image} />
+          </Pressable>
+        </Link.AppleZoom>
+      </Link>
 
       <View className="flex-row justify-between">
         {item.release_date ? (

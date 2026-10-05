@@ -27,7 +27,7 @@ const ArchiveFilterContext = createContext<ArchiveFilterContextValue | null>(
 
 const initialFilters: ArchiveFilters = {
   endDate: null,
-  showSpecials: false,
+  showSpecials: true,
   startDate: null,
 };
 

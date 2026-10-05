@@ -67,6 +67,11 @@ INSERT INTO "kurzgeschichten" VALUES (3);
 INSERT INTO "hörspielTeil" VALUES (5, 4, 1);
 INSERT INTO "track" VALUES (1, 1000), (2, 2000), (3, 400), (4, 600);
 INSERT INTO "kapitel" VALUES (1, 1, 1, NULL), (2, 1, 2, NULL), (3, 5, 1, NULL), (4, 5, 2, NULL);
+ALTER TABLE "hörspiel" ADD COLUMN "urlCoverApple" TEXT;
+ALTER TABLE "hörspiel" ADD COLUMN "urlCoverKosmos" TEXT;
+UPDATE "hörspiel" SET "urlCoverApple" = 'https://cdn.example/itunes1', "urlCoverKosmos" = 'https://cdn.example/kosmos1' WHERE "hörspielID" = 1;
+UPDATE "hörspiel" SET "urlCoverApple" = 'https://cdn.example/itunes2', "urlCoverKosmos" = 'https://cdn.example/kosmos2' WHERE "hörspielID" = 2;
+UPDATE "hörspiel" SET "urlCoverApple" = '', "urlCoverKosmos" = 'https://cdn.example/kosmos4' WHERE "hörspielID" = 4;
 `
 
 func TestLoadFolgenMapsSelectedFields(t *testing.T) {
@@ -113,14 +118,20 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 	if specialFolge.Collection != "spezial" || specialFolge.Number != nil || specialFolge.Description == nil || *specialFolge.Description != "Metabeschreibung" {
 		t.Fatalf("unexpected special fields: %+v", specialFolge)
 	}
-	if specialFolge.TotalDuration != nil || specialFolge.Cover != nil {
-		t.Fatalf("expected missing duration and cover to be null: %+v", specialFolge)
+	if specialFolge.TotalDuration != nil {
+		t.Fatalf("expected missing duration to be null: %+v", specialFolge)
+	}
+	if specialFolge.Cover == nil || *specialFolge.Cover != "https://cdn.example/itunes2" {
+		t.Fatalf("expected Apple cover fallback: %+v", specialFolge.Cover)
 	}
 	if specialFolge.Artwork == nil || *specialFolge.Artwork != "https://dreimetadaten.de/data/Spezial/Master-of-Chess-Live--Unplugged/artwork.webp" {
 		t.Fatalf("unexpected special artwork URL: %+v", specialFolge.Artwork)
 	}
 	if folgen[2].ID != 4 || folgen[2].Number != nil || folgen[2].TotalDuration == nil || *folgen[2].TotalDuration != 1000 {
 		t.Fatalf("expected multipart special duration to sum child chapters: %+v", folgen[2])
+	}
+	if folgen[2].Cover == nil || *folgen[2].Cover != "https://cdn.example/kosmos4" {
+		t.Fatalf("expected Kosmos cover fallback after an empty Apple URL: %+v", folgen[2].Cover)
 	}
 }
 

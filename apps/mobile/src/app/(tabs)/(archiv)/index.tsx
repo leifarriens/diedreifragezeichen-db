@@ -37,15 +37,13 @@ export default function ArchivScreen() {
     [query.data, debouncedSearch, sortBy, filters.startDate, filters.endDate],
   );
 
-  const episodes = useMemo(
-    () =>
-      searchableEpisodes
-        ? createFolgenQuery(searchableEpisodes)
-            .showSpecials(deferredShowSpecials)
-            .results()
-        : undefined,
-    [searchableEpisodes, deferredShowSpecials],
-  );
+  const episodes = useMemo(() => {
+    return searchableEpisodes
+      ? createFolgenQuery(searchableEpisodes)
+          .showSpecials(deferredShowSpecials)
+          .results()
+      : undefined;
+  }, [searchableEpisodes, deferredShowSpecials]);
 
   return (
     <>

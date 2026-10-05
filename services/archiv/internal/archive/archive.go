@@ -43,7 +43,11 @@ SELECT
   h."idAmazon",
   h."idYouTubeMusic",
   h."idDeezer",
-  h."urlCoverDreifragezeichen",
+  COALESCE(
+    NULLIF(h."urlCoverDreifragezeichen", ''),
+    NULLIF(h."urlCoverApple", ''),
+    NULLIF(h."urlCoverKosmos", '')
+  ),
   h."urlDreifragezeichen",
   h."artwork"
 FROM "alleIDs" AS a
