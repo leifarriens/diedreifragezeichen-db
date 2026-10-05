@@ -7,7 +7,7 @@ import type { Folge } from "@/api/types";
 import { formatDate } from "@/lib/date";
 import { HapticFeedback } from "@/lib/haptic-feedback";
 
-import { Cover } from "../cover";
+import { Cover } from "../../../../components/cover";
 
 export type FolgeDetailPathname =
   | "/(tabs)/(archiv)/[folgeId]"
@@ -37,19 +37,20 @@ export const FolgenListItem = memo(function FolgenGridItem({
   const image = item.cover;
 
   return (
-    <View className="mb-2 w-1/2 shrink-0 grow-0 gap-1 px-2">
+    <View className="mb-2 w-full gap-2 px-2">
       <Pressable onPress={handlePress}>
         <Cover imageUrl={image} />
       </Pressable>
 
-      {item.release_date ? (
-        <View>
-          <Text className="text-sm text-neutral-300">
-            {formatDate(item.release_date)}
-          </Text>
-          <Text className="text-sm text-neutral-300">{item.id}</Text>
-        </View>
-      ) : null}
+      <View className="flex-row justify-between">
+        {item.release_date ? (
+          <View>
+            <Text className="text-sm text-neutral-300">
+              {formatDate(item.release_date)}
+            </Text>
+          </View>
+        ) : null}
+      </View>
     </View>
   );
 });

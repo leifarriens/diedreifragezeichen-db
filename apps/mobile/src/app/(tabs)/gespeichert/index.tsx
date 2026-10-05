@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import type { SortOption } from "@/features/folgen/sort";
 
-import { FolgeCollection } from "@/components/folge-collection";
+import { FolgeCollection } from "@/features/folgen/components/folge-collection";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
 
 export default function GespeichertScreen() {

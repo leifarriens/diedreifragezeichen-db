@@ -2,6 +2,8 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import type { Folge } from "./types";
 
+import { filterReleasedFolgen } from "./filter-released-folgen";
+
 export const folgenQueryKey = ["folgen"] as const;
 
 export function useFolgen() {
@@ -38,7 +40,9 @@ function getFolgenQueryOptions() {
         );
       }
 
-      return (await res.json()) as Folge[];
+      const folgen = (await res.json()) as Folge[];
+
+      return filterReleasedFolgen(folgen);
     },
     queryKey: folgenQueryKey,
     staleTime: Infinity,

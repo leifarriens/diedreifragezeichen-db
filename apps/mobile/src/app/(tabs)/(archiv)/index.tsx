@@ -5,7 +5,7 @@ import { ActivityIndicator, Pressable, Text, View } from "react-native";
 
 import { useFolgen } from "@/api/use-folgen";
 import logo from "@/assets/logo.png";
-import { FolgenList } from "@/components/folgen-list/folgen-list";
+import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
 import { headerSortMenu } from "@/features/folgen/header-sort-menu";
 import { createFolgenQuery } from "@/features/folgen/query";
 import { type SortOption } from "@/features/folgen/sort";

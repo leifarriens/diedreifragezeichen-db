@@ -1,14 +1,14 @@
 import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
-import type { FolgeDetailPathname } from "@/components/folgen-list/folgen-list-item";
+import type { FolgeDetailPathname } from "@/features/folgen/components/folgen-list/folgen-list-item";
 import type { SortOption } from "@/features/folgen/sort";
 
 import { useFolgen } from "@/api/use-folgen";
 import {
   FolgenList,
   type FolgenListProps,
-} from "@/components/folgen-list/folgen-list";
+} from "@/features/folgen/components/folgen-list/folgen-list";
 import { createFolgenQuery } from "@/features/folgen/query";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useFolgeStore } from "@/stores/use-folge-store";

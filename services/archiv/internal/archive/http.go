@@ -10,6 +10,8 @@ import (
 	"github.com/rs/zerolog/hlog"
 )
 
+const localClientOrigin = "http://localhost:8081"
+
 type archiveHandler struct {
 	folgen []Folge
 	byID   map[int64]Folge
@@ -44,7 +46,32 @@ func newHTTPHandler(folgen []Folge, logger zerolog.Logger) http.Handler {
 			Dur("duration", duration).
 			Msg("http request")
 	})
-	return hlog.NewHandler(logger)(logRequests(mux))
+	return hlog.NewHandler(logger)(logRequests(withCORS(mux)))
+}
+
+func withCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Add("Vary", "Origin")
+		origin := r.Header.Get("Origin")
+		if origin != localClientOrigin {
+			if r.Method == http.MethodOptions {
+				writeJSON(w, http.StatusForbidden, map[string]string{"error": "origin not allowed"})
+				return
+			}
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		w.Header().Set("Access-Control-Allow-Origin", origin)
+		w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Max-Age", "600")
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 func (h *archiveHandler) root(w http.ResponseWriter, _ *http.Request) {

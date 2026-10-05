@@ -1,14 +1,13 @@
+import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { useCallback } from "react";
-import Animated, { LinearTransition } from "react-native-reanimated";
+import { View } from "react-native";
 
 import type { Folge } from "@/api/types";
 
 import { type FolgeDetailPathname, FolgenListItem } from "./folgen-list-item";
 
-const archiveKeyExtractor = (item: Folge) => String(item.id);
-
 export interface FolgenListProps extends Pick<
-  React.ComponentProps<typeof Animated.FlatList>,
+  FlashListProps<Folge>,
   "ListEmptyComponent" | "ListHeaderComponent"
 > {
   detailPathname: FolgeDetailPathname;
@@ -29,17 +28,22 @@ export function FolgenList({
   );
 
   return (
-    <Animated.FlatList<Folge>
+    <FlashList<Folge>
       className="flex-1"
-      columnWrapperStyle={{ paddingHorizontal: 12 }}
-      contentContainerClassName="gap-3 py-3"
+      contentContainerClassName="px-3 py-3"
       contentInsetAdjustmentBehavior="automatic"
       data={folgen}
-      itemLayoutAnimation={LinearTransition}
+      ItemSeparatorComponent={FolgenListSeparator}
       keyExtractor={archiveKeyExtractor}
       numColumns={2}
       renderItem={renderItem}
       {...rest}
     />
   );
+}
+
+const archiveKeyExtractor = (item: Folge) => String(item.id);
+
+function FolgenListSeparator() {
+  return <View className="h-3" />;
 }

@@ -23,6 +23,11 @@ export default function TabLayout() {
         <NativeTabs.Trigger.Label>Gespeichert</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="bookmark" sf="bookmark" />
       </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="settings">
+        <NativeTabs.Trigger.Label>Einstellungen</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="settings" sf="gear" />
+      </NativeTabs.Trigger>
     </NativeTabs>
   );
 }

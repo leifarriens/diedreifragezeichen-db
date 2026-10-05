@@ -191,6 +191,48 @@ func TestHTTPHandlerLogsRequestMetadata(t *testing.T) {
 	}
 }
 
+func TestCORSAllowsLocalClientAndPreflight(t *testing.T) {
+	handler := newHTTPHandler(nil, zerolog.New(io.Discard))
+	preflight := httptest.NewRequest(http.MethodOptions, "/folgen", nil)
+	preflight.Header.Set("Origin", localClientOrigin)
+	preflight.Header.Set("Access-Control-Request-Method", http.MethodGet)
+	preflightResponse := httptest.NewRecorder()
+	handler.ServeHTTP(preflightResponse, preflight)
+
+	if preflightResponse.Code != http.StatusNoContent {
+		t.Fatalf("preflight status = %d, want %d", preflightResponse.Code, http.StatusNoContent)
+	}
+	if preflightResponse.Header().Get("Access-Control-Allow-Origin") != localClientOrigin {
+		t.Fatalf("unexpected allowed origin: %q", preflightResponse.Header().Get("Access-Control-Allow-Origin"))
+	}
+	if preflightResponse.Header().Get("Access-Control-Allow-Methods") != "GET, OPTIONS" {
+		t.Fatalf("unexpected allowed methods: %q", preflightResponse.Header().Get("Access-Control-Allow-Methods"))
+	}
+
+	request := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+	request.Header.Set("Origin", localClientOrigin)
+	response := httptest.NewRecorder()
+	handler.ServeHTTP(response, request)
+	if response.Code != http.StatusOK || response.Header().Get("Access-Control-Allow-Origin") != localClientOrigin {
+		t.Fatalf("GET response did not allow the local origin: status=%d headers=%v", response.Code, response.Header())
+	}
+}
+
+func TestCORSRejectsUnexpectedPreflightOrigin(t *testing.T) {
+	handler := newHTTPHandler(nil, zerolog.New(io.Discard))
+	request := httptest.NewRequest(http.MethodOptions, "/folgen", nil)
+	request.Header.Set("Origin", "http://example.com")
+	response := httptest.NewRecorder()
+	handler.ServeHTTP(response, request)
+
+	if response.Code != http.StatusForbidden {
+		t.Fatalf("preflight status = %d, want %d", response.Code, http.StatusForbidden)
+	}
+	if response.Header().Get("Access-Control-Allow-Origin") != "" {
+		t.Fatalf("unexpected allowed origin: %q", response.Header().Get("Access-Control-Allow-Origin"))
+	}
+}
+
 func TestOpenDatabaseCachesRecentDatabase(t *testing.T) {
 	var downloads atomic.Int32
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {

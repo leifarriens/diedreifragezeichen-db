@@ -2,7 +2,7 @@ import type { ButtonProps, IconName } from "@expo/ui";
 
 import { Button, Host, Icon, Row, Text } from "@expo/ui";
 import {
-  accessibilityLabel,
+  accessibilityLabel as accessibilityLabelModifier,
   buttonBorderShape,
   buttonStyle,
   controlSize,
@@ -16,6 +16,7 @@ export interface UIButtonProps extends Omit<
   ButtonProps,
   "modifiers" | "variant"
 > {
+  accessibilityLabel?: string | undefined;
   icon?: IconName;
   iconColor?: ColorValue | undefined;
   iconOnly?: boolean;
@@ -45,6 +46,7 @@ const intents: Record<
 } as const;
 
 export function UIButton({
+  accessibilityLabel,
   icon,
   iconColor,
   iconOnly = false,
@@ -66,7 +68,7 @@ export function UIButton({
   }
 
   if (iconOnly && label && Platform.OS === "ios") {
-    modifiers.push(accessibilityLabel(label));
+    modifiers.push(accessibilityLabelModifier(accessibilityLabel ?? label));
   }
 
   if (tintColor) {

@@ -4,8 +4,8 @@ import { ScrollView } from "react-native";
 
 import { useFolge } from "@/api/use-folge";
 
-import { FolgeDetails } from "./components/folgen-details";
-import { BlurBackground } from "./components/folgen-details-background";
+import { FolgeDetails } from "../components/folgen-details";
+import { BlurBackground } from "../components/folgen-details-background";
 
 export function FolgenDetailsScreen() {
   const { folgeId } = useLocalSearchParams<{ folgeId: string }>();

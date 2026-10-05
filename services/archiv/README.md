@@ -23,7 +23,7 @@ curl http://localhost:8080/folgen
 curl http://localhost:8080/folgen/1
 ```
 
-`GET /folgen` returns all entries from the Serie and Spezial collections as a JSON array. Other upstream collections, including Kids, DiE DR3i, Kurzgeschichten, and Sonstige, are excluded. Each object has `number`, `title`, `id`, `collection`, `description`, `release_date`, `total_duration`, `links`, `cover`, `weblink`, and `artwork`. `collection` is `serie` or `spezial`. Optional metadata is JSON `null`; `links` is an object keyed by service names such as `youtube_music`. `/folgen/{id}` returns one item by its upstream `ids.dreimetadaten` ID. This is a new standalone contract, not the legacy API response format. Requests are logged as JSON with method, path, status, response bytes, and duration. Query parameters are not included in the access log.
+`GET /folgen` returns all entries from the Serie and Spezial collections as a JSON array. Other upstream collections, including Kids, DiE DR3i, Kurzgeschichten, and Sonstige, are excluded. Each object has `number`, `title`, `id`, `collection`, `description`, `release_date`, `total_duration`, `links`, `cover`, `weblink`, and `artwork`. `collection` is `serie` or `spezial`. Optional metadata is JSON `null`; `links` is an object keyed by service names such as `youtube_music`. `/folgen/{id}` returns one item by its upstream `ids.dreimetadaten` ID. This is a new standalone contract, not the legacy API response format. Requests are logged as JSON with method, path, status, response bytes, and duration. Query parameters are not included in the access log. Browser CORS requests are allowed from `http://localhost:8081`.
 
 ## Configuration
 

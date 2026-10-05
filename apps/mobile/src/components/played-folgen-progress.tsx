@@ -20,7 +20,7 @@ export function PlayedFolgenProgress() {
 
   return (
     <View
-      className="mx-3 mb-1 gap-3 rounded-2xl p-4"
+      className="mx-3 mb-5 gap-3 rounded-2xl p-4"
       style={{ backgroundColor: colors.surface }}
     >
       <Text className="font-semibold" style={{ color: colors.text }}>
