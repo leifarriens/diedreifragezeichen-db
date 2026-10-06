@@ -5,7 +5,7 @@ import { CACHE_DURATION } from "@/constants/cache";
 const DEFAULT_ARCHIV_API_URL = "http://localhost:8080";
 const REQUEST_TIMEOUT_MS = 8_000;
 
-export class ArchivApi {
+class ArchivApi {
   private get baseUrl(): string {
     return (
       this.configuredBaseUrl ??
@@ -55,14 +55,6 @@ export class ArchivApi {
 }
 
 export const archivApi = new ArchivApi();
-
-export function fetchArchiveFolgeById(id: number | string): Promise<Folge> {
-  return archivApi.getFolgeById(id);
-}
-
-export function fetchArchiveFolgen(): Promise<Folge[]> {
-  return archivApi.getFolgen();
-}
 
 function isFolge(value: unknown): value is Folge {
   if (!isRecord(value)) return false;

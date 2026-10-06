@@ -2,7 +2,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { CACHE_DURATION } from "@/constants/cache";
 
-import { fetchArchiveFolgeById, fetchArchiveFolgen } from "./archiv-api";
+import { archivApi } from "./archiv-api";
 
 const folge = {
   artwork: null,
@@ -33,7 +33,7 @@ describe("archive API", () => {
       );
     vi.stubGlobal("fetch", fetchMock);
 
-    await expect(fetchArchiveFolgen()).resolves.toEqual([folge]);
+    await expect(archivApi.getFolgen()).resolves.toEqual([folge]);
     expect(fetchMock).toHaveBeenCalledWith(
       "https://archive.example/folgen",
       expect.objectContaining({ headers: { Accept: "application/json" } }),
@@ -47,7 +47,7 @@ describe("archive API", () => {
       .mockResolvedValue(new Response(JSON.stringify(folge), { status: 200 }));
     vi.stubGlobal("fetch", fetchMock);
 
-    await expect(fetchArchiveFolgeById(1)).resolves.toEqual(folge);
+    await expect(archivApi.getFolgeById(1)).resolves.toEqual(folge);
     expect(fetchMock).toHaveBeenCalledWith(
       "https://archive.example/folgen/1",
       expect.objectContaining({
@@ -64,7 +64,7 @@ describe("archive API", () => {
       vi.fn().mockResolvedValue(new Response(null, { status: 503 })),
     );
 
-    await expect(fetchArchiveFolgen()).rejects.toThrow(
+    await expect(archivApi.getFolgen()).rejects.toThrow(
       "Archiv API responded with HTTP 503",
     );
   });
@@ -80,7 +80,7 @@ describe("archive API", () => {
         ),
     );
 
-    await expect(fetchArchiveFolgen()).rejects.toThrow(
+    await expect(archivApi.getFolgen()).rejects.toThrow(
       "Archiv API returned an invalid Folgen response",
     );
   });
@@ -96,7 +96,7 @@ describe("archive API", () => {
         ),
     );
 
-    await expect(fetchArchiveFolgeById(1)).rejects.toThrow(
+    await expect(archivApi.getFolgeById(1)).rejects.toThrow(
       "Archiv API returned an invalid Folge response",
     );
   });

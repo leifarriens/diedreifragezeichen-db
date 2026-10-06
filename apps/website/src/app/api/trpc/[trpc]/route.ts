@@ -2,7 +2,8 @@ import { appRouter, createTRPCContext } from "@ddfdb/user-api";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 import { auth } from "@/lib/auth";
-import { ratingRepository } from "@/lib/rating-repository";
+import { bookmarkRepository } from "@/lib/bookmark/bookmark.repository";
+import { ratingRepository } from "@/lib/rating/rating.repository";
 
 const allowedOrigins = new Set(
   (process.env.TRPC_CORS_ORIGINS ?? "")
@@ -16,6 +17,7 @@ const handler = async (req: Request) => {
     createContext: async () => {
       const session = await auth.api.getSession({ headers: req.headers });
       return createTRPCContext({
+        bookmarks: bookmarkRepository,
         headers: req.headers,
         ratings: ratingRepository,
         user: session?.user ?? null,

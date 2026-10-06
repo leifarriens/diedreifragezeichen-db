@@ -6,17 +6,19 @@ import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { cn } from "tailwind-variants";
 
+import type { FolgeWithCommunityRating } from "@/lib/types";
+
 import { FIRST_RELEASE_YEAR } from "@/components/archive/archive-filters";
 import { useArchiveFilters } from "@/components/archive/archive-filters-provider";
 import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
 import { Wrapper } from "@/components/layout/wrapper";
 import { MultiRangeInput } from "@/components/multi-range-input/multi-range-input";
-import { useFolgenWithUserRating } from "@/lib/use-folgen-with-user-rating";
+import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
 
 interface ArchiveBrowserProps {
   archiveUnavailable: boolean;
-  folgen: Folge[];
+  folgen: FolgeWithCommunityRating[];
 }
 
 export default function ArchiveBrowser({
@@ -26,12 +28,14 @@ export default function ArchiveBrowser({
   const { currentYear, filters, updateFilters } = useArchiveFilters();
   const { includeSpecials, searchTerm, sortOrder, yearRange } = filters;
 
+  const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
+
   const filteredFolgen = useMemo(() => {
     const query = searchTerm.trim().toLocaleLowerCase("de-DE");
     const includeUnknownDates =
       yearRange.min === FIRST_RELEASE_YEAR && yearRange.max === currentYear;
 
-    return folgen
+    return hydratedFolgen
       .filter((folge) => {
         if (!includeSpecials && folge.collection === "spezial") return false;
 
@@ -51,9 +55,14 @@ export default function ArchiveBrowser({
         );
       })
       .sort((left, right) => compareReleaseDates(left, right, sortOrder));
-  }, [currentYear, folgen, includeSpecials, searchTerm, sortOrder, yearRange]);
-
-  const hydratedFolgen = useFolgenWithUserRating(filteredFolgen);
+  }, [
+    currentYear,
+    hydratedFolgen,
+    includeSpecials,
+    searchTerm,
+    sortOrder,
+    yearRange,
+  ]);
 
   return (
     <Wrapper>
@@ -124,9 +133,9 @@ export default function ArchiveBrowser({
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <p aria-live="polite" className="text-sm text-slate-300">
           <span className="font-semibold text-white">
-            {hydratedFolgen.length}
+            {filteredFolgen.length}
           </span>{" "}
-          {hydratedFolgen.length === 1 ? "Folge" : "Folgen"}
+          {filteredFolgen.length === 1 ? "Folge" : "Folgen"}
           {includeSpecials && (
             <span className="text-slate-400"> inklusive Specials</span>
           )}
@@ -167,7 +176,7 @@ export default function ArchiveBrowser({
             Erneut laden
           </button>
         </section>
-      ) : hydratedFolgen.length === 0 ? (
+      ) : filteredFolgen.length === 0 ? (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-14 text-center">
           <p className="text-lg font-semibold">Keine Folgen gefunden</p>
           <p className="mt-2 text-sm text-slate-400">
@@ -177,9 +186,10 @@ export default function ArchiveBrowser({
       ) : (
         <section aria-label="Folgen im Archiv">
           <FolgenGrid>
-            {hydratedFolgen.map((folge) => (
+            {filteredFolgen.map((folge) => (
               <FolgenGridItem
                 folge={folge}
+                isBookmarked={folge.isBookmarked}
                 key={folge.id}
                 userRating={folge.userRating}
               />

@@ -6,24 +6,18 @@ import {
   primaryKey,
   smallint,
   text,
-  timestamp,
 } from "drizzle-orm/pg-core";
 
-import { folgeId } from "./archiv";
 import { user } from "./auth";
+import { createdAt, folgeId, updatedAt } from "./shared";
 
 export const rating = pgTable(
   "rating",
   {
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .defaultNow()
-      .notNull(),
+    createdAt,
     folgeId,
     score: smallint().notNull(),
-    updatedAt: timestamp({ withTimezone: true })
-      .defaultNow()
-      .$onUpdate(() => new Date())
-      .notNull(),
+    updatedAt,
     userId: text()
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),

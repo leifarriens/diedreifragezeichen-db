@@ -2,6 +2,7 @@
 
 @theme {
   --animate-breathe: breathe 30s linear infinite;
+  --animate-fade-in: fadeIn 150ms ease-in-out;
 
   @keyframes breathe {
     0% {
@@ -12,6 +13,15 @@
     }
     100% {
       transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
   }
 }

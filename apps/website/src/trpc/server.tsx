@@ -5,7 +5,8 @@ import { headers } from "next/headers";
 import { cache } from "react";
 
 import { getServerSession } from "@/lib/auth";
-import { ratingRepository } from "@/lib/rating-repository";
+import { bookmarkRepository } from "@/lib/bookmark/bookmark.repository";
+import { ratingRepository } from "@/lib/rating/rating.repository";
 
 import { makeQueryClient } from "./query-client";
 
@@ -16,6 +17,7 @@ const getTRPCContext = cache(async () => {
   const session = await getServerSession();
 
   return createTRPCContext({
+    bookmarks: bookmarkRepository,
     headers: requestHeaders,
     ratings: ratingRepository,
     user: session?.user ?? null,

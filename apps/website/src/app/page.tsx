@@ -1,8 +1,8 @@
-import type { Folge } from "@ddfdb/archiv/contracts";
 import type { Metadata } from "next";
 
-import { fetchArchiveFolgen } from "@/lib/archiv-api";
+import type { FolgeWithCommunityRating } from "@/lib/types";
 
+import { folgenService } from "../services/folgen.service";
 import ArchiveBrowser from "./archive-browser";
 
 export const metadata: Metadata = {
@@ -15,11 +15,11 @@ export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
 
 export default async function HomePage() {
-  let folgen: Folge[] = [];
+  let folgen: FolgeWithCommunityRating[] = [];
   let archiveUnavailable = false;
 
   try {
-    folgen = await fetchArchiveFolgen();
+    folgen = await folgenService.getAllFolgenWithCommunityRatings();
   } catch (error) {
     console.error("Could not load Folgen from the Archiv API", error);
     archiveUnavailable = true;

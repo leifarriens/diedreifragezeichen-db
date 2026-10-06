@@ -1,5 +1,4 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
-import type { CommunityRating } from "@ddfdb/user-api";
 
 import {
   formatRelativeTime,
@@ -7,13 +6,17 @@ import {
   isReleasDateInThePast,
 } from "@ddfdb/core";
 
+import type { FolgeWithCommunityRating } from "@/lib/types";
+
 import { ExternalLink } from "@/components/external-link/external-link";
-import { FolgenRatingInput } from "@/components/folgen-rating-input/folgen-rating-input";
+import { FolgenBookmarkButton } from "@/components/folgen-bookmark/folgen-bookmark-button";
+import { FolgenRating } from "@/components/folgen-rating/folgen-rating";
+import { FolgenUserRating } from "@/components/folgen-rating/folgen-user-rating";
 import { FolgenStreamingLinks } from "@/components/folgen-streaming-links/folge-streaming-links";
 import { PageBackground } from "@/components/layout/page-background";
 import { Wrapper } from "@/components/layout/wrapper";
 import { archivApi } from "@/lib/archiv-api";
-import { caller } from "@/trpc/server";
+import { folgenService } from "@/services/folgen.service";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
@@ -27,30 +30,28 @@ export default async function FolgePage({
 
   const folgeId = parseInt(id, 10);
 
-  const [folge, communityRating] = await Promise.all([
-    archivApi.getFolgeById(folgeId),
-    caller.ratings.getCommunityForFolge({
-      folgeId,
-    }),
-  ]);
+  const folge = await folgenService.getFolgeWithCommunityRatingById(folgeId);
 
-  return <Folge communityRating={communityRating} folge={folge} />;
+  return <Folge folge={folge} />;
 }
 
 export async function generateStaticParams() {
   const folgen = await archivApi.getFolgen();
+
   return folgen.map(({ id }) => ({ id: String(id) }));
 }
 
-function Folge({
-  communityRating,
-  folge,
-}: {
-  communityRating: CommunityRating | null;
-  folge: Folge;
-}) {
-  const { artwork, cover, description, links, release_date, title, weblink } =
-    folge;
+function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
+  const {
+    artwork,
+    communityRating,
+    cover,
+    description,
+    links,
+    release_date,
+    title,
+    weblink,
+  } = folge;
 
   const isReleased = isReleasDateInThePast(release_date);
 
@@ -96,12 +97,14 @@ function Folge({
 
               {communityRating && (
                 <div className="mt-4 text-lg text-neutral-300">
-                  Community Rating: {String(communityRating.score / 2)} (
+                  Community Rating: {String(communityRating.score)} / 3 (
                   {communityRating.numberOfRatings.toString()} rating(s))
                 </div>
               )}
 
-              <FolgenRatingInput folgeId={folge.id} />
+              <FolgenRating communityRating={communityRating} title={title} />
+
+              <FolgenUserRating folgeId={folge.id} />
 
               <div className="mt-6 flex items-center gap-4">
                 <FolgenStreamingLinks links={links} />
@@ -128,6 +131,8 @@ function Folge({
                     </svg>
                   </ExternalLink>
                 )}
+
+                <FolgenBookmarkButton folgeId={folge.id} />
               </div>
             </div>
           </div>

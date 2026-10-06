@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import { ArchiveFiltersProvider } from "@/components/archive/archive-filters-provider";
 import { Footer } from "@/components/layout/footer";
@@ -12,16 +11,6 @@ import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { TRPCReactProvider } from "@/trpc/client";
 
 const CURRENT_YEAR = new Date().getFullYear();
-
-const geistSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-});
 
 export const metadata: Metadata = {
   description: "Das Hörspielarchiv der drei ???.",
@@ -39,10 +28,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-      lang="de"
-    >
+    <html className="h-full antialiased" lang="de">
       <TRPCReactProvider>
         <body className="flex min-h-full flex-col">
           <ArchiveFiltersProvider currentYear={CURRENT_YEAR}>

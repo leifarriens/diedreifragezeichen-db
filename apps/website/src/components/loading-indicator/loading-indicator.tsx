@@ -1,3 +1,4 @@
+import { QSvg } from "../icons/q";
 import styles from "./loading-indicator.module.css";
 
 interface LoadingIndicatorProps {
@@ -14,7 +15,7 @@ export function LoadingIndicator({ ariaLabel }: LoadingIndicatorProps) {
     >
       {Array.from({ length: 3 }).map((_, index) => (
         // eslint-disable-next-line @eslint-react/no-array-index-key
-        <span className={styles.icon} key={index}></span>
+        <QSvg className={styles.icon} color="white" key={index} />
       ))}
     </div>
   );

@@ -1,16 +1,16 @@
 import { type RefObject, useEffect, useState } from "react";
 
 interface ObserverOptions extends IntersectionObserverInit {
-  freezeOnceVisible?: boolean;
+  triggerOnce?: boolean;
 }
 
 export function useIntersectionObserver(
   elementRef: RefObject<Element | null>,
   {
-    freezeOnceVisible = false,
     root = null,
     rootMargin = "0px",
     threshold = 0,
+    triggerOnce = false,
   }: ObserverOptions = {},
 ): boolean {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -19,15 +19,15 @@ export function useIntersectionObserver(
     const element = elementRef.current;
     if (!element) return;
 
-    // Prevent re-observing if already visible and freezeOnceVisible is true
-    if (freezeOnceVisible && isIntersecting) return;
+    // Prevent re-observing if already visible and triggerOnce is true
+    if (triggerOnce && isIntersecting) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         const visible = entry?.isIntersecting ?? false;
         setIsIntersecting(visible);
 
-        if (visible && freezeOnceVisible) {
+        if (visible && triggerOnce) {
           observer.unobserve(element);
         }
       },
@@ -39,14 +39,7 @@ export function useIntersectionObserver(
     return () => {
       observer.disconnect();
     };
-  }, [
-    elementRef,
-    threshold,
-    root,
-    rootMargin,
-    freezeOnceVisible,
-    isIntersecting,
-  ]);
+  }, [elementRef, threshold, root, rootMargin, triggerOnce, isIntersecting]);
 
   return isIntersecting;
 }

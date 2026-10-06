@@ -1,7 +1,5 @@
 // @vitest-environment jsdom
 
-import type { Folge } from "@ddfdb/archiv/contracts";
-
 import {
   act,
   cleanup,
@@ -13,6 +11,8 @@ import {
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import type { FolgeWithCommunityRating } from "@/lib/types";
+
 import ArchiveBrowser from "../../app/archive-browser";
 import { SearchInput } from "../search/search-input";
 import { ArchiveFiltersProvider } from "./archive-filters-provider";
@@ -20,37 +20,58 @@ import { ArchiveFiltersProvider } from "./archive-filters-provider";
 const route = vi.hoisted(() => ({ pathname: "/" }));
 vi.mock("next/navigation", () => ({ usePathname: () => route.pathname }));
 vi.mock("../folgen-grid/folgen-grid-item", () => ({
-  FolgenGridItem: ({ folge }: { folge: Folge }) => (
+  FolgenGridItem: ({ folge }: { folge: FolgeWithCommunityRating }) => (
     <span data-testid="folge">{folge.title}</span>
   ),
 }));
-vi.mock("@/lib/use-folgen-with-user-rating", () => ({
-  useFolgenWithUserRating: (input: unknown[]) => input,
+vi.mock("@/lib/use-hydrate-folgen-with-user-data", () => ({
+  useHydrateFolgenWithUserData: (input: unknown[]) => input,
 }));
 
 const folgen = [
   {
+    artwork: null,
     collection: "serie",
+    communityRating: null,
+    cover: null,
+    description: null,
     id: 1,
+    links: {},
     number: 1,
     release_date: "1980-01-01",
     title: "Der Super-Papagei",
+    total_duration: null,
+    weblink: null,
   },
   {
+    artwork: null,
     collection: "serie",
+    communityRating: null,
+    cover: null,
+    description: null,
     id: 2,
+    links: {},
     number: 2,
     release_date: "2000-01-01",
     title: "Geisterhaus",
+    total_duration: null,
+    weblink: null,
   },
   {
+    artwork: null,
     collection: "spezial",
+    communityRating: null,
+    cover: null,
+    description: null,
     id: 3,
+    links: {},
     number: null,
     release_date: "2010-01-01",
     title: "Geister Spezial",
+    total_duration: null,
+    weblink: null,
   },
-] as Folge[];
+] as FolgeWithCommunityRating[];
 
 function App() {
   return (

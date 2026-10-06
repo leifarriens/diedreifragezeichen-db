@@ -4,6 +4,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { Button } from "@/components/button/button";
 import { authClient } from "@/lib/auth-client";
 
 export function SignOutButton() {
@@ -37,14 +38,9 @@ export function SignOutButton() {
 
   return (
     <div className="flex flex-col items-end gap-2">
-      <button
-        className="rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium transition-colors hover:bg-zinc-100 disabled:cursor-not-allowed disabled:opacity-60 dark:border-zinc-700 dark:hover:bg-zinc-800"
-        disabled={isPending}
-        onClick={() => void signOut()}
-        type="button"
-      >
+      <Button disabled={isPending} onClick={() => void signOut()}>
         {isPending ? "Signing out..." : "Sign out"}
-      </button>
+      </Button>
       {error && (
         <p className="text-sm text-red-600" role="alert">
           {error}

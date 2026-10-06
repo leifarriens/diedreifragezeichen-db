@@ -1,8 +1,14 @@
 import "server-only";
-import type { Rating, RatingRepository } from "@ddfdb/user-api";
+import type { RatingRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";
 import { and, eq, sql } from "drizzle-orm";
+
+import {
+  toCommunityRatingResponse,
+  toRatingInsert,
+  toRatingResponse,
+} from "./rating.mapper";
 
 const ratingResponseSelection = {
   folgeId: schema.rating.folgeId,
@@ -10,13 +16,30 @@ const ratingResponseSelection = {
   updatedAt: schema.rating.updatedAt,
 };
 
-type RatingRow = Pick<
-  typeof schema.rating.$inferSelect,
-  "folgeId" | "score" | "updatedAt"
->;
-
 export const ratingRepository: RatingRepository = {
-  async getCommunityRatingForFolge({ folgeId }) {
+  async findAllFolgenCommunityRatings() {
+    const ratings = await db
+      .select({
+        folgeId: schema.rating.folgeId,
+        numberOfRatings: sql<number>`COUNT(*)`,
+        score: sql<number>`AVG(${schema.rating.score})`,
+      })
+      .from(schema.rating)
+      .groupBy(schema.rating.folgeId);
+
+    return ratings.map(toCommunityRatingResponse);
+  },
+
+  async findAllUserRatings({ userId }) {
+    const ratings = await db
+      .select(ratingResponseSelection)
+      .from(schema.rating)
+      .where(eq(schema.rating.userId, userId));
+
+    return ratings.map(toRatingResponse);
+  },
+
+  async findCommunityFolgenRating({ folgeId }) {
     const [rating] = await db
       .select({
         folgeId: schema.rating.folgeId,
@@ -27,10 +50,10 @@ export const ratingRepository: RatingRepository = {
       .where(eq(schema.rating.folgeId, folgeId))
       .groupBy(schema.rating.folgeId);
 
-    return rating ?? null;
+    return rating ? toCommunityRatingResponse(rating) : null;
   },
 
-  async getRating({ folgeId, userId }) {
+  async findUserFolgenRating({ folgeId, userId }) {
     const [rating] = await db
       .select(ratingResponseSelection)
       .from(schema.rating)
@@ -45,15 +68,6 @@ export const ratingRepository: RatingRepository = {
     return rating ? toRatingResponse(rating) : null;
   },
 
-  async getRatingsForUser({ userId }) {
-    const ratings = await db
-      .select(ratingResponseSelection)
-      .from(schema.rating)
-      .where(eq(schema.rating.userId, userId));
-
-    return ratings.map(toRatingResponse);
-  },
-
   async removeRating({ folgeId, userId }) {
     await db
       .delete(schema.rating)
@@ -65,12 +79,13 @@ export const ratingRepository: RatingRepository = {
       );
   },
 
-  async setRating({ folgeId, score, userId }): Promise<Rating> {
+  async setRating({ folgeId, score, userId }) {
+    const values = toRatingInsert({ folgeId, score, userId });
     const [rating] = await db
       .insert(schema.rating)
-      .values({ folgeId, score, userId })
+      .values(values)
       .onConflictDoUpdate({
-        set: { score, updatedAt: new Date() },
+        set: { score: values.score, updatedAt: new Date() },
         target: [schema.rating.userId, schema.rating.folgeId],
       })
       .returning(ratingResponseSelection);
@@ -82,7 +97,3 @@ export const ratingRepository: RatingRepository = {
     return toRatingResponse(rating);
   },
 };
-
-function toRatingResponse({ updatedAt, ...rest }: RatingRow): Rating {
-  return { ...rest, updatedAt: updatedAt.toISOString() };
-}

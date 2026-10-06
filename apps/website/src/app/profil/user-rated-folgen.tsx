@@ -3,23 +3,30 @@
 import { type ReactNode, useMemo, useState } from "react";
 import { cn } from "tailwind-variants";
 
-import type { FolgeWithUserRating } from "@/lib/types";
+import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
+import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
 
 import {
   sortUserRatedFolgen,
   type UserRatedFolgenSortOrder,
 } from "./user-rated-folgen-sort";
 
-export function UserRatedFolgen({ folgen }: { folgen: FolgeWithUserRating[] }) {
+export function UserRatedFolgen({
+  folgen,
+}: {
+  folgen: FolgeWithCommunityRating[];
+}) {
   const [sortOrder, setSortOrder] =
     useState<UserRatedFolgenSortOrder>("recent");
 
+  const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
+
   const sortedFolgen = useMemo(
-    () => sortUserRatedFolgen(folgen, sortOrder),
-    [folgen, sortOrder],
+    () => sortUserRatedFolgen(hydratedFolgen, sortOrder),
+    [hydratedFolgen, sortOrder],
   );
 
   return (
@@ -59,6 +66,7 @@ export function UserRatedFolgen({ folgen }: { folgen: FolgeWithUserRating[] }) {
         {sortedFolgen.map((folge) => (
           <FolgenGridItem
             folge={folge}
+            isBookmarked={folge.isBookmarked}
             key={folge.id}
             userRating={folge.userRating}
           />

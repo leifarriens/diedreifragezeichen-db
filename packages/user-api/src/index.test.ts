@@ -1,6 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 
-import type { AuthenticatedUser, RatingRepository } from "./index";
+import type {
+  AuthenticatedUser,
+  BookmarkRepository,
+  RatingRepository,
+} from "./index";
 
 import { appRouter } from "./index";
 
@@ -15,23 +19,36 @@ const updatedAt = "2026-10-06T00:19:12.403Z";
 function createCaller(
   user: AuthenticatedUser | null = null,
   ratings: RatingRepository = makeRatingRepository(),
+  bookmarks: BookmarkRepository = makeBookmarkRepository(),
 ) {
   return appRouter.createCaller({
+    bookmarks,
     headers: new Headers(),
     ratings,
     user,
   });
 }
 
+function makeBookmarkRepository() {
+  return {
+    addBookmark: vi.fn(),
+    getUserBookmarks: vi.fn(() => Promise.resolve([])),
+    isBookmarked: vi.fn(() => Promise.resolve(false)),
+    removeBookmark: vi.fn(() => Promise.resolve()),
+  } satisfies BookmarkRepository;
+}
+
 function makeRatingRepository() {
   return {
-    getCommunityRatingForFolge: vi.fn(({ folgeId }: { folgeId: number }) =>
+    findAllFolgenCommunityRatings: vi.fn(() => Promise.resolve([])),
+    findAllUserRatings: vi.fn(() => Promise.resolve([])),
+    findCommunityFolgenRating: vi.fn(({ folgeId }: { folgeId: number }) =>
       Promise.resolve({ folgeId, numberOfRatings: 3, score: 4.5 }),
     ),
-    getRating: vi.fn(({ folgeId }: { folgeId: number; userId: string }) =>
-      Promise.resolve({ folgeId, score: 4, updatedAt }),
+    findUserFolgenRating: vi.fn(
+      ({ folgeId }: { folgeId: number; userId: string }) =>
+        Promise.resolve({ folgeId, score: 4, updatedAt }),
     ),
-    getRatingsForUser: vi.fn(() => Promise.resolve([])),
     removeRating: vi.fn(() => Promise.resolve()),
     setRating: vi.fn(
       ({
@@ -79,7 +96,7 @@ describe("user API router", () => {
     await expect(
       caller.ratings.getCommunityForFolge({ folgeId: 12 }),
     ).resolves.toEqual({ folgeId: 12, numberOfRatings: 3, score: 4.5 });
-    expect(ratings.getCommunityRatingForFolge).toHaveBeenCalledWith({
+    expect(ratings.findCommunityFolgenRating).toHaveBeenCalledWith({
       folgeId: 12,
     });
   });
@@ -89,11 +106,11 @@ describe("user API router", () => {
     const caller = createCaller(authenticatedUser, ratings);
 
     await expect(
-      caller.ratings.set({ folgeId: 12, score: 6 }),
-    ).resolves.toEqual({ folgeId: 12, score: 6, updatedAt });
+      caller.ratings.set({ folgeId: 12, score: 2.5 }),
+    ).resolves.toEqual({ folgeId: 12, score: 2.5, updatedAt });
     expect(ratings.setRating).toHaveBeenCalledWith({
       folgeId: 12,
-      score: 6,
+      score: 2.5,
       userId: authenticatedUser.id,
     });
   });
@@ -107,7 +124,7 @@ describe("user API router", () => {
       score: 4,
       updatedAt,
     });
-    expect(ratings.getRating).toHaveBeenCalledWith({
+    expect(ratings.findUserFolgenRating).toHaveBeenCalledWith({
       folgeId: 12,
       userId: authenticatedUser.id,
     });
