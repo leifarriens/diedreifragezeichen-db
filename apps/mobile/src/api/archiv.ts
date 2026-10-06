@@ -74,6 +74,8 @@ class ArchivApi {
   }
 }
 
+const archivApiUrl: unknown = process.env.EXPO_PUBLIC_DDFDB_ARCHIV_API_URL;
+
 export const archivApi = new ArchivApi(
-  process.env.EXPO_PUBLIC_DDFDB_ARCHIV_API_URL,
+  typeof archivApiUrl === "string" ? archivApiUrl : undefined,
 );

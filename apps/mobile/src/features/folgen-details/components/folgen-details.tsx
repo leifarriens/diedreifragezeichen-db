@@ -1,3 +1,9 @@
+import {
+  formatFolgenSubtitle,
+  formatRelativeTime,
+  formatReleaseDate,
+  isDateBeforeNow,
+} from "@ddfdb/core";
 import { Icon } from "@expo/ui";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
@@ -8,8 +14,6 @@ import type { Folge } from "@/api/types";
 
 import { Cover } from "@/components/cover";
 import { UIButton } from "@/components/ui/button";
-import { formatFolgenSubtitle } from "@/features/folgen/format-folgen-subtitle";
-import dayjs, { formatDate } from "@/lib/date";
 import { HapticFeedback } from "@/lib/haptic-feedback";
 import { useFolgeStatus, useFolgeStore } from "@/stores/use-folge-store";
 
@@ -32,7 +36,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
     })),
   );
 
-  const isReleased = dayjs(release_date).isBefore(dayjs());
+  const isReleased = release_date !== null && isDateBeforeNow(release_date);
 
   return (
     <View>
@@ -52,7 +56,8 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         {release_date ? (
           <Text className="text-base text-neutral-300">
             {isReleased ? "Veröffentlicht am" : "Wird veröffentlicht am"}{" "}
-            {formatDate(release_date)} • {dayjs(release_date).fromNow()}
+            {formatReleaseDate(release_date)} •{" "}
+            {formatRelativeTime(release_date)}
           </Text>
         ) : null}
       </View>

@@ -1,3 +1,4 @@
+import { formatDateOnly, formatReleaseDate, isValidDate } from "@ddfdb/core";
 import DateTimePicker from "@expo/ui/community/datetime-picker";
 import { Stack, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
@@ -13,7 +14,6 @@ import {
 import { useFolgen } from "@/api/use-folgen";
 import { UIButton } from "@/components/ui/button";
 import { UISwitch } from "@/components/ui/switch";
-import dayjs, { DATE_FORMAT } from "@/lib/date";
 import {
   type ArchiveFilters,
   useArchiveFilters,
@@ -29,9 +29,8 @@ export default function ArchiveFilterScreen() {
       .flatMap((folge) =>
         folge.release_date === null ? [] : [folge.release_date],
       )
-      .map((releaseDate) => dayjs(releaseDate))
-      .filter((date) => date.isValid())
-      .map((date) => date.format("YYYY-MM-DD"))
+      .filter(isValidDate)
+      .map(formatDateOnly)
       .sort();
 
     const firstDate = releaseDates[0];
@@ -200,7 +199,7 @@ function DatePickerRow({
 }) {
   const [isAndroidPickerOpen, setIsAndroidPickerOpen] = useState(false);
   const valueDateOnly = dateToDateOnly(value);
-  const formattedValue = dayjs(value).format(DATE_FORMAT);
+  const formattedValue = formatReleaseDate(valueDateOnly);
 
   function commitWebDate(inputValue: string) {
     const date = parseDateOnly(inputValue);

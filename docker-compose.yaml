@@ -1,0 +1,22 @@
+name: ddfdb
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ddfdb
+      POSTGRES_PASSWORD: ddfdb
+      POSTGRES_USER: ddfdb
+    healthcheck:
+      interval: 30s
+      retries: 10
+      start_period: 5s
+      test: ["CMD-SHELL", "pg_isready -U ddfdb -d ddfdb"]
+      timeout: 5s
+    ports:
+      - "5435:5432"
+    volumes:
+      - ddfdb_pgdata:/var/lib/postgresql/data
+
+volumes:
+  ddfdb_pgdata:

@@ -1,0 +1,51 @@
+{
+  "name": "@ddfdb/website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "build": "next build",
+    "lint": "eslint --cache --cache-location .cache/.eslintcach",
+    "test:watch": "vitest",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "^1.7.6",
+    "@ddfdb/archiv": "workspace:*",
+    "@ddfdb/core": "workspace:*",
+    "@ddfdb/db": "workspace:*",
+    "@ddfdb/user-api": "workspace:*",
+    "@tanstack/react-query": "5.104.0",
+    "@tanstack/react-query-devtools": "^5.104.0",
+    "@trpc/client": "^11.19.0",
+    "@trpc/server": "^11.19.0",
+    "@trpc/tanstack-react-query": "^11.19.0",
+    "better-auth": "^1.7.6",
+    "drizzle-orm": "^0.45.3",
+    "next": "16.3.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "server-only": "^0.0.1",
+    "tailwind-variants": "^3.3.1"
+  },
+  "devDependencies": {
+    "@ddfdb/eslint-config": "workspace:*",
+    "@ddfdb/tsconfig": "workspace:*",
+    "@tailwindcss/postcss": "4.1.12",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "~19.3.0",
+    "@types/react-dom": "~19.3.0",
+    "@vitest/coverage-v8": "catalog:",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.6",
+    "jsdom": "^30.1.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tailwindcss": "4.1.12",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "packageManager": "pnpm@11.24.0"
+}

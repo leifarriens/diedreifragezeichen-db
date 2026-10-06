@@ -1,15 +1,14 @@
+import { formatReleaseDate } from "@ddfdb/core";
+import { formatFolgenSubtitle } from "@ddfdb/core";
 import { Link } from "expo-router";
 import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
 
 import type { Folge } from "@/api/types";
 
-import { formatDate } from "@/lib/date";
+import { Cover } from "@/components/cover";
 
 import type { FolgenListViewMode } from "./types";
-
-import { Cover } from "../../../../components/cover";
-import { formatFolgenSubtitle } from "../../format-folgen-subtitle";
 
 export type FolgeDetailPathname =
   | "/(tabs)/(archiv)/[folgeId]"
@@ -48,7 +47,7 @@ export const FolgenListItem = memo(
             {item.release_date ? (
               <View>
                 <Text className="text-sm text-neutral-300">
-                  {formatDate(item.release_date)}
+                  {formatReleaseDate(item.release_date)}
                 </Text>
               </View>
             ) : null}
@@ -62,11 +61,11 @@ export const FolgenListItem = memo(
         asChild
         href={{ params: { folgeId: item.id }, pathname: detailPathname }}
       >
-        <View className="flex-row gap-x-4 px-2 py-4">
+        <Pressable className="flex-row gap-x-4 px-2 py-4">
           <Link.AppleZoom>
-            <Pressable className="size-28">
+            <View className="size-28" collapsable={false}>
               <Cover imageUrl={image} />
-            </Pressable>
+            </View>
           </Link.AppleZoom>
 
           <View className="flex-1 py-2">
@@ -75,10 +74,10 @@ export const FolgenListItem = memo(
             </Text>
             <Text className="text-xl font-bold text-white">{item.title}</Text>
             <Text className="text-sm text-neutral-300">
-              {item.release_date ? formatDate(item.release_date) : ""}
+              {item.release_date ? formatReleaseDate(item.release_date) : ""}
             </Text>
           </View>
-        </View>
+        </Pressable>
       </Link>
     );
   },

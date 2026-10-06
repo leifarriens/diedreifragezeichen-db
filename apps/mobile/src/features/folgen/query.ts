@@ -1,7 +1,7 @@
+import { getDateTimestamp, getDateYear, isDateWithinRange } from "@ddfdb/core";
+
 import type { Folge } from "../../api/types";
 import type { SortOption } from "./sort";
-
-import dayjs from "../../lib/date";
 
 export interface FolgenDateRange {
   endDate: null | string;
@@ -32,8 +32,8 @@ export function createFolgenQuery(folgen: readonly Folge[]): FolgenQuery {
 }
 
 function compareDates(a: null | string, b: null | string, direction: -1 | 1) {
-  const aTime = a === null ? Number.NaN : dayjs(a).valueOf();
-  const bTime = b === null ? Number.NaN : dayjs(b).valueOf();
+  const aTime = getDateTimestamp(a);
+  const bTime = getDateTimestamp(b);
   const aIsValid = Number.isFinite(aTime);
   const bIsValid = Number.isFinite(bTime);
 
@@ -118,13 +118,7 @@ function filterByDateRange(
   return folgen.filter((folge) => {
     if (folge.release_date === null) return false;
 
-    const releaseDate = dayjs(folge.release_date);
-    return (
-      releaseDate.isValid() &&
-      (startDate === null ||
-        releaseDate.isSameOrAfter(dayjs(startDate), "day")) &&
-      (endDate === null || releaseDate.isSameOrBefore(dayjs(endDate), "day"))
-    );
+    return isDateWithinRange(folge.release_date, startDate, endDate);
   });
 }
 
@@ -142,7 +136,7 @@ function filterBySearch(folgen: readonly Folge[], term: string) {
 
     return (
       folge.release_date !== null &&
-      dayjs(folge.release_date).year().toString() === term
+      getDateYear(folge.release_date).toString() === term
     );
   });
 }

@@ -63,18 +63,18 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     scheme,
     slug: PROJECT_SLUG,
     version,
-    web: {
-      favicon: "./assets/images/favicon.png",
-      output: "static",
-    },
   };
 };
 
 function getAppEnv(): EnvType {
-  const APP_ENV = process.env.APP_ENV;
+  const APP_ENV: unknown = process.env.APP_ENV;
 
-  if (!APP_ENV) {
+  if (APP_ENV === undefined || APP_ENV === "") {
     return "development";
+  }
+
+  if (typeof APP_ENV !== "string") {
+    throw new Error("Invalid APP_ENV: expected development or production");
   }
 
   if (APP_ENV !== "development" && APP_ENV !== "production") {

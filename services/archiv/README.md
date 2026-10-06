@@ -40,7 +40,7 @@ Remove the SQLite file to force a fresh import. Remove both the SQLite file and 
 
 ## VPS deployment
 
-Archiv uses the same manual VPS deployment pattern as the Zemith backend: build the Docker image locally, stream it to the VPS over SSH, recreate only the Compose service, then check `/healthz` from the VPS. No image registry or automated deployment is required. The image needs outbound HTTPS access on first start to download the upstream SQL dump; the deploy script waits up to 10 minutes for the service to become healthy.
+Build the Docker image locally, stream it to the VPS over SSH, recreate only the Compose service, then check `/healthz` from the VPS. No image registry or automated deployment is required. The image needs outbound HTTPS access on first start to download the upstream SQL dump; the deploy script waits up to 10 minutes for the service to become healthy.
 
 ### One-time VPS setup
 

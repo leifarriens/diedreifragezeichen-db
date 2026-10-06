@@ -1,0 +1,221 @@
+// @vitest-environment jsdom
+
+import type { Folge } from "@ddfdb/archiv/contracts";
+
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import { renderToString } from "react-dom/server";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+
+import ArchiveBrowser from "../../app/archive-browser";
+import { SearchInput } from "../search/search-input";
+import { ArchiveFiltersProvider } from "./archive-filters-provider";
+
+const route = vi.hoisted(() => ({ pathname: "/" }));
+vi.mock("next/navigation", () => ({ usePathname: () => route.pathname }));
+vi.mock("../folgen-grid/folgen-grid-item", () => ({
+  FolgenGridItem: ({ folge }: { folge: Folge }) => (
+    <span data-testid="folge">{folge.title}</span>
+  ),
+}));
+vi.mock("@/lib/use-folgen-with-user-rating", () => ({
+  useFolgenWithUserRating: (input: unknown[]) => input,
+}));
+
+const folgen = [
+  {
+    collection: "serie",
+    id: 1,
+    number: 1,
+    release_date: "1980-01-01",
+    title: "Der Super-Papagei",
+  },
+  {
+    collection: "serie",
+    id: 2,
+    number: 2,
+    release_date: "2000-01-01",
+    title: "Geisterhaus",
+  },
+  {
+    collection: "spezial",
+    id: 3,
+    number: null,
+    release_date: "2010-01-01",
+    title: "Geister Spezial",
+  },
+] as Folge[];
+
+function App() {
+  return (
+    <ArchiveFiltersProvider currentYear={2026}>
+      <SearchInput />
+      {route.pathname === "/" && (
+        <ArchiveBrowser archiveUnavailable={false} folgen={folgen} />
+      )}
+    </ArchiveFiltersProvider>
+  );
+}
+
+function getTitles() {
+  return screen.queryAllByTestId("folge").map((item) => item.textContent);
+}
+
+beforeEach(() => {
+  route.pathname = "/";
+  window.history.replaceState(null, "", "/");
+});
+
+afterEach(() => {
+  cleanup();
+  vi.restoreAllMocks();
+});
+
+describe("URL-backed archive filtering", () => {
+  it("restores every filter into the header, controls and results on a direct visit", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?q=Geister&sort=oldest&yearFrom=1990&yearTo=2020&specials=1",
+    );
+    render(<App />);
+    expect(
+      screen.getByRole("searchbox", { name: "Folgen suchen" }),
+    ).toHaveProperty("value", "Geister");
+    expect(
+      screen
+        .getByRole("button", { name: "Älteste" })
+        .getAttribute("aria-pressed"),
+    ).toBe("true");
+    expect(
+      screen.getByRole("slider", { name: "Frühestes Erscheinungsjahr" }),
+    ).toHaveProperty("value", "1990");
+    expect(
+      screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
+    ).toHaveProperty("value", "2020");
+    expect(
+      screen.getByRole("checkbox", { name: "Specials anzeigen" }),
+    ).toHaveProperty("checked", true);
+    expect(getTitles()).toEqual(["Geisterhaus", "Geister Spezial"]);
+  });
+
+  it("filters locally, preserves other URL state and replaces rather than adds history entries", async () => {
+    window.history.replaceState(null, "", "/?utm_source=link#archive");
+    render(<App />);
+    const replace = vi.spyOn(window.history, "replaceState");
+    const push = vi.spyOn(window.history, "pushState");
+    const historyLength = window.history.length;
+    fireEvent.click(screen.getByRole("button", { name: "Älteste" }));
+    expect(getTitles()).toEqual(["Der Super-Papagei", "Geisterhaus"]);
+    fireEvent.change(screen.getByRole("searchbox", { name: "Folgen suchen" }), {
+      target: { value: "Geister" },
+    });
+    fireEvent.click(
+      screen.getByRole("checkbox", { name: "Specials anzeigen" }),
+    );
+    fireEvent.change(
+      screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
+      { target: { value: "2005" } },
+    );
+    await waitFor(() => {
+      expect(getTitles()).toEqual(["Geisterhaus"]);
+    });
+    expect(new URLSearchParams(window.location.search).get("q")).toBe(
+      "Geister",
+    );
+    expect(new URLSearchParams(window.location.search).get("yearTo")).toBe(
+      "2005",
+    );
+    expect(new URLSearchParams(window.location.search).get("utm_source")).toBe(
+      "link",
+    );
+    expect(window.location.hash).toBe("#archive");
+    expect(replace).toHaveBeenCalledTimes(4);
+    expect(push).not.toHaveBeenCalled();
+    expect(window.history.length).toBe(historyLength);
+
+    fireEvent.click(screen.getByRole("button", { name: "Suche zurücksetzen" }));
+    expect(new URLSearchParams(window.location.search).has("q")).toBe(false);
+    expect(
+      screen.getByRole("searchbox", { name: "Folgen suchen" }),
+    ).toHaveProperty("value", "");
+  });
+
+  it("restores the homepage after leaving while keeping other-page search separate", () => {
+    window.history.replaceState(
+      null,
+      "",
+      "/?q=Geister&sort=oldest&yearFrom=1990&yearTo=2020",
+    );
+    const { rerender } = render(<App />);
+    const archiveURL = window.location.href;
+    act(() => {
+      window.history.pushState(null, "", "/folge/2");
+      route.pathname = "/folge/2";
+    });
+    rerender(<App />);
+    const search = screen.getByRole("searchbox", { name: "Folgen suchen" });
+    expect(search).toHaveProperty("value", "");
+    fireEvent.change(search, { target: { value: "Global search draft" } });
+    expect(window.location.search).toBe("");
+
+    act(() => {
+      window.history.replaceState(null, "", archiveURL);
+      route.pathname = "/";
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    rerender(<App />);
+    expect(search).toHaveProperty("value", "Geister");
+    expect(
+      screen.getByRole("slider", { name: "Frühestes Erscheinungsjahr" }),
+    ).toHaveProperty("value", "1990");
+    expect(
+      screen
+        .getByRole("button", { name: "Älteste" })
+        .getAttribute("aria-pressed"),
+    ).toBe("true");
+    expect(getTitles()).toEqual(["Geisterhaus"]);
+  });
+
+  it("restores Back/Forward state when the homepage stays mounted", () => {
+    render(<App />);
+    act(() => {
+      window.history.replaceState(
+        null,
+        "",
+        "/?q=Papagei&yearFrom=1979&yearTo=1990",
+      );
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    expect(getTitles()).toEqual(["Der Super-Papagei"]);
+    expect(
+      screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
+    ).toHaveProperty("value", "1990");
+    act(() => {
+      window.history.replaceState(null, "", "/");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    });
+    expect(
+      screen.getByRole("searchbox", { name: "Folgen suchen" }),
+    ).toHaveProperty("value", "");
+    expect(
+      screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
+    ).toHaveProperty("value", "2026");
+    expect(getTitles()).toEqual(["Geisterhaus", "Der Super-Papagei"]);
+  });
+
+  it("keeps default archive content in the server-rendered HTML", () => {
+    window.history.replaceState(null, "", "/?q=no-match&specials=1");
+    const html = renderToString(<App />);
+    expect(html).toContain("Geisterhaus");
+    expect(html).toContain("Der Super-Papagei");
+    expect(html).not.toContain("Geister Spezial");
+    expect(html).not.toContain("no-match");
+  });
+});

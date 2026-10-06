@@ -6,6 +6,8 @@ import {
 import { type ReactNode, useEffect } from "react";
 import { AppState, type AppStateStatus, Platform } from "react-native";
 
+import { trpcClient, TRPCProvider } from "@/api/user-api";
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -31,7 +33,11 @@ export function QueryProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <TRPCProvider queryClient={queryClient} trpcClient={trpcClient}>
+        {children}
+      </TRPCProvider>
+    </QueryClientProvider>
   );
 }
 

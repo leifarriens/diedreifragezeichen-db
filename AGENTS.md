@@ -2,6 +2,10 @@
 
 This document provides guidance for AI coding agents working in this TypeScript monorepo. Follow these instructions to verify your implementations using the repository's linting, testing, and type checking tools.
 
+## Architecture
+
+Read [ARCHITECTURE.md](ARCHITECTURE.md) before changing service boundaries, API contracts, or persistence. It explains the separation between public Folge metadata (Archiv and SQLite) and user-owned data (the user API, Better Auth, Drizzle, and PostgreSQL), along with current implementation status and code locations.
+
 ## Quick Reference
 
 | Task       | Command          | Description                  |

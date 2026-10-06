@@ -22,6 +22,7 @@ strictPeerDependencies: false
 allowBuilds:
   "@tailwindcss/oxide": true
   esbuild: true
+  unrs-resolver: true
 minimumReleaseAgeExclude:
   - turbo@2.11.4
   - "@turbo/*"

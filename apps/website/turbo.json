@@ -1,0 +1,24 @@
+{
+  "$schema": "https://turborepo.dev/schema.v2.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "env": [
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "DATABASE_URL",
+        "DDFDB_ARCHIV_API_URL",
+        "TRPC_CORS_ORIGINS"
+      ]
+    },
+    "dev": {
+      "env": [
+        "BETTER_AUTH_SECRET",
+        "BETTER_AUTH_URL",
+        "DATABASE_URL",
+        "DDFDB_ARCHIV_API_URL",
+        "TRPC_CORS_ORIGINS"
+      ]
+    }
+  }
+}

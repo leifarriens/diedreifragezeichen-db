@@ -1,9 +1,11 @@
 import { FieldGroup, Host, Picker, Row, Spacer, Text } from "@expo/ui";
 import { scrollContentBackground } from "@expo/ui/swift-ui/modifiers";
+import { useQuery } from "@tanstack/react-query";
 import { Stack, useTheme } from "expo-router";
 import { Platform } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
+import { useTRPC } from "@/api/user-api";
 import {
   STREAMING_SERVICES,
   type StreamingService,
@@ -21,6 +23,15 @@ export function SettingsScreen() {
   const setStreamingService = useUserSettingsStore(
     (state) => state.setStreamingService,
   );
+  const trpc = useTRPC();
+  const helloQuery = useQuery(trpc.hello.queryOptions({ text: "Expo" }));
+  const userApiStatus = helloQuery.data
+    ? `${helloQuery.data.greeting}${helloQuery.error ? " (cached)" : ""}`
+    : helloQuery.fetchStatus === "paused"
+      ? "Offline"
+      : helloQuery.error
+        ? "Could not connect"
+        : "Connecting...";
 
   return (
     <>
@@ -37,6 +48,13 @@ export function SettingsScreen() {
           }
           style={{ backgroundColor: colors.background }}
         >
+          <FieldGroup.Section title="Connection">
+            <Row alignment="center" spacing={12}>
+              <Text>User API</Text>
+              <Spacer />
+              <Text>{userApiStatus}</Text>
+            </Row>
+          </FieldGroup.Section>
           <FieldGroup.Section title="Play">
             <Row alignment="center" spacing={12}>
               <Text>Streamingdienst</Text>
