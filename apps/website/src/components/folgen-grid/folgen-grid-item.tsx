@@ -12,7 +12,7 @@ import styles from "./folgen-grid-item.module.css";
 interface FolgenGridItemProps {
   folge: Folge;
   // rating?: number;
-  userRating?: number | undefined;
+  userRating: number | undefined;
 }
 
 export const FolgenGridItem = memo(function FolgenGridItem({

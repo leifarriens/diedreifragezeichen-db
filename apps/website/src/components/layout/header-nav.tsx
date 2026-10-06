@@ -28,9 +28,10 @@ export function HeaderNav() {
       <div
         className={cn(
           styles.container,
-          "flex items-center justify-end gap-4 px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
+          "flex items-center justify-end gap-4 border border-transparent px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
           {
-            "shadow-lg sm:bg-blue-400/10 sm:backdrop-blur-lg": isScrolled,
+            "shadow-lg sm:border-blue-900/30 sm:bg-blue-400/10 sm:backdrop-blur-lg":
+              isScrolled,
           },
         )}
       >

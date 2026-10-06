@@ -22,11 +22,3 @@
     pointer-events: all;
   }
 }
-
-.home {
-  grid-area: logo;
-
-  @media (min-width: 640px) {
-    height: 36px;
-  }
-}

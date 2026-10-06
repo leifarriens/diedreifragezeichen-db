@@ -20,17 +20,23 @@ export default async function ProfilePage() {
     archivApi.getFolgen(),
   ]);
 
-  const userRatedFolgenIds = userRatings.map((rating) => rating.folgeId);
+  const userRatingsByFolgeId = new Map(
+    userRatings.map((rating) => [rating.folgeId, rating]),
+  );
 
-  const folgenWithRating = folgen
-    .filter((folge) => userRatedFolgenIds.includes(folge.id))
-    .map((folge) => {
-      const userRating = userRatings.find(
-        (rating) => rating.folgeId === folge.id,
-      );
+  const folgenWithRating = folgen.flatMap((folge) => {
+    const userRating = userRatingsByFolgeId.get(folge.id);
 
-      return userRating ? { ...folge, userRating: userRating.score } : folge;
-    });
+    return userRating
+      ? [
+          {
+            ...folge,
+            userRating: userRating.score,
+            userRatingUpdatedAt: userRating.updatedAt,
+          },
+        ]
+      : [];
+  });
 
   return (
     <main className="flex flex-1 justify-center p-6 sm:p-10">
