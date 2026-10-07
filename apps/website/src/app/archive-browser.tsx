@@ -1,6 +1,5 @@
 "use client";
 
-import type { Folge } from "@ddfdb/archiv/contracts";
 import type { ReactNode } from "react";
 
 import { useMemo } from "react";
@@ -10,6 +9,7 @@ import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { FIRST_RELEASE_YEAR } from "@/components/archive/archive-filters";
 import { useArchiveFilters } from "@/components/archive/archive-filters-provider";
+import { sortArchiveFolgen } from "@/components/archive/sort-archive-folgen";
 import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
 import { Wrapper } from "@/components/layout/wrapper";
@@ -30,11 +30,10 @@ export default function ArchiveBrowser({
 
   const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
 
-  const sortedFolgen = useMemo(() => {
-    return [...hydratedFolgen].sort((left, right) =>
-      compareReleaseDates(left, right, sortOrder),
-    );
-  }, [hydratedFolgen, sortOrder]);
+  const sortedFolgen = useMemo(
+    () => sortArchiveFolgen(hydratedFolgen, sortOrder),
+    [hydratedFolgen, sortOrder],
+  );
 
   const filteredFolgen = useMemo(() => {
     const query = searchTerm.trim().toLocaleLowerCase("de-DE");
@@ -72,7 +71,7 @@ export default function ArchiveBrowser({
             <span className="mb-2 block text-xs font-semibold tracking-wide text-slate-400 uppercase">
               Sortierung
             </span>
-            <div className="inline-flex w-full rounded-xl border border-white/15 p-1 sm:w-auto">
+            <div className="inline-flex w-full flex-wrap rounded-xl border border-white/15 p-1 sm:w-auto">
               <SortButton
                 active={sortOrder === "newest"}
                 onClick={() => {
@@ -88,6 +87,14 @@ export default function ArchiveBrowser({
                 }}
               >
                 Älteste
+              </SortButton>
+              <SortButton
+                active={sortOrder === "rating"}
+                onClick={() => {
+                  updateFilters({ sortOrder: "rating" });
+                }}
+              >
+                Community-Bewertung
               </SortButton>
             </div>
           </div>
@@ -196,25 +203,6 @@ export default function ArchiveBrowser({
       )}
     </Wrapper>
   );
-}
-
-function compareReleaseDates(
-  left: Folge,
-  right: Folge,
-  order: "newest" | "oldest",
-) {
-  const leftDate = left.release_date?.slice(0, 10) ?? "";
-  const rightDate = right.release_date?.slice(0, 10) ?? "";
-
-  if (leftDate !== rightDate) {
-    if (!leftDate) return 1;
-    if (!rightDate) return -1;
-    return order === "newest"
-      ? rightDate.localeCompare(leftDate)
-      : leftDate.localeCompare(rightDate);
-  }
-
-  return left.title.localeCompare(right.title, "de");
 }
 
 function SortButton({

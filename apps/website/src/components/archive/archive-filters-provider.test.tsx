@@ -32,7 +32,7 @@ const folgen = [
   {
     artwork: null,
     collection: "serie",
-    communityRating: null,
+    communityRating: { numberOfRatings: 2, score: 2 },
     cover: null,
     description: null,
     id: 1,
@@ -46,7 +46,7 @@ const folgen = [
   {
     artwork: null,
     collection: "serie",
-    communityRating: null,
+    communityRating: { numberOfRatings: 4, score: 3 },
     cover: null,
     description: null,
     id: 2,
@@ -124,6 +124,22 @@ describe("URL-backed archive filtering", () => {
       screen.getByRole("checkbox", { name: "Specials anzeigen" }),
     ).toHaveProperty("checked", true);
     expect(getTitles()).toEqual(["Geisterhaus", "Geister Spezial"]);
+  });
+
+  it("sorts by community rating from best to worst and keeps unrated Folgen last", () => {
+    window.history.replaceState(null, "", "/?sort=rating&specials=1");
+    render(<App />);
+
+    expect(getTitles()).toEqual([
+      "Geisterhaus",
+      "Der Super-Papagei",
+      "Geister Spezial",
+    ]);
+    expect(
+      screen
+        .getByRole("button", { name: "Community-Bewertung" })
+        .getAttribute("aria-pressed"),
+    ).toBe("true");
   });
 
   it("filters locally, preserves other URL state and replaces rather than adds history entries", async () => {

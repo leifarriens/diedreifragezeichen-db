@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
+import { useAuth } from "@/lib/use-auth";
 import { useUserBookmarks } from "@/lib/use-user-bookmarks";
 
 import { useUpdateFolgenBookmark } from "./use-folgen-bookmark";
@@ -15,6 +18,8 @@ export function FolgenBookmarkButton({
   isBookmarked,
   size,
 }: FolgenBookmarkButtonProps) {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
   const { isLoading, toggleBookmark } = useUpdateFolgenBookmark(
     folgeId,
     isBookmarked,
@@ -22,11 +27,20 @@ export function FolgenBookmarkButton({
 
   const iconStyle = { height: size, width: size };
 
+  function handleClick() {
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+
+    toggleBookmark();
+  }
+
   return (
     <button
       className="cursor-pointer text-neutral-200 transition-all hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:scale-110"
       disabled={isLoading}
-      onClick={toggleBookmark}
+      onClick={handleClick}
       type="button"
     >
       {isBookmarked ? (

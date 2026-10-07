@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 import { authClient } from "@/lib/auth-client";
 import { useTRPC } from "@/trpc/client";
@@ -38,6 +39,7 @@ export function FolgenUserRating({
         );
       },
       onSuccess(data) {
+        toast.success("Rating updated successfully");
         queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) =>
           prev ? [...prev.filter((r) => r.folgeId !== folgeId), data] : [data],
         );

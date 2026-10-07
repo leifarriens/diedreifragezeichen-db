@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "sonner";
 
 import { ArchiveFiltersProvider } from "@/components/archive/archive-filters-provider";
 import { Footer } from "@/components/layout/footer";
@@ -43,6 +44,7 @@ export default function RootLayout({
             buttonPosition="bottom-right"
             initialIsOpen={false}
           />
+          <Toaster theme="dark" />
         </body>
       </TRPCReactProvider>
     </html>

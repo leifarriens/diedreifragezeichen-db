@@ -18,7 +18,7 @@ describe("archive filter query parameters", () => {
     const filters = {
       includeSpecials: true,
       searchTerm: "Geister & ??? ä",
-      sortOrder: "oldest",
+      sortOrder: "rating",
       yearRange: { max: 2020, min: 1990 },
     } as const;
     expect(
