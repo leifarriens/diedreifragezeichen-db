@@ -1,51 +1,70 @@
 "use client";
 
-import { useFolgenBookmark } from "./use-folgen-bookmark";
+import { useUserBookmarks } from "@/lib/use-user-bookmarks";
+
+import { useUpdateFolgenBookmark } from "./use-folgen-bookmark";
 
 interface FolgenBookmarkButtonProps {
   folgeId: number;
+  isBookmarked: boolean;
+  size?: number;
 }
 
-export function FolgenBookmarkButton({ folgeId }: FolgenBookmarkButtonProps) {
-  const { isBookmarked, isLoading, toggleBookmark } =
-    useFolgenBookmark(folgeId);
+export function FolgenBookmarkButton({
+  folgeId,
+  isBookmarked,
+  size,
+}: FolgenBookmarkButtonProps) {
+  const { isLoading, toggleBookmark } = useUpdateFolgenBookmark(
+    folgeId,
+    isBookmarked,
+  );
+
+  const iconStyle = { height: size, width: size };
 
   return (
     <button
-      className="cursor-pointer text-neutral-200 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+      className="cursor-pointer text-neutral-200 transition-all hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white active:scale-110"
       disabled={isLoading}
       onClick={toggleBookmark}
       type="button"
     >
       {isBookmarked ? (
         <svg
-          className="size-8"
           fill="currentColor"
-          viewBox="0 0 24 24"
+          height="32"
+          style={iconStyle}
+          viewBox="0 0 256 256"
+          width="32"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            clipRule="evenodd"
-            d="M6.32 2.577a49.255 49.255 0 0 1 11.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 0 1-1.085.67L12 18.089l-7.165 3.583A.75.75 0 0 1 3.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93Z"
-            fillRule="evenodd"
-          />
+          <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Z"></path>
         </svg>
       ) : (
         <svg
-          className="size-8"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1.5}
-          viewBox="0 0 24 24"
+          fill="currentColor"
+          height="32"
+          style={iconStyle}
+          viewBox="0 0 256 256"
+          width="32"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <path d="M184,32H72A16,16,0,0,0,56,48V224a8,8,0,0,0,12.24,6.78L128,193.43l59.77,37.35A8,8,0,0,0,200,224V48A16,16,0,0,0,184,32Zm0,177.57-51.77-32.35a8,8,0,0,0-8.48,0L72,209.57V48H184Z"></path>
         </svg>
       )}
     </button>
+  );
+}
+
+export function FolgenBookmarkButtonForFolge({ folgeId }: { folgeId: number }) {
+  const { data: userBookmarks } = useUserBookmarks();
+
+  return (
+    <FolgenBookmarkButton
+      folgeId={folgeId}
+      isBookmarked={
+        userBookmarks?.some((bookmark) => bookmark.folgeId === folgeId) ?? false
+      }
+    />
   );
 }

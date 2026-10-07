@@ -38,7 +38,13 @@ export function HeaderNav() {
         <Link
           aria-label="Drei Fragezeichen DB Startseite"
           className="flex shrink-0 items-center gap-3 [grid-area:logo]"
-          href="/#"
+          href="/"
+          onClick={(event) => {
+            if (window.location.pathname === "/") {
+              event.preventDefault();
+              window.scroll({ behavior: "smooth", top: 0 });
+            }
+          }}
         >
           <Image
             alt="Drei Fragezeichen"

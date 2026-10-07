@@ -11,9 +11,9 @@ import {
 } from "../icons/streaming-icons";
 
 export const STREAMING_SERVICES = {
-  amazon_music: { label: "Amazon Music" },
+  // amazon_music: { label: "Amazon Music" },
   apple_music: { Icon: AppleMusicIcon, label: "Apple Music" },
-  bookbeat: { label: "BookBeat" },
+  // bookbeat: { label: "BookBeat" },
   deezer: { Icon: DeezerIcon, label: "Deezer" },
   spotify: { Icon: SpotifyIcon, label: "Spotify" },
   youtube_music: { Icon: YoutubeMusicIcon, label: "YouTube Music" },

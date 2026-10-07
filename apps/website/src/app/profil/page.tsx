@@ -1,33 +1,12 @@
-import { redirect } from "next/navigation";
-
-import { getServerSession } from "@/lib/auth";
+import { serverSessionGuard } from "@/lib/auth";
 import { caller } from "@/trpc/server";
 
-import { folgenService } from "../../services/folgen.service";
 import { SignOutButton } from "./sign-out-button";
-import { UserRatedFolgen } from "./user-rated-folgen";
 
 export default async function ProfilePage() {
-  const session = await getServerSession();
+  await serverSessionGuard();
 
-  if (!session) {
-    redirect("/login");
-  }
-
-  const [user, userRatings, folgen] = await Promise.all([
-    caller.user.me(),
-    // DISCUSS: We currently fetch this on server and also on client (when we hydrate user data).
-    // Can we somhow use the server data as inital data on the client?
-    caller.ratings.getMine(),
-    folgenService.getAllFolgenWithCommunityRatings(),
-  ]);
-  const userRatedFolgenIds = new Set(
-    userRatings.map((rating) => rating.folgeId),
-  );
-
-  const userRatedFolgen = folgen.filter((folge) =>
-    userRatedFolgenIds.has(folge.id),
-  );
+  const user = await caller.user.me();
 
   return (
     <section className="space-y-8">
@@ -50,8 +29,6 @@ export default async function ProfilePage() {
         <dt className="font-medium">User ID</dt>
         <dd className="font-mono text-sm break-all">{user.id}</dd>
       </dl>
-
-      <UserRatedFolgen folgen={userRatedFolgen} />
     </section>
   );
 }

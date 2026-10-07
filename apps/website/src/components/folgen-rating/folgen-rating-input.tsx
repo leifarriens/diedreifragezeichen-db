@@ -1,19 +1,20 @@
 "use client";
 import { useRef, useState } from "react";
-import { cn } from "tailwind-variants";
 
-import { QSvg } from "../icons/q";
 import { calcHoverValue } from "./calc-hover-value";
+import { FolgenRatingDisplay } from "./folgen-rating-display";
 
 const MAX_RATING = 3;
 const RATING_STEP = 0.5;
 
 interface FolgenRatingInputProps {
+  folgenTitle: string;
   onValueChange: (value: number) => void;
   value: null | number;
 }
 
 export function FolgenRatingInput({
+  folgenTitle,
   onValueChange,
   value,
 }: FolgenRatingInputProps) {
@@ -57,51 +58,12 @@ export function FolgenRatingInput({
           onMouseOut={reset}
           ref={inputRef}
         />
-        <RatingDisplay value={localValue} />
-      </div>
-    </div>
-  );
-}
-
-function RatingDisplay({
-  className,
-  value,
-}: {
-  className?: string;
-  value: number;
-}) {
-  const filledCount = Math.ceil(value);
-
-  const colors = ["#ffffff", "#e10613", "#009ee1"];
-
-  return (
-    <div className={cn("h-16 w-fit", className)}>
-      <div className="relative h-full w-fit">
-        <div className="flex h-full items-center gap-x-1 px-[2px] py-[1px]">
-          {Array.from({ length: MAX_RATING }).map((_, index) => (
-            <QSvg
-              className="h-full w-auto opacity-30"
-              color="#ffffff"
-              key={`bg-q-${index.toString()}`}
-            />
-          ))}
-        </div>
-
-        <div className="absolute inset-0 flex items-center gap-x-1 px-[2px] py-[1px]">
-          {Array.from({ length: filledCount }).map((_, index) => {
-            const isLast = filledCount - 1 === index;
-            const asHalf = isLast && value % 1 !== 0;
-
-            return (
-              <QSvg
-                className="h-full w-auto animate-fade-in"
-                color={colors[index]}
-                key={`fg-q-${index.toString()}`}
-                style={{ ...(asHalf && { clipPath: "inset(0 50% 0 0)" }) }}
-              />
-            );
-          })}
-        </div>
+        <FolgenRatingDisplay
+          folgenTitle={folgenTitle}
+          size="lg"
+          type="user"
+          value={localValue}
+        />
       </div>
     </div>
   );

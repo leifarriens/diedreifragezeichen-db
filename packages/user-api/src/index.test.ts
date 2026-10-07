@@ -33,7 +33,6 @@ function makeBookmarkRepository() {
   return {
     addBookmark: vi.fn(),
     getUserBookmarks: vi.fn(() => Promise.resolve([])),
-    isBookmarked: vi.fn(() => Promise.resolve(false)),
     removeBookmark: vi.fn(() => Promise.resolve()),
   } satisfies BookmarkRepository;
 }

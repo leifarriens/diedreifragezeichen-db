@@ -45,7 +45,7 @@ describe("FolgenStreamingLinks", () => {
     }
   });
 
-  it("keeps named links for services without a supplied icon", () => {
+  it("omits links for unsupported services", () => {
     render(
       <FolgenStreamingLinks
         links={{
@@ -55,11 +55,6 @@ describe("FolgenStreamingLinks", () => {
       />,
     );
 
-    expect(
-      screen.getByRole("link", { name: externalLinkLabel("Amazon Music") }),
-    ).toBeTruthy();
-    expect(
-      screen.getByRole("link", { name: externalLinkLabel("BookBeat") }),
-    ).toBeTruthy();
+    expect(screen.queryByRole("link")).toBeNull();
   });
 });

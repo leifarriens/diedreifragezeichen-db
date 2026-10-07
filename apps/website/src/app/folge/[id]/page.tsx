@@ -9,8 +9,9 @@ import {
 import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { ExternalLink } from "@/components/external-link/external-link";
-import { FolgenBookmarkButton } from "@/components/folgen-bookmark/folgen-bookmark-button";
-import { FolgenRating } from "@/components/folgen-rating/folgen-rating";
+import { FolgenBookmarkButtonForFolge } from "@/components/folgen-bookmark/folgen-bookmark-button";
+import { FolgenCover } from "@/components/folgen-images/folgen-cover";
+import { FolgenRatingDisplay } from "@/components/folgen-rating/folgen-rating-display";
 import { FolgenUserRating } from "@/components/folgen-rating/folgen-user-rating";
 import { FolgenStreamingLinks } from "@/components/folgen-streaming-links/folge-streaming-links";
 import { PageBackground } from "@/components/layout/page-background";
@@ -61,12 +62,11 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
         <Wrapper className="max-w-7xl">
           <div className="mb-24 p-8 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
             {cover ? (
-              <img
-                alt={`${title} Cover`}
+              <FolgenCover
                 className="mb-4 w-full rounded-sm object-cover shadow-2xl"
-                height={512}
-                src={cover}
-                width={512}
+                coverUrl={cover}
+                folgenTitle={title}
+                loading="eager"
               />
             ) : (
               <div />
@@ -95,16 +95,22 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 )}
               </div>
 
-              {communityRating && (
-                <div className="mt-4 text-lg text-neutral-300">
-                  Community Rating: {String(communityRating.score)} / 3 (
-                  {communityRating.numberOfRatings.toString()} rating(s))
+              <div className="mt-6 flex gap-4">
+                <div className="flex flex-col items-center">
+                  <h4 className="mb-1 text-xs font-semibold">DDFDB Wertung</h4>
+                  <FolgenRatingDisplay
+                    folgenTitle={title}
+                    size="lg"
+                    type="community"
+                    value={communityRating?.score ?? null}
+                  />
                 </div>
-              )}
 
-              <FolgenRating communityRating={communityRating} title={title} />
-
-              <FolgenUserRating folgeId={folge.id} />
+                <div className="flex flex-col items-center">
+                  <h4 className="mb-1 text-xs font-semibold">Deine Wertung</h4>
+                  <FolgenUserRating folgeId={folge.id} folgenTitle={title} />
+                </div>
+              </div>
 
               <div className="mt-6 flex items-center gap-4">
                 <FolgenStreamingLinks links={links} />
@@ -132,7 +138,7 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                   </ExternalLink>
                 )}
 
-                <FolgenBookmarkButton folgeId={folge.id} />
+                <FolgenBookmarkButtonForFolge folgeId={folge.id} />
               </div>
             </div>
           </div>

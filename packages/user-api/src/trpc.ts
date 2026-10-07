@@ -57,14 +57,6 @@ export const appRouter = createTRPCRouter({
     getUserBookmarks: protectedProcedure.query(({ ctx }) =>
       ctx.bookmarks.getUserBookmarks({ userId: ctx.user.id }),
     ),
-    isBookmarked: protectedProcedure
-      .input(z.object({ folgeId }))
-      .query(({ ctx, input }) =>
-        ctx.bookmarks.isBookmarked({
-          folgeId: input.folgeId,
-          userId: ctx.user.id,
-        }),
-      ),
     removeBookmark: protectedProcedure
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>

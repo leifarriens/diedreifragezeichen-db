@@ -13,10 +13,16 @@ export function BookmarksList({
 }) {
   const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
 
+  const sortedFolgen = [...hydratedFolgen].sort(
+    (a, b) =>
+      (b.bookmarkedAt ? new Date(b.bookmarkedAt).getTime() : 0) -
+      (a.bookmarkedAt ? new Date(a.bookmarkedAt).getTime() : 0),
+  );
+
   return (
     <section>
       <FolgenGrid>
-        {hydratedFolgen.map((folge) => (
+        {sortedFolgen.map((folge) => (
           <FolgenGridItem
             folge={folge}
             isBookmarked={folge.isBookmarked}

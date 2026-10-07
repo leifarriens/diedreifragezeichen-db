@@ -30,39 +30,36 @@ export default function ArchiveBrowser({
 
   const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
 
+  const sortedFolgen = useMemo(() => {
+    return [...hydratedFolgen].sort((left, right) =>
+      compareReleaseDates(left, right, sortOrder),
+    );
+  }, [hydratedFolgen, sortOrder]);
+
   const filteredFolgen = useMemo(() => {
     const query = searchTerm.trim().toLocaleLowerCase("de-DE");
     const includeUnknownDates =
       yearRange.min === FIRST_RELEASE_YEAR && yearRange.max === currentYear;
 
-    return hydratedFolgen
-      .filter((folge) => {
-        if (!includeSpecials && folge.collection === "spezial") return false;
+    return sortedFolgen.filter((folge) => {
+      if (!includeSpecials && folge.collection === "spezial") return false;
 
-        if (folge.release_date) {
-          const year = Number(folge.release_date.slice(0, 4));
-          if (year < yearRange.min || year > yearRange.max) return false;
-        } else if (!includeUnknownDates) {
-          return false;
-        }
+      if (folge.release_date) {
+        const year = Number(folge.release_date.slice(0, 4));
+        if (year < yearRange.min || year > yearRange.max) return false;
+      } else if (!includeUnknownDates) {
+        return false;
+      }
 
-        if (!query) return true;
+      if (!query) return true;
 
-        return (
-          folge.title.toLocaleLowerCase("de-DE").includes(query) ||
-          (folge.number?.toString().includes(query) ?? false) ||
-          (folge.release_date?.slice(0, 4).includes(query) ?? false)
-        );
-      })
-      .sort((left, right) => compareReleaseDates(left, right, sortOrder));
-  }, [
-    currentYear,
-    hydratedFolgen,
-    includeSpecials,
-    searchTerm,
-    sortOrder,
-    yearRange,
-  ]);
+      return (
+        folge.title.toLocaleLowerCase("de-DE").includes(query) ||
+        (folge.number?.toString().includes(query) ?? false) ||
+        (folge.release_date?.slice(0, 4).includes(query) ?? false)
+      );
+    });
+  }, [currentYear, sortedFolgen, includeSpecials, searchTerm, yearRange]);
 
   return (
     <Wrapper>

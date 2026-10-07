@@ -1,9 +1,17 @@
 // @vitest-environment jsdom
 
+import type { ComponentProps } from "react";
+
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { FolgenRatingInput } from "./folgen-rating-input";
+import { FolgenRatingInput as FolgenRatingInputComponent } from "./folgen-rating-input";
+
+function FolgenRatingInput(
+  props: Omit<ComponentProps<typeof FolgenRatingInputComponent>, "folgenTitle">,
+) {
+  return <FolgenRatingInputComponent folgenTitle="Testfolge" {...props} />;
+}
 
 afterEach(cleanup);
 

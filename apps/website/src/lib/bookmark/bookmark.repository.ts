@@ -39,20 +39,6 @@ export const bookmarkRepository: BookmarkRepository = {
     return bookmarks.map(toBookmarkResponse);
   },
 
-  async isBookmarked({ folgeId, userId }) {
-    const [bookmark] = await db
-      .select({ folgeId: schema.bookmark.folgeId })
-      .from(schema.bookmark)
-      .where(
-        and(
-          eq(schema.bookmark.userId, userId),
-          eq(schema.bookmark.folgeId, folgeId),
-        ),
-      );
-
-    return Boolean(bookmark);
-  },
-
   async removeBookmark({ folgeId, userId }) {
     await db
       .delete(schema.bookmark)

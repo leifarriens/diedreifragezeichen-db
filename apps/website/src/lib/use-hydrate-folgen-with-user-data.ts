@@ -6,16 +6,21 @@ import { useTRPC } from "@/trpc/client";
 import type { FolgeWithCommunityRating } from "./types";
 
 import { useAuth } from "./use-auth";
+import { useUserBookmarks } from "./use-user-bookmarks";
 
-export function useHydrateFolgenWithUserData<
-  T extends FolgeWithCommunityRating,
->(
-  folgen: T[],
-): (T & {
+interface FolgenUserData {
+  bookmarkedAt: null | string;
   isBookmarked: boolean;
   userRating: null | number;
   userRatingUpdatedAt: null | string;
-})[] {
+}
+
+/**
+ * Hydrates an array of Folgen with the user's bookmark and rating data.
+ */
+export function useHydrateFolgenWithUserData<
+  T extends FolgeWithCommunityRating,
+>(folgen: T[]): (FolgenUserData & T)[] {
   const trpc = useTRPC();
   const { isAuthenticated } = useAuth();
 
@@ -25,11 +30,7 @@ export function useHydrateFolgenWithUserData<
     }),
   );
 
-  const { data: userBookmarks } = useQuery(
-    trpc.bookmarks.getUserBookmarks.queryOptions(undefined, {
-      enabled: isAuthenticated,
-    }),
-  );
+  const { data: userBookmarks } = useUserBookmarks();
 
   return useMemo(() => {
     const ratingsByFolgeId = new Map(
@@ -37,18 +38,20 @@ export function useHydrateFolgenWithUserData<
         (rating) => [rating.folgeId, rating] as const,
       ),
     );
-    const bookmarkedFolgeIds = new Set(
+    const bookmarkedFolgeIds = new Map(
       (isAuthenticated ? userBookmarks : undefined)?.map(
-        ({ folgeId }) => folgeId,
+        ({ createdAt, folgeId }) => [folgeId, createdAt] as const,
       ),
     );
 
     return folgen.map((folge) => {
       const userRating = ratingsByFolgeId.get(folge.id);
+      const bookmarkedAt = bookmarkedFolgeIds.get(folge.id);
 
       return {
         ...folge,
-        isBookmarked: bookmarkedFolgeIds.has(folge.id),
+        bookmarkedAt: bookmarkedAt ?? null,
+        isBookmarked: Boolean(bookmarkedAt),
         userRating: userRating?.score ?? null,
         userRatingUpdatedAt: userRating?.updatedAt ?? null,
       };

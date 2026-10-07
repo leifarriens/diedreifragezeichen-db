@@ -9,9 +9,13 @@ import { FolgenRatingInput } from "./folgen-rating-input";
 
 interface FolgenUserRatingProps {
   folgeId: number;
+  folgenTitle: string;
 }
 
-export function FolgenUserRating({ folgeId }: FolgenUserRatingProps) {
+export function FolgenUserRating({
+  folgeId,
+  folgenTitle,
+}: FolgenUserRatingProps) {
   const queryClient = useQueryClient();
   const { data: session } = authClient.useSession();
   const trpc = useTRPC();
@@ -62,6 +66,7 @@ export function FolgenUserRating({ folgeId }: FolgenUserRatingProps) {
 
   return (
     <FolgenRatingInput
+      folgenTitle={folgenTitle}
       onValueChange={handleRatingChange}
       value={rating.data?.score ?? null}
     />
