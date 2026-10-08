@@ -1,5 +1,6 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
 
+import { Separator } from "@base-ui/react/separator";
 import {
   formatRelativeTime,
   formatReleaseDate,
@@ -112,8 +113,13 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center gap-4">
+              <div className="mt-6 flex items-center gap-4 text-nowrap">
                 <FolgenStreamingLinks links={links} />
+
+                <Separator
+                  className="stretch h-7 w-px bg-neutral-300/50"
+                  orientation="vertical"
+                />
 
                 {weblink && (
                   <ExternalLink
@@ -138,7 +144,10 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                   </ExternalLink>
                 )}
 
-                <FolgenBookmarkButtonForFolge folgeId={folge.id} />
+                <FolgenBookmarkButtonForFolge
+                  folgeId={folge.id}
+                  folgeTitle={folge.title}
+                />
               </div>
             </div>
           </div>

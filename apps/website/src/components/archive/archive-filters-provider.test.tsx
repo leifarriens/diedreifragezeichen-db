@@ -1,5 +1,6 @@
 // @vitest-environment jsdom
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   act,
   cleanup,
@@ -8,6 +9,7 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
+import { useState } from "react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -74,13 +76,17 @@ const folgen = [
 ] as FolgeWithCommunityRating[];
 
 function App() {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
-    <ArchiveFiltersProvider currentYear={2026}>
-      <SearchInput />
-      {route.pathname === "/" && (
-        <ArchiveBrowser archiveUnavailable={false} folgen={folgen} />
-      )}
-    </ArchiveFiltersProvider>
+    <QueryClientProvider client={queryClient}>
+      <ArchiveFiltersProvider currentYear={2026}>
+        <SearchInput />
+        {route.pathname === "/" && (
+          <ArchiveBrowser archiveUnavailable={false} folgen={folgen} />
+        )}
+      </ArchiveFiltersProvider>
+    </QueryClientProvider>
   );
 }
 
@@ -107,7 +113,7 @@ describe("URL-backed archive filtering", () => {
     );
     render(<App />);
     expect(
-      screen.getByRole("searchbox", { name: "Folgen suchen" }),
+      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
     ).toHaveProperty("value", "Geister");
     expect(
       screen
@@ -121,8 +127,10 @@ describe("URL-backed archive filtering", () => {
       screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
     ).toHaveProperty("value", "2020");
     expect(
-      screen.getByRole("checkbox", { name: "Specials anzeigen" }),
-    ).toHaveProperty("checked", true);
+      screen
+        .getByRole("switch", { name: "Specials anzeigen" })
+        .getAttribute("aria-checked"),
+    ).toBe("true");
     expect(getTitles()).toEqual(["Geisterhaus", "Geister Spezial"]);
   });
 
@@ -137,7 +145,7 @@ describe("URL-backed archive filtering", () => {
     ]);
     expect(
       screen
-        .getByRole("button", { name: "Community-Bewertung" })
+        .getByRole("button", { name: "Beste" })
         .getAttribute("aria-pressed"),
     ).toBe("true");
   });
@@ -150,12 +158,11 @@ describe("URL-backed archive filtering", () => {
     const historyLength = window.history.length;
     fireEvent.click(screen.getByRole("button", { name: "Älteste" }));
     expect(getTitles()).toEqual(["Der Super-Papagei", "Geisterhaus"]);
-    fireEvent.change(screen.getByRole("searchbox", { name: "Folgen suchen" }), {
-      target: { value: "Geister" },
-    });
-    fireEvent.click(
-      screen.getByRole("checkbox", { name: "Specials anzeigen" }),
+    fireEvent.change(
+      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
+      { target: { value: "Geister" } },
     );
+    fireEvent.click(screen.getByRole("switch", { name: "Specials anzeigen" }));
     fireEvent.change(
       screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
       { target: { value: "2005" } },
@@ -180,7 +187,7 @@ describe("URL-backed archive filtering", () => {
     fireEvent.click(screen.getByRole("button", { name: "Suche zurücksetzen" }));
     expect(new URLSearchParams(window.location.search).has("q")).toBe(false);
     expect(
-      screen.getByRole("searchbox", { name: "Folgen suchen" }),
+      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
     ).toHaveProperty("value", "");
   });
 
@@ -197,7 +204,9 @@ describe("URL-backed archive filtering", () => {
       route.pathname = "/folge/2";
     });
     rerender(<App />);
-    const search = screen.getByRole("searchbox", { name: "Folgen suchen" });
+    const search = screen.getByRole("combobox", {
+      name: "Folgen Archiv durchsuchen",
+    });
     expect(search).toHaveProperty("value", "");
     fireEvent.change(search, { target: { value: "Global search draft" } });
     expect(window.location.search).toBe("");
@@ -239,7 +248,7 @@ describe("URL-backed archive filtering", () => {
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
     expect(
-      screen.getByRole("searchbox", { name: "Folgen suchen" }),
+      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
     ).toHaveProperty("value", "");
     expect(
       screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),

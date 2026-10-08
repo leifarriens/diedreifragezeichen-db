@@ -1,12 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-
-import { useTRPC } from "@/trpc/client";
 
 import type { FolgeWithCommunityRating } from "./types";
 
-import { useAuth } from "./use-auth";
 import { useUserBookmarks } from "./use-user-bookmarks";
+import { useUserRatings } from "./use-user-ratings";
 
 interface FolgenUserData {
   bookmarkedAt: null | string;
@@ -21,25 +18,16 @@ interface FolgenUserData {
 export function useHydrateFolgenWithUserData<
   T extends FolgeWithCommunityRating,
 >(folgen: T[]): (FolgenUserData & T)[] {
-  const trpc = useTRPC();
-  const { isAuthenticated } = useAuth();
-
-  const { data: userRatings } = useQuery(
-    trpc.ratings.getMine.queryOptions(undefined, {
-      enabled: isAuthenticated,
-    }),
-  );
+  const { data: userRatings } = useUserRatings();
 
   const { data: userBookmarks } = useUserBookmarks();
 
   return useMemo(() => {
     const ratingsByFolgeId = new Map(
-      (isAuthenticated ? userRatings : undefined)?.map(
-        (rating) => [rating.folgeId, rating] as const,
-      ),
+      userRatings?.map((rating) => [rating.folgeId, rating] as const),
     );
     const bookmarkedFolgeIds = new Map(
-      (isAuthenticated ? userBookmarks : undefined)?.map(
+      userBookmarks?.map(
         ({ createdAt, folgeId }) => [folgeId, createdAt] as const,
       ),
     );
@@ -56,5 +44,5 @@ export function useHydrateFolgenWithUserData<
         userRatingUpdatedAt: userRating?.updatedAt ?? null,
       };
     });
-  }, [folgen, isAuthenticated, userRatings, userBookmarks]);
+  }, [folgen, userRatings, userBookmarks]);
 }

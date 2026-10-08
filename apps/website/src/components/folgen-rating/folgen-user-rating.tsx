@@ -1,9 +1,9 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-import { authClient } from "@/lib/auth-client";
+import { useUserFolgenRating } from "@/lib/use-user-folgen-rating";
 import { useTRPC } from "@/trpc/client";
 
 import { FolgenRatingInput } from "./folgen-rating-input";
@@ -18,17 +18,9 @@ export function FolgenUserRating({
   folgenTitle,
 }: FolgenUserRatingProps) {
   const queryClient = useQueryClient();
-  const { data: session } = authClient.useSession();
   const trpc = useTRPC();
 
-  const rating = useQuery(
-    trpc.ratings.getForFolge.queryOptions(
-      { folgeId },
-      {
-        enabled: !!session,
-      },
-    ),
-  );
+  const rating = useUserFolgenRating(folgeId);
 
   const setRating = useMutation(
     trpc.ratings.set.mutationOptions({
@@ -70,7 +62,7 @@ export function FolgenUserRating({
     <FolgenRatingInput
       folgenTitle={folgenTitle}
       onValueChange={handleRatingChange}
-      value={rating.data?.score ?? null}
+      value={rating?.score ?? null}
     />
   );
 }

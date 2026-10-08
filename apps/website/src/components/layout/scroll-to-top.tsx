@@ -41,18 +41,13 @@ export function ScrollToTop() {
         type="button"
       >
         <svg
-          className="size-6"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1.5}
-          viewBox="0 0 24 24"
+          fill="currentColor"
+          height="32"
+          viewBox="0 0 256 256"
+          width="32"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
-            d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
         </svg>
       </button>
     </div>

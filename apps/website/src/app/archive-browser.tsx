@@ -14,6 +14,8 @@ import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
 import { Wrapper } from "@/components/layout/wrapper";
 import { MultiRangeInput } from "@/components/multi-range-input/multi-range-input";
+import { Switch } from "@/components/ui/switch";
+import { createFolgenFilter } from "@/lib/folgen-filter";
 import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
 
 interface ArchiveBrowserProps {
@@ -30,35 +32,33 @@ export default function ArchiveBrowser({
 
   const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
 
-  const sortedFolgen = useMemo(
-    () => sortArchiveFolgen(hydratedFolgen, sortOrder),
-    [hydratedFolgen, sortOrder],
-  );
-
   const filteredFolgen = useMemo(() => {
-    const query = searchTerm.trim().toLocaleLowerCase("de-DE");
-    const includeUnknownDates =
+    const includesAllReleaseYears =
       yearRange.min === FIRST_RELEASE_YEAR && yearRange.max === currentYear;
 
-    return sortedFolgen.filter((folge) => {
-      if (!includeSpecials && folge.collection === "spezial") return false;
+    return createFolgenFilter(hydratedFolgen)
+      .search(searchTerm)
+      .showSpecials(includeSpecials)
+      .yearRange({
+        endYear: includesAllReleaseYears ? null : yearRange.max,
+        startYear: includesAllReleaseYears ? null : yearRange.min,
+      })
+      .results();
+  }, [
+    currentYear,
+    hydratedFolgen,
+    includeSpecials,
+    searchTerm,
+    yearRange.max,
+    yearRange.min,
+  ]);
 
-      if (folge.release_date) {
-        const year = Number(folge.release_date.slice(0, 4));
-        if (year < yearRange.min || year > yearRange.max) return false;
-      } else if (!includeUnknownDates) {
-        return false;
-      }
+  const sortedFolgen = useMemo(
+    () => sortArchiveFolgen(filteredFolgen, sortOrder),
+    [filteredFolgen, sortOrder],
+  );
 
-      if (!query) return true;
-
-      return (
-        folge.title.toLocaleLowerCase("de-DE").includes(query) ||
-        (folge.number?.toString().includes(query) ?? false) ||
-        (folge.release_date?.slice(0, 4).includes(query) ?? false)
-      );
-    });
-  }, [currentYear, sortedFolgen, includeSpecials, searchTerm, yearRange]);
+  const displayedFolgen = sortedFolgen;
 
   return (
     <Wrapper>
@@ -94,7 +94,7 @@ export default function ArchiveBrowser({
                   updateFilters({ sortOrder: "rating" });
                 }}
               >
-                Community-Bewertung
+                Beste
               </SortButton>
             </div>
           </div>
@@ -116,30 +116,22 @@ export default function ArchiveBrowser({
             />
           </div>
 
-          <label className="flex cursor-pointer items-center gap-3 self-end rounded-xl border border-white/10 px-3 py-3 transition hover:border-white/20 hover:bg-white/[0.03] lg:mb-0">
-            <input
-              checked={includeSpecials}
-              className="peer sr-only"
-              onChange={(event) => {
-                updateFilters({ includeSpecials: event.target.checked });
-              }}
-              type="checkbox"
-            />
-            <span
-              aria-hidden="true"
-              className="relative h-6 w-11 rounded-full bg-white/20 transition peer-checked:bg-sky-500 peer-focus-visible:ring-2 peer-focus-visible:ring-sky-300 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-[#001727] after:absolute after:top-0.5 after:left-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow-sm after:transition peer-checked:after:translate-x-5"
-            />
-            <span className="text-sm font-medium">Specials anzeigen</span>
-          </label>
+          <Switch
+            checked={includeSpecials}
+            label="Specials anzeigen"
+            onCheckedChange={(checked) => {
+              updateFilters({ includeSpecials: checked });
+            }}
+          />
         </div>
       </section>
 
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <p aria-live="polite" className="text-sm text-slate-300">
           <span className="font-semibold text-white">
-            {filteredFolgen.length}
+            {displayedFolgen.length}
           </span>{" "}
-          {filteredFolgen.length === 1 ? "Folge" : "Folgen"}
+          {displayedFolgen.length === 1 ? "Folge" : "Folgen"}
           {includeSpecials && (
             <span className="text-slate-400"> inklusive Specials</span>
           )}
@@ -180,7 +172,7 @@ export default function ArchiveBrowser({
             Erneut laden
           </button>
         </section>
-      ) : filteredFolgen.length === 0 ? (
+      ) : displayedFolgen.length === 0 ? (
         <section className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-14 text-center">
           <p className="text-lg font-semibold">Keine Folgen gefunden</p>
           <p className="mt-2 text-sm text-slate-400">
@@ -190,7 +182,7 @@ export default function ArchiveBrowser({
       ) : (
         <section aria-label="Folgen im Archiv">
           <FolgenGrid>
-            {filteredFolgen.map((folge) => (
+            {displayedFolgen.map((folge) => (
               <FolgenGridItem
                 folge={folge}
                 isBookmarked={folge.isBookmarked}

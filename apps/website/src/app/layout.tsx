@@ -4,9 +4,9 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "sonner";
 
 import { ArchiveFiltersProvider } from "@/components/archive/archive-filters-provider";
-import { Footer } from "@/components/layout/footer";
 
 import "./globals.css";
+import { Footer } from "@/components/layout/footer";
 import { HeaderNav } from "@/components/layout/header-nav";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { TRPCReactProvider } from "@/trpc/client";
@@ -44,6 +44,7 @@ export default function RootLayout({
             buttonPosition="bottom-right"
             initialIsOpen={false}
           />
+          {/* DISCUSS: Use https://base-ui.com/react/components/toast instead? */}
           <Toaster theme="dark" />
         </body>
       </TRPCReactProvider>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { cn } from "tailwind-variants";
 
-import { authClient } from "@/lib/auth-client";
+import { useAuth } from "@/lib/use-auth";
 
 import { Button } from "../button/button";
 import { SearchInput } from "../search/search-input";
@@ -21,14 +21,15 @@ export function HeaderNav() {
     () => window.scrollY > 0,
     () => false,
   );
-  const { data: session, isPending } = authClient.useSession();
+
+  const { isAuthenticated, isPending } = useAuth();
 
   return (
-    <div className="sticky top-0 z-50 w-full sm:px-8 sm:py-8">
+    <div className="sticky top-0 z-40 w-full sm:px-8 sm:py-8">
       <div
         className={cn(
           styles.container,
-          "flex items-center justify-end gap-4 border border-transparent px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
+          "grid justify-end gap-x-4 gap-y-5 border border-transparent px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
           {
             "shadow-lg sm:border-blue-900/30 sm:bg-blue-400/10 sm:backdrop-blur-lg":
               isScrolled,
@@ -62,7 +63,7 @@ export function HeaderNav() {
           aria-label="Hauptnavigation"
           className="flex shrink-0 grow basis-auto items-center justify-end [grid-area:profile]"
         >
-          {isPending ? null : session ? (
+          {isPending ? null : isAuthenticated ? (
             <Button href="/profil">Profil</Button>
           ) : (
             <Button href="/login">Anmelden</Button>

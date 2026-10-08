@@ -2,7 +2,7 @@ import { serverSessionGuard } from "@/lib/auth";
 import { folgenService } from "@/services/folgen.service";
 import { caller } from "@/trpc/server";
 
-import { UserRatedFolgen } from "../user-rated-folgen";
+import { UserRatedFolgen } from "./user-rated-folgen";
 
 export default async function RatingsPage() {
   await serverSessionGuard();
