@@ -1,19 +1,24 @@
-import { FieldGroup, Host, Picker, Row, Spacer, Text } from "@expo/ui";
+import { Button, FieldGroup, Host, Picker, Row, Spacer, Text } from "@expo/ui";
 import { scrollContentBackground } from "@expo/ui/swift-ui/modifiers";
-import { useQuery } from "@tanstack/react-query";
-import { Stack, useTheme } from "expo-router";
+import { Stack, useRouter, useTheme } from "expo-router";
+import { useState } from "react";
 import { Platform } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
-import { useTRPC } from "@/api/user-api";
 import {
   STREAMING_SERVICES,
   type StreamingService,
   useUserSettingsStore,
 } from "@/features/settings/hooks/use-user-settings-store";
+import { authClient } from "@/lib/auth-client";
 
 export function SettingsScreen() {
+  const router = useRouter();
   const { colors } = useTheme();
+  const { data: session, isPending: isSessionPending } =
+    authClient.useSession();
+  const [accountError, setAccountError] = useState<null | string>(null);
+  const [isSigningOut, setIsSigningOut] = useState(false);
   const { hasHydrated, streamingService } = useUserSettingsStore(
     useShallow((state) => ({
       hasHydrated: state.hasHydrated,
@@ -23,15 +28,24 @@ export function SettingsScreen() {
   const setStreamingService = useUserSettingsStore(
     (state) => state.setStreamingService,
   );
-  const trpc = useTRPC();
-  const helloQuery = useQuery(trpc.hello.queryOptions({ text: "Expo" }));
-  const userApiStatus = helloQuery.data
-    ? `${helloQuery.data.greeting}${helloQuery.error ? " (cached)" : ""}`
-    : helloQuery.fetchStatus === "paused"
-      ? "Offline"
-      : helloQuery.error
-        ? "Could not connect"
-        : "Connecting...";
+
+  async function handleSignOut() {
+    setAccountError(null);
+    setIsSigningOut(true);
+
+    try {
+      const result = await authClient.signOut();
+      if (result.error) {
+        setAccountError(result.error.message ?? "Could not sign out.");
+      }
+    } catch (reason) {
+      setAccountError(
+        reason instanceof Error ? reason.message : "Could not sign out.",
+      );
+    } finally {
+      setIsSigningOut(false);
+    }
+  }
 
   return (
     <>
@@ -48,13 +62,52 @@ export function SettingsScreen() {
           }
           style={{ backgroundColor: colors.background }}
         >
-          <FieldGroup.Section title="Connection">
-            <Row alignment="center" spacing={12}>
-              <Text>User API</Text>
-              <Spacer />
-              <Text>{userApiStatus}</Text>
-            </Row>
+          <FieldGroup.Section title="Account">
+            {isSessionPending ? (
+              <Row alignment="center" spacing={12}>
+                <Text>Checking account...</Text>
+              </Row>
+            ) : session ? (
+              <>
+                <Row alignment="center" spacing={12}>
+                  <Text>{session.user.name || session.user.email}</Text>
+                </Row>
+                <Row alignment="center" spacing={12}>
+                  <Text>{session.user.email}</Text>
+                </Row>
+                <Row alignment="center" spacing={12}>
+                  <Text>{session.user.id}</Text>
+                </Row>
+                <Row alignment="center" spacing={12}>
+                  <Spacer />
+                  <Button
+                    disabled={isSigningOut}
+                    label={isSigningOut ? "Signing out..." : "Sign out"}
+                    onPress={() => {
+                      void handleSignOut();
+                    }}
+                  />
+                </Row>
+              </>
+            ) : (
+              <Row alignment="center" spacing={12}>
+                <Text>Sign in to access your account.</Text>
+                <Spacer />
+                <Button
+                  label="Sign in"
+                  onPress={() => {
+                    router.push("/(tabs)/settings/sign-in");
+                  }}
+                />
+              </Row>
+            )}
+            {accountError ? (
+              <Row alignment="center" spacing={12}>
+                <Text>{accountError}</Text>
+              </Row>
+            ) : null}
           </FieldGroup.Section>
+
           <FieldGroup.Section title="Play">
             <Row alignment="center" spacing={12}>
               <Text>Streamingdienst</Text>

@@ -66,9 +66,6 @@ export const appRouter = createTRPCRouter({
         }),
       ),
   }),
-  hello: baseProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => ({ greeting: `hello ${input.text}` })),
   ratings: createTRPCRouter({
     getAllCommunityRatings: baseProcedure.query(({ ctx }) =>
       ctx.ratings.findAllFolgenCommunityRatings(),

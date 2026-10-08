@@ -9,6 +9,7 @@ export default function GespeichertLayout() {
       }}
     >
       <Stack.Screen name="index" />
+      <Stack.Screen name="sign-in" options={{ title: "Sign in" }} />
     </Stack>
   );
 }

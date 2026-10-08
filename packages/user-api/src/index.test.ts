@@ -63,14 +63,6 @@ function makeRatingRepository() {
 }
 
 describe("user API router", () => {
-  it("returns a greeting", async () => {
-    const caller = createCaller();
-
-    await expect(caller.hello({ text: "Expo" })).resolves.toEqual({
-      greeting: "hello Expo",
-    });
-  });
-
   it("rejects protected requests without a session", async () => {
     const caller = createCaller();
 

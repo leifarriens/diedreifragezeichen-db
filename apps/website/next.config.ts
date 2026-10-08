@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
     "@ddfdb/db",
     "@ddfdb/user-api",
   ],
+  typescript: {
+    ignoreBuildErrors: true, // Typecheck runs separately from the build
+  },
 };
 
 export default nextConfig;

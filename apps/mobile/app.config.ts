@@ -51,6 +51,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     owner: OWNER,
     plugins: [
       "expo-router",
+      "expo-secure-store",
       [
         "expo-splash-screen",
         {

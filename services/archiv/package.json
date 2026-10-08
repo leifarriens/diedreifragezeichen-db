@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "go tool tygo generate",
+    "clean": "git clean -xdf .cache .turbo dist tmp",
     "dev": "go tool air",
     "lint": "test -z \"$(gofmt -l .)\" && go vet ./...",
     "typecheck": "go test -run '^$' ./...",

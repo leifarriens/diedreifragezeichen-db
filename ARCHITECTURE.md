@@ -60,11 +60,11 @@ The relevant components are:
 
 The website resolves the Better Auth session and passes the authenticated user into the tRPC context. Protected procedures reject unauthenticated requests. User-owned operations must also enforce ownership on the server; authentication alone does not authorize access to another user's records.
 
-Both apps share the user API's TypeScript contract. The mobile tRPC client lives in [`apps/mobile/src/api/user-api.ts`](apps/mobile/src/api/user-api.ts) and uses `EXPO_PUBLIC_DDFDB_USER_API_URL`. Website tRPC clients and server callers live in `apps/website/src/trpc`.
+Both apps share the user API's TypeScript contract. The mobile tRPC client lives in [`apps/mobile/src/api/user-api.ts`](apps/mobile/src/api/user-api.ts) and uses `EXPO_PUBLIC_DDFDB_API_URL`. Website tRPC clients and server callers live in `apps/website/src/trpc`.
 
 ### Current implementation versus intended scope
 
-Today, the Drizzle schema defines Better Auth's `user`, `session`, `account`, and `verification` tables. The `user` table includes basic profile fields such as name and image. The user router currently exposes a public `hello` query and an authenticated `user.me` query.
+Today, the Drizzle schema defines Better Auth's `user`, `session`, `account`, and `verification` tables. The `user` table includes basic profile fields such as name and image. The user router currently exposes an authenticated `user.me` query.
 
 Ratings, bookmarks, and additional profile features are part of the intended user-data domain, but their tables and API operations are not implemented yet. Add their schema and migrations in `packages/db` and their user-facing operations in `packages/user-api`, with server-side database wiring in the website host as needed.
 
