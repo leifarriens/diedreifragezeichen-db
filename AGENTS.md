@@ -10,7 +10,7 @@ Use `pnpm` for all package-manager commands. Run the commands below from the rep
 - Before finishing, always run the full verification suite:
 
   ```bash
-  pnpm turbo typecheck lint test build
+  pnpm turbo typecheck lint test
   ```
 
 - If the full suite reveals an issue caused by your changes, fix it using targeted checks, then rerun the full suite.

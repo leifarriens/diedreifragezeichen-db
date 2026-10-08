@@ -1,9 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
-
 import { useMemo } from "react";
-import { cn } from "tailwind-variants";
 
 import type { FolgeWithCommunityRating } from "@/lib/types";
 
@@ -14,6 +11,7 @@ import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
 import { Wrapper } from "@/components/layout/wrapper";
 import { MultiRangeInput } from "@/components/multi-range-input/multi-range-input";
+import { SortSelector } from "@/components/sort-selector/sort-selector";
 import { Switch } from "@/components/ui/switch";
 import { createFolgenFilter } from "@/lib/folgen-filter";
 import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
@@ -71,32 +69,19 @@ export default function ArchiveBrowser({
             <span className="mb-2 block text-xs font-semibold tracking-wide text-slate-400 uppercase">
               Sortierung
             </span>
-            <div className="inline-flex w-full flex-wrap rounded-xl border border-white/15 p-1 sm:w-auto">
-              <SortButton
-                active={sortOrder === "newest"}
-                onClick={() => {
-                  updateFilters({ sortOrder: "newest" });
-                }}
-              >
-                Neueste
-              </SortButton>
-              <SortButton
-                active={sortOrder === "oldest"}
-                onClick={() => {
-                  updateFilters({ sortOrder: "oldest" });
-                }}
-              >
-                Älteste
-              </SortButton>
-              <SortButton
-                active={sortOrder === "rating"}
-                onClick={() => {
-                  updateFilters({ sortOrder: "rating" });
-                }}
-              >
-                Beste
-              </SortButton>
-            </div>
+            <SortSelector
+              aria-label="Sortierung im Archiv"
+              className="w-full sm:w-auto"
+              onValueChange={(sortOrder) => {
+                updateFilters({ sortOrder });
+              }}
+              options={[
+                { label: "Neueste", value: "newest" },
+                { label: "Älteste", value: "oldest" },
+                { label: "Beste", value: "rating" },
+              ]}
+              value={sortOrder}
+            />
           </div>
 
           <div className="min-w-0">
@@ -194,31 +179,5 @@ export default function ArchiveBrowser({
         </section>
       )}
     </Wrapper>
-  );
-}
-
-function SortButton({
-  active,
-  children,
-  onClick,
-}: {
-  active: boolean;
-  children: ReactNode;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      aria-pressed={active}
-      className={cn(
-        "min-h-10 flex-1 rounded-lg px-4 text-sm font-semibold transition sm:flex-none",
-        active
-          ? "bg-white text-sky-700 shadow-sm"
-          : "text-white/80 hover:bg-white/10 hover:text-white",
-      )}
-      onClick={onClick}
-      type="button"
-    >
-      {children}
-    </button>
   );
 }

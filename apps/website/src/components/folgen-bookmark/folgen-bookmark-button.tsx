@@ -1,6 +1,6 @@
 "use client";
 
-import { Toggle } from "@base-ui/react";
+import { Toggle } from "@base-ui/react/toggle";
 import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/lib/use-auth";

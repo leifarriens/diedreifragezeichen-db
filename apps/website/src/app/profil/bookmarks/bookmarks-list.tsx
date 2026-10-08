@@ -7,6 +7,7 @@ import type { FolgeWithCommunityRating } from "@/lib/types";
 import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
 import { FolgenGridSearch } from "@/components/folgen-grid/folgen-grid-search";
+import { SortSelector } from "@/components/sort-selector/sort-selector";
 import { createFolgenFilter } from "@/lib/folgen-filter";
 import { type BookmarkDateSortOption, sortFolgen } from "@/lib/folgen-sort";
 import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
@@ -39,32 +40,17 @@ export function BookmarksList({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
 
-        <div
+        <SortSelector
           aria-label="Sortierung der Lesezeichen"
-          className="inline-flex rounded-xl border border-white/15 p-1"
-          role="group"
-        >
-          <button
-            aria-pressed={sortOption.order === "newest"}
-            className="min-h-10 rounded-lg px-4 text-sm font-semibold text-white/80 transition hover:bg-white/10 hover:text-white aria-pressed:bg-white aria-pressed:text-sky-700 aria-pressed:shadow-sm"
-            onClick={() => {
-              setSortOption({ by: "bookmarkedAt", order: "newest" });
-            }}
-            type="button"
-          >
-            Neueste zuerst
-          </button>
-          <button
-            aria-pressed={sortOption.order === "oldest"}
-            className="min-h-10 rounded-lg px-4 text-sm font-semibold text-white/80 transition hover:bg-white/10 hover:text-white aria-pressed:bg-white aria-pressed:text-sky-700 aria-pressed:shadow-sm"
-            onClick={() => {
-              setSortOption({ by: "bookmarkedAt", order: "oldest" });
-            }}
-            type="button"
-          >
-            Älteste zuerst
-          </button>
-        </div>
+          onValueChange={(order) => {
+            setSortOption({ by: "bookmarkedAt", order });
+          }}
+          options={[
+            { label: "Neueste zuerst", value: "newest" },
+            { label: "Älteste zuerst", value: "oldest" },
+          ]}
+          value={sortOption.order}
+        />
       </div>
 
       <FolgenGrid>
