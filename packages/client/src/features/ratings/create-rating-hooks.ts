@@ -43,18 +43,34 @@ export function createRatingHooks({
 
     const ratingMutation = useMutation(
       trpc.ratings.set.mutationOptions({
-        onMutate({ folgeId, score }) {
-          queryClient.setQueryData(
-            trpc.ratings.getForFolge.queryKey({ folgeId }),
-            () => ({ folgeId, score, updatedAt: new Date().toISOString() }),
-          );
+        async onError() {
+          await invalidate();
         },
-        onSuccess(data) {
-          queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) =>
-            prev
-              ? [...prev.filter((r) => r.folgeId !== folgeId), data]
-              : [data],
-          );
+        onMutate({ folgeId, score }) {
+          queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) => {
+            const rating = {
+              folgeId,
+              score,
+              updatedAt: new Date().toISOString(),
+            };
+
+            return prev
+              ? [...prev.filter((r) => r.folgeId !== folgeId), rating]
+              : [rating];
+          });
+        },
+      }),
+    );
+
+    const removeRatingMutation = useMutation(
+      trpc.ratings.remove.mutationOptions({
+        async onError() {
+          await invalidate();
+        },
+        onMutate({ folgeId }) {
+          queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) => {
+            return prev ? prev.filter((r) => r.folgeId !== folgeId) : [];
+          });
         },
       }),
     );
@@ -63,23 +79,18 @@ export function createRatingHooks({
       ratingMutation.mutate({ folgeId, score });
     }
 
-    return { isLoading: ratingMutation.isPending, setRating };
-  }
+    function removeRating(folgeId: number) {
+      removeRatingMutation.mutate({ folgeId });
+    }
 
-  // TODO: Implement
-  // const deleteRating = useMutation(
-  //   trpc.ratings.remove.mutationOptions({
-  //     onSuccess() {
-  //       queryClient.setQueryData(
-  //         trpc.ratings.getForFolge.queryKey({ folgeId }),
-  //         undefined,
-  //       );
-  //       queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) => {
-  //         return prev ? prev.filter((r) => r.folgeId !== folgeId) : [];
-  //       });
-  //     },
-  //   }),
-  // );
+    function invalidate() {
+      return queryClient.invalidateQueries({
+        queryKey: trpc.ratings.getMine.queryKey(),
+      });
+    }
+
+    return { isLoading: ratingMutation.isPending, removeRating, setRating };
+  }
 
   return { useUpdateRating, useUserRatings };
 }

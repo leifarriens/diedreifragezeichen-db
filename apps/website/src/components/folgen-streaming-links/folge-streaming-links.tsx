@@ -1,8 +1,11 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
 import type { ComponentType } from "react";
 
+import { STREAMING_SERVICES, type StreamingService } from "@ddfdb/core";
+
 import { ExternalLink } from "../external-link/external-link";
 import {
+  AmazonMusicIcon,
   AppleMusicIcon,
   DeezerIcon,
   SpotifyIcon,
@@ -10,31 +13,28 @@ import {
   YoutubeMusicIcon,
 } from "../icons/streaming-icons";
 
-const STREAMING_SERVICES = {
-  // amazon_music: { label: "Amazon Music" },
-  apple_music: { Icon: AppleMusicIcon, label: "Apple Music" },
-  // bookbeat: { label: "BookBeat" },
-  deezer: { Icon: DeezerIcon, label: "Deezer" },
-  spotify: { Icon: SpotifyIcon, label: "Spotify" },
-  youtube_music: { Icon: YoutubeMusicIcon, label: "YouTube Music" },
-} satisfies Record<
-  string,
-  { Icon?: ComponentType<StreamingIconProps>; label: string }
->;
+const STREAMING_SERVICE_ICONS: Record<
+  StreamingService,
+  ComponentType<StreamingIconProps>
+> = {
+  amazon_music: AmazonMusicIcon,
+  apple_music: AppleMusicIcon,
+  deezer: DeezerIcon,
+  spotify: SpotifyIcon,
+  youtube_music: YoutubeMusicIcon,
+};
 
 interface FolgenStreamingLinksProps {
   streaming: Folge["streaming"];
 }
 
-type StreamingService = keyof typeof STREAMING_SERVICES;
-
 export function FolgenStreamingLinks({ streaming }: FolgenStreamingLinksProps) {
   return Object.entries(streaming)
     .filter(([key]) => Object.hasOwn(STREAMING_SERVICES, key))
     .map(([key, { link }]) => {
-      const service = STREAMING_SERVICES[key as StreamingService];
-      const ariaLabel = `Öffnet ${service.label} in einem neuen Tab (externer Link)`;
-      const Icon = "Icon" in service ? service.Icon : undefined;
+      const label = STREAMING_SERVICES[key as StreamingService];
+      const Icon = STREAMING_SERVICE_ICONS[key as StreamingService];
+      const ariaLabel = `Öffnet ${label} in einem neuen Tab (externer Link)`;
 
       return (
         <ExternalLink
@@ -42,12 +42,9 @@ export function FolgenStreamingLinks({ streaming }: FolgenStreamingLinksProps) {
           className="inline-flex items-center justify-center rounded-md text-neutral-200 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           href={link}
           key={key}
+          title={label}
         >
-          {Icon ? (
-            <Icon aria-hidden="true" className="size-8 shrink-0 fill-current" />
-          ) : (
-            service.label
-          )}
+          <Icon aria-hidden="true" className="size-8 shrink-0 fill-current" />
         </ExternalLink>
       );
     });

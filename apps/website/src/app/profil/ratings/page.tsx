@@ -1,3 +1,5 @@
+import { selectCollectionFolgen } from "@ddfdb/core";
+
 import { UserRatedFolgen } from "@/features/ratings/user-rated-folgen";
 import { serverSessionGuard } from "@/lib/auth";
 import { folgenService } from "@/services/folgen.service";
@@ -11,13 +13,7 @@ export default async function RatingsPage() {
     caller.ratings.getMine(),
   ]);
 
-  const userRatedFolgenIds = new Set<number>(
-    userRatings.map((rating) => rating.folgeId),
-  );
-
-  const userRatedFolgen = folgen.filter((folge) =>
-    userRatedFolgenIds.has(folge.id),
-  );
+  const userRatedFolgen = selectCollectionFolgen(folgen, userRatings);
 
   return (
     <main>

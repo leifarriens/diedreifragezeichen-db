@@ -232,6 +232,47 @@ func TestHTTPHandlerServesNewContractAndDetail(t *testing.T) {
 	}
 }
 
+func TestHTTPHandlerHidesFolgenUntilOneDayAfterReleaseDate(t *testing.T) {
+	now := time.Date(2025, time.February, 2, 0, 0, 0, 0, time.UTC)
+	yesterday := "2025-02-01"
+	today := "2025-02-02"
+	tomorrow := "2025-02-03"
+	folgen := []Folge{
+		{ID: 1, ReleaseDate: &yesterday},
+		{ID: 2, ReleaseDate: &today},
+		{ID: 3, ReleaseDate: &tomorrow},
+		{ID: 4, ReleaseDate: nil},
+	}
+	handler := newHTTPHandlerWithClock(folgen, zerolog.New(io.Discard), func() time.Time {
+		return now
+	})
+
+	listResponse := httptest.NewRecorder()
+	handler.ServeHTTP(listResponse, httptest.NewRequest(http.MethodGet, "/folgen", nil))
+	var items []Folge
+	if err := json.Unmarshal(listResponse.Body.Bytes(), &items); err != nil {
+		t.Fatalf("decode list response: %v", err)
+	}
+	if len(items) != 2 || items[0].ID != 1 || items[1].ID != 4 {
+		t.Fatalf("visible Folgen = %+v, want IDs [1 4]", items)
+	}
+
+	for _, test := range []struct {
+		id         string
+		wantStatus int
+	}{
+		{id: "1", wantStatus: http.StatusOK},
+		{id: "2", wantStatus: http.StatusNotFound},
+		{id: "3", wantStatus: http.StatusNotFound},
+	} {
+		response := httptest.NewRecorder()
+		handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, "/folgen/"+test.id, nil))
+		if response.Code != test.wantStatus {
+			t.Errorf("detail status for Folge %s = %d, want %d", test.id, response.Code, test.wantStatus)
+		}
+	}
+}
+
 func TestHTTPHandlerLogsRequestMetadata(t *testing.T) {
 	var output bytes.Buffer
 	handler := newHTTPHandler(nil, zerolog.New(&output))

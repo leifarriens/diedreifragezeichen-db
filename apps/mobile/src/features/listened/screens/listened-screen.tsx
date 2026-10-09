@@ -1,6 +1,7 @@
 import {
   createFolgenFilter,
   type ListenedDateSortOption,
+  selectCollectionFolgen,
   sortFolgen,
 } from "@ddfdb/core";
 import { Stack } from "expo-router";
@@ -28,7 +29,7 @@ export function ListenedScreen() {
     refresh,
   } = useUserListenedFolgen();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(listenedFolgen ?? []);
+  const hydratedFolgen = useHydrateFolgenWithUserData(listenedFolgen);
 
   const filteredFolgen = useMemo(
     () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
@@ -92,17 +93,14 @@ function useUserListenedFolgen() {
   const folgenQuery = useFolgen();
   const useUserListenedQuery = useUserListened();
 
-  const userListenedFolgenIds = new Set<number>(
-    useUserListenedQuery.data?.map(({ folgeId }) => folgeId),
-  );
-
   function refresh() {
     void useUserListenedQuery.refetch();
   }
 
   return {
-    data: folgenQuery.data?.filter((folge) =>
-      userListenedFolgenIds.has(folge.id),
+    data: selectCollectionFolgen(
+      folgenQuery.data ?? [],
+      useUserListenedQuery.data ?? [],
     ),
     isLoading: folgenQuery.isLoading || useUserListenedQuery.isLoading,
     isRefreshing: useUserListenedQuery.isRefetching,

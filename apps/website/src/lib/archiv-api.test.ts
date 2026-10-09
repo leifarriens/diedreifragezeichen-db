@@ -1,8 +1,16 @@
-import { afterEach, describe, expect, it, vi } from "vitest";
+import type { ArchivApi } from "@ddfdb/client/archiv";
+
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { CACHE_DURATION } from "@/constants/cache";
 
-import { archivApi } from "./archiv-api";
+let archivApi: ArchivApi;
+
+beforeEach(async () => {
+  vi.resetModules();
+  vi.stubEnv("DDFDB_ARCHIV_API_URL", "https://archive.example/");
+  ({ archivApi } = await import("./archiv-api"));
+});
 
 const folge = {
   artwork: null,
@@ -35,11 +43,66 @@ const previousArchivFolge = {
 };
 
 afterEach(() => {
+  vi.restoreAllMocks();
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();
 });
 
 describe("archive API", () => {
+  it("uses the shared API client", async () => {
+    const { ArchivApi } = await import("@ddfdb/client/archiv");
+    expect(archivApi).toBeInstanceOf(ArchivApi);
+  });
+
+  it("defaults to the local HTTP service when no URL is configured", async () => {
+    vi.stubEnv("DDFDB_ARCHIV_API_URL", undefined);
+    vi.resetModules();
+    const { archivApi: localApi } = await import("./archiv-api");
+    const fetchMock = vi.fn().mockResolvedValue(new Response("[]"));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await expect(localApi.getFolgen()).resolves.toEqual([]);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "http://localhost:8080/folgen",
+      expect.any(Object),
+    );
+  });
+
+  it("applies the website timeout to each request", async () => {
+    const signal = new AbortController().signal;
+    const timeout = vi.spyOn(AbortSignal, "timeout").mockReturnValue(signal);
+    const fetchMock = vi.fn().mockResolvedValue(new Response("[]"));
+    vi.stubGlobal("fetch", fetchMock);
+
+    await archivApi.getFolgen();
+    expect(timeout).toHaveBeenCalledWith(8_000);
+    expect(fetchMock).toHaveBeenCalledWith(
+      "https://archive.example/folgen",
+      expect.objectContaining({ signal }),
+    );
+  });
+
+  it("combines caller cancellation with the website timeout", async () => {
+    const caller = new AbortController();
+    const timeout = new AbortController();
+    vi.spyOn(AbortSignal, "timeout").mockReturnValue(timeout.signal);
+    let signal: AbortSignal | null | undefined;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn((_url: string, options: RequestInit) => {
+        signal = options.signal;
+        return Promise.resolve(new Response("[]"));
+      }),
+    );
+
+    await archivApi.getFolgen({ signal: caller.signal });
+    expect(signal).not.toBe(caller.signal);
+    expect(signal).not.toBe(timeout.signal);
+    caller.abort();
+    expect(signal?.aborted).toBe(true);
+    expect(signal?.reason).toBe(caller.signal.reason);
+  });
+
   it("fetches and validates the public episode list", async () => {
     vi.stubEnv("DDFDB_ARCHIV_API_URL", "https://archive.example/");
     const fetchMock = vi
@@ -52,7 +115,10 @@ describe("archive API", () => {
     await expect(archivApi.getFolgen()).resolves.toEqual([folge]);
     expect(fetchMock).toHaveBeenCalledWith(
       "https://archive.example/folgen",
-      expect.objectContaining({ headers: { Accept: "application/json" } }),
+      expect.objectContaining({
+        headers: { Accept: "application/json" },
+        next: { revalidate: CACHE_DURATION.ONE_HOUR },
+      }),
     );
   });
 
@@ -73,7 +139,25 @@ describe("archive API", () => {
     );
   });
 
-  it("normalizes episodes from the previous Archiv response format", async () => {
+  it("preserves the status of a missing episode response", async () => {
+    vi.stubEnv("DDFDB_ARCHIV_API_URL", "https://archive.example");
+    vi.stubGlobal(
+      "fetch",
+      vi.fn().mockResolvedValue(new Response(null, { status: 404 })),
+    );
+
+    const { ArchivApiError } = await import("./archiv-api");
+    const { ArchivApiError: SharedArchivApiError } =
+      await import("@ddfdb/client/archiv");
+    expect(ArchivApiError).toBe(SharedArchivApiError);
+
+    await expect(archivApi.getFolgeById(440)).rejects.toMatchObject({
+      name: "ArchivApiError",
+      status: 404,
+    });
+  });
+
+  it("rejects episodes from the previous Archiv response format", async () => {
     vi.stubEnv("DDFDB_ARCHIV_API_URL", "https://archive.example");
     vi.stubGlobal(
       "fetch",
@@ -87,8 +171,12 @@ describe("archive API", () => {
         ),
     );
 
-    await expect(archivApi.getFolgen()).resolves.toEqual([folge]);
-    await expect(archivApi.getFolgeById(1)).resolves.toEqual(folge);
+    await expect(archivApi.getFolgen()).rejects.toMatchObject({
+      code: "invalid-response",
+    });
+    await expect(archivApi.getFolgeById(1)).rejects.toMatchObject({
+      code: "invalid-response",
+    });
   });
 
   it("rejects an unsuccessful API response", async () => {

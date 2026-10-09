@@ -1,3 +1,4 @@
+import { STREAMING_SERVICES } from "@ddfdb/core";
 import { beforeEach, expect, it, vi } from "vitest";
 
 const { platform, saved, storage } = vi.hoisted(() => {
@@ -44,8 +45,7 @@ it("starts with Spotify selected and hydrates automatically", async () => {
   expect(useUserSettingsStore.getState().streamingService).toBe("spotify");
 });
 
-it("offers exactly the five supported streaming services", async () => {
-  const { STREAMING_SERVICES } = await loadStore();
+it("offers exactly the five supported streaming services", () => {
   expect(
     Object.entries(STREAMING_SERVICES).map(([value, label]) => ({
       label,
@@ -61,7 +61,7 @@ it("offers exactly the five supported streaming services", async () => {
 });
 
 it("persists each selection without storing actions or hydration state", async () => {
-  const { STREAMING_SERVICES, useUserSettingsStore } = await loadStore();
+  const { useUserSettingsStore } = await loadStore();
   for (const value of Object.keys(
     STREAMING_SERVICES,
   ) as (keyof typeof STREAMING_SERVICES)[]) {

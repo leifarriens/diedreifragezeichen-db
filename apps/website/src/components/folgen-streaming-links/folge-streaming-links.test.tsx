@@ -50,29 +50,10 @@ describe("FolgenStreamingLinks", () => {
       expect(link.getAttribute("href")).toBe(href);
       expect(link.getAttribute("target")).toBe("_blank");
       expect(link.getAttribute("rel")).toBe("noopener noreferrer");
+      expect(link.getAttribute("title")).toBe(service);
       expect(link.querySelector("svg")?.getAttribute("aria-hidden")).toBe(
         "true",
       );
-      expect(link.querySelector("svg title")?.textContent).toBe(service);
     }
-  });
-
-  it("omits unsupported services", () => {
-    render(
-      <FolgenStreamingLinks
-        streaming={{
-          amazon_music: {
-            id: "amazon-music-id",
-            link: "https://music.amazon.de/album",
-          },
-          bookbeat: {
-            id: "bookbeat-id",
-            link: "https://www.bookbeat.com/episode",
-          },
-        }}
-      />,
-    );
-
-    expect(screen.queryByRole("link")).toBeNull();
   });
 });

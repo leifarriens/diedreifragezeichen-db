@@ -10,20 +10,32 @@ import (
 	"github.com/rs/zerolog/hlog"
 )
 
-const localClientOrigin = "http://localhost:8081"
+const (
+	localClientOrigin      = "http://localhost:8081"
+	releaseDateGracePeriod = 24 * time.Hour
+)
 
 type archiveHandler struct {
 	folgen []Folge
 	byID   map[int64]Folge
+	now    func() time.Time
 }
 
 func newHTTPHandler(folgen []Folge, logger zerolog.Logger) http.Handler {
+	return newHTTPHandlerWithClock(folgen, logger, time.Now)
+}
+
+func newHTTPHandlerWithClock(
+	folgen []Folge,
+	logger zerolog.Logger,
+	now func() time.Time,
+) http.Handler {
 	byID := make(map[int64]Folge, len(folgen))
 	for _, folge := range folgen {
 		byID[folge.ID] = folge
 	}
 
-	handler := &archiveHandler{folgen: folgen, byID: byID}
+	handler := &archiveHandler{folgen: folgen, byID: byID, now: now}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", handler.root)
 	mux.HandleFunc("GET /healthz", handler.health)
@@ -90,7 +102,14 @@ func (h *archiveHandler) health(w http.ResponseWriter, _ *http.Request) {
 }
 
 func (h *archiveHandler) listFolgen(w http.ResponseWriter, _ *http.Request) {
-	writeJSON(w, http.StatusOK, h.folgen)
+	now := h.now()
+	folgen := make([]Folge, 0, len(h.folgen))
+	for _, folge := range h.folgen {
+		if isAvailableInArchive(folge, now) {
+			folgen = append(folgen, folge)
+		}
+	}
+	writeJSON(w, http.StatusOK, folgen)
 }
 
 func (h *archiveHandler) getFolge(w http.ResponseWriter, r *http.Request) {
@@ -100,11 +119,24 @@ func (h *archiveHandler) getFolge(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	folge, ok := h.byID[id]
-	if !ok {
+	if !ok || !isAvailableInArchive(folge, h.now()) {
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "Folge not found"})
 		return
 	}
 	writeJSON(w, http.StatusOK, folge)
+}
+
+func isAvailableInArchive(folge Folge, now time.Time) bool {
+	if folge.ReleaseDate == nil {
+		return true
+	}
+
+	releaseDate, err := time.Parse(time.DateOnly, *folge.ReleaseDate)
+	if err != nil {
+		return true
+	}
+
+	return !releaseDate.After(now.UTC().Add(-releaseDateGracePeriod))
 }
 
 func writeJSON(w http.ResponseWriter, status int, value any) {

@@ -16,10 +16,6 @@ export interface RatingRepository {
   findCommunityFolgenRating(input: {
     folgeId: number;
   }): Promise<CommunityRating | null>;
-  findUserFolgenRating(input: {
-    folgeId: number;
-    userId: string;
-  }): Promise<null | Rating>;
   removeRating(input: { folgeId: number; userId: string }): Promise<void>;
   setRating(input: {
     folgeId: number;

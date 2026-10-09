@@ -21,10 +21,12 @@ The generator creates `packages/<name>` with the repository's standard configs, 
 
 ## Verification workflow
 
+Documentation-only changes do not require targeted verification loops or the full verification suite. The requirements below apply when changes affect code or configuration.
+
 - While implementing or fixing an issue, run targeted checks for the affected package and task. For test failures, narrow the run to the failing test file or test case when possible.
 - For lint failures, try the affected package's autofix command first. Unrelated changes produced by lint autofix may be kept. Manually fix remaining issues only if they were caused by your current changes.
 - After a fix, rerun the targeted check until issues caused by your changes are resolved. Do not rerun the full suite after every edit.
-- Before finishing, always run the full verification suite:
+- Before finishing, run the full verification suite:
 
   ```bash
   pnpm turbo typecheck lint test build

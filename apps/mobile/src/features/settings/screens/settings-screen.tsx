@@ -1,3 +1,4 @@
+import { STREAMING_SERVICES, type StreamingService } from "@ddfdb/core";
 import { Button, FieldGroup, Host, Picker, Row, Spacer, Text } from "@expo/ui";
 import { scrollContentBackground } from "@expo/ui/swift-ui/modifiers";
 import { Stack, useRouter, useTheme } from "expo-router";
@@ -5,11 +6,7 @@ import { useState } from "react";
 import { Platform } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
-import {
-  STREAMING_SERVICES,
-  type StreamingService,
-  useUserSettingsStore,
-} from "@/features/settings/hooks/use-user-settings-store";
+import { useUserSettingsStore } from "@/features/settings/hooks/use-user-settings-store";
 import { authClient } from "@/lib/auth-client";
 
 export function SettingsScreen() {

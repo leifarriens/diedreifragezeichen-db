@@ -55,10 +55,6 @@ function makeRatingRepository() {
     findCommunityFolgenRating: vi.fn(({ folgeId }: { folgeId: number }) =>
       Promise.resolve({ folgeId, numberOfRatings: 3, score: 4.5 }),
     ),
-    findUserFolgenRating: vi.fn(
-      ({ folgeId }: { folgeId: number; userId: string }) =>
-        Promise.resolve({ folgeId, score: 4, updatedAt }),
-    ),
     removeRating: vi.fn(() => Promise.resolve()),
     setRating: vi.fn(
       ({
@@ -80,9 +76,9 @@ describe("user API router", () => {
     await expect(caller.user.me()).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
-    await expect(
-      caller.ratings.getForFolge({ folgeId: 12 }),
-    ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(caller.ratings.getMine()).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
     await expect(caller.listened.getUserListened()).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
@@ -143,21 +139,6 @@ describe("user API router", () => {
     expect(ratings.setRating).toHaveBeenCalledWith({
       folgeId: 12,
       score: 2.5,
-      userId: authenticatedUser.id,
-    });
-  });
-
-  it("gets the authenticated user's rating for a Folge", async () => {
-    const ratings = makeRatingRepository();
-    const caller = createCaller(authenticatedUser, ratings);
-
-    await expect(caller.ratings.getForFolge({ folgeId: 12 })).resolves.toEqual({
-      folgeId: 12,
-      score: 4,
-      updatedAt,
-    });
-    expect(ratings.findUserFolgenRating).toHaveBeenCalledWith({
-      folgeId: 12,
       userId: authenticatedUser.id,
     });
   });

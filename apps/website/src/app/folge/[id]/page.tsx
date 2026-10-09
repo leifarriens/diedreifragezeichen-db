@@ -7,6 +7,7 @@ import {
   formatReleaseDate,
   isReleasDateInThePast,
 } from "@ddfdb/core";
+import { notFound } from "next/navigation";
 
 import { ExternalLink } from "@/components/external-link/external-link";
 import { FolgenCover } from "@/components/folgen-images/folgen-cover";
@@ -17,7 +18,7 @@ import { FolgenBookmarkButtonForFolge } from "@/features/bookmarks/folgen-bookma
 import { FolgenListenedButtonForFolge } from "@/features/listened/folgen-listened-button";
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
 import { FolgenUserRating } from "@/features/ratings/components/folgen-user-rating";
-import { archivApi } from "@/lib/archiv-api";
+import { archivApi, ArchivApiError } from "@/lib/archiv-api";
 import { folgenService } from "@/services/folgen.service";
 
 export const dynamic = "force-static";
@@ -32,7 +33,15 @@ export default async function FolgePage({
 
   const folgeId = parseInt(id, 10);
 
-  const folge = await folgenService.getFolgeWithCommunityRatingById(folgeId);
+  let folge: FolgeWithCommunityRating;
+  try {
+    folge = await folgenService.getFolgeWithCommunityRatingById(folgeId);
+  } catch (error) {
+    if (error instanceof ArchivApiError && error.status === 404) {
+      notFound();
+    }
+    throw error;
+  }
 
   return <Folge folge={folge} />;
 }

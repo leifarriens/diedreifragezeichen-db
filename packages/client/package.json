@@ -8,6 +8,16 @@
       "types": "./dist/index.d.ts",
       "import": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./archiv": {
+      "types": "./dist/archiv/index.d.ts",
+      "import": "./src/archiv/index.ts",
+      "default": "./src/archiv/index.ts"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./src/utils/index.ts",
+      "default": "./src/utils/index.ts"
     }
   },
   "scripts": {
@@ -20,15 +30,19 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@ddfdb/archiv": "workspace:*",
     "@ddfdb/user-api": "workspace:*",
     "@tanstack/react-query": "5.104.0",
     "@trpc/client": "^11.19.0",
     "@trpc/server": "^11.19.0",
-    "@trpc/tanstack-react-query": "^11.19.0"
+    "@trpc/tanstack-react-query": "^11.19.0",
+    "react": "19.3.0"
   },
   "devDependencies": {
     "@ddfdb/eslint-config": "workspace:*",
     "@ddfdb/tsconfig": "workspace:*",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "~19.3.0",
     "@vitest/coverage-v8": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:",

@@ -1,3 +1,4 @@
+import { useDebouncedValue } from "@ddfdb/client/utils";
 import { Stack, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import { Text } from "react-native";
@@ -13,7 +14,6 @@ import {
 } from "@/features/archive/archive-folgen";
 import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
 import { useViewMode } from "@/features/folgen/components/folgen-list/view-mode";
-import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useArchiveFilters } from "@/providers/archive-filter-provider";
 
 export function ArchiveScreen() {

@@ -1,3 +1,5 @@
+import { selectCollectionFolgen } from "@ddfdb/core";
+
 import { UserListenedFolgen } from "@/features/listened/user-listened-folgen";
 import { serverSessionGuard } from "@/lib/auth";
 import { folgenService } from "@/services/folgen.service";
@@ -11,13 +13,7 @@ export default async function ListenedPage() {
     caller.listened.getUserListened(),
   ]);
 
-  const userListenedFolgenIds = new Set<number>(
-    userListened.map((entry) => entry.folgeId),
-  );
-
-  const userListenedFolgen = folgen.filter((folge) =>
-    userListenedFolgenIds.has(folge.id),
-  );
+  const userListenedFolgen = selectCollectionFolgen(folgen, userListened);
 
   return (
     <main>

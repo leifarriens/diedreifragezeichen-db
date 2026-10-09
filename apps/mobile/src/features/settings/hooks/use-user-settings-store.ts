@@ -1,19 +1,11 @@
+import type { StreamingService } from "@ddfdb/core";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Platform } from "react-native";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
 import type { FolgenListViewMode } from "@/features/folgen/components/folgen-list/types";
-
-export const STREAMING_SERVICES = {
-  amazon_music: "Amazon Music",
-  apple_music: "Apple Music",
-  deezer: "Deezer",
-  spotify: "Spotify",
-  youtube_music: "YouTube Music",
-} as const;
-
-export type StreamingService = keyof typeof STREAMING_SERVICES;
 
 interface UserSettingsStore {
   folgenListViewMode: FolgenListViewMode | null;

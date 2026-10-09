@@ -1,14 +1,13 @@
+import { useDebouncedValue } from "@ddfdb/client/utils";
 import { useQuery } from "@tanstack/react-query";
 
 import type { SearchResponse } from "@/app/api/v0/search/route";
-
-import { useDebounce } from "@/lib/hooks/use-debounce";
 
 export function useSearch(
   searchQuery: string,
   { enabled }: { enabled: boolean },
 ) {
-  const debouncedSearchDraft = useDebounce(searchQuery, 300);
+  const debouncedSearchDraft = useDebouncedValue(searchQuery, 300);
 
   return useQuery({
     enabled: enabled && debouncedSearchDraft.length > 2,

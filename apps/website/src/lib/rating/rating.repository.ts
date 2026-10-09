@@ -53,21 +53,6 @@ export const ratingRepository: RatingRepository = {
     return rating ? toCommunityRatingResponse(rating) : null;
   },
 
-  async findUserFolgenRating({ folgeId, userId }) {
-    const [rating] = await db
-      .select(ratingResponseSelection)
-      .from(schema.rating)
-      .where(
-        and(
-          eq(schema.rating.userId, userId),
-          eq(schema.rating.folgeId, folgeId),
-        ),
-      )
-      .limit(1);
-
-    return rating ? toRatingResponse(rating) : null;
-  },
-
   async removeRating({ folgeId, userId }) {
     await db
       .delete(schema.rating)

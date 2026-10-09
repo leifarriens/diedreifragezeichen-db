@@ -1,6 +1,6 @@
-import { beforeEach, expect, it, vi } from "vitest";
+import type { StreamingService } from "@ddfdb/core";
 
-import type { StreamingService } from "../../settings/hooks/use-user-settings-store";
+import { beforeEach, expect, it, vi } from "vitest";
 
 import { FolgenPlayButton } from "./folgen-play-button";
 
@@ -19,13 +19,6 @@ vi.mock("expo-router", () => ({ Link: "Link" }));
 vi.mock("react-native", () => ({ View: "View" }));
 vi.mock("@/components/ui/button", () => ({ UIButton: "UIButton" }));
 vi.mock("@/features/settings/hooks/use-user-settings-store", () => ({
-  STREAMING_SERVICES: {
-    amazon_music: "Amazon Music",
-    apple_music: "Apple Music",
-    deezer: "Deezer",
-    spotify: "Spotify",
-    youtube_music: "YouTube Music",
-  },
   useUserSettingsStore: (selector: (state: typeof settings) => unknown) =>
     selector(settings),
 }));

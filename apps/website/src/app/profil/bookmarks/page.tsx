@@ -1,3 +1,5 @@
+import { selectCollectionFolgen } from "@ddfdb/core";
+
 import { UserBookmarkedFolgen } from "@/features/bookmarks/user-bookmarked-folgen";
 import { serverSessionGuard } from "@/lib/auth";
 import { folgenService } from "@/services/folgen.service";
@@ -11,13 +13,7 @@ export default async function BookmarksPage() {
     caller.bookmarks.getUserBookmarks(),
   ]);
 
-  const userBookmarkedFolgenIds = new Set<number>(
-    userBookmarks.map(({ folgeId }) => folgeId),
-  );
-
-  const userBookmarkedFolgen = folgen.filter((folge) =>
-    userBookmarkedFolgenIds.has(folge.id),
-  );
+  const userBookmarkedFolgen = selectCollectionFolgen(folgen, userBookmarks);
 
   return (
     <main>

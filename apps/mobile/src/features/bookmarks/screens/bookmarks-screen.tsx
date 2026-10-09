@@ -1,6 +1,7 @@
 import {
   type BookmarkDateSortOption,
   createFolgenFilter,
+  selectCollectionFolgen,
   sortFolgen,
 } from "@ddfdb/core";
 import { Stack } from "expo-router";
@@ -28,7 +29,7 @@ export function BookmarksScreen() {
     refresh,
   } = useUserBookmarkedFolgen();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(bookmarkedFolgen ?? []);
+  const hydratedFolgen = useHydrateFolgenWithUserData(bookmarkedFolgen);
 
   const filteredFolgen = useMemo(
     () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
@@ -92,17 +93,14 @@ function useUserBookmarkedFolgen() {
   const folgenQuery = useFolgen();
   const userBookmarksQuery = useUserBookmarks();
 
-  const userBookmarkedFolgenIds = new Set<number>(
-    userBookmarksQuery.data?.map(({ folgeId }) => folgeId),
-  );
-
   function refresh() {
     void userBookmarksQuery.refetch();
   }
 
   return {
-    data: folgenQuery.data?.filter((folge) =>
-      userBookmarkedFolgenIds.has(folge.id),
+    data: selectCollectionFolgen(
+      folgenQuery.data ?? [],
+      userBookmarksQuery.data ?? [],
     ),
     isLoading: folgenQuery.isLoading || userBookmarksQuery.isLoading,
     isRefreshing: userBookmarksQuery.isRefetching,

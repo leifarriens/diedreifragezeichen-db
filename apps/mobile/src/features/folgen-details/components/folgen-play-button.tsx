@@ -1,13 +1,11 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
 
+import { STREAMING_SERVICES } from "@ddfdb/core";
 import { Link } from "expo-router";
 import { View } from "react-native";
 
 import { UIButton } from "@/components/ui/button";
-import {
-  STREAMING_SERVICES,
-  useUserSettingsStore,
-} from "@/features/settings/hooks/use-user-settings-store";
+import { useUserSettingsStore } from "@/features/settings/hooks/use-user-settings-store";
 
 import { isExternalHref } from "../is-external-href";
 

@@ -1,5 +1,6 @@
 import {
   createFolgenFilter,
+  selectCollectionFolgen,
   sortFolgen,
   type UserRatingSortOption,
   type UserRatingUpdatedSortOption,
@@ -32,7 +33,7 @@ export function RatingsScreen() {
     refresh,
   } = useUserRatedFolgen();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(ratedFolgen ?? []);
+  const hydratedFolgen = useHydrateFolgenWithUserData(ratedFolgen);
 
   const filteredFolgen = useMemo(
     () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
@@ -104,16 +105,15 @@ function useUserRatedFolgen() {
   const folgenQuery = useFolgen();
   const userRatingsQuery = useUserRatings();
 
-  const userRatedFolgenIds = new Set<number>(
-    userRatingsQuery.data?.map((rating) => rating.folgeId),
-  );
-
   function refresh() {
     void userRatingsQuery.refetch();
   }
 
   return {
-    data: folgenQuery.data?.filter((folge) => userRatedFolgenIds.has(folge.id)),
+    data: selectCollectionFolgen(
+      folgenQuery.data ?? [],
+      userRatingsQuery.data ?? [],
+    ),
     isLoading: folgenQuery.isLoading || userRatingsQuery.isLoading,
     isRefreshing: userRatingsQuery.isRefetching,
     refresh,
