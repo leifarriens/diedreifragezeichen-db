@@ -1,8 +1,8 @@
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
+
 import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { useCallback } from "react";
 import { RefreshControl, View } from "react-native";
-
-import type { FolgeWithCommunityRating } from "@/api/types";
 
 import type { FolgenListViewMode } from "./types";
 

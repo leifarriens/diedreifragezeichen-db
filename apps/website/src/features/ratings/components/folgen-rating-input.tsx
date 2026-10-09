@@ -9,12 +9,14 @@ const RATING_STEP = 0.5;
 
 interface FolgenRatingInputProps {
   folgenTitle: string;
+  isDisabled?: boolean;
   onValueChange: (value: number) => void;
   value: null | number;
 }
 
 export function FolgenRatingInput({
   folgenTitle,
+  isDisabled,
   onValueChange,
   value,
 }: FolgenRatingInputProps) {
@@ -42,6 +44,7 @@ export function FolgenRatingInput({
       <div className="relative w-fit focus-within:ring-1">
         <input
           className="absolute inset-0 w-full min-w-0 opacity-0"
+          disabled={isDisabled}
           max={MAX_RATING}
           min={0}
           onChange={(e) => {

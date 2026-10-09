@@ -211,6 +211,9 @@ importers:
       '@ddfdb/archiv':
         specifier: workspace:*
         version: link:../../services/archiv
+      '@ddfdb/client':
+        specifier: workspace:*
+        version: link:../../packages/client
       '@ddfdb/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -386,6 +389,9 @@ importers:
       '@ddfdb/archiv':
         specifier: workspace:*
         version: link:../../services/archiv
+      '@ddfdb/client':
+        specifier: workspace:*
+        version: link:../../packages/client
       '@ddfdb/core':
         specifier: workspace:*
         version: link:../../packages/core
@@ -514,8 +520,48 @@ importers:
 
   configs/typescript: {}
 
+  packages/client:
+    dependencies:
+      '@ddfdb/user-api':
+        specifier: workspace:*
+        version: link:../user-api
+      '@tanstack/react-query':
+        specifier: 5.104.0
+        version: 5.104.0(react@19.3.0)
+      '@trpc/client':
+        specifier: ^11.19.0
+        version: 11.19.0(@trpc/server@11.19.0(typescript@6.0.3))(typescript@6.0.3)
+      '@trpc/server':
+        specifier: ^11.19.0
+        version: 11.19.0(typescript@6.0.3)
+      '@trpc/tanstack-react-query':
+        specifier: ^11.19.0
+        version: 11.19.0(@tanstack/react-query@5.104.0(react@19.3.0))(@trpc/client@11.19.0(@trpc/server@11.19.0(typescript@6.0.3))(typescript@6.0.3))(@trpc/server@11.19.0(typescript@6.0.3))(react@19.3.0)(typescript@6.0.3)
+    devDependencies:
+      '@ddfdb/eslint-config':
+        specifier: workspace:*
+        version: link:../../configs/eslint
+      '@ddfdb/tsconfig':
+        specifier: workspace:*
+        version: link:../../configs/typescript
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 5.0.2(vitest@5.0.2)
+      eslint:
+        specifier: 'catalog:'
+        version: 10.11.0(jiti@2.7.0)(supports-color@8.1.1)
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      vitest:
+        specifier: 'catalog:'
+        version: 5.0.2(@types/node@24.19.0)(@vitest/coverage-v8@5.0.2)(jsdom@30.1.1(@noble/hashes@2.4.0))(vite@8.3.1(@types/node@24.19.0)(jiti@2.7.0))
+
   packages/core:
     dependencies:
+      '@ddfdb/archiv':
+        specifier: workspace:*
+        version: link:../../services/archiv
       dayjs:
         specifier: ^1.11.23
         version: 1.11.23

@@ -13,9 +13,9 @@ import Animated, { FadeInDown } from "react-native-reanimated";
 import { Cover } from "@/components/cover";
 import { UIButton } from "@/components/ui/button";
 import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
-import { useUserBookmarks } from "@/features/bookmarks/use-user-bookmarks";
+import { useUserBookmarks } from "@/features/bookmarks/use-bookmarks";
 import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";
-import { useUserListened } from "@/features/listened/use-user-listened";
+import { useUserListened } from "@/features/listened/use-listened";
 import { FolgenRatingButton } from "@/features/ratings/folgen-rating-button";
 
 import { isExternalHref } from "../is-external-href";

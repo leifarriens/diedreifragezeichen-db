@@ -3,7 +3,7 @@ import { Text, View } from "react-native";
 
 import { useFolgenTotal } from "@/api/use-folgen";
 import { PlayedFolgenProgressBar } from "@/components/played-folgen-progress-bar";
-import { useUserListened } from "@/features/listened/use-user-listened";
+import { useUserListened } from "@/features/listened/use-listened";
 import { useAuth } from "@/lib/use-auth";
 
 export function PlayedFolgenProgress() {

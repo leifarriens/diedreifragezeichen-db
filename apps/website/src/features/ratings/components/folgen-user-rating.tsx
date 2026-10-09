@@ -1,11 +1,8 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-
 import { useUserFolgenRating } from "@/features/ratings/hooks/use-user-folgen-rating";
-import { useTRPC } from "@/trpc/client";
 
+import { useUpdateRating } from "../hooks/use-ratings";
 import { FolgenRatingInput } from "./folgen-rating-input";
 
 interface FolgenUserRatingProps {
@@ -17,50 +14,18 @@ export function FolgenUserRating({
   folgeId,
   folgenTitle,
 }: FolgenUserRatingProps) {
-  const queryClient = useQueryClient();
-  const trpc = useTRPC();
-
   const rating = useUserFolgenRating(folgeId);
 
-  const setRating = useMutation(
-    trpc.ratings.set.mutationOptions({
-      onMutate({ folgeId, score }) {
-        queryClient.setQueryData(
-          trpc.ratings.getForFolge.queryKey({ folgeId }),
-          () => ({ folgeId, score, updatedAt: new Date().toISOString() }),
-        );
-      },
-      onSuccess(data) {
-        toast.success("Rating updated successfully");
-        queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) =>
-          prev ? [...prev.filter((r) => r.folgeId !== folgeId), data] : [data],
-        );
-      },
-    }),
-  );
-
-  // TODO: Implement
-  // const deleteRating = useMutation(
-  //   trpc.ratings.remove.mutationOptions({
-  //     onSuccess() {
-  //       queryClient.setQueryData(
-  //         trpc.ratings.getForFolge.queryKey({ folgeId }),
-  //         undefined,
-  //       );
-  //       queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) => {
-  //         return prev ? prev.filter((r) => r.folgeId !== folgeId) : [];
-  //       });
-  //     },
-  //   }),
-  // );
+  const { isLoading, setRating } = useUpdateRating(folgeId);
 
   function handleRatingChange(score: number) {
-    setRating.mutate({ folgeId, score });
+    setRating(score);
   }
 
   return (
     <FolgenRatingInput
       folgenTitle={folgenTitle}
+      isDisabled={isLoading}
       onValueChange={handleRatingChange}
       value={rating?.score ?? null}
     />

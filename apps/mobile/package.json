@@ -16,6 +16,7 @@
   "dependencies": {
     "@better-auth/expo": "^1.7.7",
     "@ddfdb/archiv": "workspace:*",
+    "@ddfdb/client": "workspace:*",
     "@ddfdb/core": "workspace:*",
     "@ddfdb/user-api": "workspace:*",
     "@expo/config": "^58.0.2",

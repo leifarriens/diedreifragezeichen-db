@@ -1,6 +1,6 @@
-import { sortFolgen } from "@ddfdb/core";
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
-import type { FolgeWithCommunityRating } from "@/lib/types";
+import { sortFolgen } from "@ddfdb/core";
 
 export type ArchiveSortOrder = "newest" | "oldest" | "rating";
 

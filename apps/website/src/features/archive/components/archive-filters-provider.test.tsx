@@ -1,5 +1,7 @@
 // @vitest-environment jsdom
 
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   act,
@@ -12,8 +14,6 @@ import {
 import { useState } from "react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import ArchiveBrowser from "@/features/archive/components/archive-browser";
 import { SearchInput } from "@/features/global-search/search-input";

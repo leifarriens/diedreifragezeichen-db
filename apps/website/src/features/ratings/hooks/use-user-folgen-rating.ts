@@ -1,4 +1,4 @@
-import { useUserRatings } from "./use-user-ratings";
+import { useUserRatings } from "./use-ratings";
 
 export function useUserFolgenRating(folgeId: number) {
   const { data: userRatings } = useUserRatings();

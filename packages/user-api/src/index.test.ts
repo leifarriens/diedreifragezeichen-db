@@ -90,7 +90,12 @@ describe("user API router", () => {
 
   it("adds, lists, and removes listened Folgen for the authenticated user", async () => {
     const listened = makeListenedRepository();
-    const caller = createCaller(authenticatedUser, undefined, undefined, listened);
+    const caller = createCaller(
+      authenticatedUser,
+      undefined,
+      undefined,
+      listened,
+    );
 
     await caller.listened.addListened({ folgeId: 12 });
     expect(listened.addListened).toHaveBeenCalledWith({

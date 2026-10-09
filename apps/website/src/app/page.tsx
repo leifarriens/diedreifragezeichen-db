@@ -1,6 +1,5 @@
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
 import type { Metadata } from "next";
-
-import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import ArchiveBrowser from "@/features/archive/components/archive-browser";
 

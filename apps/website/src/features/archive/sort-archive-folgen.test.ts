@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
-import type { FolgeWithCommunityRating } from "@/lib/types";
+import { describe, expect, it } from "vitest";
 
 import { sortArchiveFolgen } from "./sort-archive-folgen";
 

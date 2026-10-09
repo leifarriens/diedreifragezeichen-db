@@ -13,7 +13,7 @@ import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
 import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
 
-import { useUserRatings } from "../hooks/use-user-ratings";
+import { useUserRatings } from "../hooks/use-ratings";
 
 type UserRatedFolgenSortOption =
   UserRatingSortOption | UserRatingUpdatedSortOption;

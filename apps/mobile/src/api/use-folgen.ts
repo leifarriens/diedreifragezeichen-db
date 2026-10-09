@@ -1,3 +1,4 @@
+import { enrichFolgenWithCommunityRatings } from "@ddfdb/core";
 import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 
 import { archivApi } from "./archiv";
@@ -9,24 +10,15 @@ export function useFolgen() {
   const trpc = useTRPC();
   const queries = useQueries({
     combine([folgenQuery, communityRatingsQuery]) {
-      const ratingsByFolgeId = new Map(
-        communityRatingsQuery.data?.map((rating) => [rating.folgeId, rating]),
-      );
+      const data = folgenQuery.data
+        ? enrichFolgenWithCommunityRatings(
+            folgenQuery.data,
+            communityRatingsQuery.data,
+          )
+        : undefined;
 
       return {
-        data: folgenQuery.data?.map((folge) => {
-          const communityRating = ratingsByFolgeId.get(folge.id);
-
-          return {
-            ...folge,
-            communityRating: communityRating
-              ? {
-                  numberOfRatings: communityRating.numberOfRatings,
-                  score: communityRating.score,
-                }
-              : null,
-          };
-        }),
+        data,
         error: folgenQuery.error ?? communityRatingsQuery.error,
         isLoading: folgenQuery.isLoading || communityRatingsQuery.isLoading,
         isPaused:

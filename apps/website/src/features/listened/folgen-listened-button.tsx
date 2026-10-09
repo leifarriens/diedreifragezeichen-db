@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/lib/use-auth";
 
-import { useUserListened } from "./use-user-listened";
-import { useUpdateFolgenListenStatus } from "./user-update-folgen-listen-status";
+import { useUpdateFolgenListenStatus, useUserListened } from "./use-listened";
 
 interface FolgenListenedButtonProps {
   folgeId: number;

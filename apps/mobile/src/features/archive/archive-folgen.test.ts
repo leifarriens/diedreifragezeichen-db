@@ -59,14 +59,14 @@ describe("archive Folgen", () => {
   });
 
   it("sorts by release date and community rating", () => {
-    expect(
-      sortArchiveFolgen(folgen, "newest").map(({ id }) => id),
-    ).toEqual([2, 3, 1, 4]);
-    expect(
-      sortArchiveFolgen(folgen, "oldest").map(({ id }) => id),
-    ).toEqual([1, 3, 2, 4]);
-    expect(
-      sortArchiveFolgen(folgen, "rating").map(({ id }) => id),
-    ).toEqual([2, 1, 3, 4]);
+    expect(sortArchiveFolgen(folgen, "newest").map(({ id }) => id)).toEqual([
+      2, 3, 1, 4,
+    ]);
+    expect(sortArchiveFolgen(folgen, "oldest").map(({ id }) => id)).toEqual([
+      1, 3, 2, 4,
+    ]);
+    expect(sortArchiveFolgen(folgen, "rating").map(({ id }) => id)).toEqual([
+      2, 1, 3, 4,
+    ]);
   });
 });

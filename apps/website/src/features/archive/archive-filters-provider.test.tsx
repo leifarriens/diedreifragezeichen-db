@@ -1,5 +1,7 @@
 // @vitest-environment jsdom
 
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   act,
@@ -12,8 +14,6 @@ import {
 import { useState } from "react";
 import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { SearchInput } from "../global-search/search-input";
 import ArchiveBrowser from "./components/archive-browser";
@@ -162,9 +162,7 @@ describe("URL-backed archive filtering", () => {
       screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
       { target: { value: "Geister" } },
     );
-    fireEvent.click(
-      screen.getByRole("switch", { name: "Specials anzeigen" }),
-    );
+    fireEvent.click(screen.getByRole("switch", { name: "Specials anzeigen" }));
     fireEvent.change(
       screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
       { target: { value: "2005" } },

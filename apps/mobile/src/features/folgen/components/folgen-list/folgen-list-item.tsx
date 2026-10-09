@@ -1,10 +1,10 @@
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
+
 import { formatReleaseDate } from "@ddfdb/core";
 import { formatFolgenSubtitle } from "@ddfdb/core";
 import { Link } from "expo-router";
 import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
-
-import type { FolgeWithCommunityRating } from "@/api/types";
 
 import { Cover } from "@/components/cover";
 

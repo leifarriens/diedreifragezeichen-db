@@ -1,11 +1,10 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
 import { formatReleaseDate } from "@ddfdb/core";
 import Link from "next/link";
 import { memo, useRef, useState } from "react";
 import { cn } from "tailwind-variants";
-
-import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
 import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";

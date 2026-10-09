@@ -1,4 +1,8 @@
-import type { FolgeWithCommunityRating } from "@/lib/types";
+import {
+  enrichFolgenWithCommunityRatings,
+  enrichFolgeWithCommunityRating,
+  type FolgeWithCommunityRating,
+} from "@ddfdb/core";
 
 import { archivApi } from "@/lib/archiv-api";
 import { caller } from "@/trpc/server";
@@ -20,18 +24,7 @@ export const folgenService: FolgenService = {
       }),
     ]);
 
-    const ratingsByFolgeId = new Map(
-      communityRatings.map((rating) => [rating.folgeId, rating] as const),
-    );
-
-    return archiveFolgen.map((folge) => {
-      const communityRating = ratingsByFolgeId.get(folge.id) ?? null;
-
-      return {
-        ...folge,
-        communityRating,
-      };
-    });
+    return enrichFolgenWithCommunityRatings(archiveFolgen, communityRatings);
   },
 
   async getFolgeWithCommunityRatingById(folgeId) {
@@ -40,9 +33,6 @@ export const folgenService: FolgenService = {
       caller.ratings.getCommunityForFolge({ folgeId }),
     ]);
 
-    return {
-      ...archiveFolge,
-      communityRating,
-    };
+    return enrichFolgeWithCommunityRating(archiveFolge, communityRating);
   },
 };

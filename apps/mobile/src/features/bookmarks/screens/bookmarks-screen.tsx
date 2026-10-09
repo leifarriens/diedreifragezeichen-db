@@ -12,7 +12,7 @@ import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
 import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
 
-import { useUserBookmarks } from "../use-user-bookmarks";
+import { useUserBookmarks } from "../use-bookmarks";
 
 export function BookmarksScreen() {
   const [searchTerm, setSearchTerm] = useState("");

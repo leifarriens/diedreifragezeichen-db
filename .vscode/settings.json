@@ -8,7 +8,14 @@
     "**/.turbo/**": true,
     "**/coverage/**": true
   },
-  "conventionalCommits.scopes": ["db", "core", "user-api", "website", "mobile"],
+  "conventionalCommits.scopes": [
+    "db",
+    "core",
+    "user-api",
+    "website",
+    "mobile",
+    "client"
+  ],
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
   ]

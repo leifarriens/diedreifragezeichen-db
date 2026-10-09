@@ -4,7 +4,10 @@ export interface ListenedFolge {
 }
 
 export interface ListenedRepository {
-  addListened(input: { folgeId: number; userId: string }): Promise<ListenedFolge>;
+  addListened(input: {
+    folgeId: number;
+    userId: string;
+  }): Promise<ListenedFolge>;
   getUserListened(input: { userId: string }): Promise<ListenedFolge[]>;
   removeListened(input: { folgeId: number; userId: string }): Promise<void>;
 }

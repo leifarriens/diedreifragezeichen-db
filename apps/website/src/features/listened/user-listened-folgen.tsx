@@ -1,13 +1,13 @@
 "use client";
 
+import type { FolgeWithCommunityRating } from "@ddfdb/core";
+
 import {
   createFolgenFilter,
   type ListenedDateSortOption,
   sortFolgen,
 } from "@ddfdb/core";
 import { useMemo, useState } from "react";
-
-import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
 import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";

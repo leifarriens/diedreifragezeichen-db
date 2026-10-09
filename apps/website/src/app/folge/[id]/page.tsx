@@ -2,12 +2,11 @@ import type { Folge } from "@ddfdb/archiv/contracts";
 
 import { Separator } from "@base-ui/react/separator";
 import {
+  type FolgeWithCommunityRating,
   formatRelativeTime,
   formatReleaseDate,
   isReleasDateInThePast,
 } from "@ddfdb/core";
-
-import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { ExternalLink } from "@/components/external-link/external-link";
 import { FolgenCover } from "@/components/folgen-images/folgen-cover";

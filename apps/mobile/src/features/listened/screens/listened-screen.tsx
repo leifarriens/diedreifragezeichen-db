@@ -1,4 +1,8 @@
-import { createFolgenFilter, type ListenedDateSortOption } from "@ddfdb/core";
+import {
+  createFolgenFilter,
+  type ListenedDateSortOption,
+  sortFolgen,
+} from "@ddfdb/core";
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 import { ActivityIndicator } from "react-native";
@@ -8,7 +12,7 @@ import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
 import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
 
-import { useUserListened } from "../use-user-listened";
+import { useUserListened } from "../use-listened";
 
 export function ListenedScreen() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -31,7 +35,12 @@ export function ListenedScreen() {
     [hydratedFolgen, searchTerm],
   );
 
-  const displayedFolgen = filteredFolgen;
+  const sortedFolgen = useMemo(
+    () => sortFolgen(filteredFolgen, sortOption),
+    [filteredFolgen, sortOption],
+  );
+
+  const displayedFolgen = sortedFolgen;
 
   return (
     <>

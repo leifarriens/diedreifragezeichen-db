@@ -17,6 +17,7 @@
     "@better-auth/drizzle-adapter": "^1.7.7",
     "@better-auth/expo": "^1.7.7",
     "@ddfdb/archiv": "workspace:*",
+    "@ddfdb/client": "workspace:*",
     "@ddfdb/core": "workspace:*",
     "@ddfdb/db": "workspace:*",
     "@ddfdb/user-api": "workspace:*",

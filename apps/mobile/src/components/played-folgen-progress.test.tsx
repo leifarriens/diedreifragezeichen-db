@@ -20,7 +20,7 @@ vi.mock("@/api/use-folgen", () => ({
 vi.mock("@/components/played-folgen-progress-bar", () => ({
   PlayedFolgenProgressBar: "ProgressBar",
 }));
-vi.mock("@/features/listened/use-user-listened", () => ({
+vi.mock("@/features/listened/use-listened", () => ({
   useUserListened: () => ({ data: state.listened }),
 }));
 vi.mock("@/lib/use-auth", () => ({

@@ -5,7 +5,7 @@ import { UIButton } from "@/components/ui/button";
 import { HapticFeedback } from "@/lib/haptic-feedback";
 import { useAuth } from "@/lib/use-auth";
 
-import { useUpdateFolgenListenStatus } from "./use-update-folgen-listen-status";
+import { useUpdateFolgenListenStatus } from "./use-listened";
 
 interface FolgenListenedButtonProps {
   folgeId: number;

@@ -62,9 +62,7 @@ describe("sortFolgen", () => {
       }),
     ];
 
-    expectTypeOf(results).toEqualTypeOf<
-      (typeof enrichedFolgen)[number][][]
-    >();
+    expectTypeOf(results).toEqualTypeOf<(typeof enrichedFolgen)[number][][]>();
     for (const sorted of results) {
       expect(sorted).toEqual(enrichedFolgen);
       expect(sorted).not.toBe(enrichedFolgen);

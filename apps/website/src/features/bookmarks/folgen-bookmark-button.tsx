@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { useAuth } from "@/lib/use-auth";
 
-import { useUpdateFolgenBookmark } from "./use-update-folgen-bookmark";
-import { useUserBookmarks } from "./use-user-bookmarks";
+import { useUpdateFolgenBookmark, useUserBookmarks } from "./use-bookmarks";
 
 interface FolgenBookmarkButtonProps {
   folgeId: number;
