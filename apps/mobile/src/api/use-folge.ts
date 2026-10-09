@@ -1,6 +1,6 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import type { Folge } from "@ddfdb/archiv/contracts";
 
-import type { Folge } from "./types";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { archivApi } from "./archiv";
 import { folgenQueryKey } from "./use-folgen";

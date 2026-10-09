@@ -2,7 +2,7 @@ import { BlurView } from "expo-blur";
 import { StyleSheet } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { AsyncImage } from "@/components/async-image";
+import { OptimizedImage } from "@/components/optimized-image";
 
 export function BlurBackground({
   folgeId,
@@ -17,7 +17,11 @@ export function BlurBackground({
       key={folgeId}
       style={StyleSheet.absoluteFill}
     >
-      <AsyncImage style={StyleSheet.absoluteFill} uri={imageUrl} />
+      <OptimizedImage
+        imageUrl={imageUrl}
+        optimizationOptions={{ width: "64" }}
+        style={StyleSheet.absoluteFill}
+      />
       <BlurView
         intensity={100}
         style={StyleSheet.absoluteFill}

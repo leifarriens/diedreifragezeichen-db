@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    imageSizes: [64, 512],
     remotePatterns: [
       new URL("https://cdn-p.smehost.net/**"),
       new URL("https://dreimetadaten.de/data/**"),

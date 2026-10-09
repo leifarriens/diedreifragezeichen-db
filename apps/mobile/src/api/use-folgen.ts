@@ -1,15 +1,54 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-
-import type { Folge } from "./types";
+import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 
 import { archivApi } from "./archiv";
+import { useTRPC } from "./user-api";
 
 export const folgenQueryKey = ["folgen"] as const;
 
 export function useFolgen() {
-  return useQuery({
-    ...getFolgenQueryOptions(),
+  const trpc = useTRPC();
+  const queries = useQueries({
+    combine([folgenQuery, communityRatingsQuery]) {
+      const ratingsByFolgeId = new Map(
+        communityRatingsQuery.data?.map((rating) => [rating.folgeId, rating]),
+      );
+
+      return {
+        data: folgenQuery.data?.map((folge) => {
+          const communityRating = ratingsByFolgeId.get(folge.id);
+
+          return {
+            ...folge,
+            communityRating: communityRating
+              ? {
+                  numberOfRatings: communityRating.numberOfRatings,
+                  score: communityRating.score,
+                }
+              : null,
+          };
+        }),
+        error: folgenQuery.error ?? communityRatingsQuery.error,
+        isLoading: folgenQuery.isLoading || communityRatingsQuery.isLoading,
+        isPaused:
+          folgenQuery.fetchStatus === "paused" ||
+          communityRatingsQuery.fetchStatus === "paused",
+        isRefreshing:
+          folgenQuery.isRefetching || communityRatingsQuery.isRefetching,
+        async refetch() {
+          await Promise.all([
+            folgenQuery.refetch(),
+            communityRatingsQuery.refetch(),
+          ]);
+        },
+      };
+    },
+    queries: [
+      getFolgenQueryOptions(),
+      trpc.ratings.getAllCommunityRatings.queryOptions(),
+    ],
   });
+
+  return queries;
 }
 
 export function useFolgenTotal() {
@@ -23,7 +62,7 @@ function getFolgenQueryOptions() {
   return {
     gcTime: Infinity,
     placeholderData: keepPreviousData, // Prevents hard loading state
-    queryFn: async (): Promise<Folge[]> => {
+    queryFn: async () => {
       return archivApi.getFolgen();
     },
     queryKey: folgenQueryKey,

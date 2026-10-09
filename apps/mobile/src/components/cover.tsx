@@ -1,7 +1,7 @@
 import { useTheme } from "expo-router";
 import { StyleSheet, View } from "react-native";
 
-import { AsyncImage } from "./async-image";
+import { OptimizedImage } from "./optimized-image";
 
 interface CoverProps {
   imageUrl: null | string;
@@ -9,19 +9,19 @@ interface CoverProps {
 
 export function Cover({ imageUrl }: CoverProps) {
   if (!imageUrl) {
-    return <ImagePlaceholder />;
+    return <CoverPlaceholder />;
   }
 
   return (
-    <AsyncImage
-      placeholder={<ImagePlaceholder />}
+    <OptimizedImage
+      imageUrl={imageUrl}
+      placeholder={<CoverPlaceholder />}
       style={styles.cover}
-      uri={imageUrl}
     />
   );
 }
 
-function ImagePlaceholder() {
+function CoverPlaceholder() {
   const theme = useTheme();
 
   return (
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
   cover: {
     aspectRatio: 1,
     borderRadius: 14,
-    width: "100%" as const,
+    width: "100%",
   },
 });

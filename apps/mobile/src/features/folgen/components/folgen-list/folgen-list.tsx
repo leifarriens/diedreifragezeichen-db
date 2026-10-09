@@ -1,33 +1,37 @@
 import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { useCallback } from "react";
-import { View } from "react-native";
+import { RefreshControl, View } from "react-native";
 
-import type { Folge } from "@/api/types";
+import type { FolgeWithCommunityRating } from "@/api/types";
 
 import type { FolgenListViewMode } from "./types";
 
 import { type FolgeDetailPathname, FolgenListItem } from "./folgen-list-item";
 
 export interface FolgenListProps extends Pick<
-  FlashListProps<Folge>,
+  FlashListProps<FolgeWithCommunityRating>,
   | "ListEmptyComponent"
   | "ListHeaderComponent"
   | "maintainVisibleContentPosition"
 > {
   detailPathname: FolgeDetailPathname;
   emptyMessage?: string;
-  folgen: Folge[];
+  folgen: FolgeWithCommunityRating[];
+  isRefreshing?: boolean;
+  onRequestRefresh?: () => void;
   viewMode: FolgenListViewMode;
 }
 
 export function FolgenList({
   detailPathname,
   folgen,
+  isRefreshing = false,
+  onRequestRefresh,
   viewMode,
   ...rest
 }: FolgenListProps) {
   const renderItem = useCallback(
-    ({ item }: { item: Folge }) => (
+    ({ item }: { item: FolgeWithCommunityRating }) => (
       <FolgenListItem
         detailPathname={detailPathname}
         item={item}
@@ -38,7 +42,7 @@ export function FolgenList({
   );
 
   return (
-    <FlashList<Folge>
+    <FlashList<FolgeWithCommunityRating>
       className="flex-1"
       contentContainerClassName="px-3 py-3"
       contentInsetAdjustmentBehavior="automatic"
@@ -49,13 +53,21 @@ export function FolgenList({
       key={viewMode}
       keyExtractor={archiveKeyExtractor}
       numColumns={viewMode === "grid" ? 2 : 1}
+      refreshControl={
+        onRequestRefresh && (
+          <RefreshControl
+            onRefresh={onRequestRefresh}
+            refreshing={isRefreshing}
+          />
+        )
+      }
       renderItem={renderItem}
       {...rest}
     />
   );
 }
 
-const archiveKeyExtractor = (item: Folge) => String(item.id);
+const archiveKeyExtractor = (item: FolgeWithCommunityRating) => String(item.id);
 
 function FolgenListSeparator() {
   return <View className="h-3" />;

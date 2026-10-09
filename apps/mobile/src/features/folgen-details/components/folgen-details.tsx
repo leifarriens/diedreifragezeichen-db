@@ -1,21 +1,22 @@
+import type { Folge } from "@ddfdb/archiv/contracts";
+
 import {
   formatFolgenSubtitle,
   formatRelativeTime,
   formatReleaseDate,
   isDateBeforeNow,
 } from "@ddfdb/core";
-import { Icon } from "@expo/ui";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
-import { useShallow } from "zustand/react/shallow";
-
-import type { Folge } from "@/api/types";
 
 import { Cover } from "@/components/cover";
 import { UIButton } from "@/components/ui/button";
-import { HapticFeedback } from "@/lib/haptic-feedback";
-import { useFolgeStatus, useFolgeStore } from "@/stores/use-folge-store";
+import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
+import { useUserBookmarks } from "@/features/bookmarks/use-user-bookmarks";
+import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";
+import { useUserListened } from "@/features/listened/use-user-listened";
+import { FolgenRatingButton } from "@/features/ratings/folgen-rating-button";
 
 import { isExternalHref } from "../is-external-href";
 import { FolgenPlayButton } from "./folgen-play-button";
@@ -26,15 +27,8 @@ interface FolgeDetailsProps {
 
 export function FolgeDetails({ folge }: FolgeDetailsProps) {
   const { cover, links, number, release_date, title } = folge;
-  const { isBookmarked, isPlayed } = useFolgeStatus(String(folge.id));
-
-  const { hasHydrated, toggleBookmark, togglePlayed } = useFolgeStore(
-    useShallow((state) => ({
-      hasHydrated: state.hasHydrated,
-      toggleBookmark: state.toggleBookmark,
-      togglePlayed: state.togglePlayed,
-    })),
-  );
+  const { data: userBookmarks } = useUserBookmarks();
+  const { data: userListened } = useUserListened();
 
   const isReleased = release_date !== null && isDateBeforeNow(release_date);
 
@@ -64,52 +58,25 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
 
       <View className="mt-6 flex-row items-center justify-between gap-3">
         <View className="flex-row gap-2">
-          <UIButton
-            disabled={!hasHydrated}
-            icon={
-              isBookmarked
-                ? Icon.select({
-                    android:
-                      import("@expo/material-symbols/bookmark_added.xml"),
-                    ios: "bookmark.fill",
-                  })
-                : Icon.select({
-                    android: import("@expo/material-symbols/bookmark_add.xml"),
-                    ios: "bookmark",
-                  })
+          <FolgenBookmarkButton
+            folgeId={folge.id}
+            folgeTitle={folge.title}
+            isBookmarked={
+              userBookmarks?.some(
+                (bookmark) => bookmark.folgeId === folge.id,
+              ) ?? false
             }
-            iconOnly
-            label={
-              isBookmarked ? "Lesezeichen entfernen" : "Als Lesezeichen merken"
-            }
-            onPress={() => {
-              HapticFeedback.button();
-              toggleBookmark(String(folge.id));
-            }}
           />
-          <UIButton
-            disabled={!hasHydrated}
-            icon={
-              isPlayed
-                ? Icon.select({
-                    android: import("@expo/material-symbols/check_circle.xml"),
-                    ios: "checkmark.circle.fill",
-                  })
-                : Icon.select({
-                    android:
-                      import("@expo/material-symbols/radio_button_unchecked.xml"),
-                    ios: "checkmark.circle",
-                  })
+          <FolgenListenedButton
+            folgeId={folge.id}
+            folgeTitle={folge.title}
+            hasListened={
+              userListened?.some((listened) => listened.folgeId === folge.id) ??
+              false
             }
-            iconOnly
-            intent="prominent"
-            label={isPlayed ? "Als ungehört markieren" : "Als gehört markieren"}
-            onPress={() => {
-              HapticFeedback.button();
-              togglePlayed(String(folge.id));
-            }}
-            tintColor={isPlayed ? "green" : "transparent"}
           />
+
+          <FolgenRatingButton />
 
           {folge.weblink && isExternalHref(folge.weblink) ? (
             <Link asChild href={folge.weblink} target="_blank">

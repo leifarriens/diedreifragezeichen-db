@@ -3,6 +3,7 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
 import { auth } from "@/lib/auth";
 import { bookmarkRepository } from "@/lib/bookmark/bookmark.repository";
+import { listenedRepository } from "@/lib/listened/listened.repository";
 import { ratingRepository } from "@/lib/rating/rating.repository";
 
 const allowedOrigins = new Set(
@@ -19,6 +20,7 @@ const handler = async (req: Request) => {
       return createTRPCContext({
         bookmarks: bookmarkRepository,
         headers: req.headers,
+        listened: listenedRepository,
         ratings: ratingRepository,
         user: session?.user ?? null,
       });

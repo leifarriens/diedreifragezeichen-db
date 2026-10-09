@@ -21,6 +21,14 @@ export default function TabLayout() {
         <NativeTabs.Trigger.Icon md="history" sf="checkmark.circle" />
       </NativeTabs.Trigger>
 
+      <NativeTabs.Trigger name="bewertet">
+        <NativeTabs.Trigger.Label>Bewertet</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon
+          md="rate_review"
+          sf="wallet.sensor.tag.radiowaves.left.and.right"
+        />
+      </NativeTabs.Trigger>
+
       <NativeTabs.Trigger name="settings">
         <NativeTabs.Trigger.Label>Einstellungen</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="settings" sf="gear" />

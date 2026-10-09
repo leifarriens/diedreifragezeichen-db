@@ -6,18 +6,18 @@ import { Toggle } from "@base-ui/react/toggle";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { cn } from "tailwind-variants";
 
-export interface SortSelectorOption<Value extends string> {
-  disabled?: boolean;
-  label: ReactNode;
-  value: Value;
-}
-
 export interface SortSelectorProps<Value extends string> {
   "aria-label": string;
   className?: string;
   disabled?: boolean;
   onValueChange: (value: Value) => void;
   options: readonly SortSelectorOption<Value>[];
+  value: Value;
+}
+
+interface SortSelectorOption<Value extends string> {
+  disabled?: boolean;
+  label: ReactNode;
   value: Value;
 }
 

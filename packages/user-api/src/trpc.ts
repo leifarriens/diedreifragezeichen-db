@@ -2,6 +2,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 import type { BookmarkRepository } from "./modules/bookmark/bookmark.repository.interface";
+import type { ListenedRepository } from "./modules/listened/listened.repository.interface";
 import type { RatingRepository } from "./modules/rating/rating.repository.interface";
 
 export interface AuthenticatedUser {
@@ -14,11 +15,13 @@ export interface AuthenticatedUser {
 export const createTRPCContext = (opts: {
   bookmarks: BookmarkRepository;
   headers: Headers;
+  listened: ListenedRepository;
   ratings: RatingRepository;
   user: AuthenticatedUser | null;
 }) => ({
   bookmarks: opts.bookmarks,
   headers: opts.headers,
+  listened: opts.listened,
   ratings: opts.ratings,
   user: opts.user,
 });
@@ -61,6 +64,27 @@ export const appRouter = createTRPCRouter({
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>
         ctx.bookmarks.removeBookmark({
+          folgeId: input.folgeId,
+          userId: ctx.user.id,
+        }),
+      ),
+  }),
+  listened: createTRPCRouter({
+    addListened: protectedProcedure
+      .input(z.object({ folgeId }))
+      .mutation(({ ctx, input }) =>
+        ctx.listened.addListened({
+          folgeId: input.folgeId,
+          userId: ctx.user.id,
+        }),
+      ),
+    getUserListened: protectedProcedure.query(({ ctx }) =>
+      ctx.listened.getUserListened({ userId: ctx.user.id }),
+    ),
+    removeListened: protectedProcedure
+      .input(z.object({ folgeId }))
+      .mutation(({ ctx, input }) =>
+        ctx.listened.removeListened({
           folgeId: input.folgeId,
           userId: ctx.user.id,
         }),

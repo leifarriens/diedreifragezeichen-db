@@ -14,11 +14,13 @@
     "lint:ws": "sherif",
     "test": "turbo test",
     "typecheck": "turbo typecheck --continue",
+    "knip": "knip",
     "turbo": "turbo"
   },
   "devDependencies": {
     "@turbo/gen": "^2.11.4",
     "@types/node": "^24.13.3",
+    "knip": "^6.39.0",
     "prettier": "^3.9.8",
     "sherif": "^1.13.0",
     "turbo": "^2.11.4"

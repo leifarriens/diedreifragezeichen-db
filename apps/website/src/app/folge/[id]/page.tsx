@@ -10,13 +10,14 @@ import {
 import type { FolgeWithCommunityRating } from "@/lib/types";
 
 import { ExternalLink } from "@/components/external-link/external-link";
-import { FolgenBookmarkButtonForFolge } from "@/components/folgen-bookmark/folgen-bookmark-button";
 import { FolgenCover } from "@/components/folgen-images/folgen-cover";
-import { FolgenRatingDisplay } from "@/components/folgen-rating/folgen-rating-display";
-import { FolgenUserRating } from "@/components/folgen-rating/folgen-user-rating";
 import { FolgenStreamingLinks } from "@/components/folgen-streaming-links/folge-streaming-links";
 import { PageBackground } from "@/components/layout/page-background";
 import { Wrapper } from "@/components/layout/wrapper";
+import { FolgenBookmarkButtonForFolge } from "@/features/bookmarks/folgen-bookmark-button";
+import { FolgenListenedButtonForFolge } from "@/features/listened/folgen-listened-button";
+import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
+import { FolgenUserRating } from "@/features/ratings/components/folgen-user-rating";
 import { archivApi } from "@/lib/archiv-api";
 import { folgenService } from "@/services/folgen.service";
 
@@ -145,6 +146,11 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 )}
 
                 <FolgenBookmarkButtonForFolge
+                  folgeId={folge.id}
+                  folgeTitle={folge.title}
+                />
+
+                <FolgenListenedButtonForFolge
                   folgeId={folge.id}
                   folgeTitle={folge.title}
                 />

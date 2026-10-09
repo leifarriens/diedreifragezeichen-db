@@ -28,7 +28,7 @@ minimumReleaseAgeExclude:
   - "@turbo/*"
   - "@expo/*"
   - "@react-native/*"
-  - babel-preset-expo@58.0.9
+  - babel-preset-expo@58.0.9 || 58.0.11
   - expo-*
   - expo
   - hermes-compiler@260318099.0.4

@@ -10,7 +10,7 @@ import {
   YoutubeMusicIcon,
 } from "../icons/streaming-icons";
 
-export const STREAMING_SERVICES = {
+const STREAMING_SERVICES = {
   // amazon_music: { label: "Amazon Music" },
   apple_music: { Icon: AppleMusicIcon, label: "Apple Music" },
   // bookbeat: { label: "BookBeat" },
@@ -22,11 +22,11 @@ export const STREAMING_SERVICES = {
   { Icon?: ComponentType<StreamingIconProps>; label: string }
 >;
 
-export type StreamingService = keyof typeof STREAMING_SERVICES;
-
 interface FolgenStreamingLinksProps {
   links: Folge["links"];
 }
+
+type StreamingService = keyof typeof STREAMING_SERVICES;
 
 export function FolgenStreamingLinks({ links }: FolgenStreamingLinksProps) {
   return Object.entries(links)

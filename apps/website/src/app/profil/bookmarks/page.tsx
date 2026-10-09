@@ -1,8 +1,7 @@
+import { UserBookmarkedFolgen } from "@/features/bookmarks/user-bookmarked-folgen";
 import { serverSessionGuard } from "@/lib/auth";
 import { folgenService } from "@/services/folgen.service";
 import { caller } from "@/trpc/server";
-
-import { BookmarksList } from "./bookmarks-list";
 
 export default async function BookmarksPage() {
   await serverSessionGuard();
@@ -22,9 +21,7 @@ export default async function BookmarksPage() {
 
   return (
     <main>
-      <section>
-        <BookmarksList folgen={userBookmarkedFolgen} />
-      </section>
+      <UserBookmarkedFolgen folgen={userBookmarkedFolgen} />
     </main>
   );
 }

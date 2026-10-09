@@ -7,9 +7,6 @@ export default function GehoertLayout() {
         headerBackButtonDisplayMode: "minimal",
         headerLargeTitleEnabled: true,
       }}
-    >
-      <Stack.Screen name="index" options={{ title: "Gehört" }} />
-      <Stack.Screen name="[folgeId]" />
-    </Stack>
+    />
   );
 }

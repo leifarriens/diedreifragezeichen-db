@@ -3,7 +3,7 @@ import type { ComponentProps } from "react";
 import Link from "next/link";
 import { tv } from "tailwind-variants";
 
-export const buttonVariants = tv({
+const buttonVariants = tv({
   base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-neutral-700 px-3 py-1.5 transition-colors hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50",
 });
 

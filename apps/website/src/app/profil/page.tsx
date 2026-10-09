@@ -1,7 +1,6 @@
+import { SignOutButton } from "@/features/auth/sign-out-button";
 import { serverSessionGuard } from "@/lib/auth";
 import { caller } from "@/trpc/server";
-
-import { SignOutButton } from "./sign-out-button";
 
 export default async function ProfilePage() {
   await serverSessionGuard();

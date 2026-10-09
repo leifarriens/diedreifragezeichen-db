@@ -7,22 +7,25 @@ import { cn } from "tailwind-variants";
 
 import type { FolgeWithCommunityRating } from "@/lib/types";
 
+import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
+import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";
+import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
 import { useIntersectionObserver } from "@/lib/hooks/use-intersection-observer";
 
-import { FolgenBookmarkButton } from "../folgen-bookmark/folgen-bookmark-button";
 import { FolgenBackground } from "../folgen-images/folgen-artwork";
 import { FolgenCover } from "../folgen-images/folgen-cover";
-import { FolgenRatingDisplay } from "../folgen-rating/folgen-rating-display";
 import styles from "./folgen-grid-item.module.css";
 
 interface FolgenGridItemProps {
   folge: FolgeWithCommunityRating;
+  hasListened: boolean;
   isBookmarked: boolean;
   userRating: null | number;
 }
 
 export const FolgenGridItem = memo(function FolgenGridItem({
   folge,
+  hasListened,
   isBookmarked,
   userRating,
 }: FolgenGridItemProps) {
@@ -73,6 +76,13 @@ export const FolgenGridItem = memo(function FolgenGridItem({
               folgeId={folge.id}
               folgeTitle={folge.title}
               isBookmarked={isBookmarked}
+              size={24}
+            />
+
+            <FolgenListenedButton
+              folgeId={folge.id}
+              folgeTitle={folge.title}
+              hasListened={hasListened}
               size={24}
             />
           </div>

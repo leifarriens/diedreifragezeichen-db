@@ -3,7 +3,7 @@ import { LoadingIndicator } from "@/components/loading-indicator/loading-indicat
 export default function HomePageLoading() {
   return (
     <main className="grid place-items-center">
-      <LoadingIndicator ariaLabel="Archiv wird geladen" />
+      <LoadingIndicator ariaLabel="Seite wird geladen" />
     </main>
   );
 }

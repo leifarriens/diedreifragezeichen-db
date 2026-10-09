@@ -8,7 +8,6 @@ export function Logo({
 }: Pick<ImageProps, "contentFit" | "style">) {
   return (
     <Image
-      cachePolicy="disk"
       contentFit={contentFit ?? "contain"}
       source={logo}
       style={[{ height: 30, width: 80 }, style]}

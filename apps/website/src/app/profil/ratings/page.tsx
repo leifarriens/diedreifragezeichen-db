@@ -1,8 +1,7 @@
+import { UserRatedFolgen } from "@/features/ratings/user-rated-folgen";
 import { serverSessionGuard } from "@/lib/auth";
 import { folgenService } from "@/services/folgen.service";
 import { caller } from "@/trpc/server";
-
-import { UserRatedFolgen } from "./user-rated-folgen";
 
 export default async function RatingsPage() {
   await serverSessionGuard();
@@ -22,9 +21,7 @@ export default async function RatingsPage() {
 
   return (
     <main>
-      <section>
-        <UserRatedFolgen folgen={userRatedFolgen} />
-      </section>
+      <UserRatedFolgen folgen={userRatedFolgen} />
     </main>
   );
 }

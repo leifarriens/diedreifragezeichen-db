@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import type {
   AuthenticatedUser,
   BookmarkRepository,
+  ListenedRepository,
   RatingRepository,
 } from "./index";
 
@@ -20,10 +21,12 @@ function createCaller(
   user: AuthenticatedUser | null = null,
   ratings: RatingRepository = makeRatingRepository(),
   bookmarks: BookmarkRepository = makeBookmarkRepository(),
+  listened: ListenedRepository = makeListenedRepository(),
 ) {
   return appRouter.createCaller({
     bookmarks,
     headers: new Headers(),
+    listened,
     ratings,
     user,
   });
@@ -35,6 +38,14 @@ function makeBookmarkRepository() {
     getUserBookmarks: vi.fn(() => Promise.resolve([])),
     removeBookmark: vi.fn(() => Promise.resolve()),
   } satisfies BookmarkRepository;
+}
+
+function makeListenedRepository() {
+  return {
+    addListened: vi.fn(),
+    getUserListened: vi.fn(() => Promise.resolve([])),
+    removeListened: vi.fn(() => Promise.resolve()),
+  } satisfies ListenedRepository;
 }
 
 function makeRatingRepository() {
@@ -72,6 +83,31 @@ describe("user API router", () => {
     await expect(
       caller.ratings.getForFolge({ folgeId: 12 }),
     ).rejects.toMatchObject({ code: "UNAUTHORIZED" });
+    await expect(caller.listened.getUserListened()).rejects.toMatchObject({
+      code: "UNAUTHORIZED",
+    });
+  });
+
+  it("adds, lists, and removes listened Folgen for the authenticated user", async () => {
+    const listened = makeListenedRepository();
+    const caller = createCaller(authenticatedUser, undefined, undefined, listened);
+
+    await caller.listened.addListened({ folgeId: 12 });
+    expect(listened.addListened).toHaveBeenCalledWith({
+      folgeId: 12,
+      userId: authenticatedUser.id,
+    });
+
+    await caller.listened.getUserListened();
+    expect(listened.getUserListened).toHaveBeenCalledWith({
+      userId: authenticatedUser.id,
+    });
+
+    await caller.listened.removeListened({ folgeId: 12 });
+    expect(listened.removeListened).toHaveBeenCalledWith({
+      folgeId: 12,
+      userId: authenticatedUser.id,
+    });
   });
 
   it("returns the authenticated user's public information", async () => {

@@ -4,7 +4,7 @@ import { Link } from "expo-router";
 import { memo } from "react";
 import { Pressable, Text, View } from "react-native";
 
-import type { Folge } from "@/api/types";
+import type { FolgeWithCommunityRating } from "@/api/types";
 
 import { Cover } from "@/components/cover";
 
@@ -17,40 +17,47 @@ export type FolgeDetailPathname =
 
 export interface FolgenListItemProps {
   detailPathname: FolgeDetailPathname;
-  item: Folge;
+  item: FolgeWithCommunityRating;
   viewMode: FolgenListViewMode;
 }
 
 export const FolgenListItem = memo(
   function FolgenGridItem({
     detailPathname,
-    item,
+    item: folge,
     viewMode,
   }: FolgenListItemProps) {
-    const image = item.cover;
-
     if (viewMode === "grid") {
       return (
         <View className="mb-2 w-full gap-2 px-2">
           <Link
             asChild
-            href={{ params: { folgeId: item.id }, pathname: detailPathname }}
+            href={{ params: { folgeId: folge.id }, pathname: detailPathname }}
           >
             <Link.AppleZoom>
               <Pressable>
-                <Cover imageUrl={image} />
+                <Cover imageUrl={folge.cover} />
               </Pressable>
             </Link.AppleZoom>
           </Link>
 
           <View className="flex-row justify-between">
-            {item.release_date ? (
-              <View>
-                <Text className="text-sm text-neutral-300">
-                  {formatReleaseDate(item.release_date)}
-                </Text>
-              </View>
-            ) : null}
+            <View>
+              {folge.communityRating ? (
+                <View>
+                  <Text className="text-sm text-neutral-300">
+                    {folge.communityRating.score}
+                  </Text>
+                </View>
+              ) : null}
+              {folge.release_date ? (
+                <View>
+                  <Text className="text-sm text-neutral-300">
+                    {formatReleaseDate(folge.release_date)}
+                  </Text>
+                </View>
+              ) : null}
+            </View>
           </View>
         </View>
       );
@@ -59,22 +66,22 @@ export const FolgenListItem = memo(
     return (
       <Link
         asChild
-        href={{ params: { folgeId: item.id }, pathname: detailPathname }}
+        href={{ params: { folgeId: folge.id }, pathname: detailPathname }}
       >
         <Pressable className="flex-row gap-x-4 px-2 py-4">
           <Link.AppleZoom>
             <View className="size-28" collapsable={false}>
-              <Cover imageUrl={image} />
+              <Cover imageUrl={folge.cover} />
             </View>
           </Link.AppleZoom>
 
           <View className="flex-1 py-2">
             <Text className="text-base text-white">
-              {formatFolgenSubtitle(item.number)}
+              {formatFolgenSubtitle(folge.number)}
             </Text>
-            <Text className="text-xl font-bold text-white">{item.title}</Text>
+            <Text className="text-xl font-bold text-white">{folge.title}</Text>
             <Text className="text-sm text-neutral-300">
-              {item.release_date ? formatReleaseDate(item.release_date) : ""}
+              {folge.release_date ? formatReleaseDate(folge.release_date) : ""}
             </Text>
           </View>
         </Pressable>

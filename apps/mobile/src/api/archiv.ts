@@ -1,7 +1,5 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
 
-import { filterReleasedFolgen } from "./filter-released-folgen";
-
 type RequestOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
 };
@@ -24,7 +22,7 @@ class ArchivApi {
   public async getFolgen() {
     const folgen = await this.request<Folge[]>("/folgen");
 
-    return filterReleasedFolgen(folgen);
+    return folgen;
   }
 
   private async request<T>(

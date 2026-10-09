@@ -1,5 +1,6 @@
+import { Host } from "@expo/ui";
+import { ProgressView } from "@expo/ui/swift-ui";
 import { useTheme } from "expo-router";
-import { View } from "react-native";
 
 interface PlayedFolgenProgressBarProps {
   progress: number;
@@ -11,19 +12,12 @@ export function PlayedFolgenProgressBar({
   const theme = useTheme();
 
   return (
-    <View
+    <Host
       accessibilityLabel="Anteil gehörter Folgen"
-      accessibilityValue={{ max: 100, min: 0, now: progress * 100 }}
-      className="h-2 w-full overflow-hidden rounded-full"
-      style={{ backgroundColor: theme.colors.border }}
+      seedColor={theme.colors.primary}
+      style={{ height: 24, width: "100%" }}
     >
-      <View
-        className="h-full rounded-full"
-        style={{
-          backgroundColor: theme.colors.primary,
-          width: `${(progress * 100).toString()}%`,
-        }}
-      />
-    </View>
+      <ProgressView value={progress} />
+    </Host>
   );
 }

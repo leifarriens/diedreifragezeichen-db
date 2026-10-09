@@ -1,0 +1,63 @@
+import { Icon } from "@expo/ui";
+import { useRouter } from "expo-router";
+
+import { UIButton } from "@/components/ui/button";
+import { HapticFeedback } from "@/lib/haptic-feedback";
+import { useAuth } from "@/lib/use-auth";
+
+import { useUpdateFolgenBookmark } from "./use-update-folgen-bookmark";
+
+interface FolgenBookmarkButtonProps {
+  folgeId: number;
+  folgeTitle: string;
+  isBookmarked: boolean;
+}
+
+export function FolgenBookmarkButton({
+  folgeId,
+  folgeTitle,
+  isBookmarked,
+}: FolgenBookmarkButtonProps) {
+  const { isAuthenticated, isPending } = useAuth();
+  const router = useRouter();
+
+  const { isLoading, toggleBookmark } = useUpdateFolgenBookmark(
+    folgeId,
+    isBookmarked,
+  );
+
+  function handlePress() {
+    if (!isAuthenticated) {
+      router.navigate("/login");
+      return;
+    }
+
+    HapticFeedback.button();
+    toggleBookmark();
+  }
+
+  return (
+    <UIButton
+      accessibilityLabel={
+        isBookmarked
+          ? `Gespeichert: ${folgeTitle}`
+          : `Nicht gespeichert: ${folgeTitle}`
+      }
+      disabled={isLoading || isPending}
+      icon={
+        isBookmarked
+          ? Icon.select({
+              android: import("@expo/material-symbols/bookmark_added.xml"),
+              ios: "bookmark.fill",
+            })
+          : Icon.select({
+              android: import("@expo/material-symbols/bookmark_add.xml"),
+              ios: "bookmark",
+            })
+      }
+      iconOnly
+      label={isBookmarked ? "Lesezeichen entfernen" : "Als Lesezeichen merken"}
+      onPress={handlePress}
+    />
+  );
+}

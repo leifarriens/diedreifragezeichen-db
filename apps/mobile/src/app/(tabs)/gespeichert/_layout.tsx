@@ -7,9 +7,6 @@ export default function GespeichertLayout() {
         headerBackButtonDisplayMode: "minimal",
         headerLargeTitleEnabled: true,
       }}
-    >
-      <Stack.Screen name="index" options={{ title: "Gespeichert" }} />
-      <Stack.Screen name="[folgeId]" />
-    </Stack>
+    />
   );
 }

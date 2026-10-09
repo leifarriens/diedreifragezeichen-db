@@ -1,7 +1,7 @@
+import type { Folge } from "@ddfdb/archiv/contracts";
+
 import { Link } from "expo-router";
 import { View } from "react-native";
-
-import type { Folge } from "@/api/types";
 
 import { UIButton } from "@/components/ui/button";
 import {

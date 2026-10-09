@@ -1,6 +1,4 @@
-import type { ImageProps } from "next/image";
-
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 
 interface FolgenBackgroundProps extends Omit<
   ImageProps,

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 
 import type { FolgeWithCommunityRating } from "@/lib/types";
 
+import ArchiveBrowser from "@/features/archive/components/archive-browser";
+
 import { folgenService } from "../services/folgen.service";
-import ArchiveBrowser from "./archive-browser";
 
 export const metadata: Metadata = {
   description:
