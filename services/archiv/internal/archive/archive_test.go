@@ -47,6 +47,12 @@ CREATE TABLE "sonstige" ("hörspielID" INTEGER PRIMARY KEY);
 CREATE TABLE "hörspielTeil" ("teil" INTEGER PRIMARY KEY, "hörspiel" INTEGER, "position" INTEGER);
 CREATE TABLE "track" ("trackID" INTEGER PRIMARY KEY, "dauer" INTEGER NOT NULL);
 CREATE TABLE "kapitel" ("trackID" INTEGER PRIMARY KEY, "hörspielID" INTEGER, "position" INTEGER, "abweichenderTitel" TEXT);
+CREATE TABLE "person" ("personID" INTEGER PRIMARY KEY, "name" TEXT NOT NULL);
+CREATE TABLE "rolle" ("rolleID" INTEGER PRIMARY KEY, "name" TEXT NOT NULL);
+CREATE TABLE "sprechrolle" ("sprechrolleID" INTEGER PRIMARY KEY, "hörspielID" INTEGER, "rolleID" INTEGER, "position" INTEGER);
+CREATE TABLE "spricht" ("sprechrolleID" INTEGER, "personID" INTEGER, "position" INTEGER);
+CREATE TABLE "hörspielBuchautor" ("hörspielID" INTEGER, "personID" INTEGER);
+CREATE TABLE "hörspielSkriptautor" ("hörspielID" INTEGER, "personID" INTEGER);
 CREATE VIEW "alleIDs" AS
   SELECT 'serie' AS "sammlung", "nummer", "hörspielID" FROM "serie" UNION
   SELECT 'spezial', NULL, "hörspielID" FROM "spezial" UNION
@@ -67,6 +73,12 @@ INSERT INTO "kurzgeschichten" VALUES (3);
 INSERT INTO "hörspielTeil" VALUES (5, 4, 1);
 INSERT INTO "track" VALUES (1, 1000), (2, 2000), (3, 400), (4, 600);
 INSERT INTO "kapitel" VALUES (1, 1, 1, NULL), (2, 1, 2, NULL), (3, 5, 1, NULL), (4, 5, 2, NULL);
+INSERT INTO "person" VALUES (1, 'Robert Arthur'), (2, 'William Arden'), (3, 'H. G. Francis'), (4, 'Oliver Rohrbeck'), (5, 'Peter Pasetti'), (6, 'Another Actor');
+INSERT INTO "rolle" VALUES (1, 'Justus Jonas'), (2, 'Hitchcock, Erzähler');
+INSERT INTO "hörspielBuchautor" VALUES (1, 1), (1, 2);
+INSERT INTO "hörspielSkriptautor" VALUES (1, 3);
+INSERT INTO "sprechrolle" VALUES (1, 1, 1, 2), (2, 1, 2, 1);
+INSERT INTO "spricht" VALUES (1, 4, 1), (1, 6, 2), (2, 5, 1);
 ALTER TABLE "hörspiel" ADD COLUMN "urlCoverApple" TEXT;
 ALTER TABLE "hörspiel" ADD COLUMN "urlCoverKosmos" TEXT;
 UPDATE "hörspiel" SET "urlCoverApple" = 'https://cdn.example/itunes1', "urlCoverKosmos" = 'https://cdn.example/kosmos1' WHERE "hörspielID" = 1;
@@ -101,8 +113,11 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 	if mainFolge.TotalDuration == nil || *mainFolge.TotalDuration != 3000 {
 		t.Fatalf("unexpected total duration: %+v", mainFolge.TotalDuration)
 	}
-	if len(mainFolge.Links) != 7 || mainFolge.Links["apple_music"] != "https://music.apple.com/de/album/1092529875" || mainFolge.Links["spotify"] != "https://open.spotify.com/intl-de/album/spotify-id" || mainFolge.Links["youtube_music"] != "https://music.youtube.com/browse/youtube-id" {
-		t.Fatalf("unexpected streaming links: %+v", mainFolge.Links)
+	if len(mainFolge.Streaming) != 6 || mainFolge.Streaming["apple_music"] != (Streaming{ID: "1092529875", Link: "https://music.apple.com/de/album/1092529875"}) || mainFolge.Streaming["spotify"] != (Streaming{ID: "spotify-id", Link: "https://open.spotify.com/intl-de/album/spotify-id"}) || mainFolge.Streaming["amazon_music"] != (Streaming{ID: "amazon-music-id", Link: "https://music.amazon.de/albums/amazon-music-id"}) || mainFolge.Streaming["youtube_music"] != (Streaming{ID: "youtube-id", Link: "https://music.youtube.com/browse/youtube-id"}) {
+		t.Fatalf("unexpected streaming services: %+v", mainFolge.Streaming)
+	}
+	if _, ok := mainFolge.Streaming["amazon"]; ok {
+		t.Fatalf("purchase-only Amazon link should not be included: %+v", mainFolge.Streaming)
 	}
 	if mainFolge.Cover == nil || *mainFolge.Cover != "https://cdn.example/cover1" {
 		t.Fatalf("unexpected cover URL: %+v", mainFolge.Cover)
@@ -113,6 +128,15 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 	if mainFolge.Artwork == nil || *mainFolge.Artwork != "https://dreimetadaten.de/data/Serie/001/artwork.webp" {
 		t.Fatalf("unexpected artwork URL: %+v", mainFolge.Artwork)
 	}
+	if len(mainFolge.Authors) != 2 || mainFolge.Authors[0] != "Robert Arthur" || mainFolge.Authors[1] != "William Arden" {
+		t.Fatalf("unexpected authors: %+v", mainFolge.Authors)
+	}
+	if len(mainFolge.ScriptAuthors) != 1 || mainFolge.ScriptAuthors[0] != "H. G. Francis" {
+		t.Fatalf("unexpected script authors: %+v", mainFolge.ScriptAuthors)
+	}
+	if len(mainFolge.VoiceRoles) != 3 || mainFolge.VoiceRoles[0] != (VoiceRole{Role: "Hitchcock, Erzähler", Speaker: "Peter Pasetti"}) || mainFolge.VoiceRoles[1] != (VoiceRole{Role: "Justus Jonas", Speaker: "Oliver Rohrbeck"}) || mainFolge.VoiceRoles[2] != (VoiceRole{Role: "Justus Jonas", Speaker: "Another Actor"}) {
+		t.Fatalf("unexpected flat voice role entries: %+v", mainFolge.VoiceRoles)
+	}
 
 	specialFolge := folgen[1]
 	if specialFolge.Collection != "spezial" || specialFolge.Number != nil || specialFolge.Description == nil || *specialFolge.Description != "Metabeschreibung" {
@@ -120,6 +144,9 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 	}
 	if specialFolge.TotalDuration != nil {
 		t.Fatalf("expected missing duration to be null: %+v", specialFolge)
+	}
+	if specialFolge.Authors == nil || specialFolge.ScriptAuthors == nil || specialFolge.VoiceRoles == nil {
+		t.Fatalf("expected empty credit fields to be arrays: %+v", specialFolge)
 	}
 	if specialFolge.Cover == nil || *specialFolge.Cover != "https://cdn.example/itunes2" {
 		t.Fatalf("expected Apple cover fallback: %+v", specialFolge.Cover)
@@ -158,8 +185,37 @@ func TestHTTPHandlerServesNewContractAndDetail(t *testing.T) {
 	if len(items) != 3 {
 		t.Fatalf("got %d items, want 3 Serie/Spezial entries", len(items))
 	}
-	if !strings.Contains(listResponse.Body.String(), `"id":1`) || !strings.Contains(listResponse.Body.String(), `"collection":"serie"`) || !strings.Contains(listResponse.Body.String(), `"number":1`) || !strings.Contains(listResponse.Body.String(), `"youtube_music":`) || !strings.Contains(listResponse.Body.String(), `"weblink":`) || strings.Contains(listResponse.Body.String(), `"nummer"`) || strings.Contains(listResponse.Body.String(), `"titel"`) || strings.Contains(listResponse.Body.String(), `"_id"`) || strings.Contains(listResponse.Body.String(), `"type"`) || strings.Contains(listResponse.Body.String(), `"service":`) {
-		t.Fatalf("response does not use the new standalone field names: %s", listResponse.Body.String())
+	responseBody := listResponse.Body.String()
+	for _, field := range []string{
+		`"id":1`,
+		`"collection":"serie"`,
+		`"number":1`,
+		`"streaming":`,
+		`"youtube_music":{"link":`,
+		`"weblink":`,
+		`"authors":[`,
+		`"script_authors":[`,
+		`"voice_roles":[`,
+		`"speaker":"`,
+	} {
+		if !strings.Contains(responseBody, field) {
+			t.Errorf("response missing %s: %s", field, responseBody)
+		}
+	}
+	for _, field := range []string{
+		`"links":`,
+		`"amazon":{"`,
+		`www.amazon.de/gp/product`,
+		`"speakers"`,
+		`"nummer"`,
+		`"titel"`,
+		`"_id"`,
+		`"type"`,
+		`"service":`,
+	} {
+		if strings.Contains(responseBody, field) {
+			t.Errorf("response unexpectedly contains %s: %s", field, responseBody)
+		}
 	}
 
 	detailResponse := httptest.NewRecorder()

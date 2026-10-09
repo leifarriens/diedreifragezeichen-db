@@ -36,7 +36,7 @@ Archiv exposes read-only JSON endpoints:
 - `GET /folgen/{id}`: one Folge by its upstream `ids.dreimetadaten` ID.
 - `GET /healthz`: service health.
 
-Metadata includes titles, descriptions, release dates, durations, cover artwork, and streaming links. Although SQLite contains the upstream metadata, the HTTP API does not expose every upstream field or collection. See the [field inventory](services/archiv/AVAILABLE_FIELDS.md) for details.
+Metadata includes titles, descriptions, release dates, durations, cover artwork, streaming links, authors, script authors, and voice roles. Although SQLite contains the upstream metadata, the HTTP API does not expose every upstream field or collection. See the [field inventory](services/archiv/AVAILABLE_FIELDS.md) for details.
 
 Both apps use small `fetch` clients rather than accessing SQLite or routing metadata through the user API:
 

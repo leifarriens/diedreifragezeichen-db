@@ -49,8 +49,8 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
     communityRating,
     cover,
     description,
-    links,
     release_date,
+    streaming,
     title,
     weblink,
   } = folge;
@@ -114,7 +114,7 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
               </div>
 
               <div className="mt-6 flex items-center gap-4 text-nowrap">
-                <FolgenStreamingLinks links={links} />
+                <FolgenStreamingLinks streaming={streaming} />
 
                 <Separator
                   className="stretch h-7 w-px bg-neutral-300/50"

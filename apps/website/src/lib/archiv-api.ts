@@ -18,20 +18,26 @@ class ArchivApi {
 
   public async getFolgeById(id: number | string): Promise<Folge> {
     const payload = await this.request(`/folgen/${encodeURIComponent(id)}`);
-    if (!isFolge(payload)) {
+    const folge = normalizeFolge(payload);
+    if (!folge) {
       throw new Error("Archiv API returned an invalid Folge response");
     }
 
-    return payload;
+    return folge;
   }
 
   public async getFolgen(): Promise<Folge[]> {
     const payload = await this.request("/folgen", CACHE_DURATION.ONE_DAY);
-    if (!Array.isArray(payload) || !payload.every(isFolge)) {
+    if (!Array.isArray(payload)) {
       throw new Error("Archiv API returned an invalid Folgen response");
     }
 
-    return payload;
+    const folgen = payload.map(normalizeFolge);
+    if (folgen.some((folge) => folge === null)) {
+      throw new Error("Archiv API returned an invalid Folgen response");
+    }
+
+    return folgen.filter((folge): folge is Folge => folge !== null);
   }
 
   private async request(
@@ -56,6 +62,21 @@ class ArchivApi {
 
 export const archivApi = new ArchivApi();
 
+function getStreamingId(link: string): string {
+  try {
+    const pathSegments = new URL(link).pathname.split("/").filter(Boolean);
+    const encodedId = pathSegments.at(-1) ?? "";
+
+    try {
+      return decodeURIComponent(encodedId);
+    } catch {
+      return encodedId;
+    }
+  } catch {
+    return "";
+  }
+}
+
 function isFolge(value: unknown): value is Folge {
   if (!isRecord(value)) return false;
 
@@ -69,8 +90,13 @@ function isFolge(value: unknown): value is Folge {
     isNullableString(value.release_date) &&
     (value.total_duration === null ||
       typeof value.total_duration === "number") &&
-    isRecord(value.links) &&
-    Object.values(value.links).every((link) => typeof link === "string") &&
+    isRecord(value.streaming) &&
+    Object.values(value.streaming).every(
+      (service) =>
+        isRecord(service) &&
+        typeof service.id === "string" &&
+        typeof service.link === "string",
+    ) &&
     isNullableString(value.cover) &&
     isNullableString(value.weblink) &&
     isNullableString(value.artwork)
@@ -83,4 +109,31 @@ function isNullableString(value: unknown): value is null | string {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function normalizeFolge(value: unknown): Folge | null {
+  if (isFolge(value)) return value;
+  if (!isRecord(value) || "streaming" in value || !isRecord(value.links)) {
+    return null;
+  }
+
+  const links = Object.entries(value.links).filter(
+    (entry): entry is [string, string] => typeof entry[1] === "string",
+  );
+  if (links.length !== Object.keys(value.links).length) return null;
+
+  const fields = Object.fromEntries(
+    Object.entries(value).filter(([key]) => key !== "links"),
+  );
+  const normalized = {
+    ...fields,
+    streaming: Object.fromEntries(
+      links.map(([service, link]) => [
+        service,
+        { id: getStreamingId(link), link },
+      ]),
+    ),
+  };
+
+  return isFolge(normalized) ? normalized : null;
 }

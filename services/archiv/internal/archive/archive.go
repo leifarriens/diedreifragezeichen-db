@@ -40,7 +40,6 @@ SELECT
   h."idSpotify",
   h."idBookbeat",
   h."idAmazonMusic",
-  h."idAmazon",
   h."idYouTubeMusic",
   h."idDeezer",
   COALESCE(
@@ -89,7 +88,6 @@ func loadFolgen(db *sql.DB) ([]Folge, error) {
 			spotifyID        sql.NullString
 			bookbeatID       sql.NullString
 			amazonMusicID    sql.NullString
-			amazonID         sql.NullString
 			youtubeMusicID   sql.NullString
 			deezerID         sql.NullString
 			cover            sql.NullString
@@ -110,7 +108,6 @@ func loadFolgen(db *sql.DB) ([]Folge, error) {
 			&spotifyID,
 			&bookbeatID,
 			&amazonMusicID,
-			&amazonID,
 			&youtubeMusicID,
 			&deezerID,
 			&cover,
@@ -128,9 +125,12 @@ func loadFolgen(db *sql.DB) ([]Folge, error) {
 			Description:   fullDescription(kurzbeschreibung, beschreibung, metabeschreibung),
 			ReleaseDate:   nullableNonEmptyString(veroeffentlicht),
 			TotalDuration: nullableInt64(gesamtdauer),
-			Links:         buildStreamingLinks(appleMusicID, spotifyID, bookbeatID, amazonMusicID, amazonID, youtubeMusicID, deezerID),
+			Streaming:     buildStreaming(appleMusicID, spotifyID, bookbeatID, amazonMusicID, youtubeMusicID, deezerID),
 			Cover:         nullableNonEmptyString(cover),
 			Weblink:       nullableNonEmptyString(weblink),
+			Authors:       []string{},
+			ScriptAuthors: []string{},
+			VoiceRoles:    []VoiceRole{},
 		}
 		if artwork > 0 {
 			if artworkURL := buildArtworkURL(sammlung, nummer, titel); artworkURL != nil {
@@ -142,10 +142,114 @@ func loadFolgen(db *sql.DB) ([]Folge, error) {
 	if err := rows.Err(); err != nil {
 		return nil, fmt.Errorf("iterate Folgen: %w", err)
 	}
+	if err := rows.Close(); err != nil {
+		return nil, fmt.Errorf("close Folgen rows: %w", err)
+	}
 	if folgen == nil {
 		folgen = []Folge{}
 	}
+	if err := loadCredits(db, folgen); err != nil {
+		return nil, err
+	}
 	return folgen, nil
+}
+
+func loadCredits(db *sql.DB, folgen []Folge) error {
+	authors, err := loadAuthorNames(db, `
+SELECT author."hörspielID", person."name"
+FROM "hörspielBuchautor" AS author
+JOIN person USING ("personID")
+JOIN "alleIDs" AS ids USING ("hörspielID")
+WHERE ids."sammlung" IN ('serie', 'spezial')
+ORDER BY author."hörspielID", author."personID"`)
+	if err != nil {
+		return fmt.Errorf("query authors: %w", err)
+	}
+	scriptAuthors, err := loadAuthorNames(db, `
+SELECT author."hörspielID", person."name"
+FROM "hörspielSkriptautor" AS author
+JOIN person USING ("personID")
+JOIN "alleIDs" AS ids USING ("hörspielID")
+WHERE ids."sammlung" IN ('serie', 'spezial')
+ORDER BY author."hörspielID", author."personID"`)
+	if err != nil {
+		return fmt.Errorf("query script authors: %w", err)
+	}
+
+	folgeByID := make(map[int64]*Folge, len(folgen))
+	for index := range folgen {
+		folge := &folgen[index]
+		folgeByID[folge.ID] = folge
+		if names := authors[folge.ID]; names != nil {
+			folge.Authors = names
+		}
+		if names := scriptAuthors[folge.ID]; names != nil {
+			folge.ScriptAuthors = names
+		}
+	}
+
+	rows, err := db.Query(`
+SELECT
+  role."hörspielID",
+  character."name",
+  person."name"
+FROM "sprechrolle" AS role
+JOIN "rolle" AS character USING ("rolleID")
+JOIN "alleIDs" AS ids ON ids."hörspielID" = role."hörspielID"
+JOIN "spricht" AS speaker USING ("sprechrolleID")
+JOIN person USING ("personID")
+WHERE ids."sammlung" IN ('serie', 'spezial')
+ORDER BY role."hörspielID", role."position", speaker."position"`)
+	if err != nil {
+		return fmt.Errorf("query voice roles: %w", err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var (
+			folgeID     int64
+			roleName    string
+			speakerName string
+		)
+		if err := rows.Scan(&folgeID, &roleName, &speakerName); err != nil {
+			return fmt.Errorf("scan voice role: %w", err)
+		}
+
+		folge := folgeByID[folgeID]
+		if folge == nil {
+			continue
+		}
+		folge.VoiceRoles = append(folge.VoiceRoles, VoiceRole{
+			Role:    roleName,
+			Speaker: speakerName,
+		})
+	}
+	if err := rows.Err(); err != nil {
+		return fmt.Errorf("iterate voice roles: %w", err)
+	}
+	return nil
+}
+
+func loadAuthorNames(db *sql.DB, query string) (map[int64][]string, error) {
+	rows, err := db.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	namesByFolge := make(map[int64][]string)
+	for rows.Next() {
+		var folgeID int64
+		var name string
+		if err := rows.Scan(&folgeID, &name); err != nil {
+			return nil, err
+		}
+		namesByFolge[folgeID] = append(namesByFolge[folgeID], name)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return namesByFolge, nil
 }
 
 func fullDescription(short, full, meta sql.NullString) *string {
@@ -163,7 +267,7 @@ func fullDescription(short, full, meta sql.NullString) *string {
 	return nullableNonEmptyString(meta)
 }
 
-func buildStreamingLinks(ids ...sql.NullString) map[string]string {
+func buildStreaming(ids ...sql.NullString) map[string]Streaming {
 	services := []struct {
 		key  string
 		host string
@@ -173,12 +277,11 @@ func buildStreamingLinks(ids ...sql.NullString) map[string]string {
 		{key: "spotify", host: "open.spotify.com", path: "/intl-de/album/"},
 		{key: "bookbeat", host: "www.bookbeat.com", path: "/de/book/"},
 		{key: "amazon_music", host: "music.amazon.de", path: "/albums/"},
-		{key: "amazon", host: "www.amazon.de", path: "/gp/product/"},
 		{key: "youtube_music", host: "music.youtube.com", path: "/browse/"},
 		{key: "deezer", host: "www.deezer.com", path: "/de/album/"},
 	}
 
-	links := make(map[string]string, len(services))
+	streaming := make(map[string]Streaming, len(services))
 
 	for index, service := range services {
 		if index >= len(ids) || !ids[index].Valid || ids[index].String == "" {
@@ -189,9 +292,9 @@ func buildStreamingLinks(ids ...sql.NullString) map[string]string {
 			Host:   service.host,
 			Path:   service.path + ids[index].String,
 		}
-		links[service.key] = linkURL.String()
+		streaming[service.key] = Streaming{ID: ids[index].String, Link: linkURL.String()}
 	}
-	return links
+	return streaming
 }
 
 func buildArtworkURL(sammlung string, nummer sql.NullInt64, titel string) *string {

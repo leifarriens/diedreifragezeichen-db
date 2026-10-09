@@ -15,11 +15,23 @@ describe("FolgenStreamingLinks", () => {
     render(
       <div>
         <FolgenStreamingLinks
-          links={{
-            apple_music: "https://music.apple.com/episode",
-            deezer: "https://www.deezer.com/episode",
-            spotify: "https://open.spotify.com/episode",
-            youtube_music: "https://music.youtube.com/episode",
+          streaming={{
+            apple_music: {
+              id: "apple-id",
+              link: "https://music.apple.com/episode",
+            },
+            deezer: {
+              id: "deezer-id",
+              link: "https://www.deezer.com/episode",
+            },
+            spotify: {
+              id: "spotify-id",
+              link: "https://open.spotify.com/episode",
+            },
+            youtube_music: {
+              id: "youtube-id",
+              link: "https://music.youtube.com/episode",
+            },
           }}
         />
       </div>,
@@ -45,12 +57,18 @@ describe("FolgenStreamingLinks", () => {
     }
   });
 
-  it("omits links for unsupported services", () => {
+  it("omits unsupported services", () => {
     render(
       <FolgenStreamingLinks
-        links={{
-          amazon_music: "https://music.amazon.de/album",
-          bookbeat: "https://www.bookbeat.com/episode",
+        streaming={{
+          amazon_music: {
+            id: "amazon-music-id",
+            link: "https://music.amazon.de/album",
+          },
+          bookbeat: {
+            id: "bookbeat-id",
+            link: "https://www.bookbeat.com/episode",
+          },
         }}
       />,
     );

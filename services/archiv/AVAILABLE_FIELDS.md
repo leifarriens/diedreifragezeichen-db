@@ -8,21 +8,24 @@ This is a field inventory for the upstream SQLite schema downloaded from [`metad
 
 `GET /folgen` returns a bare JSON array, not the legacy API envelope. It includes only entries from the upstream `serie` and `spezial` collections. `/folgen/{id}` returns one included object by the upstream `ids.dreimetadaten` ID.
 
-| API field        | Source or behavior                                                                                                                                                                                                                                                           |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`             | `hörspiel.hörspielID`, which is the upstream JSON `ids.dreimetadaten` value                                                                                                                                                                                                  |
-| `collection`     | `Collection` string union from `alleIDs.sammlung`: `serie` or `spezial`                                                                                                                                                                                                      |
-| `number`         | `alleIDs.nummer`; `null` for Spezial entries that do not have an episode number                                                                                                                                                                                              |
-| `title`          | `hörspiel.titel`                                                                                                                                                                                                                                                             |
-| `description`    | Upstream `gesamtbeschreibung`: `kurzbeschreibung` and `beschreibung` joined by a newline; if both are absent, use `metabeschreibung`                                                                                                                                         |
-| `release_date`   | `hörspiel.veröffentlichungsdatum`; `null` when missing                                                                                                                                                                                                                       |
-| `total_duration` | Sum of the chapter track durations. For multipart entries, sum the child-part chapter durations. `null` when no chapter duration is available.                                                                                                                               |
-| `links`          | Object keyed by available service names (`apple_music`, `spotify`, `bookbeat`, `amazon_music`, `amazon`, `youtube_music`, `deezer`); each value is that service's URL. URLs are formed from the corresponding IDs using the same URL patterns as the upstream JSON exporter. |
-| `cover`          | First non-empty URL among `hörspiel.urlCoverDreifragezeichen`, `hörspiel.urlCoverApple` (iTunes), and `hörspiel.urlCoverKosmos`, in that order; `null` when all are missing                                                                                                  |
-| `weblink`        | `hörspiel.urlDreifragezeichen`, the official product page URL corresponding to upstream `links.dreifragezeichen`; `null` when missing                                                                                                                                        |
-| `artwork`        | Link to the upstream artwork asset when `hörspiel.artwork` is nonzero. Numbered collections use their formatted number; other collections use the upstream title-derived directory name. `null` when missing.                                                                |
+| API field        | Source or behavior                                                                                                                                                                                                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `id`             | `hörspiel.hörspielID`, which is the upstream JSON `ids.dreimetadaten` value                                                                                                                                                                                              |
+| `collection`     | `Collection` string union from `alleIDs.sammlung`: `serie` or `spezial`                                                                                                                                                                                                  |
+| `number`         | `alleIDs.nummer`; `null` for Spezial entries that do not have an episode number                                                                                                                                                                                          |
+| `title`          | `hörspiel.titel`                                                                                                                                                                                                                                                         |
+| `description`    | Upstream `gesamtbeschreibung`: `kurzbeschreibung` and `beschreibung` joined by a newline; if both are absent, use `metabeschreibung`                                                                                                                                     |
+| `release_date`   | `hörspiel.veröffentlichungsdatum`; `null` when missing                                                                                                                                                                                                                   |
+| `total_duration` | Sum of the chapter track durations. For multipart entries, sum the child-part chapter durations. `null` when no chapter duration is available.                                                                                                                           |
+| `streaming`      | Object keyed by available streaming services (`apple_music`, `spotify`, `bookbeat`, `amazon_music`, `youtube_music`, `deezer`); each value contains the upstream service `id` and its generated `link` URL. The purchase-only `idAmazon` is intentionally excluded.      |
+| `cover`          | First non-empty URL among `hörspiel.urlCoverDreifragezeichen`, `hörspiel.urlCoverApple` (iTunes), and `hörspiel.urlCoverKosmos`, in that order; `null` when all are missing                                                                                              |
+| `weblink`        | `hörspiel.urlDreifragezeichen`, the official product page URL corresponding to upstream `links.dreifragezeichen`; `null` when missing                                                                                                                                    |
+| `artwork`        | Link to the upstream artwork asset when `hörspiel.artwork` is nonzero. Numbered collections use their formatted number; other collections use the upstream title-derived directory name. `null` when missing.                                                            |
+| `authors`        | Array of names joined from `hörspielBuchautor` and `person`, ordered by person ID. Empty when no author is recorded.                                                                                                                                                     |
+| `script_authors` | Array of names joined from `hörspielSkriptautor` and `person`, ordered by person ID. Empty when no script author is recorded.                                                                                                                                            |
+| `voice_roles`    | Array of role-speaker pairs ordered by role position, then speaker position. Each object has string fields `role` and `speaker`; a role repeats when it has multiple speakers. Roles without linked speakers are omitted. Empty when no role-speaker pairs are recorded. |
 
-Optional scalar fields are represented as JSON `null`. `links` is always an object and contains only services with an available identifier.
+Optional scalar fields are represented as JSON `null`. `streaming` is always an object and contains only streaming services with an available identifier. The upstream `idAmazon` is a purchase link, not a streaming service, and is not included. Credit fields are always arrays, including when no credits are recorded.
 
 ## Main episode table
 
@@ -30,28 +33,28 @@ Optional scalar fields are represented as JSON `null`. `links` is always an obje
 
 One row per audio play. This is the main source for list and detail fields.
 
-| Column                     | SQLite type | Nullable | Description                                                    |
-| -------------------------- | ----------- | -------- | -------------------------------------------------------------- |
-| `hörspielID`               | INTEGER     | No       | Primary key used to identify the audio play                    |
-| `titel`                    | TEXT        | No       | Title                                                          |
-| `kurzbeschreibung`         | TEXT        | Yes      | Short description                                              |
-| `beschreibung`             | TEXT        | Yes      | Full description                                               |
-| `metabeschreibung`         | TEXT        | Yes      | Metadata description                                           |
-| `veröffentlichungsdatum`   | DATE        | Yes      | Release date                                                   |
-| `unvollständig`            | BOOLEAN     | No       | Whether the metadata entry is marked incomplete                |
-| `artwork`                  | INTEGER     | No       | Artwork asset/version indicator; constrained to be nonnegative |
-| `cover`                    | INTEGER     | No       | Cover asset/version indicator; constrained to be nonnegative   |
-| `urlCoverApple`            | TEXT        | Yes      | Apple cover image URL                                          |
-| `urlCoverKosmos`           | TEXT        | Yes      | Kosmos cover image URL                                         |
-| `urlCoverDreifragezeichen` | TEXT        | Yes      | Official Die drei ??? cover image URL                          |
-| `urlDreifragezeichen`      | TEXT        | Yes      | Official product/detail page URL                               |
-| `idAppleMusic`             | TEXT        | Yes      | Apple Music identifier                                         |
-| `idSpotify`                | TEXT        | Yes      | Spotify identifier                                             |
-| `idBookbeat`               | TEXT        | Yes      | BookBeat identifier                                            |
-| `idAmazonMusic`            | TEXT        | Yes      | Amazon Music identifier                                        |
-| `idAmazon`                 | TEXT        | Yes      | Amazon identifier                                              |
-| `idYouTubeMusic`           | TEXT        | Yes      | YouTube Music identifier                                       |
-| `idDeezer`                 | TEXT        | Yes      | Deezer identifier                                              |
+| Column                     | SQLite type | Nullable | Description                                                                          |
+| -------------------------- | ----------- | -------- | ------------------------------------------------------------------------------------ |
+| `hörspielID`               | INTEGER     | No       | Primary key used to identify the audio play                                          |
+| `titel`                    | TEXT        | No       | Title                                                                                |
+| `kurzbeschreibung`         | TEXT        | Yes      | Short description                                                                    |
+| `beschreibung`             | TEXT        | Yes      | Full description                                                                     |
+| `metabeschreibung`         | TEXT        | Yes      | Metadata description                                                                 |
+| `veröffentlichungsdatum`   | DATE        | Yes      | Release date                                                                         |
+| `unvollständig`            | BOOLEAN     | No       | Whether the metadata entry is marked incomplete                                      |
+| `artwork`                  | INTEGER     | No       | Artwork asset/version indicator; constrained to be nonnegative                       |
+| `cover`                    | INTEGER     | No       | Cover asset/version indicator; constrained to be nonnegative                         |
+| `urlCoverApple`            | TEXT        | Yes      | Apple cover image URL                                                                |
+| `urlCoverKosmos`           | TEXT        | Yes      | Kosmos cover image URL                                                               |
+| `urlCoverDreifragezeichen` | TEXT        | Yes      | Official Die drei ??? cover image URL                                                |
+| `urlDreifragezeichen`      | TEXT        | Yes      | Official product/detail page URL                                                     |
+| `idAppleMusic`             | TEXT        | Yes      | Apple Music identifier                                                               |
+| `idSpotify`                | TEXT        | Yes      | Spotify identifier                                                                   |
+| `idBookbeat`               | TEXT        | Yes      | BookBeat identifier                                                                  |
+| `idAmazonMusic`            | TEXT        | Yes      | Amazon Music identifier                                                              |
+| `idAmazon`                 | TEXT        | Yes      | Amazon purchase identifier; intentionally excluded from the API's `streaming` object |
+| `idYouTubeMusic`           | TEXT        | Yes      | YouTube Music identifier                                                             |
+| `idDeezer`                 | TEXT        | Yes      | Deezer identifier                                                                    |
 
 The image URL fields are directly usable as external image links. The selected API exposes the first available URL from `urlCoverDreifragezeichen`, `urlCoverApple`, then `urlCoverKosmos` as `cover`; the artwork asset URL is derived from the collection path and title or number.
 
@@ -181,7 +184,7 @@ These tables can provide a nested `medien` list with ordered tracks and duration
 | `pseudonymID`   | INTEGER     | Yes      | Optional pseudonym used for this credit |
 | `position`      | INTEGER     | No       | Speaker order for the role              |
 
-This can represent a cast entry with role, speaker name, optional pseudonym, and display order. `sprechrolle` also stores the role order for each Folge.
+The API exposes these records as flat `voice_roles` entries pairing the role name with the speaker's person name. A role repeats when multiple people perform it. `sprechrolle` stores the role order for each Folge.
 
 ### `sprechrolleTeil`
 

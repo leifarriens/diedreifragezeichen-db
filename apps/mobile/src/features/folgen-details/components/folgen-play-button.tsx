@@ -12,15 +12,17 @@ import {
 import { isExternalHref } from "../is-external-href";
 
 interface FolgenPlayButtonProps {
-  links: Folge["links"];
+  streaming: Folge["streaming"];
 }
 
-export function FolgenPlayButton({ links }: FolgenPlayButtonProps) {
+export function FolgenPlayButton({ streaming }: FolgenPlayButtonProps) {
   const streamingService = useUserSettingsStore(
     (state) => state.streamingService,
   );
   const hasHydrated = useUserSettingsStore((state) => state.hasHydrated);
-  const streamingLink = streamingService ? links[streamingService] : undefined;
+  const streamingLink = streamingService
+    ? streaming[streamingService]?.link
+    : undefined;
 
   if (
     !hasHydrated ||

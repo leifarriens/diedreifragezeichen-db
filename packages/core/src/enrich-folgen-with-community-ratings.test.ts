@@ -47,7 +47,11 @@ describe("enrichFolgenWithCommunityRatings", () => {
     expect(result).not.toBe(input);
     expect(result[0]).not.toBe(input[0]);
     expect(result[0]?.extra).toBe("preserved");
-    expect(input[0]).toEqual({ extra: "preserved", id: 1, title: "Eine Folge" });
+    expect(input[0]).toEqual({
+      extra: "preserved",
+      id: 1,
+      title: "Eine Folge",
+    });
   });
 
   it("returns an empty array for empty input", () => {

@@ -26,7 +26,7 @@ interface FolgeDetailsProps {
 }
 
 export function FolgeDetails({ folge }: FolgeDetailsProps) {
-  const { cover, links, number, release_date, title } = folge;
+  const { cover, number, release_date, streaming, title } = folge;
   const { data: userBookmarks } = useUserBookmarks();
   const { data: userListened } = useUserListened();
 
@@ -85,7 +85,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           ) : null}
         </View>
 
-        <FolgenPlayButton links={links} />
+        <FolgenPlayButton streaming={streaming} />
       </View>
 
       {folge.description ? (

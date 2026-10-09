@@ -11,16 +11,19 @@ function makeFolge(
 ): FolgeWithCommunityRating {
   return {
     artwork: null,
+    authors: [],
     collection: "serie",
     communityRating: score === null ? null : { numberOfRatings: 1, score },
     cover: null,
     description: null,
     id,
-    links: {},
     number: id,
     release_date: releaseDate,
+    script_authors: [],
+    streaming: {},
     title: `Folge ${String(id)}`,
     total_duration: null,
+    voice_roles: [],
     weblink: null,
   };
 }

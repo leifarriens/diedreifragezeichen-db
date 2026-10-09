@@ -23,15 +23,15 @@ const STREAMING_SERVICES = {
 >;
 
 interface FolgenStreamingLinksProps {
-  links: Folge["links"];
+  streaming: Folge["streaming"];
 }
 
 type StreamingService = keyof typeof STREAMING_SERVICES;
 
-export function FolgenStreamingLinks({ links }: FolgenStreamingLinksProps) {
-  return Object.entries(links)
+export function FolgenStreamingLinks({ streaming }: FolgenStreamingLinksProps) {
+  return Object.entries(streaming)
     .filter(([key]) => Object.hasOwn(STREAMING_SERVICES, key))
-    .map(([key, href]) => {
+    .map(([key, { link }]) => {
       const service = STREAMING_SERVICES[key as StreamingService];
       const ariaLabel = `Öffnet ${service.label} in einem neuen Tab (externer Link)`;
       const Icon = "Icon" in service ? service.Icon : undefined;
@@ -40,7 +40,7 @@ export function FolgenStreamingLinks({ links }: FolgenStreamingLinksProps) {
         <ExternalLink
           aria-label={ariaLabel}
           className="inline-flex items-center justify-center rounded-md text-neutral-200 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-          href={href}
+          href={link}
           key={key}
         >
           {Icon ? (
