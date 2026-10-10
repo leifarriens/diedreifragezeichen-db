@@ -4,10 +4,10 @@ import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { headers } from "next/headers";
 import { cache } from "react";
 
-import { getServerSession } from "@/lib/auth";
-import { bookmarkRepository } from "@/lib/bookmark/bookmark.repository";
-import { listenedRepository } from "@/lib/listened/listened.repository";
-import { ratingRepository } from "@/lib/rating/rating.repository";
+import { getServerSession } from "@/server/auth";
+import { bookmarkRepository } from "@/server/repositories/bookmark/bookmark.repository";
+import { listenedRepository } from "@/server/repositories/listened/listened.repository";
+import { ratingRepository } from "@/server/repositories/rating/rating.repository";
 
 import { makeQueryClient } from "./query-client";
 

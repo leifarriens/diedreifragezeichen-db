@@ -5,16 +5,16 @@ import type { FolgeWithCommunityRating } from "@ddfdb/core";
 import { createFolgenFilter } from "@ddfdb/core";
 import { useMemo } from "react";
 
-import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
-import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
-import { Wrapper } from "@/components/layout/wrapper";
-import { MultiRangeInput } from "@/components/multi-range-input/multi-range-input";
-import { SortSelector } from "@/components/sort-selector/sort-selector";
+import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
+import { SortSelector } from "@/components/ui/sort-selector/sort-selector";
 import { Switch } from "@/components/ui/switch";
+import { Wrapper } from "@/components/ui/wrapper";
 import { FIRST_RELEASE_YEAR } from "@/features/archive/archive-filters";
 import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
 import { sortArchiveFolgen } from "@/features/archive/sort-archive-folgen";
-import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
+import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
+import { FolgenGridItem } from "@/features/folgen/folgen-grid/folgen-grid-item";
+import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
 
 interface ArchiveBrowserProps {
   archiveUnavailable: boolean;

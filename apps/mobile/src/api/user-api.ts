@@ -3,7 +3,7 @@ import type { AppRouter } from "@ddfdb/user-api";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { createTRPCContext } from "@trpc/tanstack-react-query";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/features/auth/auth-client";
 
 const configuredBaseUrl: unknown = process.env.EXPO_PUBLIC_DDFDB_API_URL;
 

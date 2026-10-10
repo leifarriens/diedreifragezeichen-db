@@ -1,3 +1,4 @@
+import "server-only";
 import type { BookmarkRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";

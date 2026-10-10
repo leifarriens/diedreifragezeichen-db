@@ -1,15 +1,15 @@
 import { selectCollectionFolgen } from "@ddfdb/core";
 
 import { UserRatedFolgen } from "@/features/ratings/user-rated-folgen";
-import { serverSessionGuard } from "@/lib/auth";
-import { folgenService } from "@/services/folgen.service";
+import { serverSessionGuard } from "@/server/auth";
+import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { caller } from "@/trpc/server";
 
 export default async function RatingsPage() {
   await serverSessionGuard();
 
   const [folgen, userRatings] = await Promise.all([
-    folgenService.getAllFolgenWithCommunityRatings(),
+    getAllFolgenWithCommunityRatings(),
     caller.ratings.getMine(),
   ]);
 

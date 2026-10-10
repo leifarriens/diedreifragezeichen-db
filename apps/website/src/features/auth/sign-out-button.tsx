@@ -4,8 +4,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { Button } from "@/components/button/button";
-import { authClient } from "@/lib/auth-client";
+import { Button } from "@/components/ui/button/button";
+import { authClient } from "@/features/auth/auth-client";
 
 export function SignOutButton() {
   const router = useRouter();

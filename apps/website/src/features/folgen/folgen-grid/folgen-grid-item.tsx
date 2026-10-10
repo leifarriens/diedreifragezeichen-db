@@ -9,13 +9,13 @@ import { cn } from "tailwind-variants";
 import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
 import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
-import { useIntersectionObserver } from "@/lib/hooks/use-intersection-observer";
 
 import { FolgenBackground } from "../folgen-images/folgen-artwork";
 import { FolgenCover } from "../folgen-images/folgen-cover";
 import styles from "./folgen-grid-item.module.css";
+import { useIntersectionObserver } from "./use-intersection-observer";
 
-interface FolgenGridItemProps {
+export interface FolgenGridItemProps {
   folge: FolgeWithCommunityRating;
   hasListened: boolean;
   isBookmarked: boolean;

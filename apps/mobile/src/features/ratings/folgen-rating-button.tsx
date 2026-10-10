@@ -1,52 +1,105 @@
-import { BottomSheet, Button, Column, Slider, Text } from "@expo/ui";
+import { FOLGEN_RATING_MAX, FOLGEN_RATING_STEP } from "@ddfdb/core";
+import { BottomSheet, Column, Text } from "@expo/ui";
+import { Slider } from "@expo/ui/swift-ui";
 import { useState } from "react";
 import { useColorScheme } from "react-native";
 
 import { UIButton } from "@/components/ui/button";
 
-export function FolgenRatingButton() {
-  const [isPresented, setIsPresented] = useState(false);
-  const colorScheme = useColorScheme();
-  const ink = { color: colorScheme === "dark" ? "#FFFFFF" : "#000000" };
-  const [value, setValue] = useState(0);
+import { useUpdateRating, useUserFolgenRating } from "./hooks/use-ratings";
+
+interface FolgenRatingButtonProps {
+  folgeId: number;
+}
+
+interface FolgenRatingSheetProps {
+  currentRating: null | number;
+  folgeId: number;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export function FolgenRatingButton({ folgeId }: FolgenRatingButtonProps) {
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
+
+  const { isLoading, rating } = useUserFolgenRating(folgeId);
 
   return (
     <>
       <UIButton
-        icon="star"
-        iconOnly
-        label="Folgen bewerten"
+        disabled={isLoading}
+        {...(rating ? {} : { icon: "questionmark.diamond" })}
+        iconOnly={!rating}
+        label={rating ? rating.score.toString() : "Folgen bewerten"}
         onPress={() => {
-          setIsPresented(true);
+          setIsSheetOpen(true);
         }}
       />
-      <BottomSheet
-        contentPadding={28}
-        isPresented={isPresented}
-        onDismiss={() => {
-          setIsPresented(false);
+
+      <FolgenRatingSheet
+        currentRating={rating?.score ?? null}
+        folgeId={folgeId}
+        isOpen={isSheetOpen}
+        onClose={() => {
+          setIsSheetOpen(false);
         }}
-      >
-        <Column spacing={36}>
-          <Text textStyle={{ ...ink, fontSize: 18, fontWeight: "700" }}>
-            Sheet contents
-          </Text>
-          <Text textStyle={ink}>Drag down or tap the overlay to dismiss.</Text>
-          <Slider
-            max={6}
-            min={0}
-            onValueChange={setValue}
-            // step={1}
-            value={value}
-          />
-          <Button
-            label="Close"
-            onPress={() => {
-              setIsPresented(false);
-            }}
-          />
-        </Column>
-      </BottomSheet>
+      />
     </>
+  );
+}
+
+function FolgenRatingSheet({
+  currentRating,
+  folgeId,
+  isOpen,
+  onClose,
+}: FolgenRatingSheetProps) {
+  const [draftValue, setDraftValue] = useState<null | number>(null);
+  const localValue = draftValue ?? currentRating ?? 0;
+  const canSubmit = draftValue && draftValue > 0;
+
+  const { isLoading, setRating } = useUpdateRating(folgeId);
+
+  function handleSubmit() {
+    if (!canSubmit) return;
+    setRating(draftValue);
+    onClose();
+  }
+
+  function handleDismiss() {
+    setDraftValue(null);
+    onClose();
+  }
+
+  const colorScheme = useColorScheme();
+  const ink = { color: colorScheme === "dark" ? "#FFFFFF" : "#000000" };
+
+  return (
+    <BottomSheet
+      contentPadding={46}
+      isPresented={isOpen}
+      onDismiss={handleDismiss}
+      snapPoints={["half"]}
+    >
+      <Column spacing={36}>
+        <Text textStyle={{ ...ink, fontSize: 52, fontWeight: "700" }}>
+          {`${localValue > 0 ? localValue.toString() : "?"} / 3`}
+        </Text>
+
+        <Slider
+          max={FOLGEN_RATING_MAX}
+          min={0} // Using 0 instead of FOLGEN_RATING_MIN to allow for a "no rating" state
+          onValueChange={setDraftValue}
+          step={FOLGEN_RATING_STEP}
+
+          value={localValue}
+        />
+        <UIButton
+          disabled={!canSubmit || isLoading}
+          label="Bewertung abgeben"
+          onPress={handleSubmit}
+        />
+      </Column>
+    </BottomSheet>
   );
 }

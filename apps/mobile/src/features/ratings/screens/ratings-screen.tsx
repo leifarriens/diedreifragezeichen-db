@@ -12,7 +12,7 @@ import { ActivityIndicator } from "react-native";
 import { useFolgen } from "@/api/use-folgen";
 import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user-data";
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
-import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
+import { FolgenList } from "@/features/folgen-list/folgen-list";
 
 import { useUserRatings } from "../hooks/use-ratings";
 
@@ -87,12 +87,17 @@ export function RatingsScreen() {
         <ActivityIndicator />
       ) : (
         <FolgenList
-          detailPathname="/(tabs)/gespeichert/[folgeId]" // TODO: /(tabs)/bewertet/[folgeId]
-          emptyMessage="Nix hier" // TODO
+          detailPathname="/(tabs)/bewertet/[folgeId]"
+          emptyMessage={
+            ratedFolgen.length === 0
+              ? "Du hast noch keine Folgen bewertet"
+              : undefined
+          }
           folgen={displayedFolgen}
+          isInitialLoading={isLoading}
           isRefreshing={isRefreshing}
           ListHeaderComponent={null}
-          maintainVisibleContentPosition={{ disabled: true }}
+
           onRequestRefresh={refresh}
           viewMode="list"
         />

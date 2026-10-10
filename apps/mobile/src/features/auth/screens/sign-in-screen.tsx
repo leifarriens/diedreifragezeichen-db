@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { UIButton } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/features/auth/auth-client";
 import { DdfColors } from "@/Theme";
 
 type FormMode = "sign-in" | "sign-up";

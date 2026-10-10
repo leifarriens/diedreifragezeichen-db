@@ -1,8 +1,6 @@
 "use client";
 
-import { useUserFolgenRating } from "@/features/ratings/hooks/use-user-folgen-rating";
-
-import { useUpdateRating } from "../hooks/use-ratings";
+import { useUpdateRating, useUserFolgenRating } from "../hooks/use-ratings";
 import { FolgenRatingInput } from "./folgen-rating-input";
 
 interface FolgenUserRatingProps {
@@ -14,7 +12,8 @@ export function FolgenUserRating({
   folgeId,
   folgenTitle,
 }: FolgenUserRatingProps) {
-  const rating = useUserFolgenRating(folgeId);
+  const { isLoading: isUserRatingLoading, rating } =
+    useUserFolgenRating(folgeId);
 
   const { isLoading, setRating } = useUpdateRating(folgeId);
 
@@ -25,7 +24,7 @@ export function FolgenUserRating({
   return (
     <FolgenRatingInput
       folgenTitle={folgenTitle}
-      isDisabled={isLoading}
+      isDisabled={isUserRatingLoading || isLoading}
       onValueChange={handleRatingChange}
       value={rating?.score ?? null}
     />

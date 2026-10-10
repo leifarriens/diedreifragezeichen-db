@@ -1,10 +1,10 @@
 import { appRouter, createTRPCContext } from "@ddfdb/user-api";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
-import { auth } from "@/lib/auth";
-import { bookmarkRepository } from "@/lib/bookmark/bookmark.repository";
-import { listenedRepository } from "@/lib/listened/listened.repository";
-import { ratingRepository } from "@/lib/rating/rating.repository";
+import { auth } from "@/server/auth";
+import { bookmarkRepository } from "@/server/repositories/bookmark/bookmark.repository";
+import { listenedRepository } from "@/server/repositories/listened/listened.repository";
+import { ratingRepository } from "@/server/repositories/rating/rating.repository";
 
 const allowedOrigins = new Set(
   (process.env.TRPC_CORS_ORIGINS ?? "")

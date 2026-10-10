@@ -4,10 +4,10 @@ import Link from "next/link";
 import { useSyncExternalStore } from "react";
 import { cn } from "tailwind-variants";
 
+import { Button } from "@/components/ui/button/button";
+import { useAuth } from "@/features/auth/use-auth";
 import { SearchInput } from "@/features/global-search/search-input";
-import { useAuth } from "@/lib/use-auth";
 
-import { Button } from "../button/button";
 import styles from "./header-nav.module.css";
 
 export function HeaderNav() {

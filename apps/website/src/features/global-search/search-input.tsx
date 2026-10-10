@@ -4,10 +4,10 @@ import { Autocomplete } from "@base-ui/react/autocomplete";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-import type { SearchResult } from "@/app/api/v0/search/route";
-
-import { FolgenCover } from "@/components/folgen-images/folgen-cover";
 import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
+import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
+
+import type { SearchResult } from "./contracts";
 
 import { useSearch } from "./use-search";
 

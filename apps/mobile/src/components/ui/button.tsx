@@ -1,4 +1,12 @@
-import { Button, Host, Icon, Row, Text } from "@expo/ui";
+import {
+  Button,
+  type ButtonProps,
+  Host,
+  Icon,
+  type IconName,
+  Row,
+  Text,
+} from "@expo/ui";
 import {
   accessibilityLabel as accessibilityLabelModifier,
   buttonBorderShape,
@@ -10,13 +18,24 @@ import {
 } from "@expo/ui/swift-ui/modifiers";
 import { type ColorValue, Platform } from "react-native";
 
-import type {
-  NativeButtonIntent,
-  NativeButtonStyle,
-  UIButtonProps,
-} from "./button.types";
+export type NativeButtonIntent = "default" | "prominent";
 
-export type { UIButtonProps } from "./button.types";
+export type NativeButtonStyle = Parameters<typeof buttonStyle>[0];
+
+export interface UIButtonProps extends Omit<
+  ButtonProps,
+  "modifiers" | "variant"
+> {
+  accessibilityLabel?: string | undefined;
+  icon?: IconName;
+  iconColor?: ColorValue | undefined;
+  iconOnly?: boolean;
+  iconSize?: number;
+  intent?: NativeButtonIntent;
+  shape?: Parameters<typeof buttonBorderShape>[0];
+  size?: Parameters<typeof controlSize>[0];
+  tintColor?: Parameters<typeof tint>[0];
+}
 
 const intents: Record<
   NativeButtonIntent,
@@ -43,6 +62,7 @@ export function UIButton({
   iconSize = 20,
   intent = "default",
   label,
+  shape,
   size = "large",
   tintColor,
   ...rest
@@ -51,10 +71,9 @@ export function UIButton({
     controlSize(size),
     buttonStyle(intents[intent].variant),
   ];
-  const seedColor = intents[intent].backgroundColor;
 
   if (icon && (!label || iconOnly)) {
-    modifiers.push(labelStyle("iconOnly"), buttonBorderShape("circle"));
+    modifiers.push(labelStyle("iconOnly"));
   }
 
   if (iconOnly && label && Platform.OS === "ios") {
@@ -64,6 +83,10 @@ export function UIButton({
   if (tintColor) {
     modifiers.push(tint(tintColor));
   }
+
+  modifiers.push(buttonBorderShape(iconOnly ? "circle" : (shape ?? "capsule")));
+
+  const seedColor = intents[intent].backgroundColor;
 
   return (
     <Host matchContents {...(seedColor === undefined ? {} : { seedColor })}>

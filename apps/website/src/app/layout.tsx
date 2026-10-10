@@ -3,12 +3,12 @@ import type { Metadata, Viewport } from "next";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "sonner";
 
-import { Footer } from "@/components/layout/footer";
+import { ArchiveFiltersProvider } from "@/features/archive/components/archive-filters-provider";
 
 import "./globals.css";
-import { HeaderNav } from "@/components/layout/header-nav";
-import { ScrollToTop } from "@/components/layout/scroll-to-top";
-import { ArchiveFiltersProvider } from "@/features/archive/components/archive-filters-provider";
+import { Footer } from "@/shell/footer";
+import { HeaderNav } from "@/shell/header-nav";
+import { ScrollToTop } from "@/shell/scroll-to-top";
 import { TRPCReactProvider } from "@/trpc/client";
 
 const CURRENT_YEAR = new Date().getFullYear();

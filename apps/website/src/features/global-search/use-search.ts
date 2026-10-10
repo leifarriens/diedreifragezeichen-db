@@ -1,7 +1,7 @@
 import { useDebouncedValue } from "@ddfdb/client/utils";
 import { useQuery } from "@tanstack/react-query";
 
-import type { SearchResponse } from "@/app/api/v0/search/route";
+import type { SearchResponse } from "./contracts";
 
 export function useSearch(
   searchQuery: string,

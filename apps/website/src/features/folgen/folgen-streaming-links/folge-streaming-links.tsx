@@ -3,7 +3,6 @@ import type { ComponentType } from "react";
 
 import { STREAMING_SERVICES, type StreamingService } from "@ddfdb/core";
 
-import { ExternalLink } from "../external-link/external-link";
 import {
   AmazonMusicIcon,
   AppleMusicIcon,
@@ -11,7 +10,8 @@ import {
   SpotifyIcon,
   type StreamingIconProps,
   YoutubeMusicIcon,
-} from "../icons/streaming-icons";
+} from "@/components/icons/streaming-icons";
+import { ExternalLink } from "@/components/ui/external-link/external-link";
 
 const STREAMING_SERVICE_ICONS: Record<
   StreamingService,

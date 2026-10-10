@@ -22,12 +22,12 @@ import { ArchiveFiltersProvider } from "./archive-filters-provider";
 
 const route = vi.hoisted(() => ({ pathname: "/" }));
 vi.mock("next/navigation", () => ({ usePathname: () => route.pathname }));
-vi.mock("@/components/folgen-grid/folgen-grid-item", () => ({
+vi.mock("@/features/folgen/folgen-grid/folgen-grid-item", () => ({
   FolgenGridItem: ({ folge }: { folge: FolgeWithCommunityRating }) => (
     <span data-testid="folge">{folge.title}</span>
   ),
 }));
-vi.mock("@/lib/use-hydrate-folgen-with-user-data", () => ({
+vi.mock("@/features/folgen/use-hydrate-folgen-with-user-data", () => ({
   useHydrateFolgenWithUserData: (input: unknown[]) => input,
 }));
 

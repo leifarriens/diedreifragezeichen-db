@@ -9,11 +9,11 @@ import {
 } from "@ddfdb/core";
 import { useMemo, useState } from "react";
 
-import { FolgenGrid } from "@/components/folgen-grid/folgen-grid";
-import { FolgenGridItem } from "@/components/folgen-grid/folgen-grid-item";
-import { FolgenGridSearch } from "@/components/folgen-grid/folgen-grid-search";
-import { SortSelector } from "@/components/sort-selector/sort-selector";
-import { useHydrateFolgenWithUserData } from "@/lib/use-hydrate-folgen-with-user-data";
+import { SortSelector } from "@/components/ui/sort-selector/sort-selector";
+import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
+import { FolgenGridItem } from "@/features/folgen/folgen-grid/folgen-grid-item";
+import { FolgenGridSearch } from "@/features/folgen/folgen-grid/folgen-grid-search";
+import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
 
 export function UserListenedFolgen({
   folgen,

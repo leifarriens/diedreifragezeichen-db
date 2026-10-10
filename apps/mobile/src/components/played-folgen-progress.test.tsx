@@ -23,7 +23,7 @@ vi.mock("@/components/played-folgen-progress-bar", () => ({
 vi.mock("@/features/listened/use-listened", () => ({
   useUserListened: () => ({ data: state.listened }),
 }));
-vi.mock("@/lib/use-auth", () => ({
+vi.mock("@/features/auth/use-auth", () => ({
   useAuth: () => ({ isAuthenticated: state.isAuthenticated }),
 }));
 

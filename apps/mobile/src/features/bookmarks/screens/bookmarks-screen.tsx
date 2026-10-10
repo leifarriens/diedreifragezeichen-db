@@ -11,7 +11,7 @@ import { ActivityIndicator } from "react-native";
 import { useFolgen } from "@/api/use-folgen";
 import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user-data";
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
-import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
+import { FolgenList } from "@/features/folgen-list/folgen-list";
 
 import { useUserBookmarks } from "../use-bookmarks";
 
@@ -76,11 +76,14 @@ export function BookmarksScreen() {
       ) : (
         <FolgenList
           detailPathname="/(tabs)/gespeichert/[folgeId]"
-          emptyMessage="Nix hier" // TODO
+          emptyMessage={
+            bookmarkedFolgen.length === 0
+              ? "Du hast noch keine Folge gespeichert"
+              : undefined
+          }
           folgen={displayedFolgen}
+          isInitialLoading={isLoading}
           isRefreshing={isRefreshing}
-          ListHeaderComponent={null}
-          maintainVisibleContentPosition={{ disabled: true }}
           onRequestRefresh={refresh}
           viewMode="list"
         />

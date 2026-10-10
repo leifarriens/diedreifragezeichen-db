@@ -1,4 +1,5 @@
-import { QSvg } from "../icons/q";
+import { QSvg } from "@/components/icons/q";
+
 import styles from "./loading-indicator.module.css";
 
 interface LoadingIndicatorProps {

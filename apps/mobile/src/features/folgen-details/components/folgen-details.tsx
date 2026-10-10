@@ -56,7 +56,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         ) : null}
       </View>
 
-      <View className="mt-6 flex-row items-center justify-between gap-3">
+      <View className="mt-6 flex items-center justify-between gap-3">
         <View className="flex-row gap-2">
           <FolgenBookmarkButton
             folgeId={folge.id}
@@ -76,11 +76,11 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
             }
           />
 
-          <FolgenRatingButton />
+          <FolgenRatingButton folgeId={folge.id} />
 
           {folge.weblink && isExternalHref(folge.weblink) ? (
             <Link asChild href={folge.weblink} target="_blank">
-              <UIButton icon="network" />
+              <UIButton icon="network" iconOnly />
             </Link>
           ) : null}
         </View>

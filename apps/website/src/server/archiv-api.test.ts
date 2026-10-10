@@ -2,8 +2,6 @@ import type { ArchivApi } from "@ddfdb/client/archiv";
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { CACHE_DURATION } from "@/constants/cache";
-
 let archivApi: ArchivApi;
 
 beforeEach(async () => {
@@ -117,7 +115,7 @@ describe("archive API", () => {
       "https://archive.example/folgen",
       expect.objectContaining({
         headers: { Accept: "application/json" },
-        next: { revalidate: CACHE_DURATION.ONE_HOUR },
+        next: { revalidate: 3600 },
       }),
     );
   });
@@ -134,7 +132,7 @@ describe("archive API", () => {
       "https://archive.example/folgen/1",
       expect.objectContaining({
         headers: { Accept: "application/json" },
-        next: { revalidate: CACHE_DURATION.ONE_HOUR },
+        next: { revalidate: 3600 },
       }),
     );
   });

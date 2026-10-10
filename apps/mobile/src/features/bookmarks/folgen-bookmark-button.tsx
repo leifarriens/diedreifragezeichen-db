@@ -2,8 +2,8 @@ import { Icon } from "@expo/ui";
 import { useRouter } from "expo-router";
 
 import { UIButton } from "@/components/ui/button";
+import { useAuth } from "@/features/auth/use-auth";
 import { HapticFeedback } from "@/lib/haptic-feedback";
-import { useAuth } from "@/lib/use-auth";
 
 import { useUpdateFolgenBookmark } from "./use-bookmarks";
 

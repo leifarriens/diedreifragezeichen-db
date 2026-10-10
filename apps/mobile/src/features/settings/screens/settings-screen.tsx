@@ -6,8 +6,8 @@ import { useState } from "react";
 import { Platform } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
+import { authClient } from "@/features/auth/auth-client";
 import { useUserSettingsStore } from "@/features/settings/hooks/use-user-settings-store";
-import { authClient } from "@/lib/auth-client";
 
 export function SettingsScreen() {
   const router = useRouter();

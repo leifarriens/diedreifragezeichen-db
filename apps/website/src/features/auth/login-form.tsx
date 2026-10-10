@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { type SyntheticEvent, useState } from "react";
 
-import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/features/auth/auth-client";
 
 type FormMode = "sign-in" | "sign-up";
 

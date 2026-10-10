@@ -1,4 +1,4 @@
-import { FolgenBackground } from "../folgen-images/folgen-artwork";
+import { FolgenBackground } from "../features/folgen/folgen-images/folgen-artwork";
 
 interface PageBackgroundProps {
   artwork: string;

@@ -2,8 +2,7 @@ import type { FolgeWithCommunityRating } from "@ddfdb/core";
 import type { Metadata } from "next";
 
 import ArchiveBrowser from "@/features/archive/components/archive-browser";
-
-import { folgenService } from "../services/folgen.service";
+import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 
 export const metadata: Metadata = {
   description:
@@ -19,7 +18,7 @@ export default async function HomePage() {
   let archiveUnavailable = false;
 
   try {
-    folgen = await folgenService.getAllFolgenWithCommunityRatings();
+    folgen = await getAllFolgenWithCommunityRatings();
   } catch (error) {
     console.error("Could not load Folgen from the Archiv API", error);
     archiveUnavailable = true;

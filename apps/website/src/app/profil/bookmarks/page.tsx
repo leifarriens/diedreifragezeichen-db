@@ -1,15 +1,15 @@
 import { selectCollectionFolgen } from "@ddfdb/core";
 
 import { UserBookmarkedFolgen } from "@/features/bookmarks/user-bookmarked-folgen";
-import { serverSessionGuard } from "@/lib/auth";
-import { folgenService } from "@/services/folgen.service";
+import { serverSessionGuard } from "@/server/auth";
+import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { caller } from "@/trpc/server";
 
 export default async function BookmarksPage() {
   await serverSessionGuard();
 
   const [folgen, userBookmarks] = await Promise.all([
-    folgenService.getAllFolgenWithCommunityRatings(),
+    getAllFolgenWithCommunityRatings(),
     caller.bookmarks.getUserBookmarks(),
   ]);
 

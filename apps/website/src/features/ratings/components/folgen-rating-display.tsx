@@ -8,7 +8,7 @@ const MAX_RATING = 3;
 interface FolgenRatingDisplayProps extends RatingVariants {
   className?: string;
   folgenTitle: string;
-  type: type;
+  type: RatingType;
   value: null | number;
 }
 
@@ -38,11 +38,11 @@ const rating = tv({
   },
 });
 
+type RatingType = "community" | "user";
+
 type RatingVariants = VariantProps<typeof rating>;
 
-type type = "community" | "user";
-
-const colors: Record<type, [string, string, string]> = {
+const colors: Record<RatingType, [string, string, string]> = {
   community: ["#009ee1", "#009ee1", "#009ee1"],
   user: ["#e10613", "#e10613", "#e10613"],
 };
@@ -117,7 +117,11 @@ export function FolgenRatingDisplay({
   );
 }
 
-function getAriaLabel(type: type, folgenTitle: string, value: null | number) {
+function getAriaLabel(
+  type: RatingType,
+  folgenTitle: string,
+  value: null | number,
+) {
   switch (type) {
     case "community":
       if (value) {

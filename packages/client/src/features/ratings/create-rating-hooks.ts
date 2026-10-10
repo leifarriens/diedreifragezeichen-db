@@ -12,6 +12,11 @@ interface RatingHooks {
     isLoading: boolean;
     setRating: (score: number) => void;
   };
+  useUserFolgenRating: (folgeId: number) => {
+    isLoading: boolean;
+    rating:
+      inferRouterOutputs<AppRouter>["ratings"]["getMine"][number] | undefined;
+  };
   useUserRatings: () => UseQueryResult<
     inferRouterOutputs<AppRouter>["ratings"]["getMine"],
     TRPCClientErrorLike<AppRouter>
@@ -43,7 +48,8 @@ export function createRatingHooks({
 
     const ratingMutation = useMutation(
       trpc.ratings.set.mutationOptions({
-        async onError() {
+        async onError(error) {
+          console.error("Failed to update rating:", error);
           await invalidate();
         },
         onMutate({ folgeId, score }) {
@@ -76,6 +82,7 @@ export function createRatingHooks({
     );
 
     function setRating(score: number) {
+      console.log("Setting rating for folgeId:", folgeId, "with score:", score);
       ratingMutation.mutate({ folgeId, score });
     }
 
@@ -92,5 +99,14 @@ export function createRatingHooks({
     return { isLoading: ratingMutation.isPending, removeRating, setRating };
   }
 
-  return { useUpdateRating, useUserRatings };
+  function useUserFolgenRating(folgeId: number) {
+    const { data: userRatings, isLoading } = useUserRatings();
+
+    return {
+      isLoading,
+      rating: userRatings?.find((rating) => rating.folgeId === folgeId),
+    };
+  }
+
+  return { useUpdateRating, useUserFolgenRating, useUserRatings };
 }

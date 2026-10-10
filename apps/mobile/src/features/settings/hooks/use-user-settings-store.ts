@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-import type { FolgenListViewMode } from "@/features/folgen/components/folgen-list/types";
+import type { FolgenListViewMode } from "@/features/folgen-list/types";
 
 interface UserSettingsStore {
   folgenListViewMode: FolgenListViewMode | null;

@@ -1,3 +1,4 @@
+import "server-only";
 import type { ListenedRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";

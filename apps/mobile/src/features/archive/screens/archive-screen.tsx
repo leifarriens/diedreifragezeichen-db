@@ -1,7 +1,6 @@
 import { useDebouncedValue } from "@ddfdb/client/utils";
 import { Stack, useRouter } from "expo-router";
 import { useMemo, useState } from "react";
-import { Text } from "react-native";
 
 import { useFolgen } from "@/api/use-folgen";
 import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user-data";
@@ -12,8 +11,8 @@ import {
   filterArchiveFolgen,
   sortArchiveFolgen,
 } from "@/features/archive/archive-folgen";
-import { FolgenList } from "@/features/folgen/components/folgen-list/folgen-list";
-import { useViewMode } from "@/features/folgen/components/folgen-list/view-mode";
+import { FolgenList } from "@/features/folgen-list/folgen-list";
+import { useViewMode } from "@/features/folgen-list/view-mode";
 import { useArchiveFilters } from "@/providers/archive-filter-provider";
 
 export function ArchiveScreen() {
@@ -87,9 +86,9 @@ export function ArchiveScreen() {
 
       <FolgenList
         detailPathname="/(tabs)/(archiv)/[folgeId]"
+        emptyMessage="Keine Folgen im Archiv gefunden"
         folgen={displayedFolgen}
-        ListEmptyComponent={<Text>Keine Folgen gefunden.</Text>}
-        maintainVisibleContentPosition={{ disabled: true }}
+        isInitialLoading={folgenQuery.isLoading}
         viewMode={viewMode}
       />
     </>

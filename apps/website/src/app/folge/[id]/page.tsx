@@ -9,17 +9,17 @@ import {
 } from "@ddfdb/core";
 import { notFound } from "next/navigation";
 
-import { ExternalLink } from "@/components/external-link/external-link";
-import { FolgenCover } from "@/components/folgen-images/folgen-cover";
-import { FolgenStreamingLinks } from "@/components/folgen-streaming-links/folge-streaming-links";
-import { PageBackground } from "@/components/layout/page-background";
-import { Wrapper } from "@/components/layout/wrapper";
+import { ExternalLink } from "@/components/ui/external-link/external-link";
+import { Wrapper } from "@/components/ui/wrapper";
 import { FolgenBookmarkButtonForFolge } from "@/features/bookmarks/folgen-bookmark-button";
+import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
+import { FolgenStreamingLinks } from "@/features/folgen/folgen-streaming-links/folge-streaming-links";
 import { FolgenListenedButtonForFolge } from "@/features/listened/folgen-listened-button";
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
 import { FolgenUserRating } from "@/features/ratings/components/folgen-user-rating";
-import { archivApi, ArchivApiError } from "@/lib/archiv-api";
-import { folgenService } from "@/services/folgen.service";
+import { archivApi, ArchivApiError } from "@/server/archiv-api";
+import { getFolgeWithCommunityRatingById } from "@/server/queries/folgen";
+import { PageBackground } from "@/shell/page-background";
 
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
@@ -35,7 +35,7 @@ export default async function FolgePage({
 
   let folge: FolgeWithCommunityRating;
   try {
-    folge = await folgenService.getFolgeWithCommunityRatingById(folgeId);
+    folge = await getFolgeWithCommunityRatingById(folgeId);
   } catch (error) {
     if (error instanceof ArchivApiError && error.status === 404) {
       notFound();

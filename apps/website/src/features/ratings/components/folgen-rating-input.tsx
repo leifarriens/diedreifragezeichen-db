@@ -1,11 +1,13 @@
 "use client";
+import {
+  FOLGEN_RATING_MAX,
+  FOLGEN_RATING_MIN,
+  FOLGEN_RATING_STEP,
+} from "@ddfdb/core";
 import { useRef, useState } from "react";
 
 import { calcHoverValue } from "../utils/calc-hover-value";
 import { FolgenRatingDisplay } from "./folgen-rating-display";
-
-const MAX_RATING = 3;
-const RATING_STEP = 0.5;
 
 interface FolgenRatingInputProps {
   folgenTitle: string;
@@ -26,7 +28,11 @@ export function FolgenRatingInput({
 
   function handleMouseMove(e: React.MouseEvent<HTMLInputElement>) {
     const nextValue = calcHoverValue(e.nativeEvent, inputRef);
-    if (nextValue !== undefined) {
+    if (
+      nextValue !== undefined &&
+      nextValue >= FOLGEN_RATING_MIN &&
+      nextValue <= FOLGEN_RATING_MAX
+    ) {
       setPreviewValue(nextValue);
     }
   }
@@ -45,12 +51,12 @@ export function FolgenRatingInput({
         <input
           className="absolute inset-0 w-full min-w-0 opacity-0"
           disabled={isDisabled}
-          max={MAX_RATING}
-          min={0}
+          max={FOLGEN_RATING_MAX}
+          min={0} // Using 0 instead of FOLGEN_RATING_MIN to allow for a "no rating" state
           onChange={(e) => {
             setPreviewValue(Number(e.target.value));
           }}
-          step={RATING_STEP}
+          step={FOLGEN_RATING_STEP}
           type="range"
           value={localValue}
         />

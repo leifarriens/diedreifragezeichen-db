@@ -28,6 +28,7 @@
     "vitest": "catalog:"
   },
   "dependencies": {
+    "@ddfdb/core": "workspace:*",
     "@trpc/server": "^11.19.0",
     "zod": "^4.6.5"
   }

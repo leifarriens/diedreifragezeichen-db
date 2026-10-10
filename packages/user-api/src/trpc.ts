@@ -1,3 +1,8 @@
+import {
+  FOLGEN_RATING_MAX,
+  FOLGEN_RATING_MIN,
+  FOLGEN_RATING_STEP,
+} from "@ddfdb/core";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -45,7 +50,11 @@ const protectedProcedure = baseProcedure.use(({ ctx, next }) => {
 });
 
 const folgeId = z.int().positive().max(2_147_483_647);
-export const ratingScoreSchema = z.number().min(0.5).max(3).multipleOf(0.5);
+export const ratingScoreSchema = z
+  .number()
+  .min(FOLGEN_RATING_MIN)
+  .max(FOLGEN_RATING_MAX)
+  .multipleOf(FOLGEN_RATING_STEP);
 
 export const appRouter = createTRPCRouter({
   bookmarks: createTRPCRouter({

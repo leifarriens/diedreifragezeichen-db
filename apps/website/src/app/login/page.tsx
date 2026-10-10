@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 
-import { PageBackground } from "@/components/layout/page-background";
 import { LoginForm } from "@/features/auth/login-form";
-import { getServerSession } from "@/lib/auth";
+import { getServerSession } from "@/server/auth";
+import { PageBackground } from "@/shell/page-background";
 
 export default async function LoginPage() {
   const session = await getServerSession();

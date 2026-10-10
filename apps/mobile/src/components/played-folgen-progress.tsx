@@ -3,8 +3,8 @@ import { Text, View } from "react-native";
 
 import { useFolgenTotal } from "@/api/use-folgen";
 import { PlayedFolgenProgressBar } from "@/components/played-folgen-progress-bar";
+import { useAuth } from "@/features/auth/use-auth";
 import { useUserListened } from "@/features/listened/use-listened";
-import { useAuth } from "@/lib/use-auth";
 
 export function PlayedFolgenProgress() {
   const theme = useTheme();

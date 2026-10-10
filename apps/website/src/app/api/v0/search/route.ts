@@ -1,14 +1,11 @@
-import type { Folge } from "@ddfdb/archiv/contracts";
-
 import { NextResponse } from "next/server";
 
-import { archivApi } from "@/lib/archiv-api";
+import type {
+  SearchResponse,
+  SearchResult,
+} from "@/features/global-search/contracts";
 
-export interface SearchResponse {
-  results: SearchResult[];
-}
-
-export type SearchResult = Pick<Folge, "cover" | "id" | "title">;
+import { archivApi } from "@/server/archiv-api";
 
 export async function GET(
   request: Request,
