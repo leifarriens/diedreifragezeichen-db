@@ -14,5 +14,8 @@
     "lint": "test -z \"$(gofmt -l .)\" && go vet ./...",
     "typecheck": "go test -run '^$' ./...",
     "test": "go test ./..."
+  },
+  "devDependencies": {
+    "@types/k6": "^2.3.0"
   }
 }

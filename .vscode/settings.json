@@ -14,7 +14,8 @@
     "user-api",
     "website",
     "mobile",
-    "client"
+    "client",
+    "archiv"
   ],
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
