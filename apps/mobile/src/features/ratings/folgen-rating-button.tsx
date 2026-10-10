@@ -58,11 +58,11 @@ function FolgenRatingSheet({
   const localValue = draftValue ?? currentRating ?? 0;
   const canSubmit = draftValue && draftValue > 0;
 
-  const { isLoading, setRating } = useUpdateRating(folgeId);
+  const { isLoading, ratingMutation } = useUpdateRating();
 
   function handleSubmit() {
     if (!canSubmit) return;
-    setRating(draftValue);
+    ratingMutation.mutate({ folgeId, score: draftValue });
     onClose();
   }
 

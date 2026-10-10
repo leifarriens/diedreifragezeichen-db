@@ -1,19 +1,25 @@
 import type { AppRouter } from "@ddfdb/user-api";
-import type { UseQueryResult } from "@tanstack/react-query";
+import type { UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import type { TRPCClientErrorLike } from "@trpc/client";
-import type { inferRouterOutputs } from "@trpc/server";
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { UseTRPC } from "../../types";
 
 interface ListenedHooks {
-  useUpdateFolgenListenStatus: (
-    folgeId: number,
-    hasListened: boolean,
-  ) => {
+  useUpdateFolgenListenStatus: () => {
+    addListenedMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["listened"]["addListened"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["listened"]["addListened"]
+    >;
     isLoading: boolean;
-    toggleListenStatus: () => void;
+    removeListenedMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["listened"]["removeListened"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["listened"]["removeListened"]
+    >;
   };
   useUserListened: () => UseQueryResult<
     inferRouterOutputs<AppRouter>["listened"]["getUserListened"],
@@ -40,11 +46,11 @@ export function createListenedHooks({
     );
   }
 
-  function useUpdateFolgenListenStatus(folgeId: number, hasListened: boolean) {
+  function useUpdateFolgenListenStatus() {
     const trpc = useTRPC();
     const queryClient = useQueryClient();
 
-    const listenedMutation = useMutation(
+    const addListenedMutation = useMutation(
       trpc.listened.addListened.mutationOptions({
         async onError() {
           await invalidate();
@@ -89,17 +95,10 @@ export function createListenedHooks({
       });
     }
 
-    function toggleListenStatus() {
-      if (hasListened) {
-        removeListenedMutation.mutate({ folgeId });
-      } else {
-        listenedMutation.mutate({ folgeId });
-      }
-    }
-
     return {
-      isLoading: listenedMutation.isPending || removeListenedMutation.isPending,
-      toggleListenStatus,
+      addListenedMutation,
+      isLoading: addListenedMutation.isPending || removeListenedMutation.isPending,
+      removeListenedMutation,
     };
   }
 

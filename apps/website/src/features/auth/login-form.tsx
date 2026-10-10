@@ -60,7 +60,7 @@ export function LoginForm() {
           Name
           <input
             autoComplete="name"
-            className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600 dark:border-zinc-700"
+            className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600"
             maxLength={100}
             name="name"
             required
@@ -71,7 +71,7 @@ export function LoginForm() {
         Email
         <input
           autoComplete="email"
-          className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600 dark:border-zinc-700"
+          className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600"
           name="email"
           required
           type="email"
@@ -83,7 +83,7 @@ export function LoginForm() {
           autoComplete={
             mode === "sign-in" ? "current-password" : "new-password"
           }
-          className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600 dark:border-zinc-700"
+          className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600"
           minLength={8}
           name="password"
           required
@@ -106,10 +106,10 @@ export function LoginForm() {
             ? "Sign in"
             : "Create account"}
       </button>
-      <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
+      <p className="text-center text-sm text-zinc-600">
         {mode === "sign-in" ? "New here?" : "Already have an account?"}{" "}
         <button
-          className="font-medium text-blue-700 hover:underline dark:text-blue-400"
+          className="font-medium text-blue-700 hover:underline"
           disabled={isPending}
           onClick={() => {
             setError(null);

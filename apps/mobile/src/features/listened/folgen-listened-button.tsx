@@ -21,10 +21,8 @@ export function FolgenListenedButton({
   const { isAuthenticated, isPending } = useAuth();
 
   const router = useRouter();
-  const { isLoading, toggleListenStatus } = useUpdateFolgenListenStatus(
-    folgeId,
-    hasListened,
-  );
+  const { addListenedMutation, isLoading, removeListenedMutation } =
+    useUpdateFolgenListenStatus();
 
   function handlePress() {
     if (!isAuthenticated) {
@@ -33,7 +31,11 @@ export function FolgenListenedButton({
     }
 
     HapticFeedback.button();
-    toggleListenStatus();
+    if (hasListened) {
+      removeListenedMutation.mutate({ folgeId });
+    } else {
+      addListenedMutation.mutate({ folgeId });
+    }
   }
 
   return (

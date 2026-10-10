@@ -1,19 +1,25 @@
 import type { AppRouter } from "@ddfdb/user-api";
-import type { UseQueryResult } from "@tanstack/react-query";
+import type { UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import type { TRPCClientErrorLike } from "@trpc/client";
-import type { inferRouterOutputs } from "@trpc/server";
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { UseTRPC } from "../../types";
 
 interface BookmarkHooks {
-  useUpdateFolgenBookmark: (
-    folgeId: number,
-    isBookmarked: boolean,
-  ) => {
+  useUpdateFolgenBookmark: () => {
+    addBookmarkMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["bookmarks"]["addBookmark"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["bookmarks"]["addBookmark"]
+    >;
     isLoading: boolean;
-    toggleBookmark: () => void;
+    removeBookmarkMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["bookmarks"]["removeBookmark"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["bookmarks"]["removeBookmark"]
+    >;
   };
   useUserBookmarks: () => UseQueryResult<
     inferRouterOutputs<AppRouter>["bookmarks"]["getUserBookmarks"],
@@ -40,11 +46,11 @@ export function createBookmarkHooks({
     );
   }
 
-  function useUpdateFolgenBookmark(folgeId: number, isBookmarked: boolean) {
+  function useUpdateFolgenBookmark() {
     const trpc = useTRPC();
     const queryClient = useQueryClient();
 
-    const bookmarkMutation = useMutation(
+    const addBookmarkMutation = useMutation(
       trpc.bookmarks.addBookmark.mutationOptions({
         async onError() {
           await invalidate();
@@ -89,17 +95,10 @@ export function createBookmarkHooks({
       });
     }
 
-    function toggleBookmark() {
-      if (isBookmarked) {
-        removeBookmarkMutation.mutate({ folgeId });
-      } else {
-        bookmarkMutation.mutate({ folgeId });
-      }
-    }
-
     return {
-      isLoading: bookmarkMutation.isPending || removeBookmarkMutation.isPending,
-      toggleBookmark,
+      addBookmarkMutation,
+      isLoading: addBookmarkMutation.isPending || removeBookmarkMutation.isPending,
+      removeBookmarkMutation,
     };
   }
 

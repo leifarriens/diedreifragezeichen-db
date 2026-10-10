@@ -1,5 +1,7 @@
 "use client";
 
+import { useToastManager } from "@/components/ui/toast/toast";
+
 import { useUpdateRating, useUserFolgenRating } from "../hooks/use-ratings";
 import { FolgenRatingInput } from "./folgen-rating-input";
 
@@ -12,13 +14,25 @@ export function FolgenUserRating({
   folgeId,
   folgenTitle,
 }: FolgenUserRatingProps) {
+  const toastManager = useToastManager();
+
   const { isLoading: isUserRatingLoading, rating } =
     useUserFolgenRating(folgeId);
 
-  const { isLoading, setRating } = useUpdateRating(folgeId);
+  const { isLoading, ratingMutation } = useUpdateRating();
 
   function handleRatingChange(score: number) {
-    setRating(score);
+    ratingMutation.mutate(
+      { folgeId, score },
+      {
+        onSuccess() {
+          toastManager.add({
+            timeout: 300_000,
+            title: "Rating updated successfully",
+          });
+        },
+      },
+    );
   }
 
   return (

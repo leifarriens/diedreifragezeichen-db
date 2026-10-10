@@ -1,21 +1,29 @@
 import type { AppRouter } from "@ddfdb/user-api";
-import type { UseQueryResult } from "@tanstack/react-query";
+import type { UseMutationResult, UseQueryResult } from "@tanstack/react-query";
 import type { TRPCClientErrorLike } from "@trpc/client";
-import type { inferRouterOutputs } from "@trpc/server";
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { UseTRPC } from "../../types";
 
 interface RatingHooks {
-  useUpdateRating: (folgeId: number) => {
+  useUpdateRating: () => {
     isLoading: boolean;
-    setRating: (score: number) => void;
+    ratingMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["ratings"]["set"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["ratings"]["set"]
+    >;
+    removeRatingMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["ratings"]["remove"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["ratings"]["remove"]
+    >;
   };
   useUserFolgenRating: (folgeId: number) => {
     isLoading: boolean;
-    rating:
-      inferRouterOutputs<AppRouter>["ratings"]["getMine"][number] | undefined;
+    rating: undefined | { folgeId: number; score: number; updatedAt: string };
   };
   useUserRatings: () => UseQueryResult<
     inferRouterOutputs<AppRouter>["ratings"]["getMine"],
@@ -42,7 +50,7 @@ export function createRatingHooks({
     );
   }
 
-  function useUpdateRating(folgeId: number) {
+  function useUpdateRating() {
     const trpc = useTRPC();
     const queryClient = useQueryClient();
 
@@ -81,22 +89,17 @@ export function createRatingHooks({
       }),
     );
 
-    function setRating(score: number) {
-      console.log("Setting rating for folgeId:", folgeId, "with score:", score);
-      ratingMutation.mutate({ folgeId, score });
-    }
-
-    function removeRating(folgeId: number) {
-      removeRatingMutation.mutate({ folgeId });
-    }
-
     function invalidate() {
       return queryClient.invalidateQueries({
         queryKey: trpc.ratings.getMine.queryKey(),
       });
     }
 
-    return { isLoading: ratingMutation.isPending, removeRating, setRating };
+    return {
+      isLoading: ratingMutation.isPending || removeRatingMutation.isPending,
+      ratingMutation,
+      removeRatingMutation,
+    };
   }
 
   function useUserFolgenRating(folgeId: number) {

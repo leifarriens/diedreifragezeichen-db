@@ -21,10 +21,8 @@ export function FolgenBookmarkButton({
   const { isAuthenticated, isPending } = useAuth();
   const router = useRouter();
 
-  const { isLoading, toggleBookmark } = useUpdateFolgenBookmark(
-    folgeId,
-    isBookmarked,
-  );
+  const { addBookmarkMutation, isLoading, removeBookmarkMutation } =
+    useUpdateFolgenBookmark();
 
   function handlePress() {
     if (!isAuthenticated) {
@@ -33,7 +31,11 @@ export function FolgenBookmarkButton({
     }
 
     HapticFeedback.button();
-    toggleBookmark();
+    if (isBookmarked) {
+      removeBookmarkMutation.mutate({ folgeId });
+    } else {
+      addBookmarkMutation.mutate({ folgeId });
+    }
   }
 
   return (
@@ -56,6 +58,7 @@ export function FolgenBookmarkButton({
             })
       }
       iconOnly
+      isLoading={true}
       label={isBookmarked ? "Lesezeichen entfernen" : "Als Lesezeichen merken"}
       onPress={handlePress}
     />

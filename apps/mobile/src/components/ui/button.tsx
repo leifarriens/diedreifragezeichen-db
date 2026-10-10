@@ -32,6 +32,7 @@ export interface UIButtonProps extends Omit<
   iconOnly?: boolean;
   iconSize?: number;
   intent?: NativeButtonIntent;
+  isLoading?: boolean;
   shape?: Parameters<typeof buttonBorderShape>[0];
   size?: Parameters<typeof controlSize>[0];
   tintColor?: Parameters<typeof tint>[0];
@@ -70,6 +71,7 @@ export function UIButton({
   const modifiers: ModifierConfig[] = [
     controlSize(size),
     buttonStyle(intents[intent].variant),
+    buttonBorderShape(iconOnly ? "circle" : (shape ?? "capsule")),
   ];
 
   if (icon && (!label || iconOnly)) {
@@ -84,12 +86,14 @@ export function UIButton({
     modifiers.push(tint(tintColor));
   }
 
-  modifiers.push(buttonBorderShape(iconOnly ? "circle" : (shape ?? "capsule")));
-
   const seedColor = intents[intent].backgroundColor;
 
   return (
-    <Host matchContents {...(seedColor === undefined ? {} : { seedColor })}>
+    <Host
+      matchContents
+      {...(seedColor === undefined ? {} : { seedColor })}
+      style={{ height: 48, width: 48 }}
+    >
       <Button modifiers={modifiers} {...rest}>
         <Row alignment="center" spacing={6}>
           {icon ? (
@@ -102,9 +106,7 @@ export function UIButton({
               size={iconSize}
             />
           ) : null}
-          {(!iconOnly || Platform.OS === "web") && label !== undefined && (
-            <Text>{label}</Text>
-          )}
+          {!iconOnly && label !== undefined && <Text>{label}</Text>}
         </Row>
       </Button>
     </Host>

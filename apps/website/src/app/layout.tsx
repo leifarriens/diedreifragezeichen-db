@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { Toaster } from "sonner";
 
-import { ArchiveFiltersProvider } from "@/features/archive/components/archive-filters-provider";
+import { ToastProvider } from "@/components/ui/toast/toast";
 
 import "./globals.css";
+import { ArchiveFiltersProvider } from "@/features/archive/components/archive-filters-provider";
 import { Footer } from "@/shell/footer";
 import { HeaderNav } from "@/shell/header-nav";
 import { ScrollToTop } from "@/shell/scroll-to-top";
@@ -31,22 +31,22 @@ export default function RootLayout({
   return (
     <html className="h-full antialiased" lang="de">
       <TRPCReactProvider>
-        <body className="flex min-h-full flex-col">
-          <ArchiveFiltersProvider currentYear={CURRENT_YEAR}>
-            <HeaderNav />
-            <div className="grid flex-1 place-items-center items-stretch justify-items-stretch">
-              {children}
-            </div>
-            <Footer />
-            <ScrollToTop />
-          </ArchiveFiltersProvider>
-          <ReactQueryDevtools
-            buttonPosition="bottom-right"
-            initialIsOpen={false}
-          />
-          {/* DISCUSS: Use https://base-ui.com/react/components/toast instead? */}
-          <Toaster theme="dark" />
-        </body>
+        <ToastProvider>
+          <body className="flex min-h-full flex-col">
+            <ArchiveFiltersProvider currentYear={CURRENT_YEAR}>
+              <HeaderNav />
+              <div className="grid flex-1 place-items-center items-stretch justify-items-stretch">
+                {children}
+              </div>
+              <Footer />
+              <ScrollToTop />
+            </ArchiveFiltersProvider>
+            <ReactQueryDevtools
+              buttonPosition="bottom-right"
+              initialIsOpen={false}
+            />
+          </body>
+        </ToastProvider>
       </TRPCReactProvider>
     </html>
   );

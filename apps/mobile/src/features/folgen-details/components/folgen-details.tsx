@@ -4,7 +4,7 @@ import {
   formatFolgenSubtitle,
   formatRelativeTime,
   formatReleaseDate,
-  isDateBeforeNow,
+  isReleasDateInThePast,
 } from "@ddfdb/core";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
@@ -30,7 +30,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
   const { data: userBookmarks } = useUserBookmarks();
   const { data: userListened } = useUserListened();
 
-  const isReleased = release_date !== null && isDateBeforeNow(release_date);
+  const isReleased = isReleasDateInThePast(release_date);
 
   return (
     <View>

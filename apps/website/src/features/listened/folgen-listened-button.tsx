@@ -22,10 +22,8 @@ export function FolgenListenedButton({
 }: FolgenListenedButtonProps) {
   const { isAuthenticated, isPending } = useAuth();
   const router = useRouter();
-  const { isLoading, toggleListenStatus } = useUpdateFolgenListenStatus(
-    folgeId,
-    hasListened,
-  );
+  const { addListenedMutation, isLoading, removeListenedMutation } =
+    useUpdateFolgenListenStatus();
 
   const iconStyle = { height: size, width: size };
 
@@ -35,7 +33,11 @@ export function FolgenListenedButton({
       return;
     }
 
-    toggleListenStatus();
+    if (hasListened) {
+      removeListenedMutation.mutate({ folgeId });
+    } else {
+      addListenedMutation.mutate({ folgeId });
+    }
   }
 
   return (

@@ -15,8 +15,6 @@ interface SearchInputProps {
   className?: string;
 }
 
-const ARCHIVE_SEARCH_DEBOUNCE_MS = 200;
-
 export function SearchInput({ className }: SearchInputProps) {
   const { filters, isArchivePage, updateFilters } = useArchiveFilters();
   const [searchDraft, setSearchDraft] = useState("");
@@ -111,7 +109,7 @@ export function SearchInput({ className }: SearchInputProps) {
       archiveSearchTimeoutRef.current = null;
       setArchiveSearchDraft(null);
       updateFilters({ searchTerm: value });
-    }, ARCHIVE_SEARCH_DEBOUNCE_MS);
+    }, 200);
   }
 
   function handleLinkClick() {
@@ -131,7 +129,7 @@ export function SearchInput({ className }: SearchInputProps) {
         <label ref={containerRef}>
           <Autocomplete.Input
             aria-label="Folgen Archiv durchsuchen"
-            className="h-full w-full rounded-xl border bg-transparent px-4 py-2 text-base text-gray-700 placeholder-gray-500 outline-none dark:text-neutral-100"
+            className="h-full w-full rounded-xl border bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none"
             placeholder="Name, Nummer oder Erscheinungsjahr"
             ref={inputRef}
           />
@@ -142,11 +140,11 @@ export function SearchInput({ className }: SearchInputProps) {
             <Autocomplete.Positioner
               anchor={containerRef}
               className="z-50 outline-none"
-              sideOffset={4}
+              sideOffset={14}
             >
               <Autocomplete.Popup
                 aria-busy={searchQuery.isFetching || undefined}
-                className="max-h-92 w-(--anchor-width) max-w-(--available-width) overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-neutral-800 dark:bg-stone-950"
+                className="max-h-92 w-(--anchor-width) max-w-(--available-width) overflow-hidden rounded-2xl border border-neutral-500 bg-[#000b0e] shadow-2xl"
               >
                 <Autocomplete.Status>{status}</Autocomplete.Status>
                 <Autocomplete.Empty className="px-4 py-3 text-sm empty:m-0 empty:p-0">
@@ -160,7 +158,7 @@ export function SearchInput({ className }: SearchInputProps) {
                       onClick={handleLinkClick}
                     >
                       <Autocomplete.Item
-                        className="flex items-center gap-4 px-4 py-3 text-sm data-highlighted:bg-gray-100 data-highlighted:text-gray-900"
+                        className="flex items-center gap-4 px-4 py-3 text-sm data-highlighted:bg-[#011528]"
                         value={result.title}
                       >
                         <div className="size-9">

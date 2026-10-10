@@ -19,7 +19,7 @@ export default async function LoginPage() {
             <h1 className="mb-10 text-center font-serif text-5xl font-semibold">
               Anmelden
             </h1>
-            <p className="mb-4 text-sm text-neutral-600 dark:text-neutral-400">
+            <p className="mb-4 text-sm text-neutral-600">
               Melde dich an, um auf dein Profil, deine Bewertungen und
               gespeicherten Episoden zuzugreifen.
             </p>

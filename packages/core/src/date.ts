@@ -37,10 +37,6 @@ export function isDateBefore(
   return dayjs(date).isBefore(dayjs(other));
 }
 
-export function isDateBeforeNow(date: Date | string): boolean {
-  return isDateBefore(date, new Date());
-}
-
 export function isDateWithinRange(
   date: Date | string,
   startDate: Date | null | string,

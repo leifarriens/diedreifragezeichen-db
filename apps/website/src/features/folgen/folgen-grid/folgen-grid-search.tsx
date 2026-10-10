@@ -1,3 +1,5 @@
+import { Input } from "@/components/ui/input/input";
+
 interface FolgenGridSearchProps {
   onChange: (value: string) => void;
   value: string;
@@ -6,11 +8,11 @@ interface FolgenGridSearchProps {
 export function FolgenGridSearch({ onChange, value }: FolgenGridSearchProps) {
   return (
     <div>
-      <input
-        className="border p-2"
+      <Input
         onChange={(e) => {
           onChange(e.target.value);
         }}
+        placeholder="Folgen durchsuchen"
         type="search"
         value={value}
       />

@@ -22,10 +22,8 @@ export function FolgenBookmarkButton({
 }: FolgenBookmarkButtonProps) {
   const { isAuthenticated, isPending } = useAuth();
   const router = useRouter();
-  const { isLoading, toggleBookmark } = useUpdateFolgenBookmark(
-    folgeId,
-    isBookmarked,
-  );
+  const { addBookmarkMutation, isLoading, removeBookmarkMutation } =
+    useUpdateFolgenBookmark();
 
   const iconStyle = { height: size, width: size };
 
@@ -35,7 +33,11 @@ export function FolgenBookmarkButton({
       return;
     }
 
-    toggleBookmark();
+    if (isBookmarked) {
+      removeBookmarkMutation.mutate({ folgeId });
+    } else {
+      addBookmarkMutation.mutate({ folgeId });
+    }
   }
 
   return (
