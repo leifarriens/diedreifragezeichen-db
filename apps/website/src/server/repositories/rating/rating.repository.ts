@@ -2,12 +2,12 @@ import "server-only";
 import type { RatingRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";
-import { and, eq, sql } from "drizzle-orm";
+import { and, avg, count, eq, sum } from "drizzle-orm";
 
 import {
   toCommunityRatingResponse,
-  toRatingInsert,
-  toRatingResponse,
+  toUserRatingInsert,
+  toUserRatingResponse,
 } from "./rating.mapper";
 
 const ratingResponseSelection = {
@@ -16,44 +16,12 @@ const ratingResponseSelection = {
   updatedAt: schema.rating.updatedAt,
 };
 
+const numberOfRatings = count();
+const popularity = sum(schema.rating.score).mapWith(Number);
+const score = avg(schema.rating.score).mapWith(Number);
+
 export const ratingRepository: RatingRepository = {
-  async findAllFolgenCommunityRatings() {
-    const ratings = await db
-      .select({
-        folgeId: schema.rating.folgeId,
-        numberOfRatings: sql<number>`COUNT(*)`,
-        score: sql<number>`AVG(${schema.rating.score})`,
-      })
-      .from(schema.rating)
-      .groupBy(schema.rating.folgeId);
-
-    return ratings.map(toCommunityRatingResponse);
-  },
-
-  async findAllUserRatings({ userId }) {
-    const ratings = await db
-      .select(ratingResponseSelection)
-      .from(schema.rating)
-      .where(eq(schema.rating.userId, userId));
-
-    return ratings.map(toRatingResponse);
-  },
-
-  async findCommunityFolgenRating({ folgeId }) {
-    const [rating] = await db
-      .select({
-        folgeId: schema.rating.folgeId,
-        numberOfRatings: sql<number>`COUNT(*)`,
-        score: sql<number>`AVG(${schema.rating.score})`,
-      })
-      .from(schema.rating)
-      .where(eq(schema.rating.folgeId, folgeId))
-      .groupBy(schema.rating.folgeId);
-
-    return rating ? toCommunityRatingResponse(rating) : null;
-  },
-
-  async removeRating({ folgeId, userId }) {
+  async deleteUserRating({ folgeId, userId }) {
     await db
       .delete(schema.rating)
       .where(
@@ -64,8 +32,48 @@ export const ratingRepository: RatingRepository = {
       );
   },
 
-  async setRating({ folgeId, score, userId }) {
-    const values = toRatingInsert({ folgeId, score, userId });
+  async findAllCommunityRatings() {
+    const ratings = await db
+      .select({
+        folgeId: schema.rating.folgeId,
+        numberOfRatings,
+        popularity,
+        score,
+      })
+      .from(schema.rating)
+      .groupBy(schema.rating.folgeId);
+
+    return ratings.map(toCommunityRatingResponse);
+  },
+
+  async findCommunityRatingByFolgeId({ folgeId }) {
+    const [rating] = await db
+      .select({
+        folgeId: schema.rating.folgeId,
+        numberOfRatings,
+        popularity,
+        score,
+      })
+      .from(schema.rating)
+      .where(eq(schema.rating.folgeId, folgeId))
+      .groupBy(schema.rating.folgeId);
+
+    console.log(rating);
+
+    return rating ? toCommunityRatingResponse(rating) : null;
+  },
+
+  async findUserRatingsByUserId({ userId }) {
+    const ratings = await db
+      .select(ratingResponseSelection)
+      .from(schema.rating)
+      .where(eq(schema.rating.userId, userId));
+
+    return ratings.map(toUserRatingResponse);
+  },
+
+  async upsertUserRating({ folgeId, score, userId }) {
+    const values = toUserRatingInsert({ folgeId, score, userId });
     const [rating] = await db
       .insert(schema.rating)
       .values(values)
@@ -79,6 +87,6 @@ export const ratingRepository: RatingRepository = {
       throw new Error("Failed to save rating");
     }
 
-    return toRatingResponse(rating);
+    return toUserRatingResponse(rating);
   },
 };

@@ -9,20 +9,20 @@ import type { UseTRPC } from "../../types";
 
 interface ListenedHooks {
   useUpdateFolgenListenStatus: () => {
-    addListenedMutation: UseMutationResult<
-      inferRouterOutputs<AppRouter>["listened"]["addListened"],
-      TRPCClientErrorLike<AppRouter>,
-      inferRouterInputs<AppRouter>["listened"]["addListened"]
-    >;
     isLoading: boolean;
-    removeListenedMutation: UseMutationResult<
-      inferRouterOutputs<AppRouter>["listened"]["removeListened"],
+    markFolgeAsListenedMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["listened"]["markFolgeAsListened"],
       TRPCClientErrorLike<AppRouter>,
-      inferRouterInputs<AppRouter>["listened"]["removeListened"]
+      inferRouterInputs<AppRouter>["listened"]["markFolgeAsListened"]
+    >;
+    markFolgeAsNotListenedMutation: UseMutationResult<
+      inferRouterOutputs<AppRouter>["listened"]["markFolgeAsNotListened"],
+      TRPCClientErrorLike<AppRouter>,
+      inferRouterInputs<AppRouter>["listened"]["markFolgeAsNotListened"]
     >;
   };
   useUserListened: () => UseQueryResult<
-    inferRouterOutputs<AppRouter>["listened"]["getUserListened"],
+    inferRouterOutputs<AppRouter>["listened"]["getMyListenedFolgen"],
     TRPCClientErrorLike<AppRouter>
   >;
 }
@@ -39,7 +39,7 @@ export function createListenedHooks({
     const { isAuthenticated } = useAuth();
 
     return useQuery(
-      trpc.listened.getUserListened.queryOptions(undefined, {
+      trpc.listened.getMyListenedFolgen.queryOptions(undefined, {
         enabled: isAuthenticated,
         staleTime: Infinity,
       }),
@@ -50,14 +50,14 @@ export function createListenedHooks({
     const trpc = useTRPC();
     const queryClient = useQueryClient();
 
-    const addListenedMutation = useMutation(
-      trpc.listened.addListened.mutationOptions({
+    const markFolgeAsListenedMutation = useMutation(
+      trpc.listened.markFolgeAsListened.mutationOptions({
         async onError() {
           await invalidate();
         },
         onMutate({ folgeId }) {
           queryClient.setQueryData(
-            trpc.listened.getUserListened.queryKey(),
+            trpc.listened.getMyListenedFolgen.queryKey(),
             (prev) => {
               const listened = {
                 createdAt: new Date().toISOString(),
@@ -71,14 +71,14 @@ export function createListenedHooks({
       }),
     );
 
-    const removeListenedMutation = useMutation(
-      trpc.listened.removeListened.mutationOptions({
+    const markFolgeAsNotListenedMutation = useMutation(
+      trpc.listened.markFolgeAsNotListened.mutationOptions({
         async onError() {
           await invalidate();
         },
         onMutate({ folgeId }) {
           queryClient.setQueryData(
-            trpc.listened.getUserListened.queryKey(),
+            trpc.listened.getMyListenedFolgen.queryKey(),
             (prev) => {
               return prev
                 ? prev.filter((item) => item.folgeId !== folgeId)
@@ -91,14 +91,16 @@ export function createListenedHooks({
 
     function invalidate() {
       return queryClient.invalidateQueries({
-        queryKey: trpc.listened.getUserListened.queryKey(),
+        queryKey: trpc.listened.getMyListenedFolgen.queryKey(),
       });
     }
 
     return {
-      addListenedMutation,
-      isLoading: addListenedMutation.isPending || removeListenedMutation.isPending,
-      removeListenedMutation,
+      isLoading:
+        markFolgeAsListenedMutation.isPending ||
+        markFolgeAsNotListenedMutation.isPending,
+      markFolgeAsListenedMutation,
+      markFolgeAsNotListenedMutation,
     };
   }
 

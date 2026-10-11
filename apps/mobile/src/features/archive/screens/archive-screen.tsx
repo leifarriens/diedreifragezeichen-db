@@ -77,6 +77,7 @@ export function ArchiveScreen() {
                 { label: "Neueste", value: "newest" },
                 { label: "Älteste", value: "oldest" },
                 { label: "Beste", value: "rating" },
+                { label: "Beliebteste", value: "popularity" },
               ],
               sortValue: sortOrder,
             }),

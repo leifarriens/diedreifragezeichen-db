@@ -12,7 +12,7 @@ const bookmarkResponseSelection = {
 };
 
 export const bookmarkRepository: BookmarkRepository = {
-  async addBookmark({ folgeId, userId }) {
+  async createBookmark({ folgeId, userId }) {
     const [bookmark] = await db
       .insert(schema.bookmark)
       .values({
@@ -31,16 +31,7 @@ export const bookmarkRepository: BookmarkRepository = {
     return toBookmarkResponse(bookmark);
   },
 
-  async getUserBookmarks({ userId }) {
-    const bookmarks = await db
-      .select(bookmarkResponseSelection)
-      .from(schema.bookmark)
-      .where(eq(schema.bookmark.userId, userId));
-
-    return bookmarks.map(toBookmarkResponse);
-  },
-
-  async removeBookmark({ folgeId, userId }) {
+  async deleteBookmark({ folgeId, userId }) {
     await db
       .delete(schema.bookmark)
       .where(
@@ -49,5 +40,14 @@ export const bookmarkRepository: BookmarkRepository = {
           eq(schema.bookmark.folgeId, folgeId),
         ),
       );
+  },
+
+  async findBookmarksByUserId({ userId }) {
+    const bookmarks = await db
+      .select(bookmarkResponseSelection)
+      .from(schema.bookmark)
+      .where(eq(schema.bookmark.userId, userId));
+
+    return bookmarks.map(toBookmarkResponse);
   },
 };

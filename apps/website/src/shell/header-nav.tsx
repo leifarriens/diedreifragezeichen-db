@@ -9,6 +9,7 @@ import { useAuth } from "@/features/auth/use-auth";
 import { SearchInput } from "@/features/global-search/search-input";
 
 import styles from "./header-nav.module.css";
+import { ProfileMenu } from "./profile-menu";
 
 export function HeaderNav() {
   const isScrolled = useSyncExternalStore(
@@ -22,7 +23,7 @@ export function HeaderNav() {
     () => false,
   );
 
-  const { isAuthenticated, isPending } = useAuth();
+  const { isAuthenticated, isPending, session } = useAuth();
 
   return (
     <div className="sticky top-0 z-40 w-full sm:px-8 sm:py-8">
@@ -31,7 +32,7 @@ export function HeaderNav() {
           styles.container,
           "grid justify-end gap-x-4 gap-y-5 border border-transparent px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
           {
-            "shadow-lg sm:border-blue-900/30 sm:bg-blue-400/10 sm:backdrop-blur-lg":
+            "shadow-lg sm:border-blue-900/30 sm:bg-blue-400/10 sm:backdrop-blur-xl sm:backdrop-brightness-50":
               isScrolled,
           },
         )}
@@ -64,7 +65,7 @@ export function HeaderNav() {
           className="flex shrink-0 grow basis-auto items-center justify-end [grid-area:profile]"
         >
           {isPending ? null : isAuthenticated ? (
-            <Button href="/profil">Profil</Button>
+            <ProfileMenu name={session?.user.name} />
           ) : (
             <Button href="/login">Anmelden</Button>
           )}

@@ -43,6 +43,8 @@ export function UserListenedFolgen({
   return (
     <section className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
+        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
+
         <SortSelector
           aria-label="Sortierung der gehörten Folgen"
           onValueChange={(order) => {
@@ -54,8 +56,6 @@ export function UserListenedFolgen({
           ]}
           value={sortOption.order}
         />
-
-        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
       </div>
 
       <FolgenGrid>

@@ -22,7 +22,7 @@ interface BookmarkHooks {
     >;
   };
   useUserBookmarks: () => UseQueryResult<
-    inferRouterOutputs<AppRouter>["bookmarks"]["getUserBookmarks"],
+    inferRouterOutputs<AppRouter>["bookmarks"]["getMyBookmarks"],
     TRPCClientErrorLike<AppRouter>
   >;
 }
@@ -39,7 +39,7 @@ export function createBookmarkHooks({
     const { isAuthenticated } = useAuth();
 
     return useQuery(
-      trpc.bookmarks.getUserBookmarks.queryOptions(undefined, {
+      trpc.bookmarks.getMyBookmarks.queryOptions(undefined, {
         enabled: isAuthenticated,
         staleTime: Infinity,
       }),
@@ -57,7 +57,7 @@ export function createBookmarkHooks({
         },
         onMutate({ folgeId }) {
           queryClient.setQueryData(
-            trpc.bookmarks.getUserBookmarks.queryKey(),
+            trpc.bookmarks.getMyBookmarks.queryKey(),
             (prev) => {
               const bookmark = {
                 createdAt: new Date().toISOString(),
@@ -78,7 +78,7 @@ export function createBookmarkHooks({
         },
         onMutate({ folgeId }) {
           queryClient.setQueryData(
-            trpc.bookmarks.getUserBookmarks.queryKey(),
+            trpc.bookmarks.getMyBookmarks.queryKey(),
             (prev) => {
               return prev
                 ? prev.filter((bookmark) => bookmark.folgeId !== folgeId)
@@ -91,7 +91,7 @@ export function createBookmarkHooks({
 
     function invalidate() {
       return queryClient.invalidateQueries({
-        queryKey: trpc.bookmarks.getUserBookmarks.queryKey(),
+        queryKey: trpc.bookmarks.getMyBookmarks.queryKey(),
       });
     }
 

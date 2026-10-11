@@ -11,14 +11,14 @@ interface RatingHooks {
   useUpdateRating: () => {
     isLoading: boolean;
     ratingMutation: UseMutationResult<
-      inferRouterOutputs<AppRouter>["ratings"]["set"],
+      inferRouterOutputs<AppRouter>["ratings"]["upsertMyRating"],
       TRPCClientErrorLike<AppRouter>,
-      inferRouterInputs<AppRouter>["ratings"]["set"]
+      inferRouterInputs<AppRouter>["ratings"]["upsertMyRating"]
     >;
     removeRatingMutation: UseMutationResult<
-      inferRouterOutputs<AppRouter>["ratings"]["remove"],
+      inferRouterOutputs<AppRouter>["ratings"]["deleteMyRating"],
       TRPCClientErrorLike<AppRouter>,
-      inferRouterInputs<AppRouter>["ratings"]["remove"]
+      inferRouterInputs<AppRouter>["ratings"]["deleteMyRating"]
     >;
   };
   useUserFolgenRating: (folgeId: number) => {
@@ -26,7 +26,7 @@ interface RatingHooks {
     rating: undefined | { folgeId: number; score: number; updatedAt: string };
   };
   useUserRatings: () => UseQueryResult<
-    inferRouterOutputs<AppRouter>["ratings"]["getMine"],
+    inferRouterOutputs<AppRouter>["ratings"]["getMyRatings"],
     TRPCClientErrorLike<AppRouter>
   >;
 }
@@ -44,7 +44,7 @@ export function createRatingHooks({
     const { isAuthenticated } = useAuth();
 
     return useQuery(
-      trpc.ratings.getMine.queryOptions(undefined, {
+      trpc.ratings.getMyRatings.queryOptions(undefined, {
         enabled: isAuthenticated,
       }),
     );
@@ -55,43 +55,49 @@ export function createRatingHooks({
     const queryClient = useQueryClient();
 
     const ratingMutation = useMutation(
-      trpc.ratings.set.mutationOptions({
+      trpc.ratings.upsertMyRating.mutationOptions({
         async onError(error) {
           console.error("Failed to update rating:", error);
           await invalidate();
         },
         onMutate({ folgeId, score }) {
-          queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) => {
-            const rating = {
-              folgeId,
-              score,
-              updatedAt: new Date().toISOString(),
-            };
+          queryClient.setQueryData(
+            trpc.ratings.getMyRatings.queryKey(),
+            (prev) => {
+              const rating = {
+                folgeId,
+                score,
+                updatedAt: new Date().toISOString(),
+              };
 
-            return prev
-              ? [...prev.filter((r) => r.folgeId !== folgeId), rating]
-              : [rating];
-          });
+              return prev
+                ? [...prev.filter((r) => r.folgeId !== folgeId), rating]
+                : [rating];
+            },
+          );
         },
       }),
     );
 
     const removeRatingMutation = useMutation(
-      trpc.ratings.remove.mutationOptions({
+      trpc.ratings.deleteMyRating.mutationOptions({
         async onError() {
           await invalidate();
         },
         onMutate({ folgeId }) {
-          queryClient.setQueryData(trpc.ratings.getMine.queryKey(), (prev) => {
-            return prev ? prev.filter((r) => r.folgeId !== folgeId) : [];
-          });
+          queryClient.setQueryData(
+            trpc.ratings.getMyRatings.queryKey(),
+            (prev) => {
+              return prev ? prev.filter((r) => r.folgeId !== folgeId) : [];
+            },
+          );
         },
       }),
     );
 
     function invalidate() {
       return queryClient.invalidateQueries({
-        queryKey: trpc.ratings.getMine.queryKey(),
+        queryKey: trpc.ratings.getMyRatings.queryKey(),
       });
     }
 

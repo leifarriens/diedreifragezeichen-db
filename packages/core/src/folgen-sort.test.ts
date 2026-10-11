@@ -123,6 +123,48 @@ describe("sortFolgen", () => {
     ).toEqual([3, 1, 2]);
   });
 
+  it("sorts by popularity and places Folgen without popularity last", () => {
+    const popularFolgen = [
+      {
+        communityRating: { popularity: 6 },
+        id: 1,
+        release_date: "1980-01-01",
+        title: "Older tie",
+      },
+      {
+        communityRating: { popularity: 2 },
+        id: 2,
+        release_date: "2000-01-01",
+        title: "Most popular",
+      },
+      {
+        communityRating: { popularity: 4 },
+        id: 3,
+        release_date: "2010-01-01",
+        title: "No popularity",
+      },
+      {
+        communityRating: { popularity: 0 },
+        id: 4,
+        release_date: "2020-01-01",
+        title: "Zero popularity",
+      },
+      {
+        communityRating: null,
+        id: 5,
+        release_date: "1990-01-01",
+        title: "Missing popularity",
+      },
+    ];
+
+    expect(
+      sortFolgen(popularFolgen, { by: "popularity", order: "highest" }).map(
+        ({ id }) => id,
+      ),
+    ).toEqual([1, 3, 2, 4, 5]);
+
+  });
+
   it("sorts by release date from newest to oldest", () => {
     expect(
       sortFolgen(folgen, { by: "releaseDate", order: "newest" }).map(

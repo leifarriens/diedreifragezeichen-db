@@ -11,10 +11,10 @@ export interface ArchiveFolgenFilters {
   startDate: null | string;
 }
 
-export type ArchiveSortOrder = "newest" | "oldest" | "rating";
+export type ArchiveSortOrder = "newest" | "oldest" | "popularity" | "rating";
 
 interface CommunityRatedFolge extends SortableFolge {
-  communityRating: null | { score: number };
+  communityRating: null | { popularity: number; score: number };
 }
 
 export function filterArchiveFolgen<T extends FilterableFolge>(
@@ -38,6 +38,10 @@ export function sortArchiveFolgen<T extends CommunityRatedFolge>(
 ): T[] {
   if (sortOrder === "rating") {
     return sortFolgen(folgen, { by: "communityRating", order: "highest" });
+  }
+
+  if (sortOrder === "popularity") {
+    return sortFolgen(folgen, { by: "popularity", order: "highest" });
   }
 
   return sortFolgen(folgen, { by: "releaseDate", order: sortOrder });

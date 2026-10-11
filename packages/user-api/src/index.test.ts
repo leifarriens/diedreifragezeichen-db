@@ -34,29 +34,34 @@ function createCaller(
 
 function makeBookmarkRepository() {
   return {
-    addBookmark: vi.fn(),
-    getUserBookmarks: vi.fn(() => Promise.resolve([])),
-    removeBookmark: vi.fn(() => Promise.resolve()),
+    createBookmark: vi.fn(),
+    deleteBookmark: vi.fn(() => Promise.resolve()),
+    findBookmarksByUserId: vi.fn(() => Promise.resolve([])),
   } satisfies BookmarkRepository;
 }
 
 function makeListenedRepository() {
   return {
-    addListened: vi.fn(),
-    getUserListened: vi.fn(() => Promise.resolve([])),
-    removeListened: vi.fn(() => Promise.resolve()),
+    findListenedFolgenByUserId: vi.fn(() => Promise.resolve([])),
+    markFolgeAsListened: vi.fn(),
+    markFolgeAsNotListened: vi.fn(() => Promise.resolve()),
   } satisfies ListenedRepository;
 }
 
 function makeRatingRepository() {
   return {
-    findAllFolgenCommunityRatings: vi.fn(() => Promise.resolve([])),
-    findAllUserRatings: vi.fn(() => Promise.resolve([])),
-    findCommunityFolgenRating: vi.fn(({ folgeId }: { folgeId: number }) =>
-      Promise.resolve({ folgeId, numberOfRatings: 3, score: 4.5 }),
+    deleteUserRating: vi.fn(() => Promise.resolve()),
+    findAllCommunityRatings: vi.fn(() => Promise.resolve([])),
+    findCommunityRatingByFolgeId: vi.fn(({ folgeId }: { folgeId: number }) =>
+      Promise.resolve({
+        folgeId,
+        numberOfRatings: 3,
+        popularity: 13.5,
+        score: 4.5,
+      }),
     ),
-    removeRating: vi.fn(() => Promise.resolve()),
-    setRating: vi.fn(
+    findUserRatingsByUserId: vi.fn(() => Promise.resolve([])),
+    upsertUserRating: vi.fn(
       ({
         folgeId,
         score,
@@ -76,10 +81,10 @@ describe("user API router", () => {
     await expect(caller.user.me()).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
-    await expect(caller.ratings.getMine()).rejects.toMatchObject({
+    await expect(caller.ratings.getMyRatings()).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
-    await expect(caller.listened.getUserListened()).rejects.toMatchObject({
+    await expect(caller.listened.getMyListenedFolgen()).rejects.toMatchObject({
       code: "UNAUTHORIZED",
     });
   });
@@ -93,19 +98,19 @@ describe("user API router", () => {
       listened,
     );
 
-    await caller.listened.addListened({ folgeId: 12 });
-    expect(listened.addListened).toHaveBeenCalledWith({
+    await caller.listened.markFolgeAsListened({ folgeId: 12 });
+    expect(listened.markFolgeAsListened).toHaveBeenCalledWith({
       folgeId: 12,
       userId: authenticatedUser.id,
     });
 
-    await caller.listened.getUserListened();
-    expect(listened.getUserListened).toHaveBeenCalledWith({
+    await caller.listened.getMyListenedFolgen();
+    expect(listened.findListenedFolgenByUserId).toHaveBeenCalledWith({
       userId: authenticatedUser.id,
     });
 
-    await caller.listened.removeListened({ folgeId: 12 });
-    expect(listened.removeListened).toHaveBeenCalledWith({
+    await caller.listened.markFolgeAsNotListened({ folgeId: 12 });
+    expect(listened.markFolgeAsNotListened).toHaveBeenCalledWith({
       folgeId: 12,
       userId: authenticatedUser.id,
     });
@@ -122,9 +127,14 @@ describe("user API router", () => {
     const caller = createCaller(null, ratings);
 
     await expect(
-      caller.ratings.getCommunityForFolge({ folgeId: 12 }),
-    ).resolves.toEqual({ folgeId: 12, numberOfRatings: 3, score: 4.5 });
-    expect(ratings.findCommunityFolgenRating).toHaveBeenCalledWith({
+      caller.ratings.getCommunityRatingForFolge({ folgeId: 12 }),
+    ).resolves.toEqual({
+      folgeId: 12,
+      numberOfRatings: 3,
+      popularity: 13.5,
+      score: 4.5,
+    });
+    expect(ratings.findCommunityRatingByFolgeId).toHaveBeenCalledWith({
       folgeId: 12,
     });
   });
@@ -134,9 +144,9 @@ describe("user API router", () => {
     const caller = createCaller(authenticatedUser, ratings);
 
     await expect(
-      caller.ratings.set({ folgeId: 12, score: 2.5 }),
+      caller.ratings.upsertMyRating({ folgeId: 12, score: 2.5 }),
     ).resolves.toEqual({ folgeId: 12, score: 2.5, updatedAt });
-    expect(ratings.setRating).toHaveBeenCalledWith({
+    expect(ratings.upsertUserRating).toHaveBeenCalledWith({
       folgeId: 12,
       score: 2.5,
       userId: authenticatedUser.id,
@@ -148,9 +158,9 @@ describe("user API router", () => {
     const caller = createCaller(authenticatedUser, ratings);
 
     await expect(
-      caller.ratings.remove({ folgeId: 12 }),
+      caller.ratings.deleteMyRating({ folgeId: 12 }),
     ).resolves.toBeUndefined();
-    expect(ratings.removeRating).toHaveBeenCalledWith({
+    expect(ratings.deleteUserRating).toHaveBeenCalledWith({
       folgeId: 12,
       userId: authenticatedUser.id,
     });
@@ -161,8 +171,8 @@ describe("user API router", () => {
     const caller = createCaller(authenticatedUser, ratings);
 
     await expect(
-      caller.ratings.set({ folgeId: 12, score: 11 }),
+      caller.ratings.upsertMyRating({ folgeId: 12, score: 11 }),
     ).rejects.toMatchObject({ code: "BAD_REQUEST" });
-    expect(ratings.setRating).not.toHaveBeenCalled();
+    expect(ratings.upsertUserRating).not.toHaveBeenCalled();
   });
 });

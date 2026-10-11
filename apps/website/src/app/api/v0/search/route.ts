@@ -1,3 +1,4 @@
+import { createFolgenFilter } from "@ddfdb/core";
 import { NextResponse } from "next/server";
 
 import type {
@@ -20,8 +21,9 @@ export async function GET(
 
   const folgen = await archivApi.getFolgen();
 
-  const results: SearchResult[] = folgen
-    .filter((folge) => folge.title.toLowerCase().includes(query.toLowerCase()))
+  const results: SearchResult[] = createFolgenFilter(folgen)
+    .search(query)
+    .results()
     .map(({ cover, id, title }) => ({ cover, id, title }));
 
   return NextResponse.json({ results });

@@ -47,6 +47,8 @@ export function UserRatedFolgen({
   return (
     <section aria-label="Sort your ratings" className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
+        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
+
         <SortSelector
           aria-label="Sortierung deiner Wertungen"
           onValueChange={(order) => {
@@ -67,8 +69,6 @@ export function UserRatedFolgen({
               : sortOption.order
           }
         />
-
-        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
       </div>
 
       <FolgenGrid>

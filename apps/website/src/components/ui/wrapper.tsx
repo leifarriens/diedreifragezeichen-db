@@ -6,7 +6,7 @@ export function Wrapper({ children, className, ...rest }: WrapperProps) {
   return (
     <div
       className={cn(
-        "mx-auto flex-1 self-center px-4 sm:px-10 xl:px-20",
+        "mx-auto flex-1 self-center px-4 sm:px-6 xl:px-20",
         className,
       )}
       {...rest}

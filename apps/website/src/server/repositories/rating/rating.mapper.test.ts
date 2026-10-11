@@ -2,20 +2,20 @@ import { describe, expect, it } from "vitest";
 
 import {
   toCommunityRatingResponse,
-  toRatingInsert,
-  toRatingResponse,
+  toUserRatingInsert,
+  toUserRatingResponse,
 } from "./rating.mapper";
 
 describe("rating mappers", () => {
   it("maps API ratings to integer database scores", () => {
     expect(
-      toRatingInsert({ folgeId: 42, score: 2.5, userId: "user-1" }),
+      toUserRatingInsert({ folgeId: 42, score: 2.5, userId: "user-1" }),
     ).toEqual({ folgeId: 42, score: 5, userId: "user-1" });
   });
 
   it("maps selected database ratings to API responses", () => {
     expect(
-      toRatingResponse({
+      toUserRatingResponse({
         folgeId: 42,
         score: 5,
         updatedAt: new Date("2025-01-01T12:00:00.000Z"),
@@ -32,8 +32,14 @@ describe("rating mappers", () => {
       toCommunityRatingResponse({
         folgeId: 42,
         numberOfRatings: 4,
+        popularity: 12,
         score: 3,
       }),
-    ).toEqual({ folgeId: 42, numberOfRatings: 4, score: 1.5 });
+    ).toEqual({
+      folgeId: 42,
+      numberOfRatings: 4,
+      popularity: 12,
+      score: 1.5,
+    });
   });
 });

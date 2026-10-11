@@ -60,46 +60,34 @@ export default function ArchiveBrowser({
 
   return (
     <Wrapper>
-      <section
-        aria-label="Archivfilter"
-        className="mb-6 rounded-2xl border border-white/10 bg-white/[0.04] p-4 shadow-xl shadow-black/10 sm:p-5"
-      >
+      <section aria-label="Archivfilter" className="mb-6">
         <div className="grid gap-5 lg:grid-cols-[auto_minmax(260px,1fr)_auto] lg:items-center">
-          <div>
-            <span className="mb-2 block text-xs font-semibold tracking-wide text-slate-400 uppercase">
-              Sortierung
-            </span>
-            <SortSelector
-              aria-label="Sortierung im Archiv"
-              className="w-full sm:w-auto"
-              onValueChange={(sortOrder) => {
-                updateFilters({ sortOrder });
-              }}
-              options={[
-                { label: "Neueste", value: "newest" },
-                { label: "Älteste", value: "oldest" },
-                { label: "Beste", value: "rating" },
-              ]}
-              value={sortOrder}
-            />
-          </div>
+          <SortSelector
+            aria-label="Sortierung im Archiv"
+            className="w-full sm:w-auto"
+            onValueChange={(sortOrder) => {
+              updateFilters({ sortOrder });
+            }}
+            options={[
+              { label: "Neueste", value: "newest" },
+              { label: "Älteste", value: "oldest" },
+              { label: "Beste", value: "rating" },
+              { label: "Beliebteste", value: "popularity" },
+            ]}
+            value={sortOrder}
+          />
 
-          <div className="min-w-0">
-            <span className="mb-2 block text-xs font-semibold tracking-wide text-slate-400 uppercase">
-              Erscheinungsjahr
-            </span>
-            <MultiRangeInput
-              debounceMs={200}
-              max={currentYear}
-              maxAriaLabel="Spätestes Erscheinungsjahr"
-              min={FIRST_RELEASE_YEAR}
-              minAriaLabel="Frühestes Erscheinungsjahr"
-              onChange={(yearRange) => {
-                updateFilters({ yearRange });
-              }}
-              value={yearRange}
-            />
-          </div>
+          <MultiRangeInput
+            debounceMs={200}
+            max={currentYear}
+            maxAriaLabel="Spätestes Erscheinungsjahr"
+            min={FIRST_RELEASE_YEAR}
+            minAriaLabel="Frühestes Erscheinungsjahr"
+            onChange={(yearRange) => {
+              updateFilters({ yearRange });
+            }}
+            value={yearRange}
+          />
 
           <Switch
             checked={includeSpecials}

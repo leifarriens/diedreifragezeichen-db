@@ -3,6 +3,7 @@ import type { CommunityRating, Rating } from "@ddfdb/user-api";
 
 type CommunityRatingSelectRow = Pick<RatingSelect, "folgeId"> & {
   numberOfRatings: number;
+  popularity: number;
   score: number;
 };
 type RatingInsert = typeof schema.rating.$inferInsert;
@@ -16,12 +17,18 @@ type RatingSelectRow = Pick<RatingSelect, "folgeId" | "score" | "updatedAt">;
 export function toCommunityRatingResponse({
   folgeId,
   numberOfRatings,
+  popularity,
   score,
 }: CommunityRatingSelectRow): CommunityRating {
-  return { folgeId, numberOfRatings, score: score / 2 };
+  return {
+    folgeId,
+    numberOfRatings,
+    popularity,
+    score: score / 2,
+  };
 }
 
-export function toRatingInsert({
+export function toUserRatingInsert({
   folgeId,
   score,
   userId,
@@ -29,7 +36,7 @@ export function toRatingInsert({
   return { folgeId, score: score * 2, userId };
 }
 
-export function toRatingResponse({
+export function toUserRatingResponse({
   folgeId,
   score,
   updatedAt,

@@ -123,13 +123,14 @@ export function SearchInput({ className }: SearchInputProps) {
     <div className={className}>
       <Autocomplete.Root
         items={searchQuery.data}
+        mode="none"
         onValueChange={handleValueChange}
         value={value}
       >
         <label ref={containerRef}>
           <Autocomplete.Input
             aria-label="Folgen Archiv durchsuchen"
-            className="h-full w-full rounded-xl border bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none"
+            className="h-full w-full rounded-xl border border-neutral-100 bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none"
             placeholder="Name, Nummer oder Erscheinungsjahr"
             ref={inputRef}
           />
@@ -144,7 +145,7 @@ export function SearchInput({ className }: SearchInputProps) {
             >
               <Autocomplete.Popup
                 aria-busy={searchQuery.isFetching || undefined}
-                className="max-h-92 w-(--anchor-width) max-w-(--available-width) overflow-hidden rounded-2xl border border-neutral-500 bg-[#000b0e] shadow-2xl"
+                className="max-h-92 w-(--anchor-width) max-w-(--available-width) overflow-hidden rounded-xl border border-neutral-500 bg-[#000b0e] shadow-2xl"
               >
                 <Autocomplete.Status>{status}</Autocomplete.Status>
                 <Autocomplete.Empty className="px-4 py-3 text-sm empty:m-0 empty:p-0">

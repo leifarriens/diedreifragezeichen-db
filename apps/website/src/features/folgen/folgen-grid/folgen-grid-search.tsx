@@ -9,6 +9,7 @@ export function FolgenGridSearch({ onChange, value }: FolgenGridSearchProps) {
   return (
     <div>
       <Input
+        className="w-72"
         onChange={(e) => {
           onChange(e.target.value);
         }}

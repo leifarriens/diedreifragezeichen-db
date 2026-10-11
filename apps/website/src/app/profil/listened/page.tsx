@@ -10,7 +10,7 @@ export default async function ListenedPage() {
 
   const [folgen, userListened] = await Promise.all([
     getAllFolgenWithCommunityRatings(),
-    caller.listened.getUserListened(),
+    caller.listened.getMyListenedFolgen(),
   ]);
 
   const userListenedFolgen = selectCollectionFolgen(folgen, userListened);

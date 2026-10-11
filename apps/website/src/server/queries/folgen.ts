@@ -28,7 +28,7 @@ export async function getFolgeWithCommunityRatingById(
 ): Promise<FolgeWithCommunityRating> {
   const [archiveFolge, communityRating] = await Promise.all([
     archivApi.getFolgeById(folgeId),
-    caller.ratings.getCommunityForFolge({ folgeId }),
+    caller.ratings.getCommunityRatingForFolge({ folgeId }),
   ]);
 
   return enrichFolgeWithCommunityRating(archiveFolge, communityRating);

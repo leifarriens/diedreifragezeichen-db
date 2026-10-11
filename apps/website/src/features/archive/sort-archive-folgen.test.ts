@@ -7,13 +7,15 @@ import { sortArchiveFolgen } from "./sort-archive-folgen";
 function makeFolge(
   id: number,
   score: null | number,
+  popularity: number,
   releaseDate: string,
 ): FolgeWithCommunityRating {
   return {
     artwork: null,
     authors: [],
     collection: "serie",
-    communityRating: score === null ? null : { numberOfRatings: 1, score },
+    communityRating:
+      score === null ? null : { numberOfRatings: 1, popularity, score },
     cover: null,
     description: null,
     id,
@@ -29,10 +31,10 @@ function makeFolge(
 }
 
 const folgen = [
-  makeFolge(1, 2, "1980-01-01"),
-  makeFolge(2, 3, "2000-01-01"),
-  makeFolge(3, null, "2010-01-01"),
-  makeFolge(4, 3, "1990-01-01"),
+  makeFolge(1, 2, 20, "1980-01-01"),
+  makeFolge(2, 3, 5, "2000-01-01"),
+  makeFolge(3, null, 0, "2010-01-01"),
+  makeFolge(4, 3, 30, "1990-01-01"),
 ];
 
 describe("archive Folge sorting", () => {
@@ -40,6 +42,12 @@ describe("archive Folge sorting", () => {
     expect(sortArchiveFolgen(folgen, "rating").map(({ id }) => id)).toEqual([
       2, 4, 1, 3,
     ]);
+  });
+
+  it("sorts by popularity, with Folgen without ratings last", () => {
+    expect(
+      sortArchiveFolgen(folgen, "popularity").map(({ id }) => id),
+    ).toEqual([4, 1, 2, 3]);
   });
 
   it("does not mutate the input array", () => {

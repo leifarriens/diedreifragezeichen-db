@@ -23,7 +23,7 @@ function Toasts() {
 
   return toasts.map((toast) => (
     <Toast.Root
-      className={cn(styles.toast, "bg-[#000b0e] text-[#fffffc]")}
+      className={cn(styles.toast, "rounded-xl bg-[#000b0e] text-[#fffffc]")}
       key={toast.id}
       toast={toast}
     >

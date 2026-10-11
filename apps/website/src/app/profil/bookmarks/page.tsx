@@ -10,7 +10,7 @@ export default async function BookmarksPage() {
 
   const [folgen, userBookmarks] = await Promise.all([
     getAllFolgenWithCommunityRatings(),
-    caller.bookmarks.getUserBookmarks(),
+    caller.bookmarks.getMyBookmarks(),
   ]);
 
   const userBookmarkedFolgen = selectCollectionFolgen(folgen, userBookmarks);

@@ -2,6 +2,7 @@ import type { Folge } from "@ddfdb/archiv/contracts";
 
 export interface CommunityRatingSummary {
   numberOfRatings: number;
+  popularity: number;
   score: number;
 }
 
@@ -45,6 +46,7 @@ export function enrichFolgeWithCommunityRating<T extends { id: number }>(
     communityRating: communityRating
       ? {
           numberOfRatings: communityRating.numberOfRatings,
+          popularity: communityRating.popularity,
           score: communityRating.score,
         }
       : null,

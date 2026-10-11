@@ -2,6 +2,7 @@ export type AnySortOption =
   | BookmarkDateSortOption
   | CommunityRatingSortOption
   | ListenedDateSortOption
+  | PopularitySortOption
   | ReleaseDateSortOption
   | UserRatingSortOption
   | UserRatingUpdatedSortOption;
@@ -19,6 +20,11 @@ export interface CommunityRatingSortOption {
 export interface ListenedDateSortOption {
   by: "listenedAt";
   order: "newest" | "oldest";
+}
+
+export interface PopularitySortOption {
+  by: "popularity";
+  order: "highest" | "lowest";
 }
 
 export interface ReleaseDateSortOption {
@@ -54,6 +60,10 @@ interface ListenedFolge {
   listenedAt: null | string;
 }
 
+interface PopularityScoredFolge {
+  communityRating: null | { popularity: number };
+}
+
 interface UserRatedFolge {
   userRating: null | number;
 }
@@ -77,6 +87,10 @@ export function sortFolgen<T extends ListenedFolge & SortableFolge>(
 export function sortFolgen<T extends CommunityRatedFolge & SortableFolge>(
   folgen: readonly T[],
   sort: CommunityRatingSortOption,
+): T[];
+export function sortFolgen<T extends PopularityScoredFolge & SortableFolge>(
+  folgen: readonly T[],
+  sort: PopularitySortOption,
 ): T[];
 export function sortFolgen<T extends SortableFolge & UserRatingUpdatedFolge>(
   folgen: readonly T[],
@@ -140,6 +154,17 @@ function compareFolgen(
       );
 
       return comparison || compareByTitleAndId(left, right);
+    }
+    case "popularity": {
+      const comparison = compareNullableNumbers(
+        getPopularity(left),
+        getPopularity(right),
+        sort.order,
+      );
+
+      if (comparison !== 0) return comparison;
+
+      return compareReleaseDates(left, right, "newest");
     }
     case "releaseDate":
       return compareReleaseDates(left, right, sort.order);
@@ -260,6 +285,16 @@ function getListenedAt(folge: SortableFolge): null | string {
   return folge.listenedAt;
 }
 
+function getPopularity(folge: SortableFolge): null | number {
+  if (!("communityRating" in folge) || !isRecord(folge.communityRating)) {
+    return null;
+  }
+
+  return typeof folge.communityRating.popularity === "number"
+    ? folge.communityRating.popularity
+    : null;
+}
+
 function getUserRating(folge: SortableFolge): null | number {
   if (!("userRating" in folge) || typeof folge.userRating !== "number") {
     return null;
@@ -277,4 +312,8 @@ function getUserRatingUpdatedAt(folge: SortableFolge): null | string {
   }
 
   return folge.userRatingUpdatedAt;
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null;
 }

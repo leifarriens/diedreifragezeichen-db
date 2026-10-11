@@ -4,7 +4,7 @@ export interface Bookmark {
 }
 
 export interface BookmarkRepository {
-  addBookmark(input: { folgeId: number; userId: string }): Promise<Bookmark>;
-  getUserBookmarks(input: { userId: string }): Promise<Bookmark[]>;
-  removeBookmark(input: { folgeId: number; userId: string }): Promise<void>;
+  createBookmark(input: { folgeId: number; userId: string }): Promise<Bookmark>;
+  deleteBookmark(input: { folgeId: number; userId: string }): Promise<void>;
+  findBookmarksByUserId(input: { userId: string }): Promise<Bookmark[]>;
 }

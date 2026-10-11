@@ -5,7 +5,7 @@ import { filterArchiveFolgen, sortArchiveFolgen } from "./archive-folgen";
 const folgen = [
   {
     collection: "serie",
-    communityRating: { score: 4, votes: 2 },
+    communityRating: { popularity: 10, score: 4, votes: 2 },
     id: 1,
     number: 1,
     release_date: "1990-04-10",
@@ -13,7 +13,7 @@ const folgen = [
   },
   {
     collection: "serie",
-    communityRating: { score: 5, votes: 3 },
+    communityRating: { popularity: 25, score: 5, votes: 3 },
     id: 2,
     number: 2,
     release_date: "2000-08-12",
@@ -29,7 +29,7 @@ const folgen = [
   },
   {
     collection: "serie",
-    communityRating: null,
+    communityRating: { popularity: 0, score: 0, votes: 0 },
     id: 4,
     number: 4,
     release_date: null,
@@ -58,7 +58,7 @@ describe("archive Folgen", () => {
     ).toEqual([1, 2, 4]);
   });
 
-  it("sorts by release date and community rating", () => {
+  it("sorts by release date, community rating and popularity", () => {
     expect(sortArchiveFolgen(folgen, "newest").map(({ id }) => id)).toEqual([
       2, 3, 1, 4,
     ]);
@@ -66,7 +66,10 @@ describe("archive Folgen", () => {
       1, 3, 2, 4,
     ]);
     expect(sortArchiveFolgen(folgen, "rating").map(({ id }) => id)).toEqual([
-      2, 1, 3, 4,
+      2, 1, 4, 3,
     ]);
+    expect(
+      sortArchiveFolgen(folgen, "popularity").map(({ id }) => id),
+    ).toEqual([2, 1, 4, 3]);
   });
 });

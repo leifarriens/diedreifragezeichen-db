@@ -10,7 +10,7 @@ export default async function RatingsPage() {
 
   const [folgen, userRatings] = await Promise.all([
     getAllFolgenWithCommunityRatings(),
-    caller.ratings.getMine(),
+    caller.ratings.getMyRatings(),
   ]);
 
   const userRatedFolgen = selectCollectionFolgen(folgen, userRatings);

@@ -27,8 +27,7 @@ export function FolgenUserRating({
       {
         onSuccess() {
           toastManager.add({
-            timeout: 300_000,
-            title: "Rating updated successfully",
+            title: `Bewertung für "${folgenTitle}" gespeichert`,
           });
         },
       },

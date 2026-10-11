@@ -3,7 +3,7 @@ export const FIRST_RELEASE_YEAR = 1979;
 export interface ArchiveFilters {
   includeSpecials: boolean;
   searchTerm: string;
-  sortOrder: "newest" | "oldest" | "rating";
+  sortOrder: "newest" | "oldest" | "popularity" | "rating";
   yearRange: { max: number; min: number };
 }
 
@@ -26,7 +26,11 @@ export function readArchiveFilters(
     includeSpecials: params.get("specials") === "1",
     searchTerm: params.get("q") ?? "",
     sortOrder:
-      sortOrder === "oldest" || sortOrder === "rating" ? sortOrder : "newest",
+      sortOrder === "oldest" ||
+      sortOrder === "rating" ||
+      sortOrder === "popularity"
+        ? sortOrder
+        : "newest",
     yearRange: { max, min },
   };
 }

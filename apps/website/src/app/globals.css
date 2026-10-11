@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @theme {
+  --color-ddf-red: #e91b24;
+  --color-ddf-blue: #02abeb;
+
   --animate-breathe: breathe 30s linear infinite;
   --animate-fade-in: fadeIn 150ms ease-in-out;
 
@@ -28,14 +31,7 @@
 
 :root {
   --background: #001727;
-  --foreground: #ededed;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --foreground: #ffffff;
 }
 
 body {

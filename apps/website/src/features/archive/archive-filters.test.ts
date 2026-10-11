@@ -29,6 +29,20 @@ describe("archive filter query parameters", () => {
     ).toEqual(filters);
   });
 
+  it("round-trips popularity sorting through the URL", () => {
+    const filters = {
+      ...readArchiveFilters("", CURRENT_YEAR),
+      sortOrder: "popularity",
+    } as const;
+
+    expect(
+      readArchiveFilters(
+        writeArchiveFilters("", filters, CURRENT_YEAR),
+        CURRENT_YEAR,
+      ),
+    ).toEqual(filters);
+  });
+
   it("removes default filters and preserves unrelated parameters", () => {
     expect(
       writeArchiveFilters(

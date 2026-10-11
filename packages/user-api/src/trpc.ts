@@ -61,65 +61,65 @@ export const appRouter = createTRPCRouter({
     addBookmark: protectedProcedure
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>
-        ctx.bookmarks.addBookmark({
+        ctx.bookmarks.createBookmark({
           folgeId: input.folgeId,
           userId: ctx.user.id,
         }),
       ),
-    getUserBookmarks: protectedProcedure.query(({ ctx }) =>
-      ctx.bookmarks.getUserBookmarks({ userId: ctx.user.id }),
+    getMyBookmarks: protectedProcedure.query(({ ctx }) =>
+      ctx.bookmarks.findBookmarksByUserId({ userId: ctx.user.id }),
     ),
     removeBookmark: protectedProcedure
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>
-        ctx.bookmarks.removeBookmark({
+        ctx.bookmarks.deleteBookmark({
           folgeId: input.folgeId,
           userId: ctx.user.id,
         }),
       ),
   }),
   listened: createTRPCRouter({
-    addListened: protectedProcedure
+    getMyListenedFolgen: protectedProcedure.query(({ ctx }) =>
+      ctx.listened.findListenedFolgenByUserId({ userId: ctx.user.id }),
+    ),
+    markFolgeAsListened: protectedProcedure
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>
-        ctx.listened.addListened({
+        ctx.listened.markFolgeAsListened({
           folgeId: input.folgeId,
           userId: ctx.user.id,
         }),
       ),
-    getUserListened: protectedProcedure.query(({ ctx }) =>
-      ctx.listened.getUserListened({ userId: ctx.user.id }),
-    ),
-    removeListened: protectedProcedure
+    markFolgeAsNotListened: protectedProcedure
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>
-        ctx.listened.removeListened({
+        ctx.listened.markFolgeAsNotListened({
           folgeId: input.folgeId,
           userId: ctx.user.id,
         }),
       ),
   }),
   ratings: createTRPCRouter({
-    getAllCommunityRatings: baseProcedure.query(({ ctx }) =>
-      ctx.ratings.findAllFolgenCommunityRatings(),
-    ),
-    getCommunityForFolge: baseProcedure
-      .input(z.object({ folgeId }))
-      .query(({ ctx, input }) =>
-        ctx.ratings.findCommunityFolgenRating({ folgeId: input.folgeId }),
-      ),
-    getMine: protectedProcedure.query(({ ctx }) =>
-      ctx.ratings.findAllUserRatings({ userId: ctx.user.id }),
-    ),
-    remove: protectedProcedure
+    deleteMyRating: protectedProcedure
       .input(z.object({ folgeId }))
       .mutation(({ ctx, input }) =>
-        ctx.ratings.removeRating({
+        ctx.ratings.deleteUserRating({
           folgeId: input.folgeId,
           userId: ctx.user.id,
         }),
       ),
-    set: protectedProcedure
+    getAllCommunityRatings: baseProcedure.query(({ ctx }) =>
+      ctx.ratings.findAllCommunityRatings(),
+    ),
+    getCommunityRatingForFolge: baseProcedure
+      .input(z.object({ folgeId }))
+      .query(({ ctx, input }) =>
+        ctx.ratings.findCommunityRatingByFolgeId({ folgeId: input.folgeId }),
+      ),
+    getMyRatings: protectedProcedure.query(({ ctx }) =>
+      ctx.ratings.findUserRatingsByUserId({ userId: ctx.user.id }),
+    ),
+    upsertMyRating: protectedProcedure
       .input(
         z.object({
           folgeId,
@@ -127,7 +127,7 @@ export const appRouter = createTRPCRouter({
         }),
       )
       .mutation(({ ctx, input }) =>
-        ctx.ratings.setRating({ ...input, userId: ctx.user.id }),
+        ctx.ratings.upsertUserRating({ ...input, userId: ctx.user.id }),
       ),
   }),
   user: createTRPCRouter({

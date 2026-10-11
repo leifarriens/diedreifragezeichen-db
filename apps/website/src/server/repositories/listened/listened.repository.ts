@@ -12,7 +12,16 @@ const listenedResponseSelection = {
 };
 
 export const listenedRepository: ListenedRepository = {
-  async addListened({ folgeId, userId }) {
+  async findListenedFolgenByUserId({ userId }) {
+    const listened = await db
+      .select(listenedResponseSelection)
+      .from(schema.listened)
+      .where(eq(schema.listened.userId, userId));
+
+    return listened.map(toListenedResponse);
+  },
+
+  async markFolgeAsListened({ folgeId, userId }) {
     const [listened] = await db
       .insert(schema.listened)
       .values({
@@ -31,16 +40,7 @@ export const listenedRepository: ListenedRepository = {
     return toListenedResponse(listened);
   },
 
-  async getUserListened({ userId }) {
-    const listened = await db
-      .select(listenedResponseSelection)
-      .from(schema.listened)
-      .where(eq(schema.listened.userId, userId));
-
-    return listened.map(toListenedResponse);
-  },
-
-  async removeListened({ folgeId, userId }) {
+  async markFolgeAsNotListened({ folgeId, userId }) {
     await db
       .delete(schema.listened)
       .where(

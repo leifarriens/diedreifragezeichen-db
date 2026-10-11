@@ -1,10 +1,11 @@
 import type { ComponentProps } from "react";
 
+import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import Link from "next/link";
 import { tv } from "tailwind-variants";
 
 const buttonVariants = tv({
-  base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-neutral-700 px-3 py-1.5 transition-colors hover:bg-neutral-700 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50",
+  base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 border-neutral-100 px-6 py-2 transition-colors hover:bg-neutral-100 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50",
 });
 
 export type ButtonProps =
@@ -44,6 +45,10 @@ export function Button(props: ButtonProps) {
   }
 
   return (
-    <button {...props} className={className} type={props.type ?? "button"} />
+    <ButtonPrimitive
+      {...props}
+      className={className}
+      type={props.type ?? "button"}
+    />
   );
 }

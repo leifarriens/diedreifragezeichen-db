@@ -55,12 +55,15 @@ export async function generateStaticParams() {
 function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
   const {
     artwork,
+    authors,
     communityRating,
     cover,
     description,
     release_date,
+    script_authors,
     streaming,
     title,
+    voice_roles,
     weblink,
   } = folge;
 
@@ -170,6 +173,33 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
             <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
               <h3 className="mb-4 text-2xl font-medium">Zusammenfassung</h3>
               <p className="text-justify">{description}</p>
+            </div>
+          )}
+
+          {voice_roles.length > 0 && (
+            <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
+              <h3 className="mb-4 text-2xl font-medium">Sprechrollen</h3>
+              <ul>
+                {voice_roles.map(({ role, speaker }) => (
+                  <li key={role}>
+                    {role}: {speaker}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {(authors.length > 0 || script_authors.length > 0) && (
+            <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
+              <h3 className="mb-4 text-2xl font-medium">Autoren</h3>
+              {authors.length > 0 && (
+                <p className="text-justify">Autoren: {authors.join(", ")}</p>
+              )}
+              {script_authors.length > 0 && (
+                <p className="text-justify">
+                  Drehbuchautoren: {script_authors.join(", ")}
+                </p>
+              )}
             </div>
           )}
         </Wrapper>

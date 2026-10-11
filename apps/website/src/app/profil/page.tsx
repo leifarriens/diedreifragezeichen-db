@@ -1,4 +1,3 @@
-import { SignOutButton } from "@/features/auth/sign-out-button";
 import { serverSessionGuard } from "@/server/auth";
 import { caller } from "@/trpc/server";
 
@@ -16,9 +15,8 @@ export default async function ProfilePage() {
             You are signed in and can now access your personal account.
           </p>
         </div>
-        <SignOutButton />
       </div>
-      <dl className="grid gap-4 rounded-2xl border border-black/10 bg-white p-6 sm:grid-cols-[max-content_1fr]">
+      <dl className="grid gap-4 rounded-2xl border p-6 sm:grid-cols-[max-content_1fr]">
         <dt className="font-medium">Name</dt>
         <dd>{user.name}</dd>
         <dt className="font-medium">Email</dt>
