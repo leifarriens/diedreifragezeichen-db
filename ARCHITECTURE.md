@@ -43,7 +43,7 @@ Both apps use small `fetch` clients rather than accessing SQLite or routing meta
 - Website: [`apps/website/src/lib/archiv-api.ts`](apps/website/src/lib/archiv-api.ts), configured with `DDFDB_ARCHIV_API_URL`.
 - Mobile: [`apps/mobile/src/api/archiv.ts`](apps/mobile/src/api/archiv.ts), configured with `EXPO_PUBLIC_DDFDB_ARCHIV_API_URL`.
 
-The shared TypeScript `Folge` contract is generated from the Go model in `services/archiv/internal/archive/folge.go` and imported as `@ddfdb/archiv/contracts`. Change the source model and regenerate the contract; do not hand-edit generated files.
+The shared TypeScript `Folge` contract is generated from the Go model in `services/archiv/internal/archive/folge.go`, checked in at `services/archiv/generated/folge.ts`, and imported as `@ddfdb/archiv/contracts`. Change the source model and regenerate the contract; do not hand-edit generated files.
 
 ## User data: user API and PostgreSQL
 

@@ -11,7 +11,7 @@ cd services/archiv
 go run ./cmd
 ```
 
-For a local rebuild-on-change loop, run `air` from `services/archiv`; it uses the checked-in `.air.toml`. Generate the TypeScript contract from `internal/archive/folge.go` with `pnpm --filter @ddfdb/archiv build`; Tygo writes `dist/folge.ts`, importable as `@ddfdb/archiv/contracts`. Build a standalone binary with `go build -o ./tmp/archiv ./cmd`.
+For a local rebuild-on-change loop, run `air` from `services/archiv`; it uses the checked-in `.air.toml`. Generate the TypeScript contract from `internal/archive/folge.go` with `pnpm --filter @ddfdb/archiv build`; Tygo writes `generated/folge.ts`, importable as `@ddfdb/archiv/contracts`. The generated contract is checked in so JavaScript builds do not need Go. Build a standalone binary with `go build -o ./tmp/archiv ./cmd`.
 
 The entry point is `cmd/main.go`; application code lives under `internal/archive`. On the first start, the service downloads `metadata/db.sql` from dreimetadaten, builds `./data/metadata.sqlite`, and starts listening on port `8080`. It refreshes the source data when the SQLite database is older than 24 hours. The SQL dump is cached alongside the database, so a recent cached dump can be reused if a database rebuild is needed. If a refresh fails but a valid cached database exists, the service logs a warning and continues to serve the stale data.
 

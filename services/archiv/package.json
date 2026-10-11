@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Standalone Go HTTP service for Folge metadata",
   "exports": {
-    "./contracts": "./dist/folge.ts"
+    "./contracts": "./generated/folge.ts"
   },
   "scripts": {
     "build": "go tool tygo generate",

@@ -9,4 +9,7 @@ if [[ "${VERCEL_ENV:-}" == "production" ]]; then
   pnpm --filter @ddfdb/db db:migrate
 fi
 
-pnpm exec turbo run build --filter=@ddfdb/website
+pnpm --recursive --sort \
+  --filter '@ddfdb/website...' \
+  --filter '!@ddfdb/archiv' \
+  run build

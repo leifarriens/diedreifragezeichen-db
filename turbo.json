@@ -36,6 +36,7 @@
       "cache": false
     }
   },
-  "globalDependencies": ["**/.env"],
-  "globalPassThroughEnv": ["NODE_ENV", "CI"]
+  "globalDependencies": ["**/.env*"],
+  "globalEnv": ["NODE_ENV"],
+  "globalPassThroughEnv": ["CI"]
 }
