@@ -1,4 +1,5 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
+import type { Metadata } from "next";
 
 import { Separator } from "@base-ui/react/separator";
 import {
@@ -8,6 +9,7 @@ import {
   isReleasDateInThePast,
 } from "@ddfdb/core";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
 import { ExternalLink } from "@/components/ui/external-link/external-link";
 import { Wrapper } from "@/components/ui/wrapper";
@@ -24,6 +26,8 @@ import { PageBackground } from "@/shell/page-background";
 export const dynamic = "force-static";
 export const revalidate = 3600; // 1 hour
 
+const getCachedPageData = cache(getFolgeWithCommunityRatingById);
+
 export default async function FolgePage({
   params,
 }: {
@@ -35,7 +39,7 @@ export default async function FolgePage({
 
   let folge: FolgeWithCommunityRating;
   try {
-    folge = await getFolgeWithCommunityRatingById(folgeId);
+    folge = await getCachedPageData(folgeId);
   } catch (error) {
     if (error instanceof ArchivApiError && error.status === 404) {
       notFound();
@@ -46,10 +50,44 @@ export default async function FolgePage({
   return <Folge folge={folge} />;
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
+  const folge = await getCachedPageData(parseInt(id, 10));
+
+  const title = folge.number
+    ? `Folge ${folge.number.toString()} ${folge.title}`
+    : folge.title;
+
+  return {
+    description: folge.description
+      ? cutToMaxLength(folge.description, 160)
+      : null,
+    title,
+  };
+}
+
 export async function generateStaticParams() {
   const folgen = await archivApi.getFolgen();
 
   return folgen.map(({ id }) => ({ id: String(id) }));
+}
+
+function cutToMaxLength(text: string, maxLength: number) {
+  if (text.length <= maxLength) {
+    return text;
+  }
+
+  const truncated = text.slice(0, maxLength);
+  const lastSpaceIndex = truncated.lastIndexOf(" ");
+  if (lastSpaceIndex === -1) {
+    return truncated;
+  }
+  return `${truncated.slice(0, lastSpaceIndex)}...`;
 }
 
 function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
@@ -86,15 +124,23 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
             )}
 
             <div>
-              <h2 className="mb-2 font-serif text-2xl font-thin lg:text-3xl">
-                Die drei ???
-              </h2>
+              <h1>
+                <span className="mb-2 block font-serif text-2xl font-thin lg:text-3xl">
+                  Die drei ???&nbsp;
+                </span>
 
-              <h1 className="font-serif text-4xl font-semibold lg:text-5xl">
-                {title}
+                <span className="block font-serif text-4xl font-semibold lg:text-5xl">
+                  {title}
+                </span>
               </h1>
 
-              <div className="mt-2 text-lg text-neutral-300">
+              {folge.number ? (
+                <h2 className="mt-2 text-lg">
+                  Folge {folge.number.toString()}
+                </h2>
+              ) : null}
+
+              <div className="mt-2 text-neutral-300">
                 {release_date && (
                   <>
                     <div>
@@ -110,7 +156,7 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
               <div className="mt-6 flex gap-4">
                 <div className="flex flex-col items-center">
-                  <h4 className="mb-1 text-xs font-semibold">DDFDB Wertung</h4>
+                  <p className="mb-1 text-xs font-semibold">DDFDB Wertung</p>
                   <FolgenRatingDisplay
                     folgenTitle={title}
                     size="lg"
@@ -120,7 +166,7 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 </div>
 
                 <div className="flex flex-col items-center">
-                  <h4 className="mb-1 text-xs font-semibold">Deine Wertung</h4>
+                  <p className="mb-1 text-xs font-semibold">Deine Wertung</p>
                   <FolgenUserRating folgeId={folge.id} folgenTitle={title} />
                 </div>
               </div>
@@ -135,7 +181,7 @@ function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
                 {weblink && (
                   <ExternalLink
-                    aria-label="Öffnet die Folge auf dreifragezeichen.de in einem neuen Tab (externer Link)"
+                    ariaLabel="Öffnet die Folge auf dreifragezeichen.de in einem neuen Tab"
                     href={weblink}
                     title="dreifragezeichen.de"
                   >

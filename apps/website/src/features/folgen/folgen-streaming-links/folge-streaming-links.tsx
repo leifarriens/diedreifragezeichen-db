@@ -34,11 +34,11 @@ export function FolgenStreamingLinks({ streaming }: FolgenStreamingLinksProps) {
     .map(([key, { link }]) => {
       const label = STREAMING_SERVICES[key as StreamingService];
       const Icon = STREAMING_SERVICE_ICONS[key as StreamingService];
-      const ariaLabel = `Öffnet ${label} in einem neuen Tab (externer Link)`;
+      const ariaLabel = `Öffnet ${label} in einem neuen Tab`;
 
       return (
         <ExternalLink
-          aria-label={ariaLabel}
+          ariaLabel={ariaLabel}
           className="inline-flex items-center justify-center rounded-md text-neutral-200 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           href={link}
           key={key}

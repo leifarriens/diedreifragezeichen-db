@@ -3,6 +3,7 @@
 import { Toggle } from "@base-ui/react/toggle";
 import { useRouter } from "next/navigation";
 
+import { useToast } from "@/components/ui/toast/toast";
 import { useAuth } from "@/features/auth/use-auth";
 
 import { useUpdateFolgenBookmark, useUserBookmarks } from "./use-bookmarks";
@@ -21,6 +22,7 @@ export function FolgenBookmarkButton({
   size,
 }: FolgenBookmarkButtonProps) {
   const { isAuthenticated, isPending } = useAuth();
+  const toast = useToast();
   const router = useRouter();
   const { addBookmarkMutation, isLoading, removeBookmarkMutation } =
     useUpdateFolgenBookmark();
@@ -36,7 +38,16 @@ export function FolgenBookmarkButton({
     if (isBookmarked) {
       removeBookmarkMutation.mutate({ folgeId });
     } else {
-      addBookmarkMutation.mutate({ folgeId });
+      addBookmarkMutation.mutate(
+        { folgeId },
+        {
+          onSuccess() {
+            toast.add({
+              title: `${folgeTitle} gespeichert`,
+            });
+          },
+        },
+      );
     }
   }
 

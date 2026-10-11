@@ -1,5 +1,5 @@
 {
-  "name": "@ddfdb/monorepo",
+  "name": "@ddfdb",
   "version": "0.1.0",
   "private": true,
   "description": "No Frameworks included Typescript Monorepo Template with Linter, Tests & CI",

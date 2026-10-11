@@ -7,6 +7,9 @@
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "env": ["APP_ENV", "EXPO_OS"],
       "outputs": [".expo/**", "dist/**"]
+    },
+    "dev": {
+      "env": ["APP_ENV", "EXPO_OS"]
     }
   }
 }

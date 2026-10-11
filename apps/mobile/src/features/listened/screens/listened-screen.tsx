@@ -101,9 +101,13 @@ function useUserListenedFolgen() {
   }
 
   return {
-    data: selectCollectionFolgen(
-      folgenQuery.data ?? [],
-      useUserListenedQuery.data ?? [],
+    data: useMemo(
+      () =>
+        selectCollectionFolgen(
+          folgenQuery.data ?? [],
+          useUserListenedQuery.data ?? [],
+        ),
+      [folgenQuery.data, useUserListenedQuery.data],
     ),
     isLoading: folgenQuery.isLoading || useUserListenedQuery.isLoading,
     isRefreshing: useUserListenedQuery.isRefetching,

@@ -41,7 +41,7 @@ function Toasts() {
   ));
 }
 
-export const useToastManager = Toast.useToastManager;
+export const useToast = Toast.useToastManager;
 
 function XIcon(props: React.ComponentProps<"svg">) {
   return (

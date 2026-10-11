@@ -1,6 +1,6 @@
 "use client";
 
-import { useToastManager } from "@/components/ui/toast/toast";
+import { useToast } from "@/components/ui/toast/toast";
 
 import { useUpdateRating, useUserFolgenRating } from "../hooks/use-ratings";
 import { FolgenRatingInput } from "./folgen-rating-input";
@@ -14,7 +14,7 @@ export function FolgenUserRating({
   folgeId,
   folgenTitle,
 }: FolgenUserRatingProps) {
-  const toastManager = useToastManager();
+  const toastManager = useToast();
 
   const { isLoading: isUserRatingLoading, rating } =
     useUserFolgenRating(folgeId);

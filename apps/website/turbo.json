@@ -7,8 +7,12 @@
       "env": [
         "BETTER_AUTH_SECRET",
         "BETTER_AUTH_URL",
+        "CRON_SECRET",
         "DATABASE_URL",
         "DDFDB_ARCHIV_API_URL",
+        "MONGODB_URI",
+        "SPOTIFY_CLIENT_ID",
+        "SPOTIFY_CLIENT_SECRET",
         "TRPC_CORS_ORIGINS"
       ]
     },
@@ -16,8 +20,12 @@
       "env": [
         "BETTER_AUTH_SECRET",
         "BETTER_AUTH_URL",
+        "CRON_SECRET",
         "DATABASE_URL",
         "DDFDB_ARCHIV_API_URL",
+        "MONGODB_URI",
+        "SPOTIFY_CLIENT_ID",
+        "SPOTIFY_CLIENT_SECRET",
         "TRPC_CORS_ORIGINS"
       ]
     }

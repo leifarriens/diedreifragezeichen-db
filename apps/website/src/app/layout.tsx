@@ -14,7 +14,7 @@ import { TRPCReactProvider } from "@/trpc/client";
 const CURRENT_YEAR = new Date().getFullYear();
 
 export const metadata: Metadata = {
-  description: "Das Hörspielarchiv der drei ???.",
+  description: "Das Hörspielarchiv der Drei ???.",
   title: {
     default: "Drei Fragezeichen DB",
     template: "%s | Drei Fragezeichen DB",

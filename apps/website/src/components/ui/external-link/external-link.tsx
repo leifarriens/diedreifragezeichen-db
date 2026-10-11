@@ -1,11 +1,11 @@
 export function ExternalLink({
-  "aria-label": ariaLabel,
+  ariaLabel: ariaLabel,
   children,
   className,
   href,
   title,
 }: {
-  "aria-label"?: string;
+  ariaLabel: string;
   children: React.ReactNode;
   className?: string;
   href: string;
@@ -13,7 +13,7 @@ export function ExternalLink({
 }) {
   return (
     <a
-      aria-label={ariaLabel}
+      aria-label={`${ariaLabel} (externer Link)`}
       className={className}
       href={href}
       rel="noopener noreferrer"

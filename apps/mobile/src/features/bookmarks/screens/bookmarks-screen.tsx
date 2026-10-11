@@ -101,9 +101,13 @@ function useUserBookmarkedFolgen() {
   }
 
   return {
-    data: selectCollectionFolgen(
-      folgenQuery.data ?? [],
-      userBookmarksQuery.data ?? [],
+    data: useMemo(
+      () =>
+        selectCollectionFolgen(
+          folgenQuery.data ?? [],
+          userBookmarksQuery.data ?? [],
+        ),
+      [folgenQuery.data, userBookmarksQuery.data],
     ),
     isLoading: folgenQuery.isLoading || userBookmarksQuery.isLoading,
     isRefreshing: userBookmarksQuery.isRefetching,

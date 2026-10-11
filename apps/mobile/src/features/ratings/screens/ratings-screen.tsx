@@ -115,9 +115,13 @@ function useUserRatedFolgen() {
   }
 
   return {
-    data: selectCollectionFolgen(
-      folgenQuery.data ?? [],
-      userRatingsQuery.data ?? [],
+    data: useMemo(
+      () =>
+        selectCollectionFolgen(
+          folgenQuery.data ?? [],
+          userRatingsQuery.data ?? [],
+        ),
+      [folgenQuery.data, userRatingsQuery.data],
     ),
     isLoading: folgenQuery.isLoading || userRatingsQuery.isLoading,
     isRefreshing: userRatingsQuery.isRefetching,

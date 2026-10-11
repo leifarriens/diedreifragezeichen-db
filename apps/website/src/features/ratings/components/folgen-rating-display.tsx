@@ -57,7 +57,7 @@ export function FolgenRatingDisplay({
   const hasRating = !!value;
   const filledCount = hasRating ? Math.ceil(value) : 0;
   const gradientId = useId().replaceAll(":", "");
-  const placeholderOpacity = type === "user" ? 0.3 : 0.7;
+  const placeholderOpacity = 0.5;
 
   const { container, iconContainer } = rating({
     size,
@@ -77,19 +77,15 @@ export function FolgenRatingDisplay({
               index === filledCount - 1 &&
               value !== null &&
               value % 1 !== 0;
-            const iconClassName = isRated
-              ? "animate-fade-in"
-              : type === "user"
-                ? "opacity-30"
-                : "opacity-70";
             const iconGradientId = `${gradientId}-${index.toString()}`;
 
             return (
               <QSvg
-                className={cn("h-full w-auto", iconClassName)}
+                className="h-full w-auto"
                 color={isRated ? colors[type][index] : "#ffffff"}
                 fill={isPartial ? `url(#${iconGradientId})` : undefined}
                 key={`q-${index.toString()}`}
+                style={{ opacity: isRated ? 1 : placeholderOpacity }}
               >
                 {isPartial && (
                   <defs>

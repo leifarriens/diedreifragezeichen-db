@@ -62,7 +62,7 @@ export const FolgenGridItem = memo(function FolgenGridItem({
         </div>
 
         {isInView && (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             {userRating !== null && (
               <FolgenRatingDisplay
                 folgenTitle={folge.title}

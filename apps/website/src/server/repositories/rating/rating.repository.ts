@@ -58,8 +58,6 @@ export const ratingRepository: RatingRepository = {
       .where(eq(schema.rating.folgeId, folgeId))
       .groupBy(schema.rating.folgeId);
 
-    console.log(rating);
-
     return rating ? toCommunityRatingResponse(rating) : null;
   },
 
