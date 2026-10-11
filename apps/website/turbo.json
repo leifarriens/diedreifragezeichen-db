@@ -1,8 +1,9 @@
 {
-  "$schema": "https://turborepo.dev/schema.v2.json",
+  "$schema": "https://turbo.build/schema.json",
   "extends": ["//"],
   "tasks": {
     "build": {
+      "outputs": [".next/**", "!.next/cache/**"],
       "env": [
         "BETTER_AUTH_SECRET",
         "BETTER_AUTH_URL",

@@ -17,4 +17,4 @@ DATABASE_URL=postgres://ddfdb:ddfdb@localhost:5435/ddfdb pnpm --filter @ddfdb/db
 DATABASE_URL=postgres://ddfdb:ddfdb@localhost:5435/ddfdb pnpm --filter @ddfdb/db db:migrate
 ```
 
-`db:generate` writes versioned SQL migrations to `packages/db/drizzle`. `db:migrate` applies those migrations. Do not use schema push for deployed environments.
+`db:generate` writes versioned SQL migrations to `packages/db/migrations`. `db:migrate` applies those migrations. Do not use schema push for deployed environments.

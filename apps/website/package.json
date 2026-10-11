@@ -6,6 +6,7 @@
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
+    "vercel:build": "bash ../../scripts/vercel-build.sh",
     "clean": "git clean -xdf .cache .turbo dist .next",
     "lint": "eslint --cache --cache-location .cache/.eslintcach",
     "test:watch": "vitest",
