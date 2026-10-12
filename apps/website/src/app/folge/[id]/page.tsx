@@ -235,7 +235,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
               <h3 className="mb-4 text-2xl font-medium">Sprechrollen</h3>
               <ul>
                 {voice_roles.map(({ role, speaker }) => (
-                  <li key={role}>
+                  <li key={`${role}-${speaker}`}>
                     {role}: {speaker}
                   </li>
                 ))}

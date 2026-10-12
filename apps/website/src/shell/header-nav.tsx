@@ -26,11 +26,11 @@ export function HeaderNav() {
   const { isAuthenticated, isPending, session } = useAuth();
 
   return (
-    <div className="sticky top-0 z-40 w-full sm:px-8 sm:py-8">
+    <div className="pointer-events-none sticky top-0 z-40 w-full sm:px-8 sm:py-8">
       <div
         className={cn(
           styles.container,
-          "grid justify-end gap-x-4 gap-y-5 border border-transparent px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
+          "pointer-events-auto grid justify-end gap-x-4 gap-y-5 border border-transparent px-6 py-8 transition-all duration-300 sm:rounded-xl sm:bg-transparent sm:px-12 sm:py-6",
           {
             "shadow-lg sm:border-blue-900/30 sm:bg-blue-400/10 sm:backdrop-blur-xl sm:backdrop-brightness-50":
               isScrolled,

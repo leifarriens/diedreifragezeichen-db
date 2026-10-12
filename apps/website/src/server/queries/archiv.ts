@@ -7,12 +7,12 @@ import { archivApi } from "../archiv-api";
 export async function searchArchiv(query: string): Promise<SearchResult[]> {
   const folgen = await archivApi.getFolgen();
 
-  const results = sortFolgen(
+  const results: SearchResult[] = sortFolgen(
     createFolgenFilter(folgen).search(query).results(),
     { by: "releaseDate", order: "newest" },
   )
     .slice(0, 6)
-    .map(({ cover, id, title }) => ({ cover, id, title }));
+    .map(({ cover, id, number, title }) => ({ cover, id, number, title }));
 
   return results;
 }

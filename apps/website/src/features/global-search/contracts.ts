@@ -4,4 +4,4 @@ export interface SearchResponse {
   results: SearchResult[];
 }
 
-export type SearchResult = Pick<Folge, "cover" | "id" | "title">;
+export type SearchResult = Pick<Folge, "cover" | "id" | "number" | "title">;

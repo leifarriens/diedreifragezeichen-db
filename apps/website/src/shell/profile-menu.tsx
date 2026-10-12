@@ -73,11 +73,11 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
     <Popover.Root>
       <Popover.Trigger
         aria-label="Profilmenü öffnen"
-        className="inline-flex size-9 shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="inline-flex shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
-        <Avatar.Root className="inline-flex size-9 items-center justify-center overflow-hidden rounded-full bg-ddf-blue align-middle text-sm leading-none font-normal text-white select-none">
+        <Avatar.Root className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/20 align-middle text-sm leading-none font-normal text-white backdrop-blur-2xl select-none">
           <Avatar.Fallback
-            className="flex size-full items-center justify-center text-sm"
+            className="flex size-full items-center justify-center text-base font-medium"
             delay={600}
           >
             {initials}
