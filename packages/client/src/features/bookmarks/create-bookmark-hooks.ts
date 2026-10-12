@@ -97,7 +97,8 @@ export function createBookmarkHooks({
 
     return {
       addBookmarkMutation,
-      isLoading: addBookmarkMutation.isPending || removeBookmarkMutation.isPending,
+      isLoading:
+        addBookmarkMutation.isPending || removeBookmarkMutation.isPending,
       removeBookmarkMutation,
     };
   }

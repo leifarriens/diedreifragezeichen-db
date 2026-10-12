@@ -1,3 +1,4 @@
+import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const { getFolgen } = vi.hoisted(() => ({ getFolgen: vi.fn() }));
@@ -13,6 +14,46 @@ beforeEach(() => {
 });
 
 describe("GET /api/v0/search", () => {
+  it.each(["Geister", "GEISTER", "  geister  "])(
+    "finds the same results for equivalent queries: %j",
+    async (query) => {
+      getFolgen.mockResolvedValue([
+        {
+          collection: "serie",
+          cover: null,
+          id: 1,
+          number: 1,
+          release_date: null,
+          title: "Geisterhaus",
+        },
+      ]);
+
+      const response = await GET(
+        new NextRequest(
+          `http://localhost/api/v0/search?q=${encodeURIComponent(query)}`,
+        ),
+      );
+
+      await expect(response.json()).resolves.toEqual({
+        results: [{ cover: null, id: 1, title: "Geisterhaus" }],
+      });
+    },
+  );
+
+  it.each(["", "   ", "  A  "])(
+    "does not load the archive for an empty or short normalized query: %j",
+    async (query) => {
+      const response = await GET(
+        new NextRequest(
+          `http://localhost/api/v0/search?q=${encodeURIComponent(query)}`,
+        ),
+      );
+
+      await expect(response.json()).resolves.toEqual({ results: [] });
+      expect(getFolgen).not.toHaveBeenCalled();
+    },
+  );
+
   it("finds episodes by release year", async () => {
     getFolgen.mockResolvedValue([
       {
@@ -34,7 +75,7 @@ describe("GET /api/v0/search", () => {
     ]);
 
     const response = await GET(
-      new Request("http://localhost/api/v0/search?q=1999"),
+      new NextRequest("http://localhost/api/v0/search?q=1999"),
     );
 
     await expect(response.json()).resolves.toEqual({

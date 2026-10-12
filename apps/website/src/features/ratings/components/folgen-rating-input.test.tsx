@@ -5,6 +5,13 @@ import type { ComponentProps } from "react";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+const { push } = vi.hoisted(() => ({ push: vi.fn() }));
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push }) }));
+vi.mock("@/features/auth/use-auth", () => ({
+  useAuth: () => ({ isAuthenticated: true, isPending: false }),
+}));
+
 import { FolgenRatingInput as FolgenRatingInputComponent } from "./folgen-rating-input";
 
 function FolgenRatingInput(

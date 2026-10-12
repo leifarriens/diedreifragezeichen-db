@@ -11,11 +11,13 @@ interface CommunityRating {
 export function buildLegacyFolge(
   folge: LegacyFolge,
   update: Folge & { communityRating: CommunityRating | null },
-): LegacyFolge & {
+): Omit<LegacyFolge, "_id"> & {
+  _id: string;
   id: number;
 } {
   return {
     ...folge,
+    _id: folge._id.toHexString(),
     deezer_id: update.streaming.deezer?.id ?? "",
     id: update.id,
     images: adaptImages(folge, update),

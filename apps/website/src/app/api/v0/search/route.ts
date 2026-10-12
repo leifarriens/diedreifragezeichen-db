@@ -1,30 +1,40 @@
-import { createFolgenFilter } from "@ddfdb/core";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import * as z from "zod";
 
-import type {
-  SearchResponse,
-  SearchResult,
-} from "@/features/global-search/contracts";
+import type { SearchResponse } from "@/features/global-search/contracts";
 
-import { archivApi } from "@/server/archiv-api";
+import { normalizeSearchQuery } from "@/features/global-search/normalize-search-query";
+import { searchArchiv } from "@/server/queries/archiv";
+
+const searchQueryParams = z.object({
+  q: z.string().min(2).max(100),
+});
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
 ): Promise<NextResponse<SearchResponse>> {
-  const { searchParams } = new URL(request.url);
+  const searchParams = Object.fromEntries(request.nextUrl.searchParams);
+  const result = searchQueryParams.safeParse(searchParams);
 
-  const query = searchParams.get("q")?.trim() ?? "";
-
-  if (!query || query.length < 2) {
+  if (!result.success) {
     return NextResponse.json({ results: [] });
   }
 
-  const folgen = await archivApi.getFolgen();
+  const query = normalizeSearchQuery(result.data.q);
 
-  const results: SearchResult[] = createFolgenFilter(folgen)
-    .search(query)
-    .results()
-    .map(({ cover, id, title }) => ({ cover, id, title }));
+  if (query.length < 2) {
+    return NextResponse.json({ results: [] });
+  }
 
-  return NextResponse.json({ results });
+  const results = await searchArchiv(query);
+
+  return NextResponse.json(
+    { results },
+    {
+      headers: {
+        "Cache-Control":
+          "public, max-age=0, s-maxage=300, stale-while-revalidate=60",
+      },
+    },
+  );
 }

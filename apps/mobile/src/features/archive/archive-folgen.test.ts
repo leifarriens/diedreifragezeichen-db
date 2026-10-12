@@ -68,8 +68,8 @@ describe("archive Folgen", () => {
     expect(sortArchiveFolgen(folgen, "rating").map(({ id }) => id)).toEqual([
       2, 1, 4, 3,
     ]);
-    expect(
-      sortArchiveFolgen(folgen, "popularity").map(({ id }) => id),
-    ).toEqual([2, 1, 4, 3]);
+    expect(sortArchiveFolgen(folgen, "popularity").map(({ id }) => id)).toEqual(
+      [2, 1, 4, 3],
+    );
   });
 });

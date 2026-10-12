@@ -57,7 +57,6 @@ function FolgenRatingSheet({
   const [draftValue, setDraftValue] = useState<null | number>(null);
   const localValue = draftValue ?? currentRating ?? 0;
   const canSubmit = draftValue && draftValue > 0;
-
   const { isLoading, ratingMutation } = useUpdateRating();
 
   function handleSubmit() {

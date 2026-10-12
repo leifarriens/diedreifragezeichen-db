@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
+
 import { redirect } from "next/navigation";
 
 import { LoginForm } from "@/features/auth/login-form";
 import { getServerSession } from "@/server/auth";
 import { PageBackground } from "@/shell/page-background";
+
+export const metadata: Metadata = {
+  robots: {
+    follow: false,
+    index: false,
+  },
+};
 
 export default async function LoginPage() {
   const session = await getServerSession();

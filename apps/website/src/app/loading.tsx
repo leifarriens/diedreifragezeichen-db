@@ -1,9 +1,9 @@
-import { LoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 
 export default function HomePageLoading() {
   return (
     <main className="grid place-items-center">
-      <LoadingIndicator ariaLabel="Seite wird geladen" />
+      <PageLoadingIndicator />
     </main>
   );
 }

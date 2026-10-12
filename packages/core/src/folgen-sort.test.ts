@@ -162,7 +162,6 @@ describe("sortFolgen", () => {
         ({ id }) => id,
       ),
     ).toEqual([1, 3, 2, 4, 5]);
-
   });
 
   it("sorts by release date from newest to oldest", () => {

@@ -443,6 +443,9 @@ importers:
       tailwind-variants:
         specifier: ^3.3.1
         version: 3.3.1(tailwind-merge@3.7.0)(tailwindcss@4.1.12)
+      zod:
+        specifier: ^4.6.5
+        version: 4.6.5
     devDependencies:
       '@ddfdb/eslint-config':
         specifier: workspace:*

@@ -21,7 +21,7 @@ GET `/api/folgen`
 
 | Param  | Description                                                                                                                              |
 | ------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| limit  | Type `number` - limits the listed items (max 20)                                                                                         |
+| limit  | Type `number` - limits the listed items (max 50)                                                                                         |
 | offset | Type `number` - skips the `offset` amount of results                                                                                     |
 | sort   | Type `string` - determines the order of the returned data. Possible values are: `['release_date', '-release_date', 'rating', '-rating']` |
 | query  | Type `string` - search for `name` and `number`                                                                                           |

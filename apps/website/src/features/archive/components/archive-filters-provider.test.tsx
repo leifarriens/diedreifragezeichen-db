@@ -92,9 +92,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ArchiveFiltersProvider currentYear={2026}>
         <SearchInput />
-        {route.pathname === "/" && (
-          <ArchiveBrowser archiveUnavailable={false} folgen={folgen} />
-        )}
+        {route.pathname === "/" && <ArchiveBrowser folgen={folgen} />}
       </ArchiveFiltersProvider>
     </QueryClientProvider>
   );

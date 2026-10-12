@@ -1,11 +1,9 @@
-import { serverSessionGuard } from "@/server/auth";
-import { caller } from "@/trpc/server";
+import { Suspense } from "react";
 
-export default async function ProfilePage() {
-  await serverSessionGuard();
+import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { getMe } from "@/server/queries/user-data";
 
-  const user = await caller.user.me();
-
+export default function ProfilePage() {
   return (
     <section className="space-y-8">
       <div className="flex items-start justify-between gap-4">
@@ -16,16 +14,27 @@ export default async function ProfilePage() {
           </p>
         </div>
       </div>
-      <dl className="grid gap-4 rounded-2xl border p-6 sm:grid-cols-[max-content_1fr]">
-        <dt className="font-medium">Name</dt>
-        <dd>{user.name}</dd>
-        <dt className="font-medium">Email</dt>
-        <dd>{user.email}</dd>
-        <dt className="font-medium">Email verified</dt>
-        <dd>{user.emailVerified ? "Yes" : "No"}</dd>
-        <dt className="font-medium">User ID</dt>
-        <dd className="font-mono text-sm break-all">{user.id}</dd>
-      </dl>
+
+      <Suspense fallback={<PageLoadingIndicator />}>
+        <ProfileContent />
+      </Suspense>
     </section>
+  );
+}
+
+async function ProfileContent() {
+  const user = await getMe();
+
+  return (
+    <dl className="grid gap-4 rounded-2xl border p-6 sm:grid-cols-[max-content_1fr]">
+      <dt className="font-medium">Name</dt>
+      <dd>{user.name}</dd>
+      <dt className="font-medium">Email</dt>
+      <dd>{user.email}</dd>
+      <dt className="font-medium">Email verified</dt>
+      <dd>{user.emailVerified ? "Yes" : "No"}</dd>
+      <dt className="font-medium">User ID</dt>
+      <dd className="font-mono text-sm break-all">{user.id}</dd>
+    </dl>
   );
 }

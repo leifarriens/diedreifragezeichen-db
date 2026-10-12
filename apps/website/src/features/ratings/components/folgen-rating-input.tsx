@@ -4,7 +4,10 @@ import {
   FOLGEN_RATING_MIN,
   FOLGEN_RATING_STEP,
 } from "@ddfdb/core";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+
+import { useAuth } from "@/features/auth/use-auth";
 
 import { calcHoverValue } from "../utils/calc-hover-value";
 import { FolgenRatingDisplay } from "./folgen-rating-display";
@@ -22,6 +25,8 @@ export function FolgenRatingInput({
   onValueChange,
   value,
 }: FolgenRatingInputProps) {
+  const { isAuthenticated, isPending } = useAuth();
+  const router = useRouter();
   const [previewValue, setPreviewValue] = useState<null | number>(null);
   const localValue = previewValue ?? value ?? 0;
   const inputRef = useRef<HTMLInputElement>(null);
@@ -42,6 +47,15 @@ export function FolgenRatingInput({
   }
 
   function handleSubmit() {
+    if (isPending) {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+
     onValueChange(localValue);
   }
 
@@ -50,7 +64,7 @@ export function FolgenRatingInput({
       <div className="relative w-fit focus-within:ring-1">
         <input
           className="absolute inset-0 w-full min-w-0 opacity-0"
-          disabled={isDisabled}
+          disabled={isDisabled ?? isPending}
           max={FOLGEN_RATING_MAX}
           min={0} // Using 0 instead of FOLGEN_RATING_MIN to allow for a "no rating" state
           onChange={(e) => {

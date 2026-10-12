@@ -16,7 +16,7 @@ export async function GET(
 
   const getCachedFolge = unstable_cache(
     async (id: string) => {
-      let legacyFolge = await getFolgeByMongoId(id);
+      const legacyFolge = await getFolgeByMongoId(id);
 
       if (!legacyFolge) {
         return new NextResponse("Not Found", { status: 404 });
@@ -27,14 +27,12 @@ export async function GET(
       const folgeWithCommunityRatings = folgen.find((folge) => {
         if (!folge.streaming.spotify) return false;
 
-        return folge.streaming.spotify.id === legacyFolge?.spotify_id;
+        return folge.streaming.spotify.id === legacyFolge.spotify_id;
       });
 
-      if (folgeWithCommunityRatings) {
-        legacyFolge = buildLegacyFolge(legacyFolge, folgeWithCommunityRatings);
-      }
-
-      return legacyFolge;
+      return folgeWithCommunityRatings
+        ? buildLegacyFolge(legacyFolge, folgeWithCommunityRatings)
+        : legacyFolge;
     },
     ["folge", id],
     {

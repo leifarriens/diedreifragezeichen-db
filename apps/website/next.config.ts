@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  cacheComponents: true,
   images: {
     imageSizes: [64, 512],
     remotePatterns: [
@@ -12,8 +13,10 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   transpilePackages: [
     "@ddfdb/archiv",
+    "@ddfdb/client",
     "@ddfdb/core",
     "@ddfdb/db",
+    "@ddfdb/legacy-api",
     "@ddfdb/user-api",
   ],
   typescript: {

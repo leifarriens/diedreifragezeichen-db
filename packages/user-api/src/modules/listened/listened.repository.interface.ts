@@ -4,7 +4,9 @@ export interface ListenedFolge {
 }
 
 export interface ListenedRepository {
-  findListenedFolgenByUserId(input: { userId: string }): Promise<ListenedFolge[]>;
+  findListenedFolgenByUserId(input: {
+    userId: string;
+  }): Promise<ListenedFolge[]>;
   markFolgeAsListened(input: {
     folgeId: number;
     userId: string;

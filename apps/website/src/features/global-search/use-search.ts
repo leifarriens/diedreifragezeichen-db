@@ -3,28 +3,29 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { SearchResponse } from "./contracts";
 
+import { normalizeSearchQuery } from "./normalize-search-query";
+
 export function useSearch(
   searchQuery: string,
   { enabled }: { enabled: boolean },
 ) {
-  const debouncedSearchDraft = useDebouncedValue(searchQuery, 300);
+  const normalizedQuery = useDebouncedValue(
+    normalizeSearchQuery(searchQuery),
+    300,
+  );
 
   return useQuery({
-    enabled: enabled && debouncedSearchDraft.length > 2,
-    queryFn: ({ signal }) => search(debouncedSearchDraft, signal),
-    queryKey: ["search", debouncedSearchDraft],
-    staleTime: 1000 * 60 * 5, // 5 minutes
+    enabled: enabled && normalizedQuery.length > 2,
+    queryFn: ({ signal }) => search(normalizedQuery, signal),
+    queryKey: ["search", normalizedQuery],
+    staleTime: 24 * 60 * 60 * 1000, // 24 hours
   });
 }
 
 async function search(query: string, signal: AbortSignal) {
-  const res = await fetch(
-    `/api/v0/search?q=${encodeURIComponent(query.trim())}`,
-    {
-      cache: "force-cache",
-      signal,
-    },
-  );
+  const res = await fetch(`/api/v0/search?q=${encodeURIComponent(query)}`, {
+    signal,
+  });
 
   if (!res.ok) {
     throw new Error("Failed to fetch search results");

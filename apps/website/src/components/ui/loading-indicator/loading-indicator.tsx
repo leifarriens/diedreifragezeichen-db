@@ -59,3 +59,15 @@ export function LoadingIndicator({
     </div>
   );
 }
+
+export function PageLoadingIndicator({
+  ariaLabel = "Seite wird geladen…",
+}: {
+  ariaLabel?: string;
+}) {
+  return (
+    <div className="grid flex-1 place-items-center">
+      <LoadingIndicator ariaLabel={ariaLabel} />
+    </div>
+  );
+}

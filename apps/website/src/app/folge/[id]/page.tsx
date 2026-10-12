@@ -8,6 +8,7 @@ import {
   formatReleaseDate,
   isReleasDateInThePast,
 } from "@ddfdb/core";
+import { cacheLife } from "next/cache";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
@@ -22,9 +23,6 @@ import { FolgenUserRating } from "@/features/ratings/components/folgen-user-rati
 import { archivApi, ArchivApiError } from "@/server/archiv-api";
 import { getFolgeWithCommunityRatingById } from "@/server/queries/folgen";
 import { PageBackground } from "@/shell/page-background";
-
-export const dynamic = "force-static";
-export const revalidate = 3600; // 1 hour
 
 const getCachedPageData = cache(getFolgeWithCommunityRatingById);
 
@@ -90,7 +88,17 @@ function cutToMaxLength(text: string, maxLength: number) {
   return `${truncated.slice(0, lastSpaceIndex)}...`;
 }
 
-function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
+// "use cache" requires an async function
+// eslint-disable-next-line @typescript-eslint/require-await
+async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
+  "use cache";
+
+  cacheLife({
+    expire: 31536000,
+    revalidate: 3600,
+    stale: 300,
+  });
+
   const {
     artwork,
     authors,

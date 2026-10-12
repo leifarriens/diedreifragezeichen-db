@@ -45,9 +45,9 @@ describe("archive Folge sorting", () => {
   });
 
   it("sorts by popularity, with Folgen without ratings last", () => {
-    expect(
-      sortArchiveFolgen(folgen, "popularity").map(({ id }) => id),
-    ).toEqual([4, 1, 2, 3]);
+    expect(sortArchiveFolgen(folgen, "popularity").map(({ id }) => id)).toEqual(
+      [4, 1, 2, 3],
+    );
   });
 
   it("does not mutate the input array", () => {

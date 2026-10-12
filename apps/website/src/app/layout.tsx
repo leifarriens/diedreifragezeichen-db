@@ -1,23 +1,23 @@
+import "./globals.css";
+
 import type { Metadata, Viewport } from "next";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { ToastProvider } from "@/components/ui/toast/toast";
-
-import "./globals.css";
 import { ArchiveFiltersProvider } from "@/features/archive/components/archive-filters-provider";
 import { Footer } from "@/shell/footer";
 import { HeaderNav } from "@/shell/header-nav";
 import { ScrollToTop } from "@/shell/scroll-to-top";
 import { TRPCReactProvider } from "@/trpc/client";
 
-const CURRENT_YEAR = new Date().getFullYear();
+import { CURRENT_YEAR, SITE_DESCRIPTION, SITE_NAME } from "./constants";
 
 export const metadata: Metadata = {
-  description: "Das Hörspielarchiv der Drei ???.",
+  description: SITE_DESCRIPTION,
   title: {
-    default: "Drei Fragezeichen DB",
-    template: "%s | Drei Fragezeichen DB",
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
   },
 };
 

@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     coverage: {
       include: ["src"],
-      reporter: ["text", "text-summary", "lcov"]
+      reporter: ["text", "text-summary", "lcov"],
     },
     passWithNoTests: true,
   },

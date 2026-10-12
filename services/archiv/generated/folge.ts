@@ -3,10 +3,8 @@
 //////////
 // source: archive.go
 
-
 //////////
 // source: database.go
-
 
 //////////
 // source: folge.go
@@ -28,7 +26,7 @@ export interface Folge {
   description: string | null;
   release_date: string | null;
   total_duration: number | null;
-  streaming: { [key: string]: Streaming};
+  streaming: { [key: string]: Streaming };
   cover: string | null;
   weblink: string | null;
   artwork: string | null;
@@ -54,7 +52,5 @@ export interface Streaming {
 //////////
 // source: http.go
 
-
 //////////
 // source: run.go
-

@@ -13,18 +13,15 @@ import { FIRST_RELEASE_YEAR } from "@/features/archive/archive-filters";
 import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
 import { sortArchiveFolgen } from "@/features/archive/sort-archive-folgen";
 import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
+import { FolgenGridEmpty } from "@/features/folgen/folgen-grid/folgen-grid-empty";
 import { FolgenGridItem } from "@/features/folgen/folgen-grid/folgen-grid-item";
 import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
 
 interface ArchiveBrowserProps {
-  archiveUnavailable: boolean;
   folgen: FolgeWithCommunityRating[];
 }
 
-export default function ArchiveBrowser({
-  archiveUnavailable,
-  folgen,
-}: ArchiveBrowserProps) {
+export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
   const { currentYear, filters, updateFilters } = useArchiveFilters();
   const { includeSpecials, searchTerm, sortOrder, yearRange } = filters;
 
@@ -122,36 +119,11 @@ export default function ArchiveBrowser({
         )}
       </div>
 
-      {archiveUnavailable ? (
-        <section
-          aria-labelledby="archive-error-title"
-          className="rounded-2xl border border-amber-300/20 bg-amber-300/[0.06] px-6 py-12 text-center"
-          role="alert"
-        >
-          <h2 className="text-xl font-semibold" id="archive-error-title">
-            Das Archiv ist gerade nicht erreichbar
-          </h2>
-          <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-300">
-            Die Folgen konnten nicht geladen werden. Bitte versuche es in einem
-            Moment noch einmal.
-          </p>
-          <button
-            className="mt-5 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold transition hover:bg-white/10"
-            onClick={() => {
-              window.location.reload();
-            }}
-            type="button"
-          >
-            Erneut laden
-          </button>
-        </section>
-      ) : displayedFolgen.length === 0 ? (
-        <section className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-14 text-center">
-          <p className="text-lg font-semibold">Keine Folgen gefunden</p>
-          <p className="mt-2 text-sm text-slate-400">
-            Ändere deine Suche oder passe die Filter an.
-          </p>
-        </section>
+      {displayedFolgen.length === 0 ? (
+        <FolgenGridEmpty
+          description="Ändere deine Suche oder passe die Filter an."
+          title="Keine Folgen gefunden"
+        />
       ) : (
         <section aria-label="Folgen im Archiv">
           <FolgenGrid>

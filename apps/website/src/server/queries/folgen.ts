@@ -4,17 +4,24 @@ import {
   enrichFolgeWithCommunityRating,
   type FolgeWithCommunityRating,
 } from "@ddfdb/core";
-
-import { caller } from "@/trpc/server";
+import { cacheLife, cacheTag } from "next/cache";
 
 import { archivApi } from "../archiv-api";
+import { profile } from "./cache";
+import { getAllCommunityRatings, getCommunityRatingForFolge } from "./ratings";
 
 export async function getAllFolgenWithCommunityRatings(): Promise<
   FolgeWithCommunityRating[]
 > {
+  "use cache";
+
+  cacheLife(profile);
+
+  cacheTag("public-folgen");
+
   const [archiveFolgen, communityRatings] = await Promise.all([
     archivApi.getFolgen(),
-    caller.ratings.getAllCommunityRatings().catch((error: unknown) => {
+    getAllCommunityRatings().catch((error: unknown) => {
       console.error("Could not load community ratings", error);
       return [];
     }),
@@ -26,9 +33,15 @@ export async function getAllFolgenWithCommunityRatings(): Promise<
 export async function getFolgeWithCommunityRatingById(
   folgeId: number,
 ): Promise<FolgeWithCommunityRating> {
+  "use cache";
+
+  cacheLife(profile);
+
+  cacheTag(`public-folge:${folgeId.toString()}`);
+
   const [archiveFolge, communityRating] = await Promise.all([
     archivApi.getFolgeById(folgeId),
-    caller.ratings.getCommunityRatingForFolge({ folgeId }),
+    getCommunityRatingForFolge(folgeId),
   ]);
 
   return enrichFolgeWithCommunityRating(archiveFolge, communityRating);

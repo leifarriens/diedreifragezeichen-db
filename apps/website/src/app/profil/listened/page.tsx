@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 import { selectCollectionFolgen } from "@ddfdb/core";
+import { Suspense } from "react";
 
+import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { UserListenedFolgen } from "@/features/listened/user-listened-folgen";
-import { serverSessionGuard } from "@/server/auth";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
-import { caller } from "@/trpc/server";
+import { getMyListenedFolgen } from "@/server/queries/user-data";
 
 const TITLE = "Gehörte Folgen";
 
@@ -13,20 +14,25 @@ export const metadata: Metadata = {
   title: TITLE,
 };
 
-export default async function ListenedPage() {
-  await serverSessionGuard();
+export default function ListenedPage() {
+  return (
+    <>
+      <h1 className="mb-8 text-2xl font-bold">{TITLE}</h1>
 
+      <Suspense fallback={<PageLoadingIndicator />}>
+        <ListenedContent />
+      </Suspense>
+    </>
+  );
+}
+
+async function ListenedContent() {
   const [folgen, userListened] = await Promise.all([
     getAllFolgenWithCommunityRatings(),
-    caller.listened.getMyListenedFolgen(),
+    getMyListenedFolgen(),
   ]);
 
   const userListenedFolgen = selectCollectionFolgen(folgen, userListened);
 
-  return (
-    <>
-      <h1 className="mb-8 text-2xl font-bold">{TITLE}</h1>
-      <UserListenedFolgen folgen={userListenedFolgen} />
-    </>
-  );
+  return <UserListenedFolgen folgen={userListenedFolgen} />;
 }

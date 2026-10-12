@@ -1,32 +1,24 @@
-import type { FolgeWithCommunityRating } from "@ddfdb/core";
 import type { Metadata } from "next";
 
 import ArchiveBrowser from "@/features/archive/components/archive-browser";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 
+import { SITE_DESCRIPTION, SITE_NAME } from "./constants";
+
 export const metadata: Metadata = {
-  description:
-    "Das Hörspielarchiv der drei ???. Entdecke Folgen, Erscheinungsjahre und Specials.",
-  title: "Archiv",
+  description: SITE_DESCRIPTION,
+  title: `Archiv | ${SITE_NAME}`,
 };
 
-export const dynamic = "force-static";
-export const revalidate = 3600; // 1 hour
+// export const dynamic = "force-static";
+// export const revalidate = 3600; // 1 hour
 
 export default async function HomePage() {
-  let folgen: FolgeWithCommunityRating[] = [];
-  let archiveUnavailable = false;
-
-  try {
-    folgen = await getAllFolgenWithCommunityRatings();
-  } catch (error) {
-    console.error("Could not load Folgen from the Archiv API", error);
-    archiveUnavailable = true;
-  }
+  const folgen = await getAllFolgenWithCommunityRatings();
 
   return (
     <main>
-      <ArchiveBrowser archiveUnavailable={archiveUnavailable} folgen={folgen} />
+      <ArchiveBrowser folgen={folgen} />
     </main>
   );
 }

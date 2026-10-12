@@ -4,6 +4,7 @@ import { Autocomplete } from "@base-ui/react/autocomplete";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
+import { Kbd } from "@/components/ui/kbd/kbd";
 import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
 import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
 
@@ -27,6 +28,27 @@ export function SearchInput({ className }: SearchInputProps) {
   const archiveSearchTimeoutRef = useRef<null | ReturnType<typeof setTimeout>>(
     null,
   );
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (
+        event.altKey &&
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.shiftKey &&
+        event.key.toLowerCase() === "k"
+      ) {
+        event.preventDefault();
+        inputRef.current?.focus();
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => {
     if (
@@ -127,13 +149,21 @@ export function SearchInput({ className }: SearchInputProps) {
         onValueChange={handleValueChange}
         value={value}
       >
-        <label ref={containerRef}>
+        <label className="relative block" ref={containerRef}>
           <Autocomplete.Input
             aria-label="Folgen Archiv durchsuchen"
-            className="h-full w-full rounded-xl border border-neutral-100 bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none"
+            className="h-full w-full rounded-xl border border-neutral-100 bg-transparent px-4 py-2 pr-24 text-base text-neutral-300 placeholder-gray-500 outline-none"
             placeholder="Name, Nummer oder Erscheinungsjahr"
             ref={inputRef}
           />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1 text-neutral-500"
+          >
+            <Kbd>Alt</Kbd>
+            <span>+</span>
+            <Kbd>K</Kbd>
+          </span>
         </label>
 
         {!isArchivePage && (
