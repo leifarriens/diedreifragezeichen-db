@@ -1,0 +1,9 @@
+:root {
+  --background: #001727;
+  --foreground: #ffffff;
+}
+
+@theme {
+  --color-ddf-red: #e91b24;
+  --color-ddf-blue: #02abeb;
+}

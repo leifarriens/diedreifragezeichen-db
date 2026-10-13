@@ -3,3 +3,5 @@
 @import "tailwindcss/utilities.css";
 
 @import "nativewind/theme";
+
+@import "@ddfdb/tailwind-config/theme";

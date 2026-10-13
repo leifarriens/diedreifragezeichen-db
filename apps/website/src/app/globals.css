@@ -1,9 +1,7 @@
 @import "tailwindcss";
+@import "@ddfdb/tailwind-config/theme";
 
 @theme {
-  --color-ddf-red: #e91b24;
-  --color-ddf-blue: #02abeb;
-
   --animate-breathe: breathe 30s linear infinite;
   --animate-fade-in: fadeIn 150ms ease-in-out;
 
@@ -29,10 +27,10 @@
   }
 }
 
-:root {
+/* :root {
   --background: #001727;
   --foreground: #ffffff;
-}
+} */
 
 body {
   background: var(--background);
