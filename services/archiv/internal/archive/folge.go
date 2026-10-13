@@ -32,6 +32,15 @@ type VoiceRole struct {
 	Speaker string `json:"speaker"`
 }
 
+// SearchOptions contains distinct values available for archive search filters.
+type SearchOptions struct {
+	Speakers      []string     `json:"speakers"`
+	Roles         []string     `json:"roles"`
+	Authors       []string     `json:"authors"`
+	ScriptAuthors []string     `json:"script_authors"`
+	Collections   []Collection `json:"collections"`
+}
+
 // Streaming identifies an available streaming service and its URL.
 type Streaming struct {
 	Link string `json:"link"`

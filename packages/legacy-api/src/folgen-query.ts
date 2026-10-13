@@ -26,8 +26,6 @@ export async function getAllFolgen(
     ],
   };
 
-  console.log("SORT", sort);
-
   const total = await folgenCollection.countDocuments(filter);
 
   const folgen = await folgenCollection

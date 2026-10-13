@@ -114,16 +114,13 @@ afterEach(() => {
 });
 
 describe("URL-backed archive filtering", () => {
-  it("restores every filter into the header, controls and results on a direct visit", () => {
+  it("restores URL filters into the archive controls and results on a direct visit", () => {
     window.history.replaceState(
       null,
       "",
       "/?q=Geister&sort=oldest&yearFrom=1990&yearTo=2020&specials=1",
     );
     render(<App />);
-    expect(
-      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
-    ).toHaveProperty("value", "Geister");
     expect(
       screen
         .getByRole("button", { name: "Älteste" })
@@ -145,7 +142,7 @@ describe("URL-backed archive filtering", () => {
 
   it("updates archive search immediately and debounces URL filtering", () => {
     render(<App />);
-    const input = screen.getByRole("combobox", {
+    const input = screen.getByRole("textbox", {
       name: "Folgen Archiv durchsuchen",
     });
     const replace = vi.spyOn(window.history, "replaceState");
@@ -198,7 +195,7 @@ describe("URL-backed archive filtering", () => {
     fireEvent.click(screen.getByRole("button", { name: "Älteste" }));
     expect(getTitles()).toEqual(["Der Super-Papagei", "Geisterhaus"]);
     fireEvent.change(
-      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
+      screen.getByRole("textbox", { name: "Folgen Archiv durchsuchen" }),
       { target: { value: "Geister" } },
     );
     fireEvent.click(screen.getByRole("switch", { name: "Specials anzeigen" }));
@@ -225,9 +222,9 @@ describe("URL-backed archive filtering", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Suche zurücksetzen" }));
     expect(new URLSearchParams(window.location.search).has("q")).toBe(false);
-    expect(
-      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
-    ).toHaveProperty("value", "");
+    await waitFor(() => {
+      expect(getTitles()).toEqual(["Der Super-Papagei", "Geisterhaus"]);
+    });
   });
 
   it("restores the homepage after leaving while keeping other-page search separate", () => {
@@ -243,6 +240,10 @@ describe("URL-backed archive filtering", () => {
       route.pathname = "/folge/2";
     });
     rerender(<App />);
+    const searchTrigger = screen.getByRole("button", {
+      name: "Folgen Archiv durchsuchen",
+    });
+    fireEvent.click(searchTrigger);
     const search = screen.getByRole("combobox", {
       name: "Folgen Archiv durchsuchen",
     });
@@ -256,7 +257,6 @@ describe("URL-backed archive filtering", () => {
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
     rerender(<App />);
-    expect(search).toHaveProperty("value", "Geister");
     expect(
       screen.getByRole("slider", { name: "Frühestes Erscheinungsjahr" }),
     ).toHaveProperty("value", "1990");
@@ -287,7 +287,7 @@ describe("URL-backed archive filtering", () => {
       window.dispatchEvent(new PopStateEvent("popstate"));
     });
     expect(
-      screen.getByRole("combobox", { name: "Folgen Archiv durchsuchen" }),
+      screen.getByRole("textbox", { name: "Folgen Archiv durchsuchen" }),
     ).toHaveProperty("value", "");
     expect(
       screen.getByRole("slider", { name: "Spätestes Erscheinungsjahr" }),

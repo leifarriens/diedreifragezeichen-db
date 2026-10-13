@@ -91,7 +91,7 @@ export function MultiRangeInput({
       />
       <div
         aria-hidden="true"
-        className="absolute top-5 z-[2] h-2 rounded bg-sky-400"
+        className="absolute top-5 z-[2] h-2 rounded bg-ddf-blue"
         style={{
           left: `${minPercent.toString()}%`,
           width: `${(maxPercent - minPercent).toString()}%`,
@@ -135,7 +135,7 @@ export function MultiRangeInput({
         {minValue}
       </span>
       <span
-        className="absolute top-10 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
+        className="absolute top-10 z-[6] translate-x-1/2 text-xs font-medium text-white tabular-nums"
         style={{ left: `${maxPercent.toString()}%` }}
       >
         {maxValue}

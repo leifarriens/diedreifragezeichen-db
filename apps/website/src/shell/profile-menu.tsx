@@ -1,4 +1,5 @@
 "use client";
+
 import { Avatar } from "@base-ui/react/avatar";
 import { Popover } from "@base-ui/react/popover";
 import Link from "next/link";
@@ -75,7 +76,7 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
         aria-label="Profilmenü öffnen"
         className="inline-flex shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
       >
-        <Avatar.Root className="flex size-11 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/20 align-middle text-sm leading-none font-normal text-white backdrop-blur-2xl select-none">
+        <Avatar.Root className="flex size-10 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/20 align-middle text-sm leading-none font-normal text-white backdrop-blur-2xl select-none">
           <Avatar.Fallback
             className="flex size-full items-center justify-center text-base font-medium"
             delay={600}

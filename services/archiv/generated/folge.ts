@@ -3,8 +3,10 @@
 //////////
 // source: archive.go
 
+
 //////////
 // source: database.go
+
 
 //////////
 // source: folge.go
@@ -26,7 +28,7 @@ export interface Folge {
   description: string | null;
   release_date: string | null;
   total_duration: number | null;
-  streaming: { [key: string]: Streaming };
+  streaming: { [key: string]: Streaming};
   cover: string | null;
   weblink: string | null;
   artwork: string | null;
@@ -42,6 +44,16 @@ export interface VoiceRole {
   speaker: string;
 }
 /**
+ * SearchOptions contains distinct values available for archive search filters.
+ */
+export interface SearchOptions {
+  speakers: string[];
+  roles: string[];
+  authors: string[];
+  script_authors: string[];
+  collections: Collection[];
+}
+/**
  * Streaming identifies an available streaming service and its URL.
  */
 export interface Streaming {
@@ -52,5 +64,7 @@ export interface Streaming {
 //////////
 // source: http.go
 
+
 //////////
 // source: run.go
+

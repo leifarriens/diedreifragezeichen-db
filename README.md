@@ -11,6 +11,9 @@ Start with the [architecture overview](ARCHITECTURE.md) to understand the Archiv
 > [!WARNING]
 > This API is considered legacy and will be deprecated in the future.
 
+> [!INFO]
+> The legacy API no longer requires an API key (formerly named `apikey`).
+
 ### Lists all folgen
 
 GET `/api/folgen`

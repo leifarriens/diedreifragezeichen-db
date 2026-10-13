@@ -1,6 +1,6 @@
 import Image, { type ImageProps } from "next/image";
 
-interface FolgenCoverProps extends Omit<
+export interface FolgenCoverProps extends Omit<
   ImageProps,
   "alt" | "height" | "quality" | "src" | "width"
 > {

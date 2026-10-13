@@ -10,9 +10,6 @@ export const metadata: Metadata = {
   title: `Archiv | ${SITE_NAME}`,
 };
 
-// export const dynamic = "force-static";
-// export const revalidate = 3600; // 1 hour
-
 export default async function HomePage() {
   const folgen = await getAllFolgenWithCommunityRatings();
 

@@ -8,6 +8,11 @@
       "types": "./dist/index.d.ts",
       "import": "./src/index.ts",
       "default": "./src/index.ts"
+    },
+    "./search": {
+      "types": "./dist/search/index.d.ts",
+      "import": "./src/search/index.ts",
+      "default": "./src/search/index.ts"
     }
   },
   "scripts": {
@@ -21,6 +26,7 @@
   },
   "dependencies": {
     "@ddfdb/archiv": "workspace:*",
+    "@orama/orama": "^3.1.18",
     "dayjs": "^1.11.23"
   },
   "devDependencies": {

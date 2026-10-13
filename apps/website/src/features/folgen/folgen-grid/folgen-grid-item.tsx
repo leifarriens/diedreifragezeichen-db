@@ -1,5 +1,5 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
-import type { FolgeWithCommunityRating } from "@ddfdb/core";
+import type { FolgeUserData, FolgeWithCommunityRating } from "@ddfdb/core";
 
 import { formatReleaseDate } from "@ddfdb/core";
 import Link from "next/link";
@@ -11,27 +11,38 @@ import { FolgenListenedButton } from "@/features/listened/folgen-listened-button
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
 
 import { FolgenBackground } from "../folgen-images/folgen-artwork";
-import { FolgenCover } from "../folgen-images/folgen-cover";
+import {
+  FolgenCover,
+  type FolgenCoverProps,
+} from "../folgen-images/folgen-cover";
 import styles from "./folgen-grid-item.module.css";
 import { useIntersectionObserver } from "./use-intersection-observer";
 
 export interface FolgenGridItemProps {
-  folge: FolgeWithCommunityRating;
-  hasListened: boolean;
-  isBookmarked: boolean;
-  userRating: null | number;
+  coverLoading: CoverProps["loading"];
+  folge: FolgeUserData & FolgeWithCommunityRating;
 }
 
 export const FolgenGridItem = memo(function FolgenGridItem({
+  coverLoading,
   folge,
-  hasListened,
-  isBookmarked,
-  userRating,
 }: FolgenGridItemProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useIntersectionObserver(ref, {
     triggerOnce: false,
   });
+
+  const {
+    artwork,
+    communityRating,
+    cover,
+    hasListened,
+    id,
+    isBookmarked,
+    release_date,
+    title,
+    userRating,
+  } = folge;
 
   return (
     <article
@@ -41,22 +52,27 @@ export const FolgenGridItem = memo(function FolgenGridItem({
       )}
       ref={ref}
     >
-      <Link aria-label={folge.title} href={`/folge/${folge.id.toString()}`}>
-        <Cover cover={folge.cover} isInView={isInView} title={folge.title} />
+      <Link aria-label={title} href={`/folge/${id.toString()}`}>
+        <Cover
+          cover={cover}
+          isInView={isInView}
+          loading={coverLoading}
+          title={title}
+        />
       </Link>
 
       <div className="flex items-center justify-between px-3 py-2 text-sm">
         <div>
           <FolgenRatingDisplay
             className="h-5"
-            folgenTitle={folge.title}
+            folgenTitle={title}
             type="community"
-            value={folge.communityRating?.score ?? null}
+            value={communityRating?.score ?? null}
           />
 
-          {folge.release_date && (
+          {release_date && (
             <div className="text-xs font-extralight text-neutral-200">
-              {formatReleaseDate(folge.release_date)}
+              {formatReleaseDate(release_date)}
             </div>
           )}
         </div>
@@ -65,33 +81,40 @@ export const FolgenGridItem = memo(function FolgenGridItem({
           <div className="flex items-center gap-0.5">
             {userRating !== null && (
               <FolgenRatingDisplay
-                folgenTitle={folge.title}
+                folgenTitle={title}
                 type="user"
                 value={userRating}
               />
             )}
 
-            <FolgenBookmarkButton
-              folgeId={folge.id}
-              folgeTitle={folge.title}
-              isBookmarked={isBookmarked}
-              size={24}
-            />
+            {isBookmarked !== null && (
+              <FolgenBookmarkButton
+                folgeId={id}
+                folgeTitle={title}
+                isBookmarked={isBookmarked}
+                size={24}
+              />
+            )}
 
-            <FolgenListenedButton
-              folgeId={folge.id}
-              folgeTitle={folge.title}
-              hasListened={hasListened}
-              size={24}
-            />
+            {hasListened !== null && (
+              <FolgenListenedButton
+                folgeId={id}
+                folgeTitle={title}
+                hasListened={hasListened}
+                size={24}
+              />
+            )}
           </div>
         )}
       </div>
 
-      <Background imageUrl={folge.artwork ?? folge.cover} />
+      <Background imageUrl={artwork ?? cover} />
     </article>
   );
 });
+
+type CoverProps = Pick<Folge, "cover" | "title"> &
+  Pick<FolgenCoverProps, "loading"> & { isInView: boolean };
 
 function Background({ imageUrl }: { imageUrl: null | string }) {
   return (
@@ -116,11 +139,7 @@ function Background({ imageUrl }: { imageUrl: null | string }) {
   );
 }
 
-function Cover({
-  cover,
-  isInView,
-  title,
-}: Pick<Folge, "cover" | "title"> & { isInView: boolean }) {
+function Cover({ cover, isInView, loading = "lazy", title }: CoverProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
@@ -132,7 +151,7 @@ function Cover({
           className="transition-opacity duration-150 ease-in"
           coverUrl={cover}
           folgenTitle={title}
-          loading="lazy"
+          loading={loading}
           onLoad={() => {
             setIsLoaded(true);
           }}

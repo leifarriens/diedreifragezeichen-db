@@ -10,6 +10,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -229,6 +230,117 @@ func TestHTTPHandlerServesNewContractAndDetail(t *testing.T) {
 	}
 	if detail.ID != 2 || detail.Number != nil {
 		t.Fatalf("unexpected detail response: %+v", detail)
+	}
+}
+
+func TestHTTPHandlerReturnsEmptySearchOptionArrays(t *testing.T) {
+	handler := newHTTPHandler(nil, zerolog.New(io.Discard))
+	response := httptest.NewRecorder()
+	handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, "/search-options", nil))
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("search options status = %d, want %d", response.Code, http.StatusOK)
+	}
+	var options SearchOptions
+	if err := json.Unmarshal(response.Body.Bytes(), &options); err != nil {
+		t.Fatalf("decode search options response: %v", err)
+	}
+	want := SearchOptions{
+		Speakers:      []string{},
+		Roles:         []string{},
+		Authors:       []string{},
+		ScriptAuthors: []string{},
+		Collections:   []Collection{},
+	}
+	if !reflect.DeepEqual(options, want) {
+		t.Fatalf("search options = %+v, want empty arrays %+v", options, want)
+	}
+}
+
+func TestHTTPHandlerReturnsDistinctSearchOptionsForAvailableFolgen(t *testing.T) {
+	now := time.Date(2025, time.February, 2, 0, 0, 0, 0, time.UTC)
+	tomorrow := "2025-02-03"
+	folgen := []Folge{
+		{
+			ID:            1,
+			Collection:    CollectionSpezial,
+			Authors:       []string{"Zed", "Ann", "Ann", " "},
+			ScriptAuthors: []string{"Writer"},
+			VoiceRoles: []VoiceRole{
+				{Role: "Zed role", Speaker: "Zed speaker"},
+				{Role: " ", Speaker: " "},
+			},
+		},
+		{
+			ID:            2,
+			Collection:    CollectionSerie,
+			Authors:       []string{"Ann"},
+			ScriptAuthors: []string{"Writer", "Alpha"},
+			VoiceRoles:    []VoiceRole{{Role: "A role", Speaker: "A speaker"}},
+		},
+		{
+			ID:            3,
+			Collection:    CollectionSerie,
+			ReleaseDate:   &tomorrow,
+			Authors:       []string{"Hidden author"},
+			ScriptAuthors: []string{"Hidden script author"},
+			VoiceRoles:    []VoiceRole{{Role: "Hidden role", Speaker: "Hidden speaker"}},
+		},
+	}
+	handler := newHTTPHandlerWithClock(folgen, zerolog.New(io.Discard), func() time.Time {
+		return now
+	})
+	response := httptest.NewRecorder()
+	handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, "/search-options", nil))
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("search options status = %d, want %d", response.Code, http.StatusOK)
+	}
+	var options SearchOptions
+	if err := json.Unmarshal(response.Body.Bytes(), &options); err != nil {
+		t.Fatalf("decode search options response: %v", err)
+	}
+	want := SearchOptions{
+		Speakers:      []string{"A speaker", "Zed speaker"},
+		Roles:         []string{"A role", "Zed role"},
+		Authors:       []string{"Ann", "Zed"},
+		ScriptAuthors: []string{"Alpha", "Writer"},
+		Collections:   []Collection{CollectionSerie, CollectionSpezial},
+	}
+	if !reflect.DeepEqual(options, want) {
+		t.Fatalf("search options = %+v, want %+v", options, want)
+	}
+}
+
+func TestHTTPHandlerListsFolgenByReleaseDateDescending(t *testing.T) {
+	olderDate := "2020-01-01"
+	newerDate := "2024-06-15"
+	equalDate := "2024-06-15"
+	folgen := []Folge{
+		{ID: 1, ReleaseDate: &olderDate},
+		{ID: 2},
+		{ID: 3, ReleaseDate: &newerDate},
+		{ID: 4, ReleaseDate: &equalDate},
+	}
+	handler := newHTTPHandler(folgen, zerolog.New(io.Discard))
+	response := httptest.NewRecorder()
+	handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, "/folgen", nil))
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("list status = %d, want %d", response.Code, http.StatusOK)
+	}
+	var items []Folge
+	if err := json.Unmarshal(response.Body.Bytes(), &items); err != nil {
+		t.Fatalf("decode list response: %v", err)
+	}
+	wantIDs := []int64{3, 4, 1, 2}
+	if len(items) != len(wantIDs) {
+		t.Fatalf("got %d items, want %d", len(items), len(wantIDs))
+	}
+	for index, item := range items {
+		if item.ID != wantIDs[index] {
+			t.Errorf("item %d ID = %d, want %d", index, item.ID, wantIDs[index])
+		}
 	}
 }
 

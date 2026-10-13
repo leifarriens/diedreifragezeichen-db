@@ -2,121 +2,134 @@
 
 import { Autocomplete } from "@base-ui/react/autocomplete";
 import { Dialog } from "@base-ui/react/dialog";
+import { useDebouncedCallback } from "@ddfdb/client/utils";
 import Link from "next/link";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 
-import { Kbd } from "@/components/ui/kbd/kbd";
 import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
 import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
 
 import type { SearchResult } from "./contracts";
 
+import { SEARCH_FIELD_CONTROL_CLASS_NAME, SearchField } from "./search-field";
 import { useSearch } from "./use-search";
+import { useSearchShortcut } from "./use-search-shortcut";
+import { getIsMacOS } from "./utils";
+
+interface ArchiveSearchProps {
+  className?: string | undefined;
+  platform: "macos" | "other";
+}
 
 interface SearchInputProps {
-  className?: string;
+  className?: string | undefined;
+}
+
+interface SpotlightSearchProps {
+  className?: string | undefined;
+  platform: "macos" | "other";
 }
 
 export function SearchInput({ className }: SearchInputProps) {
-  const { filters, isArchivePage, updateFilters } = useArchiveFilters();
+  const { isArchivePage } = useArchiveFilters();
+
   const isMacOS = useSyncExternalStore(
     subscribeToPlatformChanges,
     getIsMacOS,
     () => false,
   );
-  const [searchDraft, setSearchDraft] = useState("");
-  const [archiveSearchDraft, setArchiveSearchDraft] = useState<null | {
-    base: string;
-    value: string;
-  }>(null);
-  const [open, setOpen] = useState(false);
+
+  if (isArchivePage) {
+    return (
+      <ArchiveSearch
+        className={className}
+        platform={isMacOS ? "macos" : "other"}
+      />
+    );
+  }
+
+  return (
+    <SpotlightSearch
+      className={className}
+      platform={isMacOS ? "macos" : "other"}
+    />
+  );
+}
+
+function ArchiveSearch({ className, platform }: ArchiveSearchProps) {
+  const { updateFilters } = useArchiveFilters();
+  const [searchTerm, setSearchTerm] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const containerRef = useRef<HTMLLabelElement | null>(null);
-  const archiveSearchTimeoutRef = useRef<null | ReturnType<typeof setTimeout>>(
-    null,
-  );
 
-  useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
-      const modifierPressed = getIsMacOS()
-        ? event.metaKey && !event.ctrlKey
-        : event.ctrlKey && !event.metaKey;
-
-      if (
-        modifierPressed &&
-        !event.altKey &&
-        !event.shiftKey &&
-        (event.code === "KeyK" || event.key.toLowerCase() === "k")
-      ) {
-        event.preventDefault();
-        inputRef.current?.focus();
-        setOpen(true);
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (
-      !archiveSearchTimeoutRef.current ||
-      (isArchivePage && archiveSearchDraft?.base === filters.searchTerm)
-    ) {
-      return;
-    }
-    clearTimeout(archiveSearchTimeoutRef.current);
-    archiveSearchTimeoutRef.current = null;
-  }, [archiveSearchDraft?.base, filters.searchTerm, isArchivePage]);
-
-  useEffect(() => {
-    function handlePopState() {
-      if (archiveSearchTimeoutRef.current) {
-        clearTimeout(archiveSearchTimeoutRef.current);
-        archiveSearchTimeoutRef.current = null;
-      }
-      setArchiveSearchDraft(null);
-    }
-
-    window.addEventListener("popstate", handlePopState);
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  }, []);
-
-  useEffect(
-    () => () => {
-      if (archiveSearchTimeoutRef.current) {
-        clearTimeout(archiveSearchTimeoutRef.current);
-      }
+  const [updateFiltersDebounced] = useDebouncedCallback(
+    (searchTerm: string) => {
+      updateFilters({ searchTerm });
     },
-    [],
+    200,
   );
 
-  const value =
-    isArchivePage && archiveSearchDraft?.base === filters.searchTerm
-      ? archiveSearchDraft.value
-      : isArchivePage
-        ? filters.searchTerm
-        : searchDraft;
+  useSearchShortcut(() => {
+    inputRef.current?.focus();
+  });
 
-  const searchQuery = useSearch(searchDraft, { enabled: !isArchivePage });
+  function handleValueChange(value: string) {
+    setSearchTerm(value);
+    updateFiltersDebounced(value);
+  }
+
+  return (
+    <SearchField
+      className={className}
+      onClick={() => inputRef.current?.focus()}
+      platform={platform}
+    >
+      <input
+        aria-label="Folgen Archiv durchsuchen"
+        className={SEARCH_FIELD_CONTROL_CLASS_NAME}
+        name="archiv-search"
+        onChange={(e) => {
+          handleValueChange(e.target.value);
+        }}
+        placeholder="Name, Nummer oder Erscheinungsjahr"
+        ref={inputRef}
+        value={searchTerm}
+      />
+    </SearchField>
+  );
+}
+
+function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const searchQuery = useSearch(searchTerm, { enabled: searchTerm.length > 2 });
+
+  useSearchShortcut(() => {
+    setIsOpen(true);
+    inputRef.current?.focus();
+  });
+
+  function handleValueChange(value: string) {
+    setSearchTerm(value);
+  }
+
+  function handleLinkClick() {
+    setSearchTerm("");
+    setIsOpen(false);
+  }
 
   function renderStatus(): null | React.ReactNode {
     if (searchQuery.isFetching) {
       return <div className="sr-only">Searching…</div>;
     }
 
-    if (searchDraft === "") {
+    if (searchTerm === "") {
       return null;
     }
 
     if (searchQuery.data?.length === 0) {
       return (
-        <div className="sr-only">City {searchDraft} has no matches yet.</div>
+        <div className="sr-only">Folge {searchTerm} has no matches yet.</div>
       );
     }
 
@@ -128,74 +141,26 @@ export function SearchInput({ className }: SearchInputProps) {
     );
   }
 
-  function handleValueChange(value: string) {
-    if (!isArchivePage) {
-      setSearchDraft(value);
-      return;
-    }
-
-    setArchiveSearchDraft({ base: filters.searchTerm, value });
-    if (archiveSearchTimeoutRef.current) {
-      clearTimeout(archiveSearchTimeoutRef.current);
-    }
-    archiveSearchTimeoutRef.current = setTimeout(() => {
-      archiveSearchTimeoutRef.current = null;
-      setArchiveSearchDraft(null);
-      updateFilters({ searchTerm: value });
-    }, 200);
-  }
-
-  function handleLinkClick() {
-    setSearchDraft("");
-    inputRef.current?.blur();
-    setOpen(false);
-  }
-
   const status = renderStatus();
-
-  if (isArchivePage) {
-    return (
-      <div>
-        <label className="relative block" ref={containerRef}>
-          <input
-            aria-label="Folgen Archiv durchsuchen"
-            className="h-full w-full rounded-xl border border-neutral-500 bg-transparent px-4 py-2 pr-24 text-base placeholder-gray-500 transition-colors outline-none hover:border-neutral-200 focus:border-neutral-200"
-            onChange={(e) => {
-              handleValueChange(e.target.value);
-            }}
-            placeholder="Name, Nummer oder Erscheinungsjahr"
-            ref={inputRef}
-            value={value}
-          />
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1 text-neutral-500 any-pointer-coarse:hidden"
-          >
-            <Kbd>{isMacOS ? "⌘" : "Ctrl"}</Kbd>
-            <span>+</span>
-            <Kbd>K</Kbd>
-          </span>
-        </label>
-      </div>
-    );
-  }
 
   return (
     <div className={className}>
-      <Dialog.Root onOpenChange={setOpen} open={open}>
-        <Dialog.Trigger
-          aria-label="Folgen Archiv durchsuchen"
-          className="relative block h-full w-full cursor-pointer rounded-xl border border-neutral-500 bg-transparent px-4 py-2 pr-24 text-base text-neutral-300 placeholder-gray-500 transition-colors outline-none hover:border-neutral-200 active:border-neutral-200"
+      <Dialog.Root onOpenChange={setIsOpen} open={isOpen}>
+        <SearchField
+          onClick={() => {
+            setIsOpen(true);
+          }}
+          platform={platform}
         >
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1 text-neutral-500 any-pointer-coarse:hidden"
+          <Dialog.Trigger
+            aria-label="Folgen Archiv durchsuchen"
+            className={`${SEARCH_FIELD_CONTROL_CLASS_NAME} cursor-pointer active:border-neutral-200`}
           >
-            <Kbd>{isMacOS ? "⌘" : "Ctrl"}</Kbd>
-            <span>+</span>
-            <Kbd>K</Kbd>
-          </span>
-        </Dialog.Trigger>
+            <span className="block text-left text-gray-500">
+              Name, Nummer oder Erscheinungsjahr
+            </span>
+          </Dialog.Trigger>
+        </SearchField>
         <Dialog.Portal>
           <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
           <Dialog.Popup className="fixed top-1/3 left-1/2 -mt-8 flex w-xl max-w-[calc(100vw-3rem)] -translate-x-1/2 flex-col overflow-hidden rounded-xl border border-neutral-700 bg-[#02090E] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
@@ -204,16 +169,43 @@ export function SearchInput({ className }: SearchInputProps) {
                 items={searchQuery.data}
                 mode="none"
                 onValueChange={handleValueChange}
-                value={value}
+                value={searchTerm}
               >
-                <label className="block" ref={containerRef}>
+                <div className="relative block">
+                  <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-500 transition-colors group-focus-within:text-neutral-200">
+                    <svg
+                      aria-hidden="true"
+                      className="size-6"
+                      fill="currentColor"
+                      height="32"
+                      viewBox="0 0 256 256"
+                      width="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" />
+                    </svg>
+                  </span>
                   <Autocomplete.Input
                     aria-label="Folgen Archiv durchsuchen"
-                    className="h-full w-full border-b border-b-neutral-700 bg-transparent px-6 py-4 pr-24 text-base text-neutral-300 placeholder-gray-500 outline-none"
+                    className="h-full w-full border-b border-b-neutral-700 bg-transparent py-4 pr-26 pl-11 text-base text-neutral-300 placeholder-gray-500 outline-none"
                     placeholder="Name, Nummer oder Erscheinungsjahr"
                     ref={inputRef}
                   />
-                </label>
+                  <div className="absolute top-1/2 right-3 -translate-y-1/2">
+                    <Dialog.Close className="flex h-8 items-center justify-center text-neutral-500 hover:not-data-disabled:text-neutral-300">
+                      <svg
+                        className="size-6"
+                        fill="currentColor"
+                        height="32"
+                        viewBox="0 0 256 256"
+                        width="32"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path>
+                      </svg>
+                    </Dialog.Close>
+                  </div>
+                </div>
 
                 <Autocomplete.Status>{status}</Autocomplete.Status>
                 <Autocomplete.Empty className="px-4 py-3 text-sm empty:m-0 empty:p-0">
@@ -253,20 +245,16 @@ export function SearchInput({ className }: SearchInputProps) {
                 </Autocomplete.List>
               </Autocomplete.Root>
             </div>
-            <div className="absolute top-2 right-2">
+            {/* <div className="absolute top-2 right-2">
               <Dialog.Close className="flex h-8 items-center justify-center gap-2 px-3 text-sm leading-none font-normal whitespace-nowrap select-none hover:not-data-disabled:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 active:not-data-disabled:bg-neutral-200 disabled:border-neutral-500 disabled:text-neutral-500 data-disabled:border-neutral-500 data-disabled:text-neutral-500">
                 Close
               </Dialog.Close>
-            </div>
+            </div> */}
           </Dialog.Popup>
         </Dialog.Portal>
       </Dialog.Root>
     </div>
   );
-}
-
-function getIsMacOS() {
-  return /Mac|iPhone|iPad|iPod/.test(navigator.platform);
 }
 
 function subscribeToPlatformChanges(onChange: () => void) {

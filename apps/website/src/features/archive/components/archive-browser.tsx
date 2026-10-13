@@ -13,8 +13,6 @@ import { FIRST_RELEASE_YEAR } from "@/features/archive/archive-filters";
 import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
 import { sortArchiveFolgen } from "@/features/archive/sort-archive-folgen";
 import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
-import { FolgenGridEmpty } from "@/features/folgen/folgen-grid/folgen-grid-empty";
-import { FolgenGridItem } from "@/features/folgen/folgen-grid/folgen-grid-item";
 import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
 
 interface ArchiveBrowserProps {
@@ -119,26 +117,13 @@ export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
         )}
       </div>
 
-      {displayedFolgen.length === 0 ? (
-        <FolgenGridEmpty
-          description="Ändere deine Suche oder passe die Filter an."
-          title="Keine Folgen gefunden"
-        />
-      ) : (
-        <section aria-label="Folgen im Archiv">
-          <FolgenGrid>
-            {displayedFolgen.map((folge) => (
-              <FolgenGridItem
-                folge={folge}
-                hasListened={folge.hasListened}
-                isBookmarked={folge.isBookmarked}
-                key={folge.id}
-                userRating={folge.userRating}
-              />
-            ))}
-          </FolgenGrid>
-        </section>
-      )}
+      <FolgenGrid
+        emptyMessage={{
+          description: "Ändere deine Suche oder passe die Filter an.",
+          title: "Keine Folgen gefunden",
+        }}
+        folgen={displayedFolgen}
+      />
     </Wrapper>
   );
 }

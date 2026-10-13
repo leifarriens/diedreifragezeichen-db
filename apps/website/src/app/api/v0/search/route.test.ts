@@ -35,7 +35,7 @@ describe("GET /api/v0/search", () => {
       );
 
       await expect(response.json()).resolves.toEqual({
-        results: [{ cover: null, id: 1, title: "Geisterhaus" }],
+        results: [{ cover: null, id: 1, number: 1, title: "Geisterhaus" }],
       });
     },
   );
@@ -83,6 +83,7 @@ describe("GET /api/v0/search", () => {
         {
           cover: "https://example.com/cover.webp",
           id: 1,
+          number: 1,
           title: "A title unrelated to the query",
         },
       ],

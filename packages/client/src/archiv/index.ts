@@ -5,3 +5,4 @@ export type {
   ArchivFetch,
   ArchivRequestOptions,
 } from "./archiv-api";
+export type { SearchOptions } from "@ddfdb/archiv/contracts";

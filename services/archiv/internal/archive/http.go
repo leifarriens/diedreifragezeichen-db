@@ -3,7 +3,9 @@ package archive
 import (
 	"encoding/json"
 	"net/http"
+	"sort"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -41,6 +43,7 @@ func newHTTPHandlerWithClock(
 	mux.HandleFunc("GET /healthz", handler.health)
 	mux.HandleFunc("GET /folgen", handler.listFolgen)
 	mux.HandleFunc("GET /folgen/{id}", handler.getFolge)
+	mux.HandleFunc("GET /search-options", handler.listSearchOptions)
 
 	logRequests := hlog.AccessHandler(func(r *http.Request, status, size int, duration time.Duration) {
 		requestLogger := hlog.FromRequest(r)
@@ -90,9 +93,10 @@ func (h *archiveHandler) root(w http.ResponseWriter, _ *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{
 		"service": "archiv",
 		"endpoints": map[string]string{
-			"health": "/healthz",
-			"folgen": "/folgen",
-			"folge":  "/folgen/{id}",
+			"health":        "/healthz",
+			"folgen":        "/folgen",
+			"folge":         "/folgen/{id}",
+			"searchOptions": "/search-options",
 		},
 	})
 }
@@ -109,7 +113,79 @@ func (h *archiveHandler) listFolgen(w http.ResponseWriter, _ *http.Request) {
 			folgen = append(folgen, folge)
 		}
 	}
+	sort.SliceStable(folgen, func(i, j int) bool {
+		left, right := folgen[i].ReleaseDate, folgen[j].ReleaseDate
+		if left == nil || right == nil {
+			return left != nil && right == nil
+		}
+		return *left > *right
+	})
 	writeJSON(w, http.StatusOK, folgen)
+}
+
+func (h *archiveHandler) listSearchOptions(w http.ResponseWriter, _ *http.Request) {
+	writeJSON(w, http.StatusOK, buildSearchOptions(h.folgen, h.now()))
+}
+
+func buildSearchOptions(folgen []Folge, now time.Time) SearchOptions {
+	options := SearchOptions{
+		Speakers:      []string{},
+		Roles:         []string{},
+		Authors:       []string{},
+		ScriptAuthors: []string{},
+		Collections:   []Collection{},
+	}
+	speakers := make(map[string]struct{})
+	roles := make(map[string]struct{})
+	authors := make(map[string]struct{})
+	scriptAuthors := make(map[string]struct{})
+	collections := make(map[Collection]struct{})
+
+	for _, folge := range folgen {
+		if !isAvailableInArchive(folge, now) {
+			continue
+		}
+		collections[folge.Collection] = struct{}{}
+		for _, author := range folge.Authors {
+			if strings.TrimSpace(author) != "" {
+				authors[author] = struct{}{}
+			}
+		}
+		for _, author := range folge.ScriptAuthors {
+			if strings.TrimSpace(author) != "" {
+				scriptAuthors[author] = struct{}{}
+			}
+		}
+		for _, voiceRole := range folge.VoiceRoles {
+			if strings.TrimSpace(voiceRole.Speaker) != "" {
+				speakers[voiceRole.Speaker] = struct{}{}
+			}
+			if strings.TrimSpace(voiceRole.Role) != "" {
+				roles[voiceRole.Role] = struct{}{}
+			}
+		}
+	}
+
+	options.Speakers = sortedStrings(speakers)
+	options.Roles = sortedStrings(roles)
+	options.Authors = sortedStrings(authors)
+	options.ScriptAuthors = sortedStrings(scriptAuthors)
+	for collection := range collections {
+		options.Collections = append(options.Collections, collection)
+	}
+	sort.Slice(options.Collections, func(i, j int) bool {
+		return options.Collections[i] < options.Collections[j]
+	})
+	return options
+}
+
+func sortedStrings(values map[string]struct{}) []string {
+	result := make([]string, 0, len(values))
+	for value := range values {
+		result = append(result, value)
+	}
+	sort.Strings(result)
+	return result
 }
 
 func (h *archiveHandler) getFolge(w http.ResponseWriter, r *http.Request) {

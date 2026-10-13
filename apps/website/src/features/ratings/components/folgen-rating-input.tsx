@@ -1,4 +1,5 @@
 "use client";
+
 import {
   FOLGEN_RATING_MAX,
   FOLGEN_RATING_MIN,

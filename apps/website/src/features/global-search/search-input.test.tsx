@@ -31,13 +31,13 @@ afterEach(() => {
 });
 
 describe("SearchInput keyboard shortcut", () => {
-  it("focuses the search input on Ctrl+K on Windows", () => {
+  it("opens the search dialog on Ctrl+K on Windows", () => {
     vi.spyOn(window.navigator, "platform", "get").mockReturnValue("Win32");
     renderSearchInput();
 
-    const input = screen.getByRole("combobox", {
-      name: "Folgen Archiv durchsuchen",
-    });
+    expect(
+      screen.getByRole("button", { name: "Folgen Archiv durchsuchen" }),
+    ).toBeTruthy();
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
       cancelable: true,
@@ -50,18 +50,18 @@ describe("SearchInput keyboard shortcut", () => {
       window.dispatchEvent(event);
     });
 
+    expect(screen.getByRole("dialog")).toBeTruthy();
     expect(screen.getByText("Ctrl")).toBeTruthy();
-    expect(document.activeElement).toBe(input);
     expect(event.defaultPrevented).toBe(true);
   });
 
-  it("focuses the search input on Command+K on macOS", () => {
+  it("opens the search dialog on Command+K on macOS", () => {
     vi.spyOn(window.navigator, "platform", "get").mockReturnValue("MacIntel");
     renderSearchInput();
 
-    const input = screen.getByRole("combobox", {
-      name: "Folgen Archiv durchsuchen",
-    });
+    expect(
+      screen.getByRole("button", { name: "Folgen Archiv durchsuchen" }),
+    ).toBeTruthy();
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
       cancelable: true,
@@ -74,8 +74,8 @@ describe("SearchInput keyboard shortcut", () => {
       window.dispatchEvent(event);
     });
 
+    expect(screen.getByRole("dialog")).toBeTruthy();
     expect(screen.getByText("⌘")).toBeTruthy();
-    expect(document.activeElement).toBe(input);
     expect(event.defaultPrevented).toBe(true);
   });
 

@@ -1,4 +1,4 @@
-import type { Folge } from "@ddfdb/archiv/contracts";
+import type { Folge, SearchOptions } from "@ddfdb/archiv/contracts";
 
 export type ArchivApiErrorCode = "http" | "invalid-response" | "network";
 
@@ -62,6 +62,19 @@ export class ArchivApi {
     if (!Array.isArray(payload) || !payload.every(isFolge)) {
       throw new ArchivApiError(
         "Archiv API returned an invalid Folgen response",
+        "invalid-response",
+      );
+    }
+    return payload;
+  }
+
+  public async getSearchOptions(
+    options: ArchivRequestOptions = {},
+  ): Promise<SearchOptions> {
+    const payload = await this.request("/search-options", options);
+    if (!isSearchOptions(payload)) {
+      throw new ArchivApiError(
+        "Archiv API returned an invalid search options response",
         "invalid-response",
       );
     }
@@ -183,6 +196,21 @@ function isNullableString(value: unknown): value is null | string {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function isSearchOptions(value: unknown): value is SearchOptions {
+  if (!isRecord(value)) return false;
+
+  return (
+    isStringArray(value.speakers) &&
+    isStringArray(value.roles) &&
+    isStringArray(value.authors) &&
+    isStringArray(value.script_authors) &&
+    Array.isArray(value.collections) &&
+    value.collections.every(
+      (collection) => collection === "serie" || collection === "spezial",
+    )
+  );
 }
 
 function isStringArray(value: unknown): value is string[] {

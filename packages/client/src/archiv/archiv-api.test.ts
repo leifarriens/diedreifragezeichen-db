@@ -1,8 +1,16 @@
-import type { Folge } from "@ddfdb/archiv/contracts";
+import type { Folge, SearchOptions } from "@ddfdb/archiv/contracts";
 
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { ArchivApi, ArchivApiError } from "./index";
+
+const searchOptions: SearchOptions = {
+  authors: ["Robert Arthur"],
+  collections: ["serie", "spezial"],
+  roles: ["Justus Jonas"],
+  script_authors: ["H. G. Francis"],
+  speakers: ["Oliver Rohrbeck"],
+};
 
 const folge: Folge = {
   artwork: null,
@@ -47,6 +55,44 @@ describe("ArchivApi", () => {
 
   it("accepts empty lists", async () => {
     await expect(setup([]).api.getFolgen()).resolves.toEqual([]);
+  });
+
+  it("fetches and validates search options", async () => {
+    const { api, fetch } = setup(searchOptions);
+    await expect(api.getSearchOptions()).resolves.toEqual(searchOptions);
+    expect(fetch).toHaveBeenCalledWith(
+      "https://archive.example/api/search-options",
+      {
+        headers: { Accept: "application/json" },
+        method: "GET",
+      },
+    );
+  });
+
+  it("accepts empty search option lists", async () => {
+    const emptyOptions: SearchOptions = {
+      authors: [],
+      collections: [],
+      roles: [],
+      script_authors: [],
+      speakers: [],
+    };
+    await expect(setup(emptyOptions).api.getSearchOptions()).resolves.toEqual(
+      emptyOptions,
+    );
+  });
+
+  it.each([
+    null,
+    {},
+    { ...searchOptions, speakers: [1] },
+    { ...searchOptions, script_authors: "author" },
+    { ...searchOptions, collections: ["kids"] },
+  ])("rejects malformed search options %j", async (payload) => {
+    await expect(setup(payload).api.getSearchOptions()).rejects.toMatchObject({
+      code: "invalid-response",
+      message: "Archiv API returned an invalid search options response",
+    });
   });
 
   it.each([1, "1", "id/with ?#&%"])("encodes episode ID %s", async (id) => {
@@ -101,6 +147,12 @@ describe("ArchivApi", () => {
     );
     fetch.mockResolvedValueOnce(new Response("[]"));
     await api.getFolgen({ signal });
+    expect(fetch).toHaveBeenLastCalledWith(
+      expect.any(String),
+      expect.objectContaining({ signal }),
+    );
+    fetch.mockResolvedValueOnce(new Response(JSON.stringify(searchOptions)));
+    await api.getSearchOptions({ signal });
     expect(fetch).toHaveBeenLastCalledWith(
       expect.any(String),
       expect.objectContaining({ signal }),
