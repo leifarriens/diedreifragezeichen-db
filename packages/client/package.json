@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@ddfdb/archiv": "workspace:*",
+    "@ddfdb/core": "workspace:*",
     "@ddfdb/user-api": "workspace:*",
     "@tanstack/react-query": "5.104.0",
     "@trpc/client": "^11.19.0",

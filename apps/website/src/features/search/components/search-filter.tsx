@@ -1,10 +1,10 @@
 import type { SearchOptions } from "@ddfdb/archiv/contracts";
+import type { SearchSort, SearchState } from "@ddfdb/client";
 
 import { CURRENT_YEAR } from "@/app/constants";
 import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
 import { Select } from "@/components/ui/select/select";
 
-import type { SearchSort, SearchState } from "../hooks/use-search-state";
 import type { ComboboxItem } from "./combobox";
 
 import MultiCombobox from "./combobox";
@@ -128,6 +128,6 @@ export function SearchFilters({
   );
 }
 
-function toComboboxItems(values: string[]): ComboboxItem<string>[] {
+function toComboboxItems<T extends string>(values: T[]): ComboboxItem<T>[] {
   return values.map((value) => ({ label: value, value }));
 }

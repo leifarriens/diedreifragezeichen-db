@@ -87,23 +87,19 @@ export const FolgenGridItem = memo(function FolgenGridItem({
               />
             )}
 
-            {isBookmarked !== null && (
-              <FolgenBookmarkButton
-                folgeId={id}
-                folgeTitle={title}
-                isBookmarked={isBookmarked}
-                size={24}
-              />
-            )}
+            <FolgenBookmarkButton
+              folgeId={id}
+              folgeTitle={title}
+              isBookmarked={isBookmarked}
+              size={24}
+            />
 
-            {hasListened !== null && (
-              <FolgenListenedButton
-                folgeId={id}
-                folgeTitle={title}
-                hasListened={hasListened}
-                size={24}
-              />
-            )}
+            <FolgenListenedButton
+              folgeId={id}
+              folgeTitle={title}
+              hasListened={hasListened}
+              size={24}
+            />
           </div>
         )}
       </div>

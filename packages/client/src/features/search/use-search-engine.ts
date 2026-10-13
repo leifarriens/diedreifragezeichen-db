@@ -2,13 +2,21 @@ import { useDebouncedValue } from "@ddfdb/client/utils";
 import {
   createSearchEngine,
   type SearchableFolge,
+  type SearchCriteria,
   type SearchEngine,
-  type SearchOptions,
 } from "@ddfdb/core/search";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-export function useSearchEngine<T extends SearchableFolge>(folgen: T[]) {
+export function useSearchEngine<T extends SearchableFolge>(
+  folgen: T[],
+  {
+    shouldInitialize = true,
+  }: {
+    shouldInitialize?: boolean;
+  } = {},
+) {
   const engineQuery = useQuery({
+    enabled: shouldInitialize,
     queryFn: () => createSearchEngine<T>(folgen),
     queryKey: ["searchEngine", Object.keys(folgen).length],
     staleTime: Infinity,
@@ -22,9 +30,9 @@ export function useSearchEngine<T extends SearchableFolge>(folgen: T[]) {
 
 export function useSearchResults<T extends SearchableFolge>(
   engine: SearchEngine<T> | undefined,
-  options: SearchOptions,
+  criteria: SearchCriteria,
 ) {
-  const debouncedSearchOptions = useDebouncedValue(options, 50);
+  const debouncedSearchOptions = useDebouncedValue(criteria, 50);
 
   return useQuery({
     enabled: !!engine,
@@ -35,7 +43,7 @@ export function useSearchResults<T extends SearchableFolge>(
         return;
       }
 
-      return engine.searchDb(debouncedSearchOptions);
+      return engine.search(debouncedSearchOptions);
     },
     queryKey: ["search", debouncedSearchOptions],
   });

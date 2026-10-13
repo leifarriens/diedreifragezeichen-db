@@ -21,7 +21,7 @@ describe("useSearchState", () => {
       term: "",
       yearRange: { max: 2026, min: 1979 },
     });
-    expect(result.current.searchOptions).toEqual({
+    expect(result.current.searchCriteria).toEqual({
       filters: {
         authors: [],
         collections: [],
@@ -44,16 +44,16 @@ describe("useSearchState", () => {
       updateState({ speakers: ["Dorette Hugo"], term: "Hugenay" });
       updateState({ authors: ["André Marx"], roles: ["Hugenay"] });
       updateState({
-        collections: ["Specials"],
+        collections: ["spezial"],
         scriptAuthors: ["André Minninger"],
         yearRange: { max: 2020, min: 1990 },
       });
     });
 
-    expect(result.current.searchOptions).toEqual({
+    expect(result.current.searchCriteria).toEqual({
       filters: {
         authors: ["André Marx"],
-        collections: ["Specials"],
+        collections: ["spezial"],
         roles: ["Hugenay"],
         script_authors: ["André Minninger"],
         speakers: ["Dorette Hugo"],
@@ -79,7 +79,7 @@ describe("useSearchState", () => {
     });
 
     expect(result.current.state.sort).toBe(sort);
-    expect(result.current.searchOptions.sort).toEqual({ by, order });
+    expect(result.current.searchCriteria.sort).toEqual({ by, order });
   });
 
   it("clears selections and restores the default sort without clearing the term", () => {
@@ -98,7 +98,7 @@ describe("useSearchState", () => {
 
     expect(result.current.state.authors).toEqual([]);
     expect(result.current.state.sort).toBe("newest");
-    expect(result.current.searchOptions.sort).toEqual({
+    expect(result.current.searchCriteria.sort).toEqual({
       by: "release_date",
       order: "DESC",
     });

@@ -531,12 +531,12 @@ importers:
       '@ddfdb/archiv':
         specifier: workspace:*
         version: link:../../services/archiv
+      '@ddfdb/core':
+        specifier: workspace:*
+        version: link:../core
       '@ddfdb/user-api':
         specifier: workspace:*
         version: link:../user-api
-      '@orama/orama':
-        specifier: ^3.1.18
-        version: 3.1.18
       '@tanstack/react-query':
         specifier: 5.104.0
         version: 5.104.0(react@19.3.0)

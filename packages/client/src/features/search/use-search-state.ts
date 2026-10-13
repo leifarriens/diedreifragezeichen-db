@@ -1,6 +1,7 @@
 "use client";
 
-import type { SearchOptions, SortOption } from "@ddfdb/core/search";
+import type { Collection } from "@ddfdb/archiv/contracts";
+import type { SearchCriteria, SortOption } from "@ddfdb/core/search";
 
 import { useCallback, useState } from "react";
 
@@ -8,7 +9,7 @@ export type SearchSort = "newest" | "oldest" | "rating";
 
 export interface SearchState {
   authors: string[];
-  collections: string[];
+  collections: Collection[];
   roles: string[];
   scriptAuthors: string[];
   sort: SearchSort;
@@ -43,7 +44,7 @@ export function useSearchState(currentYear: number) {
     setState((previous) => ({ ...previous, ...updates }));
   }, []);
 
-  const searchOptions: SearchOptions = {
+  const searchCriteria: SearchCriteria = {
     filters: {
       authors: state.authors,
       collections: state.collections,
@@ -63,5 +64,5 @@ export function useSearchState(currentYear: number) {
     });
   }, [currentYear]);
 
-  return { resetState, searchOptions, state, updateState };
+  return { resetState, searchCriteria, state, updateState };
 }

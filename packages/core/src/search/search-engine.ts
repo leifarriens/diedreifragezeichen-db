@@ -21,27 +21,27 @@ export interface SearchableFolge {
   voice_roles: { role: string; speaker: string }[];
 }
 
-export interface SearchEngine<T extends SearchableFolge> {
-  searchDb(options: SearchOptions): Promise<{
-    count: number;
-    results: T[];
-  }>;
-}
-
-export interface SearchOptions {
-  filters: {
-    authors: SearchDocument["authors"];
-    collections: string[];
-    roles: SearchDocument["roles"];
-    script_authors: SearchDocument["script_authors"];
-    speakers: SearchDocument["speakers"];
+export interface SearchCriteria {
+  filters?: {
+    authors?: string[];
+    collections?: string[];
+    roles?: string[];
+    script_authors?: string[];
+    speakers?: string[];
     yearRange?: {
       max: number;
       min: number;
     };
   };
-  sort: SortOption;
-  term: string;
+  sort?: SortOption;
+  term?: string;
+}
+
+export interface SearchEngine<T extends SearchableFolge> {
+  search(options: SearchCriteria): Promise<{
+    count: number;
+    results: T[];
+  }>;
 }
 
 export type SortOption =
@@ -55,16 +55,16 @@ export type SortOption =
     };
 
 const searchSchema = {
-  authors: "string[]",
-  collection: "string",
+  authors: "enum[]",
+  collection: "enum",
   communityRating: "number",
   id: "string",
   number: "string",
   release_date: "string",
   release_year: "number",
-  roles: "string[]",
-  script_authors: "string[]",
-  speakers: "string[]",
+  roles: "enum[]",
+  script_authors: "enum[]",
+  speakers: "enum[]",
   title: "string",
 } as const satisfies AnySchema;
 
@@ -111,34 +111,51 @@ export async function createSearchEngine<T extends SearchableFolge>(
   await insertMultiple(db, folgen.map(toSearchDocument));
 
   return {
-    searchDb: async ({ filters, sort, term }: SearchOptions) => {
+    search: async ({ filters, sort, term }: SearchCriteria) => {
+      const params = {
+        ...(sort && { sortBy: { order: sort.order, property: sort.by } }),
+        term: term ?? "",
+        ...(filters && {
+          where: {
+            ...(filters.authors &&
+              filters.authors.length > 0 && {
+                authors: { containsAny: filters.authors },
+              }),
+            ...(filters.roles &&
+              filters.roles.length > 0 && {
+                roles: { containsAny: filters.roles },
+              }),
+            ...(filters.script_authors &&
+              filters.script_authors.length > 0 && {
+                script_authors: { containsAny: filters.script_authors },
+              }),
+            ...(filters.speakers &&
+              filters.speakers.length > 0 && {
+                speakers: { containsAny: filters.speakers },
+              }),
+            ...(filters.collections &&
+              filters.collections.length > 0 && {
+                collection: { in: filters.collections },
+              }),
+            ...(filters.yearRange && {
+              release_year: {
+                between: [filters.yearRange.min, filters.yearRange.max] as [
+                  number,
+                  number,
+                ],
+              },
+            }),
+          },
+        }),
+      };
+
       const results = await search(db, {
         boost: {
           title: 1,
         },
         limit: folgen.length, // set the limit to the total number of folgen
         properties: ["title", "number", "release_date"],
-        sortBy: {
-          order: sort.order,
-          property: sort.by,
-        },
-        term,
-        where: {
-          ...(filters.authors.length > 0 && { authors: filters.authors }),
-          ...(filters.roles.length > 0 && { roles: filters.roles }),
-          ...(filters.script_authors.length > 0 && {
-            script_authors: filters.script_authors,
-          }),
-          ...(filters.speakers.length > 0 && { speakers: filters.speakers }),
-          ...(filters.collections.length > 0 && {
-            collection: filters.collections,
-          }),
-          ...(filters.yearRange && {
-            release_year: {
-              between: [filters.yearRange.min, filters.yearRange.max],
-            },
-          }),
-        },
+        ...params,
       });
 
       console.debug(results.elapsed);
@@ -162,25 +179,20 @@ export async function createSearchEngine<T extends SearchableFolge>(
 
 function toSearchDocument(folge: SearchableFolge): SearchDocumentInput {
   return {
-    ...(folge.communityRating !== null
-      ? { communityRating: folge.communityRating.score }
-      : {}),
+    ...(folge.communityRating !== null && {
+      communityRating: folge.communityRating.score,
+    }),
     collection: folge.collection,
     id: folge.id.toString(),
     script_authors: folge.script_authors,
-    ...(folge.number !== null ? { number: folge.number.toString() } : {}),
-    ...(folge.release_date !== null
-      ? { release_date: folge.release_date }
-      : {}),
+    ...(folge.number !== null && { number: folge.number.toString() }),
+    ...(folge.release_date !== null && { release_date: folge.release_date }),
     authors: folge.authors,
-    ...(folge.communityRating !== null
-      ? { communityRating: folge.communityRating.score }
-      : {}),
     roles: folge.voice_roles.map(({ role }) => role),
     speakers: folge.voice_roles.map(({ speaker }) => speaker),
     title: folge.title,
-    ...(folge.release_date !== null
-      ? { release_year: Number(folge.release_date.slice(0, 4)) }
-      : {}),
+    ...(folge.release_date !== null && {
+      release_year: Number(folge.release_date.slice(0, 4)),
+    }),
   };
 }
