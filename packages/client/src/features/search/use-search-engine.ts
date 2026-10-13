@@ -3,41 +3,38 @@ import {
   createSearchEngine,
   type SearchableFolge,
   type SearchCriteria,
-  type SearchEngine,
 } from "@ddfdb/core/search";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
-export function useSearchEngine<T extends SearchableFolge>(
+export function useSearch<T extends SearchableFolge>(
   folgen: T[],
-  {
-    shouldInitialize = true,
-  }: {
-    shouldInitialize?: boolean;
-  } = {},
+  criteria: SearchCriteria,
 ) {
+  const folgenKey = folgen.map((folge) => folge.id);
+
   const engineQuery = useQuery({
-    enabled: shouldInitialize,
+    enabled: folgen.length > 0,
     queryFn: () => createSearchEngine<T>(folgen),
-    queryKey: ["searchEngine", Object.keys(folgen).length],
+    queryKey: ["search-engine", folgenKey],
     staleTime: Infinity,
   });
 
-  return {
-    engine: engineQuery.data,
-    isLoading: engineQuery.isLoading,
-  };
-}
+  useEffect(() => {
+    if (engineQuery.error) {
+      console.error("Error initializing search engine:", engineQuery.error);
+    }
+  }, [engineQuery.error]);
 
-export function useSearchResults<T extends SearchableFolge>(
-  engine: SearchEngine<T> | undefined,
-  criteria: SearchCriteria,
-) {
+  const engine = engineQuery.data;
+
   const debouncedSearchOptions = useDebouncedValue(criteria, 50);
 
-  return useQuery({
+  const searchQuery = useQuery({
     enabled: !!engine,
     placeholderData: keepPreviousData,
     queryFn: () => {
+      console.log("Searching with criteria:", debouncedSearchOptions);
       if (!engine) {
         throw new Error("Engine not ready");
         return;
@@ -45,6 +42,8 @@ export function useSearchResults<T extends SearchableFolge>(
 
       return engine.search(debouncedSearchOptions);
     },
-    queryKey: ["search", debouncedSearchOptions],
+    queryKey: ["search", folgenKey, debouncedSearchOptions],
   });
+
+  return searchQuery;
 }

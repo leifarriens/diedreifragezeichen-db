@@ -1,5 +1,5 @@
+import { useSearch } from "@ddfdb/client";
 import {
-  createFolgenFilter,
   selectCollectionFolgen,
   sortFolgen,
   type UserRatingSortOption,
@@ -33,16 +33,15 @@ export function RatingsScreen() {
     refresh,
   } = useUserRatedFolgen();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(ratedFolgen);
+  const searchQuery = useSearch(ratedFolgen, { term: searchTerm });
 
-  const filteredFolgen = useMemo(
-    () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
-    [hydratedFolgen, searchTerm],
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? ratedFolgen,
   );
 
   const sortedFolgen = useMemo(
-    () => sortFolgen(filteredFolgen, sortOption),
-    [filteredFolgen, sortOption],
+    () => sortFolgen(hydratedFolgen, sortOption),
+    [hydratedFolgen, sortOption],
   );
 
   const displayedFolgen = sortedFolgen;

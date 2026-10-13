@@ -1,5 +1,5 @@
+import { useSearch } from "@ddfdb/client";
 import {
-  createFolgenFilter,
   type ListenedDateSortOption,
   selectCollectionFolgen,
   sortFolgen,
@@ -29,16 +29,15 @@ export function ListenedScreen() {
     refresh,
   } = useUserListenedFolgen();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(listenedFolgen);
+  const searchQuery = useSearch(listenedFolgen, { term: searchTerm });
 
-  const filteredFolgen = useMemo(
-    () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
-    [hydratedFolgen, searchTerm],
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? listenedFolgen,
   );
 
   const sortedFolgen = useMemo(
-    () => sortFolgen(filteredFolgen, sortOption),
-    [filteredFolgen, sortOption],
+    () => sortFolgen(hydratedFolgen, sortOption),
+    [hydratedFolgen, sortOption],
   );
 
   const displayedFolgen = sortedFolgen;

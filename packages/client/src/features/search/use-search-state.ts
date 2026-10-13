@@ -44,6 +44,7 @@ export function useSearchState(currentYear: number) {
     setState((previous) => ({ ...previous, ...updates }));
   }, []);
 
+  // Translation of internal state to search criteria
   const searchCriteria: SearchCriteria = {
     filters: {
       authors: state.authors,
@@ -64,5 +65,5 @@ export function useSearchState(currentYear: number) {
     });
   }, [currentYear]);
 
-  return { resetState, searchCriteria, state, updateState };
+  return { initialState, resetState, searchCriteria, state, updateState };
 }

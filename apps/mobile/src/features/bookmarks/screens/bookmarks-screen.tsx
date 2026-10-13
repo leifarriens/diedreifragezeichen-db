@@ -1,6 +1,6 @@
+import { useSearch } from "@ddfdb/client";
 import {
   type BookmarkDateSortOption,
-  createFolgenFilter,
   selectCollectionFolgen,
   sortFolgen,
 } from "@ddfdb/core";
@@ -29,16 +29,15 @@ export function BookmarksScreen() {
     refresh,
   } = useUserBookmarkedFolgen();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(bookmarkedFolgen);
+  const searchQuery = useSearch(bookmarkedFolgen, { term: searchTerm });
 
-  const filteredFolgen = useMemo(
-    () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
-    [hydratedFolgen, searchTerm],
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? bookmarkedFolgen,
   );
 
   const sortedFolgen = useMemo(
-    () => sortFolgen(filteredFolgen, sortOption),
-    [filteredFolgen, sortOption],
+    () => sortFolgen(hydratedFolgen, sortOption),
+    [hydratedFolgen, sortOption],
   );
 
   const displayedFolgen = sortedFolgen;

@@ -26,6 +26,11 @@ export default defineConfig([
     },
   },
   {
+    rules: {
+      "@typescript-eslint/no-deprecated": "warn",
+    },
+  },
+  {
     files: ["**/*.js"],
     ...tseslint.configs.disableTypeChecked,
   },

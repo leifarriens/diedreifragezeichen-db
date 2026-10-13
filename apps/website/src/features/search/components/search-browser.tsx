@@ -3,11 +3,7 @@
 import type { SearchOptions } from "@ddfdb/archiv/contracts";
 import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
-import {
-  useSearchEngine,
-  useSearchResults,
-  useSearchState,
-} from "@ddfdb/client";
+import { useSearch, useSearchState } from "@ddfdb/client";
 
 import { CURRENT_YEAR } from "@/app/constants";
 import { Wrapper } from "@/components/ui/wrapper";
@@ -24,9 +20,7 @@ export function SearchBrowser({
 }) {
   const { searchCriteria, state, updateState } = useSearchState(CURRENT_YEAR);
 
-  const { engine } = useSearchEngine(folgen);
-
-  const searchQuery = useSearchResults(engine, searchCriteria);
+  const searchQuery = useSearch(folgen, searchCriteria);
 
   const hydratedFolgen = useHydrateFolgenWithUserData(
     searchQuery.data?.results ?? folgen,

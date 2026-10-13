@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { UseTRPC } from "../../types";
 
-interface BookmarkHooks {
+export interface BookmarkHooks {
   useUpdateFolgenBookmark: () => {
     addBookmarkMutation: UseMutationResult<
       inferRouterOutputs<AppRouter>["bookmarks"]["addBookmark"],

@@ -2,11 +2,8 @@
 
 import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
-import {
-  createFolgenFilter,
-  type ListenedDateSortOption,
-  sortFolgen,
-} from "@ddfdb/core";
+import { useSearch } from "@ddfdb/client";
+import { type ListenedDateSortOption, sortFolgen } from "@ddfdb/core";
 import { useMemo, useState } from "react";
 
 import { SortSelector } from "@/components/ui/sort-selector/sort-selector";
@@ -25,16 +22,15 @@ export function UserListenedFolgen({
     order: "newest",
   });
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
+  const searchQuery = useSearch(folgen, { term: searchTerm });
 
-  const filteredFolgen = useMemo(
-    () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
-    [hydratedFolgen, searchTerm],
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? folgen,
   );
 
   const sortedFolgen = useMemo(
-    () => sortFolgen(filteredFolgen, sortOption),
-    [filteredFolgen, sortOption],
+    () => sortFolgen(hydratedFolgen, sortOption),
+    [hydratedFolgen, sortOption],
   );
 
   const displayedFolgen = sortedFolgen;

@@ -1,6 +1,6 @@
 import { Stack } from "expo-router/stack";
 
-import { ArchiveFilterProvider } from "@/providers/archive-filter-provider";
+import { ArchiveFilterProvider } from "@/features/archive/context/archive-filter-provider";
 
 export default function DashboardStackLayout() {
   return (
@@ -20,7 +20,7 @@ export default function DashboardStackLayout() {
           options={{
             contentStyle: { backgroundColor: "transparent" },
             presentation: "formSheet",
-            sheetAllowedDetents: [0.5],
+            sheetAllowedDetents: [0.5, 1],
             title: "Filter",
           }}
         />

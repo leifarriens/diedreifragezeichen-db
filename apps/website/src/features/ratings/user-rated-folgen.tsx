@@ -2,8 +2,8 @@
 
 import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
+import { useSearch } from "@ddfdb/client";
 import {
-  createFolgenFilter,
   sortFolgen,
   type UserRatingSortOption,
   type UserRatingUpdatedSortOption,
@@ -29,16 +29,15 @@ export function UserRatedFolgen({
     order: "newest",
   });
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
+  const searchQuery = useSearch(folgen, { term: searchTerm });
 
-  const filteredFolgen = useMemo(
-    () => createFolgenFilter(hydratedFolgen).search(searchTerm).results(),
-    [hydratedFolgen, searchTerm],
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? folgen,
   );
 
   const sortedFolgen = useMemo(
-    () => sortFolgen(filteredFolgen, sortOption),
-    [filteredFolgen, sortOption],
+    () => sortFolgen(hydratedFolgen, sortOption),
+    [hydratedFolgen, sortOption],
   );
 
   const displayedFolgen = sortedFolgen;

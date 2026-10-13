@@ -33,6 +33,7 @@ export interface SearchCriteria {
       min: number;
     };
   };
+  limit?: number;
   sort?: SortOption;
   term?: string;
 }
@@ -89,7 +90,9 @@ type SearchDocumentInput = Omit<SearchDocument, OptionalSearchFields> &
 export async function createSearchEngine<T extends SearchableFolge>(
   folgen: T[],
 ): Promise<SearchEngine<T>> {
+  console.debug("Creating search engine with folgen:", folgen.length);
   const db = create({
+    language: "german",
     schema: searchSchema,
     sort: {
       // By default, Orama allows the sort on all properties defined in the schema.
@@ -111,7 +114,8 @@ export async function createSearchEngine<T extends SearchableFolge>(
   await insertMultiple(db, folgen.map(toSearchDocument));
 
   return {
-    search: async ({ filters, sort, term }: SearchCriteria) => {
+    search: async ({ filters, limit, sort, term }: SearchCriteria) => {
+      console.debug("Search criteria:", { filters, sort, term });
       const params = {
         ...(sort && { sortBy: { order: sort.order, property: sort.by } }),
         term: term ?? "",
@@ -153,11 +157,12 @@ export async function createSearchEngine<T extends SearchableFolge>(
         boost: {
           title: 1,
         },
-        limit: folgen.length, // set the limit to the total number of folgen
+        limit: limit ?? folgen.length, // set the default limit to the total number of folgen
         properties: ["title", "number", "release_date"],
         ...params,
       });
 
+      console.debug("Search results:", results);
       console.debug(results.elapsed);
 
       const folgenById = new Map(

@@ -120,9 +120,7 @@ export function SearchFilters({
           if (!sort) return;
           onChange({ sort });
         }}
-        value={
-          sortOptions.find((item) => item.value === state.sort)?.value ?? null
-        }
+        value={state.sort}
       />
     </div>
   );

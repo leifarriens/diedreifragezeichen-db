@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { UseTRPC } from "../../types";
 
-interface RatingHooks {
+export interface RatingHooks {
   useUpdateRating: () => {
     isLoading: boolean;
     ratingMutation: UseMutationResult<

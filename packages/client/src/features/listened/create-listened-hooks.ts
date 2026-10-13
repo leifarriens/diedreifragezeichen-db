@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { UseTRPC } from "../../types";
 
-interface ListenedHooks {
+export interface ListenedHooks {
   useUpdateFolgenListenStatus: () => {
     isLoading: boolean;
     markFolgeAsListenedMutation: UseMutationResult<

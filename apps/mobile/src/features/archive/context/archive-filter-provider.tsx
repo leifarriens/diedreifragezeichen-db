@@ -1,13 +1,7 @@
-import {
-  createContext,
-  type Dispatch,
-  type PropsWithChildren,
-  type SetStateAction,
-  use,
-  useCallback,
-  useMemo,
-  useState,
-} from "react";
+import type { SearchCriteria } from "@ddfdb/core/search";
+
+import { type SearchState, useSearchState } from "@ddfdb/client";
+import { createContext, type PropsWithChildren, use, useMemo } from "react";
 
 export interface ArchiveFilters {
   endDate: null | string;
@@ -16,31 +10,25 @@ export interface ArchiveFilters {
 }
 
 interface ArchiveFilterContextValue {
-  filters: ArchiveFilters;
-  resetFilters: () => void;
-  setFilters: Dispatch<SetStateAction<ArchiveFilters>>;
+  resetState: () => void;
+  searchCriteria: SearchCriteria;
+  state: SearchState;
+  updateState: (updates: Partial<SearchState>) => void;
 }
 
 const ArchiveFilterContext = createContext<ArchiveFilterContextValue | null>(
   null,
 );
 
-const initialFilters: ArchiveFilters = {
-  endDate: null,
-  showSpecials: true,
-  startDate: null,
-};
+const CURRENT_YEAR = new Date().getFullYear();
 
 export function ArchiveFilterProvider({ children }: PropsWithChildren) {
-  const [filters, setFilters] = useState<ArchiveFilters>(initialFilters);
-
-  const resetFilters = useCallback(() => {
-    setFilters(initialFilters);
-  }, []);
+  const { resetState, searchCriteria, state, updateState } =
+    useSearchState(CURRENT_YEAR);
 
   const value = useMemo(
-    () => ({ filters, resetFilters, setFilters }),
-    [filters, resetFilters],
+    () => ({ resetState, searchCriteria, state, updateState }),
+    [resetState, searchCriteria, state, updateState],
   );
 
   return <ArchiveFilterContext value={value}>{children}</ArchiveFilterContext>;

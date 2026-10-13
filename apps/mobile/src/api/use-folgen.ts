@@ -58,6 +58,6 @@ function getFolgenQueryOptions() {
       return archivApi.getFolgen();
     },
     queryKey: folgenQueryKey,
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 60 * 24, // 24 hour
   };
 }

@@ -1,48 +1,28 @@
-import { useDebouncedValue } from "@ddfdb/client/utils";
+import { type SearchSort, useSearch } from "@ddfdb/client";
 import { Stack, useRouter } from "expo-router";
-import { useMemo, useState } from "react";
 
 import { useFolgen } from "@/api/use-folgen";
 import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user-data";
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
 import { Logo } from "@/components/logo";
-import {
-  type ArchiveSortOrder,
-  filterArchiveFolgen,
-  sortArchiveFolgen,
-} from "@/features/archive/archive-folgen";
+import { useArchiveFilters } from "@/features/archive/context/archive-filter-provider";
 import { FolgenList } from "@/features/folgen-list/folgen-list";
 import { useViewMode } from "@/features/folgen-list/view-mode";
-import { useArchiveFilters } from "@/providers/archive-filter-provider";
 
 export function ArchiveScreen() {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOrder, setSortOrder] = useState<ArchiveSortOrder>("newest");
-  const debouncedSearch = useDebouncedValue(searchTerm);
 
-  const {
-    filters: { endDate, showSpecials, startDate },
-  } = useArchiveFilters();
+  const { searchCriteria, state, updateState } = useArchiveFilters();
   const folgenQuery = useFolgen();
   const { viewMode, viewModeMenu } = useViewMode();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(folgenQuery.data ?? []);
+  const searchQuery = useSearch(folgenQuery.data ?? [], searchCriteria);
 
-  const filteredFolgen = useMemo(
-    () =>
-      filterArchiveFolgen(hydratedFolgen, debouncedSearch, {
-        endDate,
-        showSpecials,
-        startDate,
-      }),
-    [hydratedFolgen, debouncedSearch, showSpecials, startDate, endDate],
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? folgenQuery.data ?? [],
   );
 
-  const displayedFolgen = useMemo(
-    () => sortArchiveFolgen(filteredFolgen, sortOrder),
-    [filteredFolgen, sortOrder],
-  );
+  const displayedFolgen = hydratedFolgen;
 
   return (
     <>
@@ -51,7 +31,7 @@ export function ArchiveScreen() {
           headerSearchBarOptions: {
             hideWhenScrolling: false,
             onChangeText: (event) => {
-              setSearchTerm(event.nativeEvent.text);
+              updateState({ term: event.nativeEvent.text });
             },
             placeholder: "Titel, Nummer oder Erscheinungsjahr",
             placement: "integratedCentered",
@@ -72,14 +52,11 @@ export function ArchiveScreen() {
           unstable_headerRightItems: () => [
             ...viewModeMenu,
             ...buildHeaderSortMenu({
-              onSortValueChange: setSortOrder,
-              options: [
-                { label: "Neueste", value: "newest" },
-                { label: "Älteste", value: "oldest" },
-                { label: "Beste", value: "rating" },
-                { label: "Beliebteste", value: "popularity" },
-              ],
-              sortValue: sortOrder,
+              onSortValueChange(sort) {
+                updateState({ sort });
+              },
+              options: sortOptions,
+              sortValue: state.sort,
             }),
           ],
         }}
@@ -95,3 +72,18 @@ export function ArchiveScreen() {
     </>
   );
 }
+
+const sortOptions: { label: string; value: SearchSort }[] = [
+  {
+    label: "Neuste",
+    value: "newest",
+  },
+  {
+    label: "Älteste",
+    value: "oldest",
+  },
+  {
+    label: "Beste",
+    value: "rating",
+  },
+];

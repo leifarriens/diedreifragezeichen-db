@@ -19,6 +19,29 @@ function createTestFolge(overrides = {}) {
 }
 
 describe("createSearchEngine", () => {
+  it.fails("matches a substring within a title", async () => {
+    const searchEngine = await createSearchEngine([
+      createTestFolge({ title: "Feuermond" }),
+    ]);
+
+    const result = await searchEngine.search({ term: "mond" });
+
+    expect(result.results.map(({ title }) => title)).toEqual(["Feuermond"]);
+  });
+
+  it("matches German umlauts without unrelated titles", async () => {
+    const searchEngine = await createSearchEngine([
+      createTestFolge({ title: "Das Rätsel der Nacht" }),
+      createTestFolge({ id: 2, title: "Der rote Mond" }),
+    ]);
+
+    const result = await searchEngine.search({ term: "Rätsel" });
+
+    expect(result.results.map(({ title }) => title)).toEqual([
+      "Das Rätsel der Nacht",
+    ]);
+  });
+
   it("matches roles as complete values instead of individual words", async () => {
     const searchEngine = await createSearchEngine([
       createTestFolge({

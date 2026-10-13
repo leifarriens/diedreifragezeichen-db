@@ -93,7 +93,7 @@ function ListEmptyContainer({ children }: { children: React.ReactNode }) {
   return (
     <View
       className="items-center justify-center px-16"
-      style={{ height: height / 2 }}
+      style={{ height: height / 1.33 }}
     >
       {children}
     </View>

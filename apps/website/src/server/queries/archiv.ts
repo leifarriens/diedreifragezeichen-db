@@ -1,18 +1,21 @@
-import { createFolgenFilter, sortFolgen } from "@ddfdb/core";
+import { sortFolgen } from "@ddfdb/core";
+import { createSearchEngine } from "@ddfdb/core/search";
 
 import type { SearchResult } from "@/features/global-search/contracts";
 
-import { archivApi } from "../archiv-api";
+import { getAllFolgenWithCommunityRatings } from "./folgen";
 
 export async function searchArchiv(query: string): Promise<SearchResult[]> {
-  const folgen = await archivApi.getFolgen();
+  const folgen = await getAllFolgenWithCommunityRatings();
 
-  const results: SearchResult[] = sortFolgen(
-    createFolgenFilter(folgen).search(query).results(),
-    { by: "releaseDate", order: "newest" },
-  )
-    .slice(0, 6)
-    .map(({ cover, id, number, title }) => ({ cover, id, number, title }));
+  const engine = await createSearchEngine(folgen);
+
+  const searchResults = await engine.search({ term: query });
+
+  const results: SearchResult[] = sortFolgen(searchResults.results, {
+    by: "releaseDate",
+    order: "newest",
+  }).map(({ cover, id, number, title }) => ({ cover, id, number, title }));
 
   return results;
 }

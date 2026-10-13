@@ -100,6 +100,9 @@ class FolgenFilter<T extends FilterableFolge> {
   }
 }
 
+/**
+ * @deprecated use `createSearchEngine` instead
+ */
 export function createFolgenFilter<T extends FilterableFolge>(
   folgen: readonly T[],
 ): FolgenFilter<T> {
