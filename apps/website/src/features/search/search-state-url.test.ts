@@ -17,7 +17,7 @@ describe("search state URL helpers", () => {
     const state = {
       ...defaults,
       authors: ["André Marx", "Ben, Nevis", "author & writer"],
-      collections: ["spezial" as const, "serie" as const],
+      collections: ["specials" as const, "serie" as const],
       roles: ["Hugenay", "Dorette + Hugo"],
       scriptAuthors: ["André Minninger"],
       sort: "rating" as const,

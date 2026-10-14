@@ -44,7 +44,7 @@ describe("useSearchState", () => {
       updateState({ speakers: ["Dorette Hugo"], term: "Hugenay" });
       updateState({ authors: ["André Marx"], roles: ["Hugenay"] });
       updateState({
-        collections: ["spezial"],
+        collections: ["specials"],
         scriptAuthors: ["André Minninger"],
         yearRange: { max: 2020, min: 1990 },
       });
@@ -53,7 +53,7 @@ describe("useSearchState", () => {
     expect(result.current.searchCriteria).toEqual({
       filters: {
         authors: ["André Marx"],
-        collections: ["spezial"],
+        collections: ["specials"],
         roles: ["Hugenay"],
         script_authors: ["André Minninger"],
         speakers: ["Dorette Hugo"],

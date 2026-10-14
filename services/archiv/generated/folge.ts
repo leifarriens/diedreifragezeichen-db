@@ -12,11 +12,11 @@
 // source: folge.go
 
 /**
- * Collection identifies the upstream Folge collection.
+ * Collection identifies a Folge collection exposed by the Archiv API.
  */
 export const CollectionSerie = "serie";
-export const CollectionSpezial = "spezial";
-export type Collection = typeof CollectionSerie | typeof CollectionSpezial;
+export const CollectionSpecials = "specials";
+export type Collection = typeof CollectionSerie | typeof CollectionSpecials;
 /**
  * Folge is one item returned by the archive API.
  */

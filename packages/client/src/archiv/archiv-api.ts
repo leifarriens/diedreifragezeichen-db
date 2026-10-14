@@ -158,7 +158,7 @@ function isFolge(value: unknown): value is Folge {
     Number.isSafeInteger(value.id) &&
     typeof value.title === "string" &&
     isNullableInteger(value.number) &&
-    (value.collection === "serie" || value.collection === "spezial") &&
+    (value.collection === "serie" || value.collection === "specials") &&
     isNullableString(value.description) &&
     isNullableString(value.release_date) &&
     isNullableInteger(value.total_duration) &&
@@ -208,7 +208,7 @@ function isSearchOptions(value: unknown): value is SearchOptions {
     isStringArray(value.script_authors) &&
     Array.isArray(value.collections) &&
     value.collections.every(
-      (collection) => collection === "serie" || collection === "spezial",
+      (collection) => collection === "serie" || collection === "specials",
     )
   );
 }

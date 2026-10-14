@@ -11,7 +11,7 @@ import (
 const folgenQuery = `
 SELECT
   h."hörspielID",
-  a."sammlung",
+  CASE a."sammlung" WHEN 'spezial' THEN 'specials' ELSE a."sammlung" END,
   a."nummer",
   h."titel",
   h."kurzbeschreibung",
@@ -374,7 +374,7 @@ func folderForCollection(sammlung string) string {
 	switch sammlung {
 	case "serie":
 		return "Serie"
-	case "spezial":
+	case "specials":
 		return "Spezial"
 	case "kurzgeschichten":
 		return "Kurzgeschichten"

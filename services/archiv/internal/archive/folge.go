@@ -1,11 +1,11 @@
 package archive
 
-// Collection identifies the upstream Folge collection.
+// Collection identifies a Folge collection exposed by the Archiv API.
 type Collection string
 
 const (
-	CollectionSerie   Collection = "serie"
-	CollectionSpezial Collection = "spezial"
+	CollectionSerie    Collection = "serie"
+	CollectionSpecials Collection = "specials"
 )
 
 // Folge is one item returned by the archive API.

@@ -69,7 +69,7 @@ const folgen = [
   {
     artwork: null,
     authors: [],
-    collection: "spezial",
+    collection: "specials",
     communityRating: null,
     cover: null,
     description: null,

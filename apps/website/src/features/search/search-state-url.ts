@@ -104,7 +104,7 @@ export function writeSearchState(
 }
 
 function isCollection(value: string): value is Collection {
-  return value === "serie" || value === "spezial";
+  return value === "serie" || value === "specials";
 }
 
 function normalizeYearRange(

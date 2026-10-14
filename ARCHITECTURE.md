@@ -32,7 +32,7 @@ At startup, Archiv checks its local database and rebuilds it when missing or sta
 
 Archiv exposes read-only JSON endpoints:
 
-- `GET /folgen`: the catalog of supported Folgen, currently the `serie` and `spezial` collections.
+- `GET /folgen`: the catalog of supported Folgen, currently the `serie` and `specials` collections.
 - `GET /folgen/{id}`: one Folge by its upstream `ids.dreimetadaten` ID.
 - `GET /healthz`: service health.
 

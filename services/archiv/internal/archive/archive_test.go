@@ -98,7 +98,7 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 		t.Fatalf("load Folgen: %v", err)
 	}
 	if len(folgen) != 3 {
-		t.Fatalf("got %d Folgen, want 3 Serie/Spezial entries", len(folgen))
+		t.Fatalf("got %d Folgen, want 3 serie/specials entries", len(folgen))
 	}
 
 	mainFolge := folgen[0]
@@ -140,7 +140,7 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 	}
 
 	specialFolge := folgen[1]
-	if specialFolge.Collection != "spezial" || specialFolge.Number != nil || specialFolge.Description == nil || *specialFolge.Description != "Metabeschreibung" {
+	if specialFolge.Collection != "specials" || specialFolge.Number != nil || specialFolge.Description == nil || *specialFolge.Description != "Metabeschreibung" {
 		t.Fatalf("unexpected special fields: %+v", specialFolge)
 	}
 	if specialFolge.TotalDuration != nil {
@@ -184,12 +184,13 @@ func TestHTTPHandlerServesNewContractAndDetail(t *testing.T) {
 		t.Fatalf("decode list response as a JSON array: %v", err)
 	}
 	if len(items) != 3 {
-		t.Fatalf("got %d items, want 3 Serie/Spezial entries", len(items))
+		t.Fatalf("got %d items, want 3 serie/specials entries", len(items))
 	}
 	responseBody := listResponse.Body.String()
 	for _, field := range []string{
 		`"id":1`,
 		`"collection":"serie"`,
+		`"collection":"specials"`,
 		`"number":1`,
 		`"streaming":`,
 		`"youtube_music":{"link":`,
@@ -263,7 +264,7 @@ func TestHTTPHandlerReturnsDistinctSearchOptionsForAvailableFolgen(t *testing.T)
 	folgen := []Folge{
 		{
 			ID:            1,
-			Collection:    CollectionSpezial,
+			Collection:    CollectionSpecials,
 			Authors:       []string{"Zed", "Ann", "Ann", " "},
 			ScriptAuthors: []string{"Writer"},
 			VoiceRoles: []VoiceRole{
@@ -305,7 +306,7 @@ func TestHTTPHandlerReturnsDistinctSearchOptionsForAvailableFolgen(t *testing.T)
 		Roles:         []string{"A role", "Zed role"},
 		Authors:       []string{"Ann", "Zed"},
 		ScriptAuthors: []string{"Alpha", "Writer"},
-		Collections:   []Collection{CollectionSerie, CollectionSpezial},
+		Collections:   []Collection{CollectionSerie, CollectionSpecials},
 	}
 	if !reflect.DeepEqual(options, want) {
 		t.Fatalf("search options = %+v, want %+v", options, want)

@@ -6,13 +6,13 @@ This is a field inventory for the upstream SQLite schema downloaded from [`metad
 
 ## Selected standalone HTTP response
 
-`GET /folgen` returns a bare JSON array, not the legacy API envelope. It includes only entries from the upstream `serie` and `spezial` collections. `/folgen/{id}` returns one included object by the upstream `ids.dreimetadaten` ID.
+`GET /folgen` returns a bare JSON array, not the legacy API envelope. It includes entries from upstream `serie` and `spezial` data, exposed as the `serie` and `specials` collections. `/folgen/{id}` returns one included object by the upstream `ids.dreimetadaten` ID.
 
 | API field        | Source or behavior                                                                                                                                                                                                                                                       |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `id`             | `hörspiel.hörspielID`, which is the upstream JSON `ids.dreimetadaten` value                                                                                                                                                                                              |
-| `collection`     | `Collection` string union from `alleIDs.sammlung`: `serie` or `spezial`                                                                                                                                                                                                  |
-| `number`         | `alleIDs.nummer`; `null` for Spezial entries that do not have an episode number                                                                                                                                                                                          |
+| `collection`     | `Collection` string union exposed by the API: `serie` or `specials` (upstream `spezial` is normalized to `specials`)                                                                                                                                                                                                  |
+| `number`         | `alleIDs.nummer`; `null` for specials entries that do not have an episode number                                                                                                                                                                                          |
 | `title`          | `hörspiel.titel`                                                                                                                                                                                                                                                         |
 | `description`    | Upstream `gesamtbeschreibung`: `kurzbeschreibung` and `beschreibung` joined by a newline; if both are absent, use `metabeschreibung`                                                                                                                                     |
 | `release_date`   | `hörspiel.veröffentlichungsdatum`; `null` when missing                                                                                                                                                                                                                   |
@@ -60,7 +60,7 @@ The image URL fields are directly usable as external image links. The selected A
 
 ## Collections and numbering
 
-The `alleIDs` view combines these tables into collection membership and numbering. Its `sammlung` values are `serie`, `spezial`, `kurzgeschichten`, `die_dr3i`, `kids`, and `sonstige`.
+The upstream `alleIDs` view combines these tables into collection membership and numbering. Its `sammlung` values include `spezial`; Archiv exposes that collection as `specials` in its API.
 
 ### `serie`
 
@@ -104,7 +104,7 @@ The `alleIDs` view combines these tables into collection membership and numberin
 
 ### Views: `alleIDs` and `alle`
 
-- `alleIDs` exposes `sammlung`, `nummer`, and `hörspielID` for all six collections. Its `nummer` is `NULL` for `spezial`, `kurzgeschichten`, and `sonstige`. Special ordering is available from `spezial.position`; the other two tables do not define a collection number.
+- Upstream `alleIDs` exposes `sammlung`, `nummer`, and `hörspielID` for all six collections. Its `nummer` is `NULL` for `spezial`, `kurzgeschichten`, and `sonstige`. Special ordering is available from the upstream `spezial.position`; the other two tables do not define a collection number.
 - `alle` joins `alleIDs` to `hörspiel`, so it includes collection membership and every column in the main episode table.
 
 ## Parts and multipart episodes

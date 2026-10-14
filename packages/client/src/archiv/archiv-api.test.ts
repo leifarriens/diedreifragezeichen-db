@@ -6,7 +6,7 @@ import { ArchivApi, ArchivApiError } from "./index";
 
 const searchOptions: SearchOptions = {
   authors: ["Robert Arthur"],
-  collections: ["serie", "spezial"],
+  collections: ["serie", "specials"],
   roles: ["Justus Jonas"],
   script_authors: ["H. G. Francis"],
   speakers: ["Oliver Rohrbeck"],
@@ -108,7 +108,7 @@ describe("ArchivApi", () => {
     const payload: Folge = {
       ...folge,
       authors: [],
-      collection: "spezial",
+      collection: "specials",
       number: null,
       release_date: null,
       script_authors: [],
