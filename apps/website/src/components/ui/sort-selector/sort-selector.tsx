@@ -45,7 +45,7 @@ export function SortSelector<Value extends string>({
     >
       {options.map((option) => (
         <Toggle
-          className="min-h-10 flex-1 cursor-pointer border-y border-neutral-100 px-4 text-xs font-semibold text-neutral-100 transition first-of-type:rounded-l-lg first-of-type:border-l last-of-type:rounded-r-lg last-of-type:border-r hover:not-data-disabled:not-data-pressed:bg-white/10 hover:not-data-disabled:not-data-pressed:text-white focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:bg-white data-pressed:text-[#001727] sm:flex-none sm:text-sm"
+          className="min-h-10 flex-1 cursor-pointer border-x border-y border-neutral-100 px-4 text-xs font-semibold text-neutral-100 transition first-of-type:rounded-l-lg first-of-type:border-l last-of-type:rounded-r-lg last-of-type:border-r hover:not-data-disabled:not-data-pressed:bg-neutral-100 hover:not-data-disabled:not-data-pressed:text-[#001727] focus-visible:relative focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-offset-2 data-disabled:cursor-not-allowed data-disabled:opacity-50 data-pressed:bg-neutral-100 data-pressed:text-[#001727] sm:flex-none sm:text-base"
           disabled={option.disabled}
           key={option.value}
           value={option.value}

@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-const { searchArchiv } = vi.hoisted(() => ({ searchArchiv: vi.fn() }));
+const { searchFolgen } = vi.hoisted(() => ({ searchFolgen: vi.fn() }));
 
-vi.mock("@/server/queries/archiv", () => ({ searchArchiv }));
+vi.mock("@/server/queries/search", () => ({ searchFolgen }));
 
 import { GET } from "./route";
 
@@ -15,7 +15,7 @@ describe("GET /api/v0/search", () => {
   it.each(["Geister", "GEISTER", "  geister  "])(
     "finds the same results for equivalent queries: %j",
     async (query) => {
-      searchArchiv.mockResolvedValue([
+      searchFolgen.mockResolvedValue([
         { cover: null, id: 1, number: 1, title: "Geisterhaus" },
       ]);
 
@@ -28,7 +28,7 @@ describe("GET /api/v0/search", () => {
       await expect(response.json()).resolves.toEqual({
         results: [{ cover: null, id: 1, number: 1, title: "Geisterhaus" }],
       });
-      expect(searchArchiv).toHaveBeenCalledWith("geister");
+      expect(searchFolgen).toHaveBeenCalledWith("geister");
     },
   );
 
@@ -42,12 +42,12 @@ describe("GET /api/v0/search", () => {
       );
 
       await expect(response.json()).resolves.toEqual({ results: [] });
-      expect(searchArchiv).not.toHaveBeenCalled();
+      expect(searchFolgen).not.toHaveBeenCalled();
     },
   );
 
   it("finds episodes by release year", async () => {
-    searchArchiv.mockResolvedValue([
+    searchFolgen.mockResolvedValue([
       {
         cover: "https://example.com/cover.webp",
         id: 1,
@@ -70,6 +70,6 @@ describe("GET /api/v0/search", () => {
         },
       ],
     });
-    expect(searchArchiv).toHaveBeenCalledWith("1999");
+    expect(searchFolgen).toHaveBeenCalledWith("1999");
   });
 });

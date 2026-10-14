@@ -4,17 +4,18 @@ import { Autocomplete } from "@base-ui/react/autocomplete";
 import { Dialog } from "@base-ui/react/dialog";
 import { useDebouncedCallback } from "@ddfdb/client/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useRef, useState, useSyncExternalStore } from "react";
 
-import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
+import { useArchiveSearchState } from "@/features/archive/context/archive-search-state-provider";
 import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
 
-import type { SearchResult } from "./contracts";
+import type { GlobalSearchResult } from "../contracts";
 
+import { useGlobalSearch } from "../hooks/use-global-search";
+import { useSearchShortcut } from "../hooks/use-search-shortcut";
+import { getIsMacOS } from "../utils";
 import { SEARCH_FIELD_CONTROL_CLASS_NAME, SearchField } from "./search-field";
-import { useSearch } from "./use-search";
-import { useSearchShortcut } from "./use-search-shortcut";
-import { getIsMacOS } from "./utils";
 
 interface ArchiveSearchProps {
   className?: string | undefined;
@@ -30,8 +31,9 @@ interface SpotlightSearchProps {
   platform: "macos" | "other";
 }
 
-export function SearchInput({ className }: SearchInputProps) {
-  const { isArchivePage } = useArchiveFilters();
+export function GlobalSearchInput({ className }: SearchInputProps) {
+  const pathname = usePathname();
+  const isArchivePage = pathname === "/";
 
   const isMacOS = useSyncExternalStore(
     subscribeToPlatformChanges,
@@ -57,25 +59,22 @@ export function SearchInput({ className }: SearchInputProps) {
 }
 
 function ArchiveSearch({ className, platform }: ArchiveSearchProps) {
-  const { updateFilters } = useArchiveFilters();
-  const [searchTerm, setSearchTerm] = useState("");
+  const { state, updateState } = useArchiveSearchState();
+  const [searchDraft, setSearchDraft] = useState<null | {
+    baseTerm: string;
+    value: string;
+  }>(null);
+  const searchTerm =
+    searchDraft?.baseTerm === state.term ? searchDraft.value : state.term;
   const inputRef = useRef<HTMLInputElement | null>(null);
-
-  const [updateFiltersDebounced] = useDebouncedCallback(
-    (searchTerm: string) => {
-      updateFilters({ searchTerm });
-    },
-    200,
-  );
+  const [updateTermDebounced] = useDebouncedCallback((term: string) => {
+    setSearchDraft(null);
+    updateState({ term });
+  }, 200);
 
   useSearchShortcut(() => {
     inputRef.current?.focus();
   });
-
-  function handleValueChange(value: string) {
-    setSearchTerm(value);
-    updateFiltersDebounced(value);
-  }
 
   return (
     <SearchField
@@ -87,8 +86,10 @@ function ArchiveSearch({ className, platform }: ArchiveSearchProps) {
         aria-label="Folgen Archiv durchsuchen"
         className={SEARCH_FIELD_CONTROL_CLASS_NAME}
         name="archiv-search"
-        onChange={(e) => {
-          handleValueChange(e.target.value);
+        onChange={(event) => {
+          const term = event.target.value;
+          setSearchDraft({ baseTerm: state.term, value: term });
+          updateTermDebounced(term);
         }}
         placeholder="Name, Nummer oder Erscheinungsjahr"
         ref={inputRef}
@@ -102,7 +103,9 @@ function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const searchQuery = useSearch(searchTerm, { enabled: searchTerm.length > 2 });
+  const searchQuery = useGlobalSearch(searchTerm, {
+    enabled: searchTerm.length > 2,
+  });
 
   useSearchShortcut(() => {
     setIsOpen(true);
@@ -154,9 +157,9 @@ function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
         >
           <Dialog.Trigger
             aria-label="Folgen Archiv durchsuchen"
-            className={`${SEARCH_FIELD_CONTROL_CLASS_NAME} cursor-pointer active:border-neutral-200`}
+            className={`${SEARCH_FIELD_CONTROL_CLASS_NAME} cursor-pointer text-nowrap active:border-neutral-200`}
           >
-            <span className="block text-left text-gray-500">
+            <span className="block overflow-hidden text-left text-gray-500">
               Name, Nummer oder Erscheinungsjahr
             </span>
           </Dialog.Trigger>
@@ -212,7 +215,7 @@ function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                   Keine Folgen gefunden
                 </Autocomplete.Empty>
                 <Autocomplete.List className="max-h-92 overflow-y-auto">
-                  {(result: SearchResult) => (
+                  {(result: GlobalSearchResult) => (
                     <Link
                       href={`/folge/${result.id.toString()}`}
                       key={result.id}

@@ -1,7 +1,10 @@
 import type { Folge } from "@ddfdb/archiv/contracts";
 
-export interface SearchResponse {
-  results: SearchResult[];
-}
+export type GlobalSearchResult = Pick<
+  Folge,
+  "cover" | "id" | "number" | "title"
+>;
 
-export type SearchResult = Pick<Folge, "cover" | "id" | "number" | "title">;
+export interface SearchResponse {
+  results: GlobalSearchResult[];
+}

@@ -57,6 +57,18 @@ describe("MultiRangeInput", () => {
     ).toHaveProperty("value", "2026");
   });
 
+  it("centers the endpoint labels on their slider thumbs", () => {
+    render(<RangeInput />);
+
+    const minimumLabel = screen.getByText(MIN_YEAR.toString());
+    const maximumLabel = screen.getByText(MAX_YEAR.toString());
+
+    expect(minimumLabel.style.left).toBe("calc(0% + 12px)");
+    expect(maximumLabel.style.left).toBe("calc(100% - 12px)");
+    expect(minimumLabel.className).toContain("-translate-x-1/2");
+    expect(maximumLabel.className).toContain("-translate-x-1/2");
+  });
+
   it("keeps both handles within bounds and at least one step apart", () => {
     render(<RangeInput />);
     const minimumSlider = screen.getByRole("slider", {

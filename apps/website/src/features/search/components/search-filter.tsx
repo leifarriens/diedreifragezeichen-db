@@ -2,12 +2,9 @@ import type { SearchOptions } from "@ddfdb/archiv/contracts";
 import type { SearchSort, SearchState } from "@ddfdb/client";
 
 import { CURRENT_YEAR } from "@/app/constants";
+import { Combobox, type ComboboxItem } from "@/components/ui/combobox/combobox";
 import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
 import { Select } from "@/components/ui/select/select";
-
-import type { ComboboxItem } from "./combobox";
-
-import MultiCombobox from "./combobox";
 
 const sortOptions: ComboboxItem<SearchSort>[] = [
   {
@@ -26,10 +23,12 @@ const sortOptions: ComboboxItem<SearchSort>[] = [
 
 export function SearchFilters({
   availableOptions,
+  navigationRevision,
   onChange,
   state,
 }: {
   availableOptions: SearchOptions;
+  navigationRevision: number;
   onChange: (updates: Partial<SearchState>) => void;
   state: SearchState;
 }) {
@@ -48,54 +47,59 @@ export function SearchFilters({
         }}
         value={state.term}
       />
-      <MultiCombobox
+      <Combobox
+        items={speakerOptions}
         label="Spechrollen"
+        multiple
         onValueChange={(items) => {
           onChange({ speakers: items.map((item) => item.value) });
         }}
-        options={speakerOptions}
         placeholder="z.B. Dorette Hugo"
         value={speakerOptions.filter((item) =>
           state.speakers.includes(item.value),
         )}
       />
-      <MultiCombobox
+      <Combobox
+        items={roleOptions}
         label="Rollen"
+        multiple
         onValueChange={(items) => {
           onChange({ roles: items.map((item) => item.value) });
         }}
-        options={roleOptions}
         placeholder="z.B. Hugenay"
         value={roleOptions.filter((item) => state.roles.includes(item.value))}
       />
-      <MultiCombobox
+      <Combobox
+        items={authorOptions}
         label="Autoren"
+        multiple
         onValueChange={(items) => {
           onChange({ authors: items.map((item) => item.value) });
         }}
-        options={authorOptions}
         placeholder="z.B. André Marx"
         value={authorOptions.filter((item) =>
           state.authors.includes(item.value),
         )}
       />
-      <MultiCombobox
+      <Combobox
+        items={scriptAuthorOptions}
         label="Drehbuchautoren"
+        multiple
         onValueChange={(items) => {
           onChange({ scriptAuthors: items.map((item) => item.value) });
         }}
-        options={scriptAuthorOptions}
         placeholder="z.B. André Minninger"
         value={scriptAuthorOptions.filter((item) =>
           state.scriptAuthors.includes(item.value),
         )}
       />
-      <MultiCombobox
+      <Combobox
+        items={collectionOptions}
         label="Kollektion"
+        multiple
         onValueChange={(items) => {
           onChange({ collections: items.map((item) => item.value) });
         }}
-        options={collectionOptions}
         placeholder="z.B. Specials"
         value={collectionOptions.filter((item) =>
           state.collections.includes(item.value),
@@ -103,6 +107,7 @@ export function SearchFilters({
       />
       <MultiRangeInput
         debounceMs={200}
+        key={navigationRevision}
         max={CURRENT_YEAR}
         maxAriaLabel="Spätestes Erscheinungsjahr"
         min={1979}

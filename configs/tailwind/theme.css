@@ -1,9 +1,21 @@
 :root {
-  --background: #001727;
+  --background: #041729;
   --foreground: #ffffff;
 }
 
 @theme {
   --color-ddf-red: #e91b24;
   --color-ddf-blue: #02abeb;
+
+  --color-ddf-blue-50: #e6f7ff;
+  --color-ddf-blue-100: #cceffb;
+  --color-ddf-blue-200: #99e6fb;
+  --color-ddf-blue-300: #66d4f9;
+  --color-ddf-blue-400: #33c7f4;
+  --color-ddf-blue-500: #02abeb;
+  --color-ddf-blue-600: #145a7a;
+  --color-ddf-blue-700: #0a2a44;
+  --color-ddf-blue-800: #05182a;
+  --color-ddf-blue-900: #001727;
+  --color-ddf-blue-950: #030f1a;
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { normalizeSearchQuery } from "./normalize-search-query";
+import { normalizeSearchQuery } from "./utils";
 
 describe("normalizeSearchQuery", () => {
   it.each([

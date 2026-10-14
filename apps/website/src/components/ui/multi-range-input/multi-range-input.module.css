@@ -26,9 +26,9 @@
 .rangeInput::-webkit-slider-thumb {
   appearance: none;
   -webkit-appearance: none;
-  width: 24px;
-  height: 24px;
-  margin-top: -8px;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  margin-top: calc((8px - var(--thumb-size)) / 2);
   border: 0;
   border-radius: 9999px;
   background: #fff;
@@ -38,8 +38,8 @@
 }
 
 .rangeInput::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
   border: 0;
   border-radius: 9999px;
   background: #fff;

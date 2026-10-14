@@ -8,7 +8,9 @@ export interface InputProps extends InputPrimitive.Props {
 export function Input({ className, label, ...props }: InputProps) {
   return (
     <label className="flex flex-col items-start gap-1">
-      <span className="text-sm font-bold text-neutral-300">{label}</span>
+      {label && (
+        <span className="text-sm font-bold text-neutral-300">{label}</span>
+      )}
 
       <InputPrimitive
         className={cn(

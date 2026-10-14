@@ -16,9 +16,9 @@ import { renderToString } from "react-dom/server";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import ArchiveBrowser from "@/features/archive/components/archive-browser";
-import { SearchInput } from "@/features/global-search/search-input";
+import { GlobalSearchInput } from "@/features/global-search/components/global-search-input";
 
-import { ArchiveFiltersProvider } from "./archive-filters-provider";
+import { ArchiveSearchStateProvider } from "../context/archive-search-state-provider";
 
 const route = vi.hoisted(() => ({ pathname: "/" }));
 vi.mock("next/navigation", () => ({ usePathname: () => route.pathname }));
@@ -90,10 +90,10 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ArchiveFiltersProvider currentYear={2026}>
-        <SearchInput />
+      <ArchiveSearchStateProvider currentYear={2026}>
+        <GlobalSearchInput />
         {route.pathname === "/" && <ArchiveBrowser folgen={folgen} />}
-      </ArchiveFiltersProvider>
+      </ArchiveSearchStateProvider>
     </QueryClientProvider>
   );
 }

@@ -11,10 +11,6 @@ export default function DashboardStackLayout() {
           headerTransparent: true,
         }}
       >
-        {/* <Stack.Screen name="index" />
-
-        <Stack.Screen name="[folgeId]" /> */}
-
         <Stack.Screen
           name="filter"
           options={{

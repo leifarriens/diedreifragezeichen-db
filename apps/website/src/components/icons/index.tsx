@@ -58,3 +58,21 @@ export function CheckIcon(props: React.ComponentProps<"svg">) {
     </svg>
   );
 }
+
+export function XIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      fill="none"
+      height="16"
+      stroke="currentColor"
+      strokeLinecap="square"
+      strokeLinejoin="round"
+      viewBox="0 0 16 16"
+      width="16"
+      {...props}
+      style={{ display: "block", ...props.style }}
+    >
+      <path d="m4.5 4.5 7 7m-7 0 7-7" />
+    </svg>
+  );
+}

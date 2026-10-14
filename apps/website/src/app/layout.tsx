@@ -5,7 +5,7 @@ import type { Metadata, Viewport } from "next";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { ToastProvider } from "@/components/ui/toast/toast";
-import { ArchiveFiltersProvider } from "@/features/archive/components/archive-filters-provider";
+import { ArchiveSearchStateProvider } from "@/features/archive/context/archive-search-state-provider";
 import { Footer } from "@/shell/footer";
 import { HeaderNav } from "@/shell/header-nav";
 import { ScrollToTop } from "@/shell/scroll-to-top";
@@ -33,14 +33,14 @@ export default function RootLayout({
       <TRPCReactProvider>
         <ToastProvider>
           <body className="flex min-h-full flex-col">
-            <ArchiveFiltersProvider currentYear={CURRENT_YEAR}>
+            <ArchiveSearchStateProvider currentYear={CURRENT_YEAR}>
               <HeaderNav />
               <div className="grid flex-1 place-items-center items-stretch justify-items-stretch">
                 {children}
               </div>
               <Footer />
               <ScrollToTop />
-            </ArchiveFiltersProvider>
+            </ArchiveSearchStateProvider>
             <ReactQueryDevtools
               buttonPosition="bottom-right"
               initialIsOpen={false}

@@ -4,7 +4,7 @@ import * as z from "zod";
 import type { SearchResponse } from "@/features/global-search/contracts";
 
 import { normalizeSearchQuery } from "@/features/global-search/normalize-search-query";
-import { searchArchiv } from "@/server/queries/archiv";
+import { searchFolgen } from "@/server/queries/search";
 
 const searchQueryParams = z.object({
   q: z.string().min(2).max(100),
@@ -20,13 +20,13 @@ export async function GET(
     return NextResponse.json({ results: [] });
   }
 
-  const query = normalizeSearchQuery(result.data.q);
+  const term = normalizeSearchQuery(result.data.q);
 
-  if (query.length < 2) {
+  if (term.length < 2) {
     return NextResponse.json({ results: [] });
   }
 
-  const results = await searchArchiv(query);
+  const results = await searchFolgen(term);
 
   return NextResponse.json(
     { results },

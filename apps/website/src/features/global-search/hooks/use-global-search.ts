@@ -1,11 +1,11 @@
 import { useDebouncedValue } from "@ddfdb/client/utils";
 import { useQuery } from "@tanstack/react-query";
 
-import type { SearchResponse } from "./contracts";
+import type { SearchResponse } from "../contracts";
 
-import { normalizeSearchQuery } from "./normalize-search-query";
+import { normalizeSearchQuery } from "../normalize-search-query";
 
-export function useSearch(
+export function useGlobalSearch(
   searchQuery: string,
   { enabled }: { enabled: boolean },
 ) {

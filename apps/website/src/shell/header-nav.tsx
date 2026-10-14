@@ -7,7 +7,7 @@ import { cn } from "tailwind-variants";
 
 import { Button } from "@/components/ui/button/button";
 import { useAuth } from "@/features/auth/use-auth";
-import { SearchInput } from "@/features/global-search/search-input";
+import { GlobalSearchInput } from "@/features/global-search/components/global-search-input";
 
 import styles from "./header-nav.module.css";
 import { ProfileMenu } from "./profile-menu";
@@ -59,7 +59,7 @@ export function HeaderNav() {
           />
         </Link>
 
-        <SearchInput className="[grid-area:search]" />
+        <GlobalSearchInput className="[grid-area:search]" />
 
         <nav
           aria-label="Hauptnavigation"

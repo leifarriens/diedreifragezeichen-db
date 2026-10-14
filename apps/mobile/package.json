@@ -28,7 +28,6 @@
     "@trpc/client": "^11.19.0",
     "@trpc/tanstack-react-query": "^11.19.0",
     "better-auth": "^1.7.7",
-    "clsx": "^2.1.1",
     "expo": "~58.0.6",
     "expo-blur": "~58.0.3",
     "expo-constants": "~58.0.10",

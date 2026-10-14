@@ -2,56 +2,40 @@
 
 import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
-import { createFolgenFilter } from "@ddfdb/core";
+import { type SearchSort, useSearch } from "@ddfdb/client";
 import { useMemo } from "react";
 
+import { CURRENT_YEAR } from "@/app/constants";
 import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
 import { SortSelector } from "@/components/ui/sort-selector/sort-selector";
 import { Switch } from "@/components/ui/switch";
 import { Wrapper } from "@/components/ui/wrapper";
 import { FIRST_RELEASE_YEAR } from "@/features/archive/archive-filters";
-import { useArchiveFilters } from "@/features/archive/components/archive-filters-provider";
-import { sortArchiveFolgen } from "@/features/archive/sort-archive-folgen";
 import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
 import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
+
+import { useArchiveSearchState } from "../context/archive-search-state-provider";
 
 interface ArchiveBrowserProps {
   folgen: FolgeWithCommunityRating[];
 }
 
 export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
-  const { currentYear, filters, updateFilters } = useArchiveFilters();
-  const { includeSpecials, searchTerm, sortOrder, yearRange } = filters;
+  const { searchCriteria, state, updateState } = useArchiveSearchState();
 
-  const hydratedFolgen = useHydrateFolgenWithUserData(folgen);
-
-  const filteredFolgen = useMemo(() => {
-    const includesAllReleaseYears =
-      yearRange.min === FIRST_RELEASE_YEAR && yearRange.max === currentYear;
-
-    return createFolgenFilter(hydratedFolgen)
-      .search(searchTerm)
-      .showSpecials(includeSpecials)
-      .yearRange({
-        endYear: includesAllReleaseYears ? null : yearRange.max,
-        startYear: includesAllReleaseYears ? null : yearRange.min,
-      })
-      .results();
-  }, [
-    currentYear,
-    hydratedFolgen,
-    includeSpecials,
-    searchTerm,
-    yearRange.max,
-    yearRange.min,
-  ]);
-
-  const sortedFolgen = useMemo(
-    () => sortArchiveFolgen(filteredFolgen, sortOrder),
-    [filteredFolgen, sortOrder],
+  const searchQuery = useSearch(folgen, searchCriteria);
+  const initialResults = useMemo(
+    () => filterArchiveFolgen(folgen, searchCriteria),
+    [folgen, searchCriteria],
   );
 
-  const displayedFolgen = sortedFolgen;
+  const hydratedFolgen = useHydrateFolgenWithUserData(
+    searchQuery.data?.results ?? initialResults,
+  );
+
+  const displayedFolgen = hydratedFolgen;
+
+  const includeSpecials = state.collections.length === 0;
 
   return (
     <Wrapper>
@@ -60,35 +44,32 @@ export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
           <SortSelector
             aria-label="Sortierung im Archiv"
             className="w-full sm:w-auto"
-            onValueChange={(sortOrder) => {
-              updateFilters({ sortOrder });
+            onValueChange={(sort) => {
+              updateState({ sort });
             }}
-            options={[
-              { label: "Neueste", value: "newest" },
-              { label: "Älteste", value: "oldest" },
-              { label: "Beste", value: "rating" },
-              { label: "Beliebteste", value: "popularity" },
-            ]}
-            value={sortOrder}
+            options={sortOptions}
+            value={state.sort}
           />
 
           <MultiRangeInput
             debounceMs={200}
-            max={currentYear}
+            max={CURRENT_YEAR}
             maxAriaLabel="Spätestes Erscheinungsjahr"
             min={FIRST_RELEASE_YEAR}
             minAriaLabel="Frühestes Erscheinungsjahr"
             onChange={(yearRange) => {
-              updateFilters({ yearRange });
+              updateState({ yearRange });
             }}
-            value={yearRange}
+            value={state.yearRange}
           />
 
           <Switch
             checked={includeSpecials}
             label="Specials anzeigen"
             onCheckedChange={(checked) => {
-              updateFilters({ includeSpecials: checked });
+              updateState({
+                collections: checked ? [] : ["serie"],
+              });
             }}
           />
         </div>
@@ -104,11 +85,11 @@ export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
             <span className="text-slate-400"> inklusive Specials</span>
           )}
         </p>
-        {searchTerm && (
+        {state.term && (
           <button
             className="text-sm font-medium text-sky-300 transition hover:text-sky-200"
             onClick={() => {
-              updateFilters({ searchTerm: "" });
+              updateState({ term: "" });
             }}
             type="button"
           >
@@ -127,3 +108,83 @@ export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
     </Wrapper>
   );
 }
+
+function filterArchiveFolgen(
+  folgen: FolgeWithCommunityRating[],
+  criteria: ReturnType<typeof useArchiveSearchState>["searchCriteria"],
+) {
+  const filters = criteria.filters;
+  const term = criteria.term?.trim().toLocaleLowerCase("de-DE") ?? "";
+  const matches = folgen.filter((folge) => {
+    if (
+      filters?.collections?.length &&
+      !filters.collections.includes(folge.collection)
+    ) {
+      return false;
+    }
+
+    const releaseYear = folge.release_date
+      ? Number(folge.release_date.slice(0, 4))
+      : null;
+    if (filters?.yearRange) {
+      const coversAllYears =
+        filters.yearRange.min === FIRST_RELEASE_YEAR &&
+        filters.yearRange.max === CURRENT_YEAR;
+      if (
+        releaseYear === null
+          ? !coversAllYears
+          : releaseYear < filters.yearRange.min ||
+            releaseYear > filters.yearRange.max
+      ) {
+        return false;
+      }
+    }
+
+    if (term) {
+      const searchableValues = [
+        folge.title,
+        folge.number?.toString() ?? "",
+        releaseYear?.toString() ?? "",
+      ];
+      if (
+        !searchableValues.some((value) =>
+          value.toLocaleLowerCase("de-DE").includes(term),
+        )
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+
+  return matches.toSorted((left, right) => {
+    if (criteria.sort?.by === "communityRating") {
+      const leftRating = left.communityRating?.score ?? Number.NEGATIVE_INFINITY;
+      const rightRating =
+        right.communityRating?.score ?? Number.NEGATIVE_INFINITY;
+      return rightRating - leftRating;
+    }
+
+    const leftDate = left.release_date ?? "";
+    const rightDate = right.release_date ?? "";
+    return criteria.sort?.order === "ASC"
+      ? leftDate.localeCompare(rightDate)
+      : rightDate.localeCompare(leftDate);
+  });
+}
+
+const sortOptions: { label: string; value: SearchSort }[] = [
+  {
+    label: "Neuste",
+    value: "newest",
+  },
+  {
+    label: "Älteste",
+    value: "oldest",
+  },
+  {
+    label: "Beste",
+    value: "rating",
+  },
+];

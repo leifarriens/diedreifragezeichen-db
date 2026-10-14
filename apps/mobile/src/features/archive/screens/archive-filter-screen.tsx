@@ -60,6 +60,7 @@ export function ArchiveFilterScreen() {
           ],
         }}
       />
+
       <ScrollView
         className="flex-1"
         contentContainerClassName="px-8"

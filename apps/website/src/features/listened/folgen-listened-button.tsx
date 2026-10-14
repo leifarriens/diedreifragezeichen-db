@@ -3,6 +3,7 @@
 import { Toggle } from "@base-ui/react/toggle";
 import { useRouter } from "next/navigation";
 
+import { useToast } from "@/components/ui/toast/toast";
 import { useAuth } from "@/features/auth/use-auth";
 
 import { useUpdateFolgenListenStatus, useUserListened } from "./use-listened";
@@ -20,6 +21,7 @@ export function FolgenListenedButton({
   hasListened,
   size,
 }: FolgenListenedButtonProps) {
+  const toast = useToast();
   const { isAuthenticated, isPending } = useAuth();
   const router = useRouter();
   const {
@@ -39,7 +41,20 @@ export function FolgenListenedButton({
     if (hasListened) {
       markFolgeAsNotListenedMutation.mutate({ folgeId });
     } else {
-      markFolgeAsListenedMutation.mutate({ folgeId });
+      markFolgeAsListenedMutation.mutate(
+        { folgeId },
+        {
+          onSuccess() {
+            toast.add({
+              title: (
+                <span>
+                  <i>{folgeTitle}</i> als gehört markiert
+                </span>
+              ),
+            });
+          },
+        },
+      );
     }
   }
 

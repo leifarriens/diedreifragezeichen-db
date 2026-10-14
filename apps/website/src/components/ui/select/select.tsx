@@ -19,18 +19,21 @@ export function Select<Value, Multiple extends boolean | undefined = false>({
 }): React.JSX.Element {
   return (
     <SelectPrimitive.Root items={items} {...rest}>
-      <SelectPrimitive.Label className="cursor-default text-sm font-bold text-neutral-950 dark:text-white">
-        {label}
-      </SelectPrimitive.Label>
-      <SelectPrimitive.Trigger className="flex h-8 min-w-40 items-center justify-between gap-3 border border-neutral-950 bg-white pr-1 pl-2 text-sm leading-none font-normal whitespace-nowrap text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 active:not-data-disabled:bg-neutral-200 disabled:border-neutral-500 disabled:text-neutral-500 data-disabled:border-neutral-500 data-disabled:text-neutral-500 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:focus-visible:outline-white dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 dark:data-pressed:bg-neutral-800">
-        <SelectPrimitive.Value
-          className="data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400"
-          placeholder={placeholder}
-        />
-        <SelectPrimitive.Icon>
-          <CaretUpDownIcon />
-        </SelectPrimitive.Icon>
-      </SelectPrimitive.Trigger>
+      <div className="flex flex-col gap-1">
+        <SelectPrimitive.Label className="cursor-default text-sm font-bold text-neutral-950 dark:text-white">
+          {label}
+        </SelectPrimitive.Label>
+        <SelectPrimitive.Trigger className="flex h-8 min-w-40 items-center justify-between gap-3 border border-neutral-950 bg-white pr-1 pl-2 text-sm leading-none font-normal whitespace-nowrap text-neutral-950 select-none hover:not-data-disabled:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 active:not-data-disabled:bg-neutral-200 disabled:border-neutral-500 disabled:text-neutral-500 data-disabled:border-neutral-500 data-disabled:text-neutral-500 data-pressed:bg-neutral-100 dark:border-white dark:bg-neutral-950 dark:text-white dark:hover:not-data-disabled:bg-neutral-800 dark:focus-visible:outline-white dark:active:not-data-disabled:bg-neutral-700 dark:data-disabled:border-neutral-400 dark:data-disabled:text-neutral-400 dark:data-pressed:bg-neutral-800">
+          <SelectPrimitive.Value
+            className="data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400"
+            placeholder={placeholder}
+          />
+          <SelectPrimitive.Icon>
+            <CaretUpDownIcon />
+          </SelectPrimitive.Icon>
+        </SelectPrimitive.Trigger>
+      </div>
+
       <SelectPrimitive.Portal>
         <SelectPrimitive.Positioner
           className="z-10 outline-hidden select-none"

@@ -3,12 +3,6 @@ import type { SearchCriteria } from "@ddfdb/core/search";
 import { type SearchState, useSearchState } from "@ddfdb/client";
 import { createContext, type PropsWithChildren, use, useMemo } from "react";
 
-export interface ArchiveFilters {
-  endDate: null | string;
-  showSpecials: boolean;
-  startDate: null | string;
-}
-
 interface ArchiveFilterContextValue {
   resetState: () => void;
   searchCriteria: SearchCriteria;

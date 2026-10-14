@@ -7,7 +7,7 @@ import { cleanup, renderHook, waitFor } from "@testing-library/react";
 import { createElement } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { useSearch } from "./use-search";
+import { useGlobalSearch } from "./use-global-search";
 
 afterEach(() => {
   cleanup();
@@ -40,7 +40,7 @@ describe("useSearch", () => {
     const { queryClient, wrapper } = createWrapper();
 
     const { rerender, result } = renderHook(
-      ({ query }) => useSearch(query, { enabled: true }),
+      ({ query }) => useGlobalSearch(query, { enabled: true }),
       { initialProps: { query: "  Geister  " }, wrapper },
     );
 
@@ -70,7 +70,7 @@ describe("useSearch", () => {
     const normalizedQuery = "ärger  & öl";
 
     const { result } = renderHook(
-      () => useSearch("  ÄRGER  & ÖL  ", { enabled: true }),
+      () => useGlobalSearch("  ÄRGER  & ÖL  ", { enabled: true }),
       { wrapper },
     );
 
@@ -92,9 +92,12 @@ describe("useSearch", () => {
       vi.stubGlobal("fetch", fetchMock);
       const { wrapper } = createWrapper();
 
-      const { result } = renderHook(() => useSearch(query, { enabled: true }), {
-        wrapper,
-      });
+      const { result } = renderHook(
+        () => useGlobalSearch(query, { enabled: true }),
+        {
+          wrapper,
+        },
+      );
 
       expect(result.current.fetchStatus).toBe("idle");
       expect(fetchMock).not.toHaveBeenCalled();

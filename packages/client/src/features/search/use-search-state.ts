@@ -3,7 +3,7 @@
 import type { Collection } from "@ddfdb/archiv/contracts";
 import type { SearchCriteria, SortOption } from "@ddfdb/core/search";
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export type SearchSort = "newest" | "oldest" | "rating";
 
@@ -24,6 +24,8 @@ const searchSortOptions: Record<SearchSort, SortOption> = {
   rating: { by: "communityRating", order: "DESC" },
 };
 
+const DEFAULT_COLLECTIONS: Collection[] = [];
+
 const initialState: Omit<SearchState, "yearRange"> = {
   authors: [],
   collections: [],
@@ -34,11 +36,19 @@ const initialState: Omit<SearchState, "yearRange"> = {
   term: "",
 };
 
-export function useSearchState(currentYear: number) {
-  const [state, setState] = useState<SearchState>(() => ({
-    ...initialState,
-    yearRange: { max: currentYear, min: 1979 },
-  }));
+export function useSearchState(
+  currentYear: number,
+  defaultCollections: Collection[] = DEFAULT_COLLECTIONS,
+) {
+  const defaults = useMemo<SearchState>(
+    () => ({
+      ...initialState,
+      collections: [...defaultCollections],
+      yearRange: { max: currentYear, min: 1979 },
+    }),
+    [currentYear, defaultCollections],
+  );
+  const [state, setState] = useState<SearchState>(() => defaults);
 
   const updateState = useCallback((updates: Partial<SearchState>) => {
     setState((previous) => ({ ...previous, ...updates }));
@@ -59,11 +69,8 @@ export function useSearchState(currentYear: number) {
   };
 
   const resetState = useCallback(() => {
-    setState({
-      ...initialState,
-      yearRange: { max: currentYear, min: 1979 },
-    });
-  }, [currentYear]);
+    setState(defaults);
+  }, [defaults]);
 
   return { initialState, resetState, searchCriteria, state, updateState };
 }

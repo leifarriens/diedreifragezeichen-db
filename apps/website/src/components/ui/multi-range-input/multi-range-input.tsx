@@ -1,9 +1,13 @@
 "use client";
 
+import type { CSSProperties } from "react";
+
 import { useEffect, useRef, useState } from "react";
 import { cn } from "tailwind-variants";
 
 import styles from "./multi-range-input.module.css";
+
+const THUMB_SIZE = 24;
 
 export interface RangeChangeEvent {
   max: number;
@@ -84,7 +88,10 @@ export function MultiRangeInput({
   }
 
   return (
-    <div className="relative h-16 w-full max-w-[560px]">
+    <div
+      className="relative h-16 w-full max-w-[560px]"
+      style={{ "--thumb-size": `${THUMB_SIZE.toString()}px` } as CSSProperties}
+    >
       <div
         aria-hidden="true"
         className="absolute top-5 right-0 left-0 z-[1] h-2 rounded bg-white/90"
@@ -130,13 +137,13 @@ export function MultiRangeInput({
 
       <span
         className="absolute top-10 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
-        style={{ left: `${minPercent.toString()}%` }}
+        style={{ left: getThumbCenterPosition(minPercent) }}
       >
         {minValue}
       </span>
       <span
-        className="absolute top-10 z-[6] translate-x-1/2 text-xs font-medium text-white tabular-nums"
-        style={{ left: `${maxPercent.toString()}%` }}
+        className="absolute top-10 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
+        style={{ left: getThumbCenterPosition(maxPercent) }}
       >
         {maxValue}
       </span>
@@ -150,5 +157,11 @@ function areRangesEqual(left: RangeChangeEvent, right: RangeChangeEvent) {
 
 function getPercent(value: number, min: number, max: number) {
   if (max <= min) return 0;
-  return Math.round(((value - min) / (max - min)) * 100);
+  return ((value - min) / (max - min)) * 100;
+}
+
+function getThumbCenterPosition(percent: number) {
+  const offset = (THUMB_SIZE / 2) * (1 - (percent / 100) * 2);
+  const operator = offset < 0 ? "-" : "+";
+  return `calc(${percent.toString()}% ${operator} ${Math.abs(offset).toString()}px)`;
 }
