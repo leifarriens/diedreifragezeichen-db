@@ -7,8 +7,8 @@ import { useMemo } from "react";
 
 import { CURRENT_YEAR } from "@/app/constants";
 import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
-import { SortSelector } from "@/components/ui/sort-selector/sort-selector";
 import { Switch } from "@/components/ui/switch";
+import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
 import { Wrapper } from "@/components/ui/wrapper";
 import { FIRST_RELEASE_YEAR } from "@/features/archive/archive-filters";
 import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
@@ -41,7 +41,7 @@ export default function ArchiveBrowser({ folgen }: ArchiveBrowserProps) {
     <Wrapper>
       <section aria-label="Archivfilter" className="mb-6">
         <div className="grid gap-5 lg:grid-cols-[auto_minmax(260px,1fr)_auto] lg:items-center">
-          <SortSelector
+          <ToggleGroup
             aria-label="Sortierung im Archiv"
             className="w-full sm:w-auto"
             onValueChange={(sort) => {
@@ -160,7 +160,8 @@ function filterArchiveFolgen(
 
   return matches.toSorted((left, right) => {
     if (criteria.sort?.by === "communityRating") {
-      const leftRating = left.communityRating?.score ?? Number.NEGATIVE_INFINITY;
+      const leftRating =
+        left.communityRating?.score ?? Number.NEGATIVE_INFINITY;
       const rightRating =
         right.communityRating?.score ?? Number.NEGATIVE_INFINITY;
       return rightRating - leftRating;

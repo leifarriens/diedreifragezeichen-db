@@ -10,7 +10,7 @@ import {
 } from "@ddfdb/core";
 import { useMemo, useState } from "react";
 
-import { SortSelector } from "@/components/ui/sort-selector/sort-selector";
+import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
 import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
 import { FolgenGridSearch } from "@/features/folgen/folgen-grid/folgen-grid-search";
 import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
@@ -47,7 +47,7 @@ export function UserRatedFolgen({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
 
-        <SortSelector
+        <ToggleGroup
           aria-label="Sortierung deiner Wertungen"
           onValueChange={(order) => {
             setSortOption(

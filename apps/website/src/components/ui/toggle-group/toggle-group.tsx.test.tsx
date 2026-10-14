@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { SortSelector } from "./sort-selector";
+import { ToggleGroup } from "./toggle-group";
 
 const options = [
   { label: "Neueste", value: "newest" },
@@ -21,10 +21,10 @@ const options = [
 
 afterEach(cleanup);
 
-describe("SortSelector", () => {
+describe("ToggleGroup", () => {
   it("renders a labeled group with a single pressed option and custom classes", () => {
     render(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         className="custom-class"
         onValueChange={vi.fn()}
@@ -51,7 +51,7 @@ describe("SortSelector", () => {
         "newest",
       );
       return (
-        <SortSelector
+        <ToggleGroup
           aria-label="Sortierung"
           onValueChange={(nextValue) => {
             onValueChange(nextValue);
@@ -81,7 +81,7 @@ describe("SortSelector", () => {
   it("does not clear the selection when the pressed option is clicked", () => {
     const onValueChange = vi.fn();
     render(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         onValueChange={onValueChange}
         options={options}
@@ -99,7 +99,7 @@ describe("SortSelector", () => {
   it("reflects controlled value changes without emitting changes", () => {
     const onValueChange = vi.fn();
     const { rerender } = render(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         onValueChange={onValueChange}
         options={options}
@@ -107,7 +107,7 @@ describe("SortSelector", () => {
       />,
     );
     rerender(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         onValueChange={onValueChange}
         options={options}
@@ -125,7 +125,7 @@ describe("SortSelector", () => {
   it("supports arrow-key focus navigation and wraps without changing the selection", async () => {
     const onValueChange = vi.fn();
     render(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         onValueChange={onValueChange}
         options={options}
@@ -161,7 +161,7 @@ describe("SortSelector", () => {
   it("ignores interaction when disabled", () => {
     const onValueChange = vi.fn();
     render(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         disabled
         onValueChange={onValueChange}
@@ -180,7 +180,7 @@ describe("SortSelector", () => {
   it("supports disabled options and skips them during keyboard navigation", async () => {
     const onValueChange = vi.fn();
     render(
-      <SortSelector
+      <ToggleGroup
         aria-label="Sortierung"
         onValueChange={onValueChange}
         options={options.map((option) => ({

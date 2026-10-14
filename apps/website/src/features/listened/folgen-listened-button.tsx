@@ -48,7 +48,7 @@ export function FolgenListenedButton({
             toast.add({
               title: (
                 <span>
-                  <i>{folgeTitle}</i> als gehört markiert
+                  &quot;<i>{folgeTitle}</i>&quot; als gehört markiert
                 </span>
               ),
             });

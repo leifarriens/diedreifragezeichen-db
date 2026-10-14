@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+import createMDX from "@next/mdx";
+
 const nextConfig: NextConfig = {
   cacheComponents: true,
   images: {
@@ -10,6 +12,7 @@ const nextConfig: NextConfig = {
       new URL("http://a1.mzstatic.com/**"),
     ],
   },
+  pageExtensions: ["md", "mdx", "ts", "tsx"],
   reactCompiler: true,
   transpilePackages: [
     "@ddfdb/archiv",
@@ -24,4 +27,8 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+});
+
+export default withMDX(nextConfig);

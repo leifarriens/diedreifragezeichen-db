@@ -27,7 +27,11 @@ export function FolgenUserRating({
       {
         onSuccess() {
           toastManager.add({
-            title: `Bewertung für "${folgenTitle}" gespeichert`,
+            title: (
+              <span>
+                Bewertung für &quot;<i>{folgenTitle}</i>&quot; gespeichert
+              </span>
+            ),
           });
         },
       },

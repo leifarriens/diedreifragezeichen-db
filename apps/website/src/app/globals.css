@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@ddfdb/tailwind-config/theme";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --animate-breathe: breathe 30s linear infinite;

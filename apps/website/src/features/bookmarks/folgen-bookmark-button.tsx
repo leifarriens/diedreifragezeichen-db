@@ -45,7 +45,7 @@ export function FolgenBookmarkButton({
             toast.add({
               title: (
                 <span>
-                  <i>{folgeTitle}</i> gespeichert
+                  &quot;<i>{folgeTitle}</i>&quot; gespeichert
                 </span>
               ),
             });
