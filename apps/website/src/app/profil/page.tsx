@@ -1,8 +1,3 @@
-import { Suspense } from "react";
-
-import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
-import { getMe } from "@/server/queries/user-data";
-
 export default function ProfilePage() {
   return (
     <section className="space-y-8">
@@ -15,26 +10,17 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <Suspense fallback={<PageLoadingIndicator />}>
-        <ProfileContent />
-      </Suspense>
+      <div>
+        <section>
+          <h2>Bewertet</h2>
+        </section>
+        <section>
+          <h2>Gehört</h2>
+        </section>
+        <section>
+          <h2>Gespeichert</h2>
+        </section>
+      </div>
     </section>
-  );
-}
-
-async function ProfileContent() {
-  const user = await getMe();
-
-  return (
-    <dl className="grid gap-4 rounded-2xl border p-6 sm:grid-cols-[max-content_1fr]">
-      <dt className="font-medium">Name</dt>
-      <dd>{user.name}</dd>
-      <dt className="font-medium">Email</dt>
-      <dd>{user.email}</dd>
-      <dt className="font-medium">Email verified</dt>
-      <dd>{user.emailVerified ? "Yes" : "No"}</dd>
-      <dt className="font-medium">User ID</dt>
-      <dd className="font-mono text-sm break-all">{user.id}</dd>
-    </dl>
   );
 }

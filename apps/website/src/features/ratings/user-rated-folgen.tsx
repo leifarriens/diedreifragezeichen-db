@@ -8,6 +8,7 @@ import {
   type UserRatingSortOption,
   type UserRatingUpdatedSortOption,
 } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { useMemo, useState } from "react";
 
 import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
@@ -43,12 +44,16 @@ export function UserRatedFolgen({
   const displayedFolgen = sortedFolgen;
 
   return (
-    <section aria-label="Sort your ratings" className="space-y-4">
+    <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
+        <FolgenGridSearch
+          onChange={setSearchTerm}
+          placeholder={l.RATINGS.SEARCH_PLACEHOLDER}
+          value={searchTerm}
+        />
 
         <ToggleGroup
-          aria-label="Sortierung deiner Wertungen"
+          aria-label={l.RATINGS.SORTING.LABEL}
           onValueChange={(order) => {
             setSortOption(
               order === "newest"
@@ -57,9 +62,12 @@ export function UserRatedFolgen({
             );
           }}
           options={[
-            { label: "Neueste Wertung", value: "newest" },
-            { label: "Deine beste Wertung", value: "highest" },
-            { label: "Deine schlechteste Wertung", value: "lowest" },
+            { label: l.RATINGS.SORTING.NEWEST_FIRST, value: "newest" },
+            {
+              label: l.RATINGS.SORTING.HIGHEST_RATED_FIRST,
+              value: "highest",
+            },
+            { label: l.RATINGS.SORTING.LOWEST_RATED_FIRST, value: "lowest" },
           ]}
           value={
             sortOption.by === "userRatingUpdatedAt"
@@ -69,7 +77,13 @@ export function UserRatedFolgen({
         />
       </div>
 
-      <FolgenGrid folgen={displayedFolgen} />
+      <FolgenGrid
+        emptyMessage={{
+          title:
+            folgen.length === 0 ? l.RATINGS.EMPTY_PLACEHOLDER : undefined,
+        }}
+        folgen={displayedFolgen}
+      />
     </section>
   );
 }

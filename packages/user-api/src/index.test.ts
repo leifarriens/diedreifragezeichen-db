@@ -10,6 +10,7 @@ import type {
 import { appRouter } from "./index";
 
 const authenticatedUser: AuthenticatedUser = {
+  createdAt: new Date("2026-10-06T00:19:12.403Z"),
   email: "person@example.com",
   emailVerified: true,
   id: "user-123",

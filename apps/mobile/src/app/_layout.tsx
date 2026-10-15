@@ -20,6 +20,11 @@ export default function RootLayout() {
       >
         <SafeAreaProvider>
           <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen
+              name="auth/login"
+              options={{ animation: "none", headerShown: false }}
+            />
+
             <Stack.Screen name="(tabs)" />
           </Stack>
         </SafeAreaProvider>

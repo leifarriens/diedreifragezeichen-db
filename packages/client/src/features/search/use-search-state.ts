@@ -24,8 +24,6 @@ const searchSortOptions: Record<SearchSort, SortOption> = {
   rating: { by: "communityRating", order: "DESC" },
 };
 
-const DEFAULT_COLLECTIONS: Collection[] = [];
-
 const initialState: Omit<SearchState, "yearRange"> = {
   authors: [],
   collections: [],
@@ -36,17 +34,13 @@ const initialState: Omit<SearchState, "yearRange"> = {
   term: "",
 };
 
-export function useSearchState(
-  currentYear: number,
-  defaultCollections: Collection[] = DEFAULT_COLLECTIONS,
-) {
+export function useSearchState(currentYear: number) {
   const defaults = useMemo<SearchState>(
     () => ({
       ...initialState,
-      collections: [...defaultCollections],
       yearRange: { max: currentYear, min: 1979 },
     }),
-    [currentYear, defaultCollections],
+    [currentYear],
   );
   const [state, setState] = useState<SearchState>(() => defaults);
 

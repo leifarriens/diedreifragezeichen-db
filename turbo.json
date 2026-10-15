@@ -7,12 +7,14 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".cache/tsbuildinfo.json", "dist/**", "build/**"]
+      "outputs": [".cache/tsbuildinfo.json", "dist/**", "build/**"],
+      "passThroughEnv": ["RESEND_API_KEY", "RESEND_FROM_EMAIL"]
     },
     "dev": {
       "dependsOn": ["^build"],
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "passThroughEnv": ["RESEND_API_KEY", "RESEND_FROM_EMAIL"]
     },
     "typecheck": {
       "dependsOn": ["^topo", "^build"],

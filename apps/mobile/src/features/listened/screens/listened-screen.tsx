@@ -4,6 +4,7 @@ import {
   selectCollectionFolgen,
   sortFolgen,
 } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 import { ActivityIndicator } from "react-native";
@@ -51,18 +52,19 @@ export function ListenedScreen() {
             onChangeText: (event) => {
               setSearchTerm(event.nativeEvent.text);
             },
-            placeholder: "Titel, Nummer oder Erscheinungsjahr",
+            placeholder: l.LISTENED.SEARCH_PLACEHOLDER,
             placement: "integratedCentered",
           },
-          title: "Gehört",
+          title: l.LISTENED.NAME,
           unstable_headerRightItems: () => [
             ...buildHeaderSortMenu({
+              label: l.LISTENED.SORTING.LABEL,
               onSortValueChange(value) {
                 setSortOption({ by: "listenedAt", order: value });
               },
               options: [
-                { label: "Neueste zuerst", value: "newest" },
-                { label: "Älteste zuerst", value: "oldest" },
+                { label: l.LISTENED.SORTING.NEWEST_FIRST, value: "newest" },
+                { label: l.LISTENED.SORTING.OLDEST_FIRST, value: "oldest" },
               ],
               sortValue: sortOption.order,
             }),
@@ -77,7 +79,7 @@ export function ListenedScreen() {
           detailPathname="/(tabs)/gehoert/[folgeId]"
           emptyMessage={
             listenedFolgen.length === 0
-              ? "Du hast noch keine Folgen als gehört markiert"
+              ? l.LISTENED.EMPTY_PLACEHOLDER
               : undefined
           }
           folgen={displayedFolgen}

@@ -40,7 +40,7 @@ export function SearchField({
 
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1 text-neutral-500 group-focus-within:hidden any-pointer-coarse:hidden"
+        className="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1 text-neutral-500 select-none group-focus-within:hidden any-pointer-coarse:hidden"
       >
         <Kbd>{platform === "macos" ? "⌘" : "Ctrl"}</Kbd>
         <span>+</span>

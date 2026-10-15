@@ -3,128 +3,129 @@
 import { useRouter } from "next/navigation";
 import { type SyntheticEvent, useState } from "react";
 
-import { authClient } from "@/features/auth/auth-client";
+import { Button } from "@/components/ui/button/button";
+import { Input } from "@/components/ui/input/input";
+import { OTP_LENGTH } from "@/server/email/email-otp";
 
-type FormMode = "sign-in" | "sign-up";
+import { OTPField } from "./components/otp-fieldt";
+import { useSignIn } from "./hooks/use-auth";
+
+type OtpAuthStep = "email" | "otp";
 
 export function LoginForm() {
   const router = useRouter();
-  const [mode, setMode] = useState<FormMode>("sign-in");
-  const [error, setError] = useState<null | string>(null);
-  const [isPending, setIsPending] = useState(false);
+  const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
 
-  async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setError(null);
-    setIsPending(true);
+  const { otpRequestMutation, otpSigninMutation } = useSignIn();
 
-    const formData = new FormData(event.currentTarget);
-    const email = readString(formData, "email");
-    const password = readString(formData, "password");
+  function handleEmailSubmit(e: SyntheticEvent<HTMLFormElement>) {
+    e.preventDefault();
+    otpRequestMutation.mutate({ email });
+  }
 
-    try {
-      const result =
-        mode === "sign-in"
-          ? await authClient.signIn.email({
-              callbackURL: "/profil",
-              email,
-              password,
-            })
-          : await authClient.signUp.email({
-              callbackURL: "/profil",
-              email,
-              name: readString(formData, "name"),
-              password,
-            });
+  function handleOtpComplete(otp: string) {
+    otpSigninMutation.mutate(
+      { email, otp },
+      {
+        onError() {
+          setOtp("");
+        },
+        onSuccess() {
+          router.replace("/profil");
+          router.refresh();
+        },
+      },
+    );
+  }
 
-      if (result.error) {
-        setError(result.error.message ?? "Could not authenticate.");
-        return;
-      }
+  function handleUseDifferentEmail() {
+    setEmail("");
+    otpRequestMutation.reset();
+    otpSigninMutation.reset();
+  }
 
-      router.replace("/profil");
-      router.refresh();
-    } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : "Could not authenticate.",
-      );
-    } finally {
-      setIsPending(false);
-    }
+  function handleResendOtp() {
+    otpRequestMutation.mutate({ email });
+  }
+
+  const isPending = otpRequestMutation.isPending || otpSigninMutation.isPending;
+  const error =
+    otpRequestMutation.error?.message ?? otpSigninMutation.error?.message;
+
+  const step: OtpAuthStep = otpRequestMutation.isSuccess ? "otp" : "email";
+
+  if (step === "email") {
+    return (
+      <form className="space-y-4" onSubmit={handleEmailSubmit}>
+        <p className="text-sm text-neutral-300">
+          Gib deine E-Mail-Adresse ein um zu beginnen.
+        </p>
+        <Input
+          aria-label="Email"
+          autoCapitalize="none"
+          autoComplete="email"
+          className="w-full"
+          name="email"
+          onChange={(event) => {
+            setEmail(event.currentTarget.value);
+          }}
+          placeholder="email@example.com"
+          required
+          type="email"
+          value={email}
+        />
+        {error && (
+          <p className="text-sm text-ddf-red" role="alert">
+            {error}
+          </p>
+        )}
+        <Button
+          className="w-full"
+          intent="primary"
+          isLoading={isPending}
+          type="submit"
+        >
+          Weiter
+        </Button>
+      </form>
+    );
   }
 
   return (
-    <form className="space-y-4" onSubmit={(event) => void handleSubmit(event)}>
-      {mode === "sign-up" && (
-        <label className="block space-y-1.5 text-sm font-medium">
-          Name
-          <input
-            autoComplete="name"
-            className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600"
-            maxLength={100}
-            name="name"
-            required
-          />
-        </label>
-      )}
-      <label className="block space-y-1.5 text-sm font-medium">
-        Email
-        <input
-          autoComplete="email"
-          className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600"
-          name="email"
-          required
-          type="email"
+    <div>
+      <div className="flex justify-center">
+        <OTPField
+          disabled={isPending}
+          length={OTP_LENGTH}
+          onValueChange={setOtp}
+          onValueComplete={handleOtpComplete}
+          value={otp}
         />
-      </label>
-      <label className="block space-y-1.5 text-sm font-medium">
-        Password
-        <input
-          autoComplete={
-            mode === "sign-in" ? "current-password" : "new-password"
-          }
-          className="w-full rounded-lg border border-zinc-300 bg-transparent px-3 py-2.5 font-normal outline-none focus:border-blue-600"
-          minLength={8}
-          name="password"
-          required
-          type="password"
-        />
-      </label>
+      </div>
       {error && (
         <p className="text-sm text-red-600" role="alert">
           {error}
         </p>
       )}
-      <button
-        className="w-full rounded-lg bg-blue-600 px-4 py-2.5 font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
-        disabled={isPending}
-        type="submit"
-      >
-        {isPending
-          ? "Please wait..."
-          : mode === "sign-in"
-            ? "Sign in"
-            : "Create account"}
-      </button>
-      <p className="text-center text-sm text-zinc-600">
-        {mode === "sign-in" ? "New here?" : "Already have an account?"}{" "}
+      <div className="mt-8 flex flex-col items-center gap-y-4 text-sm">
         <button
-          className="font-medium text-blue-700 hover:underline"
+          className="font-medium text-ddf-blue-500 hover:underline disabled:opacity-60"
           disabled={isPending}
-          onClick={() => {
-            setError(null);
-            setMode(mode === "sign-in" ? "sign-up" : "sign-in");
-          }}
+          onClick={handleResendOtp}
           type="button"
         >
-          {mode === "sign-in" ? "Create an account" : "Sign in"}
+          Code erneut senden
         </button>
-      </p>
-    </form>
+        <button
+          className="font-medium text-ddf-blue-500 hover:underline"
+          disabled={isPending}
+          onClick={handleUseDifferentEmail}
+          type="button"
+        >
+          Andere E-Mail verwenden
+        </button>
+      </div>
+    </div>
   );
-}
-
-function readString(formData: FormData, fieldName: string) {
-  const value = formData.get(fieldName);
-  return typeof value === "string" ? value : "";
 }

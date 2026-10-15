@@ -1,4 +1,5 @@
 import { type SearchSort, useSearch } from "@ddfdb/client";
+import { l } from "@ddfdb/core/labels";
 import { Stack, useRouter } from "expo-router";
 
 import { useFolgen } from "@/api/use-folgen";
@@ -33,7 +34,7 @@ export function ArchiveScreen() {
             onChangeText: (event) => {
               updateState({ term: event.nativeEvent.text });
             },
-            placeholder: "Titel, Nummer oder Erscheinungsjahr",
+            placeholder: l.ARCHIVE.SEARCH_PLACEHOLDER,
             placement: "integratedCentered",
           },
           headerShown: true,
@@ -52,6 +53,7 @@ export function ArchiveScreen() {
           unstable_headerRightItems: () => [
             ...viewModeMenu,
             ...buildHeaderSortMenu({
+              label: l.ARCHIVE.SORTING.LABEL,
               onSortValueChange(sort) {
                 updateState({ sort });
               },
@@ -64,7 +66,7 @@ export function ArchiveScreen() {
 
       <FolgenList
         detailPathname="/(tabs)/(archiv)/[folgeId]"
-        emptyMessage="Keine Folgen im Archiv gefunden"
+        emptyMessage={l.MISC.NO_FOLGEN_FOUND}
         folgen={displayedFolgen}
         isInitialLoading={folgenQuery.isLoading}
         viewMode={viewMode}
@@ -75,15 +77,15 @@ export function ArchiveScreen() {
 
 const sortOptions: { label: string; value: SearchSort }[] = [
   {
-    label: "Neuste",
+    label: l.ARCHIVE.SORTING.NEWEST_FIRST,
     value: "newest",
   },
   {
-    label: "Älteste",
+    label: l.ARCHIVE.SORTING.OLDEST_FIRST,
     value: "oldest",
   },
   {
-    label: "Beste",
+    label: l.ARCHIVE.SORTING.HIGHEST_RATED_FIRST,
     value: "rating",
   },
 ];

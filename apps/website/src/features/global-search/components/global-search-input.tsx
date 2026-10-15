@@ -3,6 +3,7 @@
 import { Autocomplete } from "@base-ui/react/autocomplete";
 import { Dialog } from "@base-ui/react/dialog";
 import { useDebouncedCallback } from "@ddfdb/client/utils";
+import { l } from "@ddfdb/core/labels";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState, useSyncExternalStore } from "react";
@@ -83,7 +84,7 @@ function ArchiveSearch({ className, platform }: ArchiveSearchProps) {
       platform={platform}
     >
       <input
-        aria-label="Folgen Archiv durchsuchen"
+        aria-label={l.ARCHIVE.SEARCH_LABEL}
         className={SEARCH_FIELD_CONTROL_CLASS_NAME}
         name="archiv-search"
         onChange={(event) => {
@@ -91,7 +92,7 @@ function ArchiveSearch({ className, platform }: ArchiveSearchProps) {
           setSearchDraft({ baseTerm: state.term, value: term });
           updateTermDebounced(term);
         }}
-        placeholder="Name, Nummer oder Erscheinungsjahr"
+        placeholder={l.ARCHIVE.SEARCH_PLACEHOLDER}
         ref={inputRef}
         value={searchTerm}
       />
@@ -156,11 +157,11 @@ function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
           platform={platform}
         >
           <Dialog.Trigger
-            aria-label="Folgen Archiv durchsuchen"
+            aria-label={l.ARCHIVE.SEARCH_LABEL}
             className={`${SEARCH_FIELD_CONTROL_CLASS_NAME} cursor-pointer text-nowrap active:border-neutral-200`}
           >
             <span className="block overflow-hidden text-left text-gray-500">
-              Name, Nummer oder Erscheinungsjahr
+              {l.ARCHIVE.SEARCH_PLACEHOLDER}
             </span>
           </Dialog.Trigger>
         </SearchField>
@@ -212,7 +213,7 @@ function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
 
                 <Autocomplete.Status>{status}</Autocomplete.Status>
                 <Autocomplete.Empty className="px-4 py-3 text-sm empty:m-0 empty:p-0">
-                  Keine Folgen gefunden
+                  {l.MISC.NO_FOLGEN_FOUND}
                 </Autocomplete.Empty>
                 <Autocomplete.List className="max-h-92 overflow-y-auto">
                   {(result: GlobalSearchResult) => (
@@ -248,11 +249,6 @@ function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                 </Autocomplete.List>
               </Autocomplete.Root>
             </div>
-            {/* <div className="absolute top-2 right-2">
-              <Dialog.Close className="flex h-8 items-center justify-center gap-2 px-3 text-sm leading-none font-normal whitespace-nowrap select-none hover:not-data-disabled:bg-neutral-100 focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-neutral-950 active:not-data-disabled:bg-neutral-200 disabled:border-neutral-500 disabled:text-neutral-500 data-disabled:border-neutral-500 data-disabled:text-neutral-500">
-                Close
-              </Dialog.Close>
-            </div> */}
           </Dialog.Popup>
         </Dialog.Portal>
       </Dialog.Root>

@@ -2,7 +2,6 @@ import { Stack, useRouter, useTheme } from "expo-router";
 import { useState } from "react";
 import {
   KeyboardAvoidingView,
-  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -15,19 +14,19 @@ import { UIButton } from "@/components/ui/button";
 import { authClient } from "@/features/auth/auth-client";
 import { DdfColors } from "@/Theme";
 
-type FormMode = "sign-in" | "sign-up";
+type SignInStep = "email" | "otp";
 
 export function SignInScreen() {
   const router = useRouter();
   const { colors } = useTheme();
   const colorScheme = useColorScheme();
   const palette = colorScheme === "dark" ? DdfColors.dark : DdfColors.light;
-  const [mode, setMode] = useState<FormMode>("sign-in");
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [otp, setOtp] = useState("");
+  const [step, setStep] = useState<SignInStep>("email");
   const [error, setError] = useState<null | string>(null);
   const [isPending, setIsPending] = useState(false);
+  const hasValidOtp = /^\d{6}$/.test(otp.trim());
 
   const inputStyle = {
     backgroundColor: colors.card,
@@ -41,8 +40,40 @@ export function SignInScreen() {
     paddingHorizontal: 14,
   };
 
-  async function handleSubmit() {
+  async function requestCode() {
     if (isPending) {
+      return;
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+    setEmail(normalizedEmail);
+    setError(null);
+    setIsPending(true);
+
+    try {
+      const result = await authClient.emailOtp.sendVerificationOtp({
+        email: normalizedEmail,
+        type: "sign-in",
+      });
+
+      if (result.error) {
+        setError(result.error.message ?? "Could not send a sign-in code.");
+        return;
+      }
+
+      setOtp("");
+      setStep("otp");
+    } catch (reason) {
+      setError(
+        reason instanceof Error ? reason.message : "Could not send a sign-in code.",
+      );
+    } finally {
+      setIsPending(false);
+    }
+  }
+
+  async function handleOtpSubmit() {
+    if (isPending || !hasValidOtp) {
       return;
     }
 
@@ -50,27 +81,24 @@ export function SignInScreen() {
     setIsPending(true);
 
     try {
-      const result =
-        mode === "sign-in"
-          ? await authClient.signIn.email({
-              email: email.trim(),
-              password,
-            })
-          : await authClient.signUp.email({
-              email: email.trim(),
-              name: name.trim(),
-              password,
-            });
+      const normalizedEmail = email.trim().toLowerCase();
+      const result = await authClient.signIn.emailOtp({
+        email: normalizedEmail,
+        name: normalizedEmail.split("@")[0] ?? normalizedEmail,
+        otp: otp.trim(),
+      });
 
       if (result.error) {
-        setError(result.error.message ?? "Could not authenticate.");
+        setError(result.error.message ?? "Could not verify the sign-in code.");
         return;
       }
 
       router.replace("/(tabs)/settings");
     } catch (reason) {
       setError(
-        reason instanceof Error ? reason.message : "Could not authenticate.",
+        reason instanceof Error
+          ? reason.message
+          : "Could not verify the sign-in code.",
       );
     } finally {
       setIsPending(false);
@@ -79,11 +107,9 @@ export function SignInScreen() {
 
   return (
     <>
-      <Stack.Screen
-        options={{ title: mode === "sign-in" ? "Sign in" : "Create account" }}
-      />
+      <Stack.Screen options={{ title: "Sign in" }} />
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={process.env.EXPO_OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}
       >
         <ScrollView
@@ -106,119 +132,130 @@ export function SignInScreen() {
           >
             <View style={{ gap: 8 }}>
               <Text style={{ color: colors.text, fontSize: 17 }}>
-                {mode === "sign-in"
-                  ? "Sign in to your DDFDB account."
-                  : "Create an account to get started."}
+                {step === "email"
+                  ? "Sign in or create an account."
+                  : "Check your email."}
+              </Text>
+              <Text style={{ color: palette.secondaryText, fontSize: 15 }}>
+                {step === "email"
+                  ? "Enter your email and we’ll send you a one-time code. New accounts are created after you verify your email."
+                  : "Enter the six-digit code sent to your email address."}
               </Text>
               <Text style={{ color: palette.secondaryText, fontSize: 15 }}>
                 Browsing the archive does not require an account.
               </Text>
             </View>
 
-            <View style={{ gap: 16 }}>
-              {mode === "sign-up" && (
+            {step === "email" ? (
+              <View style={{ gap: 16 }}>
                 <View style={{ gap: 8 }}>
-                  <Text style={{ color: colors.text, fontSize: 15 }}>Name</Text>
+                  <Text style={{ color: colors.text, fontSize: 15 }}>Email</Text>
                   <TextInput
-                    accessibilityLabel="Name"
-                    autoCapitalize="words"
-                    autoComplete="name"
-                    maxLength={100}
-                    onChangeText={setName}
-                    placeholder="Your name"
+                    accessibilityLabel="Email"
+                    autoCapitalize="none"
+                    autoComplete="email"
+                    autoCorrect={false}
+                    keyboardType="email-address"
+                    onChangeText={setEmail}
+                    onSubmitEditing={() => void requestCode()}
+                    placeholder="name@example.com"
                     placeholderTextColor={palette.secondaryText}
-                    returnKeyType="done"
+                    returnKeyType="go"
                     style={inputStyle}
-                    textContentType="name"
-                    value={name}
+                    textContentType="emailAddress"
+                    value={email}
                   />
                 </View>
-              )}
-
-              <View style={{ gap: 8 }}>
-                <Text style={{ color: colors.text, fontSize: 15 }}>Email</Text>
-                <TextInput
-                  accessibilityLabel="Email"
-                  autoCapitalize="none"
-                  autoComplete="email"
-                  autoCorrect={false}
-                  keyboardType="email-address"
-                  onChangeText={setEmail}
-                  placeholder="name@example.com"
-                  placeholderTextColor={palette.secondaryText}
-                  returnKeyType="done"
-                  style={inputStyle}
-                  textContentType="emailAddress"
-                  value={email}
+                {error && (
+                  <Text
+                    accessibilityRole="alert"
+                    selectable
+                    style={{ color: palette.notification, fontSize: 14 }}
+                  >
+                    {error}
+                  </Text>
+                )}
+                <UIButton
+                  disabled={isPending}
+                  intent="prominent"
+                  label={isPending ? "Sending code..." : "Send code"}
+                  onPress={() => void requestCode()}
                 />
               </View>
-
-              <View style={{ gap: 8 }}>
-                <Text style={{ color: colors.text, fontSize: 15 }}>
-                  Password
-                </Text>
-                <TextInput
-                  accessibilityLabel="Password"
-                  autoCapitalize="none"
-                  autoComplete={
-                    mode === "sign-in" ? "current-password" : "new-password"
-                  }
-                  onChangeText={setPassword}
-                  onSubmitEditing={() => void handleSubmit()}
-                  placeholder="At least 8 characters"
-                  placeholderTextColor={palette.secondaryText}
-                  returnKeyType="done"
-                  secureTextEntry
-                  style={inputStyle}
-                  textContentType={
-                    mode === "sign-in" ? "password" : "newPassword"
-                  }
-                  value={password}
-                />
+            ) : (
+              <View style={{ gap: 16 }}>
+                <View style={{ gap: 8 }}>
+                  <Text style={{ color: colors.text, fontSize: 15 }}>
+                    Verification code
+                  </Text>
+                  <TextInput
+                    accessibilityLabel="Verification code"
+                    autoCapitalize="none"
+                    autoComplete="one-time-code"
+                    autoFocus
+                    keyboardType="number-pad"
+                    maxLength={6}
+                    onChangeText={setOtp}
+                    onSubmitEditing={() => void handleOtpSubmit()}
+                    placeholder="123456"
+                    placeholderTextColor={palette.secondaryText}
+                    returnKeyType="go"
+                    style={{ ...inputStyle, letterSpacing: 8, textAlign: "center" }}
+                    textContentType="oneTimeCode"
+                    value={otp}
+                  />
+                </View>
+                {error && (
+                  <Text
+                    accessibilityRole="alert"
+                    selectable
+                    style={{ color: palette.notification, fontSize: 14 }}
+                  >
+                    {error}
+                  </Text>
+                )}
+                <View style={{ alignItems: "center", gap: 16 }}>
+                  <UIButton
+                    disabled={isPending || !hasValidOtp}
+                    intent="prominent"
+                    label={isPending ? "Verifying..." : "Continue"}
+                    onPress={() => void handleOtpSubmit()}
+                  />
+                  <View
+                    style={{
+                      alignItems: "center",
+                      flexDirection: "row",
+                      gap: 24,
+                    }}
+                  >
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityState={{ disabled: isPending }}
+                      disabled={isPending}
+                      onPress={() => {
+                        setError(null);
+                        setOtp("");
+                        setStep("email");
+                      }}
+                    >
+                      <Text style={{ color: colors.primary, fontSize: 15 }}>
+                        Change email
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityState={{ disabled: isPending }}
+                      disabled={isPending}
+                      onPress={() => void requestCode()}
+                    >
+                      <Text style={{ color: colors.primary, fontSize: 15 }}>
+                        Resend code
+                      </Text>
+                    </Pressable>
+                  </View>
+                </View>
               </View>
-            </View>
-
-            {error && (
-              <Text
-                accessibilityRole="alert"
-                selectable
-                style={{ color: palette.notification, fontSize: 14 }}
-              >
-                {error}
-              </Text>
             )}
-
-            <View style={{ alignItems: "center", gap: 16 }}>
-              <UIButton
-                disabled={isPending}
-                intent="prominent"
-                label={
-                  isPending
-                    ? "Please wait..."
-                    : mode === "sign-in"
-                      ? "Sign in"
-                      : "Create account"
-                }
-                onPress={() => {
-                  void handleSubmit();
-                }}
-              />
-              <Pressable
-                accessibilityRole="button"
-                accessibilityState={{ disabled: isPending }}
-                disabled={isPending}
-                onPress={() => {
-                  setError(null);
-                  setMode(mode === "sign-in" ? "sign-up" : "sign-in");
-                }}
-              >
-                <Text style={{ color: colors.primary, fontSize: 15 }}>
-                  {mode === "sign-in"
-                    ? "New here? Create an account"
-                    : "Already have an account? Sign in"}
-                </Text>
-              </Pressable>
-            </View>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>

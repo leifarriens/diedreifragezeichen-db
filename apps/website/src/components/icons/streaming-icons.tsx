@@ -1,14 +1,49 @@
+import { useId } from "react";
+
 export type StreamingIconProps = React.ComponentPropsWithoutRef<"svg">;
 
 export function AmazonMusicIcon(props: StreamingIconProps) {
+  const maskId = useId();
+
   return (
     <svg
       role="img"
-      viewBox="0 0 24 24"
+      viewBox="0 0 48 48"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z" />
+      <defs>
+        <mask
+          id={maskId}
+          maskUnits="userSpaceOnUse"
+          style={{ maskType: "luminance" }}
+        >
+          <circle cx="24" cy="24" fill="white" r="21.5" />
+          <g
+            fill="none"
+            stroke="black"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2.25"
+          >
+            <path d="M32.28 29.7c1.112-.451 3.092-1.049 3.687-.327.645.781-.17 2.477-.92 3.794" />
+            <path d="M11.798 30.223c1.759 1.397 6.954 3.535 12.488 3.535a17 17 0 0 0 10.167-3.079" />
+            <path d="M20.404 20.125v3.3a2 2 0 0 0 2 2 2 2 0 0 0 2-2v-3.3m0 3.3v2" />
+            <path d="M10.4 22.225a2 2 0 0 1 2-2 2 2 0 0 1 2 2v3.2m-4-5.2v5.2m4-3.2a2 2 0 0 1 2-2 2 2 0 0 1 2 2v3.2" />
+            <path d="M31.88 20.125v5.3" />
+            <path d="M26.541 24.973a2.249 2.249 0 0 0 1.645.447h.449a1.324 1.324 0 0 0 1.322-1.325 1.324 1.324 0 0 0-1.322-1.325h-.898a1.324 1.324 0 0 1-1.322-1.325 1.324 1.324 0 0 1 1.322-1.325h.449a2.249 2.249 0 0 1 1.645.447" />
+            <path d="M37.6 24.418a2 2 0 0 1-1.737 1.007 2 2 0 0 1-2-2v-1.3a2 2 0 0 1 2-2 2 2 0 0 1 1.735 1.004" />
+          </g>
+          <circle cx="31.88" cy="17.675" fill="black" r="0.7" />
+        </mask>
+      </defs>
+      <circle
+        cx="24"
+        cy="24"
+        fill="currentColor"
+        mask={`url(#${maskId})`}
+        r="21.5"
+      />
     </svg>
   );
 }

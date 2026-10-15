@@ -1,21 +1,25 @@
 import { STREAMING_SERVICES, type StreamingService } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Button, FieldGroup, Host, Picker, Row, Spacer, Text } from "@expo/ui";
 import { scrollContentBackground } from "@expo/ui/swift-ui/modifiers";
+import { useQueryClient } from "@tanstack/react-query";
 import { Stack, useRouter, useTheme } from "expo-router";
 import { useState } from "react";
-import { Platform } from "react-native";
+import { Alert, Platform } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
 import { authClient } from "@/features/auth/auth-client";
 import { useUserSettingsStore } from "@/features/settings/hooks/use-user-settings-store";
 
 export function SettingsScreen() {
+  const queryClient = useQueryClient();
   const router = useRouter();
   const { colors } = useTheme();
   const { data: session, isPending: isSessionPending } =
     authClient.useSession();
   const [accountError, setAccountError] = useState<null | string>(null);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [isDeletingAccount, setIsDeletingAccount] = useState(false);
   const { hasHydrated, streamingService } = useUserSettingsStore(
     useShallow((state) => ({
       hasHydrated: state.hasHydrated,
@@ -44,6 +48,51 @@ export function SettingsScreen() {
     }
   }
 
+  async function handleDeleteAccount() {
+    setAccountError(null);
+    setIsDeletingAccount(true);
+
+    try {
+      const result = await authClient.deleteUser();
+
+      if (result.error) {
+        setAccountError(
+          `${result.error.message ?? "Could not delete your account."} If your session has expired, sign out and sign back in before trying again.`,
+        );
+        return;
+      }
+
+      queryClient.clear();
+      router.replace("/(tabs)/settings/sign-in");
+    } catch (reason) {
+      setAccountError(
+        reason instanceof Error
+          ? reason.message
+          : "Could not delete your account. If your session has expired, sign out and sign back in before trying again.",
+      );
+    } finally {
+      setIsDeletingAccount(false);
+    }
+  }
+
+  function confirmDeleteAccount() {
+    Alert.alert(
+      "Delete your account?",
+      "This permanently deletes your account, bookmarks, listening history, and ratings. If your session has expired, sign in again and retry. This action cannot be undone.",
+      [
+        { style: "cancel", text: "Cancel" },
+        {
+          onPress: () => {
+            void handleDeleteAccount();
+          },
+          style: "destructive",
+          text: "Delete account",
+        },
+      ],
+      { cancelable: true },
+    );
+  }
+
   return (
     <>
       <Stack.Screen
@@ -59,7 +108,7 @@ export function SettingsScreen() {
           }
           style={{ backgroundColor: colors.background }}
         >
-          <FieldGroup.Section title="Account">
+          <FieldGroup.Section title={l.MISC.ACCOUNT}>
             {isSessionPending ? (
               <Row alignment="center" spacing={12}>
                 <Text>Checking account...</Text>
@@ -78,12 +127,26 @@ export function SettingsScreen() {
                 <Row alignment="center" spacing={12}>
                   <Spacer />
                   <Button
-                    disabled={isSigningOut}
-                    label={isSigningOut ? "Signing out..." : "Sign out"}
+                    disabled={isSigningOut || isDeletingAccount}
+                    label={isSigningOut ? "Signing out..." : l.MISC.LOGOUT}
                     onPress={() => {
                       void handleSignOut();
                     }}
                   />
+                </Row>
+                <Row alignment="center" spacing={12}>
+                  <Spacer />
+                  <Button
+                    disabled={isSigningOut || isDeletingAccount}
+                    onPress={confirmDeleteAccount}
+                    variant="text"
+                  >
+                    <Text textStyle={{ color: "#b91c1c" }}>
+                      {isDeletingAccount
+                        ? "Deleting account..."
+                        : "Delete account"}
+                    </Text>
+                  </Button>
                 </Row>
               </>
             ) : (
@@ -93,7 +156,7 @@ export function SettingsScreen() {
                 <Button
                   label="Sign in"
                   onPress={() => {
-                    router.push("/(tabs)/settings/sign-in");
+                    router.push("/auth/login");
                   }}
                 />
               </Row>

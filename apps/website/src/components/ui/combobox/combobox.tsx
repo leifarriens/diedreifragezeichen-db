@@ -55,7 +55,7 @@ function ComboboxOptions<Value>({
         <ComboboxPrimitive.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] border border-neutral-950 bg-white text-neutral-950 shadow-[0.25rem_0.25rem_0_rgb(0_0_0_/_12%)] transition-[scale,opacity] duration-100 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0">
           <ComboboxPrimitive.Empty>
             <div className="py-4 pr-4 pl-2 text-sm leading-4 text-neutral-500">
-              No options found.
+              Keine Optionen gefunden.
             </div>
           </ComboboxPrimitive.Empty>
           <ComboboxPrimitive.List className="max-h-[min(22.5rem,var(--available-height))] scroll-py-1 overflow-y-auto overscroll-contain py-1 outline-0 data-empty:p-0">
@@ -109,9 +109,9 @@ function MultiSelectCombobox<Value>({
       onValueChange={onValueChange}
       value={value}
     >
-      <div className="flex max-w-md flex-col gap-1 text-sm leading-5 font-bold text-white">
+      <div className="flex max-w-md flex-col gap-1 text-sm leading-5 font-bold">
         <label htmlFor={id}>{label}</label>
-        <ComboboxPrimitive.InputGroup className="flex min-h-8 w-56 cursor-text flex-wrap items-center gap-0.5 border border-neutral-950 bg-white px-2 py-1 focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-neutral-950">
+        <ComboboxPrimitive.InputGroup className="flex min-h-8 w-56 cursor-text flex-wrap items-center gap-0.5 rounded-lg border border-neutral-100 bg-transparent px-2 py-1">
           <ComboboxPrimitive.Value>
             {(selectedItems: ComboboxItem<Value>[]) => (
               <ComboboxPrimitive.Chips
@@ -122,7 +122,7 @@ function MultiSelectCombobox<Value>({
                   <ComboboxPrimitive.Chip
                     aria-description="Press Backspace or Delete to remove"
                     aria-label={item.label}
-                    className="group flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-neutral-950 outline-none focus-within:bg-neutral-950 focus-within:text-white [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white"
+                    className="group flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden rounded-md bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-neutral-950 outline-none focus-within:bg-neutral-950 focus-within:text-white [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white"
                     key={getItemKey(item)}
                   >
                     {item.label}
@@ -140,7 +140,7 @@ function MultiSelectCombobox<Value>({
                       ? `${selectedItems.length.toString()} selected. From the start of the input, press Left Arrow to focus the selected items`
                       : undefined
                   }
-                  className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 bg-white p-0 text-sm font-normal text-neutral-950 outline-none placeholder:text-neutral-500 any-pointer-coarse:text-base"
+                  className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 p-0 text-sm font-normal outline-none placeholder:text-neutral-500 any-pointer-coarse:text-base"
                   id={id}
                   placeholder={selectedItems.length > 0 ? "" : placeholder}
                 />
@@ -149,7 +149,7 @@ function MultiSelectCombobox<Value>({
           </ComboboxPrimitive.Value>
           <ComboboxPrimitive.Trigger
             aria-label="Open options"
-            className="flex h-6 w-6 shrink-0 items-center justify-center border-0 bg-transparent p-0 text-neutral-950"
+            className="flex h-6 w-6 shrink-0 items-center justify-center border-0 bg-transparent p-0"
           >
             <CaretDownIcon />
           </ComboboxPrimitive.Trigger>

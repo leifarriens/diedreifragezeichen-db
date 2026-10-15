@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 import { cn } from "tailwind-variants";
 
@@ -13,6 +14,7 @@ import styles from "./header-nav.module.css";
 import { ProfileMenu } from "./profile-menu";
 
 export function HeaderNav() {
+  const pathname = usePathname();
   const isScrolled = useSyncExternalStore(
     (onStoreChange) => {
       window.addEventListener("scroll", onStoreChange, { passive: true });
@@ -25,6 +27,8 @@ export function HeaderNav() {
   );
 
   const { isAuthenticated, isPending, session } = useAuth();
+
+  const isLoginPage = pathname === "/login";
 
   return (
     <div className="pointer-events-none sticky top-0 z-40 w-full sm:px-8 sm:py-8">
@@ -59,18 +63,20 @@ export function HeaderNav() {
           />
         </Link>
 
-        <GlobalSearchInput className="[grid-area:search]" />
+        {!isLoginPage && <GlobalSearchInput className="[grid-area:search]" />}
 
-        <nav
-          aria-label="Hauptnavigation"
-          className="flex shrink-0 grow basis-auto items-center justify-end [grid-area:profile]"
-        >
-          {isPending ? null : isAuthenticated ? (
-            <ProfileMenu name={session?.user.name} />
-          ) : (
-            <Button href="/login">Anmelden</Button>
-          )}
-        </nav>
+        {!isLoginPage && (
+          <nav
+            aria-label="Hauptnavigation"
+            className="flex shrink-0 grow basis-auto items-center justify-end [grid-area:profile]"
+          >
+            {isPending ? null : isAuthenticated ? (
+              <ProfileMenu name={session?.user.name} />
+            ) : (
+              <Button href="/login">Anmelden</Button>
+            )}
+          </nav>
+        )}
       </div>
     </div>
   );

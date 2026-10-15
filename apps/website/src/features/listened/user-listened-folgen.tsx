@@ -4,6 +4,7 @@ import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
 import { useSearch } from "@ddfdb/client";
 import { type ListenedDateSortOption, sortFolgen } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { useMemo, useState } from "react";
 
 import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
@@ -36,24 +37,34 @@ export function UserListenedFolgen({
   const displayedFolgen = sortedFolgen;
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
+        <FolgenGridSearch
+          onChange={setSearchTerm}
+          placeholder={l.LISTENED.SEARCH_PLACEHOLDER}
+          value={searchTerm}
+        />
 
         <ToggleGroup
-          aria-label="Sortierung der gehörten Folgen"
+          aria-label={l.LISTENED.SORTING.LABEL}
           onValueChange={(order) => {
             setSortOption({ by: "listenedAt", order });
           }}
           options={[
-            { label: "Neueste zuerst", value: "newest" },
-            { label: "Älteste zuerst", value: "oldest" },
+            { label: l.LISTENED.SORTING.NEWEST_FIRST, value: "newest" },
+            { label: l.LISTENED.SORTING.OLDEST_FIRST, value: "oldest" },
           ]}
           value={sortOption.order}
         />
       </div>
 
-      <FolgenGrid folgen={displayedFolgen} />
+      <FolgenGrid
+        emptyMessage={{
+          title:
+            folgen.length === 0 ? l.LISTENED.EMPTY_PLACEHOLDER : undefined,
+        }}
+        folgen={displayedFolgen}
+      />
     </section>
   );
 }

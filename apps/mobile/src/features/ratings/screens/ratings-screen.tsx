@@ -5,6 +5,7 @@ import {
   type UserRatingSortOption,
   type UserRatingUpdatedSortOption,
 } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 import { ActivityIndicator } from "react-native";
@@ -55,12 +56,13 @@ export function RatingsScreen() {
             onChangeText: (event) => {
               setSearchTerm(event.nativeEvent.text);
             },
-            placeholder: "Titel, Nummer oder Erscheinungsjahr",
+            placeholder: l.RATINGS.SEARCH_PLACEHOLDER,
             placement: "integratedCentered",
           },
-          title: "Bewertete Folgen",
+          title: l.RATINGS.TITLE,
           unstable_headerRightItems: () => [
             ...buildHeaderSortMenu({
+              label: l.RATINGS.SORTING.LABEL,
               onSortValueChange(order) {
                 setSortOption(
                   order === "newest"
@@ -69,9 +71,9 @@ export function RatingsScreen() {
                 );
               },
               options: [
-                { label: "Neueste Wertung", value: "newest" },
-                { label: "Deine beste Wertung", value: "highest" },
-                { label: "Deine schlechteste Wertung", value: "lowest" },
+                { label: l.RATINGS.SORTING.NEWEST_FIRST, value: "newest" },
+                { label: l.RATINGS.SORTING.HIGHEST_RATED_FIRST, value: "highest" },
+                { label: l.RATINGS.SORTING.LOWEST_RATED_FIRST, value: "lowest" },
               ],
               sortValue:
                 sortOption.by === "userRatingUpdatedAt"
@@ -89,7 +91,7 @@ export function RatingsScreen() {
           detailPathname="/(tabs)/bewertet/[folgeId]"
           emptyMessage={
             ratedFolgen.length === 0
-              ? "Du hast noch keine Folgen bewertet"
+              ? l.RATINGS.EMPTY_PLACEHOLDER
               : undefined
           }
           folgen={displayedFolgen}

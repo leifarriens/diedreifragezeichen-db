@@ -6,12 +6,14 @@ interface HeaderSortMenuOption<Value extends string> {
 }
 
 interface HeaderSortMenuProps<Value extends string> {
+  label: string;
   onSortValueChange: (value: Value) => void;
   options: readonly HeaderSortMenuOption<Value>[];
   sortValue: Value;
 }
 
 export function buildHeaderSortMenu<Value extends string>({
+  label,
   onSortValueChange,
   options,
   sortValue,
@@ -19,7 +21,7 @@ export function buildHeaderSortMenu<Value extends string>({
   return [
     {
       icon: { name: "arrow.up.arrow.down", type: "sfSymbol" },
-      label: "Sortieren",
+      label,
       menu: {
         items: options.map((option) => {
           return {

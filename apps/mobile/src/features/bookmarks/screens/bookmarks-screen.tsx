@@ -4,6 +4,7 @@ import {
   selectCollectionFolgen,
   sortFolgen,
 } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 import { ActivityIndicator } from "react-native";
@@ -51,18 +52,19 @@ export function BookmarksScreen() {
             onChangeText: (event) => {
               setSearchTerm(event.nativeEvent.text);
             },
-            placeholder: "Titel, Nummer oder Erscheinungsjahr",
+            placeholder: l.BOOKMARKS.SEARCH_PLACEHOLDER,
             placement: "integratedCentered",
           },
-          title: "Gespeichert",
+          title: l.BOOKMARKS.NAME,
           unstable_headerRightItems: () => [
             ...buildHeaderSortMenu({
+              label: l.BOOKMARKS.SORTING.LABEL,
               onSortValueChange(value) {
                 setSortOption({ by: "bookmarkedAt", order: value });
               },
               options: [
-                { label: "Neueste zuerst", value: "newest" },
-                { label: "Älteste zuerst", value: "oldest" },
+                { label: l.BOOKMARKS.SORTING.NEWEST_FIRST, value: "newest" },
+                { label: l.BOOKMARKS.SORTING.OLDEST_FIRST, value: "oldest" },
               ],
               sortValue: sortOption.order,
             }),
@@ -77,7 +79,7 @@ export function BookmarksScreen() {
           detailPathname="/(tabs)/gespeichert/[folgeId]"
           emptyMessage={
             bookmarkedFolgen.length === 0
-              ? "Du hast noch keine Folge gespeichert"
+              ? l.BOOKMARKS.EMPTY_PLACEHOLDER
               : undefined
           }
           folgen={displayedFolgen}

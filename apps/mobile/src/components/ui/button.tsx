@@ -18,7 +18,7 @@ import {
 } from "@expo/ui/swift-ui/modifiers";
 import { type ColorValue, Platform } from "react-native";
 
-export type NativeButtonIntent = "default" | "prominent";
+export type NativeButtonIntent = "default" | "plain" | "prominent";
 
 export type NativeButtonStyle = Parameters<typeof buttonStyle>[0];
 
@@ -48,6 +48,10 @@ const intents: Record<
   default: {
     backgroundColor: undefined,
     variant: "glass",
+  },
+  plain: {
+    backgroundColor: undefined,
+    variant: "plain",
   },
   prominent: {
     backgroundColor: undefined,

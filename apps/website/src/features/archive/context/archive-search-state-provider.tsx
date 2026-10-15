@@ -58,7 +58,7 @@ export function ArchiveSearchStateProvider({
     searchCriteria,
     state,
     updateState: updateSearchState,
-  } = useSearchState(currentYear, ARCHIVE_DEFAULT_COLLECTIONS);
+  } = useSearchState(currentYear);
   const stateRef = useRef(state);
 
   const getSearchSnapshot = useCallback(
@@ -151,12 +151,7 @@ export function ArchiveSearchStateProvider({
     stateRef.current = defaultState;
     resetSearchState();
     commitFields(SEARCH_STATE_FIELDS, defaultState);
-  }, [
-    commitFields,
-    currentYear,
-    initialState,
-    resetSearchState,
-  ]);
+  }, [commitFields, currentYear, initialState, resetSearchState]);
 
   const value = useMemo(
     () => ({

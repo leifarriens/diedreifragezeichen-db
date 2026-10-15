@@ -29,8 +29,8 @@ export function LoadingIndicator({
             cy="50"
             fill="none"
             r="40"
-            stroke-dasharray="250"
-            stroke-dashoffset="210"
+            strokeDasharray="250"
+            strokeDashoffset="210"
             strokeWidth="10"
           />
         </svg>

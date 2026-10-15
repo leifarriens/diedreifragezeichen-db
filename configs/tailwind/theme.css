@@ -18,4 +18,16 @@
   --color-ddf-blue-800: #05182a;
   --color-ddf-blue-900: #001727;
   --color-ddf-blue-950: #030f1a;
+
+  --color-ddf-red-50: #ffe6e6;
+  --color-ddf-red-100: #ffcccc;
+  --color-ddf-red-200: #ff9999;
+  --color-ddf-red-300: #ff6666;
+  --color-ddf-red-400: #ff3333;
+  --color-ddf-red-500: #e91b24;
+  --color-ddf-red-600: #a11418;
+  --color-ddf-red-700: #570a0c;
+  --color-ddf-red-800: #2a0506;
+  --color-ddf-red-900: #170001;
+  --color-ddf-red-950: #0f0303;
 }

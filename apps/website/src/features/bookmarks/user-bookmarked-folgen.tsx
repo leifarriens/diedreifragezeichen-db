@@ -4,6 +4,7 @@ import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
 import { useSearch } from "@ddfdb/client";
 import { type BookmarkDateSortOption, sortFolgen } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { useMemo, useState } from "react";
 
 import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
@@ -36,24 +37,34 @@ export function UserBookmarkedFolgen({
   const displayedFolgen = sortedFolgen;
 
   return (
-    <section className="space-y-4">
+    <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <FolgenGridSearch onChange={setSearchTerm} value={searchTerm} />
+        <FolgenGridSearch
+          onChange={setSearchTerm}
+          placeholder={l.BOOKMARKS.SEARCH_PLACEHOLDER}
+          value={searchTerm}
+        />
 
         <ToggleGroup
-          aria-label="Sortierung der Lesezeichen"
+          aria-label={l.BOOKMARKS.SORTING.LABEL}
           onValueChange={(order) => {
             setSortOption({ by: "bookmarkedAt", order });
           }}
           options={[
-            { label: "Neueste zuerst", value: "newest" },
-            { label: "Älteste zuerst", value: "oldest" },
+            { label: l.BOOKMARKS.SORTING.NEWEST_FIRST, value: "newest" },
+            { label: l.BOOKMARKS.SORTING.OLDEST_FIRST, value: "oldest" },
           ]}
           value={sortOption.order}
         />
       </div>
 
-      <FolgenGrid folgen={displayedFolgen} />
+      <FolgenGrid
+        emptyMessage={{
+          title:
+            folgen.length === 0 ? l.BOOKMARKS.EMPTY_PLACEHOLDER : undefined,
+        }}
+        folgen={displayedFolgen}
+      />
     </section>
   );
 }

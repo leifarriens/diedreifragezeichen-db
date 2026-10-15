@@ -11,6 +11,7 @@ import type { ListenedRepository } from "./modules/listened/listened.repository.
 import type { RatingRepository } from "./modules/rating/rating.repository.interface";
 
 export interface AuthenticatedUser {
+  createdAt: Date;
   email: string;
   emailVerified: boolean;
   id: string;
@@ -132,6 +133,7 @@ export const appRouter = createTRPCRouter({
   }),
   user: createTRPCRouter({
     me: protectedProcedure.query(({ ctx }) => ({
+      createdAt: ctx.user.createdAt,
       email: ctx.user.email,
       emailVerified: ctx.user.emailVerified,
       id: ctx.user.id,

@@ -1,5 +1,6 @@
 import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
+import { l } from "@ddfdb/core/labels";
 import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { useCallback } from "react";
 import { RefreshControl, Text, useWindowDimensions, View } from "react-native";
@@ -64,7 +65,7 @@ export function FolgenList({
             <LoadingIndicator />
           ) : (
             <Text className="text-center text-xl font-semibold text-white">
-              {emptyMessage ?? "Keine Folgen gefunden"}
+              {emptyMessage ?? l.MISC.NO_FOLGEN_FOUND}
             </Text>
           )}
         </ListEmptyContainer>

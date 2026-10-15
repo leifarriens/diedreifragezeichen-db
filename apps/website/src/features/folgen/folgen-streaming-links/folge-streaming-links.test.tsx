@@ -16,6 +16,10 @@ describe("FolgenStreamingLinks", () => {
       <div>
         <FolgenStreamingLinks
           streaming={{
+            amazon_music: {
+              id: "amazon-id",
+              link: "https://music.amazon.com/episode",
+            },
             apple_music: {
               id: "apple-id",
               link: "https://music.apple.com/episode",
@@ -38,6 +42,7 @@ describe("FolgenStreamingLinks", () => {
     );
 
     for (const [service, href] of [
+      ["Amazon Music", "https://music.amazon.com/episode"],
       ["Apple Music", "https://music.apple.com/episode"],
       ["Deezer", "https://www.deezer.com/episode"],
       ["Spotify", "https://open.spotify.com/episode"],
@@ -55,5 +60,14 @@ describe("FolgenStreamingLinks", () => {
         "true",
       );
     }
+
+    const amazonMusicLink = screen.getByRole("link", {
+      name: externalLinkLabel("Amazon Music"),
+    });
+    expect(
+      amazonMusicLink.querySelector("svg")?.querySelectorAll("circle, path")
+        .length,
+    ).toBeGreaterThan(1);
+    expect(amazonMusicLink.querySelector("svg mask")).not.toBeNull();
   });
 });

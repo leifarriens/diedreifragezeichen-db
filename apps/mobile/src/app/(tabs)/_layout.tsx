@@ -1,3 +1,4 @@
+import { l } from "@ddfdb/core/labels";
 import { useTheme } from "expo-router";
 import { NativeTabs } from "expo-router/native-tabs";
 
@@ -12,17 +13,23 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="gespeichert">
-        <NativeTabs.Trigger.Label>Gespeichert</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>
+          {l.BOOKMARKS.NAME}
+        </NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="bookmark" sf="bookmark" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="gehoert">
-        <NativeTabs.Trigger.Label>Gehört</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>
+          {l.LISTENED.NAME}
+        </NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="history" sf="checkmark.circle" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="bewertet">
-        <NativeTabs.Trigger.Label>Bewertet</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>
+          {l.RATINGS.NAME}
+        </NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           md="rate_review"
           sf="wallet.sensor.tag.radiowaves.left.and.right"

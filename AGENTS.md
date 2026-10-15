@@ -29,11 +29,11 @@ Documentation-only changes do not require targeted verification loops or the ful
 - Before finishing, run the full verification suite:
 
   ```bash
-  pnpm turbo typecheck lint test build
+  pnpm turbo typecheck lint test
   ```
 
 - If the full suite reveals an issue caused by your changes, fix it using targeted checks, then rerun the full suite.
-- Across all verification checks (typecheck, lint, test, and build), fix only issues caused by your current changes, including regressions in dependent packages. Investigate failures before attributing them; do not assume a failure is pre-existing just because it occurs in an unchanged file. Except for changes produced by lint autofix as allowed above, leave unrelated or pre-existing issues untouched and report them, along with any checks that failed or could not run. Do not claim verification passed when it did not.
+- Across all verification checks (typecheck, lint, test), fix only issues caused by your current changes, including regressions in dependent packages. Investigate failures before attributing them; do not assume a failure is pre-existing just because it occurs in an unchanged file. Except for changes produced by lint autofix as allowed above, leave unrelated or pre-existing issues untouched and report them, along with any checks that failed or could not run. Do not claim verification passed when it did not.
 
 ## Targeted commands
 

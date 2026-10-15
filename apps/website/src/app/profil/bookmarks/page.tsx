@@ -1,6 +1,7 @@
 import type { Metadata } from "next/types";
 
 import { selectCollectionFolgen } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
@@ -8,16 +9,14 @@ import { UserBookmarkedFolgen } from "@/features/bookmarks/user-bookmarked-folge
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { getMyBookmarks } from "@/server/queries/user-data";
 
-const TITLE = "Gespeicherte Folgen";
-
 export const metadata: Metadata = {
-  title: TITLE,
+  title: l.BOOKMARKS.TITLE,
 };
 
 export default function BookmarksPage() {
   return (
     <>
-      <h1 className="mb-8 text-2xl font-bold">{TITLE}</h1>
+      <h1 className="mb-8 text-2xl font-bold">{l.BOOKMARKS.TITLE}</h1>
 
       <Suspense fallback={<PageLoadingIndicator />}>
         <BookmarksContent />

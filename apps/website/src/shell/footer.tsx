@@ -50,7 +50,19 @@ export function Footer() {
         </a>
       </div>
 
-      <div className="z-30 mb-4 text-center">
+      <div className="text-center">
+        Archivdaten bereitgestellt von{" "}
+        <a
+          className="hover:text-neutral-200"
+          href="https://dreimetadaten.de"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          dreimetadaten.de
+        </a>
+      </div>
+
+      <div className="text-center">
         Developed with 🐦 by{" "}
         <a
           className="hover:text-neutral-200"

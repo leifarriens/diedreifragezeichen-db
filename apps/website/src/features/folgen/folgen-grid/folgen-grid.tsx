@@ -5,8 +5,8 @@ import styles from "./folgen-grid.module.css";
 
 interface FolgenGridProps {
   emptyMessage?: {
-    description?: string;
-    title: string;
+    description?: string | undefined;
+    title: string | undefined;
   };
   folgen: (FolgeUserData & FolgeWithCommunityRating)[];
 }
