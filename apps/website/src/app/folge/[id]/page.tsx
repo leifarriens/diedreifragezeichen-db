@@ -9,9 +9,10 @@ import {
   isReleasDateInThePast,
 } from "@ddfdb/core";
 import { cacheLife } from "next/cache";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 
+import { SITE_NAME, SITE_URL } from "@/app/constants";
 import { ExternalLink } from "@/components/ui/external-link/external-link";
 import { Wrapper } from "@/components/ui/wrapper";
 import { FolgenBookmarkButtonForFolge } from "@/features/bookmarks/folgen-bookmark-button";
@@ -20,11 +21,41 @@ import { FolgenStreamingLinks } from "@/features/folgen/folgen-streaming-links/f
 import { FolgenListenedButtonForFolge } from "@/features/listened/folgen-listened-button";
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
 import { FolgenUserRating } from "@/features/ratings/components/folgen-user-rating";
-import { archivApi, ArchivApiError } from "@/server/archiv-api";
-import { getFolgeWithCommunityRatingById } from "@/server/queries/folgen";
+import { archivApi } from "@/server/archiv-api";
+import {
+  getFolgeByLegacyId,
+  getFolgeWithCommunityRatingById,
+} from "@/server/queries/folgen";
+import { numericFolgeIdSchema } from "@/server/validators/folge-id";
 import { PageBackground } from "@/shell/page-background";
 
-const getCachedPageData = cache(getFolgeWithCommunityRatingById);
+const getCachedPageData = cache(async (id: string) => {
+  if (/^[\da-f]{24}$/i.test(id)) {
+    const legacyFolge = await getFolgeByLegacyId(id);
+    if (!legacyFolge) {
+      notFound();
+    }
+    permanentRedirect(`/folge/${legacyFolge.id.toString()}`);
+  }
+
+  const parsedId = numericFolgeIdSchema.safeParse(id);
+  if (!parsedId.success) {
+    notFound();
+  }
+
+  const folgeId = parsedId.data;
+
+  const normalizedId = folgeId.toString();
+  if (id !== normalizedId) {
+    permanentRedirect(`/folge/${normalizedId}`);
+  }
+
+  const folge = await getFolgeWithCommunityRatingById(folgeId);
+  if (folge === null) {
+    notFound();
+  }
+  return folge;
+});
 
 export default async function FolgePage({
   params,
@@ -33,17 +64,7 @@ export default async function FolgePage({
 }) {
   const { id } = await params;
 
-  const folgeId = parseInt(id, 10);
-
-  let folge: FolgeWithCommunityRating;
-  try {
-    folge = await getCachedPageData(folgeId);
-  } catch (error) {
-    if (error instanceof ArchivApiError && error.status === 404) {
-      notFound();
-    }
-    throw error;
-  }
+  const folge = await getCachedPageData(id);
 
   return <Folge folge={folge} />;
 }
@@ -55,16 +76,24 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
 
-  const folge = await getCachedPageData(parseInt(id, 10));
+  const folge = await getCachedPageData(id);
 
   const title = folge.number
     ? `Folge ${folge.number.toString()} ${folge.title}`
     : folge.title;
 
   return {
-    description: folge.description
-      ? cutToMaxLength(folge.description, 160)
-      : null,
+    alternates: {
+      canonical: `${SITE_URL}/folge/${folge.id.toString()}`,
+    },
+    description: folge.description,
+    openGraph: {
+      description: folge.description ?? undefined,
+      images: folge.cover ? buildOgImage(folge.cover) : undefined,
+      siteName: SITE_NAME,
+      title,
+      url: `${SITE_URL}/folge/${folge.id.toString()}`,
+    },
     title,
   };
 }
@@ -75,17 +104,19 @@ export async function generateStaticParams() {
   return folgen.map(({ id }) => ({ id: String(id) }));
 }
 
-function cutToMaxLength(text: string, maxLength: number) {
-  if (text.length <= maxLength) {
-    return text;
-  }
+function buildOgImage(imageUrl: string) {
+  const width = 512;
+  const searchParams = new URLSearchParams();
 
-  const truncated = text.slice(0, maxLength);
-  const lastSpaceIndex = truncated.lastIndexOf(" ");
-  if (lastSpaceIndex === -1) {
-    return truncated;
-  }
-  return `${truncated.slice(0, lastSpaceIndex)}...`;
+  searchParams.set("url", imageUrl);
+  searchParams.set("w", "512");
+  searchParams.set("q", "75");
+
+  return {
+    height: width,
+    url: `/_next/image?${searchParams.toString()}`,
+    width,
+  };
 }
 
 // "use cache" requires an async function
@@ -120,16 +151,12 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
       <main>
         <Wrapper className="max-w-7xl">
           <div className="mb-24 px-0 py-8 sm:px-8 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
-            {cover ? (
-              <FolgenCover
-                className="mb-4 w-full rounded-xl object-cover shadow-2xl"
-                coverUrl={cover}
-                folgenTitle={title}
-                loading="eager"
-              />
-            ) : (
-              <div />
-            )}
+            <FolgenCover
+              className="mb-4 shadow-2xl md:mb-0"
+              coverUrl={cover}
+              folgenTitle={title}
+              loading="eager"
+            />
 
             <div>
               <h1>
@@ -143,9 +170,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
               </h1>
 
               {folge.number ? (
-                <h2 className="mt-2 text-lg">
-                  Folge {folge.number.toString()}
-                </h2>
+                <p className="mt-2 text-lg">Folge {folge.number.toString()}</p>
               ) : null}
 
               <div className="mt-4 text-neutral-300">
@@ -226,14 +251,14 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
           {description && (
             <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
-              <h3 className="mb-4 text-2xl font-medium">Zusammenfassung</h3>
+              <h2 className="mb-4 text-2xl font-medium">Zusammenfassung</h2>
               <p className="text-justify">{description}</p>
             </div>
           )}
 
           {voice_roles.length > 0 && (
             <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
-              <h3 className="mb-4 text-2xl font-medium">Sprechrollen</h3>
+              <h2 className="mb-4 text-2xl font-medium">Sprechrollen</h2>
               <ul>
                 {voice_roles.map(({ role, speaker }) => (
                   <li key={`${role}-${speaker}`}>
@@ -246,7 +271,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
           {(authors.length > 0 || script_authors.length > 0) && (
             <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
-              <h3 className="mb-4 text-2xl font-medium">Autoren</h3>
+              <h2 className="mb-4 text-2xl font-medium">Autoren</h2>
               {authors.length > 0 && (
                 <p className="text-justify">Autoren: {authors.join(", ")}</p>
               )}

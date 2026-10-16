@@ -23,7 +23,7 @@ export function PageBackground({
         className,
       )}
     >
-      <FolgenBackground artwork={artwork} className="h-full w-full" />
+      <FolgenBackground artworkUrl={artwork} className="h-full w-full" />
     </div>
   );
 }

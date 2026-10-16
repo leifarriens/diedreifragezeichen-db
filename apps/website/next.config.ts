@@ -1,17 +1,11 @@
 import type { NextConfig } from "next";
 
+import { nextImagesConfig } from "@ddfdb/image-optimization";
 import createMDX from "@next/mdx";
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
-  images: {
-    imageSizes: [64, 512],
-    remotePatterns: [
-      new URL("https://cdn-p.smehost.net/**"),
-      new URL("https://dreimetadaten.de/data/**"),
-      new URL("http://a1.mzstatic.com/**"),
-    ],
-  },
+  images: nextImagesConfig,
   pageExtensions: ["md", "mdx", "ts", "tsx"],
   reactCompiler: true,
   transpilePackages: [
@@ -19,6 +13,7 @@ const nextConfig: NextConfig = {
     "@ddfdb/client",
     "@ddfdb/core",
     "@ddfdb/db",
+    "@ddfdb/image-optimization",
     "@ddfdb/legacy-api",
     "@ddfdb/user-api",
   ],

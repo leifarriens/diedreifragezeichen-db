@@ -11,7 +11,7 @@ export function useDeleteAccount() {
 
       if (result.error) {
         throw new Error(
-          result.error.message ?? "Could not delete your account.",
+          result.error.message ?? "Dein Konto konnte nicht gelöscht werden.",
         );
       }
     },

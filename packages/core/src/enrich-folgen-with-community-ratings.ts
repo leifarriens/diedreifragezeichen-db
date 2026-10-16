@@ -4,6 +4,7 @@ export interface CommunityRatingSummary {
   numberOfRatings: number;
   popularity: number;
   score: number;
+  updatedAt: string;
 }
 
 export type FolgeWithCommunityRating<T extends { id: number } = Folge> = T & {
@@ -48,6 +49,7 @@ export function enrichFolgeWithCommunityRating<T extends { id: number }>(
           numberOfRatings: communityRating.numberOfRatings,
           popularity: communityRating.popularity,
           score: communityRating.score,
+          updatedAt: communityRating.updatedAt,
         }
       : null,
   };

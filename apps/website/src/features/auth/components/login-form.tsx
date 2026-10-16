@@ -72,7 +72,7 @@ export function LoginForm() {
           autoCapitalize="none"
           autoComplete="email"
           className="w-full"
-          label="Email"
+          label="E-Mail"
           name="email"
           onChange={(event) => {
             setEmail(event.currentTarget.value);

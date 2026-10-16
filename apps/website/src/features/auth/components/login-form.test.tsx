@@ -79,7 +79,7 @@ function renderLoginForm() {
 }
 
 function submitEmailForm() {
-  const form = screen.getByLabelText("Email").closest("form");
+  const form = screen.getByLabelText("E-Mail").closest("form");
   if (!form) {
     throw new Error("Email form was not found");
   }
@@ -91,7 +91,7 @@ describe("LoginForm", () => {
   it("disables resend for 60 seconds and restarts the countdown after sending", async () => {
     vi.useFakeTimers();
     renderLoginForm();
-    fireEvent.change(screen.getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("E-Mail"), {
       target: { value: "listener@example.com" },
     });
     submitEmailForm();
@@ -121,7 +121,7 @@ describe("LoginForm", () => {
     await act(() => vi.advanceTimersByTimeAsync(10));
     expect(resendButton.disabled).toBe(true);
     expect(screen.getByLabelText("Verification code")).toBeTruthy();
-    expect(screen.queryByLabelText("Email")).toBeNull();
+    expect(screen.queryByLabelText("E-Mail")).toBeNull();
 
     await act(async () => {
       resolveSend({ error: null });
@@ -135,7 +135,7 @@ describe("LoginForm", () => {
   it("keeps the code step on resend failure and allows retrying", async () => {
     vi.useFakeTimers();
     renderLoginForm();
-    fireEvent.change(screen.getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("E-Mail"), {
       target: { value: "listener@example.com" },
     });
     submitEmailForm();
@@ -177,7 +177,7 @@ describe("LoginForm", () => {
 
   it("sends a sign-in code to a normalized email and displays the code step", async () => {
     renderLoginForm();
-    fireEvent.change(screen.getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("E-Mail"), {
       target: { value: " Listener@Example.com " },
     });
     submitEmailForm();
@@ -191,7 +191,7 @@ describe("LoginForm", () => {
 
   it("verifies the OTP and redirects after a successful sign-in", async () => {
     renderLoginForm();
-    fireEvent.change(screen.getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("E-Mail"), {
       target: { value: "listener@example.com" },
     });
     submitEmailForm();
@@ -212,7 +212,7 @@ describe("LoginForm", () => {
   it("shows invalid-code errors and lets users retry without redirecting", async () => {
     signInEmailOtp.mockResolvedValue({ error: { message: "Invalid OTP" } });
     renderLoginForm();
-    fireEvent.change(screen.getByLabelText("Email"), {
+    fireEvent.change(screen.getByLabelText("E-Mail"), {
       target: { value: "listener@example.com" },
     });
     submitEmailForm();

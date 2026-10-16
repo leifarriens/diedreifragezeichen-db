@@ -25,7 +25,7 @@ import {
 } from "../archive-filters";
 
 const ARCHIVE_ROUTE = "/";
-const ARCHIVE_DEFAULT_COLLECTIONS: Collection[] = ["serie"];
+const ARCHIVE_DEFAULT_COLLECTIONS: Collection[] = [];
 const SEARCH_STATE_FIELDS: readonly (keyof SearchState)[] = [
   "term",
   "sort",

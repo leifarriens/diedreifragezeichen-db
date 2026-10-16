@@ -3,7 +3,7 @@
   "buildCommand": "cd ../.. && pnpm --filter @ddfdb/website vercel:build",
   "regions": ["fra1"],
   "git": {
-    "deploymentEnabled": false
+    "deploymentEnabled": true
   },
   "crons": [
     {

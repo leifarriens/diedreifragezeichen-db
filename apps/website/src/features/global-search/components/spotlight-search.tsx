@@ -43,23 +43,26 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
 
   function renderStatus(): null | React.ReactNode {
     if (searchQuery.isFetching) {
-      return <div className="sr-only">Searching…</div>;
+      return <div className="sr-only">Suche läuft …</div>;
     }
 
-    if (searchTerm === "") {
+    if (searchTerm === "" || searchQuery.data === undefined) {
       return null;
     }
 
-    if (searchQuery.data?.length === 0) {
+    if (searchQuery.data.length === 0) {
       return (
-        <div className="sr-only">Folge {searchTerm} has no matches yet.</div>
+        <div className="sr-only">
+          Keine Treffer für „{searchTerm}“ gefunden.
+        </div>
       );
     }
 
+    const resultCount = searchQuery.data.length;
+
     return (
       <div className="sr-only">
-        {searchQuery.data?.length} result
-        {searchQuery.data?.length === 1 ? "" : "s"} found
+        {resultCount} {resultCount === 1 ? "Ergebnis" : "Ergebnisse"} gefunden
       </div>
     );
   }
@@ -110,7 +113,7 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                   </span>
                   <Autocomplete.Input
                     aria-label="Folgen Archiv durchsuchen"
-                    className="h-full w-full border-b border-b-neutral-700 bg-transparent py-4 pr-26 pl-11 text-base text-neutral-300 placeholder-gray-500 outline-none"
+                    className="h-full w-full bg-transparent py-4 pr-26 pl-11 text-base text-neutral-300 placeholder-gray-500 outline-none"
                     placeholder="Name, Nummer oder Erscheinungsjahr"
                     ref={inputRef}
                   />
@@ -132,7 +135,11 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
 
                 <Autocomplete.Status>{status}</Autocomplete.Status>
                 <Autocomplete.Empty className="px-4 py-3 text-sm empty:m-0 empty:p-0">
-                  {l.MISC.NO_FOLGEN_FOUND}
+                  {searchTerm.trim().length > 2 &&
+                  !searchQuery.isFetching &&
+                  searchQuery.data?.length === 0
+                    ? l.MISC.NO_FOLGEN_FOUND
+                    : null}
                 </Autocomplete.Empty>
                 <Autocomplete.List className="max-h-92 overflow-y-auto">
                   {(result: GlobalSearchResult) => (
@@ -146,15 +153,11 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                         value={result.title}
                       >
                         <div className="size-20">
-                          {result.cover ? (
-                            <FolgenCover
-                              className="rounded-lg"
-                              coverUrl={result.cover}
-                              folgenTitle={result.title}
-                            />
-                          ) : (
-                            <div className="bg-neutral-800" />
-                          )}
+                          <FolgenCover
+                            className="rounded-lg"
+                            coverUrl={result.cover}
+                            folgenTitle={result.title}
+                          />
                         </div>
                         <div className="text-base font-medium text-neutral-300">
                           {result.number

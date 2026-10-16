@@ -72,7 +72,7 @@ export function ArchiveBrowserSearchCriteria({
         <div className="flex gap-3">
           <Combobox
             items={speakerOptions}
-            label="Spechrollen"
+            label="Sprechrollen"
             multiple
             onValueChange={(items) => {
               onChange({ speakers: items.map((item) => item.value) });

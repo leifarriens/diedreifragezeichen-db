@@ -4,8 +4,8 @@ import { createEmailTransport } from "./email-transport";
 
 const message = {
   html: "<p>123456</p>",
-  subject: "Your DDFDB sign-in code",
-  text: "Your code is 123456.",
+  subject: "Dein DDFDB-Anmeldecode",
+  text: "Dein DDFDB-Bestätigungscode lautet 123456.",
   to: "listener@example.com",
 };
 
@@ -26,7 +26,7 @@ describe("createEmailTransport", () => {
     await transport.send(message);
 
     expect(log).toHaveBeenCalledExactlyOnceWith(
-      "[email:console]\nTo: listener@example.com\nSubject: Your DDFDB sign-in code\n\nYour code is 123456.",
+      "[email:console]\nTo: listener@example.com\nSubject: Dein DDFDB-Anmeldecode\n\nDein DDFDB-Bestätigungscode lautet 123456.",
     );
     expect(sendWithResend).not.toHaveBeenCalled();
   });

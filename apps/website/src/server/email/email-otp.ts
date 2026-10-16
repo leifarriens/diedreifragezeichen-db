@@ -5,20 +5,20 @@ type EmailOtpType =
 
 const emailCopy: Record<EmailOtpType, { action: string; subject: string }> = {
   "change-email": {
-    action: "confirm your email address",
-    subject: "Confirm your DDFDB email address",
+    action: "deine neue E-Mail-Adresse zu bestätigen",
+    subject: "Bestätige deine neue E-Mail-Adresse für DDFDB",
   },
   "email-verification": {
-    action: "verify your email address",
-    subject: "Verify your DDFDB email address",
+    action: "deine E-Mail-Adresse zu bestätigen",
+    subject: "Bestätige deine E-Mail-Adresse bei DDFDB",
   },
   "forget-password": {
-    action: "reset your password",
-    subject: "Your DDFDB password reset code",
+    action: "dein Passwort zurückzusetzen",
+    subject: "Dein DDFDB-Code zum Zurücksetzen des Passworts",
   },
   "sign-in": {
-    action: "sign in or create your DDFDB account",
-    subject: "Your DDFDB sign-in code",
+    action: "dich anzumelden oder ein DDFDB-Konto zu erstellen",
+    subject: "Dein DDFDB-Anmeldecode",
   },
 };
 
@@ -44,13 +44,13 @@ export function createEmailOtpOptions(transport: EmailTransport) {
       const copy = emailCopy[type];
       const safeOtp = escapeHtml(otp);
       const text = [
-        `Your DDFDB verification code is ${otp}.`,
-        `Enter it to ${copy.action}.`,
-        "This code expires in 5 minutes. If you did not request it, you can ignore this email.",
+        `Dein DDFDB-Bestätigungscode lautet ${otp}.`,
+        `Gib ihn ein, um ${copy.action}.`,
+        "Dieser Code ist 5 Minuten gültig. Wenn du ihn nicht angefordert hast, kannst du diese E-Mail ignorieren.",
       ].join("\n\n");
 
       await transport.send({
-        html: `<p>Your DDFDB verification code is:</p><p style="font-size: 24px; font-weight: 700; letter-spacing: 0.2em">${safeOtp}</p><p>Enter it to ${copy.action}. This code expires in 5 minutes.</p><p>If you did not request it, you can ignore this email.</p>`,
+        html: `<p>Dein DDFDB-Bestätigungscode lautet:</p><p style="font-size: 24px; font-weight: 700; letter-spacing: 0.2em">${safeOtp}</p><p>Gib ihn ein, um ${copy.action}. Dieser Code ist 5 Minuten gültig.</p><p>Wenn du ihn nicht angefordert hast, kannst du diese E-Mail ignorieren.</p>`,
         subject: copy.subject,
         text,
         to: email,

@@ -1,7 +1,6 @@
 import "server-only";
 import type { SearchOptions } from "@ddfdb/archiv/contracts";
 
-import { sortFolgen } from "@ddfdb/core";
 import { createSearchEngine } from "@ddfdb/core/search";
 import { cacheLife, cacheTag } from "next/cache";
 
@@ -30,12 +29,15 @@ export async function searchFolgen(
 
   const engine = await createSearchEngine(folgen);
 
-  const searchResults = await engine.search({ term: term });
+  const { results } = await engine.search({
+    sort: { by: "release_date", order: "DESC" },
+    term: term,
+  });
 
-  const results: GlobalSearchResult[] = sortFolgen(searchResults.results, {
-    by: "releaseDate",
-    order: "newest",
-  }).map(({ cover, id, number, title }) => ({ cover, id, number, title }));
-
-  return results;
+  return results.map(({ cover, id, number, title }) => ({
+    cover,
+    id,
+    number,
+    title,
+  }));
 }

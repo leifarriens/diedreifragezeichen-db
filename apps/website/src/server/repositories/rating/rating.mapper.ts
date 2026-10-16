@@ -5,6 +5,7 @@ type CommunityRatingSelectRow = Pick<RatingSelect, "folgeId"> & {
   numberOfRatings: number;
   popularity: number;
   score: number;
+  updatedAt: Date | null; // updatedAt is calculated using MAX() and it is nullable in SQL.
 };
 type RatingInsert = typeof schema.rating.$inferInsert;
 
@@ -19,12 +20,18 @@ export function toCommunityRatingResponse({
   numberOfRatings,
   popularity,
   score,
+  updatedAt,
 }: CommunityRatingSelectRow): CommunityRating {
+  if (updatedAt === null) {
+    throw new Error("Expected a rating group to have an updatedAt");
+  }
+
   return {
     folgeId,
     numberOfRatings,
     popularity,
     score: score / 2,
+    updatedAt: updatedAt.toISOString(),
   };
 }
 

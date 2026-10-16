@@ -59,6 +59,7 @@ function makeRatingRepository() {
         numberOfRatings: 3,
         popularity: 13.5,
         score: 4.5,
+        updatedAt,
       }),
     ),
     findUserRatingsByUserId: vi.fn(() => Promise.resolve([])),
@@ -134,6 +135,7 @@ describe("user API router", () => {
       numberOfRatings: 3,
       popularity: 13.5,
       score: 4.5,
+      updatedAt,
     });
     expect(ratings.findCommunityRatingByFolgeId).toHaveBeenCalledWith({
       folgeId: 12,

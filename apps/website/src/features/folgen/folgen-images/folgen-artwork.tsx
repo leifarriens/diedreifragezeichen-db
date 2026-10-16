@@ -1,12 +1,23 @@
-import Image, { type ImageProps } from "next/image";
+import { OptimizedImage, type OptimizedImageProps } from "./optimized-image";
 
 interface FolgenBackgroundProps extends Omit<
-  ImageProps,
-  "alt" | "fill" | "height" | "quality" | "src" | "width"
+  OptimizedImageProps,
+  "alt" | "size" | "src"
 > {
-  artwork: string;
+  artworkUrl: string;
 }
 
-export function FolgenBackground({ artwork, ...rest }: FolgenBackgroundProps) {
-  return <Image alt="" height={64} src={artwork} width={64} {...rest} />;
+export function FolgenBackground({
+  artworkUrl,
+  ...rest
+}: FolgenBackgroundProps) {
+  return (
+    <OptimizedImage
+      alt="" // Decorative image, no alt text needed
+      loading="lazy"
+      size={64}
+      src={artworkUrl}
+      {...rest}
+    />
+  );
 }

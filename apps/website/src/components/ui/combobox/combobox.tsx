@@ -120,14 +120,14 @@ function MultiSelectCombobox<Value>({
               >
                 {selectedItems.map((item) => (
                   <ComboboxPrimitive.Chip
-                    aria-description="Press Backspace or Delete to remove"
+                    aria-description="Drücke die Rücktaste oder Entf, um den Eintrag zu entfernen."
                     aria-label={item.label}
                     className="group flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden rounded-md bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-neutral-950 outline-none focus-within:bg-neutral-950 focus-within:text-white [@media(hover:hover)]:data-highlighted:bg-neutral-950 [@media(hover:hover)]:data-highlighted:text-white"
                     key={getItemKey(item)}
                   >
                     {item.label}
                     <ComboboxPrimitive.ChipRemove
-                      aria-label={`Remove ${item.label}`}
+                      aria-label={`${item.label} entfernen`}
                       className="flex size-4 items-center justify-center border-0 bg-transparent p-0 text-inherit hover:bg-neutral-200 group-focus-within:hover:bg-neutral-700"
                     >
                       <XIcon />
@@ -137,7 +137,7 @@ function MultiSelectCombobox<Value>({
                 <ComboboxPrimitive.Input
                   aria-description={
                     selectedItems.length > 0
-                      ? `${selectedItems.length.toString()} selected. From the start of the input, press Left Arrow to focus the selected items`
+                      ? `${selectedItems.length.toString()} ausgewählt. Drücke am Anfang des Eingabefelds die Pfeil-nach-links-Taste, um zu den ausgewählten Einträgen zu springen.`
                       : undefined
                   }
                   className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 p-0 text-sm font-normal outline-none placeholder:text-neutral-500 any-pointer-coarse:text-base"
@@ -148,7 +148,7 @@ function MultiSelectCombobox<Value>({
             )}
           </ComboboxPrimitive.Value>
           <ComboboxPrimitive.Trigger
-            aria-label="Open options"
+            aria-label="Optionen öffnen"
             className="flex h-6 w-6 shrink-0 items-center justify-center border-0 bg-transparent p-0"
           >
             <CaretDownIcon />
@@ -191,13 +191,13 @@ function SingleSelectCombobox<Value>({
           />
           <div className="absolute right-0 bottom-0 flex h-full items-center justify-center text-neutral-500">
             <ComboboxPrimitive.Clear
-              aria-label="Clear selection"
+              aria-label="Auswahl löschen"
               className="combobox-clear flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950"
             >
               <XIcon />
             </ComboboxPrimitive.Clear>
             <ComboboxPrimitive.Trigger
-              aria-label="Open options"
+              aria-label="Optionen öffnen"
               className="flex h-full w-6 items-center justify-center border-0 bg-transparent p-0 text-neutral-950"
             >
               <CaretDownIcon />

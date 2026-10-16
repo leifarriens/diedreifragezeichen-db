@@ -28,8 +28,16 @@ describe("createEmailOtpOptions", () => {
     expect(send).toHaveBeenCalledOnce();
     const message = send.mock.calls[0]?.[0];
     expect(message?.html).toContain("123456");
-    expect(message?.subject).toBe("Your DDFDB sign-in code");
-    expect(message?.text).toContain("sign in or create your DDFDB account");
+    expect(message?.subject).toBe("Dein DDFDB-Anmeldecode");
+    expect(message?.text).toContain(
+      "dich anzumelden oder ein DDFDB-Konto zu erstellen",
+    );
+    expect(message?.text).toContain(
+      "Dein DDFDB-Bestätigungscode lautet 123456.",
+    );
+    expect(message?.text).toContain(
+      "Dieser Code ist 5 Minuten gültig.",
+    );
     expect(message?.to).toBe("listener@example.com");
   });
 

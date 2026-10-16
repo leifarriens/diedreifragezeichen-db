@@ -1,9 +1,8 @@
-import type { Folge } from "@ddfdb/archiv/contracts";
 import type { FolgeUserData, FolgeWithCommunityRating } from "@ddfdb/core";
 
 import { formatReleaseDate } from "@ddfdb/core";
 import Link from "next/link";
-import { memo, useRef, useState } from "react";
+import { memo, useRef } from "react";
 import { cn } from "tailwind-variants";
 
 import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
@@ -19,7 +18,7 @@ import styles from "./folgen-grid-item.module.css";
 import { useIntersectionObserver } from "./use-intersection-observer";
 
 export interface FolgenGridItemProps {
-  coverLoading: CoverProps["loading"];
+  coverLoading: FolgenCoverProps["loading"];
   folge: FolgeUserData & FolgeWithCommunityRating;
 }
 
@@ -53,11 +52,12 @@ export const FolgenGridItem = memo(function FolgenGridItem({
       ref={ref}
     >
       <Link aria-label={title} href={`/folge/${id.toString()}`}>
-        <Cover
-          cover={cover}
+        <FolgenCover
+          className="aspect-square rounded-none group-hover:rounded-b-none"
+          coverUrl={cover}
+          folgenTitle={title}
           isInView={isInView}
           loading={coverLoading}
-          title={title}
         />
       </Link>
 
@@ -109,9 +109,6 @@ export const FolgenGridItem = memo(function FolgenGridItem({
   );
 });
 
-type CoverProps = Pick<Folge, "cover" | "title"> &
-  Pick<FolgenCoverProps, "loading"> & { isInView: boolean };
-
 function Background({ imageUrl }: { imageUrl: null | string }) {
   return (
     <>
@@ -123,7 +120,7 @@ function Background({ imageUrl }: { imageUrl: null | string }) {
           )}
         >
           <FolgenBackground
-            artwork={imageUrl}
+            artworkUrl={imageUrl}
             className="h-full w-full"
             fetchPriority="low"
             loading="lazy"
@@ -132,31 +129,5 @@ function Background({ imageUrl }: { imageUrl: null | string }) {
       )}
       <div className="absolute inset-0 -z-20 bg-[#000e18] opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100" />
     </>
-  );
-}
-
-function Cover({ cover, isInView, loading = "lazy", title }: CoverProps) {
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  return (
-    <div className="aspect-square h-auto w-full overflow-hidden rounded-xl group-hover:rounded-b-none">
-      {!cover ? (
-        <div className="grid h-full place-items-center bg-[#000b0f]" />
-      ) : (
-        <FolgenCover
-          className="transition-opacity duration-150 ease-in"
-          coverUrl={cover}
-          folgenTitle={title}
-          loading={loading}
-          onLoad={() => {
-            setIsLoaded(true);
-          }}
-          style={{
-            opacity: !isLoaded || !isInView ? 0 : 1,
-            visibility: !isLoaded ? "hidden" : "visible",
-          }}
-        />
-      )}
-    </div>
   );
 }

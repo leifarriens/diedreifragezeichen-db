@@ -21,6 +21,7 @@
     "@ddfdb/client": "workspace:*",
     "@ddfdb/core": "workspace:*",
     "@ddfdb/db": "workspace:*",
+    "@ddfdb/image-optimization": "workspace:*",
     "@ddfdb/legacy-api": "workspace:*",
     "@ddfdb/user-api": "workspace:*",
     "@mdx-js/loader": "^3.1.1",

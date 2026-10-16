@@ -18,8 +18,8 @@ export function BlurBackground({
       style={StyleSheet.absoluteFill}
     >
       <OptimizedImage
+        imageSize={64}
         imageUrl={imageUrl}
-        optimizationOptions={{ width: "64" }}
         style={StyleSheet.absoluteFill}
       />
       <BlurView

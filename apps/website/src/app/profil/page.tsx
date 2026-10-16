@@ -60,7 +60,7 @@ async function ProfileData() {
           </div>
         </div>
         <div>
-          <Link href="/profil/account" title="Account Einstellungen">
+          <Link href="/profil/account" title="Kontoeinstellungen">
             <GearIcon className="size-6" />
           </Link>
         </div>

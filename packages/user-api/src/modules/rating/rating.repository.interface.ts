@@ -3,6 +3,7 @@ export interface CommunityRating {
   numberOfRatings: number;
   popularity: number;
   score: number;
+  updatedAt: string;
 }
 
 export interface Rating {

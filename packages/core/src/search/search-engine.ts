@@ -5,6 +5,7 @@ import {
   type SchemaTypes,
   search,
 } from "@orama/orama";
+import { tokenizer as oramaTokenizer } from "@orama/orama/components";
 
 export interface SearchableFolge {
   authors: string[];
@@ -90,8 +91,25 @@ type SearchDocumentInput = Omit<SearchDocument, OptionalSearchFields> &
 export async function createSearchEngine<T extends SearchableFolge>(
   folgen: T[],
 ): Promise<SearchEngine<T>> {
+  const tokenizer = oramaTokenizer.createTokenizer({ language: "german" });
+  const tokenize = tokenizer.tokenize;
+  tokenizer.tokenize = (raw, language, property, withCache) => {
+    const tokens = tokenize(raw, language, property, withCache);
+    if (property !== "title") {
+      return tokens;
+    }
+
+    const suffixes = new Set<string>();
+    for (const token of tokens) {
+      for (let index = 0; index < token.length; index++) {
+        suffixes.add(token.slice(index));
+      }
+    }
+    return [...suffixes];
+  };
+
   const db = create({
-    language: "german",
+    components: { tokenizer },
     schema: searchSchema,
     sort: {
       // By default, Orama allows the sort on all properties defined in the schema.

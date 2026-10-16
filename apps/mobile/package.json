@@ -18,6 +18,7 @@
     "@ddfdb/archiv": "workspace:*",
     "@ddfdb/client": "workspace:*",
     "@ddfdb/core": "workspace:*",
+    "@ddfdb/image-optimization": "workspace:*",
     "@ddfdb/user-api": "workspace:*",
     "@expo/config": "^58.0.2",
     "@expo/material-symbols": "^0.1.1",

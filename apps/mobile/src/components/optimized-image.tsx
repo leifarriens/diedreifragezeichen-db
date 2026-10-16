@@ -1,4 +1,8 @@
 import {
+  buildOptimizationUrl,
+  type ImageSize,
+} from "@ddfdb/image-optimization";
+import {
   Image,
   type ImageErrorEventData,
   type ImageLoadEventData,
@@ -7,32 +11,28 @@ import {
 import { useState } from "react";
 import { StyleSheet, View, type ViewProps } from "react-native";
 
-import { buildImageProxyUrl, type ImageProxyOptions } from "@/api/image-proxy";
-
 interface OptimizedImageProps
   extends
     Omit<ImageProps, "className" | "placeholder" | "source" | "style">,
     Pick<ViewProps, "className" | "style"> {
+  imageSize: ImageSize;
   imageUrl: string;
-  optimizationOptions?: ImageProxyOptions;
   placeholder?: React.ReactNode;
 }
 
+const imageBaseUrl = process.env.EXPO_PUBLIC_DDFDB_API_URL as unknown;
+
 export function OptimizedImage({
   className,
+  imageSize,
   imageUrl,
   onError,
   onLoad,
-  optimizationOptions,
   placeholder,
   style,
   ...imageProps
 }: OptimizedImageProps) {
-  const [uri, setUri] = useState(() =>
-    buildImageProxyUrl(imageUrl, {
-      width: optimizationOptions?.width ?? "512",
-    }),
-  );
+  const [uri, setUri] = useState(() => getImageUrl(imageUrl, imageSize));
   const [loadedUri, setLoadedUri] = useState<null | string>(null);
   const isLoaded = loadedUri === uri;
 
@@ -77,4 +77,16 @@ export function OptimizedImage({
       />
     </View>
   );
+}
+
+function getImageUrl(imageUrl: string, imageSize: ImageSize) {
+  if (!imageBaseUrl || typeof imageBaseUrl !== "string") {
+    console.error(
+      "EXPO_PUBLIC_DDFDB_API_URL must be configured for image proxy. Falling back to the original image URL.",
+    );
+
+    return imageUrl;
+  }
+
+  return buildOptimizationUrl(imageUrl, imageSize, imageBaseUrl);
 }

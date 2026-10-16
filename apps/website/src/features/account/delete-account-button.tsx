@@ -35,17 +35,17 @@ export function DeleteAccountButton() {
       open={isDialogOpen}
     >
       <Dialog.Trigger className={buttonVariants({ intent: "danger" })}>
-        Account löschen
+        Konto löschen
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/50" />
         <Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-xl border bg-ddf-blue-950 p-6 text-neutral-100 shadow-xl">
           <div className="space-y-2">
             <Dialog.Title className="text-lg font-semibold">
-              Willst du deinen Account wirklich löschen?
+              Willst du dein Konto wirklich löschen?
             </Dialog.Title>
             <Dialog.Description className="text-sm text-neutral-400">
-              Diese Aktion löscht dauerhaft deinen Account, Lesezeichen,
+              Diese Aktion löscht dauerhaft dein Konto, Lesezeichen,
               Hörverlauf und Bewertungen.{" "}
               <b>Diese Aktion kann nicht rückgängig gemacht werden.</b>
             </Dialog.Description>
@@ -71,7 +71,7 @@ export function DeleteAccountButton() {
               isLoading={isDeleting}
               onClick={handleDeleteAccount}
             >
-              Account dauerhaft löschen
+              Konto dauerhaft löschen
             </Button>
           </div>
         </Dialog.Popup>

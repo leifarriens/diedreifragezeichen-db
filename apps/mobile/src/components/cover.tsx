@@ -14,6 +14,7 @@ export function Cover({ imageUrl }: CoverProps) {
 
   return (
     <OptimizedImage
+      imageSize={640}
       imageUrl={imageUrl}
       placeholder={<CoverPlaceholder />}
       style={styles.cover}

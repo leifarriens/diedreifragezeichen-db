@@ -4,11 +4,12 @@ import ArchiveBrowser from "@/features/archive/components/archive-browser";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { getAllFolgenSearchOptions } from "@/server/queries/search";
 
-import { SITE_DESCRIPTION, SITE_NAME } from "./constants";
+import { SITE_NAME } from "./constants";
+
+const title = `Archiv | ${SITE_NAME}`;
 
 export const metadata: Metadata = {
-  description: SITE_DESCRIPTION,
-  title: `Archiv | ${SITE_NAME}`,
+  title,
 };
 
 export default async function HomePage() {

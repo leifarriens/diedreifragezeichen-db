@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const folgenPages: MetadataRoute.Sitemap = folgen.map((folge) => ({
     changeFrequency: "monthly",
-    lastModified: new Date(), // TODO: this should be either the realease_date of the folge or last modified date from the community ratings
+    lastModified: folge.communityRating?.updatedAt ?? undefined,
     priority: 0.5,
     url: `${baseUrl}/folge/${folge.id.toString()}`,
   }));
@@ -17,7 +17,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     {
       changeFrequency: "monthly",
-      lastModified: new Date(),
       priority: 1,
       url: baseUrl,
     },

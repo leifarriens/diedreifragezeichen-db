@@ -13,8 +13,8 @@ export function OTPField({ length, ...props }: OTPFieldProps) {
         className="mb-2 w-full text-center text-sm text-neutral-400"
         id={descriptionId}
       >
-        Gib den {length.toString()}-stelligen Code ein, den wir an deine Email
-        gesendet haben.
+        Gib den {length.toString()}-stelligen Code ein, den wir an deine
+        E-Mail-Adresse gesendet haben.
       </p>
       <OTPFieldPrimitive.Root
         aria-describedby={descriptionId}
@@ -29,7 +29,7 @@ export function OTPField({ length, ...props }: OTPFieldProps) {
             aria-label={
               index === 0
                 ? undefined
-                : `Character ${String(index + 1)} of ${length.toString()}`
+                : `Zeichen ${String(index + 1)} von ${length.toString()}`
             }
             className="font-inherit m-0 h-12 w-10 rounded-xl border border-neutral-100 bg-transparent text-center text-base font-normal text-neutral-100"
             data-bwignore="true"

@@ -41,7 +41,7 @@ export const l = {
     TITLE: "Gehörte Folgen",
   } satisfies CollectionLabels,
   MISC: {
-    ACCOUNT: "Account",
+    ACCOUNT: "Konto",
     LOGOUT: "Abmelden",
     NO_FOLGEN_FOUND: "Keine Folgen gefunden",
     PROFILE: "Profil",

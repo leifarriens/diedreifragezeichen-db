@@ -34,12 +34,14 @@ describe("rating mappers", () => {
         numberOfRatings: 4,
         popularity: 12,
         score: 3,
+        updatedAt: new Date("2025-01-01T12:00:00.000Z"),
       }),
     ).toEqual({
       folgeId: 42,
       numberOfRatings: 4,
       popularity: 12,
       score: 1.5,
+      updatedAt: "2025-01-01T12:00:00.000Z",
     });
   });
 });

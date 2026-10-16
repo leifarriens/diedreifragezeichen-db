@@ -11,10 +11,27 @@ import { HeaderNav } from "@/shell/header-nav";
 import { ScrollToTop } from "@/shell/scroll-to-top";
 import { TRPCReactProvider } from "@/trpc/client";
 
-import { CURRENT_YEAR, SITE_DESCRIPTION, SITE_NAME } from "./constants";
+import {
+  CURRENT_YEAR,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "./constants";
 
 export const metadata: Metadata = {
+  alternates: {
+    canonical: SITE_URL,
+  },
   description: SITE_DESCRIPTION,
+  openGraph: {
+    description: SITE_DESCRIPTION,
+    locale: "de_DE",
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    type: "website",
+    url: SITE_URL,
+  },
   title: {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,

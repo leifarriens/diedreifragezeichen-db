@@ -19,13 +19,24 @@ const folgen: TestFolge[] = [
 describe("enrichFolgenWithCommunityRatings", () => {
   it("attaches matching ratings and projects away the rating Folge ID", () => {
     const result = enrichFolgenWithCommunityRatings(folgen, [
-      { folgeId: 1, numberOfRatings: 3, popularity: 13.5, score: 4.5 },
+      {
+        folgeId: 1,
+        numberOfRatings: 3,
+        popularity: 13.5,
+        score: 4.5,
+        updatedAt: "2025-01-01T12:00:00.000Z",
+      },
     ]);
 
     expect(result).toEqual([
       {
         ...folgen[0],
-        communityRating: { numberOfRatings: 3, popularity: 13.5, score: 4.5 },
+        communityRating: {
+          numberOfRatings: 3,
+          popularity: 13.5,
+          score: 4.5,
+          updatedAt: "2025-01-01T12:00:00.000Z",
+        },
       },
       { ...folgen[1], communityRating: null },
     ]);
@@ -57,7 +68,13 @@ describe("enrichFolgenWithCommunityRatings", () => {
   it("returns an empty array for empty input", () => {
     expect(
       enrichFolgenWithCommunityRatings(folgen.slice(0, 0), [
-        { folgeId: 1, numberOfRatings: 3, popularity: 13.5, score: 4.5 },
+        {
+          folgeId: 1,
+          numberOfRatings: 3,
+          popularity: 13.5,
+          score: 4.5,
+          updatedAt: "2025-01-01T12:00:00.000Z",
+        },
       ]),
     ).toEqual([]);
   });
@@ -71,11 +88,17 @@ describe("enrichFolgeWithCommunityRating", () => {
       numberOfRatings: 2,
       popularity: 8,
       score: 4,
+      updatedAt: "2025-01-01T12:00:00.000Z",
     };
 
     expect(enrichFolgeWithCommunityRating(folge, communityRating)).toEqual({
       ...folge,
-      communityRating: { numberOfRatings: 2, popularity: 8, score: 4 },
+      communityRating: {
+        numberOfRatings: 2,
+        popularity: 8,
+        score: 4,
+        updatedAt: "2025-01-01T12:00:00.000Z",
+      },
     });
   });
 

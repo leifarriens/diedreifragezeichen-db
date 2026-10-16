@@ -47,7 +47,7 @@ async function LoginContent() {
 function LoginSessionFallback() {
   return (
     <div aria-busy="true" className="space-y-4" role="status">
-      <span className="sr-only">Checking your session...</span>
+      <span className="sr-only">Deine Sitzung wird überprüft …</span>
       <div className="h-11 animate-pulse rounded-lg bg-neutral-800/40" />
       <div className="h-11 animate-pulse rounded-lg bg-neutral-800/40" />
     </div>

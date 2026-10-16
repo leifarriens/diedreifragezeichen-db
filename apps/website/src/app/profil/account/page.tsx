@@ -24,9 +24,9 @@ export default function AccountPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="mb-4 text-2xl font-semibold">Account löschen</h2>
+          <h2 className="mb-4 text-2xl font-semibold">Konto löschen</h2>
           <p className="text-sm text-neutral-400">
-            Deinen Account und alle damit verbundenen persönlichen Daten,
+            Dein Konto und alle damit verbundenen persönlichen Daten,
             einschließlich Lesezeichen, Hörverlauf und Bewertungen, dauerhaft
             löschen.
           </p>
@@ -45,9 +45,9 @@ async function AccountData() {
     <dl className="grid gap-4 sm:grid-cols-[max-content_1fr]">
       <dt className="font-medium">Name</dt>
       <dd>{user.name}</dd>
-      <dt className="font-medium">Email</dt>
+      <dt className="font-medium">E-Mail</dt>
       <dd>{user.email}</dd>
-      <dt className="font-medium">Email verifiziert</dt>
+      <dt className="font-medium">E-Mail-Adresse bestätigt</dt>
       <dd>{user.emailVerified ? "Ja" : "Nein"}</dd>
       <dt className="font-medium">Beigetreten</dt>
       <dd>{formatRelativeTime(user.createdAt)}</dd>
