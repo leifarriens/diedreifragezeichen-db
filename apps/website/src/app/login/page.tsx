@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
-import { LoginForm } from "@/features/auth/login-form";
+import { LoginForm } from "@/features/auth/components/login-form";
 import { getServerSession } from "@/server/auth";
 import { PageBackground } from "@/shell/page-background";
 

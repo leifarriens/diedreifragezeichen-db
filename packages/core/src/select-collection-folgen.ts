@@ -1,13 +1,17 @@
 /**
- * Selects archive episodes whose IDs appear in a user collection.
- *
- * The returned episodes retain their order from `folgen`.
+ * Selects archive episodes in the same order as the user collection.
  */
 export function selectCollectionFolgen<T extends { id: number }>(
   folgen: T[],
   collection: { folgeId: number }[],
+  limit?: number,
 ): T[] {
-  const bookmarkedFolgeIds = new Set(collection.map((entry) => entry.folgeId));
+  const folgenById = new Map(folgen.map((folge) => [folge.id, folge]));
 
-  return folgen.filter((folge) => bookmarkedFolgeIds.has(folge.id));
+  const selectedFolgen = collection.flatMap(({ folgeId }) => {
+    const folge = folgenById.get(folgeId);
+    return folge === undefined ? [] : [folge];
+  });
+
+  return limit === undefined ? selectedFolgen : selectedFolgen.slice(0, limit);
 }

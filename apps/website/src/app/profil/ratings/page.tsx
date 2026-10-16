@@ -1,28 +1,28 @@
 import type { Metadata } from "next";
 
 import { selectCollectionFolgen } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { Wrapper } from "@/components/ui/wrapper";
 import { UserRatedFolgen } from "@/features/ratings/user-rated-folgen";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { getMyRatings } from "@/server/queries/user-data";
 
-const TITLE = "Bewertete Folgen";
-
 export const metadata: Metadata = {
-  title: TITLE,
+  title: l.RATINGS.TITLE,
 };
 
 export default function RatingsPage() {
   return (
-    <>
-      <h1 className="mb-8 text-2xl font-bold">{TITLE}</h1>
+    <Wrapper className="max-w-7xl">
+      <h1 className="mb-8 text-3xl font-bold">{l.RATINGS.TITLE}</h1>
 
       <Suspense fallback={<PageLoadingIndicator />}>
         <RatingsContent />
       </Suspense>
-    </>
+    </Wrapper>
   );
 }
 

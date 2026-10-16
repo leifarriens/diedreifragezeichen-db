@@ -5,7 +5,7 @@ import { cn } from "tailwind-variants";
 import { Kbd } from "@/components/ui/kbd/kbd";
 
 export const SEARCH_FIELD_CONTROL_CLASS_NAME =
-  "h-full w-full rounded-xl border border-neutral-500 bg-transparent py-2 pr-22 focus:pr-4 pl-10 text-base placeholder-gray-500 transition-colors outline-none hover:border-neutral-200 focus:border-neutral-200 group-hover:border-neutral-200 group-focus-within:border-neutral-200";
+  "h-full w-full rounded-xl border border-neutral-500 bg-transparent py-2 any-pointer-coarse:pr-4 pr-22 focus:pr-4 pl-10 text-base placeholder-gray-500 transition-colors outline-none hover:border-neutral-200 focus:border-neutral-200 group-hover:border-neutral-200 group-focus-within:border-neutral-200";
 
 interface SearchFieldProps {
   children: ReactNode;
@@ -42,7 +42,7 @@ export function SearchField({
         aria-hidden="true"
         className="pointer-events-none absolute top-1/2 right-3 flex -translate-y-1/2 items-center gap-1 text-neutral-500 select-none group-focus-within:hidden any-pointer-coarse:hidden"
       >
-        <Kbd>{platform === "macos" ? "⌘" : "Ctrl"}</Kbd>
+        <Kbd>{platform === "macos" ? "⌘" : "Strg"}</Kbd>
         <span>+</span>
         <Kbd>K</Kbd>
       </span>

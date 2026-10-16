@@ -2,7 +2,7 @@ import "server-only";
 import type { RatingRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";
-import { and, avg, count, eq, sum } from "drizzle-orm";
+import { and, avg, count, desc, eq, sum } from "drizzle-orm";
 
 import {
   toCommunityRatingResponse,
@@ -61,11 +61,15 @@ export const ratingRepository: RatingRepository = {
     return rating ? toCommunityRatingResponse(rating) : null;
   },
 
+  /**
+   * Finds all ratings made by a specific user, ordered by the most recent update.
+   */
   async findUserRatingsByUserId({ userId }) {
     const ratings = await db
       .select(ratingResponseSelection)
       .from(schema.rating)
-      .where(eq(schema.rating.userId, userId));
+      .where(eq(schema.rating.userId, userId))
+      .orderBy(desc(schema.rating.updatedAt));
 
     return ratings.map(toUserRatingResponse);
   },

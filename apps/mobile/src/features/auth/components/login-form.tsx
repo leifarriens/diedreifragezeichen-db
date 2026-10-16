@@ -5,16 +5,18 @@ import { Text, TextInput, View } from "react-native";
 import { UIButton } from "@/components/ui/button";
 
 import { useSignIn } from "../hooks/use-auth";
+import { ResendOtpButton } from "./resend-otp-button";
 
 export function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [otpSentAt, setOtpSentAt] = useState<null | number>(null);
 
   const { otpRequestMutation, otpSigninMutation } = useSignIn();
 
   function handleEmailSubmit() {
-    otpRequestMutation.mutate({ email });
+    handleResendOtp();
   }
 
   function handleOtpComplete() {
@@ -33,21 +35,24 @@ export function LoginForm() {
 
   function handleUseDifferentEmail() {
     setEmail("");
+    setOtp("");
+    setOtpSentAt(null);
     otpRequestMutation.reset();
     otpSigninMutation.reset();
   }
 
   function handleResendOtp() {
-    otpRequestMutation.mutate({ email });
+    otpRequestMutation.mutate(
+      { email },
+      { onSuccess: () => { setOtpSentAt(Date.now()); } },
+    );
   }
 
   const isPending = otpRequestMutation.isPending || otpSigninMutation.isPending;
   const error =
     otpRequestMutation.error?.message ?? otpSigninMutation.error?.message;
 
-  const step = otpRequestMutation.isSuccess ? "otp" : "email";
-
-  if (step === "email") {
+  if (otpSentAt === null) {
     return (
       <View className="mt-48 flex-1 gap-y-4">
         <Text className="text-white">
@@ -99,14 +104,11 @@ export function LoginForm() {
       )}
 
       <View className="flex flex-col items-center gap-y-4 text-sm">
-        <UIButton
-          // className="font-medium text-ddf-blue-500 hover:underline disabled:opacity-60"
+        <ResendOtpButton
           disabled={isPending}
-          intent="plain"
-          onPress={handleResendOtp}
-        >
-          Code erneut senden
-        </UIButton>
+          onResend={handleResendOtp}
+          sentAt={otpSentAt}
+        />
         <UIButton
           // className="font-medium text-ddf-blue-500 hover:underline"
           disabled={isPending}

@@ -8,7 +8,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-import { useAuth } from "@/features/auth/use-auth";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 
 import { calcHoverValue } from "../utils/calc-hover-value";
 import { FolgenRatingDisplay } from "./folgen-rating-display";

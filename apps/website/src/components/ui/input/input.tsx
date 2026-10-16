@@ -1,4 +1,5 @@
 import { Input as InputPrimitive } from "@base-ui/react/input";
+import { useId } from "react";
 import { cn } from "tailwind-variants";
 
 export interface InputProps extends InputPrimitive.Props {
@@ -6,19 +7,24 @@ export interface InputProps extends InputPrimitive.Props {
 }
 
 export function Input({ className, label, ...props }: InputProps) {
+  const id = useId();
+
   return (
-    <label className="flex flex-col items-start gap-1">
+    <div className="flex flex-col items-start gap-3">
       {label && (
-        <span className="text-sm font-bold text-neutral-300">{label}</span>
+        <label className="text-sm font-medium text-neutral-300" htmlFor={id}>
+          {label}
+        </label>
       )}
 
       <InputPrimitive
         className={cn(
-          "rounded-xl border border-neutral-100 bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none any-pointer-coarse:text-base",
+          "rounded-lg border border-neutral-400 bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none focus:border-neutral-200 any-pointer-coarse:text-base",
           className,
         )}
+        id={id}
         {...props}
       />
-    </label>
+    </div>
   );
 }

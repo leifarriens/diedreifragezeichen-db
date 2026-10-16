@@ -2,7 +2,7 @@ import "server-only";
 import type { ListenedRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 
 import { toListenedResponse } from "./listened.mapper";
 
@@ -12,11 +12,15 @@ const listenedResponseSelection = {
 };
 
 export const listenedRepository: ListenedRepository = {
+  /**
+   * Finds all listened episodes by a specific user, ordered by the most recent creation date.
+   */
   async findListenedFolgenByUserId({ userId }) {
     const listened = await db
       .select(listenedResponseSelection)
       .from(schema.listened)
-      .where(eq(schema.listened.userId, userId));
+      .where(eq(schema.listened.userId, userId))
+      .orderBy(desc(schema.listened.createdAt));
 
     return listened.map(toListenedResponse);
   },

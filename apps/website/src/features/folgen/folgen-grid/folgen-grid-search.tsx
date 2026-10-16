@@ -14,7 +14,7 @@ export function FolgenGridSearch({
   return (
     <div>
       <Input
-        className="w-72"
+        className="w-80"
         onChange={(e) => {
           onChange(e.target.value);
         }}

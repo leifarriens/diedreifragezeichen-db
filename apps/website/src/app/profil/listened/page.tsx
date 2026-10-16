@@ -1,28 +1,28 @@
 import type { Metadata } from "next";
 
 import { selectCollectionFolgen } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { Wrapper } from "@/components/ui/wrapper";
 import { UserListenedFolgen } from "@/features/listened/user-listened-folgen";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { getMyListenedFolgen } from "@/server/queries/user-data";
 
-const TITLE = "Gehörte Folgen";
-
 export const metadata: Metadata = {
-  title: TITLE,
+  title: l.LISTENED.TITLE,
 };
 
 export default function ListenedPage() {
   return (
-    <>
-      <h1 className="mb-8 text-2xl font-bold">{TITLE}</h1>
+    <Wrapper className="max-w-7xl">
+      <h1 className="mb-8 text-3xl font-bold">{l.LISTENED.TITLE}</h1>
 
       <Suspense fallback={<PageLoadingIndicator />}>
         <ListenedContent />
       </Suspense>
-    </>
+    </Wrapper>
   );
 }
 

@@ -90,7 +90,6 @@ type SearchDocumentInput = Omit<SearchDocument, OptionalSearchFields> &
 export async function createSearchEngine<T extends SearchableFolge>(
   folgen: T[],
 ): Promise<SearchEngine<T>> {
-  console.debug("Creating search engine with folgen:", folgen.length);
   const db = create({
     language: "german",
     schema: searchSchema,
@@ -115,7 +114,6 @@ export async function createSearchEngine<T extends SearchableFolge>(
 
   return {
     search: async ({ filters, limit, sort, term }: SearchCriteria) => {
-      console.debug("Search criteria:", { filters, sort, term });
       const params = {
         ...(sort && { sortBy: { order: sort.order, property: sort.by } }),
         term: term ?? "",
@@ -161,9 +159,6 @@ export async function createSearchEngine<T extends SearchableFolge>(
         properties: ["title", "number", "release_date"],
         ...params,
       });
-
-      console.debug("Search results:", results);
-      console.debug(results.elapsed);
 
       const folgenById = new Map(
         folgen.map((folge) => [folge.id.toString(), folge]),

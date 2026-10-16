@@ -7,21 +7,21 @@ import { Button } from "@/components/ui/button/button";
 import { Input } from "@/components/ui/input/input";
 import { OTP_LENGTH } from "@/server/email/email-otp";
 
-import { OTPField } from "./components/otp-fieldt";
-import { useSignIn } from "./hooks/use-auth";
-
-type OtpAuthStep = "email" | "otp";
+import { useSignIn } from "../hooks/use-auth";
+import { OTPField } from "./otp-fieldt";
+import { ResendOtpButton } from "./resend-otp-button";
 
 export function LoginForm() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [otpSentAt, setOtpSentAt] = useState<null | number>(null);
 
   const { otpRequestMutation, otpSigninMutation } = useSignIn();
 
   function handleEmailSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    otpRequestMutation.mutate({ email });
+    handleResendOtp();
   }
 
   function handleOtpComplete(otp: string) {
@@ -41,31 +41,38 @@ export function LoginForm() {
 
   function handleUseDifferentEmail() {
     setEmail("");
+    setOtp("");
+    setOtpSentAt(null);
     otpRequestMutation.reset();
     otpSigninMutation.reset();
   }
 
   function handleResendOtp() {
-    otpRequestMutation.mutate({ email });
+    otpRequestMutation.mutate(
+      { email },
+      {
+        onSuccess: () => {
+          setOtpSentAt(Date.now());
+        },
+      },
+    );
   }
 
   const isPending = otpRequestMutation.isPending || otpSigninMutation.isPending;
   const error =
     otpRequestMutation.error?.message ?? otpSigninMutation.error?.message;
 
-  const step: OtpAuthStep = otpRequestMutation.isSuccess ? "otp" : "email";
-
-  if (step === "email") {
+  if (otpSentAt === null) {
     return (
       <form className="space-y-4" onSubmit={handleEmailSubmit}>
         <p className="text-sm text-neutral-300">
           Gib deine E-Mail-Adresse ein um zu beginnen.
         </p>
         <Input
-          aria-label="Email"
           autoCapitalize="none"
           autoComplete="email"
           className="w-full"
+          label="Email"
           name="email"
           onChange={(event) => {
             setEmail(event.currentTarget.value);
@@ -109,14 +116,11 @@ export function LoginForm() {
         </p>
       )}
       <div className="mt-8 flex flex-col items-center gap-y-4 text-sm">
-        <button
-          className="font-medium text-ddf-blue-500 hover:underline disabled:opacity-60"
+        <ResendOtpButton
           disabled={isPending}
-          onClick={handleResendOtp}
-          type="button"
-        >
-          Code erneut senden
-        </button>
+          onResend={handleResendOtp}
+          sentAt={otpSentAt}
+        />
         <button
           className="font-medium text-ddf-blue-500 hover:underline"
           disabled={isPending}

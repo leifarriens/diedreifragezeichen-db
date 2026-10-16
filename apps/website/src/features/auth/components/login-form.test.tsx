@@ -1,7 +1,14 @@
 // @vitest-environment jsdom
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const { refresh, replace, sendVerificationOtp, signInEmailOtp } = vi.hoisted(
@@ -22,7 +29,7 @@ vi.mock("@/features/auth/auth-client", () => ({
     signIn: { emailOtp: signInEmailOtp },
   },
 }));
-vi.mock("./components/otp-fieldt", () => ({
+vi.mock("./otp-fieldt", () => ({
   OTPField: ({
     onValueChange,
     onValueComplete,
@@ -48,7 +55,10 @@ vi.mock("./components/otp-fieldt", () => ({
 
 import { LoginForm } from "./login-form";
 
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  vi.useRealTimers();
+});
 
 beforeEach(() => {
   vi.clearAllMocks();
@@ -78,6 +88,93 @@ function submitEmailForm() {
 }
 
 describe("LoginForm", () => {
+  it("disables resend for 60 seconds and restarts the countdown after sending", async () => {
+    vi.useFakeTimers();
+    renderLoginForm();
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "listener@example.com" },
+    });
+    submitEmailForm();
+    await act(() => vi.advanceTimersByTimeAsync(10));
+
+    const resendButton = screen.getByRole<HTMLButtonElement>("button", {
+      name: "Code erneut senden (60 s)",
+    });
+    expect(resendButton.disabled).toBe(true);
+    fireEvent.click(resendButton);
+    expect(sendVerificationOtp).toHaveBeenCalledTimes(1);
+
+    act(() => {
+      vi.advanceTimersByTime(60_000);
+    });
+    expect(resendButton.textContent).toBe("Code erneut senden");
+    expect(resendButton.disabled).toBe(false);
+
+    let resolveSend!: (result: { error: null }) => void;
+    sendVerificationOtp.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveSend = resolve;
+        }),
+    );
+    fireEvent.click(resendButton);
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    expect(resendButton.disabled).toBe(true);
+    expect(screen.getByLabelText("Verification code")).toBeTruthy();
+    expect(screen.queryByLabelText("Email")).toBeNull();
+
+    await act(async () => {
+      resolveSend({ error: null });
+      await vi.advanceTimersByTimeAsync(10);
+    });
+    expect(sendVerificationOtp).toHaveBeenCalledTimes(2);
+    expect(resendButton.textContent).toBe("Code erneut senden (60 s)");
+    expect(resendButton.disabled).toBe(true);
+  });
+
+  it("keeps the code step on resend failure and allows retrying", async () => {
+    vi.useFakeTimers();
+    renderLoginForm();
+    fireEvent.change(screen.getByLabelText("Email"), {
+      target: { value: "listener@example.com" },
+    });
+    submitEmailForm();
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    fireEvent.change(screen.getByLabelText("Verification code"), {
+      target: { value: "123" },
+    });
+
+    act(() => {
+      vi.advanceTimersByTime(60_000);
+    });
+    sendVerificationOtp.mockResolvedValueOnce({
+      error: { message: "Could not send code" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "Code erneut senden" }));
+    await act(() => vi.advanceTimersByTimeAsync(10));
+
+    expect(screen.getByRole("alert").textContent).toContain(
+      "Could not send code",
+    );
+    expect(
+      screen.getByLabelText<HTMLInputElement>("Verification code").value,
+    ).toBe("123");
+    expect(
+      screen.getByRole<HTMLButtonElement>("button", {
+        name: "Code erneut senden",
+      }).disabled,
+    ).toBe(false);
+
+    fireEvent.click(screen.getByRole("button", { name: "Code erneut senden" }));
+    await act(() => vi.advanceTimersByTimeAsync(10));
+    expect(
+      screen.getByRole<HTMLButtonElement>("button", {
+        name: "Code erneut senden (60 s)",
+      }).disabled,
+    ).toBe(true);
+    expect(screen.queryByRole("alert")).toBeNull();
+  });
+
   it("sends a sign-in code to a normalized email and displays the code step", async () => {
     renderLoginForm();
     fireEvent.change(screen.getByLabelText("Email"), {

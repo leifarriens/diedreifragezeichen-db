@@ -2,7 +2,7 @@ import "server-only";
 import type { BookmarkRepository } from "@ddfdb/user-api";
 
 import { db, schema } from "@ddfdb/db";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 
 import { toBookmarkResponse } from "./bookmark.mapper";
 
@@ -42,11 +42,15 @@ export const bookmarkRepository: BookmarkRepository = {
       );
   },
 
+  /**
+   * Finds all bookmarks made by a specific user, ordered by the most recent creation date.
+   */
   async findBookmarksByUserId({ userId }) {
     const bookmarks = await db
       .select(bookmarkResponseSelection)
       .from(schema.bookmark)
-      .where(eq(schema.bookmark.userId, userId));
+      .where(eq(schema.bookmark.userId, userId))
+      .orderBy(desc(schema.bookmark.createdAt));
 
     return bookmarks.map(toBookmarkResponse);
   },

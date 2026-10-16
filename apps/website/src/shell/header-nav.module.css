@@ -1,15 +1,21 @@
-.container {
+.header {
   pointer-events: none;
 
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 50px 1fr auto;
   grid-template-areas:
     "logo - profile"
     "search search search";
 
-  @media (min-width: 560px) {
-    grid-template-columns: auto 340px 1fr;
-    grid-column-gap: 20px;
+  @media (min-width: 380px) {
     grid-template-areas: "logo search profile";
+  }
+
+  @media (min-width: 720px) {
+    grid-template-columns: 50px 405px 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 60px 405px 1fr;
   }
 
   * {

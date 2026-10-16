@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast/toast";
 
-import { authClient } from "./auth-client";
+import { authClient } from "../auth-client";
 
 export function useSignOut() {
   const router = useRouter();

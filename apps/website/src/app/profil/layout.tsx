@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { Wrapper } from "@/components/ui/wrapper";
 import { serverSessionGuard } from "@/server/auth";
 
 export const metadata: Metadata = {
@@ -15,11 +14,5 @@ export default async function ProfilLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   await serverSessionGuard();
 
-  return (
-    <main className="flex flex-1 justify-center">
-      <Wrapper className="flex max-w-7xl flex-1 flex-col space-y-8">
-        {children}
-      </Wrapper>
-    </main>
-  );
+  return <main className="flex flex-1 justify-center">{children}</main>;
 }

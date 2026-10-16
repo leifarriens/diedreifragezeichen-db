@@ -30,6 +30,8 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html className="h-full antialiased" lang="de">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
       <TRPCReactProvider>
         <ToastProvider>
           <body className="flex min-h-full flex-col">

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { formatRelativeTime } from "@ddfdb/core";
 import { Suspense } from "react";
 
+import { Wrapper } from "@/components/ui/wrapper";
 import { DeleteAccountButton } from "@/features/account/delete-account-button";
 import { getMe } from "@/server/queries/user-data";
 
@@ -14,30 +15,27 @@ export const metadata: Metadata = {
 
 export default function AccountPage() {
   return (
-    <>
-      <h1 className="mb-8 text-2xl font-bold">{TITLE}</h1>
-
-      <main className="rounded-2xl border border-neutral-500">
-        <section className="space-y-4 border-b border-neutral-500 p-6">
-          <h2 className="text-lg font-semibold">Account Information</h2>
+    <Wrapper className="max-w-4xl">
+      <h1 className="mb-8 text-3xl font-bold">{TITLE}</h1>
+      <div className="space-y-16">
+        <section>
           <Suspense>
             <AccountData />
           </Suspense>
         </section>
 
-        <section className="space-y-4 p-6">
-          <div className="space-y-2">
-            <h2 className="text-lg font-semibold">Account löschen</h2>
-            <p className="text-sm text-neutral-400">
-              Deinen Account und alle damit verbundenen persönlichen Daten,
-              einschließlich Lesezeichen, Hörverlauf und Bewertungen, dauerhaft
-              löschen.
-            </p>
-          </div>
+        <section className="space-y-4">
+          <h2 className="mb-4 text-2xl font-semibold">Account löschen</h2>
+          <p className="text-sm text-neutral-400">
+            Deinen Account und alle damit verbundenen persönlichen Daten,
+            einschließlich Lesezeichen, Hörverlauf und Bewertungen, dauerhaft
+            löschen.
+          </p>
+
           <DeleteAccountButton />
         </section>
-      </main>
-    </>
+      </div>
+    </Wrapper>
   );
 }
 
@@ -52,7 +50,7 @@ async function AccountData() {
       <dd>{user.email}</dd>
       <dt className="font-medium">Email verifiziert</dt>
       <dd>{user.emailVerified ? "Ja" : "Nein"}</dd>
-      <dt className="font-medium">Account erstellt</dt>
+      <dt className="font-medium">Beigetreten</dt>
       <dd>{formatRelativeTime(user.createdAt)}</dd>
     </dl>
   );

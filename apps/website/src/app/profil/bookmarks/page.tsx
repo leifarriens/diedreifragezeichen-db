@@ -5,6 +5,7 @@ import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { Wrapper } from "@/components/ui/wrapper";
 import { UserBookmarkedFolgen } from "@/features/bookmarks/user-bookmarked-folgen";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { getMyBookmarks } from "@/server/queries/user-data";
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
 
 export default function BookmarksPage() {
   return (
-    <>
+    <Wrapper className="max-w-7xl">
       <h1 className="mb-8 text-2xl font-bold">{l.BOOKMARKS.TITLE}</h1>
 
       <Suspense fallback={<PageLoadingIndicator />}>
         <BookmarksContent />
       </Suspense>
-    </>
+    </Wrapper>
   );
 }
 

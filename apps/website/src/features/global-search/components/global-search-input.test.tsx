@@ -31,7 +31,7 @@ afterEach(() => {
 });
 
 describe("SearchInput keyboard shortcut", () => {
-  it("opens the search dialog on Ctrl+K on Windows", () => {
+  it("opens the search dialog on Strg+K on Windows", () => {
     vi.spyOn(window.navigator, "platform", "get").mockReturnValue("Win32");
     renderSearchInput();
 
@@ -51,7 +51,7 @@ describe("SearchInput keyboard shortcut", () => {
     });
 
     expect(screen.getByRole("dialog")).toBeTruthy();
-    expect(screen.getByText("Ctrl")).toBeTruthy();
+    expect(screen.getByText("Strg")).toBeTruthy();
     expect(event.defaultPrevented).toBe(true);
   });
 
@@ -82,7 +82,7 @@ describe("SearchInput keyboard shortcut", () => {
   it("hides the shortcut hint when any pointer is coarse", () => {
     renderSearchInput();
 
-    const shortcutHint = screen.getByText("Ctrl").parentElement;
+    const shortcutHint = screen.getByText("Strg").parentElement;
 
     expect(shortcutHint?.className).toContain("any-pointer-coarse:hidden");
   });

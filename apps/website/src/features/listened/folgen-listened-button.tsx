@@ -4,7 +4,7 @@ import { Toggle } from "@base-ui/react/toggle";
 import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast/toast";
-import { useAuth } from "@/features/auth/use-auth";
+import { useAuth } from "@/features/auth/hooks/use-auth";
 
 import { useUpdateFolgenListenStatus, useUserListened } from "./use-listened";
 

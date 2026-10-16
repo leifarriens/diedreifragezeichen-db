@@ -34,7 +34,6 @@ export function useSearch<T extends SearchableFolge>(
     enabled: !!engine,
     placeholderData: keepPreviousData,
     queryFn: () => {
-      console.log("Searching with criteria:", debouncedSearchOptions);
       if (!engine) {
         throw new Error("Engine not ready");
         return;

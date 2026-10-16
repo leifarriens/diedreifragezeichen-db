@@ -8,7 +8,7 @@ export function AmazonMusicIcon(props: StreamingIconProps) {
   return (
     <svg
       role="img"
-      viewBox="0 0 48 48"
+      viewBox="2.5 2.5 43 43"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
