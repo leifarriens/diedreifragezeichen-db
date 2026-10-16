@@ -2,6 +2,7 @@ import { describe, expect, expectTypeOf, it } from "vitest";
 
 import {
   sortFolgen,
+  type UserDataSortOption,
   type UserRatingSortOption,
   type UserRatingUpdatedSortOption,
 } from "./index";
@@ -67,6 +68,32 @@ describe("sortFolgen", () => {
       expect(sorted).toEqual(enrichedFolgen);
       expect(sorted).not.toBe(enrichedFolgen);
       expect(sorted[0]).toBe(enrichedFolgen[0]);
+    }
+  });
+
+  it("accepts user-data sort unions and preserves fully hydrated Folge types", () => {
+    const hydratedFolgen = folgen.map((folge) => ({
+      ...folge,
+      bookmarkedAt: "2025-01-01",
+      listenedAt: "2025-01-02",
+      userRating: 3,
+      userRatingUpdatedAt: "2025-01-03",
+    }));
+    const sortOptions: UserDataSortOption[] = [
+      { by: "bookmarkedAt", order: "newest" },
+      { by: "listenedAt", order: "oldest" },
+      { by: "userRating", order: "highest" },
+      { by: "userRatingUpdatedAt", order: "newest" },
+    ];
+
+    for (const sortOption of sortOptions) {
+      const sorted = sortFolgen(hydratedFolgen, sortOption);
+      expectTypeOf(sorted).toEqualTypeOf<typeof hydratedFolgen>();
+      expect(sorted).toHaveLength(hydratedFolgen.length);
+      expect(sorted).not.toBe(hydratedFolgen);
+
+      // @ts-expect-error Union sorting requires the relevant user-data fields.
+      sortFolgen(folgen, sortOption);
     }
   });
 

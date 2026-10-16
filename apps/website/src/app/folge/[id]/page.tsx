@@ -119,10 +119,10 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
     <>
       <main>
         <Wrapper className="max-w-7xl">
-          <div className="mb-24 p-8 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
+          <div className="mb-24 px-0 py-8 sm:px-8 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
             {cover ? (
               <FolgenCover
-                className="mb-4 w-full rounded-sm object-cover shadow-2xl"
+                className="mb-4 w-full rounded-xl object-cover shadow-2xl"
                 coverUrl={cover}
                 folgenTitle={title}
                 loading="eager"
@@ -133,7 +133,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
             <div>
               <h1>
-                <span className="mb-2 block font-serif text-2xl font-thin lg:text-3xl">
+                <span className="mb-2 block font-serif text-2xl font-thin lg:text-3xl xl:mt-8">
                   Die drei ???&nbsp;
                 </span>
 
@@ -148,7 +148,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 </h2>
               ) : null}
 
-              <div className="mt-2 text-neutral-300">
+              <div className="mt-4 text-neutral-300">
                 {release_date && (
                   <>
                     <div>
@@ -194,7 +194,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                     title="dreifragezeichen.de"
                   >
                     <svg
-                      className="size-6"
+                      className="size-8"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth={1.5}
@@ -209,7 +209,8 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                     </svg>
                   </ExternalLink>
                 )}
-
+              </div>
+              <div className="mt-6 flex items-center gap-4">
                 <FolgenBookmarkButtonForFolge
                   folgeId={folge.id}
                   folgeTitle={folge.title}

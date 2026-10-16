@@ -1,4 +1,10 @@
 export const l = {
+  ACTIONS: {
+    ADD_BOOKMARK: "Als Lesezeichen merken",
+    MARK_LISTENED: "Als gehört markieren",
+    MARK_UNLISTENED: "Als ungehört markieren",
+    REMOVE_BOOKMARK: "Lesezeichen entfernen",
+  },
   ARCHIVE: {
     SEARCH_LABEL: "Folgen Archiv durchsuchen",
     SEARCH_PLACEHOLDER: "Name, Nummer oder Erscheinungsjahr",

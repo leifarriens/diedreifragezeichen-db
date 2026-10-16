@@ -1,28 +1,13 @@
-import { useSearch } from "@ddfdb/client";
-import {
-  type ListenedDateSortOption,
-  selectCollectionFolgen,
-  sortFolgen,
-} from "@ddfdb/core";
+import { selectCollectionFolgen } from "@ddfdb/core";
 import { l } from "@ddfdb/core/labels";
-import { Stack } from "expo-router";
-import { useMemo, useState } from "react";
-import { ActivityIndicator } from "react-native";
+import { useMemo } from "react";
 
 import { useFolgen } from "@/api/use-folgen";
-import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user-data";
-import { buildHeaderSortMenu } from "@/components/header-sort-menu";
-import { FolgenList } from "@/features/folgen-list/folgen-list";
+import { UserCollection } from "@/features/user-collection/user-collection";
 
 import { useUserListened } from "../use-listened";
 
 export function ListenedScreen() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState<ListenedDateSortOption>({
-    by: "listenedAt",
-    order: "newest",
-  });
-
   const {
     data: listenedFolgen,
     isLoading,
@@ -30,66 +15,31 @@ export function ListenedScreen() {
     refresh,
   } = useUserListenedFolgen();
 
-  const searchQuery = useSearch(listenedFolgen, { term: searchTerm });
-
-  const hydratedFolgen = useHydrateFolgenWithUserData(
-    searchQuery.data?.results ?? listenedFolgen,
-  );
-
-  const sortedFolgen = useMemo(
-    () => sortFolgen(hydratedFolgen, sortOption),
-    [hydratedFolgen, sortOption],
-  );
-
-  const displayedFolgen = sortedFolgen;
-
   return (
-    <>
-      <Stack.Screen
-        options={{
-          headerSearchBarOptions: {
-            hideWhenScrolling: false,
-            onChangeText: (event) => {
-              setSearchTerm(event.nativeEvent.text);
-            },
-            placeholder: l.LISTENED.SEARCH_PLACEHOLDER,
-            placement: "integratedCentered",
-          },
-          title: l.LISTENED.NAME,
-          unstable_headerRightItems: () => [
-            ...buildHeaderSortMenu({
-              label: l.LISTENED.SORTING.LABEL,
-              onSortValueChange(value) {
-                setSortOption({ by: "listenedAt", order: value });
-              },
-              options: [
-                { label: l.LISTENED.SORTING.NEWEST_FIRST, value: "newest" },
-                { label: l.LISTENED.SORTING.OLDEST_FIRST, value: "oldest" },
-              ],
-              sortValue: sortOption.order,
-            }),
-          ],
-        }}
-      />
-
-      {isLoading ? (
-        <ActivityIndicator />
-      ) : (
-        <FolgenList
-          detailPathname="/(tabs)/gehoert/[folgeId]"
-          emptyMessage={
-            listenedFolgen.length === 0
-              ? l.LISTENED.EMPTY_PLACEHOLDER
-              : undefined
-          }
-          folgen={displayedFolgen}
-          isInitialLoading={isLoading}
-          isRefreshing={isRefreshing}
-          onRequestRefresh={refresh}
-          viewMode="list"
-        />
-      )}
-    </>
+    <UserCollection
+      detailPathname="/(tabs)/gehoert/[folgeId]"
+      emptyMessage={l.LISTENED.EMPTY_PLACEHOLDER}
+      folgen={listenedFolgen}
+      initialSortValue="newest"
+      isInitialLoading={isLoading}
+      isRefreshing={isRefreshing}
+      onRequestRefresh={refresh}
+      searchPlaceholder={l.LISTENED.SEARCH_PLACEHOLDER}
+      sortLabel={l.LISTENED.SORTING.LABEL}
+      sortOptions={[
+        {
+          label: l.LISTENED.SORTING.NEWEST_FIRST,
+          sort: { by: "listenedAt", order: "newest" },
+          value: "newest",
+        },
+        {
+          label: l.LISTENED.SORTING.OLDEST_FIRST,
+          sort: { by: "listenedAt", order: "oldest" },
+          value: "oldest",
+        },
+      ]}
+      title={l.LISTENED.NAME}
+    />
   );
 }
 

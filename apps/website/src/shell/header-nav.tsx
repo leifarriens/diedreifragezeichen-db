@@ -31,7 +31,7 @@ export function HeaderNav() {
   const isLoginPage = pathname === "/login";
 
   return (
-    <div className="pointer-events-none sticky top-0 z-40 w-full lg:px-4 lg:py-6 2xl:px-8">
+    <div className="pointer-events-none sticky top-0 z-40 mb-6 w-full lg:px-4 lg:py-6 2xl:px-8">
       <div
         className={cn(
           styles.header,

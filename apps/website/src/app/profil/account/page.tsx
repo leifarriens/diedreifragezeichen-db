@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
 
 import { formatRelativeTime } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
 import { Wrapper } from "@/components/ui/wrapper";
 import { DeleteAccountButton } from "@/features/account/delete-account-button";
 import { getMe } from "@/server/queries/user-data";
 
-const TITLE = "Account";
-
 export const metadata: Metadata = {
-  title: TITLE,
+  title: l.MISC.ACCOUNT,
 };
 
 export default function AccountPage() {
   return (
     <Wrapper className="max-w-4xl">
-      <h1 className="mb-8 text-3xl font-bold">{TITLE}</h1>
+      <h1 className="mb-8 text-3xl font-bold">{l.MISC.ACCOUNT}</h1>
       <div className="space-y-16">
         <section>
           <Suspense>

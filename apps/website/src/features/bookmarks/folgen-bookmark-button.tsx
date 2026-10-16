@@ -1,6 +1,7 @@
 "use client";
 
 import { Toggle } from "@base-ui/react/toggle";
+import { l } from "@ddfdb/core/labels";
 import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast/toast";
@@ -28,6 +29,9 @@ export function FolgenBookmarkButton({
     useUpdateFolgenBookmark();
 
   const iconStyle = { height: size, width: size };
+  const title = isBookmarked
+    ? l.ACTIONS.REMOVE_BOOKMARK
+    : l.ACTIONS.ADD_BOOKMARK;
 
   function handlePressedChange() {
     if (!isAuthenticated) {
@@ -57,11 +61,7 @@ export function FolgenBookmarkButton({
 
   return (
     <Toggle
-      aria-label={
-        isBookmarked
-          ? `Gespeichert: ${folgeTitle}`
-          : `Nicht gespeichert: ${folgeTitle}`
-      }
+      aria-label={`${title}: ${folgeTitle}`}
       className="cursor-pointer"
       disabled={isLoading || isPending}
       onPressedChange={handlePressedChange}
@@ -99,6 +99,7 @@ export function FolgenBookmarkButton({
           </button>
         );
       }}
+      title={title}
     />
   );
 }

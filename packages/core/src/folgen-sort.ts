@@ -1,11 +1,8 @@
 export type AnySortOption =
-  | BookmarkDateSortOption
   | CommunityRatingSortOption
-  | ListenedDateSortOption
   | PopularitySortOption
   | ReleaseDateSortOption
-  | UserRatingSortOption
-  | UserRatingUpdatedSortOption;
+  | UserDataSortOption;
 
 export interface BookmarkDateSortOption {
   by: "bookmarkedAt";
@@ -37,6 +34,12 @@ export interface SortableFolge {
   release_date: null | string;
   title: string;
 }
+
+export type UserDataSortOption =
+  | BookmarkDateSortOption
+  | ListenedDateSortOption
+  | UserRatingSortOption
+  | UserRatingUpdatedSortOption;
 
 export interface UserRatingSortOption {
   by: "userRating";
@@ -102,6 +105,13 @@ export function sortFolgen<
   folgen: readonly T[],
   sort: UserRatingSortOption | UserRatingUpdatedSortOption,
 ): T[];
+export function sortFolgen<
+  T extends BookmarkedFolge &
+    ListenedFolge &
+    SortableFolge &
+    UserRatedFolge &
+    UserRatingUpdatedFolge,
+>(folgen: readonly T[], sort: UserDataSortOption): T[];
 export function sortFolgen<T extends SortableFolge & UserRatedFolge>(
   folgen: readonly T[],
   sort: UserRatingSortOption,

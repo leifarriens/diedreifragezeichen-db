@@ -7,7 +7,6 @@ import { Suspense } from "react";
 
 import { GearIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/avatar";
-import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { Wrapper } from "@/components/ui/wrapper";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import {
@@ -17,7 +16,7 @@ import {
   getMyRatings,
 } from "@/server/queries/user-data";
 
-import { ProfileFolgenPreview } from "../../features/profile/profile-bookmarks-preview";
+import { ProfileFolgenPreview } from "../../features/profile/components/profile-bookmarks-preview";
 
 const TITLE = "Profil";
 
@@ -29,7 +28,7 @@ export default function ProfilePage() {
   return (
     <Wrapper className="max-w-4xl">
       <h1 className="mb-8 text-3xl font-bold">{TITLE}</h1>
-      <Suspense fallback={<PageLoadingIndicator />}>
+      <Suspense>
         <ProfileData />
       </Suspense>
     </Wrapper>

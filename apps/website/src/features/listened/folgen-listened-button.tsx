@@ -1,6 +1,7 @@
 "use client";
 
 import { Toggle } from "@base-ui/react/toggle";
+import { l } from "@ddfdb/core/labels";
 import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast/toast";
@@ -31,6 +32,9 @@ export function FolgenListenedButton({
   } = useUpdateFolgenListenStatus();
 
   const iconStyle = { height: size, width: size };
+  const title = hasListened
+    ? l.ACTIONS.MARK_UNLISTENED
+    : l.ACTIONS.MARK_LISTENED;
 
   function handlePressedChange() {
     if (!isAuthenticated) {
@@ -60,11 +64,7 @@ export function FolgenListenedButton({
 
   return (
     <Toggle
-      aria-label={
-        hasListened
-          ? `Gespeichert: ${folgeTitle}`
-          : `Nicht gespeichert: ${folgeTitle}`
-      }
+      aria-label={`${title}: ${folgeTitle}`}
       className="cursor-pointer"
       disabled={isLoading || isPending}
       onPressedChange={handlePressedChange}
@@ -102,6 +102,7 @@ export function FolgenListenedButton({
           </button>
         );
       }}
+      title={title}
     />
   );
 }

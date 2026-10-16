@@ -4,9 +4,8 @@ import { selectCollectionFolgen } from "@ddfdb/core";
 import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
-import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { Wrapper } from "@/components/ui/wrapper";
-import { UserListenedFolgen } from "@/features/listened/user-listened-folgen";
+import { UserCollection } from "@/features/profile/components/user-collection";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import { getMyListenedFolgen } from "@/server/queries/user-data";
 
@@ -19,7 +18,7 @@ export default function ListenedPage() {
     <Wrapper className="max-w-7xl">
       <h1 className="mb-8 text-3xl font-bold">{l.LISTENED.TITLE}</h1>
 
-      <Suspense fallback={<PageLoadingIndicator />}>
+      <Suspense>
         <ListenedContent />
       </Suspense>
     </Wrapper>
@@ -34,5 +33,25 @@ async function ListenedContent() {
 
   const userListenedFolgen = selectCollectionFolgen(folgen, userListened);
 
-  return <UserListenedFolgen folgen={userListenedFolgen} />;
+  return (
+    <UserCollection
+      emptyMessage={l.LISTENED.EMPTY_PLACEHOLDER}
+      folgen={userListenedFolgen}
+      initialSortValue="newest"
+      searchPlaceholder={l.LISTENED.SEARCH_PLACEHOLDER}
+      sortLabel={l.LISTENED.SORTING.LABEL}
+      sortOptions={[
+        {
+          label: l.LISTENED.SORTING.NEWEST_FIRST,
+          sort: { by: "listenedAt", order: "newest" },
+          value: "newest",
+        },
+        {
+          label: l.LISTENED.SORTING.OLDEST_FIRST,
+          sort: { by: "listenedAt", order: "oldest" },
+          value: "oldest",
+        },
+      ]}
+    />
+  );
 }
