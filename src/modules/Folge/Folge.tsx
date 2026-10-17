@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { FaClone, FaSpotify } from 'react-icons/fa';
 
 import { ListButton } from '@/components/ListButton';
@@ -30,15 +29,13 @@ export function Folge({ folge }: { folge: FolgeWithId }) {
   return (
     <>
       <div className="mb-24 p-8 md:grid md:grid-cols-2 md:gap-10 lg:gap-x-16">
-        <Image
+        <img
           className="mb-4 w-full object-cover shadow-2xl"
           src={images[0].url}
           alt={`${name} Cover`}
           width={512}
           height={512}
-          placeholder="blur"
-          blurDataURL={images[2].url}
-          priority
+          loading="eager"
         />
 
         <div>
