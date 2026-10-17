@@ -1,0 +1,57 @@
+{
+  "name": "{{packageScope}}/{{kebabCase name}}",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+{{#if (eq kind "internal")}}
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+{{else if (eq kind "library")}}
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+{{else if (eq kind "no-build")}}
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+{{else}}
+  "main": "./dist/index.js",
+{{/if}}
+  "scripts": {
+{{#unless (eq kind "no-build")}}
+    "build": "tsc --build tsconfig.build.json",
+{{/unless}}
+    "clean": "git clean -xdf .cache .turbo dist",
+{{#unless (eq kind "no-build")}}
+    "dev": "tsc --watch --project tsconfig.build.json",
+{{/unless}}
+{{#if (eq kind "node")}}
+    "start": "node dist/index.js",
+{{/if}}
+    "lint": "eslint --cache --cache-location .cache/.eslintcache",
+    "test:watch": "vitest",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "{{packageScope}}/eslint-config": "workspace:*",
+    "{{packageScope}}/tsconfig": "workspace:*",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

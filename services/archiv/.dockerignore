@@ -1,0 +1,7 @@
+.git/
+.turbo/
+data/
+dist/
+node_modules/
+tmp/
+*.log

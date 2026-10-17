@@ -1,33 +1,38 @@
 packages:
-  - '.'
+  - "apps/*"
+  - "configs/**"
+  - "packages/*"
+  - "services/*"
+  - "!**/test/**"
 
 overrides:
-  '@types/react': ^19.2.14
+  lightningcss: 1.30.1
 
+catalog:
+  "@vitest/coverage-v8": ^5.0.1
+  eslint: ^10.10.0
+  tailwindcss: "4.1.12"
+  typescript: ^6.0.2
+  vitest: ^5.0.1
+
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+blockExoticSubdeps: true
+strictDepBuilds: true
+strictPeerDependencies: false
 allowBuilds:
-  '@parcel/watcher': true
+  "@tailwindcss/oxide": true
   esbuild: true
-  sharp: true
   unrs-resolver: true
-
-minimumReleaseAge: 1440
-
 minimumReleaseAgeExclude:
-  - '@exodus/bytes@1.16.0'
-  - '@next/bundle-analyzer@16.3.6'
-  - '@next/env@16.3.6'
-  - '@next/eslint-plugin-next@16.3.6'
-  - '@next/swc-darwin-arm64@16.3.6'
-  - '@next/swc-darwin-x64@16.3.6'
-  - '@next/swc-linux-arm64-gnu@16.3.6'
-  - '@next/swc-linux-arm64-musl@16.3.6'
-  - '@next/swc-linux-x64-gnu@16.3.6'
-  - '@next/swc-linux-x64-musl@16.3.6'
-  - '@next/swc-win32-arm64-msvc@16.3.6'
-  - '@next/swc-win32-x64-msvc@16.3.6'
-  - dotenv@18.0.3
-  - ignore@7.0.10
-  - mongoose@9.10.2
-  - next@16.3.6
-  - prettier@3.9.9
-  - sass@1.105.0
+  - turbo@2.11.4
+  - "@turbo/*"
+  - "@expo/*"
+  - "@react-native/*"
+  - babel-preset-expo@58.0.9 || 58.0.11
+  - expo-*
+  - expo
+  - hermes-compiler@260318099.0.4
+  - react-native@0.88.0-rc.3
+trustPolicyExclude:
+  - "semver@6.3.1" # https://github.com/npm/node-semver/issues/838

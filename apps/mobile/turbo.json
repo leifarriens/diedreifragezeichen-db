@@ -1,0 +1,15 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": ["APP_ENV", "EXPO_OS"],
+      "outputs": [".expo/**", "dist/**"]
+    },
+    "dev": {
+      "env": ["APP_ENV", "EXPO_OS"]
+    }
+  }
+}

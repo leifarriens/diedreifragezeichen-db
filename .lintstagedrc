@@ -1,4 +1,0 @@
-{
-  "*.ts": ["pnpm lint:fix --cache", "pnpm format"],
-  "*.tsx": ["pnpm lint:fix --cache", "pnpm format"]
-}

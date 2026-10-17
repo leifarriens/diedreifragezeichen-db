@@ -1,0 +1,24 @@
+.header {
+  pointer-events: none;
+
+  grid-template-columns: 50px 1fr auto;
+  grid-template-areas:
+    "logo - profile"
+    "search search search";
+
+  @media (min-width: 380px) {
+    grid-template-areas: "logo search profile";
+  }
+
+  @media (min-width: 720px) {
+    grid-template-columns: 50px 405px 1fr;
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 60px 405px 1fr;
+  }
+
+  * {
+    pointer-events: all;
+  }
+}

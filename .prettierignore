@@ -1,3 +1,6 @@
+build/
+coverage/
+pnpm-lock.yaml
+turbo/generators/templates/**/*.hbs
 .next/
-node_modules/
-playwright-report
+migrations/

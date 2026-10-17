@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "extends": ["//"],
+  "tasks": {
+    "dev": {
+      "passThroughEnv": [
+        "DB_MAX_AGE",
+        "DB_PATH",
+        "DDF_METADATA_SQL_URL",
+        "LISTEN_ADDR",
+        "PORT",
+        "SQL_CACHE_PATH"
+      ]
+    }
+  }
+}
