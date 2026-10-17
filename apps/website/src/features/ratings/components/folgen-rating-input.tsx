@@ -62,7 +62,8 @@ export function FolgenRatingInput({
 
   return (
     <div>
-      <div className="relative w-fit focus-within:ring-1">
+      {/* The transparent input needs its browser-style focus outline on the visible wrapper. */}
+      <div className="relative w-fit has-[input:focus-visible]:[outline:auto]">
         <input
           className="absolute inset-0 w-full min-w-0 opacity-0"
           disabled={isDisabled ?? isPending}

@@ -98,7 +98,7 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                 value={searchTerm}
               >
                 <div className="relative block">
-                  <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-500 transition-colors group-focus-within:text-neutral-200">
+                  <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-neutral-500 transition-colors">
                     <svg
                       aria-hidden="true"
                       className="size-6"
@@ -113,7 +113,7 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                   </span>
                   <Autocomplete.Input
                     aria-label="Folgen Archiv durchsuchen"
-                    className="h-full w-full bg-transparent py-4 pr-26 pl-11 text-base text-neutral-300 placeholder-gray-500 outline-none"
+                    className="h-full w-full bg-transparent py-4 pr-26 pl-11 text-base text-neutral-300 placeholder-gray-500"
                     placeholder="Name, Nummer oder Erscheinungsjahr"
                     ref={inputRef}
                   />

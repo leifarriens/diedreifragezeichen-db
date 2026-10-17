@@ -33,7 +33,7 @@ describe("GET /api/v0/search", () => {
   );
 
   it.each(["", "   ", "  A  "])(
-    "does not load the archive for an empty or short normalized query: %j",
+    "rejects an empty or short normalized query without loading the archive: %j",
     async (query) => {
       const response = await GET(
         new NextRequest(
@@ -41,7 +41,10 @@ describe("GET /api/v0/search", () => {
         ),
       );
 
-      await expect(response.json()).resolves.toEqual({ results: [] });
+      expect(response.status).toBe(400);
+      await expect(response.json()).resolves.toMatchObject({
+        errors: { q: [expect.any(String)] },
+      });
       expect(searchFolgen).not.toHaveBeenCalled();
     },
   );

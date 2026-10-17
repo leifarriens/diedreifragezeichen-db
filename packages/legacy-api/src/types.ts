@@ -20,7 +20,7 @@ export interface LegacyFolge {
   spotify_id: string;
   sprecher: string; // Can be empty string
   type: "regular" | "special";
-  upc: string; // Can be empty string
+  upc: string | undefined; // Can be empty string
   updated_at: string;
   weblink: string; // Can be empty string
 }

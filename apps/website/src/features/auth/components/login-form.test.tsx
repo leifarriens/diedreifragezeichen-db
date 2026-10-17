@@ -88,6 +88,19 @@ function submitEmailForm() {
 }
 
 describe("LoginForm", () => {
+  it("links to privacy information", () => {
+    renderLoginForm();
+
+    const privacyLink = screen.getByRole("link", {
+      name: "Datenschutzerklärung",
+    });
+    expect(privacyLink.getAttribute("href")).toBe("/legal/datenschutz");
+    expect(privacyLink.closest("p")?.textContent).toBe(
+      "Informationen zur Verarbeitung deiner Daten findest du in der Datenschutzerklärung.",
+    );
+    expect(screen.queryByRole("checkbox")).toBeNull();
+  });
+
   it("disables resend for 60 seconds and restarts the countdown after sending", async () => {
     vi.useFakeTimers();
     renderLoginForm();

@@ -1,6 +1,7 @@
 import {
   buildLegacyFolge,
   getFolgeByMongoId,
+  mongoObjectIdSchema,
   PUBLIC_API_CACHE_CONFIG,
 } from "@ddfdb/legacy-api";
 import { unstable_cache } from "next/cache";
@@ -14,12 +15,29 @@ export async function GET(
 ) {
   const { id } = await params;
 
+  const result = mongoObjectIdSchema.safeParse(id);
+
+  if (!result.success) {
+    return new NextResponse("Not Found", {
+      headers: {
+        "Cache-Control": PUBLIC_API_CACHE_CONFIG.cdnNotFound["Cache-Control"],
+      },
+      status: 404,
+    });
+  }
+
   const getCachedFolge = unstable_cache(
     async (id: string) => {
       const legacyFolge = await getFolgeByMongoId(id);
 
       if (!legacyFolge) {
-        return new NextResponse("Not Found", { status: 404 });
+        return new NextResponse("Not Found", {
+          headers: {
+            "Cache-Control":
+              PUBLIC_API_CACHE_CONFIG.cdnNotFound["Cache-Control"],
+          },
+          status: 404,
+        });
       }
 
       const folgen = await getAllFolgenWithCommunityRatings();

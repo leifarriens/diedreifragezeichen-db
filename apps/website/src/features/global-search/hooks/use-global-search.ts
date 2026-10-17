@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import type { SearchResponse } from "../contracts";
 
-import { normalizeSearchQuery } from "../normalize-search-query";
+import { normalizeSearchQuery } from "../utils";
 
 export function useGlobalSearch(
   searchQuery: string,

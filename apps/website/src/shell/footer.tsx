@@ -3,20 +3,36 @@ import Link from "next/link";
 export function Footer() {
   return (
     <div className="mt-24 mb-10 space-y-3 text-sm text-neutral-400">
-      <div className="text-center">
+      <div className="flex items-center justify-center gap-3">
         <Link
-          className="mr-3 transition-colors duration-150 hover:text-neutral-200"
+          className="transition-colors duration-150 hover:text-neutral-200"
           href="/"
         >
           Home
         </Link>
 
         <Link
-          className="mr-3 transition-colors duration-150 hover:text-neutral-200"
-          href="/datenschutz"
+          className="transition-colors duration-150 hover:text-neutral-200"
+          href="/legal/datenschutz"
         >
           Datenschutz
         </Link>
+
+        <Link
+          className="transition-colors duration-150 hover:text-neutral-200"
+          href="/legal/sources"
+        >
+          Quellen & Rechte
+        </Link>
+
+        <a
+          className="transition-colors duration-150 hover:text-neutral-200"
+          href="https://leifarriens.dev/legal"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Impressum
+        </a>
 
         <a
           className="transition-colors duration-150 hover:text-neutral-200"
@@ -50,8 +66,10 @@ export function Footer() {
         </a>
       </div>
 
+      <div className="text-center">Inoffizielles Fanprojekt</div>
+
       <div className="text-center">
-        Archivdaten bereitgestellt von{" "}
+        Metadaten:{" "}
         <a
           className="hover:text-neutral-200"
           href="https://dreimetadaten.de"
@@ -59,6 +77,15 @@ export function Footer() {
           target="_blank"
         >
           dreimetadaten.de
+        </a>{" "}
+        ·{" "}
+        <a
+          className="hover:text-neutral-200"
+          href="https://creativecommons.org/licenses/by/4.0/"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          CC BY 4.0
         </a>
       </div>
 

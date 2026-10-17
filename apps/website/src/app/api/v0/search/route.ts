@@ -3,37 +3,56 @@ import * as z from "zod";
 
 import type { SearchResponse } from "@/features/global-search/contracts";
 
-import { normalizeSearchQuery } from "@/features/global-search/normalize-search-query";
+import { normalizeSearchQuery } from "@/features/global-search/utils";
 import { searchFolgen } from "@/server/queries/search";
 
 const searchQueryParams = z.object({
-  q: z.string().min(2).max(100),
+  q: z
+    .string()
+    .max(100)
+    .transform(normalizeSearchQuery)
+    .pipe(z.string().min(2)),
 });
+
+type SearchApiResponse = SearchErrorResponse | SearchResponse;
+
+interface SearchErrorResponse {
+  errors: z.core.$ZodFlattenedError<
+    z.output<typeof searchQueryParams>
+  >["fieldErrors"];
+}
 
 export async function GET(
   request: NextRequest,
-): Promise<NextResponse<SearchResponse>> {
+): Promise<NextResponse<SearchApiResponse>> {
   const searchParams = Object.fromEntries(request.nextUrl.searchParams);
   const result = searchQueryParams.safeParse(searchParams);
 
   if (!result.success) {
-    return NextResponse.json({ results: [] });
+    return NextResponse.json(
+      {
+        errors: z.flattenError(result.error).fieldErrors,
+      },
+      {
+        headers: {
+          "Cache-Control":
+            "public, max-age=0, s-maxage=60, stale-while-revalidate=120",
+        },
+        status: 400,
+      },
+    );
   }
 
-  const term = normalizeSearchQuery(result.data.q);
+  const { q } = result.data;
 
-  if (term.length < 2) {
-    return NextResponse.json({ results: [] });
-  }
-
-  const results = await searchFolgen(term);
+  const results = await searchFolgen(q);
 
   return NextResponse.json(
     { results },
     {
       headers: {
         "Cache-Control":
-          "public, max-age=0, s-maxage=300, stale-while-revalidate=60",
+          "public, max-age=0, s-maxage=3600, stale-while-revalidate=3600",
       },
     },
   );

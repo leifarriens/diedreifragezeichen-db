@@ -12,9 +12,9 @@ export const metadata: Metadata = {
 
 export default function LegalLayout({ children }: PropsWithChildren) {
   return (
-    <main className="container flex-1 pt-8">
-      <Wrapper className="">
-        <article className="mx-auto prose max-w-5xl prose-invert">
+    <main>
+      <Wrapper className="max-w-4xl">
+        <article className="mx-auto prose max-w-none prose-invert">
           {children}
         </article>
       </Wrapper>

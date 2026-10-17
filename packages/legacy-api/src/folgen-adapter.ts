@@ -15,9 +15,13 @@ export function buildLegacyFolge(
   _id: string;
   id: number;
 } {
+  const { numberOfRatings, popularity, score } = adaptRating(
+    update.communityRating,
+  );
+
   return {
-    ...folge,
     _id: folge._id.toHexString(),
+    created_at: folge.created_at,
     deezer_id: update.streaming.deezer?.id ?? "",
     id: update.id,
     images: adaptImages(folge, update),
@@ -25,12 +29,18 @@ export function buildLegacyFolge(
     isHidden: false,
     name: update.title,
     number: String(update.number),
+    number_of_ratings: numberOfRatings,
+    popularity: popularity,
+    rating: score,
+    release_date: folge.release_date,
     spotify_id: update.streaming.spotify?.id ?? "",
     sprecher: update.voice_roles
       .map(({ role, speaker }) => `${role} - ${speaker}`)
-      .join(", "),
+      .join(" \n"),
+    type: folge.type,
+    upc: folge.upc ?? "",
+    updated_at: folge.updated_at,
     weblink: update.weblink ?? "",
-    ...adaptRating(update.communityRating),
   };
 }
 

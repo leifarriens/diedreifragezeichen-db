@@ -31,7 +31,7 @@ export function Avatar({ name, size }: AvatarProps) {
 
   return (
     <AvatarPrimitive.Root className={container()}>
-      <AvatarPrimitive.Fallback className={fallback()} delay={600}>
+      <AvatarPrimitive.Fallback className={fallback()} delay={50}>
         {name?.trim().slice(0, 2).toUpperCase() ?? "?"}
       </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>

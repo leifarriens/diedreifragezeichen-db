@@ -19,7 +19,7 @@ export function Input({ className, label, ...props }: InputProps) {
 
       <InputPrimitive
         className={cn(
-          "rounded-lg border border-neutral-400 bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 outline-none focus:border-neutral-200 any-pointer-coarse:text-base",
+          "rounded-lg border border-neutral-400 bg-transparent px-4 py-2 text-base text-neutral-300 placeholder-gray-500 any-pointer-coarse:text-base",
           className,
         )}
         id={id}

@@ -81,16 +81,12 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
     <Popover.Root>
       <Popover.Trigger
         aria-label="Profilmenü öffnen"
-        className="inline-flex shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        className="inline-flex shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0"
       >
         <Avatar name={name} />
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Positioner
-          align="end"
-          className="z-50 outline-none"
-          sideOffset={14}
-        >
+        <Popover.Positioner align="end" className="z-50" sideOffset={14}>
           <Popover.Popup className="max-h-92 w-56 max-w-(--available-width) overflow-y-auto rounded-xl border border-neutral-500 bg-[#000b0e] text-neutral-300 shadow-2xl">
             <nav aria-label="Profilmenü">
               {profileLinks.map(({ href, icon, label }) => (
@@ -99,7 +95,7 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
                   nativeButton={false}
                   render={
                     <Link
-                      className="flex items-center px-4 py-3 text-sm hover:bg-[#011528] focus-visible:bg-[#011528] focus-visible:outline-none"
+                      className="flex items-center px-4 py-3 text-sm hover:bg-[#011528]"
                       href={href}
                     >
                       <span className="mr-2">{icon}</span>
@@ -112,7 +108,7 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
               <Popover.Close
                 render={
                   <button
-                    className="flex w-full cursor-pointer px-4 py-3 text-sm hover:bg-[#011528] focus-visible:bg-[#011528] focus-visible:outline-none"
+                    className="flex w-full cursor-pointer px-4 py-3 text-sm hover:bg-[#011528]"
                     onClick={onSignOutPress}
                     type="button"
                   >

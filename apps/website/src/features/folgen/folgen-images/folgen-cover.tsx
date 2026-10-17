@@ -31,10 +31,12 @@ export function FolgenCover({
     return (
       <div
         className={cn(
-          "aspect-square w-full rounded-xl bg-ddf-blue-950 transition-opacity duration-150 ease-in",
+          "grid aspect-square w-full place-items-center rounded-xl bg-ddf-blue-950 p-4 transition-opacity duration-150 ease-in",
           className,
         )}
-      />
+      >
+        <span className="text-center text-lg font-semibold">{folgenTitle}</span>
+      </div>
     );
   }
 

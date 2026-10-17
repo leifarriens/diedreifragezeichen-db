@@ -39,7 +39,7 @@ export function FolgenStreamingLinks({ streaming }: FolgenStreamingLinksProps) {
       return (
         <ExternalLink
           ariaLabel={ariaLabel}
-          className="inline-flex items-center justify-center rounded-md text-neutral-200 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+          className="inline-flex items-center justify-center rounded-md text-neutral-200 transition-colors hover:text-white"
           href={link}
           key={key}
           title={label}

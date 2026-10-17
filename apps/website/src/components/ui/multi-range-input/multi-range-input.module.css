@@ -47,15 +47,3 @@
   cursor: ew-resize;
   pointer-events: auto;
 }
-
-.rangeInput:focus-visible::-webkit-slider-thumb {
-  box-shadow:
-    0 0 0 3px #38bdf8,
-    0 0 0 5px #001727;
-}
-
-.rangeInput:focus-visible::-moz-range-thumb {
-  box-shadow:
-    0 0 0 3px #38bdf8,
-    0 0 0 5px #001727;
-}

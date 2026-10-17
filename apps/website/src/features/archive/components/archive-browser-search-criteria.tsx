@@ -10,6 +10,7 @@ import { Switch } from "@/components/ui/switch";
 import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
 
 import { FIRST_RELEASE_YEAR } from "../archive-filters";
+import styles from "./archive-browser.module.css";
 
 interface ArchiveBrowserSearchCriteriaProps {
   availableOptions: SearchOptions;
@@ -69,7 +70,7 @@ export function ArchiveBrowserSearchCriteria({
       </div>
 
       {showAdditionalFilters && (
-        <div className="flex gap-3">
+        <div className={styles.additional}>
           <Combobox
             items={speakerOptions}
             label="Sprechrollen"

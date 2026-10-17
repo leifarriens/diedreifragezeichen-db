@@ -8,3 +8,7 @@ export const allFolgenQuerySchema = z.object({
     .enum(["release_date", "-release_date", "rating", "-rating"])
     .default("-release_date"),
 });
+
+export const mongoObjectIdSchema = z
+  .string()
+  .regex(/^[0-9a-fA-F]{24}$/, "Invalid MongoDB ObjectId");

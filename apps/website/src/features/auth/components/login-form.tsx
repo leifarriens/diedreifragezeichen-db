@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type SyntheticEvent, useState } from "react";
 
@@ -95,6 +96,16 @@ export function LoginForm() {
         >
           Weiter
         </Button>
+        <p className="text-sm text-neutral-400">
+          Informationen zur Verarbeitung deiner Daten findest du in der{" "}
+          <Link
+            className="underline hover:text-neutral-200"
+            href="/legal/datenschutz"
+          >
+            Datenschutzerklärung
+          </Link>
+          .
+        </p>
       </form>
     );
   }

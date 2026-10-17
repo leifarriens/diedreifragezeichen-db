@@ -7,6 +7,7 @@ import { Suspense } from "react";
 
 import { GearIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/avatar";
+import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { Wrapper } from "@/components/ui/wrapper";
 import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
 import {
@@ -28,7 +29,8 @@ export default function ProfilePage() {
   return (
     <Wrapper className="max-w-4xl">
       <h1 className="mb-8 text-3xl font-bold">{TITLE}</h1>
-      <Suspense>
+
+      <Suspense fallback={<PageLoadingIndicator />}>
         <ProfileData />
       </Suspense>
     </Wrapper>
