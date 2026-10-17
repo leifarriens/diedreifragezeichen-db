@@ -1,4 +1,4 @@
-import { defineConfig } from "vitest/config";
+import { configDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
@@ -9,6 +9,7 @@ export default defineConfig({
       include: ["src"],
       reporter: ["text", "text-summary", "lcov"],
     },
+    exclude: [...configDefaults.exclude, "tests/**"], // Exclude end-to-end tests
     passWithNoTests: true,
   },
 });
