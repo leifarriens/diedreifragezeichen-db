@@ -65,7 +65,11 @@ export function LoginForm() {
 
   if (otpSentAt === null) {
     return (
-      <form className="space-y-4" onSubmit={handleEmailSubmit}>
+      <form className="space-y-5" onSubmit={handleEmailSubmit}>
+        <p className="mb-6 text-neutral-400">
+          Beginne deine Anmeldung, indem du deine E-Mail-Adresse eingibst.
+        </p>
+
         <Input
           autoCapitalize="none"
           autoComplete="email"

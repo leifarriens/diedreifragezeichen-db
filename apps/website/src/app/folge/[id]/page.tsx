@@ -17,6 +17,7 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 
 import { SITE_NAME, SITE_URL } from "@/app/constants";
+import { Card } from "@/components/ui/card";
 import { ExternalLink } from "@/components/ui/external-link/external-link";
 import { Wrapper } from "@/components/ui/wrapper";
 import { FolgenBookmarkButtonForFolge } from "@/features/bookmarks/folgen-bookmark-button";
@@ -245,39 +246,41 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
             </div>
           </div>
 
-          {description && (
-            <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
-              <h2 className="mb-4 text-2xl font-medium">Zusammenfassung</h2>
-              <p className="text-justify">{description}</p>
-            </div>
-          )}
+          <div className="space-y-16">
+            {description && (
+              <Card className="text-lg">
+                <h2 className="mb-4 text-2xl font-medium">Zusammenfassung</h2>
+                <p className="text-justify">{description}</p>
+              </Card>
+            )}
 
-          {voice_roles.length > 0 && (
-            <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
-              <h2 className="mb-4 text-2xl font-medium">Sprechrollen</h2>
-              <ul>
-                {voice_roles.map(({ role, speaker }) => (
-                  <li key={`${role}-${speaker}`}>
-                    {role}: {speaker}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+            {voice_roles.length > 0 && (
+              <Card className="text-lg">
+                <h2 className="mb-4 text-2xl font-medium">Sprechrollen</h2>
+                <ul>
+                  {voice_roles.map(({ role, speaker }) => (
+                    <li key={`${role}-${speaker}`}>
+                      {role}: {speaker}
+                    </li>
+                  ))}
+                </ul>
+              </Card>
+            )}
 
-          {(authors.length > 0 || script_authors.length > 0) && (
-            <div className="mb-16 rounded-lg bg-black/30 p-8 text-lg text-neutral-200">
-              <h2 className="mb-4 text-2xl font-medium">Autoren</h2>
-              {authors.length > 0 && (
-                <p className="text-justify">Autoren: {authors.join(", ")}</p>
-              )}
-              {script_authors.length > 0 && (
-                <p className="text-justify">
-                  Drehbuchautoren: {script_authors.join(", ")}
-                </p>
-              )}
-            </div>
-          )}
+            {(authors.length > 0 || script_authors.length > 0) && (
+              <Card className="text-lg">
+                <h2 className="mb-4 text-2xl font-medium">Autoren</h2>
+                {authors.length > 0 && (
+                  <p className="text-justify">Autoren: {authors.join(", ")}</p>
+                )}
+                {script_authors.length > 0 && (
+                  <p className="text-justify">
+                    Drehbuchautoren: {script_authors.join(", ")}
+                  </p>
+                )}
+              </Card>
+            )}
+          </div>
         </Wrapper>
       </main>
 

@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Suspense } from "react";
 
 import { LoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { Wrapper } from "@/components/ui/wrapper";
 import { LoginForm } from "@/features/auth/components/login-form";
 import { getServerSession } from "@/server/auth";
 import { PageBackground } from "@/shell/page-background";
@@ -19,12 +20,12 @@ export default function LoginPage() {
   return (
     <>
       <main className="grid place-items-center">
-        <section className="w-full max-w-lg rounded-3xl border border-ddf-blue-900 bg-ddf-blue-900 px-16 py-14 shadow-2xl backdrop-blur-2xl">
-          <h1 className="mb-10 text-center text-4xl font-bold">Anmelden</h1>
+        <Wrapper className="w-full max-w-xl text-center">
+          <h1 className="mb-12 text-center text-5xl font-bold">Anmelden</h1>
           <Suspense fallback={<LoadingIndicator />}>
             <LoginContent />
           </Suspense>
-        </section>
+        </Wrapper>
       </main>
 
       <PageBackground

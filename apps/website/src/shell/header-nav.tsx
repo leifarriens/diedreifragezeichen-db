@@ -35,7 +35,7 @@ export function HeaderNav() {
       <div
         className={cn(
           styles.header,
-          "pointer-events-auto grid justify-end gap-x-4 gap-y-5 border-b border-transparent px-6 py-6 transition-all duration-300 sm:px-8 lg:rounded-xl lg:px-8 2xl:px-12",
+          "grid justify-end gap-x-4 gap-y-5 border-b border-transparent px-6 py-6 transition-all duration-300 sm:px-8 lg:rounded-xl lg:px-8 2xl:px-12",
           {
             "border-blue-900/30 bg-blue-400/10 shadow-lg backdrop-blur-xl backdrop-brightness-50":
               isScrolled,

@@ -6,6 +6,7 @@
   background: transparent;
   pointer-events: none;
   touch-action: none;
+  outline: none;
 }
 
 .rangeInput::-webkit-slider-runnable-track {
@@ -46,4 +47,14 @@
   box-shadow: 0 0 4px rgb(0 0 0 / 35%);
   cursor: ew-resize;
   pointer-events: auto;
+}
+
+.rangeInput:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid #001727;
+  outline-offset: 2px;
+}
+
+.rangeInput:focus-visible::-moz-range-thumb {
+  outline: 2px solid #001727;
+  outline-offset: 2px;
 }

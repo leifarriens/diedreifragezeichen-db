@@ -25,7 +25,7 @@ export function PageBackground({
     >
       <FolgenBackground
         artworkUrl={artwork}
-        className="h-full w-full"
+        className="h-full w-full object-cover object-top"
         loading="eager"
       />
     </div>

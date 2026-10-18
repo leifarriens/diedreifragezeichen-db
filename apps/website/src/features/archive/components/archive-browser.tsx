@@ -39,7 +39,7 @@ export default function ArchiveBrowser({
         availableOptions={availableOptions}
         currentYear={currentYear}
         onChange={updateState}
-        showAdditionalFilters={false}
+        showAdditionalFilters={true}
         state={state}
       />
 
