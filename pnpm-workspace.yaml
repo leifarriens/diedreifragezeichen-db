@@ -29,10 +29,14 @@ minimumReleaseAgeExclude:
   - "@turbo/*"
   - "@expo/*"
   - "@react-native/*"
-  - babel-preset-expo@58.0.9 || 58.0.11
+  - babel-preset-expo@58.0.9 || 58.0.11 || 58.0.17
   - expo-*
   - expo
   - hermes-compiler@260318099.0.4
-  - react-native@0.88.0-rc.3
+  - react-native@0.88.0-rc.3 || 0.88.0
+  - 2g@1.0.1
+  - react-native-drawer-layout@4.2.12
+  - react-native-screens@4.30.0
+  - react-native-svg@15.16.0
 trustPolicyExclude:
   - "semver@6.3.1" # https://github.com/npm/node-semver/issues/838

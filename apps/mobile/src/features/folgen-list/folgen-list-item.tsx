@@ -1,4 +1,4 @@
-import type { FolgeWithCommunityRating } from "@ddfdb/core";
+import type { FolgenListItemWithUserData } from "@ddfdb/client";
 
 import { formatReleaseDate } from "@ddfdb/core";
 import { formatFolgenSubtitle } from "@ddfdb/core";
@@ -19,11 +19,7 @@ export type FolgeDetailPathname =
 
 export interface FolgenListItemProps {
   detailPathname: FolgeDetailPathname;
-  item: FolgeWithCommunityRating & {
-    hasListened?: boolean;
-    isBookmarked?: boolean;
-    userRating: null | number;
-  };
+  item: FolgenListItemWithUserData;
   viewMode: FolgenListViewMode;
 }
 

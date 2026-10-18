@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import { useArchiveSearchState } from "@/features/archive/context/archive-search-state-provider";
 
 import { useSearchShortcut } from "../hooks/use-search-shortcut";
-import { SEARCH_FIELD_CONTROL_CLASS_NAME, SearchField } from "./search-field";
+import { SearchField, searchInputVariant } from "./search-field";
 
 interface ArchiveSearchProps {
   className?: string | undefined;
@@ -40,7 +40,7 @@ export function ArchiveSearch({ className, platform }: ArchiveSearchProps) {
     >
       <input
         aria-label={l.ARCHIVE.SEARCH_LABEL}
-        className={SEARCH_FIELD_CONTROL_CLASS_NAME}
+        className={searchInputVariant()}
         name="archiv-search"
         onChange={(event) => {
           const term = event.target.value;

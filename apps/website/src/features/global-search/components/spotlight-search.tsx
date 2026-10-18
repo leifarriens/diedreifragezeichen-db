@@ -6,13 +6,13 @@ import { l } from "@ddfdb/core/labels";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
-import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
+import { FolgenCover } from "@/features/folgen/components/folgen-cover";
 
 import type { GlobalSearchResult } from "../contracts";
 
 import { useGlobalSearch } from "../hooks/use-global-search";
 import { useSearchShortcut } from "../hooks/use-search-shortcut";
-import { SEARCH_FIELD_CONTROL_CLASS_NAME, SearchField } from "./search-field";
+import { SearchField, searchInputVariant } from "./search-field";
 
 interface SpotlightSearchProps {
   className?: string | undefined;
@@ -80,7 +80,9 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
         >
           <Dialog.Trigger
             aria-label={l.ARCHIVE.SEARCH_LABEL}
-            className={`${SEARCH_FIELD_CONTROL_CLASS_NAME} cursor-pointer text-nowrap active:border-neutral-200`}
+            className={searchInputVariant({
+              className: "cursor-pointer text-nowrap active:border-neutral-200",
+            })}
           >
             <span className="block overflow-hidden text-left text-gray-500">
               {l.ARCHIVE.SEARCH_PLACEHOLDER}

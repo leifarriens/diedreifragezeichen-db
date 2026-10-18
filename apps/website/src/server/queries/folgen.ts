@@ -1,4 +1,6 @@
 import "server-only";
+import type { FolgeListItem } from "@ddfdb/client";
+
 import {
   enrichFolgenWithCommunityRatings,
   enrichFolgeWithCommunityRating,
@@ -53,6 +55,33 @@ export async function getFolgeByLegacyId(legacyId: string) {
       return folge.streaming.spotify.id === legacyFolge.spotify_id;
     }) ?? null
   );
+}
+
+/** Returns only the public fields needed for episode lists and client search. */
+export async function getFolgeListItems(): Promise<FolgeListItem[]> {
+  "use cache";
+
+  cacheLife(profile);
+  cacheTag("public-folgen");
+
+  const folgen = await getAllFolgenWithCommunityRatings();
+
+  return folgen.map((folge) => ({
+    artwork: folge.artwork,
+    authors: folge.authors,
+    collection: folge.collection,
+    communityRating:
+      folge.communityRating === null
+        ? null
+        : { score: folge.communityRating.score },
+    cover: folge.cover,
+    id: folge.id,
+    number: folge.number,
+    release_date: folge.release_date,
+    script_authors: folge.script_authors,
+    title: folge.title,
+    voice_roles: folge.voice_roles,
+  }));
 }
 
 export async function getFolgeWithCommunityRatingById(

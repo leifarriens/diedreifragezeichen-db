@@ -17,7 +17,7 @@ const iconStyle = { height: 20, width: 20 };
 
 const profileLinks = [
   {
-    href: "/profil",
+    href: "/profile",
     icon: (
       <svg
         fill="currentColor"
@@ -31,12 +31,12 @@ const profileLinks = [
     label: l.MISC.PROFILE,
   },
   {
-    href: "/profil/ratings",
+    href: "/profile/ratings",
     icon: <QSvg style={iconStyle} />,
     label: l.RATINGS.NAME,
   },
   {
-    href: "/profil/listened",
+    href: "/profile/listened",
     icon: (
       <svg
         fill="currentColor"
@@ -50,7 +50,7 @@ const profileLinks = [
     label: l.LISTENED.NAME,
   },
   {
-    href: "/profil/bookmarks",
+    href: "/profile/bookmarks",
     icon: (
       <svg
         fill="currentColor"
@@ -64,7 +64,7 @@ const profileLinks = [
     label: l.BOOKMARKS.NAME,
   },
   {
-    href: "/profil/account",
+    href: "/profile/account",
     icon: <GearIcon style={iconStyle} />,
     label: l.MISC.ACCOUNT,
   },

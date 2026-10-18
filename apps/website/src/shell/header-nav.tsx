@@ -57,7 +57,7 @@ export function HeaderNav() {
             alt="DDFDB"
             className="object-contain transition-transform ease-out hover:scale-110"
             height={360}
-            priority
+            preload
             src="/ddfdb-logo.png"
             width={540}
           />

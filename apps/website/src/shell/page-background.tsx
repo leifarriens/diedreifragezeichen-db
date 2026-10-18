@@ -1,6 +1,6 @@
 import { cn } from "tailwind-variants";
 
-import { FolgenBackground } from "../features/folgen/folgen-images/folgen-artwork";
+import { FolgenBackground } from "../features/folgen/components/folgen-artwork";
 
 interface PageBackgroundProps {
   animate?: boolean;
@@ -9,7 +9,7 @@ interface PageBackgroundProps {
 }
 
 export function PageBackground({
-  animate = true,
+  animate = false,
   artwork,
   className,
 }: PageBackgroundProps) {
@@ -23,7 +23,11 @@ export function PageBackground({
         className,
       )}
     >
-      <FolgenBackground artworkUrl={artwork} className="h-full w-full" />
+      <FolgenBackground
+        artworkUrl={artwork}
+        className="h-full w-full"
+        loading="eager"
+      />
     </div>
   );
 }

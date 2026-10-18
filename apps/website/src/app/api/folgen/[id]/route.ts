@@ -31,13 +31,7 @@ export async function GET(
       const legacyFolge = await getFolgeByMongoId(id);
 
       if (!legacyFolge) {
-        return new NextResponse("Not Found", {
-          headers: {
-            "Cache-Control":
-              PUBLIC_API_CACHE_CONFIG.cdnNotFound["Cache-Control"],
-          },
-          status: 404,
-        });
+        return null;
       }
 
       const folgen = await getAllFolgenWithCommunityRatings();
@@ -61,11 +55,18 @@ export async function GET(
 
   const data = await getCachedFolge(id);
 
-  return new NextResponse(JSON.stringify(data), {
+  if (data === null) {
+    return new NextResponse("Not Found", {
+      headers: {
+        "Cache-Control": PUBLIC_API_CACHE_CONFIG.cdnNotFound["Cache-Control"],
+      },
+      status: 404,
+    });
+  }
+
+  return NextResponse.json(data, {
     headers: {
       "Cache-Control": PUBLIC_API_CACHE_CONFIG.cdn["Cache-Control"],
-      "Content-Type": "application/json",
     },
-    status: 200,
   });
 }

@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 
 import ArchiveBrowser from "@/features/archive/components/archive-browser";
-import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
+import { getFolgeListItems } from "@/server/queries/folgen";
 import { getAllFolgenSearchOptions } from "@/server/queries/search";
+import { PageBackground } from "@/shell/page-background";
 
 import { SITE_NAME } from "./constants";
 
@@ -13,12 +14,20 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const folgen = await getAllFolgenWithCommunityRatings();
-  const searchOptions = await getAllFolgenSearchOptions();
+  const [folgen, searchOptions] = await Promise.all([
+    getFolgeListItems(),
+    getAllFolgenSearchOptions(),
+  ]);
+
+  const backgroundArtwork = folgen[0]?.artwork;
 
   return (
-    <main>
-      <ArchiveBrowser availableOptions={searchOptions} folgen={folgen} />
-    </main>
+    <>
+      <main>
+        <ArchiveBrowser availableOptions={searchOptions} folgen={folgen} />
+      </main>
+
+      {backgroundArtwork && <PageBackground artwork={backgroundArtwork} />}
+    </>
   );
 }

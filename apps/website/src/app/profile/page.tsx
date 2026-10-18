@@ -9,7 +9,7 @@ import { GearIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/avatar";
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { Wrapper } from "@/components/ui/wrapper";
-import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
+import { getFolgeListItems } from "@/server/queries/folgen";
 import {
   getMe,
   getMyBookmarks,
@@ -38,14 +38,14 @@ export default function ProfilePage() {
 }
 
 async function ProfileData() {
-  const user = await getMe();
-
-  const [folgen, userRatings, userListened, userBookmarks] = await Promise.all([
-    getAllFolgenWithCommunityRatings(),
-    getMyRatings(),
-    getMyListenedFolgen(),
-    getMyBookmarks(),
-  ]);
+  const [user, folgen, userRatings, userListened, userBookmarks] =
+    await Promise.all([
+      getMe(),
+      getFolgeListItems(),
+      getMyRatings(),
+      getMyListenedFolgen(),
+      getMyBookmarks(),
+    ]);
 
   const userRatedFolgen = selectCollectionFolgen(folgen, userRatings, 3);
   const userListenedFolgen = selectCollectionFolgen(folgen, userListened, 3);
@@ -62,7 +62,7 @@ async function ProfileData() {
           </div>
         </div>
         <div>
-          <Link href="/profil/account" title="Kontoeinstellungen">
+          <Link href="/profile/account" title="Kontoeinstellungen">
             <GearIcon className="size-6" />
           </Link>
         </div>
@@ -72,7 +72,7 @@ async function ProfileData() {
         count={userRatings.length}
         emptyMessage={l.RATINGS.EMPTY_PLACEHOLDER}
         folgen={userRatedFolgen}
-        href="/profil/ratings"
+        href="/profile/ratings"
         title={l.RATINGS.NAME}
       />
 
@@ -80,7 +80,7 @@ async function ProfileData() {
         count={userListened.length}
         emptyMessage={l.LISTENED.EMPTY_PLACEHOLDER}
         folgen={userListenedFolgen}
-        href="/profil/listened"
+        href="/profile/listened"
         title={l.LISTENED.NAME}
       />
 
@@ -88,7 +88,7 @@ async function ProfileData() {
         count={userBookmarks.length}
         emptyMessage={l.BOOKMARKS.EMPTY_PLACEHOLDER}
         folgen={userBookmarkedFolgen}
-        href="/profil/bookmarks"
+        href="/profile/bookmarks"
         title={l.BOOKMARKS.NAME}
       />
     </div>

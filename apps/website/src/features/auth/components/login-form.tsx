@@ -33,7 +33,7 @@ export function LoginForm() {
           setOtp("");
         },
         onSuccess() {
-          router.replace("/profil");
+          router.replace("/profile");
           router.refresh();
         },
       },
@@ -66,9 +66,6 @@ export function LoginForm() {
   if (otpSentAt === null) {
     return (
       <form className="space-y-4" onSubmit={handleEmailSubmit}>
-        <p className="text-sm text-neutral-300">
-          Gib deine E-Mail-Adresse ein um zu beginnen.
-        </p>
         <Input
           autoCapitalize="none"
           autoComplete="email"
@@ -100,7 +97,7 @@ export function LoginForm() {
           Informationen zur Verarbeitung deiner Daten findest du in der{" "}
           <Link
             className="underline hover:text-neutral-200"
-            href="/legal/datenschutz"
+            href="/legal/privacy"
           >
             Datenschutzerklärung
           </Link>

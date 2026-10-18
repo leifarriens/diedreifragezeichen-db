@@ -13,7 +13,7 @@ export function Footer() {
 
         <Link
           className="transition-colors duration-150 hover:text-neutral-200"
-          href="/legal/datenschutz"
+          href="/legal/privacy"
         >
           Datenschutz
         </Link>

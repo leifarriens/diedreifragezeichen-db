@@ -7,7 +7,7 @@ import { Suspense } from "react";
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { Wrapper } from "@/components/ui/wrapper";
 import { UserCollection } from "@/features/profile/components/user-collection";
-import { getAllFolgenWithCommunityRatings } from "@/server/queries/folgen";
+import { getFolgeListItems } from "@/server/queries/folgen";
 import { getMyListenedFolgen } from "@/server/queries/user-data";
 
 export const metadata: Metadata = {
@@ -28,7 +28,7 @@ export default function ListenedPage() {
 
 async function ListenedContent() {
   const [folgen, userListened] = await Promise.all([
-    getAllFolgenWithCommunityRatings(),
+    getFolgeListItems(),
     getMyListenedFolgen(),
   ]);
 

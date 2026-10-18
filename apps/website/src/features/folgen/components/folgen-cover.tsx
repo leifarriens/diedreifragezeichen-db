@@ -3,7 +3,10 @@
 import { useState } from "react";
 import { cn } from "tailwind-variants";
 
-import { OptimizedImage, type OptimizedImageProps } from "./optimized-image";
+import {
+  OptimizedImage,
+  type OptimizedImageProps,
+} from "../../../components/ui/optimized-image";
 
 export interface FolgenCoverProps extends Omit<
   OptimizedImageProps,

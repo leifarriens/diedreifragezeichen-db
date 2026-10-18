@@ -31,9 +31,10 @@ export async function GET(request: NextRequest) {
 
   const getCachedFolgen = unstable_cache(
     async () => {
-      const legacyFolgen = await getAllFolgen(offset, limit, sort, query);
-
-      const folgen = await getAllFolgenWithCommunityRatings();
+      const [legacyFolgen, folgen] = await Promise.all([
+        getAllFolgen(offset, limit, sort, query),
+        getAllFolgenWithCommunityRatings(),
+      ]);
 
       const folgenIds = new Map(
         folgen.map((folge) => [folge.streaming.spotify?.id, folge]),

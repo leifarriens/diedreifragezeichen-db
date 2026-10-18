@@ -1,13 +1,12 @@
 "use client";
 
-import {
-  type FolgeWithCommunityRating,
-  type UserDataSortOption,
-} from "@ddfdb/core";
+import type { FolgeListItem } from "@ddfdb/client";
+
+import { type UserDataSortOption } from "@ddfdb/core";
 import { useState } from "react";
 
 import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
-import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
+import { FolgenGrid } from "@/features/folgen/components/folgen-grid";
 
 import { useCollectionFolgen } from "../hooks/use-user-collection-folgen";
 import { UserCollectionSearch } from "./user-collection-search";
@@ -20,7 +19,7 @@ export interface CollectionSortChoice {
 
 interface UserCollectionProps<Options extends readonly CollectionSortChoice[]> {
   emptyMessage: string;
-  folgen: FolgeWithCommunityRating[];
+  folgen: FolgeListItem[];
   /** Initial selection only. Remount with a new key to reset the collection. */
   initialSortValue: NoInfer<Options[number]["value"]>;
   searchPlaceholder: string;

@@ -19,7 +19,7 @@ const SIZE_OPTIONS = {
   xl: { height: 64 },
 } as const;
 
-const rating = tv({
+const ratingVariants = tv({
   defaultVariants: {
     size: "sm",
   },
@@ -41,7 +41,7 @@ const rating = tv({
   },
 });
 
-type RatingVariants = VariantProps<typeof rating>;
+type RatingVariants = VariantProps<typeof ratingVariants>;
 
 const COLORS: Record<RatingType, string> = {
   community: "#009ee1",
@@ -61,7 +61,7 @@ export function FolgenRatingDisplay({
   const filledCount = hasRating ? Math.ceil(value) : 0;
   const placeholderOpacity = type === "user" ? 0.3 : 0.7;
 
-  const { container } = rating({
+  const { container } = ratingVariants({
     size,
   });
 

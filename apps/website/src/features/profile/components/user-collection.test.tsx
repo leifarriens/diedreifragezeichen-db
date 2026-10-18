@@ -42,7 +42,7 @@ vi.mock("@/features/folgen/use-hydrate-folgen-with-user-data", () => ({
     }),
 }));
 
-vi.mock("@/features/folgen/folgen-grid/folgen-grid", () => ({
+vi.mock("@/features/folgen/components/folgen-grid", () => ({
   FolgenGrid: ({
     emptyMessage,
     folgen,

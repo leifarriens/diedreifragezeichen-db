@@ -12,7 +12,7 @@ import { ScrollToTop } from "@/shell/scroll-to-top";
 import { TRPCReactProvider } from "@/trpc/client";
 
 import {
-  CURRENT_YEAR,
+  INITIAL_CURRENT_YEAR,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TITLE,
@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     canonical: SITE_URL,
   },
   description: SITE_DESCRIPTION,
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     description: SITE_DESCRIPTION,
     locale: "de_DE",
@@ -39,7 +40,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  initialScale: 1,
   themeColor: "#001727",
+  width: "device-width",
 };
 
 export default function RootLayout({
@@ -47,12 +50,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html className="h-full antialiased" lang="de">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-
       <TRPCReactProvider>
         <ToastProvider>
           <body className="flex min-h-full flex-col">
-            <ArchiveSearchStateProvider currentYear={CURRENT_YEAR}>
+            <ArchiveSearchStateProvider currentYear={INITIAL_CURRENT_YEAR}>
               <HeaderNav />
               <div className="grid flex-1 place-items-center items-stretch justify-items-stretch">
                 {children}

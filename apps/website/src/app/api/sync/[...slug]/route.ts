@@ -15,7 +15,7 @@ async function handler(
   const { CRON_SECRET } = process.env;
   const token = authorization.split(" ")[1];
 
-  if (token !== CRON_SECRET) {
+  if (!CRON_SECRET || token !== CRON_SECRET) {
     return new NextResponse("Invalid App Key provided", { status: 401 });
   }
 

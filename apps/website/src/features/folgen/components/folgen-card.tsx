@@ -1,4 +1,4 @@
-import type { FolgeUserData, FolgeWithCommunityRating } from "@ddfdb/core";
+import type { FolgenListItemWithUserData } from "@ddfdb/client";
 
 import { formatReleaseDate } from "@ddfdb/core";
 import Link from "next/link";
@@ -9,27 +9,22 @@ import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-butto
 import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
 
-import { FolgenBackground } from "../folgen-images/folgen-artwork";
-import {
-  FolgenCover,
-  type FolgenCoverProps,
-} from "../folgen-images/folgen-cover";
-import styles from "./folgen-grid-item.module.css";
-import { useIntersectionObserver } from "./use-intersection-observer";
+import { useIntersectionObserver } from "../hooks/use-intersection-observer";
+import { FolgenBackground } from "./folgen-artwork";
+import styles from "./folgen-card.module.css";
+import { FolgenCover, type FolgenCoverProps } from "./folgen-cover";
 
-export interface FolgenGridItemProps {
+export interface FolgenCardProps {
   coverLoading: FolgenCoverProps["loading"];
-  folge: FolgeUserData & FolgeWithCommunityRating;
+  folge: FolgenListItemWithUserData;
 }
 
-export const FolgenGridItem = memo(function FolgenGridItem({
+export const FolgenCard = memo(function FolgenGridItem({
   coverLoading,
   folge,
-}: FolgenGridItemProps) {
+}: FolgenCardProps) {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useIntersectionObserver(ref, {
-    triggerOnce: false,
-  });
+  const isInView = useIntersectionObserver(ref);
 
   const {
     artwork,
@@ -53,7 +48,7 @@ export const FolgenGridItem = memo(function FolgenGridItem({
     >
       <Link aria-label={title} href={`/folge/${id.toString()}`}>
         <FolgenCover
-          className="aspect-square rounded-none group-hover:rounded-b-none"
+          className="aspect-square rounded-xl group-hover:rounded-b-none"
           coverUrl={cover}
           folgenTitle={title}
           isInView={isInView}

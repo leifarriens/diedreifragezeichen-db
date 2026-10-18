@@ -1,4 +1,4 @@
-import type { FolgeWithCommunityRating } from "@ddfdb/core";
+import type { FolgenListItemWithUserData } from "@ddfdb/client";
 
 import { l } from "@ddfdb/core/labels";
 import { FlashList, type FlashListProps } from "@shopify/flash-list";
@@ -16,7 +16,7 @@ import {
 } from "./folgen-list-item";
 
 export interface FolgenListProps extends Pick<
-  FlashListProps<FolgeWithCommunityRating>,
+  FlashListProps<FolgenListItemWithUserData>,
   "ListHeaderComponent"
 > {
   detailPathname: FolgeDetailPathname;

@@ -46,5 +46,3 @@ coverage
 .cache
 
 .agents/skills
-.pi/
-skills-lock.json

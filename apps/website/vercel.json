@@ -2,11 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "cd ../.. && pnpm --filter @ddfdb/website vercel:build",
   "regions": ["fra1"],
-  "git": {
-    "deploymentEnabled": {
-      "ddfdb-*": false
-    }
-  },
   "crons": [
     {
       "path": "/api/sync/folgen",

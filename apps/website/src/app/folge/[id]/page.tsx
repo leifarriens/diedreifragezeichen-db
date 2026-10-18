@@ -8,6 +8,10 @@ import {
   formatReleaseDate,
   isReleasDateInThePast,
 } from "@ddfdb/core";
+import {
+  buildOptimizationUrl,
+  type ImageSize,
+} from "@ddfdb/image-optimization";
 import { cacheLife } from "next/cache";
 import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
@@ -16,7 +20,7 @@ import { SITE_NAME, SITE_URL } from "@/app/constants";
 import { ExternalLink } from "@/components/ui/external-link/external-link";
 import { Wrapper } from "@/components/ui/wrapper";
 import { FolgenBookmarkButtonForFolge } from "@/features/bookmarks/folgen-bookmark-button";
-import { FolgenCover } from "@/features/folgen/folgen-images/folgen-cover";
+import { FolgenCover } from "@/features/folgen/components/folgen-cover";
 import { FolgenStreamingLinks } from "@/features/folgen/folgen-streaming-links/folge-streaming-links";
 import { FolgenListenedButtonForFolge } from "@/features/listened/folgen-listened-button";
 import { FolgenRatingDisplay } from "@/features/ratings/components/folgen-rating-display";
@@ -82,6 +86,8 @@ export async function generateMetadata({
     ? `Folge ${folge.number.toString()} ${folge.title}`
     : folge.title;
 
+  const ogImageWidth: ImageSize = 640;
+
   return {
     alternates: {
       canonical: `${SITE_URL}/folge/${folge.id.toString()}`,
@@ -89,7 +95,12 @@ export async function generateMetadata({
     description: folge.description,
     openGraph: {
       description: folge.description ?? undefined,
-      images: folge.cover ? buildOgImage(folge.cover) : undefined,
+      images: folge.cover
+        ? {
+            url: buildOptimizationUrl(folge.cover, ogImageWidth),
+            width: ogImageWidth,
+          }
+        : undefined,
       siteName: SITE_NAME,
       title,
       url: `${SITE_URL}/folge/${folge.id.toString()}`,
@@ -102,21 +113,6 @@ export async function generateStaticParams() {
   const folgen = await archivApi.getFolgen();
 
   return folgen.map(({ id }) => ({ id: String(id) }));
-}
-
-function buildOgImage(imageUrl: string) {
-  const width = 512;
-  const searchParams = new URLSearchParams();
-
-  searchParams.set("url", imageUrl);
-  searchParams.set("w", "512");
-  searchParams.set("q", "75");
-
-  return {
-    height: width,
-    url: `/_next/image?${searchParams.toString()}`,
-    width,
-  };
 }
 
 // "use cache" requires an async function
@@ -285,7 +281,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
         </Wrapper>
       </main>
 
-      {artwork && <PageBackground artwork={artwork} />}
+      {artwork && <PageBackground animate artwork={artwork} />}
     </>
   );
 }

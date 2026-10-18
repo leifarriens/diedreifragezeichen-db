@@ -1,9 +1,5 @@
-import { useSearch } from "@ddfdb/client";
-import {
-  type FolgeWithCommunityRating,
-  sortFolgen,
-  type UserDataSortOption,
-} from "@ddfdb/core";
+import { type FolgeListItem, useSearch } from "@ddfdb/client";
+import { sortFolgen, type UserDataSortOption } from "@ddfdb/core";
 import { Stack } from "expo-router";
 import { useMemo, useState } from "react";
 
@@ -24,7 +20,7 @@ interface UserCollectionProps<
 > {
   detailPathname: FolgeDetailPathname;
   emptyMessage: string;
-  folgen: FolgeWithCommunityRating[];
+  folgen: FolgeListItem[];
   initialSortValue: NoInfer<Options[number]["value"]>;
   isInitialLoading: boolean;
   isRefreshing: boolean;

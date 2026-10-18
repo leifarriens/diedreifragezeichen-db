@@ -4,4 +4,4 @@ export const SITE_NAME_SHORT = "DDFDB";
 export const SITE_DESCRIPTION =
   "Entdecke Die drei ???: Hörspiel-Folgen, Inhaltsangaben, Sprecher, Erscheinungstermine, Community-Bewertungen und Streaming-Links im Überblick.";
 export const SITE_URL = "https://www.ddfdb.de";
-export const CURRENT_YEAR = new Date().getFullYear();
+export const INITIAL_CURRENT_YEAR = new Date().getFullYear();

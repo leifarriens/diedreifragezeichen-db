@@ -1,4 +1,7 @@
-import { OptimizedImage, type OptimizedImageProps } from "./optimized-image";
+import {
+  OptimizedImage,
+  type OptimizedImageProps,
+} from "../../../components/ui/optimized-image";
 
 interface FolgenBackgroundProps extends Omit<
   OptimizedImageProps,
@@ -9,12 +12,13 @@ interface FolgenBackgroundProps extends Omit<
 
 export function FolgenBackground({
   artworkUrl,
+  loading = "lazy",
   ...rest
 }: FolgenBackgroundProps) {
   return (
     <OptimizedImage
       alt="" // Decorative image, no alt text needed
-      loading="lazy"
+      loading={loading}
       size={64}
       src={artworkUrl}
       {...rest}

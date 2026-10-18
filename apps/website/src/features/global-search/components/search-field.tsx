@@ -1,11 +1,12 @@
 import type { ReactNode } from "react";
 
-import { cn } from "tailwind-variants";
+import { cn, tv } from "tailwind-variants";
 
 import { Kbd } from "@/components/ui/kbd/kbd";
 
-export const SEARCH_FIELD_CONTROL_CLASS_NAME =
-  "h-full w-full rounded-xl border border-neutral-500 bg-transparent py-2 any-pointer-coarse:pr-4 pr-22 focus:pr-4 pl-10 text-base placeholder-gray-500 transition-colors hover:border-neutral-200 group-hover:border-neutral-200";
+export const searchInputVariant = tv({
+  base: "h-full w-full rounded-xl border border-neutral-400 bg-transparent py-2 pr-22 pl-10 text-base placeholder-gray-400 transition-colors group-hover:border-neutral-100 hover:border-neutral-100 focus:pr-4 any-pointer-coarse:pr-4",
+});
 
 interface SearchFieldProps {
   children: ReactNode;

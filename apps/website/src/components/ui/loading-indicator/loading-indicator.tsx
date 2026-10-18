@@ -13,7 +13,12 @@ export function LoadingIndicator({
 }: LoadingIndicatorProps) {
   if (type === "spinner") {
     return (
-      <div aria-busy="true" aria-label={ariaLabel} role="status">
+      <div
+        aria-busy="true"
+        aria-label={ariaLabel}
+        className="flex w-full justify-center"
+        role="status"
+      >
         <svg className="size-5 animate-spin" viewBox="0 0 100 100">
           <circle
             className="stroke-current opacity-40"
@@ -43,7 +48,7 @@ export function LoadingIndicator({
     <div
       aria-busy="true"
       aria-label={ariaLabel}
-      className="my-4 leading-0.5"
+      className="my-4 flex w-full justify-center leading-0.5"
       role="status"
     >
       {Array.from({ length: 3 }).map((_, index) => (

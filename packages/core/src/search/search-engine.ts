@@ -1,6 +1,7 @@
 import {
   type AnySchema,
   create,
+  type DefaultTokenizer,
   insertMultiple,
   type SchemaTypes,
   search,
@@ -13,7 +14,6 @@ export interface SearchableFolge {
   communityRating: null | {
     score: number;
   };
-  description: null | string;
   id: number;
   number: null | number;
   release_date: null | string;
@@ -75,11 +75,7 @@ type DocumentFrom<S extends AnySchema> = {
 };
 
 type OptionalSearchFields =
-  | "communityRating"
-  | "description"
-  | "number"
-  | "release_date"
-  | "release_year";
+  "communityRating" | "number" | "release_date" | "release_year";
 
 type SearchDocument = DocumentFrom<typeof searchSchema>;
 
@@ -91,22 +87,7 @@ type SearchDocumentInput = Omit<SearchDocument, OptionalSearchFields> &
 export async function createSearchEngine<T extends SearchableFolge>(
   folgen: T[],
 ): Promise<SearchEngine<T>> {
-  const tokenizer = oramaTokenizer.createTokenizer({ language: "german" });
-  const tokenize = tokenizer.tokenize;
-  tokenizer.tokenize = (raw, language, property, withCache) => {
-    const tokens = tokenize(raw, language, property, withCache);
-    if (property !== "title") {
-      return tokens;
-    }
-
-    const suffixes = new Set<string>();
-    for (const token of tokens) {
-      for (let index = 0; index < token.length; index++) {
-        suffixes.add(token.slice(index));
-      }
-    }
-    return [...suffixes];
-  };
+  const tokenizer = createSubstringTokenizer();
 
   const db = create({
     components: { tokenizer },
@@ -129,6 +110,10 @@ export async function createSearchEngine<T extends SearchableFolge>(
   });
 
   await insertMultiple(db, folgen.map(toSearchDocument));
+
+  const folgenById = new Map(
+    folgen.map((folge) => [folge.id.toString(), folge]),
+  );
 
   return {
     search: async ({ filters, limit, sort, term }: SearchCriteria) => {
@@ -178,10 +163,6 @@ export async function createSearchEngine<T extends SearchableFolge>(
         ...params,
       });
 
-      const folgenById = new Map(
-        folgen.map((folge) => [folge.id.toString(), folge]),
-      );
-
       const foundFolgen = results.hits.flatMap((hit) => {
         const folge = folgenById.get(hit.document.id);
         return folge ? [folge] : [];
@@ -193,6 +174,30 @@ export async function createSearchEngine<T extends SearchableFolge>(
       };
     },
   };
+}
+
+/**
+ * A tokenizer that generates all possible substrings of each token in the title property.
+ */
+function createSubstringTokenizer(): DefaultTokenizer {
+  const tokenizer = oramaTokenizer.createTokenizer({ language: "german" });
+  const tokenize = tokenizer.tokenize;
+  tokenizer.tokenize = (raw, language, property, withCache) => {
+    const tokens = tokenize(raw, language, property, withCache);
+    if (property !== "title") {
+      return tokens;
+    }
+
+    const suffixes = new Set<string>();
+    for (const token of tokens) {
+      for (let index = 0; index < token.length; index++) {
+        suffixes.add(token.slice(index));
+      }
+    }
+    return [...suffixes];
+  };
+
+  return tokenizer;
 }
 
 function toSearchDocument(folge: SearchableFolge): SearchDocumentInput {

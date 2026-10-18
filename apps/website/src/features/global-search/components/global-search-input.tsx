@@ -1,11 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
 
 import { getIsMacOS } from "../utils";
-import { ArchiveSearch } from "./archive-search";
-import { SpotlightSearch } from "./spotlight-search";
+
+const ArchiveSearch = dynamic(() =>
+  import("./archive-search").then((module) => module.ArchiveSearch),
+);
+
+const SpotlightSearch = dynamic(() =>
+  import("./spotlight-search").then((module) => module.SpotlightSearch),
+);
 
 interface SearchInputProps {
   className?: string | undefined;

@@ -31,12 +31,12 @@ afterEach(() => {
 });
 
 describe("SearchInput keyboard shortcut", () => {
-  it("opens the search dialog on Strg+K on Windows", () => {
+  it("opens the search dialog on Strg+K on Windows", async () => {
     vi.spyOn(window.navigator, "platform", "get").mockReturnValue("Win32");
     renderSearchInput();
 
     expect(
-      screen.getByRole("button", { name: "Folgen Archiv durchsuchen" }),
+      await screen.findByRole("button", { name: "Folgen Archiv durchsuchen" }),
     ).toBeTruthy();
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
@@ -50,17 +50,17 @@ describe("SearchInput keyboard shortcut", () => {
       window.dispatchEvent(event);
     });
 
-    expect(screen.getByRole("dialog")).toBeTruthy();
-    expect(screen.getByText("Strg")).toBeTruthy();
+    expect(await screen.findByRole("dialog")).toBeTruthy();
+    expect(await screen.findByText("Strg")).toBeTruthy();
     expect(event.defaultPrevented).toBe(true);
   });
 
-  it("opens the search dialog on Command+K on macOS", () => {
+  it("opens the search dialog on Command+K on macOS", async () => {
     vi.spyOn(window.navigator, "platform", "get").mockReturnValue("MacIntel");
     renderSearchInput();
 
     expect(
-      screen.getByRole("button", { name: "Folgen Archiv durchsuchen" }),
+      await screen.findByRole("button", { name: "Folgen Archiv durchsuchen" }),
     ).toBeTruthy();
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
@@ -74,15 +74,15 @@ describe("SearchInput keyboard shortcut", () => {
       window.dispatchEvent(event);
     });
 
-    expect(screen.getByRole("dialog")).toBeTruthy();
-    expect(screen.getByText("⌘")).toBeTruthy();
+    expect(await screen.findByRole("dialog")).toBeTruthy();
+    expect(await screen.findByText("⌘")).toBeTruthy();
     expect(event.defaultPrevented).toBe(true);
   });
 
-  it("hides the shortcut hint when any pointer is coarse", () => {
+  it("hides the shortcut hint when any pointer is coarse", async () => {
     renderSearchInput();
 
-    const shortcutHint = screen.getByText("Strg").parentElement;
+    const shortcutHint = (await screen.findByText("Strg")).parentElement;
 
     expect(shortcutHint?.className).toContain("any-pointer-coarse:hidden");
   });

@@ -1,16 +1,17 @@
 "use client";
 
-import type { FolgeWithCommunityRating } from "@ddfdb/core";
+import type { FolgeListItem } from "@ddfdb/client";
 
 import Link from "next/link";
 
-import { FolgenGridItem } from "@/features/folgen/folgen-grid/folgen-grid-item";
+import { FolgenCard } from "@/features/folgen/components/folgen-card";
+import { FolgenVisibilityProvider } from "@/features/folgen/providers/folgen-visibility-provider";
 import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
 
 interface ProfilePreviewProps {
   count: number;
   emptyMessage: string;
-  folgen: FolgeWithCommunityRating[];
+  folgen: FolgeListItem[];
   href: string;
   title: string;
 }
@@ -39,11 +40,13 @@ export function ProfileFolgenPreview({
       {hydratedFolgen.length === 0 ? (
         <p className="text-neutral-300">{emptyMessage}</p>
       ) : (
-        <div className="grid grid-cols-3 gap-4">
-          {hydratedFolgen.map((folge) => (
-            <FolgenGridItem coverLoading="eager" folge={folge} key={folge.id} />
-          ))}
-        </div>
+        <FolgenVisibilityProvider>
+          <div className="grid grid-cols-3 gap-4">
+            {hydratedFolgen.map((folge) => (
+              <FolgenCard coverLoading="eager" folge={folge} key={folge.id} />
+            ))}
+          </div>
+        </FolgenVisibilityProvider>
       )}
     </section>
   );

@@ -64,7 +64,7 @@ Einträge bleiben gespeichert, bis Sie sie über die jeweiligen Funktionen entfe
 
 Konten, Sitzungen, Verifikationsdatensätze und persönliche Folgendaten werden bei **Neon**, einem Datenbankdienst der Databricks-Gruppe, gespeichert. Der Zugriff erfolgt über den DDFDB-Server, nicht unmittelbar aus Ihrem Browser. Neon verarbeitet die Daten zur Bereitstellung und Absicherung der Datenbank; Zwecke und Rechtsgrundlagen entsprechen den in den Abschnitten 3 und 4 beschriebenen Funktionen. Weitere Informationen enthalten die [Neon-Vertragsbedingungen](https://neon.com/platform-terms) und die [Datenschutzerklärung](https://neon.com/privacy-policy).
 
-Kontodaten bleiben für die Dauer des Kontos gespeichert. Eine automatische Löschung wegen Inaktivität ist nicht eingerichtet. Unter [Kontoeinstellungen](/profil/account) können Sie Ihr Konto über „Konto löschen“ selbst löschen. Dafür ist eine kürzlich erfolgte Anmeldung erforderlich; melden Sie sich bei Bedarf ab und erneut an. Alternativ können Sie die Löschung per E-Mail anfragen.
+Kontodaten bleiben für die Dauer des Kontos gespeichert. Eine automatische Löschung wegen Inaktivität ist nicht eingerichtet. Unter [Kontoeinstellungen](/profile/account) können Sie Ihr Konto über „Konto löschen“ selbst löschen. Dafür ist eine kürzlich erfolgte Anmeldung erforderlich; melden Sie sich bei Bedarf ab und erneut an. Alternativ können Sie die Löschung per E-Mail anfragen.
 
 Bei erfolgreicher Kontolöschung werden das Konto, seine Sitzungen, Merklisten, Gehört-Markierungen und Bewertungen aus der aktiven Datenbank entfernt. Verifikationsdatensätze und bereits versandte E-Mails sind davon unabhängig; für sie gelten die in Abschnitt 3 genannten Abläufe und Fristen.
 

@@ -37,6 +37,7 @@ const ArchiveSearchStateContext =
   createContext<ArchiveSearchStateContextValue | null>(null);
 
 interface ArchiveSearchStateContextValue {
+  currentYear: number;
   resetState: () => void;
   searchCriteria: ReturnType<typeof useSearchState>["searchCriteria"];
   state: SearchState;
@@ -45,11 +46,17 @@ interface ArchiveSearchStateContextValue {
 
 export function ArchiveSearchStateProvider({
   children,
-  currentYear,
+  currentYear: initialYear,
 }: {
   children: ReactNode;
   currentYear: number;
 }) {
+  // Keep the prerendered year for hydration, then refresh from the browser clock.
+  const currentYear = useSyncExternalStore(
+    subscribeToCurrentYear,
+    getCurrentYearSnapshot,
+    () => initialYear,
+  );
   const pathname = usePathname();
   const isArchivePage = pathname === ARCHIVE_ROUTE;
   const {
@@ -155,12 +162,13 @@ export function ArchiveSearchStateProvider({
 
   const value = useMemo(
     () => ({
+      currentYear,
       resetState: resetArchiveState,
       searchCriteria,
       state,
       updateState,
     }),
-    [resetArchiveState, searchCriteria, state, updateState],
+    [currentYear, resetArchiveState, searchCriteria, state, updateState],
   );
 
   return (
@@ -196,6 +204,10 @@ function filtersWithStateFields(
   };
 }
 
+function getCurrentYearSnapshot() {
+  return new Date().getFullYear();
+}
+
 function getServerSearchSnapshot() {
   return "";
 }
@@ -213,6 +225,16 @@ function stateFromFilters(filters: ArchiveFilters): SearchState {
     speakers: [],
     term: filters.searchTerm,
     yearRange: filters.yearRange,
+  };
+}
+
+function subscribeToCurrentYear(onChange: () => void) {
+  const interval = window.setInterval(onChange, 60 * 60 * 1000);
+  window.addEventListener("focus", onChange);
+
+  return () => {
+    window.clearInterval(interval);
+    window.removeEventListener("focus", onChange);
   };
 }
 

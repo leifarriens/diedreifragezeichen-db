@@ -94,7 +94,7 @@ describe("LoginForm", () => {
     const privacyLink = screen.getByRole("link", {
       name: "Datenschutzerklärung",
     });
-    expect(privacyLink.getAttribute("href")).toBe("/legal/datenschutz");
+    expect(privacyLink.getAttribute("href")).toBe("/legal/privacy");
     expect(privacyLink.closest("p")?.textContent).toBe(
       "Informationen zur Verarbeitung deiner Daten findest du in der Datenschutzerklärung.",
     );
@@ -217,7 +217,7 @@ describe("LoginForm", () => {
         name: "listener",
         otp: "123456",
       });
-      expect(replace).toHaveBeenCalledExactlyOnceWith("/profil");
+      expect(replace).toHaveBeenCalledExactlyOnceWith("/profile");
       expect(refresh).toHaveBeenCalledOnce();
     });
   });

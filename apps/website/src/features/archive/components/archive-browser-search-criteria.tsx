@@ -3,7 +3,6 @@ import type { SearchSort, SearchState } from "@ddfdb/client";
 
 import { l } from "@ddfdb/core/labels";
 
-import { CURRENT_YEAR } from "@/app/constants";
 import { Combobox, type ComboboxItem } from "@/components/ui/combobox/combobox";
 import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
 import { Switch } from "@/components/ui/switch";
@@ -14,6 +13,7 @@ import styles from "./archive-browser.module.css";
 
 interface ArchiveBrowserSearchCriteriaProps {
   availableOptions: SearchOptions;
+  currentYear: number;
   onChange: (updates: Partial<SearchState>) => void;
   showAdditionalFilters?: boolean;
   state: SearchState;
@@ -21,6 +21,7 @@ interface ArchiveBrowserSearchCriteriaProps {
 
 export function ArchiveBrowserSearchCriteria({
   availableOptions,
+  currentYear,
   onChange,
   showAdditionalFilters,
   state,
@@ -48,7 +49,7 @@ export function ArchiveBrowserSearchCriteria({
 
         <MultiRangeInput
           debounceMs={200}
-          max={CURRENT_YEAR}
+          max={currentYear}
           maxAriaLabel={l.ARCHIVE.SORTING.YEAR_MAX_LABEL}
           min={FIRST_RELEASE_YEAR}
           minAriaLabel={l.ARCHIVE.SORTING.YEAR_MIN_LABEL}

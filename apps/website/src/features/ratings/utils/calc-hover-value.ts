@@ -1,8 +1,10 @@
 import type { RefObject } from "react";
 
-const MIN_VALUE = 0.5;
-const MAX_VALUE = 3;
-const STEP = 0.5;
+import {
+  FOLGEN_RATING_MAX,
+  FOLGEN_RATING_MIN,
+  FOLGEN_RATING_STEP,
+} from "@ddfdb/core";
 
 export function calcHoverValue(
   nativeEvent: MouseEvent,
@@ -25,11 +27,12 @@ export function calcHoverValue(
     return;
   }
 
-  const valueCount = (MAX_VALUE - MIN_VALUE) / STEP + 1;
+  const valueCount =
+    (FOLGEN_RATING_MAX - FOLGEN_RATING_MIN) / FOLGEN_RATING_STEP + 1;
   const valueIndex = Math.min(
     valueCount - 1,
     Math.floor((offset / rect.width) * valueCount),
   );
 
-  return MIN_VALUE + valueIndex * STEP;
+  return FOLGEN_RATING_MIN + valueIndex * FOLGEN_RATING_STEP;
 }

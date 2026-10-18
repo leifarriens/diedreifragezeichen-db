@@ -1,12 +1,11 @@
 "use client";
 
 import type { SearchOptions } from "@ddfdb/archiv/contracts";
-import type { FolgeWithCommunityRating } from "@ddfdb/core";
 
-import { useSearch } from "@ddfdb/client";
+import { type FolgeListItem, useSearch } from "@ddfdb/client";
 
 import { Wrapper } from "@/components/ui/wrapper";
-import { FolgenGrid } from "@/features/folgen/folgen-grid/folgen-grid";
+import { FolgenGrid } from "@/features/folgen/components/folgen-grid";
 import { useHydrateFolgenWithUserData } from "@/features/folgen/use-hydrate-folgen-with-user-data";
 
 import { useArchiveSearchState } from "../context/archive-search-state-provider";
@@ -14,14 +13,15 @@ import { ArchiveBrowserSearchCriteria } from "./archive-browser-search-criteria"
 
 interface ArchiveBrowserProps {
   availableOptions: SearchOptions;
-  folgen: FolgeWithCommunityRating[];
+  folgen: FolgeListItem[];
 }
 
 export default function ArchiveBrowser({
   availableOptions,
   folgen,
 }: ArchiveBrowserProps) {
-  const { searchCriteria, state, updateState } = useArchiveSearchState();
+  const { currentYear, searchCriteria, state, updateState } =
+    useArchiveSearchState();
 
   const searchQuery = useSearch(folgen, searchCriteria);
 
@@ -37,6 +37,7 @@ export default function ArchiveBrowser({
     <Wrapper>
       <ArchiveBrowserSearchCriteria
         availableOptions={availableOptions}
+        currentYear={currentYear}
         onChange={updateState}
         showAdditionalFilters={false}
         state={state}
