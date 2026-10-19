@@ -1,14 +1,18 @@
+import { cn } from "tailwind-variants";
+
 import { QSvg } from "@/components/icons/q";
 
 import styles from "./loading-indicator.module.css";
 
 interface LoadingIndicatorProps {
   ariaLabel?: string;
+  className?: string;
   type?: "???" | "spinner";
 }
 
 export function LoadingIndicator({
   ariaLabel,
+  className,
   type = "???",
 }: LoadingIndicatorProps) {
   if (type === "spinner") {
@@ -16,7 +20,7 @@ export function LoadingIndicator({
       <div
         aria-busy="true"
         aria-label={ariaLabel}
-        className="flex w-full justify-center"
+        className={cn("flex w-full justify-center", className)}
         role="status"
       >
         <svg className="size-5 animate-spin" viewBox="0 0 100 100">

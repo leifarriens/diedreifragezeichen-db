@@ -37,7 +37,7 @@ const comboboxVariants = tv({
   slots: {
     action:
       "flex w-6 items-center justify-center rounded-md border-0 bg-transparent p-0 text-neutral-300 hover:bg-ddf-blue-700 hover:text-white",
-    base: "min-h-8 rounded-lg border border-neutral-400 bg-transparent transition-colors focus-within:[outline:auto] hover:border-neutral-100",
+    base: "min-h-10 rounded-lg border border-neutral-400 bg-transparent transition-colors focus-within:[outline:auto] hover:border-neutral-100",
     container:
       "flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-100",
     input:
@@ -134,7 +134,7 @@ function MultiSelectCombobox<Value>({
                   <ComboboxPrimitive.Chip
                     aria-description="Drücke die Rücktaste oder Entf, um den Eintrag zu entfernen."
                     aria-label={item.label}
-                    className="flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden rounded-md bg-ddf-blue-700 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-ddf-blue-100 data-highlighted:bg-ddf-blue-600 data-highlighted:text-white"
+                    className="flex min-h-[calc(1.5rem-2px)] cursor-default items-center gap-1 overflow-hidden rounded-md bg-neutral-100 py-0 pr-[0.2rem] pl-[0.4rem] text-sm leading-none text-ddf-blue-800 data-highlighted:bg-ddf-blue-600 data-highlighted:text-white"
                     key={getItemKey(item)}
                   >
                     {item.label}

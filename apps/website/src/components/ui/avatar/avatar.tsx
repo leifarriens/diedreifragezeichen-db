@@ -2,16 +2,19 @@ import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { tv, type VariantProps } from "tailwind-variants";
 
 const avatarVariants = tv({
+  defaultVariants: {
+    size: "default",
+  },
   slots: {
     container:
-      "flex size-10 items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/20 align-middle text-sm leading-none font-normal text-white backdrop-blur-2xl select-none",
+      "flex items-center justify-center overflow-hidden rounded-full border border-white/40 bg-white/20 align-middle leading-none font-normal text-white backdrop-blur-2xl select-none",
     fallback:
       "flex size-full items-center justify-center text-base font-medium",
   },
   variants: {
     size: {
       default: {
-        container: "size-10",
+        container: "size-9 text-xs",
         fallback: "text-base font-medium",
       },
       large: {

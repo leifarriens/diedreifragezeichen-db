@@ -6,6 +6,8 @@ import { l } from "@ddfdb/core/labels";
 import Link from "next/link";
 import { useRef, useState } from "react";
 
+import { LoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
+import { backdropVariants } from "@/components/ui/shared/backdrop";
 import { FolgenCover } from "@/features/folgen/components/folgen-cover";
 
 import type { GlobalSearchResult } from "../contracts";
@@ -43,7 +45,13 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
 
   function renderStatus(): null | React.ReactNode {
     if (searchQuery.isFetching) {
-      return <div className="sr-only">Suche läuft …</div>;
+      return (
+        <LoadingIndicator
+          ariaLabel="Suche läuft"
+          className="my-4"
+          type="spinner"
+        />
+      );
     }
 
     if (searchTerm === "" || searchQuery.data === undefined) {
@@ -69,6 +77,11 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
 
   const status = renderStatus();
 
+  const backdropClassName = backdropVariants({
+    className:
+      "data-ending-style:opacity-0 data-starting-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute",
+  });
+
   return (
     <div className={className}>
       <Dialog.Root onOpenChange={setIsOpen} open={isOpen}>
@@ -90,7 +103,7 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
           </Dialog.Trigger>
         </SearchField>
         <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 min-h-dvh bg-black opacity-50 transition-opacity duration-150 data-ending-style:opacity-0 data-starting-style:opacity-0 supports-[-webkit-touch-callout:none]:absolute" />
+          <Dialog.Backdrop className={backdropClassName} />
           <Dialog.Popup className="fixed top-1/3 left-1/2 -mt-8 flex w-xl max-w-[calc(100vw-3rem)] -translate-x-1/2 flex-col overflow-hidden rounded-xl border border-neutral-700 bg-[#02090E] shadow-[0.25rem_0.25rem_0] shadow-black/12 transition-[scale,opacity] duration-100 ease-out data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:scale-[0.98] data-starting-style:opacity-0">
             <div className="relative">
               <Autocomplete.Root

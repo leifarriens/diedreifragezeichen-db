@@ -4,8 +4,8 @@
   width: calc(100vw - 2rem);
   margin: 0 auto;
   bottom: 1rem;
-  right: 1rem;
-  left: auto;
+  right: 0;
+  left: 0;
   top: auto;
 
   @media (min-width: 500px) {

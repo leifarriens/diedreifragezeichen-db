@@ -41,35 +41,37 @@ export function ArchiveBrowser({
 
   return (
     <Wrapper>
-      <ArchiveBrowserSearchCriteria
-        availableOptions={availableOptions}
-        currentYear={currentYear}
-        onChange={updateState}
-        state={state}
-      />
+      <section aria-label="Archivfilter" className="mb-8 space-y-8">
+        <ArchiveBrowserSearchCriteria
+          availableOptions={availableOptions}
+          currentYear={currentYear}
+          onChange={updateState}
+          state={state}
+        />
 
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <p aria-live="polite" className="text-sm text-slate-300">
-          <span className="font-semibold text-white">
-            {displayedFolgen.length}
-          </span>{" "}
-          {displayedFolgen.length === 1 ? "Folge" : "Folgen"}
-          {includeSpecials && (
-            <span className="text-slate-400"> inklusive Specials</span>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p aria-live="polite" className="text-sm text-slate-300">
+            <span className="font-semibold text-white">
+              {displayedFolgen.length}
+            </span>{" "}
+            {displayedFolgen.length === 1 ? "Folge" : "Folgen"}
+            {includeSpecials && (
+              <span className="text-slate-400"> inklusive Specials</span>
+            )}
+          </p>
+          {!isEmptySearchState && (
+            <button
+              className="cursor-pointer text-sm font-medium text-sky-300 transition hover:text-sky-200"
+              onClick={() => {
+                resetState();
+              }}
+              type="button"
+            >
+              Suche zurücksetzen
+            </button>
           )}
-        </p>
-        {!isEmptySearchState && (
-          <button
-            className="cursor-pointer text-sm font-medium text-sky-300 transition hover:text-sky-200"
-            onClick={() => {
-              resetState();
-            }}
-            type="button"
-          >
-            Suche zurücksetzen
-          </button>
-        )}
-      </div>
+        </div>
+      </section>
 
       <FolgenGrid
         emptyMessage={{

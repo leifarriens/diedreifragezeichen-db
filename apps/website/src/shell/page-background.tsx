@@ -16,7 +16,7 @@ export function PageBackground({
   return (
     <div
       className={cn(
-        "fixed inset-0 -z-10 blur-[80px] brightness-40 duration-1000",
+        "fixed inset-0 -z-10 blur-[80px] brightness-30 duration-1000",
         {
           "sm:animate-breathe sm:motion-reduce:animate-none": animate,
         },

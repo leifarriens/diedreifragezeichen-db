@@ -2,11 +2,6 @@
   height: 100%;
   display: inline-block;
   transform-origin: center;
-  color: #e4e4e4;
-  background-image: url(/white_small.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
   width: 18px;
   height: 32px;
   animation: scaleAnimation 1.2s infinite ease-in-out;

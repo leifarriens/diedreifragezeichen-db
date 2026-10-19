@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button/button";
+import { backdropVariants } from "@/components/ui/shared/backdrop";
 import { useDeleteAccount } from "@/features/auth/hooks/use-auth";
 
 export function DeleteAccountButton() {
@@ -39,7 +40,7 @@ export function DeleteAccountButton() {
         Konto löschen
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/50" />
+        <Dialog.Backdrop className={backdropVariants()} />
         <Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-xl border bg-ddf-blue-950 p-6 text-neutral-100 shadow-xl">
           <div className="space-y-2">
             <Dialog.Title className="text-lg font-semibold">

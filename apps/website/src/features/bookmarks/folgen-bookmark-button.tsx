@@ -56,6 +56,7 @@ export function FolgenBookmarkButton({
                   </Link>
                 </span>
               ),
+              type: "warning",
             });
           },
         },

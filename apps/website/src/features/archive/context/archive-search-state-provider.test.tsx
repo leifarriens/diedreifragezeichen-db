@@ -73,6 +73,27 @@ describe("ArchiveSearchStateProvider", () => {
     expect(params.getAll("scriptAuthors")).toEqual(["André Minninger"]);
   });
 
+  it("restores the year range slider value from the URL", async () => {
+    window.history.replaceState(null, "", "/?yearTo=2016");
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(
+      function (this: HTMLElement) {
+        return this.hasAttribute("data-index")
+          ? new DOMRect(0, 0, 24, 24)
+          : new DOMRect(0, 0, 300, 44);
+      },
+    );
+
+    render(
+      <ArchiveSearchStateProvider currentYear={2025}>
+        <ArchiveCriteriaSwitch />
+      </ArchiveSearchStateProvider>,
+    );
+
+    expect(
+      await screen.findByRole("slider", { name: "Spätestes Erscheinungsjahr" }),
+    ).toHaveProperty("value", "2016");
+  });
+
   it("refreshes the archive year at runtime", () => {
     vi.useFakeTimers();
     vi.setSystemTime(new Date("2026-06-15T12:00:00Z"));

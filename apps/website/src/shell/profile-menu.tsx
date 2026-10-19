@@ -87,7 +87,7 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
     <Popover.Root>
       <Popover.Trigger
         aria-label="Profilmenü öffnen"
-        className="inline-flex shrink-0 items-center justify-center rounded-full border-0 bg-transparent p-0"
+        className="inline-flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0"
       >
         <Avatar name={name} />
       </Popover.Trigger>

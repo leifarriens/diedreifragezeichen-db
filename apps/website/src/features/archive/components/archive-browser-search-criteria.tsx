@@ -4,12 +4,11 @@ import type { SearchSort, SearchState } from "@ddfdb/client";
 import { l } from "@ddfdb/core/labels";
 
 import { Combobox, type ComboboxItem } from "@/components/ui/combobox/combobox";
-import { MultiRangeInput } from "@/components/ui/multi-range-input/multi-range-input";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup } from "@/components/ui/toggle-group/toggle-group";
 
-import { FIRST_RELEASE_YEAR } from "../archive-filters";
 import styles from "./archive-browser.module.css";
+import { YearRangeInput } from "./year-range-input";
 
 interface ArchiveBrowserSearchCriteriaProps {
   availableOptions: SearchOptions;
@@ -33,7 +32,7 @@ export function ArchiveBrowserSearchCriteria({
   const includeSpecials = state.collections.length === 0;
 
   return (
-    <section aria-label="Archivfilter" className="mb-6 space-y-6">
+    <>
       <div className="grid gap-5 lg:grid-cols-[auto_minmax(260px,1fr)_auto] lg:items-center">
         <ToggleGroup
           aria-label={l.ARCHIVE.SORTING.LABEL}
@@ -45,16 +44,12 @@ export function ArchiveBrowserSearchCriteria({
           value={state.sort}
         />
 
-        <MultiRangeInput
-          debounceMs={200}
-          max={currentYear}
-          maxAriaLabel={l.ARCHIVE.SORTING.YEAR_MAX_LABEL}
-          min={FIRST_RELEASE_YEAR}
-          minAriaLabel={l.ARCHIVE.SORTING.YEAR_MIN_LABEL}
+        <YearRangeInput
+          currentYear={currentYear}
           onChange={(yearRange) => {
             onChange({ yearRange });
           }}
-          value={state.yearRange}
+          yearRange={state.yearRange}
         />
 
         <Switch
@@ -129,7 +124,7 @@ export function ArchiveBrowserSearchCriteria({
             )}
           /> */}
       </div>
-    </section>
+    </>
   );
 }
 
