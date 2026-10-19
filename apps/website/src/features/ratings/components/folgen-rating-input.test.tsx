@@ -36,7 +36,9 @@ describe("FolgenRatingInput", () => {
     const { rerender } = render(
       <FolgenRatingInput onValueChange={onValueChange} value={null} />,
     );
-    expect(screen.getByRole("slider")).toHaveProperty("value", "0");
+    expect(
+      screen.getByRole("slider", { name: "Deine Bewertung für Testfolge" }),
+    ).toHaveProperty("value", "0");
 
     rerender(<FolgenRatingInput onValueChange={onValueChange} value={2.5} />);
     expect(screen.getByRole("slider")).toHaveProperty("value", "2.5");
@@ -55,11 +57,14 @@ describe("FolgenRatingInput", () => {
       <FolgenRatingInput onValueChange={onValueChange} value={1} />,
     );
     const overlay = getPreviewOverlay();
-    vi.spyOn(overlay, "getBoundingClientRect").mockReturnValue(
-      new DOMRect(0, 0, 300, 64),
-    );
+    const getBoundingClientRect = vi
+      .spyOn(overlay, "getBoundingClientRect")
+      .mockReturnValue(new DOMRect(0, 0, 300, 64));
 
+    fireEvent.mouseEnter(overlay);
     fireEvent.mouseMove(overlay, { clientX: 175 });
+    fireEvent.mouseMove(overlay, { clientX: 180 });
+    expect(getBoundingClientRect).toHaveBeenCalledOnce();
     expect(screen.getByRole("slider")).toHaveProperty("value", "2");
 
     rerender(<FolgenRatingInput onValueChange={onValueChange} value={2.5} />);

@@ -68,6 +68,7 @@ export function FolgenRatingDisplay({
       <div
         aria-label={getAriaLabel(type, folgenTitle, value)}
         className={container()}
+        role="img"
       >
         <div className={cn("flex h-full items-center", iconContainer())}>
           {Array.from({ length: MAX_RATING }).map((_, index) => {

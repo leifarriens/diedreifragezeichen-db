@@ -28,6 +28,7 @@ export const FolgenCard = memo(function FolgenGridItem({
 
   const {
     artwork,
+    collection,
     communityRating,
     cover,
     hasListened,
@@ -38,6 +39,9 @@ export const FolgenCard = memo(function FolgenGridItem({
     userRating,
   } = folge;
 
+  const ariaLabel =
+    collection === "specials" ? `Special: ${title}` : `Folge: ${title}`;
+
   return (
     <article
       className={cn(
@@ -46,7 +50,7 @@ export const FolgenCard = memo(function FolgenGridItem({
       )}
       ref={ref}
     >
-      <Link aria-label={title} href={`/folge/${id.toString()}`}>
+      <Link aria-label={ariaLabel} href={`/folge/${id.toString()}`}>
         <FolgenCover
           className="aspect-square rounded-xl group-hover:rounded-b-none"
           coverUrl={cover}
@@ -116,7 +120,7 @@ function Background({ imageUrl }: { imageUrl: null | string }) {
         >
           <FolgenBackground
             artworkUrl={imageUrl}
-            className="h-full w-full"
+            className="aspect-square w-full"
             fetchPriority="low"
             loading="lazy"
           />

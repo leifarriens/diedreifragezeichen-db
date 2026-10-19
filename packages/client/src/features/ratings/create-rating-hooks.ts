@@ -56,8 +56,7 @@ export function createRatingHooks({
 
     const ratingMutation = useMutation(
       trpc.ratings.upsertMyRating.mutationOptions({
-        async onError(error) {
-          console.error("Failed to update rating:", error);
+        async onError() {
           await invalidate();
         },
         onMutate({ folgeId, score }) {

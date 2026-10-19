@@ -62,8 +62,6 @@ test.describe("GET /api/folgen/{legacyId}", () => {
       "feuermond",
     );
 
-    console.log("folgeId", legacyId);
-
     const response = await request.get(`/api/folgen/${legacyId}`);
 
     expect(response.status()).toBe(200);

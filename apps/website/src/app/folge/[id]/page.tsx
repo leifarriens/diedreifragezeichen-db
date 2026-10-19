@@ -154,6 +154,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
               coverUrl={cover}
               folgenTitle={title}
               loading="eager"
+              preload
             />
 
             <div>

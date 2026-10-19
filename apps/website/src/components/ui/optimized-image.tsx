@@ -23,6 +23,7 @@ export function OptimizedImage({
   ...rest
 }: OptimizedImageProps) {
   const [hasOpimizationFailed, setHasOpimizationFailed] = useState(false);
+
   function handleError(e: SyntheticEvent<HTMLImageElement>) {
     setHasOpimizationFailed(true);
     onError?.(e);

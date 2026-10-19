@@ -88,9 +88,6 @@ export function createAuthHooks<
 
     const signOutMutation = useMutation({
       mutationFn: () => authClient.signOut(),
-      onError(error) {
-        console.error(error);
-      },
       onSettled() {
         queryClient.clear();
       },

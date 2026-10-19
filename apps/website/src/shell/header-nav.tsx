@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSyncExternalStore } from "react";
@@ -53,11 +52,11 @@ export function HeaderNav() {
             }
           }}
         >
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             alt="DDFDB"
             className="h-10 object-contain transition-transform ease-out hover:scale-110"
             height={48}
-            preload
             src="/ddfdb_logo.png"
             width={60}
           />
