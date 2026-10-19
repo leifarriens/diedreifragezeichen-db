@@ -3,7 +3,7 @@ import type { CommunityRating } from "@ddfdb/user-api";
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useFolgen } from "./use-folgen";
+import { useFolgenWithCommunityRating } from "./use-folgen-with-community-rating";
 
 const state = vi.hoisted(() => ({
   archive: {
@@ -68,7 +68,7 @@ describe("useFolgen collection status", () => {
         fetchStatus: "paused",
         isRefetching: true,
       });
-      expect(useFolgen()).toMatchObject({
+      expect(useFolgenWithCommunityRating()).toMatchObject({
         error,
         isPaused: true,
         isRefreshing: true,
@@ -77,7 +77,7 @@ describe("useFolgen collection status", () => {
   );
 
   it("refreshes archive metadata and community ratings together", async () => {
-    await useFolgen().refetch();
+    await useFolgenWithCommunityRating().refetch();
     expect(state.archive.refetch).toHaveBeenCalledOnce();
     expect(state.ratings.refetch).toHaveBeenCalledOnce();
   });

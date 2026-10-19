@@ -1,5 +1,6 @@
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
 import * as React from "react";
+import { tv } from "tailwind-variants";
 
 import { CaretDownIcon, CheckIcon, XIcon } from "../../icons";
 
@@ -31,6 +32,17 @@ interface SingleSelectComboboxProps<Value> extends ComboboxBaseProps<Value> {
   value?: ComboboxItem<Value> | null;
 }
 
+const comboboxVariants = tv({
+  slots: {
+    action:
+      "flex w-6 items-center justify-center rounded-md border-0 bg-transparent p-0 text-neutral-300 hover:bg-ddf-blue-700 hover:text-white",
+    base: "min-h-8 rounded-lg border border-neutral-400 bg-transparent transition-colors hover:border-neutral-100 focus-within:[outline:auto]",
+    container: "flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-100",
+    input:
+      "border-0 bg-transparent text-sm font-normal text-neutral-100 outline-none placeholder:text-neutral-400 any-pointer-coarse:text-base",
+  },
+});
+
 export function Combobox<Value>(
   props: ComboboxProps<Value>,
 ): React.JSX.Element {
@@ -42,9 +54,9 @@ export function Combobox<Value>(
 }
 
 function ComboboxOptions<Value>({
-  items,
+  renderItem,
 }: {
-  items: readonly ComboboxItem<Value>[];
+  renderItem: (item: ComboboxItem<Value>) => React.ReactNode;
 }): React.JSX.Element {
   return (
     <ComboboxPrimitive.Portal>
@@ -56,18 +68,7 @@ function ComboboxOptions<Value>({
             </div>
           </ComboboxPrimitive.Empty>
           <ComboboxPrimitive.List className="max-h-[min(22.5rem,var(--available-height))] scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0">
-            {items.map((item) => (
-              <ComboboxPrimitive.Item
-                className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 rounded-lg p-2 text-sm leading-4 select-none data-highlighted:bg-ddf-blue-600 data-highlighted:text-white data-selected:bg-ddf-blue-700 data-selected:text-ddf-blue-100 data-selected:data-highlighted:bg-ddf-blue-600 data-selected:data-highlighted:text-white"
-                key={getItemKey(item)}
-                value={item}
-              >
-                <ComboboxPrimitive.ItemIndicator className="col-start-1 text-ddf-blue-300">
-                  <CheckIcon />
-                </ComboboxPrimitive.ItemIndicator>
-                <span className="col-start-2">{item.label}</span>
-              </ComboboxPrimitive.Item>
-            ))}
+            {renderItem}
           </ComboboxPrimitive.List>
         </ComboboxPrimitive.Popup>
       </ComboboxPrimitive.Positioner>
@@ -97,6 +98,8 @@ function MultiSelectCombobox<Value>({
 }: MultiSelectComboboxProps<Value>): React.JSX.Element {
   const id = React.useId();
 
+  const { action, base, container, input } = comboboxVariants();
+
   return (
     <ComboboxPrimitive.Root<ComboboxItem<Value>, true, ComboboxItem<Value>>
       defaultValue={defaultValue}
@@ -106,9 +109,14 @@ function MultiSelectCombobox<Value>({
       onValueChange={onValueChange}
       value={value}
     >
-      <div className="flex max-w-md flex-col gap-1 text-sm leading-5 font-bold text-neutral-100">
+      <div className={container({ className: "max-w-md" })}>
         <label htmlFor={id}>{label}</label>
-        <ComboboxPrimitive.InputGroup className="flex min-h-8 w-full cursor-text flex-wrap items-center gap-0.5 rounded-lg border border-neutral-400 bg-transparent px-2 py-1 focus-within:[outline:auto]">
+        <ComboboxPrimitive.InputGroup
+          className={base({
+            className:
+              "flex w-full cursor-text flex-wrap items-center gap-0.5 px-2",
+          })}
+        >
           <ComboboxPrimitive.Value>
             {(selectedItems: ComboboxItem<Value>[]) => (
               <ComboboxPrimitive.Chips
@@ -137,7 +145,9 @@ function MultiSelectCombobox<Value>({
                       ? `${selectedItems.length.toString()} ausgewählt. Drücke am Anfang des Eingabefelds die Pfeil-nach-links-Taste, um zu den ausgewählten Einträgen zu springen.`
                       : undefined
                   }
-                  className="h-[calc(1.5rem-2px)] min-w-12 flex-1 border-0 bg-transparent p-0 text-sm font-normal text-neutral-100 outline-none placeholder:text-neutral-400 any-pointer-coarse:text-base"
+                  className={input({
+                    className: "h-[calc(1.5rem-2px)] min-w-12 flex-1 p-0",
+                  })}
                   id={id}
                   placeholder={selectedItems.length > 0 ? "" : placeholder}
                 />
@@ -146,15 +156,32 @@ function MultiSelectCombobox<Value>({
           </ComboboxPrimitive.Value>
           <ComboboxPrimitive.Trigger
             aria-label="Optionen öffnen"
-            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-0 bg-transparent p-0 text-neutral-300 hover:bg-ddf-blue-700 hover:text-white"
+            className={action({ className: "h-6 shrink-0" })}
           >
             <CaretDownIcon />
           </ComboboxPrimitive.Trigger>
         </ComboboxPrimitive.InputGroup>
       </div>
 
-      <ComboboxOptions items={items} />
+      <ComboboxOptions<Value> renderItem={renderComboboxOption} />
     </ComboboxPrimitive.Root>
+  );
+}
+
+function renderComboboxOption<Value>(
+  item: ComboboxItem<Value>,
+): React.JSX.Element {
+  return (
+    <ComboboxPrimitive.Item
+      className="grid cursor-default grid-cols-[1rem_1fr] items-center gap-2 rounded-lg p-2 text-sm leading-4 select-none data-highlighted:bg-ddf-blue-600 data-highlighted:text-white data-selected:bg-ddf-blue-700 data-selected:text-ddf-blue-100 data-selected:data-highlighted:bg-ddf-blue-600 data-selected:data-highlighted:text-white"
+      key={getItemKey(item)}
+      value={item}
+    >
+      <ComboboxPrimitive.ItemIndicator className="col-start-1 text-ddf-blue-300">
+        <CheckIcon />
+      </ComboboxPrimitive.ItemIndicator>
+      <span className="col-start-2">{item.label}</span>
+    </ComboboxPrimitive.Item>
   );
 }
 
@@ -169,6 +196,8 @@ function SingleSelectCombobox<Value>({
 }: SingleSelectComboboxProps<Value>): React.JSX.Element {
   const id = React.useId();
 
+  const { action, base, container, input } = comboboxVariants();
+
   return (
     <ComboboxPrimitive.Root<ComboboxItem<Value>, false, ComboboxItem<Value>>
       defaultValue={defaultValue}
@@ -178,24 +207,29 @@ function SingleSelectCombobox<Value>({
       onValueChange={onValueChange}
       value={value}
     >
-      <div className="relative flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-100">
+      <div className={container({ className: "relative" })}>
         <label htmlFor={id}>{label}</label>
-        <ComboboxPrimitive.InputGroup className="relative h-8 w-56 rounded-lg border border-neutral-400 bg-transparent focus-within:[outline:auto] [&>input]:pr-[calc(0.5rem+2rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+2rem*2)]">
+        <ComboboxPrimitive.InputGroup
+          className={base({
+            className:
+              "relative w-56 [&>input]:pr-[calc(0.5rem+2rem)] has-[.combobox-clear]:[&>input]:pr-[calc(0.5rem+2rem*2)]",
+          })}
+        >
           <ComboboxPrimitive.Input
-            className="h-full w-full rounded-lg border-0 bg-transparent pl-2 text-sm font-normal text-neutral-100 outline-none placeholder:text-neutral-400 any-pointer-coarse:text-base"
+            className={input({ className: "h-full w-full rounded-lg pl-2" })}
             id={id}
             placeholder={placeholder}
           />
           <div className="absolute right-0 bottom-0 flex h-full items-center justify-center">
             <ComboboxPrimitive.Clear
               aria-label="Auswahl löschen"
-              className="combobox-clear flex h-full w-6 items-center justify-center rounded-md border-0 bg-transparent p-0 text-neutral-300 hover:bg-ddf-blue-700 hover:text-white"
+              className={action({ className: "combobox-clear h-full" })}
             >
               <XIcon />
             </ComboboxPrimitive.Clear>
             <ComboboxPrimitive.Trigger
               aria-label="Optionen öffnen"
-              className="flex h-full w-6 items-center justify-center rounded-md border-0 bg-transparent p-0 text-neutral-300 hover:bg-ddf-blue-700 hover:text-white"
+              className={action({ className: "h-full" })}
             >
               <CaretDownIcon />
             </ComboboxPrimitive.Trigger>
@@ -203,7 +237,7 @@ function SingleSelectCombobox<Value>({
         </ComboboxPrimitive.InputGroup>
       </div>
 
-      <ComboboxOptions items={items} />
+      <ComboboxOptions<Value> renderItem={renderComboboxOption} />
     </ComboboxPrimitive.Root>
   );
 }

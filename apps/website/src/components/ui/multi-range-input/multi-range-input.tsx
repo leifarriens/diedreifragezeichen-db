@@ -89,16 +89,16 @@ export function MultiRangeInput({
 
   return (
     <div
-      className="relative h-16 w-full max-w-[560px]"
+      className="relative h-11 w-full max-w-[560px]"
       style={{ "--thumb-size": `${THUMB_SIZE.toString()}px` } as CSSProperties}
     >
       <div
         aria-hidden="true"
-        className="absolute top-5 right-0 left-0 z-[1] h-2 rounded bg-white/90"
+        className="absolute top-1/2 right-0 left-0 z-[1] h-2 -translate-y-1/2 rounded bg-white/90"
       />
       <div
         aria-hidden="true"
-        className="absolute top-5 z-[2] h-2 rounded bg-ddf-blue"
+        className="absolute top-1/2 z-[2] h-2 -translate-y-1/2 rounded bg-ddf-blue"
         style={{
           left: `${minPercent.toString()}%`,
           width: `${(maxPercent - minPercent).toString()}%`,
@@ -109,7 +109,7 @@ export function MultiRangeInput({
         aria-label={minAriaLabel}
         className={cn(
           styles.rangeInput,
-          "absolute inset-x-0 top-3 z-[3] h-6 w-full",
+          "inset-x-0 z-[4]",
           minValue > max - 100 && "z-[5]",
         )}
         max={max}
@@ -122,10 +122,7 @@ export function MultiRangeInput({
       />
       <input
         aria-label={maxAriaLabel}
-        className={cn(
-          styles.rangeInput,
-          "absolute inset-x-0 top-3 z-[4] h-6 w-full",
-        )}
+        className={cn(styles.rangeInput, "inset-x-0 z-[4]")}
         max={max}
         min={min}
         onChange={(event) => {
@@ -136,13 +133,13 @@ export function MultiRangeInput({
       />
 
       <span
-        className="absolute top-10 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
+        className="absolute top-9 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
         style={{ left: getThumbCenterPosition(minPercent) }}
       >
         {minValue}
       </span>
       <span
-        className="absolute top-10 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
+        className="absolute top-9 z-[6] -translate-x-1/2 text-xs font-medium text-white tabular-nums"
         style={{ left: getThumbCenterPosition(maxPercent) }}
       >
         {maxValue}

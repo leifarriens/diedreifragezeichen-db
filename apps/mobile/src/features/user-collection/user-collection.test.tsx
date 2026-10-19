@@ -46,7 +46,15 @@ vi.mock("react", async (importOriginal) => {
 });
 
 vi.mock("@ddfdb/client", () => ({ useSearch: state.useSearch }));
-vi.mock("expo-router", () => ({ Stack: { Screen: "StackScreen" } }));
+vi.mock("expo-router", () => ({
+  Stack: { Screen: "StackScreen" },
+  useRouter: () => ({ push: vi.fn() }),
+}));
+vi.mock("react-native", () => ({ ScrollView: "ScrollView", Text: "Text" }));
+vi.mock("@/features/auth/hooks/use-auth", () => ({
+  useAuth: () => ({ isAuthenticated: true }),
+}));
+vi.mock("@/components/ui/button", () => ({ UIButton: "UIButton" }));
 vi.mock("@/api/use-hydrate-folgen-with-user-data", () => ({
   useHydrateFolgenWithUserData: (folgen: FolgeWithCommunityRating[]) =>
     enrichFolgenWithUserData(folgen, {
@@ -116,13 +124,19 @@ const props = {
   sortLabel: l.BOOKMARKS.SORTING.LABEL,
   sortOptions,
   title: l.BOOKMARKS.NAME,
+  unauthenticatedMessage: l.BOOKMARKS.UNAUTHENTICATED_MESSAGE,
 } as const;
 
 interface CollectionTree {
   props: {
     children: [
       { props: { options: Record<string, unknown> } },
-      { props: { folgen: FolgeWithCommunityRating[] } },
+      {
+        props: unknown;
+        type: (props: unknown) => {
+          props: { folgen: FolgeWithCommunityRating[] };
+        };
+      },
     ];
   };
 }
@@ -130,6 +144,13 @@ interface CollectionTree {
 function renderCollection() {
   state.hookIndex = 0;
   return UserCollection(props) as unknown as CollectionTree;
+}
+
+function renderCollectionFolgenList(tree: CollectionTree) {
+  const collectionList = tree.props.children[1];
+  const render = collectionList.type;
+
+  return render(collectionList.props);
 }
 
 beforeEach(() => {
@@ -142,7 +163,7 @@ beforeEach(() => {
 describe("UserCollection", () => {
   it("sorts with the initial choice and exposes the native screen labels", () => {
     const tree = renderCollection();
-    const [screen, list] = tree.props.children;
+    const [screen] = tree.props.children;
     const options = screen.props.options as {
       headerSearchBarOptions: { placeholder: string };
       title: string;
@@ -185,7 +206,9 @@ describe("UserCollection", () => {
         type: "action",
       },
     ]);
-    expect(list.props.folgen.map(({ id }) => id)).toEqual([1, 3, 2]);
+    expect(
+      renderCollectionFolgenList(tree).props.folgen.map(({ id }) => id),
+    ).toEqual([1, 3, 2]);
   });
 
   it("applies native search and sorting selections to the displayed Folgen", () => {
@@ -203,9 +226,9 @@ describe("UserCollection", () => {
     options.unstable_headerRightItems()[0]?.menu.items[1]?.onPress();
 
     const sorted = renderCollection();
-    expect(sorted.props.children[1].props.folgen.map(({ id }) => id)).toEqual([
-      2, 3, 1,
-    ]);
+    expect(
+      renderCollectionFolgenList(sorted).props.folgen.map(({ id }) => id),
+    ).toEqual([2, 3, 1]);
 
     const sortedOptions = sorted.props.children[0].props.options as {
       headerSearchBarOptions: {
@@ -217,11 +240,11 @@ describe("UserCollection", () => {
     });
 
     const filtered = renderCollection();
+    const displayedFolgen = renderCollectionFolgenList(filtered).props.folgen;
+
     expect(state.useSearch).toHaveBeenLastCalledWith(folgen, {
       term: "Folge 1",
     });
-    expect(filtered.props.children[1].props.folgen.map(({ id }) => id)).toEqual(
-      [1],
-    );
+    expect(displayedFolgen.map(({ id }) => id)).toEqual([1]);
   });
 });

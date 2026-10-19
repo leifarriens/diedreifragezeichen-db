@@ -16,12 +16,18 @@ interface ArchiveBrowserProps {
   folgen: FolgeListItem[];
 }
 
-export default function ArchiveBrowser({
+export function ArchiveBrowser({
   availableOptions,
   folgen,
 }: ArchiveBrowserProps) {
-  const { currentYear, searchCriteria, state, updateState } =
-    useArchiveSearchState();
+  const {
+    currentYear,
+    isEmptySearchState,
+    resetState,
+    searchCriteria,
+    state,
+    updateState,
+  } = useArchiveSearchState();
 
   const searchQuery = useSearch(folgen, searchCriteria);
 
@@ -39,7 +45,6 @@ export default function ArchiveBrowser({
         availableOptions={availableOptions}
         currentYear={currentYear}
         onChange={updateState}
-        showAdditionalFilters={true}
         state={state}
       />
 
@@ -53,11 +58,11 @@ export default function ArchiveBrowser({
             <span className="text-slate-400"> inklusive Specials</span>
           )}
         </p>
-        {state.term && (
+        {!isEmptySearchState && (
           <button
-            className="text-sm font-medium text-sky-300 transition hover:text-sky-200"
+            className="cursor-pointer text-sm font-medium text-sky-300 transition hover:text-sky-200"
             onClick={() => {
-              updateState({ term: "" });
+              resetState();
             }}
             type="button"
           >

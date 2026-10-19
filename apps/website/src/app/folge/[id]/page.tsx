@@ -13,6 +13,7 @@ import {
   type ImageSize,
 } from "@ddfdb/image-optimization";
 import { cacheLife } from "next/cache";
+import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { cache } from "react";
 
@@ -257,27 +258,87 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
             {voice_roles.length > 0 && (
               <Card className="text-lg">
                 <h2 className="mb-4 text-2xl font-medium">Sprechrollen</h2>
-                <ul>
-                  {voice_roles.map(({ role, speaker }) => (
-                    <li key={`${role}-${speaker}`}>
-                      {role}: {speaker}
-                    </li>
-                  ))}
-                </ul>
+
+                <table className="border-separate border-spacing-y-2">
+                  <tbody>
+                    {voice_roles.map(({ role, speaker }) => (
+                      <tr key={`${role}-${speaker}`}>
+                        <td className="truncate font-medium">
+                          <Link
+                            className="text-neutral-300 hover:text-neutral-100"
+                            href={{
+                              pathname: "/",
+                              query: { roles: role },
+                            }}
+                          >
+                            {role}
+                          </Link>
+                        </td>
+                        <td className="px-4">
+                          <Link
+                            className="text-neutral-300 hover:text-neutral-100"
+                            href={{
+                              pathname: "/",
+                              query: { speakers: speaker },
+                            }}
+                          >
+                            {speaker}
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </Card>
             )}
 
             {(authors.length > 0 || script_authors.length > 0) && (
               <Card className="text-lg">
                 <h2 className="mb-4 text-2xl font-medium">Autoren</h2>
-                {authors.length > 0 && (
-                  <p className="text-justify">Autoren: {authors.join(", ")}</p>
-                )}
-                {script_authors.length > 0 && (
-                  <p className="text-justify">
-                    Drehbuchautoren: {script_authors.join(", ")}
-                  </p>
-                )}
+
+                <table className="border-separate border-spacing-y-2">
+                  <tbody>
+                    {authors.length > 0 && (
+                      <tr>
+                        <td>
+                          Buch:{" "}
+                          {authors.map((author) => (
+                            <Link
+                              className="text-neutral-300 hover:text-neutral-100"
+                              href={{
+                                pathname: "/",
+                                query: { authors: author },
+                              }}
+                              key={author}
+                            >
+                              {author}
+                            </Link>
+                          ))}
+                        </td>
+                      </tr>
+                    )}
+
+                    {script_authors.length > 0 && (
+                      <tr>
+                        <td>
+                          Drehbuch:{" "}
+                          {script_authors.map((script_author) => (
+                            <Link
+                              className="text-neutral-300 hover:text-neutral-100"
+                              href={{
+                                pathname: "/",
+                                query: { scriptAuthors: script_author },
+                              }}
+                              key={script_author}
+                            >
+                              {script_authors}
+                            </Link>
+                          ))}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </Card>
             )}
           </div>

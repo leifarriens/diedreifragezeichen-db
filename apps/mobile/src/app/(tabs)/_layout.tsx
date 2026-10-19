@@ -13,23 +13,17 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="gespeichert">
-        <NativeTabs.Trigger.Label>
-          {l.BOOKMARKS.NAME}
-        </NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{l.BOOKMARKS.NAME}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="bookmark" sf="bookmark" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="gehoert">
-        <NativeTabs.Trigger.Label>
-          {l.LISTENED.NAME}
-        </NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{l.LISTENED.NAME}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="history" sf="checkmark.circle" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="bewertet">
-        <NativeTabs.Trigger.Label>
-          {l.RATINGS.NAME}
-        </NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{l.RATINGS.NAME}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon
           md="rate_review"
           sf="wallet.sensor.tag.radiowaves.left.and.right"

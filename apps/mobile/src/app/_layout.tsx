@@ -10,6 +10,10 @@ import { DdfDarkTheme, DdfDefaultTheme } from "../Theme";
 
 void SplashScreen.preventAutoHideAsync();
 
+export const unstable_settings = {
+  anchor: "(tabs)",
+};
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
@@ -21,8 +25,13 @@ export default function RootLayout() {
         <SafeAreaProvider>
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen
-              name="auth/login"
-              options={{ animation: "none", headerShown: false }}
+              name="login"
+              options={{
+                headerShown: true,
+                headerTitle: "",
+                headerTransparent: true,
+                presentation: "modal",
+              }}
             />
 
             <Stack.Screen name="(tabs)" />

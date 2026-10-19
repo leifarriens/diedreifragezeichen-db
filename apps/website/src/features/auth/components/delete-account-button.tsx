@@ -1,11 +1,12 @@
 "use client";
 
 import { Dialog } from "@base-ui/react/dialog";
+import { l } from "@ddfdb/core/labels";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Button, buttonVariants } from "@/components/ui/button/button";
-import { useDeleteAccount } from "@/features/auth/hooks/use-delete-account";
+import { useDeleteAccount } from "@/features/auth/hooks/use-auth";
 
 export function DeleteAccountButton() {
   const router = useRouter();
@@ -42,11 +43,11 @@ export function DeleteAccountButton() {
         <Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex w-[min(28rem,calc(100vw-2rem))] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 rounded-xl border bg-ddf-blue-950 p-6 text-neutral-100 shadow-xl">
           <div className="space-y-2">
             <Dialog.Title className="text-lg font-semibold">
-              Willst du dein Konto wirklich löschen?
+              {l.ACCOUNT.DELETE_CONFIRM_TITLE}
             </Dialog.Title>
             <Dialog.Description className="text-sm text-neutral-400">
-              Diese Aktion löscht dauerhaft dein Konto, Lesezeichen,
-              Hörverlauf und Bewertungen.{" "}
+              Diese Aktion löscht dauerhaft dein Konto, Lesezeichen, Hörverlauf
+              und Bewertungen.{" "}
               <b>Diese Aktion kann nicht rückgängig gemacht werden.</b>
             </Dialog.Description>
           </div>

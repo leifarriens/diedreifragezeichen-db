@@ -17,6 +17,13 @@ const (
 	releaseDateGracePeriod = 24 * time.Hour
 )
 
+type searchOptionSort string
+
+const (
+	searchOptionSortOccurrences searchOptionSort = "occurrences"
+	searchOptionSortName        searchOptionSort = "name"
+)
+
 type archiveHandler struct {
 	folgen []Folge
 	byID   map[int64]Folge
@@ -123,11 +130,37 @@ func (h *archiveHandler) listFolgen(w http.ResponseWriter, _ *http.Request) {
 	writeJSON(w, http.StatusOK, folgen)
 }
 
-func (h *archiveHandler) listSearchOptions(w http.ResponseWriter, _ *http.Request) {
-	writeJSON(w, http.StatusOK, buildSearchOptions(h.folgen, h.now()))
+func (h *archiveHandler) listSearchOptions(w http.ResponseWriter, r *http.Request) {
+	minOccurrences := 1
+	if rawMinOccurrences, ok := r.URL.Query()["min_occurrences"]; ok {
+		parsedMinOccurrences, err := strconv.Atoi(rawMinOccurrences[0])
+		if err != nil || parsedMinOccurrences < 1 {
+			writeJSON(w, http.StatusBadRequest, map[string]string{
+				"error": "min_occurrences must be a positive integer",
+			})
+			return
+		}
+		minOccurrences = parsedMinOccurrences
+	}
+	sortBy := searchOptionSortOccurrences
+	if rawSortBy, ok := r.URL.Query()["sort"]; ok {
+		sortBy = searchOptionSort(rawSortBy[0])
+		if sortBy != searchOptionSortName && sortBy != searchOptionSortOccurrences {
+			writeJSON(w, http.StatusBadRequest, map[string]string{
+				"error": "sort must be either name or occurrences",
+			})
+			return
+		}
+	}
+	writeJSON(w, http.StatusOK, buildSearchOptions(h.folgen, h.now(), minOccurrences, sortBy))
 }
 
-func buildSearchOptions(folgen []Folge, now time.Time) SearchOptions {
+func buildSearchOptions(
+	folgen []Folge,
+	now time.Time,
+	minOccurrences int,
+	sortBy searchOptionSort,
+) SearchOptions {
 	options := SearchOptions{
 		Speakers:      []string{},
 		Roles:         []string{},
@@ -135,8 +168,8 @@ func buildSearchOptions(folgen []Folge, now time.Time) SearchOptions {
 		ScriptAuthors: []string{},
 		Collections:   []Collection{},
 	}
-	speakers := make(map[string]struct{})
-	roles := make(map[string]struct{})
+	speakerEpisodes := make(map[string]map[int64]struct{})
+	roleEpisodes := make(map[string]map[int64]struct{})
 	authors := make(map[string]struct{})
 	scriptAuthors := make(map[string]struct{})
 	collections := make(map[Collection]struct{})
@@ -158,16 +191,22 @@ func buildSearchOptions(folgen []Folge, now time.Time) SearchOptions {
 		}
 		for _, voiceRole := range folge.VoiceRoles {
 			if strings.TrimSpace(voiceRole.Speaker) != "" {
-				speakers[voiceRole.Speaker] = struct{}{}
+				if speakerEpisodes[voiceRole.Speaker] == nil {
+					speakerEpisodes[voiceRole.Speaker] = make(map[int64]struct{})
+				}
+				speakerEpisodes[voiceRole.Speaker][folge.ID] = struct{}{}
 			}
 			if strings.TrimSpace(voiceRole.Role) != "" {
-				roles[voiceRole.Role] = struct{}{}
+				if roleEpisodes[voiceRole.Role] == nil {
+					roleEpisodes[voiceRole.Role] = make(map[int64]struct{})
+				}
+				roleEpisodes[voiceRole.Role][folge.ID] = struct{}{}
 			}
 		}
 	}
 
-	options.Speakers = sortedStrings(speakers)
-	options.Roles = sortedStrings(roles)
+	options.Speakers = sortedStringsWithMinimumCount(speakerEpisodes, minOccurrences, sortBy)
+	options.Roles = sortedStringsWithMinimumCount(roleEpisodes, minOccurrences, sortBy)
 	options.Authors = sortedStrings(authors)
 	options.ScriptAuthors = sortedStrings(scriptAuthors)
 	for collection := range collections {
@@ -185,6 +224,28 @@ func sortedStrings(values map[string]struct{}) []string {
 		result = append(result, value)
 	}
 	sort.Strings(result)
+	return result
+}
+
+func sortedStringsWithMinimumCount(
+	values map[string]map[int64]struct{},
+	minimum int,
+	sortBy searchOptionSort,
+) []string {
+	result := make([]string, 0, len(values))
+	for value, episodeIDs := range values {
+		if len(episodeIDs) >= minimum {
+			result = append(result, value)
+		}
+	}
+	sort.Slice(result, func(i, j int) bool {
+		leftCount := len(values[result[i]])
+		rightCount := len(values[result[j]])
+		if sortBy == searchOptionSortOccurrences && leftCount != rightCount {
+			return leftCount > rightCount
+		}
+		return result[i] < result[j]
+	})
 	return result
 }
 

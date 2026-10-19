@@ -11,7 +11,7 @@ Start with the [architecture overview](ARCHITECTURE.md) to understand the Archiv
 > [!WARNING]
 > This API is considered legacy and will be deprecated in the future.
 
-> [!INFO]
+> [!NOTE]
 > The legacy API no longer requires an API key (formerly named `apikey`).
 
 ### Lists all folgen
@@ -88,9 +88,9 @@ GET `/api/folgen/{folgeId}`
 
 ### Prerequisites
 
-- [pnpm](https://pnpm.io/) — install dependencies and run project scripts
-- [Docker](https://www.docker.com/) — run the development environment
-- [mise](https://mise.jdx.dev/) — manage the development tools
+- [pnpm](https://pnpm.io/) - install dependencies and run project scripts
+- [Docker](https://www.docker.com/) - run the development environment
+- [mise](https://mise.jdx.dev/) - manage the development tools
 
 ### Setup
 

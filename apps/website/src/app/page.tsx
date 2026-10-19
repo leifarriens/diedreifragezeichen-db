@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ArchiveBrowser from "@/features/archive/components/archive-browser";
+import { ArchiveBrowser } from "@/features/archive/components/archive-browser";
 import { getFolgeListItems } from "@/server/queries/folgen";
 import { getAllFolgenSearchOptions } from "@/server/queries/search";
 import { PageBackground } from "@/shell/page-background";

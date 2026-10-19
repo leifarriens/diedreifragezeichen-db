@@ -2,7 +2,7 @@ import { selectCollectionFolgen } from "@ddfdb/core";
 import { l } from "@ddfdb/core/labels";
 import { useMemo } from "react";
 
-import { useFolgen } from "@/api/use-folgen";
+import { useFolgenWithCommunityRating } from "@/api/use-folgen-with-community-rating";
 import { UserCollection } from "@/features/user-collection/user-collection";
 
 import { useUserBookmarks } from "../use-bookmarks";
@@ -39,12 +39,13 @@ export function BookmarksScreen() {
         },
       ]}
       title={l.BOOKMARKS.NAME}
+      unauthenticatedMessage={l.BOOKMARKS.UNAUTHENTICATED_MESSAGE}
     />
   );
 }
 
 function useUserBookmarkedFolgen() {
-  const folgenQuery = useFolgen();
+  const folgenQuery = useFolgenWithCommunityRating();
   const userBookmarksQuery = useUserBookmarks();
 
   function refresh() {

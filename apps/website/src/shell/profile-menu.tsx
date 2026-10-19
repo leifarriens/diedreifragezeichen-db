@@ -7,7 +7,7 @@ import Link from "next/link";
 import { GearIcon } from "@/components/icons";
 import { QSvg } from "@/components/icons/q";
 import { Avatar } from "@/components/ui/avatar";
-import { useSignOut } from "@/features/auth/hooks/use-sign-out";
+import { useLogout } from "@/features/auth/hooks/use-logout";
 
 interface ProfileMenuProps {
   name: string | undefined;
@@ -71,10 +71,10 @@ const profileLinks = [
 ];
 
 export function ProfileMenu({ name }: ProfileMenuProps) {
-  const { signOut } = useSignOut();
+  const { isLoggingOut, logout } = useLogout();
 
   function onSignOutPress() {
-    void signOut();
+    logout();
   }
 
   return (
@@ -109,6 +109,7 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
                 render={
                   <button
                     className="flex w-full cursor-pointer px-4 py-3 text-sm hover:bg-[#011528]"
+                    disabled={isLoggingOut}
                     onClick={onSignOutPress}
                     type="button"
                   >

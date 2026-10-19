@@ -6,16 +6,24 @@ import { useTRPC } from "./user-api";
 
 export const folgenQueryKey = ["folgen"] as const;
 
-export function useFolgen() {
+export function useFolgenTotal() {
+  return useQuery({
+    ...getFolgenQueryOptions(),
+    select: (response) => response.length,
+  });
+}
+
+export function useFolgenWithCommunityRating() {
   const trpc = useTRPC();
   const queries = useQueries({
     combine([folgenQuery, communityRatingsQuery]) {
-      const data = folgenQuery.data
-        ? enrichFolgenWithCommunityRatings(
-            folgenQuery.data,
-            communityRatingsQuery.data,
-          )
-        : undefined;
+      const data =
+        folgenQuery.data && communityRatingsQuery.data
+          ? enrichFolgenWithCommunityRatings(
+              folgenQuery.data,
+              communityRatingsQuery.data,
+            )
+          : undefined;
 
       return {
         data,
@@ -41,13 +49,6 @@ export function useFolgen() {
   });
 
   return queries;
-}
-
-export function useFolgenTotal() {
-  return useQuery({
-    ...getFolgenQueryOptions(),
-    select: (response) => response.length,
-  });
 }
 
 function getFolgenQueryOptions() {

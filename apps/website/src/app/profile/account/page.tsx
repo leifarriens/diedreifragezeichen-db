@@ -4,8 +4,10 @@ import { formatRelativeTime } from "@ddfdb/core";
 import { l } from "@ddfdb/core/labels";
 import { Suspense } from "react";
 
+import { Card } from "@/components/ui/card";
 import { Wrapper } from "@/components/ui/wrapper";
-import { DeleteAccountButton } from "@/features/account/delete-account-button";
+import { DeleteAccountButton } from "@/features/auth/components/delete-account-button";
+import { LogoutButton } from "@/features/auth/components/logout-button";
 import { getMe } from "@/server/queries/user-data";
 
 export const metadata: Metadata = {
@@ -17,13 +19,22 @@ export default function AccountPage() {
     <Wrapper className="max-w-4xl">
       <h1 className="mb-8 text-3xl font-bold">{l.MISC.ACCOUNT}</h1>
       <div className="space-y-16">
-        <section>
+        <Card>
           <Suspense>
             <AccountData />
           </Suspense>
-        </section>
+        </Card>
 
-        <section className="space-y-4">
+        <Card className="space-y-4">
+          <h2 className="mb-4 text-2xl font-semibold">Abmelden</h2>
+          <p className="text-sm text-neutral-400">
+            Du kannst dich hier von deinem Konto abmelden.
+          </p>
+
+          <LogoutButton />
+        </Card>
+
+        <Card className="space-y-4">
           <h2 className="mb-4 text-2xl font-semibold">Konto löschen</h2>
           <p className="text-sm text-neutral-400">
             Dein Konto und alle damit verbundenen persönlichen Daten,
@@ -32,7 +43,7 @@ export default function AccountPage() {
           </p>
 
           <DeleteAccountButton />
-        </section>
+        </Card>
       </div>
     </Wrapper>
   );

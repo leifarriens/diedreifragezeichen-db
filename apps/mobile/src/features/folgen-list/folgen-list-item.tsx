@@ -94,6 +94,23 @@ export const FolgenListItem = memo(function FolgenGridItem({
           <Text className="text-sm text-neutral-300">
             {folge.release_date ? formatReleaseDate(folge.release_date) : ""}
           </Text>
+          <View className="mt-2 flex-row gap-x-4">
+            <FolgenRatingDisplay
+              folgenTitle={folge.title}
+              size="sm"
+              type="community"
+              value={folge.communityRating?.score ?? null}
+            />
+
+            {folge.userRating !== null ? (
+              <FolgenRatingDisplay
+                folgenTitle={folge.title}
+                size="sm"
+                type="user"
+                value={folge.userRating}
+              />
+            ) : null}
+          </View>
         </View>
       </Pressable>
     </Link>

@@ -3,12 +3,12 @@ import Link from "next/link";
 export function Footer() {
   return (
     <div className="mt-24 mb-10 space-y-3 text-sm text-neutral-400">
-      <div className="flex items-center justify-center gap-3">
+      <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Link
           className="transition-colors duration-150 hover:text-neutral-200"
           href="/"
         >
-          Home
+          Archiv
         </Link>
 
         <Link
@@ -66,7 +66,10 @@ export function Footer() {
         </a>
       </div>
 
-      <div className="text-center">Inoffizielles Fanprojekt</div>
+      <div className="text-center">
+        Inoffizielles Fanprojekt. Nicht verbunden mit oder unterstützt durch die
+        Rechteinhaber.
+      </div>
 
       <div className="text-center">
         Metadaten:{" "}

@@ -2,7 +2,7 @@ import { type SearchSort, useSearch } from "@ddfdb/client";
 import { l } from "@ddfdb/core/labels";
 import { Stack, useRouter } from "expo-router";
 
-import { useFolgen } from "@/api/use-folgen";
+import { useFolgenWithCommunityRating } from "@/api/use-folgen-with-community-rating";
 import { useHydrateFolgenWithUserData } from "@/api/use-hydrate-folgen-with-user-data";
 import { buildHeaderSortMenu } from "@/components/header-sort-menu";
 import { Logo } from "@/components/logo";
@@ -14,7 +14,7 @@ export function ArchiveScreen() {
   const router = useRouter();
 
   const { searchCriteria, state, updateState } = useArchiveFilters();
-  const folgenQuery = useFolgen();
+  const folgenQuery = useFolgenWithCommunityRating();
   const { viewMode, viewModeMenu } = useViewMode();
 
   const searchQuery = useSearch(folgenQuery.data ?? [], searchCriteria);

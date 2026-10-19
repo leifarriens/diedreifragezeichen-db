@@ -55,11 +55,11 @@ export function HeaderNav() {
         >
           <Image
             alt="DDFDB"
-            className="object-contain transition-transform ease-out hover:scale-110"
-            height={360}
+            className="h-10 object-contain transition-transform ease-out hover:scale-110"
+            height={48}
             preload
-            src="/ddfdb-logo.png"
-            width={540}
+            src="/ddfdb_logo.png"
+            width={60}
           />
         </Link>
 

@@ -7,6 +7,7 @@ import { Suspense } from "react";
 
 import { GearIcon } from "@/components/icons";
 import { Avatar } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
 import { PageLoadingIndicator } from "@/components/ui/loading-indicator/loading-indicator";
 import { Wrapper } from "@/components/ui/wrapper";
 import { getFolgeListItems } from "@/server/queries/folgen";
@@ -53,7 +54,7 @@ async function ProfileData() {
 
   return (
     <div className="space-y-16">
-      <section className="flex">
+      <Card className="flex">
         <div className="flex grow gap-x-4">
           <Avatar name={user.name} size="large" />
           <div>
@@ -66,7 +67,7 @@ async function ProfileData() {
             <GearIcon className="size-6" />
           </Link>
         </div>
-      </section>
+      </Card>
 
       <ProfileFolgenPreview
         count={userRatings.length}

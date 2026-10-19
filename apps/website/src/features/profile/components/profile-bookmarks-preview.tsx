@@ -28,10 +28,10 @@ export function ProfileFolgenPreview({
   return (
     <section>
       <div className="flex">
-        <Link href={href}>
+        <Link className="flex flex-row items-center" href={href}>
           <h2 className="group mb-7 text-2xl font-semibold">
             {title} <span className="text-xl font-light">({count})</span>{" "}
-            <span className="hidden text-base font-light group-hover:inline hover:underline">
+            <span className="text-base font-light hover:underline">
               Alle Anzeigen
             </span>
           </h2>

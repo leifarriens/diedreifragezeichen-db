@@ -26,10 +26,15 @@ import {
 
 const ARCHIVE_ROUTE = "/";
 const ARCHIVE_DEFAULT_COLLECTIONS: Collection[] = [];
+const ARCHIVE_SERIE_ONLY_COLLECTIONS: Collection[] = ["serie"];
 const SEARCH_STATE_FIELDS: readonly (keyof SearchState)[] = [
+  "authors",
+  "collections",
+  "roles",
+  "scriptAuthors",
+  "speakers",
   "term",
   "sort",
-  "collections",
   "yearRange",
 ];
 
@@ -38,6 +43,7 @@ const ArchiveSearchStateContext =
 
 interface ArchiveSearchStateContextValue {
   currentYear: number;
+  isEmptySearchState: boolean;
   resetState: () => void;
   searchCriteria: ReturnType<typeof useSearchState>["searchCriteria"];
   state: SearchState;
@@ -163,6 +169,7 @@ export function ArchiveSearchStateProvider({
   const value = useMemo(
     () => ({
       currentYear,
+      isEmptySearchState: isEmptySearchState(state, currentYear),
       resetState: resetArchiveState,
       searchCriteria,
       state,
@@ -195,6 +202,12 @@ function filtersWithStateFields(
 ): ArchiveFilters {
   return {
     ...filters,
+    ...(fields.includes("authors") && { authors: state.authors }),
+    ...(fields.includes("roles") && { roles: state.roles }),
+    ...(fields.includes("scriptAuthors") && {
+      scriptAuthors: state.scriptAuthors,
+    }),
+    ...(fields.includes("speakers") && { speakers: state.speakers }),
     ...(fields.includes("term") && { searchTerm: state.term }),
     ...(fields.includes("sort") && { sortOrder: state.sort }),
     ...(fields.includes("collections") && {
@@ -212,17 +225,32 @@ function getServerSearchSnapshot() {
   return "";
 }
 
+function isEmptySearchState(state: SearchState, currentYear: number) {
+  return (
+    state.authors.length === 0 &&
+    state.roles.length === 0 &&
+    state.scriptAuthors.length === 0 &&
+    state.speakers.length === 0 &&
+    state.term === "" &&
+    state.collections.length === 0 &&
+    state.yearRange.min === FIRST_RELEASE_YEAR &&
+    state.yearRange.max === currentYear
+  );
+}
+
 function stateFromFilters(filters: ArchiveFilters): SearchState {
   return {
-    authors: [],
-    collections: filters.includeSpecials ? [] : ARCHIVE_DEFAULT_COLLECTIONS,
-    roles: [],
-    scriptAuthors: [],
+    authors: filters.authors,
+    collections: filters.includeSpecials
+      ? ARCHIVE_DEFAULT_COLLECTIONS
+      : ARCHIVE_SERIE_ONLY_COLLECTIONS,
+    roles: filters.roles,
+    scriptAuthors: filters.scriptAuthors,
     sort:
       filters.sortOrder === "oldest" || filters.sortOrder === "rating"
         ? filters.sortOrder
         : "newest",
-    speakers: [],
+    speakers: filters.speakers,
     term: filters.searchTerm,
     yearRange: filters.yearRange,
   };

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface AuthResult {
   error: null | { message?: string | undefined };
@@ -8,6 +8,7 @@ interface SignInOtpAuthClient<
   TRequestResult extends AuthResult,
   TSignInResult extends AuthResult,
 > {
+  deleteUser: () => Promise<AuthResult>;
   emailOtp: {
     sendVerificationOtp(input: {
       email: string;
@@ -21,6 +22,7 @@ interface SignInOtpAuthClient<
       otp: string;
     }): Promise<TSignInResult>;
   };
+  signOut: () => Promise<AuthResult>;
 }
 
 interface SignInOtpVariables {
@@ -81,5 +83,44 @@ export function createAuthHooks<
     return { otpRequestMutation, otpSigninMutation };
   }
 
-  return { useSignIn };
+  function useSignOut() {
+    const queryClient = useQueryClient();
+
+    const signOutMutation = useMutation({
+      mutationFn: () => authClient.signOut(),
+      onError(error) {
+        console.error(error);
+      },
+      onSettled() {
+        queryClient.clear();
+      },
+    });
+
+    return signOutMutation;
+  }
+
+  function useDeleteAccount() {
+    const queryClient = useQueryClient();
+
+    const deleteAccountMutation = useMutation({
+      mutationFn: async () => {
+        const result = await authClient.deleteUser();
+        if (result.error) {
+          const message =
+            result.error.message ?? "Could not delete your account.";
+          throw new Error(
+            `${message}${message.endsWith(".") ? "" : "."} If your session has expired, sign out and sign back in before trying again.`,
+          );
+        }
+        return result;
+      },
+      onSettled() {
+        queryClient.clear();
+      },
+    });
+
+    return deleteAccountMutation;
+  }
+
+  return { useDeleteAccount, useSignIn, useSignOut };
 }

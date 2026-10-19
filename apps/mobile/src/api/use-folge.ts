@@ -3,7 +3,7 @@ import type { Folge } from "@ddfdb/archiv/contracts";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { archivApi } from "./archiv";
-import { folgenQueryKey } from "./use-folgen";
+import { folgenQueryKey } from "./use-folgen-with-community-rating";
 
 export function useFolge(folgeId: string) {
   const queryClient = useQueryClient();

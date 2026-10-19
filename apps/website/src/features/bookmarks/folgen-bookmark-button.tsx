@@ -2,6 +2,7 @@
 
 import { Toggle } from "@base-ui/react/toggle";
 import { l } from "@ddfdb/core/labels";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast/toast";
@@ -49,7 +50,10 @@ export function FolgenBookmarkButton({
             toast.add({
               title: (
                 <span>
-                  &quot;<i>{folgeTitle}</i>&quot; gespeichert
+                  &quot;<i>{folgeTitle}</i>&quot;{" "}
+                  <Link className="underline" href="/profile/bookmarks">
+                    gespeichert
+                  </Link>
                 </span>
               ),
             });

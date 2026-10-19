@@ -289,7 +289,9 @@ describe("UserCollection", () => {
 
     fireEvent.change(search, { target: { value: "missing" } });
     expect(displayedTitles()).toEqual([]);
-    expect(screen.getByTestId("empty-title").textContent).toBe("");
+    expect(screen.getByTestId("empty-title").textContent).toBe(
+      "Keine Ergebnisse gefunden",
+    );
 
     fireEvent.change(search, { target: { value: "" } });
     expect(displayedTitles()).toEqual(["Folge 2", "Folge 3", "Folge 1"]);

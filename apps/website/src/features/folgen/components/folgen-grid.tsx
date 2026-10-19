@@ -25,16 +25,18 @@ export function FolgenGrid({
   }
 
   if (folgen.length === 0) {
-    <section className="rounded-xl border border-white/10 bg-white/[0.03] px-6 py-14 text-center">
-      <p className="text-lg font-semibold">
-        {emptyMessage?.title ?? "Keine Folgen gefunden"}
-      </p>
-      {emptyMessage?.description && (
-        <p className="mt-2 text-sm text-slate-400">
-          {emptyMessage.description}
+    return (
+      <section className="py-14 text-center">
+        <p className="text-lg font-semibold">
+          {emptyMessage?.title ?? "Keine Folgen gefunden"}
         </p>
-      )}
-    </section>;
+        {emptyMessage?.description && (
+          <p className="mt-2 text-sm text-slate-400">
+            {emptyMessage.description}
+          </p>
+        )}
+      </section>
+    );
   }
 
   return (

@@ -30,23 +30,38 @@ function setup() {
   const signInEmailOtp = vi
     .fn<(input: typeof signIn) => Promise<AuthResponse>>()
     .mockResolvedValue({ error: null });
+  const deleteUser = vi
+    .fn<() => Promise<AuthResponse>>()
+    .mockResolvedValue({ error: null });
+  const signOut = vi
+    .fn<() => Promise<AuthResponse>>()
+    .mockResolvedValue({ error: null });
   const hooks = createAuthHooks({
+    deleteUser,
     emailOtp: { sendVerificationOtp },
     signIn: { emailOtp: signInEmailOtp },
+    signOut,
   });
   const queryClient = new QueryClient({
     defaultOptions: { mutations: { retry: false } },
   });
   const wrapper = ({ children }: { children: ReactNode }) =>
     createElement(QueryClientProvider, { client: queryClient }, children);
-  const hook = renderHook(() => hooks.useSignIn(), { wrapper });
-
-  return { hook, sendVerificationOtp, signInEmailOtp };
+  return {
+    deleteUser,
+    hooks,
+    queryClient,
+    sendVerificationOtp,
+    signInEmailOtp,
+    signOut,
+    wrapper,
+  };
 }
 
 describe("createAuthHooks", () => {
   it("requests an OTP using a normalized email address", async () => {
-    const { hook, sendVerificationOtp } = setup();
+    const { hooks, sendVerificationOtp, wrapper } = setup();
+    const hook = renderHook(() => hooks.useSignIn(), { wrapper });
 
     act(() => {
       hook.result.current.otpRequestMutation.mutate({
@@ -61,7 +76,8 @@ describe("createAuthHooks", () => {
   });
 
   it("surfaces OTP request errors as mutation errors", async () => {
-    const { hook, sendVerificationOtp } = setup();
+    const { hooks, sendVerificationOtp, wrapper } = setup();
+    const hook = renderHook(() => hooks.useSignIn(), { wrapper });
     sendVerificationOtp.mockResolvedValue({
       error: { message: "Could not send code" },
     });
@@ -80,7 +96,8 @@ describe("createAuthHooks", () => {
   });
 
   it("verifies an OTP using normalized email and code values", async () => {
-    const { hook, signInEmailOtp } = setup();
+    const { hooks, signInEmailOtp, wrapper } = setup();
+    const hook = renderHook(() => hooks.useSignIn(), { wrapper });
 
     act(() => {
       hook.result.current.otpSigninMutation.mutate({
@@ -96,7 +113,8 @@ describe("createAuthHooks", () => {
   });
 
   it("surfaces sign-in OTP errors as mutation errors", async () => {
-    const { hook, signInEmailOtp } = setup();
+    const { hooks, signInEmailOtp, wrapper } = setup();
+    const hook = renderHook(() => hooks.useSignIn(), { wrapper });
     signInEmailOtp.mockResolvedValue({
       error: { message: "Invalid code" },
     });
@@ -113,5 +131,36 @@ describe("createAuthHooks", () => {
         "Invalid code",
       );
     });
+  });
+
+  it("signs out and clears the query cache when settled", async () => {
+    const { hooks, queryClient, signOut, wrapper } = setup();
+    const clear = vi.spyOn(queryClient, "clear");
+    const hook = renderHook(() => hooks.useSignOut(), { wrapper });
+
+    await act(async () => {
+      await hook.result.current.mutateAsync();
+    });
+
+    expect(signOut).toHaveBeenCalledExactlyOnceWith();
+    expect(clear).toHaveBeenCalledExactlyOnceWith();
+  });
+
+  it("surfaces account deletion errors and clears the query cache", async () => {
+    const { deleteUser, hooks, queryClient, wrapper } = setup();
+    deleteUser.mockResolvedValue({
+      error: { message: "Could not delete account" },
+    });
+    const clear = vi.spyOn(queryClient, "clear");
+    const hook = renderHook(() => hooks.useDeleteAccount(), { wrapper });
+
+    await act(async () => {
+      await expect(hook.result.current.mutateAsync()).rejects.toThrow(
+        "Could not delete account. If your session has expired, sign out and sign back in before trying again.",
+      );
+    });
+
+    expect(deleteUser).toHaveBeenCalledExactlyOnceWith();
+    expect(clear).toHaveBeenCalledExactlyOnceWith();
   });
 });

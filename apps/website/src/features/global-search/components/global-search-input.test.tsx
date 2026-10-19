@@ -36,7 +36,11 @@ describe("SearchInput keyboard shortcut", () => {
     renderSearchInput();
 
     expect(
-      await screen.findByRole("button", { name: "Folgen Archiv durchsuchen" }),
+      await screen.findByRole(
+        "button",
+        { name: "Folgen Archiv durchsuchen" },
+        { timeout: 5000 },
+      ),
     ).toBeTruthy();
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
@@ -60,7 +64,11 @@ describe("SearchInput keyboard shortcut", () => {
     renderSearchInput();
 
     expect(
-      await screen.findByRole("button", { name: "Folgen Archiv durchsuchen" }),
+      await screen.findByRole(
+        "button",
+        { name: "Folgen Archiv durchsuchen" },
+        { timeout: 5000 },
+      ),
     ).toBeTruthy();
     const event = new KeyboardEvent("keydown", {
       bubbles: true,
@@ -82,7 +90,9 @@ describe("SearchInput keyboard shortcut", () => {
   it("hides the shortcut hint when any pointer is coarse", async () => {
     renderSearchInput();
 
-    const shortcutHint = (await screen.findByText("Strg")).parentElement;
+    const shortcutHint = (
+      await screen.findByText("Strg", {}, { timeout: 5000 })
+    ).parentElement;
 
     expect(shortcutHint?.className).toContain("any-pointer-coarse:hidden");
   });

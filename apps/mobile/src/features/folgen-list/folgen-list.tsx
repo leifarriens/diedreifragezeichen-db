@@ -3,12 +3,13 @@ import type { FolgenListItemWithUserData } from "@ddfdb/client";
 import { l } from "@ddfdb/core/labels";
 import { FlashList, type FlashListProps } from "@shopify/flash-list";
 import { useCallback } from "react";
-import { RefreshControl, Text, useWindowDimensions, View } from "react-native";
+import { RefreshControl, Text } from "react-native";
 
 import { LoadingIndicator } from "@/components/ui/loading-indicator";
 
 import type { FolgenListViewMode } from "./types";
 
+import { FolgenListEmptyContainer } from "./folgen-list-empty-container";
 import {
   type FolgeDetailPathname,
   FolgenListItem,
@@ -60,7 +61,7 @@ export function FolgenList({
       key={viewMode}
       keyExtractor={archiveKeyExtractor}
       ListEmptyComponent={
-        <ListEmptyContainer>
+        <FolgenListEmptyContainer>
           {isInitialLoading ? (
             <LoadingIndicator />
           ) : (
@@ -68,7 +69,7 @@ export function FolgenList({
               {emptyMessage ?? l.MISC.NO_FOLGEN_FOUND}
             </Text>
           )}
-        </ListEmptyContainer>
+        </FolgenListEmptyContainer>
       }
       maintainVisibleContentPosition={{ disabled: true }}
       numColumns={viewMode === "grid" ? 2 : 1}
@@ -87,16 +88,3 @@ export function FolgenList({
 }
 
 const archiveKeyExtractor = (item: ListItem) => String(item.id);
-
-function ListEmptyContainer({ children }: { children: React.ReactNode }) {
-  const { height } = useWindowDimensions();
-
-  return (
-    <View
-      className="items-center justify-center px-16"
-      style={{ height: height / 1.33 }}
-    >
-      {children}
-    </View>
-  );
-}

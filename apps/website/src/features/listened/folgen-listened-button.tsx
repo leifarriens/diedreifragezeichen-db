@@ -2,6 +2,7 @@
 
 import { Toggle } from "@base-ui/react/toggle";
 import { l } from "@ddfdb/core/labels";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast/toast";
@@ -52,7 +53,11 @@ export function FolgenListenedButton({
             toast.add({
               title: (
                 <span>
-                  &quot;<i>{folgeTitle}</i>&quot; als gehört markiert
+                  &quot;<i>{folgeTitle}</i>&quot; als{" "}
+                  <Link className="underline" href="/profile/listened">
+                    gehört
+                  </Link>{" "}
+                  markiert
                 </span>
               ),
             });

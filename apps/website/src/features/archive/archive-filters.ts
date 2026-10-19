@@ -1,9 +1,13 @@
 export const FIRST_RELEASE_YEAR = 1979;
 
 export interface ArchiveFilters {
+  authors: string[];
   includeSpecials: boolean;
+  roles: string[];
+  scriptAuthors: string[];
   searchTerm: string;
   sortOrder: "newest" | "oldest" | "popularity" | "rating";
+  speakers: string[];
   yearRange: { max: number; min: number };
 }
 
@@ -23,7 +27,10 @@ export function readArchiveFilters(
   );
 
   return {
-    includeSpecials: params.get("specials") === "1",
+    authors: readList(params, "authors"),
+    includeSpecials: params.get("specials") !== "0",
+    roles: readList(params, "roles"),
+    scriptAuthors: readList(params, "scriptAuthors"),
     searchTerm: params.get("q") ?? "",
     sortOrder:
       sortOrder === "oldest" ||
@@ -31,6 +38,7 @@ export function readArchiveFilters(
       sortOrder === "popularity"
         ? sortOrder
         : "newest",
+    speakers: readList(params, "speakers"),
     yearRange: { max, min },
   };
 }
@@ -44,7 +52,7 @@ export function writeArchiveFilters(
   const values = {
     q: filters.searchTerm || null,
     sort: filters.sortOrder === "newest" ? null : filters.sortOrder,
-    specials: filters.includeSpecials ? "1" : null,
+    specials: filters.includeSpecials ? null : "0",
     yearFrom:
       filters.yearRange.min === FIRST_RELEASE_YEAR
         ? null
@@ -60,7 +68,16 @@ export function writeArchiveFilters(
     else params.set(key, value);
   }
 
+  writeList(params, "authors", filters.authors);
+  writeList(params, "roles", filters.roles);
+  writeList(params, "scriptAuthors", filters.scriptAuthors);
+  writeList(params, "speakers", filters.speakers);
+
   return params.toString();
+}
+
+function readList(params: URLSearchParams, key: string): string[] {
+  return [...new Set(params.getAll(key).filter((value) => value.length > 0))];
 }
 
 function readYear(value: null | string, fallback: number, currentYear: number) {
@@ -68,4 +85,11 @@ function readYear(value: null | string, fallback: number, currentYear: number) {
   const year = Number(value);
   if (!Number.isSafeInteger(year)) return fallback;
   return Math.min(Math.max(year, FIRST_RELEASE_YEAR), currentYear);
+}
+
+function writeList(params: URLSearchParams, key: string, values: string[]) {
+  params.delete(key);
+  for (const value of values) {
+    if (value.length > 0) params.append(key, value);
+  }
 }

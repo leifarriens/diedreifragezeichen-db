@@ -1,4 +1,7 @@
 export const l = {
+  ACCOUNT: {
+    DELETE_CONFIRM_TITLE: "Willst du dein Konto wirklich löschen?",
+  },
   ACTIONS: {
     ADD_BOOKMARK: "Als Lesezeichen merken",
     MARK_LISTENED: "Als gehört markieren",
@@ -28,6 +31,7 @@ export const l = {
       OLDEST_FIRST: "Älteste zuerst",
     },
     TITLE: "Gespeicherte Folgen",
+    UNAUTHENTICATED_MESSAGE: "Melde dich an, um Folgen zu speichern.",
   } satisfies CollectionLabels,
   LISTENED: {
     EMPTY_PLACEHOLDER: "Du hast noch keine Folgen als gehört markiert",
@@ -39,6 +43,7 @@ export const l = {
       OLDEST_FIRST: "Älteste zuerst",
     },
     TITLE: "Gehörte Folgen",
+    UNAUTHENTICATED_MESSAGE: "Melde dich an um Folgen als gehört zu markieren.",
   } satisfies CollectionLabels,
   MISC: {
     ACCOUNT: "Konto",
@@ -57,6 +62,7 @@ export const l = {
       NEWEST_FIRST: "Neueste Wertungen",
     },
     TITLE: "Bewertete Folgen",
+    UNAUTHENTICATED_MESSAGE: "Melde dich an, um Folgen zu bewerten.",
   } satisfies CollectionLabels,
 } as const;
 
@@ -68,4 +74,5 @@ export interface CollectionLabels {
     LABEL: string;
   };
   TITLE: string;
+  UNAUTHENTICATED_MESSAGE: string;
 }

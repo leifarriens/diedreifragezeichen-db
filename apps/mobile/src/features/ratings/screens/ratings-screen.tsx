@@ -2,7 +2,7 @@ import { selectCollectionFolgen } from "@ddfdb/core";
 import { l } from "@ddfdb/core/labels";
 import { useMemo } from "react";
 
-import { useFolgen } from "@/api/use-folgen";
+import { useFolgenWithCommunityRating } from "@/api/use-folgen-with-community-rating";
 import { UserCollection } from "@/features/user-collection/user-collection";
 
 import { useUserRatings } from "../hooks/use-ratings";
@@ -44,12 +44,13 @@ export function RatingsScreen() {
         },
       ]}
       title={l.RATINGS.TITLE}
+      unauthenticatedMessage={l.RATINGS.UNAUTHENTICATED_MESSAGE}
     />
   );
 }
 
 function useUserRatedFolgen() {
-  const folgenQuery = useFolgen();
+  const folgenQuery = useFolgenWithCommunityRating();
   const userRatingsQuery = useUserRatings();
 
   function refresh() {

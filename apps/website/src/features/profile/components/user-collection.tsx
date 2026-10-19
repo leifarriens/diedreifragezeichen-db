@@ -73,7 +73,12 @@ export function UserCollection<
 
       <FolgenGrid
         emptyMessage={{
-          title: folgen.length === 0 ? emptyMessage : undefined,
+          title:
+            folgen.length === 0
+              ? emptyMessage
+              : displayedFolgen.length === 0
+                ? "Keine Ergebnisse gefunden"
+                : undefined,
         }}
         folgen={displayedFolgen}
       />

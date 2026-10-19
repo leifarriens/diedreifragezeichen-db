@@ -15,8 +15,8 @@ const avatarVariants = tv({
         fallback: "text-base font-medium",
       },
       large: {
-        container: "size-20",
-        fallback: "text-3xl font-semibold",
+        container: "size-12 md:size-20",
+        fallback: "text-lg font-semibold md:text-3xl",
       },
     },
   },

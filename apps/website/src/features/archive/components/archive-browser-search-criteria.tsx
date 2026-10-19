@@ -15,7 +15,6 @@ interface ArchiveBrowserSearchCriteriaProps {
   availableOptions: SearchOptions;
   currentYear: number;
   onChange: (updates: Partial<SearchState>) => void;
-  showAdditionalFilters?: boolean;
   state: SearchState;
 }
 
@@ -23,19 +22,18 @@ export function ArchiveBrowserSearchCriteria({
   availableOptions,
   currentYear,
   onChange,
-  showAdditionalFilters,
   state,
 }: ArchiveBrowserSearchCriteriaProps) {
   const speakerOptions = toComboboxItems(availableOptions.speakers);
   const roleOptions = toComboboxItems(availableOptions.roles);
   const authorOptions = toComboboxItems(availableOptions.authors);
   const scriptAuthorOptions = toComboboxItems(availableOptions.script_authors);
-  const collectionOptions = toComboboxItems(availableOptions.collections);
+  // const collectionOptions = toComboboxItems(availableOptions.collections);
 
   const includeSpecials = state.collections.length === 0;
 
   return (
-    <section aria-label="Archivfilter" className="mb-6">
+    <section aria-label="Archivfilter" className="mb-6 space-y-6">
       <div className="grid gap-5 lg:grid-cols-[auto_minmax(260px,1fr)_auto] lg:items-center">
         <ToggleGroup
           aria-label={l.ARCHIVE.SORTING.LABEL}
@@ -70,57 +68,55 @@ export function ArchiveBrowserSearchCriteria({
         />
       </div>
 
-      {showAdditionalFilters && (
-        <div className={styles.additional}>
-          <Combobox
-            items={speakerOptions}
-            label="Sprechrollen"
-            multiple
-            onValueChange={(items) => {
-              onChange({ speakers: items.map((item) => item.value) });
-            }}
-            placeholder="z.B. Dorette Hugo"
-            value={speakerOptions.filter((item) =>
-              state.speakers.includes(item.value),
-            )}
-          />
-          <Combobox
-            items={roleOptions}
-            label="Rollen"
-            multiple
-            onValueChange={(items) => {
-              onChange({ roles: items.map((item) => item.value) });
-            }}
-            placeholder="z.B. Hugenay"
-            value={roleOptions.filter((item) =>
-              state.roles.includes(item.value),
-            )}
-          />
-          <Combobox
-            items={authorOptions}
-            label="Autoren"
-            multiple
-            onValueChange={(items) => {
-              onChange({ authors: items.map((item) => item.value) });
-            }}
-            placeholder="z.B. André Marx"
-            value={authorOptions.filter((item) =>
-              state.authors.includes(item.value),
-            )}
-          />
-          <Combobox
-            items={scriptAuthorOptions}
-            label="Drehbuchautoren"
-            multiple
-            onValueChange={(items) => {
-              onChange({ scriptAuthors: items.map((item) => item.value) });
-            }}
-            placeholder="z.B. André Minninger"
-            value={scriptAuthorOptions.filter((item) =>
-              state.scriptAuthors.includes(item.value),
-            )}
-          />
-          <Combobox
+      <div className={styles.additional}>
+        <Combobox
+          items={speakerOptions}
+          label="Sprechrollen"
+          multiple
+          onValueChange={(items) => {
+            onChange({ speakers: items.map((item) => item.value) });
+          }}
+          placeholder="z.B. Dorette Hugo"
+          value={speakerOptions.filter((item) =>
+            state.speakers.includes(item.value),
+          )}
+        />
+        <Combobox
+          items={roleOptions}
+          label="Rollen"
+          multiple
+          onValueChange={(items) => {
+            onChange({ roles: items.map((item) => item.value) });
+          }}
+          placeholder="z.B. Hugenay"
+          value={roleOptions.filter((item) => state.roles.includes(item.value))}
+        />
+        <Combobox
+          items={authorOptions}
+          label="Buch von"
+          multiple
+          onValueChange={(items) => {
+            onChange({ authors: items.map((item) => item.value) });
+          }}
+          placeholder="z.B. André Marx"
+          value={authorOptions.filter((item) =>
+            state.authors.includes(item.value),
+          )}
+        />
+        <Combobox
+          items={scriptAuthorOptions}
+          label="Drehbuch von"
+          multiple
+          onValueChange={(items) => {
+            onChange({ scriptAuthors: items.map((item) => item.value) });
+          }}
+          placeholder="z.B. André Minninger"
+          value={scriptAuthorOptions.filter((item) =>
+            state.scriptAuthors.includes(item.value),
+          )}
+        />
+
+        {/* <Combobox
             items={collectionOptions}
             label="Kollektion"
             multiple
@@ -131,9 +127,8 @@ export function ArchiveBrowserSearchCriteria({
             value={collectionOptions.filter((item) =>
               state.collections.includes(item.value),
             )}
-          />
-        </div>
-      )}
+          /> */}
+      </div>
     </section>
   );
 }

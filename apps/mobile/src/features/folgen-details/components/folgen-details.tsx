@@ -26,7 +26,16 @@ interface FolgeDetailsProps {
 }
 
 export function FolgeDetails({ folge }: FolgeDetailsProps) {
-  const { cover, number, release_date, streaming, title } = folge;
+  const {
+    authors,
+    cover,
+    number,
+    release_date,
+    script_authors,
+    streaming,
+    title,
+    voice_roles,
+  } = folge;
   const { data: userBookmarks } = useUserBookmarks();
   const { data: userListened } = useUserListened();
 
@@ -56,44 +65,70 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         ) : null}
       </View>
 
-      <View className="mt-6 flex items-center justify-between gap-3">
-        <View className="flex-row gap-2">
-          <FolgenBookmarkButton
-            folgeId={folge.id}
-            folgeTitle={folge.title}
-            isBookmarked={
-              userBookmarks?.some(
-                (bookmark) => bookmark.folgeId === folge.id,
-              ) ?? false
-            }
-          />
-          <FolgenListenedButton
-            folgeId={folge.id}
-            folgeTitle={folge.title}
-            hasListened={
-              userListened?.some((listened) => listened.folgeId === folge.id) ??
-              false
-            }
-          />
+      <View className="mt-6 flex flex-row items-center justify-center gap-2">
+        <FolgenBookmarkButton
+          folgeId={folge.id}
+          folgeTitle={folge.title}
+          isBookmarked={
+            userBookmarks?.some((bookmark) => bookmark.folgeId === folge.id) ??
+            false
+          }
+        />
+        <FolgenListenedButton
+          folgeId={folge.id}
+          folgeTitle={folge.title}
+          hasListened={
+            userListened?.some((listened) => listened.folgeId === folge.id) ??
+            false
+          }
+        />
 
-          <FolgenRatingButton folgeId={folge.id} />
+        <FolgenRatingButton folgeId={folge.id} />
 
-          {folge.weblink && isExternalHref(folge.weblink) ? (
-            <Link asChild href={folge.weblink} target="_blank">
-              <UIButton icon="network" iconOnly />
-            </Link>
-          ) : null}
-        </View>
+        {folge.weblink && isExternalHref(folge.weblink) ? (
+          <Link asChild href={folge.weblink} target="_blank">
+            <UIButton icon="network" iconOnly />
+          </Link>
+        ) : null}
 
         <FolgenPlayButton streaming={streaming} />
       </View>
 
-      {folge.description ? (
-        <Animated.View className="mt-6" entering={FadeInDown.delay(150)}>
-          <Text className="text-3xl font-bold text-white">Inhalt</Text>
-          <Text className="mt-2 text-base text-white">{folge.description}</Text>
-        </Animated.View>
-      ) : null}
+      <View className="mt-6 gap-y-6">
+        {folge.description ? (
+          <Animated.View className="mt-6" entering={FadeInDown.delay(150)}>
+            <Text className="text-3xl font-bold text-white">Inhalt</Text>
+            <Text className="mt-2 text-base text-white">
+              {folge.description}
+            </Text>
+          </Animated.View>
+        ) : null}
+
+        {voice_roles.length > 0 && (
+          <View className="text-lg">
+            <Text className="text-3xl font-bold text-white">Sprechrollen</Text>
+            <Text className="text-mask-b-to-transparent mt-2 text-white">
+              {voice_roles.map(({ role, speaker }) => `${role}: ${speaker}\n`)}
+            </Text>
+          </View>
+        )}
+
+        {(authors.length > 0 || script_authors.length > 0) && (
+          <View className="text-lg">
+            <Text className="text-3xl font-bold text-white">Autoren</Text>
+            {authors.length > 0 ? (
+              <Text className="mt-2 text-white">
+                Buch: {authors.join(", ")}
+              </Text>
+            ) : null}
+            {script_authors.length > 0 ? (
+              <Text className="mt-2 text-white">
+                Drehbuch: {script_authors.join(", ")}
+              </Text>
+            ) : null}
+          </View>
+        )}
+      </View>
     </View>
   );
 }

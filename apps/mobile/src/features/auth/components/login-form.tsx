@@ -1,10 +1,12 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 
 import { UIButton } from "@/components/ui/button";
+import { DdfColors } from "@/Theme";
 
 import { useSignIn } from "../hooks/use-auth";
+import { OtpCodeInput } from "./otp-code-input";
 import { ResendOtpButton } from "./resend-otp-button";
 
 export function LoginForm() {
@@ -19,15 +21,15 @@ export function LoginForm() {
     handleResendOtp();
   }
 
-  function handleOtpComplete() {
+  function handleOtpComplete(code: string) {
     otpSigninMutation.mutate(
-      { email, otp },
+      { email, otp: code },
       {
         onError() {
           setOtp("");
         },
         onSuccess() {
-          router.navigate("/");
+          router.replace("/");
         },
       },
     );
@@ -44,7 +46,11 @@ export function LoginForm() {
   function handleResendOtp() {
     otpRequestMutation.mutate(
       { email },
-      { onSuccess: () => { setOtpSentAt(Date.now()); } },
+      {
+        onSuccess: () => {
+          setOtpSentAt(Date.now());
+        },
+      },
     );
   }
 
@@ -54,9 +60,9 @@ export function LoginForm() {
 
   if (otpSentAt === null) {
     return (
-      <View className="mt-48 flex-1 gap-y-4">
-        <Text className="text-white">
-          Gib deine E-Mail-Adresse ein um zu beginnen.
+      <View className="w-full flex-1 gap-y-4">
+        <Text className="text-center text-white">
+          Beginne deine Anmeldung, indem du deine E-Mail-Adresse eingibst.
         </Text>
         <TextInput
           accessibilityLabel="Email"
@@ -67,8 +73,9 @@ export function LoginForm() {
           keyboardType="email-address"
           onChangeText={setEmail}
           onSubmitEditing={handleEmailSubmit}
-          placeholder="name@example.com"
+          placeholder="email@example.com"
           returnKeyType="go"
+          style={{ fontSize: 18 }}
           textContentType="emailAddress"
           value={email}
         />
@@ -77,24 +84,48 @@ export function LoginForm() {
             {error}
           </Text>
         )}
-        <UIButton
+        <Pressable
+          accessibilityRole="button"
+          accessibilityState={{ disabled: isPending }}
           disabled={isPending}
-          label="Weiter"
           onPress={handleEmailSubmit}
-        />
+          style={({ pressed }) => ({
+            alignItems: "center",
+            backgroundColor: DdfColors.dark.accent,
+            borderRadius: 24,
+            justifyContent: "center",
+            minHeight: 48,
+            opacity: isPending ? 0.5 : pressed ? 0.7 : 1,
+            paddingHorizontal: 16,
+          })}
+        >
+          <Text
+            style={{
+              color: DdfColors.dark.onAccent,
+              fontSize: 16,
+              fontWeight: "600",
+            }}
+          >
+            Weiter
+          </Text>
+        </Pressable>
       </View>
     );
   }
 
   return (
-    <View>
-      <TextInput
-        className="rounded-xl border border-white p-4 text-white"
-        keyboardType="number-pad"
+    <View className="w-full gap-y-4">
+      <Text className="text-center text-white">
+        Gib den 6-stelligen Code ein, den wir an deine E-Mail-Adresse gesendet
+        haben.
+      </Text>
+      <OtpCodeInput
+        accessibilityHint="Gib den 6-stelligen Code aus deiner E-Mail ein."
+        accessibilityLabel="Einmalcode"
+        autoFocus
+        disabled={isPending}
         onChangeText={setOtp}
-        onSubmitEditing={handleOtpComplete}
-        placeholder="Enter OTP"
-        returnKeyType="go"
+        onComplete={handleOtpComplete}
         value={otp}
       />
       {error && (
@@ -110,7 +141,6 @@ export function LoginForm() {
           sentAt={otpSentAt}
         />
         <UIButton
-          // className="font-medium text-ddf-blue-500 hover:underline"
           disabled={isPending}
           intent="plain"
           onPress={handleUseDifferentEmail}

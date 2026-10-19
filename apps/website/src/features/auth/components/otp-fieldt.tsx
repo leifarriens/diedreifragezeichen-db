@@ -10,7 +10,7 @@ export function OTPField({ length, ...props }: OTPFieldProps) {
   return (
     <div className="flex w-full flex-col items-center">
       <p
-        className="mb-2 w-full text-center text-sm text-neutral-400"
+        className="mb-2 w-full text-center text-sm text-neutral-300"
         id={descriptionId}
       >
         Gib den {length.toString()}-stelligen Code ein, den wir an deine

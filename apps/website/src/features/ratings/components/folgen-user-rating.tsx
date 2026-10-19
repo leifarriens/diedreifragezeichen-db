@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useToast } from "@/components/ui/toast/toast";
 
 import { useUpdateRating, useUserFolgenRating } from "../hooks/use-ratings";
@@ -29,7 +31,10 @@ export function FolgenUserRating({
           toastManager.add({
             title: (
               <span>
-                Bewertung für &quot;<i>{folgenTitle}</i>&quot; gespeichert
+                <Link className="underline" href="/profile/ratings">
+                  Bewertung
+                </Link>{" "}
+                für &quot;<i>{folgenTitle}</i>&quot; gespeichert
               </span>
             ),
           });

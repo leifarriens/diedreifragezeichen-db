@@ -313,6 +313,177 @@ func TestHTTPHandlerReturnsDistinctSearchOptionsForAvailableFolgen(t *testing.T)
 	}
 }
 
+func TestHTTPHandlerFiltersSearchOptionsByMinimumEpisodeOccurrences(t *testing.T) {
+	now := time.Date(2025, time.February, 2, 0, 0, 0, 0, time.UTC)
+	tomorrow := "2025-02-03"
+	folgen := []Folge{
+		{
+			ID:         1,
+			Collection: CollectionSerie,
+			Authors:    []string{"Author"},
+			VoiceRoles: []VoiceRole{
+				{Role: "Recurring role", Speaker: "Recurring speaker"},
+				{Role: "Recurring role", Speaker: "Recurring speaker"},
+				{Role: "One-off role", Speaker: "One-off speaker"},
+			},
+		},
+		{
+			ID:         1,
+			Collection: CollectionSerie,
+			VoiceRoles: []VoiceRole{
+				{Role: "One-off role", Speaker: "One-off speaker"},
+			},
+		},
+		{
+			ID:         2,
+			Collection: CollectionSerie,
+			VoiceRoles: []VoiceRole{
+				{Role: "Recurring role", Speaker: "Recurring speaker"},
+			},
+		},
+		{
+			ID:          3,
+			Collection:  CollectionSerie,
+			ReleaseDate: &tomorrow,
+			VoiceRoles: []VoiceRole{
+				{Role: "Hidden role", Speaker: "Hidden speaker"},
+			},
+		},
+	}
+	handler := newHTTPHandlerWithClock(folgen, zerolog.New(io.Discard), func() time.Time {
+		return now
+	})
+	response := httptest.NewRecorder()
+	handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, "/search-options?min_occurrences=2", nil))
+
+	if response.Code != http.StatusOK {
+		t.Fatalf("search options status = %d, want %d", response.Code, http.StatusOK)
+	}
+	var options SearchOptions
+	if err := json.Unmarshal(response.Body.Bytes(), &options); err != nil {
+		t.Fatalf("decode search options response: %v", err)
+	}
+	want := SearchOptions{
+		Speakers:      []string{"Recurring speaker"},
+		Roles:         []string{"Recurring role"},
+		Authors:       []string{"Author"},
+		ScriptAuthors: []string{},
+		Collections:   []Collection{CollectionSerie},
+	}
+	if !reflect.DeepEqual(options, want) {
+		t.Fatalf("search options = %+v, want %+v", options, want)
+	}
+}
+
+func TestHTTPHandlerSortsSpeakersAndRoles(t *testing.T) {
+	folgen := []Folge{
+		{
+			ID:         1,
+			Collection: CollectionSerie,
+			VoiceRoles: []VoiceRole{
+				{Role: "Common role", Speaker: "Common speaker"},
+				{Role: "Alpha role", Speaker: "Alpha speaker"},
+				{Role: "Rare role", Speaker: "Rare speaker"},
+			},
+		},
+		{
+			ID:         2,
+			Collection: CollectionSerie,
+			VoiceRoles: []VoiceRole{
+				{Role: "Common role", Speaker: "Common speaker"},
+				{Role: "Zeta role", Speaker: "Zeta speaker"},
+			},
+		},
+		{
+			ID:         3,
+			Collection: CollectionSerie,
+			VoiceRoles: []VoiceRole{
+				{Role: "Common role", Speaker: "Common speaker"},
+				{Role: "Alpha role", Speaker: "Alpha speaker"},
+				{Role: "Zeta role", Speaker: "Zeta speaker"},
+			},
+		},
+	}
+	handler := newHTTPHandler(folgen, zerolog.New(io.Discard))
+	for _, test := range []struct {
+		name string
+		path string
+		want SearchOptions
+	}{
+		{
+			name: "occurrence sort is the default",
+			path: "/search-options",
+			want: SearchOptions{
+				Speakers:      []string{"Common speaker", "Alpha speaker", "Zeta speaker", "Rare speaker"},
+				Roles:         []string{"Common role", "Alpha role", "Zeta role", "Rare role"},
+				Authors:       []string{},
+				ScriptAuthors: []string{},
+				Collections:   []Collection{CollectionSerie},
+			},
+		},
+		{
+			name: "name sort",
+			path: "/search-options?sort=name",
+			want: SearchOptions{
+				Speakers:      []string{"Alpha speaker", "Common speaker", "Rare speaker", "Zeta speaker"},
+				Roles:         []string{"Alpha role", "Common role", "Rare role", "Zeta role"},
+				Authors:       []string{},
+				ScriptAuthors: []string{},
+				Collections:   []Collection{CollectionSerie},
+			},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			response := httptest.NewRecorder()
+			handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, test.path, nil))
+			if response.Code != http.StatusOK {
+				t.Fatalf("search options status = %d, want %d", response.Code, http.StatusOK)
+			}
+			var options SearchOptions
+			if err := json.Unmarshal(response.Body.Bytes(), &options); err != nil {
+				t.Fatalf("decode search options response: %v", err)
+			}
+			if !reflect.DeepEqual(options, test.want) {
+				t.Fatalf("search options = %+v, want %+v", options, test.want)
+			}
+		})
+	}
+}
+
+func TestHTTPHandlerRejectsInvalidSearchOptionOccurrenceThreshold(t *testing.T) {
+	handler := newHTTPHandler(nil, zerolog.New(io.Discard))
+	for _, threshold := range []string{"0", "-1", "invalid", ""} {
+		t.Run(threshold, func(t *testing.T) {
+			response := httptest.NewRecorder()
+			handler.ServeHTTP(response, httptest.NewRequest(
+				http.MethodGet,
+				"/search-options?min_occurrences="+threshold,
+				nil,
+			))
+			if response.Code != http.StatusBadRequest {
+				t.Fatalf("search options status = %d, want %d", response.Code, http.StatusBadRequest)
+			}
+		})
+	}
+}
+
+func TestHTTPHandlerRejectsInvalidSearchOptionSort(t *testing.T) {
+	handler := newHTTPHandler(nil, zerolog.New(io.Discard))
+	for _, sortBy := range []string{"", "count", "alphabetical"} {
+		t.Run(sortBy, func(t *testing.T) {
+			response := httptest.NewRecorder()
+			handler.ServeHTTP(response, httptest.NewRequest(
+				http.MethodGet,
+				"/search-options?sort="+sortBy,
+				nil,
+			))
+			if response.Code != http.StatusBadRequest {
+				t.Fatalf("search options status = %d, want %d", response.Code, http.StatusBadRequest)
+			}
+		})
+	}
+}
+
 func TestHTTPHandlerListsFolgenByReleaseDateDescending(t *testing.T) {
 	olderDate := "2020-01-01"
 	newerDate := "2024-06-15"

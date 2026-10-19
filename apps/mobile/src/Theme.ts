@@ -21,7 +21,7 @@ export const DdfColors = {
     primary: "009ee1",
     secondaryText: "#5D6C76",
     surface: "#FFFDF7",
-    text: "#172B3A",
+    text: "#ffffff",
   },
 } as const;
 
