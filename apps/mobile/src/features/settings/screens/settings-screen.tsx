@@ -1,8 +1,18 @@
 import { STREAMING_SERVICES, type StreamingService } from "@ddfdb/core";
 import { l } from "@ddfdb/core/labels";
-import { Button, FieldGroup, Host, Picker, Row, Spacer, Text } from "@expo/ui";
+import {
+  Button,
+  FieldGroup,
+  Host,
+  ListItem,
+  Picker,
+  Row,
+  Spacer,
+  Text,
+} from "@expo/ui";
 import { scrollContentBackground } from "@expo/ui/swift-ui/modifiers";
 import { Stack, useRouter, useTheme } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
 import { Alert, Platform } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
@@ -43,6 +53,13 @@ export function SettingsScreen() {
       ],
       { cancelable: true },
     );
+  }
+
+  function openWebLink(href: string) {
+    void WebBrowser.openBrowserAsync(href, {
+      dismissButtonStyle: "close",
+      presentationStyle: WebBrowser.WebBrowserPresentationStyle.PAGE_SHEET,
+    });
   }
 
   const isAuthenticated = !!session;
@@ -113,6 +130,24 @@ export function SettingsScreen() {
                 geöffnet wenn du in einer Folge den "Play" button drückst.
               </Text>
             </FieldGroup.SectionFooter>
+          </FieldGroup.Section>
+
+          <FieldGroup.Section title="Rechtliches">
+            <ListItem
+              onPress={() => {
+                openWebLink("http://192.168.178.104:3000/legal/privacy");
+              }}
+            >
+              Datenschutzerklärung
+            </ListItem>
+
+            <ListItem
+              onPress={() => {
+                openWebLink("http://192.168.178.104:3000/legal/sources");
+              }}
+            >
+              Quellen & Rechte
+            </ListItem>
           </FieldGroup.Section>
 
           {isAuthenticated && (

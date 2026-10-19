@@ -14,7 +14,7 @@ export default function LegalLayout({ children }: PropsWithChildren) {
   return (
     <main>
       <Wrapper className="max-w-4xl">
-        <article className="mx-auto prose max-w-none prose-invert">
+        <article className="mx-auto prose prose-sm max-w-none prose-invert sm:prose-base">
           {children}
         </article>
       </Wrapper>

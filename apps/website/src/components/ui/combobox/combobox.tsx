@@ -3,6 +3,7 @@ import * as React from "react";
 import { tv } from "tailwind-variants";
 
 import { CaretDownIcon, CheckIcon, XIcon } from "../../icons";
+import { popupVariants } from "../shared/popup";
 
 export interface ComboboxItem<Value> {
   label: string;
@@ -36,8 +37,9 @@ const comboboxVariants = tv({
   slots: {
     action:
       "flex w-6 items-center justify-center rounded-md border-0 bg-transparent p-0 text-neutral-300 hover:bg-ddf-blue-700 hover:text-white",
-    base: "min-h-8 rounded-lg border border-neutral-400 bg-transparent transition-colors hover:border-neutral-100 focus-within:[outline:auto]",
-    container: "flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-100",
+    base: "min-h-8 rounded-lg border border-neutral-400 bg-transparent transition-colors focus-within:[outline:auto] hover:border-neutral-100",
+    container:
+      "flex flex-col gap-1 text-sm leading-5 font-bold text-neutral-100",
     input:
       "border-0 bg-transparent text-sm font-normal text-neutral-100 outline-none placeholder:text-neutral-400 any-pointer-coarse:text-base",
   },
@@ -58,10 +60,15 @@ function ComboboxOptions<Value>({
 }: {
   renderItem: (item: ComboboxItem<Value>) => React.ReactNode;
 }): React.JSX.Element {
+  const popupClass = popupVariants({
+    className:
+      "w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] transition-[scale,opacity] duration-100 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0",
+  });
+
   return (
     <ComboboxPrimitive.Portal>
       <ComboboxPrimitive.Positioner className="z-50" sideOffset={4}>
-        <ComboboxPrimitive.Popup className="w-[var(--anchor-width)] max-w-[var(--available-width)] origin-[var(--transform-origin)] rounded-xl border border-ddf-blue-600 bg-ddf-blue-950 text-neutral-100 shadow-lg shadow-black/30 transition-[scale,opacity] duration-100 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0">
+        <ComboboxPrimitive.Popup className={popupClass}>
           <ComboboxPrimitive.Empty>
             <div className="px-3 py-4 text-sm leading-4 text-neutral-400">
               Keine Optionen gefunden.

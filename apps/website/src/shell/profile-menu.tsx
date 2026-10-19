@@ -7,6 +7,7 @@ import Link from "next/link";
 import { GearIcon } from "@/components/icons";
 import { QSvg } from "@/components/icons/q";
 import { Avatar } from "@/components/ui/avatar";
+import { popupVariants } from "@/components/ui/shared/popup";
 import { useLogout } from "@/features/auth/hooks/use-logout";
 
 interface ProfileMenuProps {
@@ -73,6 +74,11 @@ const profileLinks = [
 export function ProfileMenu({ name }: ProfileMenuProps) {
   const { isLoggingOut, logout } = useLogout();
 
+  const popupClass = popupVariants({
+    className:
+      "max-h-92 w-56 max-w-(--available-width) overflow-y-auto text-neutral-300",
+  });
+
   function onSignOutPress() {
     logout();
   }
@@ -87,7 +93,7 @@ export function ProfileMenu({ name }: ProfileMenuProps) {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Positioner align="end" className="z-50" sideOffset={14}>
-          <Popover.Popup className="max-h-92 w-56 max-w-(--available-width) overflow-y-auto rounded-xl border border-neutral-500 bg-[#000b0e] text-neutral-300 shadow-2xl">
+          <Popover.Popup className={popupClass}>
             <nav aria-label="Profilmenü">
               {profileLinks.map(({ href, icon, label }) => (
                 <Popover.Close
