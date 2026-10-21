@@ -4,6 +4,17 @@ Website and mobile app for browsing Die drei Fragezeichen Folgen and managing us
 
 Start with the [architecture overview](ARCHITECTURE.md) to understand the Archiv metadata service, user API, database ownership, and code locations. Contributors and coding agents should also read the [agent guidelines](AGENTS.md).
 
+## Features
+
+- Search and browse Die drei ??? episodes, including specials.
+- Filter by release year, voice actor, character, author, and scriptwriter.
+- Sort episodes by release date or community rating.
+- View episode summaries, cover artwork, release dates, and cast credits.
+- Open episodes on Spotify, Apple Music, Amazon Music, Deezer, and YouTube Music.
+- Bookmark episodes and track which ones you have listened to.
+- Rate episodes and see community ratings.
+- Browse and search your personal bookmarks, listened episodes, and ratings.
+
 ## API
 
 ### Legacy API

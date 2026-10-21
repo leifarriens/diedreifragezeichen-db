@@ -16,7 +16,7 @@ export interface LegacyFolge {
   number_of_ratings: number;
   popularity: number;
   rating: number;
-  release_date: string;
+  release_date: Date;
   spotify_id: string;
   sprecher: string; // Can be empty string
   type: "regular" | "special";

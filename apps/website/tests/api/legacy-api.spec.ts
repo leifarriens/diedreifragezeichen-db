@@ -1,5 +1,9 @@
 import { type APIRequestContext, expect, test } from "@playwright/test";
 
+const expectIsoString = expect.stringMatching(
+  /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/,
+);
+
 test.describe("GET /api/folgen", () => {
   test("returns a non-empty page of legacy episodes", async ({ request }) => {
     const response = await request.get("/api/folgen");
@@ -38,6 +42,26 @@ test.describe("GET /api/folgen", () => {
     });
   });
 
+  test("newly released folgen should return release_date in ISO format", async ({
+    request,
+  }) => {
+    const response = await request.get("/api/folgen", {
+      params: { query: "Meister des Lichts" },
+    });
+
+    expect(response.status()).toBe(200);
+
+    const body: unknown = await response.json();
+
+    expect(body).toMatchObject({
+      items: expect.arrayContaining([
+        expect.objectContaining({
+          release_date: expectIsoString,
+        }),
+      ]),
+    });
+  });
+
   test("returns 400 higher limit parameter", async ({ request }) => {
     const response = await request.get("/api/folgen", {
       params: { limit: 200 },
@@ -52,6 +76,16 @@ test.describe("GET /api/folgen", () => {
     });
 
     expect(response.status()).toBe(400);
+  });
+
+  test("returns 200 even when deprecated apikey is provided", async ({
+    request,
+  }) => {
+    const response = await request.get("/api/folgen?limit=1", {
+      params: { apikey: "test-api-key" },
+    });
+
+    expect(response.status()).toBe(200);
   });
 });
 
@@ -71,6 +105,24 @@ test.describe("GET /api/folgen/{legacyId}", () => {
 
     expect(body._id).toBe(legacyId);
     expect(body).toMatchObject(legacyApiFolgenSchema);
+  });
+});
+
+test.describe("GET /api/sync/folgen with apikey", () => {
+  test("returns 401 when no authorization is provided", async ({ request }) => {
+    const response = await request.get("/api/sync/folgen");
+
+    expect(response.status()).toBe(401);
+  });
+
+  test("returns 401 when invalid authorization is provided", async ({
+    request,
+  }) => {
+    const response = await request.get("/api/sync/folgen", {
+      headers: { Authorization: "InvalidToken" },
+    });
+
+    expect(response.status()).toBe(401);
   });
 });
 
@@ -109,7 +161,7 @@ const legacyApiFolgenSchema = {
   number_of_ratings: expect.any(Number),
   popularity: expect.any(Number),
   rating: expect.any(Number),
-  release_date: expect.any(String),
+  release_date: expectIsoString,
   spotify_id: expect.any(String),
   sprecher: expect.any(String),
   type: expect.any(String),

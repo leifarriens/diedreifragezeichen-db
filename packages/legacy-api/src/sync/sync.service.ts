@@ -4,15 +4,11 @@ import clientPromise from "../db";
 import * as SpotifyApi from "./spotify";
 import ignorelist from "./spotify-ignore.json";
 
-export function convertFolge({
-  id,
-  images,
-  name,
-  release_date,
-}: SpotifyApi.SpotifyAlbum) {
+export function convertFolge(album: SpotifyApi.SpotifyAlbum) {
+  const { id, images, name, release_date } = album;
   const folge = {
     images,
-    release_date,
+    release_date: new Date(release_date),
     spotify_id: id,
   } as LegacyFolge;
 
@@ -45,8 +41,7 @@ export async function syncFolgen() {
   const dbFolgen = await db
     .collection<LegacyFolge>("folgen")
     .find()
-    // TODO only select the spotify_id field
-    // .project({ spotify_id: 1 }) does this do it?
+    .project({ spotify_id: 1 })
     .toArray();
 
   const notInDbAlbums = allAlbums.filter((album) => {
