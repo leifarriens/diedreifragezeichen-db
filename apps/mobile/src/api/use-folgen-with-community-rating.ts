@@ -15,6 +15,7 @@ export function useFolgenTotal() {
 
 export function useFolgenWithCommunityRating() {
   const trpc = useTRPC();
+
   const queries = useQueries({
     combine([folgenQuery, communityRatingsQuery]) {
       const data =

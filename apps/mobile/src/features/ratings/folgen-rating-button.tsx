@@ -1,44 +1,54 @@
 import { FOLGEN_RATING_MAX, FOLGEN_RATING_STEP } from "@ddfdb/core";
-import { BottomSheet, Column, Text } from "@expo/ui";
+import { BottomSheet, Button, Column, RNHostView } from "@expo/ui";
 import { Slider } from "@expo/ui/swift-ui";
+import { buttonStyle, controlSize } from "@expo/ui/swift-ui/modifiers";
 import { useState } from "react";
-import { useColorScheme } from "react-native";
+import { Pressable } from "react-native";
 
-import { UIButton } from "@/components/ui/button";
-
+import { FolgenRatingDisplay } from "./folgen-rating-display";
 import { useUpdateRating, useUserFolgenRating } from "./hooks/use-ratings";
 
 interface FolgenRatingButtonProps {
   folgeId: number;
+  folgenTitle: string;
 }
 
 interface FolgenRatingSheetProps {
   currentRating: null | number;
   folgeId: number;
+  folgenTitle: string;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export function FolgenRatingButton({ folgeId }: FolgenRatingButtonProps) {
+export function FolgenRatingButton({
+  folgeId,
+  folgenTitle,
+}: FolgenRatingButtonProps) {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const { isLoading, rating } = useUserFolgenRating(folgeId);
 
   return (
     <>
-      <UIButton
+      <Pressable
         disabled={isLoading}
-        {...(rating ? {} : { icon: "questionmark.diamond" })}
-        iconOnly={!rating}
-        label={rating ? rating.score.toString() : "Folgen bewerten"}
         onPress={() => {
           setIsSheetOpen(true);
         }}
-      />
+      >
+        <FolgenRatingDisplay
+          folgenTitle={folgenTitle}
+          size="lg"
+          type="user"
+          value={rating?.score ?? null}
+        />
+      </Pressable>
 
       <FolgenRatingSheet
         currentRating={rating?.score ?? null}
         folgeId={folgeId}
+        folgenTitle={folgenTitle}
         isOpen={isSheetOpen}
         onClose={() => {
           setIsSheetOpen(false);
@@ -51,6 +61,7 @@ export function FolgenRatingButton({ folgeId }: FolgenRatingButtonProps) {
 function FolgenRatingSheet({
   currentRating,
   folgeId,
+  folgenTitle,
   isOpen,
   onClose,
 }: FolgenRatingSheetProps) {
@@ -70,32 +81,34 @@ function FolgenRatingSheet({
     onClose();
   }
 
-  const colorScheme = useColorScheme();
-  const ink = { color: colorScheme === "dark" ? "#FFFFFF" : "#000000" };
-
   return (
     <BottomSheet
-      contentPadding={46}
+      containerColor="#00000025"
+      contentPadding={{ bottom: 36, left: 36, right: 36, top: 64 }}
       isPresented={isOpen}
       onDismiss={handleDismiss}
-      snapPoints={["half"]}
     >
-      <Column spacing={36}>
-        <Text textStyle={{ ...ink, fontSize: 52, fontWeight: "700" }}>
-          {`${localValue > 0 ? localValue.toString() : "?"} / 3`}
-        </Text>
-
+      <Column alignment="center" spacing={48}>
+        <RNHostView matchContents>
+          <FolgenRatingDisplay
+            folgenTitle={folgenTitle}
+            size="xl"
+            type="user"
+            value={localValue}
+          />
+        </RNHostView>
         <Slider
           max={FOLGEN_RATING_MAX}
           min={0} // Using 0 instead of FOLGEN_RATING_MIN to allow for a "no rating" state
           onValueChange={setDraftValue}
           step={FOLGEN_RATING_STEP}
-
           value={localValue}
         />
-        <UIButton
+
+        <Button
           disabled={!canSubmit || isLoading}
           label="Bewertung abgeben"
+          modifiers={[buttonStyle("glass"), controlSize("large")]}
           onPress={handleSubmit}
         />
       </Column>

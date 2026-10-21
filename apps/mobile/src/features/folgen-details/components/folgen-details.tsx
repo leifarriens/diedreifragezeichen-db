@@ -1,11 +1,11 @@
-import type { Folge } from "@ddfdb/archiv/contracts";
-
 import {
+  type FolgeWithCommunityRating,
   formatFolgenSubtitle,
   formatRelativeTime,
   formatReleaseDate,
   isReleasDateInThePast,
 } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import { Link } from "expo-router";
 import { Text, View } from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
@@ -17,12 +17,13 @@ import { useUserBookmarks } from "@/features/bookmarks/use-bookmarks";
 import { FolgenListenedButton } from "@/features/listened/folgen-listened-button";
 import { useUserListened } from "@/features/listened/use-listened";
 import { FolgenRatingButton } from "@/features/ratings/folgen-rating-button";
+import { FolgenRatingDisplay } from "@/features/ratings/folgen-rating-display";
 
 import { isExternalHref } from "../is-external-href";
 import { FolgenPlayButton } from "./folgen-play-button";
 
 interface FolgeDetailsProps {
-  folge: Folge;
+  folge: FolgeWithCommunityRating;
 }
 
 export function FolgeDetails({ folge }: FolgeDetailsProps) {
@@ -65,7 +66,7 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
         ) : null}
       </View>
 
-      <View className="mt-6 flex flex-row items-center justify-center gap-2">
+      <View className="mt-6 flex flex-row items-center justify-center gap-2 px-5">
         <FolgenBookmarkButton
           folgeId={folge.id}
           folgeTitle={folge.title}
@@ -83,15 +84,37 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           }
         />
 
-        <FolgenRatingButton folgeId={folge.id} />
-
         {folge.weblink && isExternalHref(folge.weblink) ? (
           <Link asChild href={folge.weblink} target="_blank">
             <UIButton icon="network" iconOnly />
           </Link>
         ) : null}
 
+        <View className="grow" />
+
         <FolgenPlayButton streaming={streaming} />
+      </View>
+
+      <View className="mt-8 flex flex-row items-center justify-evenly gap-x-4">
+        <View className="items-center">
+          <Text className="mb-2 font-semibold text-white">
+            {l.RATING.COMMUNITY_RATING_LABEL}
+          </Text>
+          <FolgenRatingDisplay
+            folgenTitle={folge.title}
+            size="lg"
+            type="community"
+            value={folge.communityRating?.score ?? null}
+          />
+        </View>
+
+        <View className="items-center">
+          <Text className="mb-2 font-semibold text-white">
+            {l.RATING.RATING_LABEL}
+          </Text>
+
+          <FolgenRatingButton folgeId={folge.id} folgenTitle={folge.title} />
+        </View>
       </View>
 
       <View className="mt-6 gap-y-6">

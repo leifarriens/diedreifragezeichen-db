@@ -51,6 +51,10 @@ export const l = {
     NO_FOLGEN_FOUND: "Keine Folgen gefunden",
     PROFILE: "Profil",
   },
+  RATING: {
+    COMMUNITY_RATING_LABEL: "DDFDB Wertung",
+    RATING_LABEL: "Deine Bewertung",
+  },
   RATINGS: {
     EMPTY_PLACEHOLDER: "Du hast noch keine Folgen bewertet",
     NAME: "Bewertet",

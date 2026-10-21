@@ -12,6 +12,7 @@ interface EnvironmentConfig {
 
 type EnvType = "development" | "production";
 
+const EAS_PROJECT_ID = "fe7f150b-65e3-474a-9a6f-af66dc193eda";
 const PROJECT_SLUG = "ddfdb";
 const OWNER = "leifarriens";
 
@@ -40,6 +41,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     experiments: {
       reactCompiler: true,
       typedRoutes: true,
+    },
+    extra: {
+      eas: {
+        projectId: EAS_PROJECT_ID,
+      },
     },
     ios: {
       associatedDomains,

@@ -19,6 +19,7 @@ import { useShallow } from "zustand/react/shallow";
 import { authClient } from "@/features/auth/auth-client";
 import { useDeleteAccount, useSignOut } from "@/features/auth/hooks/use-auth";
 import { useUserSettingsStore } from "@/features/settings/hooks/use-user-settings-store";
+import { getLegalPageUrl } from "@/lib/legal-page-url";
 
 export function SettingsScreen() {
   const router = useRouter();
@@ -135,7 +136,7 @@ export function SettingsScreen() {
           <FieldGroup.Section title="Rechtliches">
             <ListItem
               onPress={() => {
-                openWebLink("http://192.168.178.104:3000/legal/privacy");
+                openWebLink(getLegalPageUrl("privacy"));
               }}
             >
               Datenschutzerklärung
@@ -143,7 +144,7 @@ export function SettingsScreen() {
 
             <ListItem
               onPress={() => {
-                openWebLink("http://192.168.178.104:3000/legal/sources");
+                openWebLink(getLegalPageUrl("sources"));
               }}
             >
               Quellen & Rechte

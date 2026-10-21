@@ -8,6 +8,7 @@ import {
   formatReleaseDate,
   isReleasDateInThePast,
 } from "@ddfdb/core";
+import { l } from "@ddfdb/core/labels";
 import {
   buildOptimizationUrl,
   type ImageSize,
@@ -188,7 +189,9 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
               <div className="mt-6 flex gap-4">
                 <div className="flex flex-col items-center">
-                  <p className="mb-1 text-xs font-semibold">DDFDB Wertung</p>
+                  <p className="mb-1 text-xs font-semibold">
+                    {l.RATING.COMMUNITY_RATING_LABEL}
+                  </p>
                   <FolgenRatingDisplay
                     folgenTitle={title}
                     size="lg"
@@ -198,7 +201,9 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 </div>
 
                 <div className="flex flex-col items-center">
-                  <p className="mb-1 text-xs font-semibold">Deine Wertung</p>
+                  <p className="mb-1 text-xs font-semibold">
+                    {l.RATING.RATING_LABEL}
+                  </p>
                   <FolgenUserRating folgeId={folge.id} folgenTitle={title} />
                 </div>
               </div>

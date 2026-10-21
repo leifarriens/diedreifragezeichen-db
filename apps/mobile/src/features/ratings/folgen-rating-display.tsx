@@ -2,7 +2,7 @@ import { FOLGEN_RATING_MAX } from "@ddfdb/core";
 import { useId } from "react";
 import { View } from "react-native";
 import Svg, { Defs, LinearGradient, Path, Stop } from "react-native-svg";
-import { tv, type VariantProps } from "tailwind-variants";
+import { cn, tv, type VariantProps } from "tailwind-variants";
 
 interface FolgenRatingDisplayProps extends RatingVariants {
   className?: string;
@@ -29,13 +29,13 @@ const ratingVariants = tv({
   variants: {
     size: {
       lg: {
-        container: "gap-0.5 h-12",
+        container: "gap-0.5",
       },
       sm: {
-        container: "gap-px h-5",
+        container: "gap-px",
       },
       xl: {
-        container: "gap-1 h-16",
+        container: "gap-1",
       },
     },
   },
@@ -70,8 +70,8 @@ export function FolgenRatingDisplay({
       accessibilityLabel={getAccessibilityLabel(type, folgenTitle, value)}
       accessibilityRole="image"
       accessible
-      className="self-start"
-      {...(className === undefined ? {} : { className })}
+      className={cn(className) ?? ""}
+      style={{ maxHeight: height }}
     >
       <View className={container()} style={{ height }}>
         {Array.from({ length: FOLGEN_RATING_MAX }).map((_, index) => {
