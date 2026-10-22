@@ -1,0 +1,45 @@
+{
+  "name": "@ddfdb/core",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./labels": {
+      "types": "./dist/labels/index.d.ts",
+      "import": "./src/labels/index.ts",
+      "default": "./src/labels/index.ts"
+    },
+    "./search": {
+      "types": "./dist/search/index.d.ts",
+      "import": "./src/search/index.ts",
+      "default": "./src/search/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "git clean -xdf .cache .turbo dist",
+    "dev": "tsc --watch --project tsconfig.build.json",
+    "lint": "eslint --cache --cache-location .cache/.eslintcache",
+    "test:watch": "vitest",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@ddfdb/archiv": "workspace:*",
+    "@orama/orama": "^3.1.18",
+    "dayjs": "^1.11.23"
+  },
+  "devDependencies": {
+    "@ddfdb/eslint-config": "workspace:*",
+    "@ddfdb/tsconfig": "workspace:*",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

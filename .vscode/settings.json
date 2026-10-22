@@ -1,6 +1,24 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
-  }
+  },
+  "files.exclude": {
+    "**/.cache/**": true,
+    "**/.git": true,
+    "**/.turbo/**": true,
+    "**/coverage/**": true
+  },
+  "conventionalCommits.scopes": [
+    "db",
+    "core",
+    "user-api",
+    "website",
+    "mobile",
+    "client",
+    "archiv"
+  ],
+  "tailwindCSS.experimental.classRegex": [
+    ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ],
+  "css.customData": [".vscode/tailwind.css-data.json"]
 }
