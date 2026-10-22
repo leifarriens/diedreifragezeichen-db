@@ -37,6 +37,7 @@ export function FolgenUserRating({
                 für &quot;<i>{folgenTitle}</i>&quot; gespeichert
               </span>
             ),
+            type: "success",
           });
         },
       },

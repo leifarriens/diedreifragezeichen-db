@@ -60,6 +60,7 @@ export function FolgenListenedButton({
                   markiert
                 </span>
               ),
+              type: "default",
             });
           },
         },

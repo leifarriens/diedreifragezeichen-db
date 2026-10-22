@@ -10,17 +10,17 @@ import { XIcon } from "@/components/icons";
 import styles from "./toast.module.css";
 
 const toastVariants = tv({
-  base: "rounded-xl bg-ddf-blue-950/50 text-[#fffffc] backdrop-blur-2xl backdrop-brightness-50",
+  base: "rounded-xl bg-ddf-blue-950/60 text-white backdrop-blur-2xl",
   defaultVariants: {
     type: "default",
   },
   variants: {
     type: {
       default: "",
-      error: "bg-red-500 text-white",
-      info: "bg-blue-500 text-white",
-      success: "bg-green-500 text-white",
-      warning: "bg-yellow-500 text-black",
+      error: "bg-red-500/60",
+      info: "bg-blue-500/60",
+      success: "bg-green-500/60",
+      warning: "bg-yellow-500/60 text-black",
     },
   },
 });
@@ -75,7 +75,7 @@ function Toasts() {
     >
       <Toast.Content className={cn(styles.content)}>
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <Toast.Title className="text-sm font-bold" />
+          <Toast.Title className="text-sm font-semibold" />
           <Toast.Description className="text-sm text-neutral-500" />
         </div>
 

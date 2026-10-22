@@ -62,6 +62,44 @@ test.describe("GET /api/folgen", () => {
     });
   });
 
+  test("returns newest folgen first when respective sort is applied", async ({
+    request,
+  }) => {
+    const response = await request.get("/api/folgen", {
+      params: { sort: "-release_date" },
+    });
+
+    expect(response.status()).toBe(200);
+
+    const body: unknown = await response.json();
+
+    const newest = body as { items: { release_date: string }[] };
+    expect(
+      new Date(newest.items[0]?.release_date ?? 0).getDay(),
+    ).toBeGreaterThanOrEqual(
+      new Date(newest.items[1]?.release_date ?? 0).getDay(),
+    );
+  });
+
+  test("returns oldest folgen first when respective sort is applied", async ({
+    request,
+  }) => {
+    const response = await request.get("/api/folgen", {
+      params: { sort: "release_date" },
+    });
+
+    expect(response.status()).toBe(200);
+
+    const body: unknown = await response.json();
+
+    const oldest = body as { items: { release_date: string }[] };
+    expect(
+      new Date(oldest.items[0]?.release_date ?? 0).getDay(),
+    ).toBeLessThanOrEqual(
+      new Date(oldest.items[1]?.release_date ?? 0).getDay(),
+    );
+  });
+
   test("returns 400 higher limit parameter", async ({ request }) => {
     const response = await request.get("/api/folgen", {
       params: { limit: 200 },

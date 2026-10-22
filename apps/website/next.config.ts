@@ -8,15 +8,6 @@ const nextConfig: NextConfig = {
   images: nextImagesConfig,
   pageExtensions: ["md", "mdx", "ts", "tsx"],
   reactCompiler: true,
-  transpilePackages: [
-    "@ddfdb/archiv",
-    "@ddfdb/client",
-    "@ddfdb/core",
-    "@ddfdb/db",
-    "@ddfdb/image-optimization",
-    "@ddfdb/legacy-api",
-    "@ddfdb/user-api",
-  ],
   typescript: {
     ignoreBuildErrors: true, // Typecheck runs separately from the build
   },
