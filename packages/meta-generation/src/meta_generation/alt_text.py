@@ -1,81 +1,17 @@
-import argparse
-import json
-import logging
-import os
-import sys
-import tempfile
 import time
 from pathlib import Path
+from typing import cast
 from urllib.error import URLError
-from urllib.parse import urlparse
 from urllib.request import urlopen
 
-import ollama
+from .archiv import fetch_folgen, validate_http_url
+from .cli import create_parser, log_generation_configuration
+from .config import DEFAULT_MODEL, GENERATED_DIR
+from .json_storage import load_json_file, save_json_file
+from .logger import logger
+from .ollama_client import client
 
-DEFAULT_FOLGEN_URL = "http://localhost:8080/folgen"
-DEFAULT_MODEL = "gemma4:12b"
-DEFAULT_OUTPUT_PATH = Path(__file__).with_name("alt-text.json")
-
-
-class ColorFormatter(logging.Formatter):
-    LEVEL_COLORS = {
-        logging.DEBUG: "\033[90m",
-        logging.INFO: "\033[36m",
-        logging.WARNING: "\033[33m",
-        logging.ERROR: "\033[31m",
-        logging.CRITICAL: "\033[1;31m",
-    }
-    RESET = "\033[0m"
-
-    def format(self, record: logging.LogRecord) -> str:
-        message = super().format(record)
-        color = self.LEVEL_COLORS.get(record.levelno)
-        if color is None or not sys.stderr.isatty():
-            return message
-        return f"{color}{message}{self.RESET}"
-
-
-handler = logging.StreamHandler()
-handler.setFormatter(
-    ColorFormatter(
-        "%(asctime)s %(levelname)s %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-)
-logger = logging.getLogger("alt-generator")
-logger.setLevel(logging.INFO)
-logger.addHandler(handler)
-logger.propagate = False
-
-client = ollama.Client(
-    host=os.getenv("OLLAMA_URL", "http://host.docker.internal:11434")
-)
-
-
-def validate_http_url(url: str, argument_name: str) -> None:
-    parsed_url = urlparse(url)
-    if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
-        raise ValueError(f"{argument_name} must be an absolute HTTP or HTTPS URL")
-
-
-def fetch_folgen(endpoint_url: str) -> list[dict[str, object]]:
-    validate_http_url(endpoint_url, "endpoint_url")
-
-    try:
-        with urlopen(endpoint_url, timeout=30) as response:
-            payload = json.loads(response.read())
-    except URLError as error:
-        message = f"Could not fetch Folgen from {endpoint_url}: {error}"
-        raise RuntimeError(message) from error
-    except (json.JSONDecodeError, UnicodeDecodeError) as error:
-        raise ValueError(f"Folgen endpoint returned invalid JSON: {error}") from error
-
-    if not isinstance(payload, list) or not all(
-        isinstance(folge, dict) for folge in payload
-    ):
-        raise ValueError("Folgen endpoint must return a JSON array of objects")
-
-    return payload
+DEFAULT_OUTPUT_PATH = GENERATED_DIR / "alt-text.json"
 
 
 def download_image(image_url: str) -> bytes:
@@ -122,13 +58,7 @@ def generate_alt_text(image_url: str, model: str = DEFAULT_MODEL) -> str:
 
 
 def load_results(output_path: Path) -> list[dict[str, object]]:
-    if not output_path.exists():
-        return []
-
-    try:
-        results = json.loads(output_path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, UnicodeDecodeError) as error:
-        raise ValueError(f"Output file contains invalid JSON: {output_path}") from error
+    results = load_json_file(output_path)
 
     if not isinstance(results, list) or not all(
         isinstance(result, dict)
@@ -143,32 +73,7 @@ def load_results(output_path: Path) -> list[dict[str, object]]:
         )
         raise ValueError(message)
 
-    return results
-
-
-def save_results(output_path: Path, results: list[dict[str, object]]) -> None:
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    temporary_path: Path | None = None
-    try:
-        with tempfile.NamedTemporaryFile(
-            mode="w",
-            encoding="utf-8",
-            dir=output_path.parent,
-            prefix=f".{output_path.name}.",
-            suffix=".tmp",
-            delete=False,
-        ) as temporary_file:
-            temporary_path = Path(temporary_file.name)
-            json.dump(results, temporary_file, ensure_ascii=False, indent=2)
-            temporary_file.write("\n")
-            temporary_file.flush()
-            os.fsync(temporary_file.fileno())
-
-        os.replace(temporary_path, output_path)
-    finally:
-        if temporary_path is not None and temporary_path.exists():
-            temporary_path.unlink()
+    return cast(list[dict[str, object]], results)
 
 
 def generate_missing_alt_text(
@@ -225,7 +130,7 @@ def generate_missing_alt_text(
         duplicate_count,
         len(pending_folgen),
     )
-    save_results(output_path, results)
+    save_json_file(output_path, results)
 
     failed_count = invalid_id_count
     for index, (folge_id, folge_title, artwork_url) in enumerate(
@@ -259,7 +164,7 @@ def generate_missing_alt_text(
 
         results.append({"id": folge_id, "alt": alt_text})
         completed_ids.add(folge_id)
-        save_results(output_path, results)
+        save_json_file(output_path, results)
 
     return failed_count, missing_artwork_count, len(results)
 
@@ -267,34 +172,15 @@ def generate_missing_alt_text(
 def build_image_proxy_url(image_url: str, width: int) -> str:
     return f"http://localhost:3000/_next/image?url={image_url}&w={width}&q=85"
 
+
 def main() -> int:
     started_at = time.perf_counter()
-    parser = argparse.ArgumentParser(
-        description="Generate and incrementally save alt text for Archiv artwork."
-    )
-    parser.add_argument(
-        "--endpoint",
-        default=os.getenv("FOLGEN_URL", DEFAULT_FOLGEN_URL),
-        help=f"Archiv Folgen endpoint (default: {DEFAULT_FOLGEN_URL})",
-    )
-    parser.add_argument(
-        "--output",
-        type=Path,
-        default=DEFAULT_OUTPUT_PATH,
-        help=f"JSON output file (default: {DEFAULT_OUTPUT_PATH})",
-    )
-    parser.add_argument(
-        "--model",
-        default=DEFAULT_MODEL,
-        help=f"Ollama model to use (default: {DEFAULT_MODEL})",
+    parser = create_parser(
+        "Generate and incrementally save alt text for Archiv artwork.",
+        DEFAULT_OUTPUT_PATH,
     )
     args = parser.parse_args()
-    logger.info(
-        "Configuration: Folgen endpoint=%s | model=%s | output=%s",
-        args.endpoint,
-        args.model,
-        args.output,
-    )
+    log_generation_configuration(args.endpoint, args.model, args.output)
 
     try:
         failed_count, missing_artwork_count, saved_count = generate_missing_alt_text(

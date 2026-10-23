@@ -20,14 +20,6 @@
     "alt": "Eine Schlange mit gelb, grün und blau gemusterten Schuppen windet sich auf einem leuchtend roten Hintergrund. Der Kopf der Schlange ist nach links gerichtet und zeigt ein rotes Auge sowie eine gespaltene rote Zunge und weiße Zähne. Im unteren linken Bereich sind die Initialen „LR“ zu sehen."
   },
   {
-    "id": 428,
-    "alt": "Ein großer, leuchtend roter Stier mit gelben Akzenten und massiven Hörnern ist vor einem dunklen Hintergrund zu sehen. Mehrere schwarze, vertikale Balken verlaufen vor dem Gesicht des Tieres und bilden ein Gittermuster."
-  },
-  {
-    "id": 421,
-    "alt": "Ein blaues, fischähnliches Wesen mit großen, goldgelben Augen und einem weit geöffneten Maul, in dem mehrere große, weiße Zähne zu sehen sind. Das Wesen ist vor einem dunklen Hintergrund positioniert, der hinter seinem Kopf von einer hellen, gelb-orangefarbenen Lichtquelle beleuchtet wird."
-  },
-  {
     "id": 427,
     "alt": "Ein Tierschädel mit Hörnern ist mit grünen Blättern und roten Akzenten geschmückt. Einer der Augenhöhlen ist mit einem leuchtend orangefarbenen Kreis ausgefüllt. Im Hintergrund ist ein großer, hellgrau schattierter Vollmond vor einem dunklen, bläulichen Hintergrund zu sehen. Von dem Schädel gehen mehrere lange, wellenförmige Stoffbänder in den Farben Rot, Gelb, Grün und Schwarz weg."
   },
@@ -1040,7 +1032,15 @@
     "alt": "Zwei dunkle Silhouetten auf einem Hintergrund aus verschiedenen Blautönen, die von horizontalen, wellenförmigen Streifen in unterschiedlichen Blautönen überlagert werden. Die linke Silhouette hat die Form einer erhobenen Hand, die rechte Silhouette zeigt die Umrisse eines Gesichts im Profil."
   },
   {
+    "id": 428,
+    "alt": "Ein stilisierter, leuchtend roter Stierkopf mit großen gelben Hörnern ist hinter einer Reihe vertikaler, schwarzer Balken zu sehen. Der Hintergrund ist dunkel und im unteren Bereich grünlich verwaschen."
+  },
+  {
+    "id": 421,
+    "alt": "Nahaufnahme eines blauen Fisches mit schuppiger Textur und großen, gelben Augen. Aus seinem Maul ragen spitze, weiße Zähne. Der Hintergrund ist dunkel mit einem gelb-orangen Leuchten hinter dem Fischkopf."
+  },
+  {
     "id": 1,
-    "alt": "Ein Papagei mit rotem Kopf, gelbem Gesicht und blaugrayem, gemustertem Gefieder steht vor zwei Grabsteinen auf grünem Grund. Der linke Grabstein trägt ein Kreuz und die Zahl „13“. Der rechte Grabstein trägt die Inschrift „JOSIAH DIED 13“."
+    "alt": "Ein großer Papagei mit rotem Kopf, gelber Gesichtspartie und einem großen schwarzen Schnabel dominiert das Bild. Er befindet sich vor zwei Grabsteinen auf einem grünlichen, strukturierten Hintergrund. Der linke Grabstein ist mit einer „13“ und einem Kreuz versehen. Der rechte Grabstein trägt die Inschriften „JOSIAH“, „DIED“ und die Zahl „13“."
   }
 ]

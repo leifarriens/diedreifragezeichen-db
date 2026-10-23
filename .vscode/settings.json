@@ -3,6 +3,7 @@
     "source.fixAll.eslint": "explicit"
   },
   "files.exclude": {
+    "**/__pycache__": true,
     "**/.cache/**": true,
     "**/.git": true,
     "**/.turbo/**": true,
