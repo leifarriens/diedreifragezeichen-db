@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "4.1.12",
-    "postcss": "8.5.28",
+    "@tailwindcss/postcss": "4.3.3",
+    "postcss": "8.5.30",
     "tailwindcss": "catalog:"
   },
   "devDependencies": {

@@ -43,9 +43,11 @@ export function createEmailTransport(
   const environment = options.environment ?? process.env.NODE_ENV;
 
   if (environment !== "production") {
-    const log = options.log ?? ((message: string) => {
-      console.info(message);
-    });
+    const log =
+      options.log ??
+      ((message: string) => {
+        console.info(message);
+      });
 
     return {
       send(message) {

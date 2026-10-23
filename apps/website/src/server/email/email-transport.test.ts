@@ -42,10 +42,10 @@ describe("createEmailTransport", () => {
 
     await transport.send(message);
 
-    expect(sendWithResend).toHaveBeenCalledExactlyOnceWith(
-      "test-api-key",
-      { ...message, from: "DDFDB <auth@example.com>" },
-    );
+    expect(sendWithResend).toHaveBeenCalledExactlyOnceWith("test-api-key", {
+      ...message,
+      from: "DDFDB <auth@example.com>",
+    });
   });
 
   it("does not fall back to console in production when sender settings are missing", async () => {

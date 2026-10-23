@@ -45,8 +45,6 @@ describe("GET /api/folgen/[id]", () => {
 
     expect(response.status).toBe(404);
     expect(await response.text()).toBe("Not Found");
-    expect(response.headers.get("Cache-Control")).toBe(
-      "public, s-maxage=3600",
-    );
+    expect(response.headers.get("Cache-Control")).toBe("public, s-maxage=3600");
   });
 });

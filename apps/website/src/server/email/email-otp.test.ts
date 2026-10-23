@@ -35,9 +35,7 @@ describe("createEmailOtpOptions", () => {
     expect(message?.text).toContain(
       "Dein DDFDB-Bestätigungscode lautet 123456.",
     );
-    expect(message?.text).toContain(
-      "Dieser Code ist 5 Minuten gültig.",
-    );
+    expect(message?.text).toContain("Dieser Code ist 5 Minuten gültig.");
     expect(message?.to).toBe("listener@example.com");
   });
 

@@ -9,12 +9,8 @@ afterEach(() => {
 it("builds legal-page URLs from the configured API origin", () => {
   vi.stubEnv("EXPO_PUBLIC_DDFDB_API_URL", "https://www.ddfdb.de/");
 
-  expect(getLegalPageUrl("privacy")).toBe(
-    "https://www.ddfdb.de/legal/privacy",
-  );
-  expect(getLegalPageUrl("sources")).toBe(
-    "https://www.ddfdb.de/legal/sources",
-  );
+  expect(getLegalPageUrl("privacy")).toBe("https://www.ddfdb.de/legal/privacy");
+  expect(getLegalPageUrl("sources")).toBe("https://www.ddfdb.de/legal/sources");
 });
 
 it("requires the API origin to be configured", () => {

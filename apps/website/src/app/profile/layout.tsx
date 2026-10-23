@@ -16,7 +16,9 @@ export default function ProfilLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <Suspense fallback={<PageLoadingIndicator ariaLabel="Sitzung wird überprüft" />}>
+    <Suspense
+      fallback={<PageLoadingIndicator ariaLabel="Sitzung wird überprüft" />}
+    >
       <AuthenticatedProfile>{children}</AuthenticatedProfile>
     </Suspense>
   );

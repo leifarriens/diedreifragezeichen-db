@@ -10,6 +10,7 @@ import {
 
 import FolgePage, { generateMetadata } from "./page";
 
+vi.mock("server-only", () => ({}));
 vi.mock("@/server/queries/folgen", () => ({
   getFolgeByLegacyId: vi.fn(),
   getFolgeWithCommunityRatingById: vi.fn(),

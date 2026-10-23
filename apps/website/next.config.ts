@@ -8,9 +8,6 @@ const nextConfig: NextConfig = {
   images: nextImagesConfig,
   pageExtensions: ["md", "mdx", "ts", "tsx"],
   reactCompiler: true,
-  typescript: {
-    ignoreBuildErrors: true, // Typecheck runs separately from the build
-  },
 };
 
 const withMDX = createMDX({

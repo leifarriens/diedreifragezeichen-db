@@ -21,7 +21,8 @@ export function ResendOtpButton({
       onClick={onResend}
       type="button"
     >
-      Code erneut senden{remainingSeconds > 0 ? ` (${String(remainingSeconds)} s)` : ""}
+      Code erneut senden
+      {remainingSeconds > 0 ? ` (${String(remainingSeconds)} s)` : ""}
     </button>
   );
 }

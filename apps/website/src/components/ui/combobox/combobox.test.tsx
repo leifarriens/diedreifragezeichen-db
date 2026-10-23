@@ -35,8 +35,6 @@ describe("Combobox", () => {
     expect(
       await screen.findByRole("option", { name: "Dorette Hugo" }),
     ).toBeTruthy();
-    expect(
-      screen.queryByRole("option", { name: "André Marx" }),
-    ).toBeNull();
+    expect(screen.queryByRole("option", { name: "André Marx" })).toBeNull();
   });
 });

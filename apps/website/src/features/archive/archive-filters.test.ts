@@ -43,15 +43,15 @@ describe("archive filter query parameters", () => {
     const defaults = readArchiveFilters("", CURRENT_YEAR);
 
     expect(writeArchiveFilters("", defaults, CURRENT_YEAR)).toBe("");
-    expect(readArchiveFilters("?specials=1", CURRENT_YEAR).includeSpecials).toBe(
-      true,
-    );
+    expect(
+      readArchiveFilters("?specials=1", CURRENT_YEAR).includeSpecials,
+    ).toBe(true);
 
     const disabled = { ...defaults, includeSpecials: false };
     expect(writeArchiveFilters("", disabled, CURRENT_YEAR)).toBe("specials=0");
-    expect(readArchiveFilters("?specials=0", CURRENT_YEAR).includeSpecials).toBe(
-      false,
-    );
+    expect(
+      readArchiveFilters("?specials=0", CURRENT_YEAR).includeSpecials,
+    ).toBe(false);
   });
 
   it("reads repeated filter parameters and ignores empty or duplicate values", () => {

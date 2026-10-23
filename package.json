@@ -19,12 +19,12 @@
     "turbo": "turbo"
   },
   "devDependencies": {
-    "@turbo/gen": "^2.11.4",
-    "@types/node": "^24.13.3",
-    "knip": "^6.39.0",
-    "prettier": "^3.9.8",
+    "@turbo/gen": "^2.11.8",
+    "@types/node": "^24.19.2",
+    "knip": "^6.41.0",
+    "prettier": "^3.9.10",
     "sherif": "^1.13.0",
-    "turbo": "^2.11.4"
+    "turbo": "^2.11.8"
   },
   "author": "Leif Arriens",
   "license": "MIT",

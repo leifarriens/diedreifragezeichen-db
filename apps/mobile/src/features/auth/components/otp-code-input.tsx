@@ -86,7 +86,9 @@ export function OtpCodeInput({
         editable={!disabled}
         keyboardType="number-pad"
         maxLength={codeLength}
-        onBlur={() => { setIsFocused(false); }}
+        onBlur={() => {
+          setIsFocused(false);
+        }}
         onChangeText={handleChangeText}
         onFocus={() => {
           setIsFocused(true);

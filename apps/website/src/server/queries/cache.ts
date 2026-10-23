@@ -1,6 +1,8 @@
-import type { cacheLife } from "next/cache";
-
-export const profile: Parameters<typeof cacheLife>[0] = {
+export const profile: {
+  expire?: number;
+  revalidate?: number;
+  stale?: number;
+} = {
   expire: 31536000,
   revalidate: 3600,
   stale: 300,

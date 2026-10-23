@@ -29,13 +29,11 @@ export async function GET(
     );
   }
 
-  // const { limit, offset, query } = searchParamsResult.data;
-
   const folgen = await getFolgeListItems();
 
   return NextResponse.json(folgen, {
     headers: {
-      // "Cache-Control": "public, s-maxage=28800, stale-while-revalidate=43200",
+      "Cache-Control": "public, s-maxage=43200, stale-while-revalidate=43200",
     },
   });
 }
