@@ -32,7 +32,7 @@ export const ratingRepository: RatingRepository = {
       );
   },
 
-  async findAllCommunityRatings() {
+  async findAllFolgenCommunityRatings() {
     const ratings = await db
       .select({
         folgeId: schema.rating.folgeId,
@@ -45,22 +45,6 @@ export const ratingRepository: RatingRepository = {
       .groupBy(schema.rating.folgeId);
 
     return ratings.map(toCommunityRatingResponse);
-  },
-
-  async findCommunityRatingByFolgeId({ folgeId }) {
-    const [rating] = await db
-      .select({
-        folgeId: schema.rating.folgeId,
-        numberOfRatings,
-        popularity,
-        score,
-        updatedAt: max(schema.rating.updatedAt),
-      })
-      .from(schema.rating)
-      .where(eq(schema.rating.folgeId, folgeId))
-      .groupBy(schema.rating.folgeId);
-
-    return rating ? toCommunityRatingResponse(rating) : null;
   },
 
   /**

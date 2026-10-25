@@ -6,10 +6,9 @@ import {
   getFolgeListItems,
   getFolgeWithCommunityRatingById,
 } from "./folgen";
-import { getAllCommunityRatings, getCommunityRatingForFolge } from "./ratings";
+import { getAllCommunityRatings } from "./ratings";
 
-const { getFolgeById, getFolgen } = vi.hoisted(() => ({
-  getFolgeById: vi.fn(),
+const { getFolgen } = vi.hoisted(() => ({
   getFolgen: vi.fn(),
 }));
 
@@ -20,18 +19,15 @@ vi.mock("next/cache", () => ({
   cacheTag: vi.fn(),
 }));
 vi.mock("../archiv-api", () => ({
-  archivApi: { getFolgeById, getFolgen },
-  ArchivApiError,
+  archivApi: { getFolgen },
 }));
 vi.mock("./ratings", () => ({
   getAllCommunityRatings: vi.fn(),
-  getCommunityRatingForFolge: vi.fn(),
 }));
 
 beforeEach(() => {
   vi.resetAllMocks();
   vi.mocked(getAllCommunityRatings).mockResolvedValue([]);
-  vi.mocked(getCommunityRatingForFolge).mockResolvedValue(null);
 });
 
 describe("getFolgeListItems", () => {
@@ -78,6 +74,7 @@ describe("getFolgeListItems", () => {
         release_date: folge.release_date,
         script_authors: folge.script_authors,
         title: folge.title,
+        total_duration: folge.total_duration,
         voice_roles: folge.voice_roles,
       },
     ]);
@@ -88,7 +85,14 @@ describe("getFolgeListItems", () => {
 
   it("preserves null fields and missing ratings", async () => {
     getFolgen.mockResolvedValue([
-      { ...folge, artwork: null, cover: null, number: null, release_date: null },
+      {
+        ...folge,
+        artwork: null,
+        cover: null,
+        number: null,
+        release_date: null,
+        total_duration: null,
+      },
     ]);
 
     const [item] = await getFolgeListItems();
@@ -99,6 +103,7 @@ describe("getFolgeListItems", () => {
       cover: null,
       number: null,
       release_date: null,
+      total_duration: null,
     });
   });
 
@@ -118,13 +123,17 @@ describe("getFolgeListItems", () => {
 });
 
 describe("getFolgeWithCommunityRatingById", () => {
-  it("returns null for missing episodes before errors cross the cache boundary", async () => {
-    getFolgeById.mockRejectedValue(
-      new ArchivApiError("Episode not found", "http", 404),
-    );
+  it("returns null when the requested episode is absent from the list", async () => {
+    getFolgen.mockResolvedValue([{ id: 1 }]);
 
     await expect(getFolgeWithCommunityRatingById(4655)).resolves.toBeNull();
-    expect(getFolgeById).toHaveBeenCalledWith(4655);
+    expect(getFolgen).toHaveBeenCalledOnce();
+  });
+
+  it("returns null when the archive is empty", async () => {
+    getFolgen.mockResolvedValue([]);
+
+    await expect(getFolgeWithCommunityRatingById(1)).resolves.toBeNull();
   });
 
   it.each([
@@ -132,12 +141,12 @@ describe("getFolgeWithCommunityRatingById", () => {
     new ArchivApiError("Network failure", "network"),
     new Error("Unexpected failure"),
   ])("preserves other errors: %s", async (error) => {
-    getFolgeById.mockRejectedValue(error);
+    getFolgen.mockRejectedValue(error);
 
     await expect(getFolgeWithCommunityRatingById(1)).rejects.toBe(error);
   });
 
-  it("enriches existing episodes", async () => {
+  it("returns the matching episode without a rating when none exists", async () => {
     const folge = {
       artwork: null,
       authors: [],
@@ -154,11 +163,33 @@ describe("getFolgeWithCommunityRatingById", () => {
       voice_roles: [],
       weblink: null,
     } as const;
-    getFolgeById.mockResolvedValue(folge);
+    getFolgen.mockResolvedValue([{ ...folge, id: 2 }, folge]);
 
     await expect(getFolgeWithCommunityRatingById(1)).resolves.toEqual({
       ...folge,
       communityRating: null,
+    });
+    expect(getFolgen).toHaveBeenCalledOnce();
+    expect(getAllCommunityRatings).toHaveBeenCalledOnce();
+  });
+
+  it("enriches the matching episode with its community rating", async () => {
+    const folge = { id: 1 };
+    const communityRating = {
+      numberOfRatings: 10,
+      popularity: 0.8,
+      score: 4.5,
+      updatedAt: "2026-01-01T00:00:00.000Z",
+    };
+    getFolgen.mockResolvedValue([{ id: 2 }, folge]);
+    vi.mocked(getAllCommunityRatings).mockResolvedValue([
+      { ...communityRating, folgeId: 2, score: 3 },
+      { ...communityRating, folgeId: 1 },
+    ]);
+
+    await expect(getFolgeWithCommunityRatingById(1)).resolves.toStrictEqual({
+      ...folge,
+      communityRating,
     });
   });
 });

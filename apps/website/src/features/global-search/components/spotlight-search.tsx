@@ -172,6 +172,7 @@ export function SpotlightSearch({ className, platform }: SpotlightSearchProps) {
                             className="rounded-lg"
                             coverUrl={result.cover}
                             folgenTitle={result.title}
+                            showFallbackTitle={false}
                           />
                         </div>
                         <div className="text-base font-medium text-neutral-300">

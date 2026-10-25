@@ -1,8 +1,10 @@
 import "dayjs/locale/de";
 import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
 import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(duration);
 dayjs.extend(relativeTime);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
@@ -12,6 +14,26 @@ export const DATE_FORMAT = "DD.MM.YYYY";
 
 export function formatDateOnly(date: Date | string): string {
   return dayjs(date).format("YYYY-MM-DD");
+}
+
+export function formatDuration(ms: number): string {
+  const totalMinutes = Math.floor(ms / (1000 * 60));
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  const hourStr = hours === 1 ? "1 Stunde" : `${hours.toString()} Stunden`;
+  const minuteStr =
+    minutes === 1 ? "1 Minute" : `${minutes.toString()} Minuten`;
+
+  if (hours === 0) {
+    return minuteStr;
+  }
+
+  if (minutes === 0) {
+    return hourStr;
+  }
+
+  return `${hourStr} ${minuteStr}`;
 }
 
 export function formatRelativeTime(date: Date | string): string {

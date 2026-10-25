@@ -14,10 +14,7 @@ export interface Rating {
 
 export interface RatingRepository {
   deleteUserRating(input: { folgeId: number; userId: string }): Promise<void>;
-  findAllCommunityRatings(): Promise<CommunityRating[]>;
-  findCommunityRatingByFolgeId(input: {
-    folgeId: number;
-  }): Promise<CommunityRating | null>;
+  findAllFolgenCommunityRatings(): Promise<CommunityRating[]>;
   findUserRatingsByUserId(input: { userId: string }): Promise<Rating[]>;
   upsertUserRating(input: {
     folgeId: number;

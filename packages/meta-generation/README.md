@@ -30,4 +30,6 @@ uv run scripts/generate_folgen_tags.py
 The script selects 1 to 3 tags in each of the five categories, saves results
 incrementally to `generated/tags.json`, and skips Folgen that already have a saved tag set.
 The title and description are the only episode data included in the model context.
+Pass `--show-thinking` to stream the model's thinking to stderr during generation,
+when supported by the selected Ollama model. Printing thinking is off by default.
 It accepts the same `--endpoint`, `--output`, and `--model` options as `scripts/generate_cover_alt_text.py`.

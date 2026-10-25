@@ -52,20 +52,22 @@ export default function RootLayout({
     <html className="h-full antialiased" lang="de">
       <TRPCReactProvider>
         <ToastProvider>
-          <body className="flex min-h-full flex-col">
-            <ArchiveSearchStateProvider currentYear={INITIAL_CURRENT_YEAR}>
-              <HeaderNav />
-              <div className="grid flex-1 place-items-center items-stretch justify-items-stretch">
-                {children}
+          <ArchiveSearchStateProvider currentYear={INITIAL_CURRENT_YEAR}>
+            <body>
+              <div className="flex min-h-dvh flex-col">
+                <HeaderNav />
+                <div className="grid flex-1 place-items-center items-stretch justify-items-stretch">
+                  {children}
+                </div>
               </div>
               <Footer />
               <ScrollToTop />
-            </ArchiveSearchStateProvider>
-            <ReactQueryDevtools
-              buttonPosition="bottom-right"
-              initialIsOpen={false}
-            />
-          </body>
+              <ReactQueryDevtools
+                buttonPosition="bottom-right"
+                initialIsOpen={false}
+              />
+            </body>
+          </ArchiveSearchStateProvider>
         </ToastProvider>
       </TRPCReactProvider>
     </html>

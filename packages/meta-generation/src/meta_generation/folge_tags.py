@@ -1,4 +1,5 @@
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -106,7 +107,10 @@ def validate_tags(value: object) -> dict[str, list[str]]:
 
 
 def generate_tags(
-    title: str, description: str, model: str = DEFAULT_MODEL
+    title: str,
+    description: str,
+    model: str = DEFAULT_MODEL,
+    show_thinking: bool = False,
 ) -> dict[str, list[str]]:
     episode_data = json.dumps(
         {
@@ -117,11 +121,11 @@ def generate_tags(
         indent=2,
     )
     categories = json.dumps(TAG_CATEGORIES, ensure_ascii=False, indent=2)
-    response = client.chat(
-        model=model,
-        format=TAG_RESPONSE_SCHEMA,
-        options={"temperature": 0},
-        messages=[
+    chat_request = {
+        "model": model,
+        "format": TAG_RESPONSE_SCHEMA,
+        "options": {"temperature": 0},
+        "messages": [
             {
                 "role": "system",
                 "content": (
@@ -140,9 +144,35 @@ def generate_tags(
             },
             {"role": "user", "content": f"Daten der Folge:\n{episode_data}"},
         ],
-    )
+    }
+    if show_thinking:
+        response_stream = client.chat(**chat_request, think=True, stream=True)
+        thinking_started = False
+        response_content: list[str] = []
+        try:
+            for chunk in response_stream:
+                thinking = chunk.message.thinking
+                if thinking:
+                    if not thinking_started:
+                        logger.info("Model thinking:")
+                        thinking_started = True
+                    sys.stderr.write(thinking)
+                    sys.stderr.flush()
+
+                content = chunk.message.content
+                if content:
+                    response_content.append(content)
+        finally:
+            if thinking_started:
+                sys.stderr.write("\n")
+                sys.stderr.flush()
+        response_text = "".join(response_content)
+    else:
+        response = client.chat(**chat_request)
+        response_text = response["message"]["content"]
+
     try:
-        parsed_tags = json.loads(response["message"]["content"])
+        parsed_tags = json.loads(response_text)
     except (KeyError, TypeError, json.JSONDecodeError) as error:
         raise ValueError("The model returned invalid JSON for Folge tags") from error
 
@@ -174,7 +204,10 @@ def load_results(output_path: Path) -> list[dict[str, object]]:
 
 
 def generate_missing_tags(
-    endpoint_url: str, output_path: Path, model: str = DEFAULT_MODEL
+    endpoint_url: str,
+    output_path: Path,
+    model: str = DEFAULT_MODEL,
+    show_thinking: bool = False,
 ) -> tuple[int, int, int]:
     folgen = fetch_folgen(endpoint_url)
     results = load_results(output_path)
@@ -244,7 +277,9 @@ def generate_missing_tags(
         )
         generation_started_at = time.perf_counter()
         try:
-            tags = generate_tags(title, description, model)
+            tags = generate_tags(
+                title, description, model, show_thinking=show_thinking
+            )
             logger.info("-> %s", json.dumps(tags, ensure_ascii=False))
         except Exception as error:
             logger.error("Failed to generate tags for Folge %s: %s", folge_id, error)
@@ -270,12 +305,20 @@ def main() -> int:
         "Generate and incrementally save tags for Archiv Folgen.",
         DEFAULT_OUTPUT_PATH,
     )
+    parser.add_argument(
+        "--show-thinking",
+        action="store_true",
+        help="Stream the model's thinking to stderr during tag generation.",
+    )
     args = parser.parse_args()
     log_generation_configuration(args.endpoint, args.model, args.output)
 
     try:
         failed_count, missing_description_count, saved_count = generate_missing_tags(
-            args.endpoint, args.output, args.model
+            args.endpoint,
+            args.output,
+            args.model,
+            show_thinking=args.show_thinking,
         )
         logger.info(
             "Done. %d tag sets in output; %d entries lacked a title or description; "

@@ -86,6 +86,7 @@ export function FolgenRatingDisplay({
                 color={isRated ? colors[type][index] : "#ffffff"}
                 fill={isPartial ? `url(#${iconGradientId})` : undefined}
                 key={`q-${index.toString()}`}
+                shapeRendering="geometricPrecision"
                 style={{ opacity: isRated ? 1 : placeholderOpacity }}
               >
                 {isPartial && (

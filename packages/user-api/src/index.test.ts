@@ -52,16 +52,7 @@ function makeListenedRepository() {
 function makeRatingRepository() {
   return {
     deleteUserRating: vi.fn(() => Promise.resolve()),
-    findAllCommunityRatings: vi.fn(() => Promise.resolve([])),
-    findCommunityRatingByFolgeId: vi.fn(({ folgeId }: { folgeId: number }) =>
-      Promise.resolve({
-        folgeId,
-        numberOfRatings: 3,
-        popularity: 13.5,
-        score: 4.5,
-        updatedAt,
-      }),
-    ),
+    findAllFolgenCommunityRatings: vi.fn(() => Promise.resolve([])),
     findUserRatingsByUserId: vi.fn(() => Promise.resolve([])),
     upsertUserRating: vi.fn(
       ({
@@ -122,24 +113,6 @@ describe("user API router", () => {
     const caller = createCaller(authenticatedUser);
 
     await expect(caller.user.me()).resolves.toEqual(authenticatedUser);
-  });
-
-  it("returns the community rating without authentication", async () => {
-    const ratings = makeRatingRepository();
-    const caller = createCaller(null, ratings);
-
-    await expect(
-      caller.ratings.getCommunityRatingForFolge({ folgeId: 12 }),
-    ).resolves.toEqual({
-      folgeId: 12,
-      numberOfRatings: 3,
-      popularity: 13.5,
-      score: 4.5,
-      updatedAt,
-    });
-    expect(ratings.findCommunityRatingByFolgeId).toHaveBeenCalledWith({
-      folgeId: 12,
-    });
   });
 
   it("sets a rating for the authenticated user", async () => {

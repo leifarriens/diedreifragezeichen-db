@@ -39,6 +39,8 @@ export const FolgenCard = memo(function FolgenGridItem({
     userRating,
   } = folge;
 
+  const href = `/folge/${id.toString()}`;
+
   const ariaLabel =
     collection === "specials" ? `Special: ${title}` : `Folge: ${title}`;
 
@@ -50,7 +52,11 @@ export const FolgenCard = memo(function FolgenGridItem({
       )}
       ref={ref}
     >
-      <Link aria-label={ariaLabel} href={`/folge/${id.toString()}`}>
+      <Link
+        aria-label={ariaLabel}
+        href={href}
+        prefetch={false} // Prevent unnecessary auto prefetching on grid views
+      >
         <FolgenCover
           className="aspect-square rounded-xl group-hover:rounded-b-none"
           coverUrl={cover}

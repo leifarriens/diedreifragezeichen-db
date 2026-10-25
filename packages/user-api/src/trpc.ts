@@ -110,13 +110,8 @@ export const appRouter = createTRPCRouter({
         }),
       ),
     getAllCommunityRatings: baseProcedure.query(({ ctx }) =>
-      ctx.ratings.findAllCommunityRatings(),
+      ctx.ratings.findAllFolgenCommunityRatings(),
     ),
-    getCommunityRatingForFolge: baseProcedure
-      .input(z.object({ folgeId }))
-      .query(({ ctx, input }) =>
-        ctx.ratings.findCommunityRatingByFolgeId({ folgeId: input.folgeId }),
-      ),
     getMyRatings: protectedProcedure.query(({ ctx }) =>
       ctx.ratings.findUserRatingsByUserId({ userId: ctx.user.id }),
     ),

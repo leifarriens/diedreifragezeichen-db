@@ -13,6 +13,7 @@ export type FolgeListItem = Pick<
   | "release_date"
   | "script_authors"
   | "title"
+  | "total_duration"
   | "voice_roles"
 > & {
   communityRating: null | Pick<CommunityRatingSummary, "score">;

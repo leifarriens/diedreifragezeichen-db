@@ -12,23 +12,25 @@ export interface FolgenCoverProps extends Omit<
   OptimizedImageProps,
   "alt" | "size" | "src"
 > {
+  alt?: string | undefined;
   coverUrl: null | string;
   folgenTitle: string;
   isInView?: boolean;
+  showFallbackTitle?: boolean;
 }
 
 export function FolgenCover({
+  alt,
   className,
   coverUrl,
   folgenTitle,
   isInView = true,
+  showFallbackTitle = true,
   style,
   ...rest
 }: FolgenCoverProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isError, setIsError] = useState(false);
-
-  const alt = `Cover für ${folgenTitle}`;
 
   if (!coverUrl || isError) {
     return (
@@ -38,14 +40,18 @@ export function FolgenCover({
           className,
         )}
       >
-        <span className="text-center text-lg font-semibold">{folgenTitle}</span>
+        {showFallbackTitle && (
+          <span className="text-center text-lg font-semibold">
+            {folgenTitle}
+          </span>
+        )}
       </div>
     );
   }
 
   return (
     <OptimizedImage
-      alt={alt}
+      alt={alt ?? `Cover für ${folgenTitle}`}
       className={cn(
         "w-full rounded-xl object-cover transition-opacity duration-150 ease-in",
         className,

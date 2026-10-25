@@ -17,7 +17,6 @@ export function useSearch<T extends SearchableFolge>(
     enabled: folgen.length > 0,
     queryFn: () => createSearchEngine<T>(folgen),
     queryKey: ["search-engine", folgenKey],
-    staleTime: Infinity,
   });
 
   useEffect(() => {

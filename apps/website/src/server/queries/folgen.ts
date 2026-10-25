@@ -3,15 +3,14 @@ import type { FolgeListItem } from "@ddfdb/client";
 
 import {
   enrichFolgenWithCommunityRatings,
-  enrichFolgeWithCommunityRating,
   type FolgeWithCommunityRating,
 } from "@ddfdb/core";
 import { getFolgeByMongoId } from "@ddfdb/legacy-api";
 import { cacheLife, cacheTag } from "next/cache";
 
-import { archivApi, ArchivApiError } from "../archiv-api";
+import { archivApi } from "../archiv-api";
 import { profile } from "./cache";
-import { getAllCommunityRatings, getCommunityRatingForFolge } from "./ratings";
+import { getAllCommunityRatings } from "./ratings";
 
 export async function getAllFolgenWithCommunityRatings(): Promise<
   FolgeWithCommunityRating[]
@@ -24,10 +23,7 @@ export async function getAllFolgenWithCommunityRatings(): Promise<
 
   const [archiveFolgen, communityRatings] = await Promise.all([
     archivApi.getFolgen(),
-    getAllCommunityRatings().catch((error: unknown) => {
-      console.error("Could not load community ratings", error);
-      return [];
-    }),
+    getAllCommunityRatings(),
   ]);
 
   return enrichFolgenWithCommunityRatings(archiveFolgen, communityRatings);
@@ -59,11 +55,6 @@ export async function getFolgeByLegacyId(legacyId: string) {
 
 /** Returns only the public fields needed for episode lists and client search. */
 export async function getFolgeListItems(): Promise<FolgeListItem[]> {
-  "use cache";
-
-  cacheLife(profile);
-  cacheTag("public-folgen");
-
   const folgen = await getAllFolgenWithCommunityRatings();
 
   return folgen.map((folge) => ({
@@ -80,6 +71,7 @@ export async function getFolgeListItems(): Promise<FolgeListItem[]> {
     release_date: folge.release_date,
     script_authors: folge.script_authors,
     title: folge.title,
+    total_duration: folge.total_duration,
     voice_roles: folge.voice_roles,
   }));
 }
@@ -87,25 +79,9 @@ export async function getFolgeListItems(): Promise<FolgeListItem[]> {
 export async function getFolgeWithCommunityRatingById(
   folgeId: number,
 ): Promise<FolgeWithCommunityRating | null> {
-  "use cache";
+  const folgen = await getAllFolgenWithCommunityRatings();
 
-  cacheLife(profile);
+  const folge = folgen.find((f) => f.id === folgeId);
 
-  cacheTag(`public-folge:${folgeId.toString()}`);
-
-  const [archiveFolge, communityRating] = await Promise.all([
-    archivApi.getFolgeById(folgeId).catch((error: unknown) => {
-      if (error instanceof ArchivApiError && error.status === 404) {
-        return null;
-      }
-      throw error;
-    }),
-    getCommunityRatingForFolge(folgeId),
-  ]);
-
-  if (archiveFolge === null) {
-    return null;
-  }
-
-  return enrichFolgeWithCommunityRating(archiveFolge, communityRating);
+  return folge ?? null;
 }

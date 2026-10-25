@@ -10,24 +10,5 @@ export async function getAllCommunityRatings() {
 
   cacheTag("community-ratings");
 
-  return ratingRepository.findAllCommunityRatings();
-}
-
-/**
- * Find a community rating for a specific episode from `getAllCommunityRatings`.
- * This is done instead of using `ratingRepository.findCommunityRatingByFolgeId` directly to share a
- * single cached result across multiple requests.
- */
-export async function getCommunityRatingForFolge(folgeId: number) {
-  const communityRating = await getAllCommunityRatings();
-
-  const folgeRating = communityRating.find(
-    (rating) => rating.folgeId === folgeId,
-  );
-
-  if (!folgeRating) {
-    return null;
-  }
-
-  return folgeRating;
+  return ratingRepository.findAllFolgenCommunityRatings();
 }
