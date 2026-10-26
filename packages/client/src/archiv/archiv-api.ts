@@ -160,8 +160,8 @@ function isFolge(value: unknown): value is Folge {
     isNullableInteger(value.number) &&
     (value.collection === "serie" || value.collection === "specials") &&
     isNullableString(value.description) &&
-    isNullableString(value.release_date) &&
-    isNullableInteger(value.total_duration) &&
+    isNullableString(value.releaseDate) &&
+    isNullableInteger(value.totalDuration) &&
     isRecord(value.streaming) &&
     Object.values(value.streaming).every(
       (service) =>
@@ -173,9 +173,9 @@ function isFolge(value: unknown): value is Folge {
     isNullableString(value.weblink) &&
     isNullableString(value.artwork) &&
     isStringArray(value.authors) &&
-    isStringArray(value.script_authors) &&
-    Array.isArray(value.voice_roles) &&
-    value.voice_roles.every(
+    isStringArray(value.scriptAuthors) &&
+    Array.isArray(value.voiceRoles) &&
+    value.voiceRoles.every(
       (credit: unknown) =>
         isRecord(credit) &&
         typeof credit.role === "string" &&
@@ -205,7 +205,7 @@ function isSearchOptions(value: unknown): value is SearchOptions {
     isStringArray(value.speakers) &&
     isStringArray(value.roles) &&
     isStringArray(value.authors) &&
-    isStringArray(value.script_authors) &&
+    isStringArray(value.scriptAuthors) &&
     Array.isArray(value.collections) &&
     value.collections.every(
       (collection) => collection === "serie" || collection === "specials",

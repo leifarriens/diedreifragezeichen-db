@@ -39,14 +39,14 @@ describe("getFolgeListItems", () => {
     description: "A full episode description",
     id: 1,
     number: 1,
-    release_date: "1979-10-12",
-    script_authors: ["H. G. Francis"],
+    releaseDate: "1979-10-12",
+    scriptAuthors: ["H. G. Francis"],
     streaming: {
       spotify: { id: "spotify-id", link: "https://open.spotify.com/album/id" },
     },
     title: "Der Super-Papagei",
-    total_duration: 3600,
-    voice_roles: [{ role: "Justus Jonas", speaker: "Oliver Rohrbeck" }],
+    totalDuration: 3600,
+    voiceRoles: [{ role: "Justus Jonas", speaker: "Oliver Rohrbeck" }],
     weblink: "https://example.com/episode",
   };
 
@@ -71,11 +71,11 @@ describe("getFolgeListItems", () => {
         cover: folge.cover,
         id: folge.id,
         number: folge.number,
-        release_date: folge.release_date,
-        script_authors: folge.script_authors,
+        releaseDate: folge.releaseDate,
+        scriptAuthors: folge.scriptAuthors,
         title: folge.title,
-        total_duration: folge.total_duration,
-        voice_roles: folge.voice_roles,
+        totalDuration: folge.totalDuration,
+        voiceRoles: folge.voiceRoles,
       },
     ]);
     expect(getFolgen).toHaveBeenCalledOnce();
@@ -90,8 +90,8 @@ describe("getFolgeListItems", () => {
         artwork: null,
         cover: null,
         number: null,
-        release_date: null,
-        total_duration: null,
+        releaseDate: null,
+        totalDuration: null,
       },
     ]);
 
@@ -102,8 +102,8 @@ describe("getFolgeListItems", () => {
       communityRating: null,
       cover: null,
       number: null,
-      release_date: null,
-      total_duration: null,
+      releaseDate: null,
+      totalDuration: null,
     });
   });
 
@@ -155,12 +155,12 @@ describe("getFolgeWithCommunityRatingById", () => {
       description: null,
       id: 1,
       number: 1,
-      release_date: null,
-      script_authors: [],
+      releaseDate: null,
+      scriptAuthors: [],
       streaming: {},
       title: "Der Super-Papagei",
-      total_duration: null,
-      voice_roles: [],
+      totalDuration: null,
+      voiceRoles: [],
       weblink: null,
     } as const;
     getFolgen.mockResolvedValue([{ ...folge, id: 2 }, folge]);

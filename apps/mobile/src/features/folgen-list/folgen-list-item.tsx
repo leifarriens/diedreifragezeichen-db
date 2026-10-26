@@ -50,10 +50,10 @@ export const FolgenListItem = memo(function FolgenGridItem({
               type="community"
               value={folge.communityRating?.score ?? null}
             />
-            {folge.release_date ? (
+            {folge.releaseDate ? (
               <View>
                 <Text className="text-sm text-neutral-300">
-                  {formatReleaseDate(folge.release_date)}
+                  {formatReleaseDate(folge.releaseDate)}
                 </Text>
               </View>
             ) : null}
@@ -92,7 +92,7 @@ export const FolgenListItem = memo(function FolgenGridItem({
           </Text>
           <Text className="text-xl font-bold text-white">{folge.title}</Text>
           <Text className="text-sm text-neutral-300">
-            {folge.release_date ? formatReleaseDate(folge.release_date) : ""}
+            {folge.releaseDate ? formatReleaseDate(folge.releaseDate) : ""}
           </Text>
           <View className="mt-2 flex-row gap-x-4">
             <FolgenRatingDisplay

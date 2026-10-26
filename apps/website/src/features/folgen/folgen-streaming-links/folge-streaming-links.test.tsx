@@ -16,11 +16,11 @@ describe("FolgenStreamingLinks", () => {
       <div>
         <FolgenStreamingLinks
           streaming={{
-            amazon_music: {
+            amazonMusic: {
               id: "amazon-id",
               link: "https://music.amazon.com/episode",
             },
-            apple_music: {
+            appleMusic: {
               id: "apple-id",
               link: "https://music.apple.com/episode",
             },
@@ -32,7 +32,7 @@ describe("FolgenStreamingLinks", () => {
               id: "spotify-id",
               link: "https://open.spotify.com/episode",
             },
-            youtube_music: {
+            youtubeMusic: {
               id: "youtube-id",
               link: "https://music.youtube.com/episode",
             },

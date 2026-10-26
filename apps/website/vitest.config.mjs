@@ -6,7 +6,7 @@ export default defineConfig({
   },
   test: {
     coverage: {
-      include: ["src"],
+      include: ["src/**/*.{js,jsx,ts,tsx}"],
       reporter: ["text", "text-summary", "lcov"],
     },
     exclude: [...configDefaults.exclude, "tests/**"], // Exclude end-to-end tests

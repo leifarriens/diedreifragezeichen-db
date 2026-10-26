@@ -124,7 +124,7 @@ function ArchiveCriteriaSwitch() {
         authors: [],
         collections: [],
         roles: [],
-        script_authors: [],
+        scriptAuthors: [],
         speakers: [],
       }}
       currentYear={currentYear}

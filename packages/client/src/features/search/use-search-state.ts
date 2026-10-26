@@ -19,8 +19,8 @@ export interface SearchState {
 }
 
 const searchSortOptions: Record<SearchSort, SortOption> = {
-  newest: { by: "release_date", order: "DESC" },
-  oldest: { by: "release_date", order: "ASC" },
+  newest: { by: "releaseDate", order: "DESC" },
+  oldest: { by: "releaseDate", order: "ASC" },
   rating: { by: "communityRating", order: "DESC" },
 };
 
@@ -54,7 +54,7 @@ export function useSearchState(currentYear: number) {
       authors: state.authors,
       collections: state.collections,
       roles: state.roles,
-      script_authors: state.scriptAuthors,
+      scriptAuthors: state.scriptAuthors,
       speakers: state.speakers,
       yearRange: state.yearRange,
     },

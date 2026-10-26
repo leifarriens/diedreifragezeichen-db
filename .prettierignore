@@ -5,3 +5,4 @@ turbo/generators/templates/**/*.hbs
 .next/
 migrations/
 generated/
+.venv/

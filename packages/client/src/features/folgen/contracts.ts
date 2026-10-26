@@ -10,11 +10,11 @@ export type FolgeListItem = Pick<
   | "cover"
   | "id"
   | "number"
-  | "release_date"
-  | "script_authors"
+  | "releaseDate"
+  | "scriptAuthors"
   | "title"
-  | "total_duration"
-  | "voice_roles"
+  | "totalDuration"
+  | "voiceRoles"
 > & {
   communityRating: null | Pick<CommunityRatingSummary, "score">;
 };

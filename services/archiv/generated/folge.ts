@@ -26,15 +26,15 @@ export interface Folge {
   id: number /* int64 */;
   collection: Collection;
   description: string | null;
-  release_date: string | null;
-  total_duration: number | null;
+  releaseDate: string | null;
+  totalDuration: number | null;
   streaming: { [key: string]: Streaming};
   cover: string | null;
   weblink: string | null;
   artwork: string | null;
   authors: string[];
-  script_authors: string[];
-  voice_roles: VoiceRole[];
+  scriptAuthors: string[];
+  voiceRoles: VoiceRole[];
 }
 /**
  * VoiceRole pairs a character with one voice performer.
@@ -50,7 +50,7 @@ export interface SearchOptions {
   speakers: string[];
   roles: string[];
   authors: string[];
-  script_authors: string[];
+  scriptAuthors: string[];
   collections: Collection[];
 }
 /**

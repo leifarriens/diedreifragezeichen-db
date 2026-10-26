@@ -16,10 +16,10 @@ export interface SearchableFolge {
   };
   id: number;
   number: null | number;
-  release_date: null | string;
-  script_authors: string[];
+  releaseDate: null | string;
+  scriptAuthors: string[];
   title: string;
-  voice_roles: { role: string; speaker: string }[];
+  voiceRoles: { role: string; speaker: string }[];
 }
 
 export interface SearchCriteria {
@@ -27,7 +27,7 @@ export interface SearchCriteria {
     authors?: string[];
     collections?: string[];
     roles?: string[];
-    script_authors?: string[];
+    scriptAuthors?: string[];
     speakers?: string[];
     yearRange?: {
       max: number;
@@ -52,7 +52,7 @@ export type SortOption =
       order: "DESC";
     }
   | {
-      by: "release_date";
+      by: "releaseDate";
       order: "ASC" | "DESC";
     };
 
@@ -62,10 +62,10 @@ const searchSchema = {
   communityRating: "number",
   id: "string",
   number: "string",
-  release_date: "string",
-  release_year: "number",
+  releaseDate: "string",
+  releaseYear: "number",
   roles: "enum[]",
-  script_authors: "enum[]",
+  scriptAuthors: "enum[]",
   speakers: "enum[]",
   title: "string",
 } as const satisfies AnySchema;
@@ -75,7 +75,7 @@ type DocumentFrom<S extends AnySchema> = {
 };
 
 type OptionalSearchFields =
-  "communityRating" | "number" | "release_date" | "release_year";
+  "communityRating" | "number" | "releaseDate" | "releaseYear";
 
 type SearchDocument = DocumentFrom<typeof searchSchema>;
 
@@ -100,9 +100,9 @@ export async function createSearchEngine<T extends SearchableFolge>(
         "collection",
         "id",
         "number",
-        "release_year", // We already have release_date
+        "releaseYear", // We already have releaseDate
         "roles",
-        "script_authors",
+        "scriptAuthors",
         "speakers",
         "title",
       ],
@@ -130,9 +130,9 @@ export async function createSearchEngine<T extends SearchableFolge>(
               filters.roles.length > 0 && {
                 roles: { containsAny: filters.roles },
               }),
-            ...(filters.script_authors &&
-              filters.script_authors.length > 0 && {
-                script_authors: { containsAny: filters.script_authors },
+            ...(filters.scriptAuthors &&
+              filters.scriptAuthors.length > 0 && {
+                scriptAuthors: { containsAny: filters.scriptAuthors },
               }),
             ...(filters.speakers &&
               filters.speakers.length > 0 && {
@@ -143,7 +143,7 @@ export async function createSearchEngine<T extends SearchableFolge>(
                 collection: { in: filters.collections },
               }),
             ...(filters.yearRange && {
-              release_year: {
+              releaseYear: {
                 between: [filters.yearRange.min, filters.yearRange.max] as [
                   number,
                   number,
@@ -159,7 +159,7 @@ export async function createSearchEngine<T extends SearchableFolge>(
           title: 1,
         },
         limit: limit ?? folgen.length, // set the default limit to the total number of folgen
-        properties: ["title", "number", "release_date"],
+        properties: ["title", "number", "releaseDate"],
         ...params,
       });
 
@@ -207,15 +207,15 @@ function toSearchDocument(folge: SearchableFolge): SearchDocumentInput {
     }),
     collection: folge.collection,
     id: folge.id.toString(),
-    script_authors: folge.script_authors,
+    scriptAuthors: folge.scriptAuthors,
     ...(folge.number !== null && { number: folge.number.toString() }),
-    ...(folge.release_date !== null && { release_date: folge.release_date }),
+    ...(folge.releaseDate !== null && { releaseDate: folge.releaseDate }),
     authors: folge.authors,
-    roles: folge.voice_roles.map(({ role }) => role),
-    speakers: folge.voice_roles.map(({ speaker }) => speaker),
+    roles: folge.voiceRoles.map(({ role }) => role),
+    speakers: folge.voiceRoles.map(({ speaker }) => speaker),
     title: folge.title,
-    ...(folge.release_date !== null && {
-      release_year: Number(folge.release_date.slice(0, 4)),
+    ...(folge.releaseDate !== null && {
+      releaseYear: Number(folge.releaseDate.slice(0, 4)),
     }),
   };
 }

@@ -10,10 +10,10 @@ function createTestFolge(overrides = {}) {
     description: null,
     id: 1,
     number: null,
-    release_date: null,
-    script_authors: [],
+    releaseDate: null,
+    scriptAuthors: [],
     title: "Test episode",
-    voice_roles: [],
+    voiceRoles: [],
     ...overrides,
   };
 }
@@ -72,16 +72,16 @@ describe("createSearchEngine", () => {
 
   it("applies filters, sorting, and limits to substring matches", async () => {
     const folgen = [
-      createTestFolge({ release_date: "2000-01-01", title: "Feuermond" }),
+      createTestFolge({ releaseDate: "2000-01-01", title: "Feuermond" }),
       createTestFolge({
         id: 2,
-        release_date: "2001-01-01",
+        releaseDate: "2001-01-01",
         title: "Mondnacht",
       }),
       createTestFolge({
         collection: "special",
         id: 3,
-        release_date: "2002-01-01",
+        releaseDate: "2002-01-01",
         title: "Vollmond",
       }),
     ];
@@ -90,7 +90,7 @@ describe("createSearchEngine", () => {
     const result = await searchEngine.search({
       filters: { collections: ["serie"], yearRange: { max: 2002, min: 2000 } },
       limit: 1,
-      sort: { by: "release_date", order: "DESC" },
+      sort: { by: "releaseDate", order: "DESC" },
       term: "mond",
     });
 
@@ -100,7 +100,7 @@ describe("createSearchEngine", () => {
   it("preserves prefix-only matching for numbers and release dates", async () => {
     const folge = createTestFolge({
       number: 123,
-      release_date: "2001-12-31",
+      releaseDate: "2001-12-31",
       title: "Feuermond",
     });
     const searchEngine = await createSearchEngine([folge]);
@@ -131,12 +131,12 @@ describe("createSearchEngine", () => {
     const searchEngine = await createSearchEngine([
       createTestFolge({
         title: "Target episode",
-        voice_roles: [{ role: "The Guy", speaker: "Speaker One" }],
+        voiceRoles: [{ role: "The Guy", speaker: "Speaker One" }],
       }),
       createTestFolge({
         id: 2,
         title: "False positive episode",
-        voice_roles: [{ role: "The Villain", speaker: "Speaker Two" }],
+        voiceRoles: [{ role: "The Villain", speaker: "Speaker Two" }],
       }),
     ]);
 
@@ -145,10 +145,10 @@ describe("createSearchEngine", () => {
         authors: [],
         collections: [],
         roles: ["The Guy"],
-        script_authors: [],
+        scriptAuthors: [],
         speakers: [],
       },
-      sort: { by: "release_date", order: "DESC" },
+      sort: { by: "releaseDate", order: "DESC" },
       term: "episode",
     });
 
@@ -164,7 +164,7 @@ describe("createSearchEngine", () => {
         description: "A description",
         id: 2,
         number: 0,
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Zero metadata episode",
       }),
     ]);
@@ -172,10 +172,10 @@ describe("createSearchEngine", () => {
       authors: [],
       collections: [],
       roles: [],
-      script_authors: [],
+      scriptAuthors: [],
       speakers: [],
     };
-    const sort = { by: "release_date", order: "DESC" } as const;
+    const sort = { by: "releaseDate", order: "DESC" } as const;
 
     const missingMetadata = await searchEngine.search({
       filters,
@@ -193,10 +193,10 @@ describe("createSearchEngine", () => {
       description: null,
       id: 1,
       number: null,
-      release_date: null,
-      script_authors: [],
+      releaseDate: null,
+      scriptAuthors: [],
       title: "Missing metadata episode",
-      voice_roles: [],
+      voiceRoles: [],
     });
 
     const zeroMetadata = await searchEngine.search({
@@ -215,10 +215,10 @@ describe("createSearchEngine", () => {
       description: "A description",
       id: 2,
       number: 0,
-      release_date: "2000-01-01",
-      script_authors: [],
+      releaseDate: "2000-01-01",
+      scriptAuthors: [],
       title: "Zero metadata episode",
-      voice_roles: [],
+      voiceRoles: [],
     });
   });
 });

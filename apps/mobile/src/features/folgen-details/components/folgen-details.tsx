@@ -31,16 +31,16 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
     authors,
     cover,
     number,
-    release_date,
-    script_authors,
+    releaseDate,
+    scriptAuthors,
     streaming,
     title,
-    voice_roles,
+    voiceRoles,
   } = folge;
   const { data: userBookmarks } = useUserBookmarks();
   const { data: userListened } = useUserListened();
 
-  const isReleased = isReleasDateInThePast(release_date);
+  const isReleased = isReleasDateInThePast(releaseDate);
 
   return (
     <View>
@@ -57,11 +57,10 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           {title}
         </Text>
 
-        {release_date ? (
+        {releaseDate ? (
           <Text className="text-base text-neutral-300">
             {isReleased ? "Veröffentlicht am" : "Wird veröffentlicht am"}{" "}
-            {formatReleaseDate(release_date)} •{" "}
-            {formatRelativeTime(release_date)}
+            {formatReleaseDate(releaseDate)} • {formatRelativeTime(releaseDate)}
           </Text>
         ) : null}
       </View>
@@ -127,16 +126,16 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
           </Animated.View>
         ) : null}
 
-        {voice_roles.length > 0 && (
+        {voiceRoles.length > 0 && (
           <View className="text-lg">
             <Text className="text-3xl font-bold text-white">Sprechrollen</Text>
             <Text className="text-mask-b-to-transparent mt-2 text-white">
-              {voice_roles.map(({ role, speaker }) => `${role}: ${speaker}\n`)}
+              {voiceRoles.map(({ role, speaker }) => `${role}: ${speaker}\n`)}
             </Text>
           </View>
         )}
 
-        {(authors.length > 0 || script_authors.length > 0) && (
+        {(authors.length > 0 || scriptAuthors.length > 0) && (
           <View className="text-lg">
             <Text className="text-3xl font-bold text-white">Autoren</Text>
             {authors.length > 0 ? (
@@ -144,9 +143,9 @@ export function FolgeDetails({ folge }: FolgeDetailsProps) {
                 Buch: {authors.join(", ")}
               </Text>
             ) : null}
-            {script_authors.length > 0 ? (
+            {scriptAuthors.length > 0 ? (
               <Text className="mt-2 text-white">
-                Drehbuch: {script_authors.join(", ")}
+                Drehbuch: {scriptAuthors.join(", ")}
               </Text>
             ) : null}
           </View>

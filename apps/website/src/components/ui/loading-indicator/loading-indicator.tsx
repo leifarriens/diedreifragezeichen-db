@@ -75,7 +75,7 @@ export function PageLoadingIndicator({
   ariaLabel?: string;
 }) {
   return (
-    <div className="grid flex-1 place-items-center">
+    <div className="fixed inset-0 grid flex-1 place-items-center">
       <LoadingIndicator ariaLabel={ariaLabel} />
     </div>
   );

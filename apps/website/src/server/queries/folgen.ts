@@ -68,11 +68,11 @@ export async function getFolgeListItems(): Promise<FolgeListItem[]> {
     cover: folge.cover,
     id: folge.id,
     number: folge.number,
-    release_date: folge.release_date,
-    script_authors: folge.script_authors,
+    releaseDate: folge.releaseDate,
+    scriptAuthors: folge.scriptAuthors,
     title: folge.title,
-    total_duration: folge.total_duration,
-    voice_roles: folge.voice_roles,
+    totalDuration: folge.totalDuration,
+    voiceRoles: folge.voiceRoles,
   }));
 }
 

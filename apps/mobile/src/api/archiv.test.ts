@@ -10,12 +10,12 @@ const folge: Folge = {
   description: null,
   id: 1,
   number: 1,
-  release_date: null,
-  script_authors: [],
+  releaseDate: null,
+  scriptAuthors: [],
   streaming: {},
   title: "Der Super-Papagei",
-  total_duration: null,
-  voice_roles: [],
+  totalDuration: null,
+  voiceRoles: [],
   weblink: null,
 };
 

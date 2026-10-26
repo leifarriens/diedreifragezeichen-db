@@ -1,9 +1,9 @@
 export const STREAMING_SERVICES = {
-  amazon_music: "Amazon Music",
-  apple_music: "Apple Music",
+  amazonMusic: "Amazon Music",
+  appleMusic: "Apple Music",
   deezer: "Deezer",
   spotify: "Spotify",
-  youtube_music: "YouTube Music",
+  youtubeMusic: "YouTube Music",
 } as const;
 
 export type StreamingService = keyof typeof STREAMING_SERVICES;

@@ -8,7 +8,7 @@ const searchOptions: SearchOptions = {
   authors: ["Robert Arthur"],
   collections: ["serie", "specials"],
   roles: ["Justus Jonas"],
-  script_authors: ["H. G. Francis"],
+  scriptAuthors: ["H. G. Francis"],
   speakers: ["Oliver Rohrbeck"],
 };
 
@@ -20,14 +20,14 @@ const folge: Folge = {
   description: null,
   id: 1,
   number: 1,
-  release_date: "1979-01-01",
-  script_authors: ["H. G. Francis"],
+  releaseDate: "1979-01-01",
+  scriptAuthors: ["H. G. Francis"],
   streaming: {
     spotify: { id: "example", link: "https://example.com/album/example" },
   },
   title: "Der Super-Papagei",
-  total_duration: 3000,
-  voice_roles: [{ role: "Justus Jonas", speaker: "Oliver Rohrbeck" }],
+  totalDuration: 3000,
+  voiceRoles: [{ role: "Justus Jonas", speaker: "Oliver Rohrbeck" }],
   weblink: null,
 };
 
@@ -74,7 +74,7 @@ describe("ArchivApi", () => {
       authors: [],
       collections: [],
       roles: [],
-      script_authors: [],
+      scriptAuthors: [],
       speakers: [],
     };
     await expect(setup(emptyOptions).api.getSearchOptions()).resolves.toEqual(
@@ -86,7 +86,7 @@ describe("ArchivApi", () => {
     null,
     {},
     { ...searchOptions, speakers: [1] },
-    { ...searchOptions, script_authors: "author" },
+    { ...searchOptions, scriptAuthors: "author" },
     { ...searchOptions, collections: ["kids"] },
   ])("rejects malformed search options %j", async (payload) => {
     await expect(setup(payload).api.getSearchOptions()).rejects.toMatchObject({
@@ -110,18 +110,39 @@ describe("ArchivApi", () => {
       authors: [],
       collection: "specials",
       number: null,
-      release_date: null,
-      script_authors: [],
+      releaseDate: null,
+      scriptAuthors: [],
       streaming: {},
-      total_duration: null,
-      voice_roles: [],
+      totalDuration: null,
+      voiceRoles: [],
     };
     await expect(setup(payload).api.getFolgeById(1)).resolves.toEqual(payload);
   });
 
   it("preserves additional response fields for forward compatibility", async () => {
-    const payload = { ...folge, future_field: true };
+    const payload = { ...folge, futureField: true };
     await expect(setup(payload).api.getFolgeById(1)).resolves.toEqual(payload);
+  });
+
+  it.each([
+    ["releaseDate", "release_date"],
+    ["totalDuration", "total_duration"],
+    ["scriptAuthors", "script_authors"],
+    ["voiceRoles", "voice_roles"],
+  ] as const)("requires %s instead of %s", async (field, snakeCaseField) => {
+    const { [field]: value, ...rest } = folge;
+    const payload = { ...rest, [snakeCaseField]: value };
+    await expect(setup(payload).api.getFolgeById(1)).rejects.toMatchObject({
+      code: "invalid-response",
+    });
+  });
+
+  it("requires camelCase search option fields", async () => {
+    const { scriptAuthors, ...rest } = searchOptions;
+    const payload = { ...rest, script_authors: scriptAuthors };
+    await expect(setup(payload).api.getSearchOptions()).rejects.toMatchObject({
+      code: "invalid-response",
+    });
   });
 
   it("uses global fetch when no adapter is supplied", async () => {
@@ -265,9 +286,9 @@ describe("ArchivApi", () => {
     ["number", 1.5],
     ["collection", "kids"],
     ["description", 1],
-    ["release_date", false],
-    ["total_duration", "3000"],
-    ["total_duration", 0.5],
+    ["releaseDate", false],
+    ["totalDuration", "3000"],
+    ["totalDuration", 0.5],
     ["streaming", null],
     ["streaming", []],
     ["streaming", { spotify: { id: "example" } }],
@@ -277,11 +298,11 @@ describe("ArchivApi", () => {
     ["artwork", []],
     ["authors", null],
     ["authors", [1]],
-    ["script_authors", "author"],
-    ["script_authors", [null]],
-    ["voice_roles", null],
-    ["voice_roles", [{ role: "Justus" }]],
-    ["voice_roles", [{ role: 1, speaker: "Oliver" }]],
+    ["scriptAuthors", "author"],
+    ["scriptAuthors", [null]],
+    ["voiceRoles", null],
+    ["voiceRoles", [{ role: "Justus" }]],
+    ["voiceRoles", [{ role: 1, speaker: "Oliver" }]],
   ])(
     "rejects malformed field %s = %j in details and lists",
     async (field, value) => {

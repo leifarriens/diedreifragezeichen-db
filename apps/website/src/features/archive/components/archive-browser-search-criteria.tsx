@@ -26,7 +26,7 @@ export function ArchiveBrowserSearchCriteria({
   const speakerOptions = toComboboxItems(availableOptions.speakers);
   const roleOptions = toComboboxItems(availableOptions.roles);
   const authorOptions = toComboboxItems(availableOptions.authors);
-  const scriptAuthorOptions = toComboboxItems(availableOptions.script_authors);
+  const scriptAuthorOptions = toComboboxItems(availableOptions.scriptAuthors);
   // const collectionOptions = toComboboxItems(availableOptions.collections);
 
   const includeSpecials = state.collections.length === 0;

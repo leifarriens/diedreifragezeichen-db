@@ -90,12 +90,12 @@ const folgen: FolgeWithCommunityRating[] = [1, 2, 3].map((id) => ({
   description: null,
   id,
   number: id,
-  release_date: null,
-  script_authors: [],
+  releaseDate: null,
+  scriptAuthors: [],
   streaming: {},
   title: `Folge ${String(id)}`,
-  total_duration: null,
-  voice_roles: [],
+  totalDuration: null,
+  voiceRoles: [],
   weblink: null,
 }));
 

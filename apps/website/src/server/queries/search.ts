@@ -30,7 +30,7 @@ export async function searchFolgen(
   const engine = await createSearchEngine(folgen);
 
   const { results } = await engine.search({
-    sort: { by: "release_date", order: "DESC" },
+    sort: { by: "releaseDate", order: "DESC" },
     term: term,
   });
 

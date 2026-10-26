@@ -34,7 +34,7 @@ export const FolgenCard = memo(function FolgenGridItem({
     hasListened,
     id,
     isBookmarked,
-    release_date,
+    releaseDate,
     title,
     userRating,
   } = folge;
@@ -75,9 +75,9 @@ export const FolgenCard = memo(function FolgenGridItem({
             value={communityRating?.score ?? null}
           />
 
-          {release_date && (
+          {releaseDate && (
             <div className="text-xs font-extralight text-neutral-200">
-              {formatReleaseDate(release_date)}
+              {formatReleaseDate(releaseDate)}
             </div>
           )}
         </div>

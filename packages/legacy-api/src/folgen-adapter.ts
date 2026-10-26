@@ -34,7 +34,7 @@ export function buildLegacyFolge(
     rating: score,
     release_date: folge.release_date,
     spotify_id: update.streaming.spotify?.id ?? "",
-    sprecher: update.voice_roles
+    sprecher: update.voiceRoles
       .map(({ role, speaker }) => `${role} - ${speaker}`)
       .join(" \n"),
     type: folge.type,

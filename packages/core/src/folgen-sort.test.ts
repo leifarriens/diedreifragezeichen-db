@@ -18,7 +18,7 @@ interface CommunityRatedTestFolge extends TestFolge {
 interface TestFolge {
   id: number;
   key: string;
-  release_date: null | string;
+  releaseDate: null | string;
   title: string;
 }
 
@@ -28,11 +28,11 @@ interface UserRatedTestFolge extends TestFolge {
 }
 
 const folgen: TestFolge[] = [
-  { id: 1, key: "old", release_date: "1980-01-01", title: "Old" },
-  { id: 2, key: "newest", release_date: "2020-01-01", title: "Newest" },
-  { id: 3, key: "tie-b", release_date: "2000-01-01", title: "Folge B" },
-  { id: 4, key: "tie-a", release_date: "2000-01-01", title: "Folge A" },
-  { id: 5, key: "unknown", release_date: null, title: "Unknown" },
+  { id: 1, key: "old", releaseDate: "1980-01-01", title: "Old" },
+  { id: 2, key: "newest", releaseDate: "2020-01-01", title: "Newest" },
+  { id: 3, key: "tie-b", releaseDate: "2000-01-01", title: "Folge B" },
+  { id: 4, key: "tie-a", releaseDate: "2000-01-01", title: "Folge A" },
+  { id: 5, key: "unknown", releaseDate: null, title: "Unknown" },
 ];
 
 describe("sortFolgen", () => {
@@ -43,7 +43,7 @@ describe("sortFolgen", () => {
         communityRating: { score: 4.5, votes: 10 },
         id: 1,
         key: "enriched",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Enriched",
         userRating: 5,
         userRatingUpdatedAt: "2025-01-02T00:00:00.000Z",
@@ -101,12 +101,12 @@ describe("sortFolgen", () => {
     const tiedFolgen = [
       {
         id: 2,
-        release_date: "2000-01-01T00:00:00.000Z",
+        releaseDate: "2000-01-01T00:00:00.000Z",
         title: "Same title",
       },
       {
         id: 1,
-        release_date: "2000-01-01T12:00:00.000Z",
+        releaseDate: "2000-01-01T12:00:00.000Z",
         title: "Same title",
       },
     ];
@@ -125,19 +125,19 @@ describe("sortFolgen", () => {
       {
         communityRating: { score: 5 },
         id: 1,
-        release_date: null,
+        releaseDate: null,
         title: "Highest",
       },
       {
         communityRating: null,
         id: 2,
-        release_date: null,
+        releaseDate: null,
         title: "Unrated",
       },
       {
         communityRating: { score: 0 },
         id: 3,
-        release_date: null,
+        releaseDate: null,
         title: "Zero",
       },
     ];
@@ -155,31 +155,31 @@ describe("sortFolgen", () => {
       {
         communityRating: { popularity: 6 },
         id: 1,
-        release_date: "1980-01-01",
+        releaseDate: "1980-01-01",
         title: "Older tie",
       },
       {
         communityRating: { popularity: 2 },
         id: 2,
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Most popular",
       },
       {
         communityRating: { popularity: 4 },
         id: 3,
-        release_date: "2010-01-01",
+        releaseDate: "2010-01-01",
         title: "No popularity",
       },
       {
         communityRating: { popularity: 0 },
         id: 4,
-        release_date: "2020-01-01",
+        releaseDate: "2020-01-01",
         title: "Zero popularity",
       },
       {
         communityRating: null,
         id: 5,
-        release_date: "1990-01-01",
+        releaseDate: "1990-01-01",
         title: "Missing popularity",
       },
     ];
@@ -213,28 +213,28 @@ describe("sortFolgen", () => {
         bookmarkedAt: "2025-01-01T00:00:00.000Z",
         id: 1,
         key: "oldest",
-        release_date: null,
+        releaseDate: null,
         title: "Oldest",
       },
       {
         bookmarkedAt: "2025-01-03T00:00:00.000Z",
         id: 2,
         key: "recent-b",
-        release_date: null,
+        releaseDate: null,
         title: "Bookmark B",
       },
       {
         bookmarkedAt: "2025-01-03T00:00:00.000Z",
         id: 3,
         key: "recent-a",
-        release_date: null,
+        releaseDate: null,
         title: "Bookmark A",
       },
       {
         bookmarkedAt: null,
         id: 4,
         key: "unknown",
-        release_date: null,
+        releaseDate: null,
         title: "Unknown",
       },
     ];
@@ -259,28 +259,28 @@ describe("sortFolgen", () => {
         communityRating: { score: 2 },
         id: 1,
         key: "low",
-        release_date: "1980-01-01",
+        releaseDate: "1980-01-01",
         title: "Old",
       },
       {
         communityRating: { score: 4 },
         id: 2,
         key: "highest-newest",
-        release_date: "2020-01-01",
+        releaseDate: "2020-01-01",
         title: "Newest",
       },
       {
         communityRating: null,
         id: 3,
         key: "unrated",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Unrated",
       },
       {
         communityRating: { score: 4 },
         id: 4,
         key: "highest-older",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Older",
       },
     ];
@@ -298,7 +298,7 @@ describe("sortFolgen", () => {
       {
         id: 1,
         key: "low",
-        release_date: "1980-01-01",
+        releaseDate: "1980-01-01",
         title: "Old",
         userRating: 2,
         userRatingUpdatedAt: "2025-01-01T00:00:00.000Z",
@@ -306,7 +306,7 @@ describe("sortFolgen", () => {
       {
         id: 2,
         key: "highest-older",
-        release_date: "2020-01-01",
+        releaseDate: "2020-01-01",
         title: "Newest",
         userRating: 4,
         userRatingUpdatedAt: "2025-01-01T00:00:00.000Z",
@@ -314,7 +314,7 @@ describe("sortFolgen", () => {
       {
         id: 3,
         key: "unrated",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Unrated",
         userRating: null,
         userRatingUpdatedAt: null,
@@ -322,7 +322,7 @@ describe("sortFolgen", () => {
       {
         id: 4,
         key: "highest-recent",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Older",
         userRating: 4,
         userRatingUpdatedAt: "2025-01-02T00:00:00.000Z",
@@ -346,7 +346,7 @@ describe("sortFolgen", () => {
       {
         id: 1,
         key: "rated",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Rated",
         userRating: 5,
         userRatingUpdatedAt: "2025-01-01T00:00:00.000Z",
@@ -365,7 +365,7 @@ describe("sortFolgen", () => {
       {
         id: 1,
         key: "old-update",
-        release_date: "1980-01-01",
+        releaseDate: "1980-01-01",
         title: "Old",
         userRating: 6,
         userRatingUpdatedAt: "2025-01-01T00:00:00.000Z",
@@ -373,7 +373,7 @@ describe("sortFolgen", () => {
       {
         id: 2,
         key: "newest-update",
-        release_date: "2020-01-01",
+        releaseDate: "2020-01-01",
         title: "Newest",
         userRating: 1,
         userRatingUpdatedAt: "2025-01-03T00:00:00.000Z",
@@ -381,7 +381,7 @@ describe("sortFolgen", () => {
       {
         id: 3,
         key: "middle-update",
-        release_date: "2000-01-01",
+        releaseDate: "2000-01-01",
         title: "Middle",
         userRating: 4,
         userRatingUpdatedAt: "2025-01-02T00:00:00.000Z",

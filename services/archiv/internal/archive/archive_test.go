@@ -114,7 +114,7 @@ func TestLoadFolgenMapsSelectedFields(t *testing.T) {
 	if mainFolge.TotalDuration == nil || *mainFolge.TotalDuration != 3000 {
 		t.Fatalf("unexpected total duration: %+v", mainFolge.TotalDuration)
 	}
-	if len(mainFolge.Streaming) != 6 || mainFolge.Streaming["apple_music"] != (Streaming{ID: "1092529875", Link: "https://music.apple.com/de/album/1092529875"}) || mainFolge.Streaming["spotify"] != (Streaming{ID: "spotify-id", Link: "https://open.spotify.com/intl-de/album/spotify-id"}) || mainFolge.Streaming["amazon_music"] != (Streaming{ID: "amazon-music-id", Link: "https://music.amazon.de/albums/amazon-music-id"}) || mainFolge.Streaming["youtube_music"] != (Streaming{ID: "youtube-id", Link: "https://music.youtube.com/browse/youtube-id"}) {
+	if len(mainFolge.Streaming) != 6 || mainFolge.Streaming["appleMusic"] != (Streaming{ID: "1092529875", Link: "https://music.apple.com/de/album/1092529875"}) || mainFolge.Streaming["spotify"] != (Streaming{ID: "spotify-id", Link: "https://open.spotify.com/intl-de/album/spotify-id"}) || mainFolge.Streaming["amazonMusic"] != (Streaming{ID: "amazon-music-id", Link: "https://music.amazon.de/albums/amazon-music-id"}) || mainFolge.Streaming["youtubeMusic"] != (Streaming{ID: "youtube-id", Link: "https://music.youtube.com/browse/youtube-id"}) {
 		t.Fatalf("unexpected streaming services: %+v", mainFolge.Streaming)
 	}
 	if _, ok := mainFolge.Streaming["amazon"]; ok {
@@ -192,12 +192,16 @@ func TestHTTPHandlerServesNewContractAndDetail(t *testing.T) {
 		`"collection":"serie"`,
 		`"collection":"specials"`,
 		`"number":1`,
+		`"releaseDate":`,
+		`"totalDuration":`,
 		`"streaming":`,
-		`"youtube_music":{"link":`,
+		`"appleMusic":{"link":`,
+		`"amazonMusic":{"link":`,
+		`"youtubeMusic":{"link":`,
 		`"weblink":`,
 		`"authors":[`,
-		`"script_authors":[`,
-		`"voice_roles":[`,
+		`"scriptAuthors":[`,
+		`"voiceRoles":[`,
 		`"speaker":"`,
 	} {
 		if !strings.Contains(responseBody, field) {
@@ -231,6 +235,49 @@ func TestHTTPHandlerServesNewContractAndDetail(t *testing.T) {
 	}
 	if detail.ID != 2 || detail.Number != nil {
 		t.Fatalf("unexpected detail response: %+v", detail)
+	}
+}
+
+func TestHTTPResponsesUseCamelCaseFields(t *testing.T) {
+	db := openTestDB(t)
+	if _, err := db.Exec(testDatabaseSQL); err != nil {
+		t.Fatalf("create test database: %v", err)
+	}
+	folgen, err := loadFolgen(db)
+	if err != nil {
+		t.Fatalf("load Folgen: %v", err)
+	}
+	handler := newHTTPHandler(folgen, zerolog.New(io.Discard))
+
+	for _, endpoint := range []string{"/", "/healthz", "/folgen", "/folgen/1", "/search-options"} {
+		t.Run(endpoint, func(t *testing.T) {
+			response := httptest.NewRecorder()
+			handler.ServeHTTP(response, httptest.NewRequest(http.MethodGet, endpoint, nil))
+			if response.Code != http.StatusOK {
+				t.Fatalf("status = %d, want %d", response.Code, http.StatusOK)
+			}
+			var payload any
+			if err := json.Unmarshal(response.Body.Bytes(), &payload); err != nil {
+				t.Fatalf("decode response: %v", err)
+			}
+			var checkFields func(any)
+			checkFields = func(value any) {
+				switch value := value.(type) {
+				case map[string]any:
+					for key, nested := range value {
+						if strings.Contains(key, "_") {
+							t.Errorf("response contains snake_case field %q", key)
+						}
+						checkFields(nested)
+					}
+				case []any:
+					for _, nested := range value {
+						checkFields(nested)
+					}
+				}
+			}
+			checkFields(payload)
+		})
 	}
 }
 

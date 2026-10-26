@@ -17,11 +17,11 @@ const STREAMING_SERVICE_ICONS: Record<
   StreamingService,
   ComponentType<StreamingIconProps>
 > = {
-  amazon_music: AmazonMusicIcon,
-  apple_music: AppleMusicIcon,
+  amazonMusic: AmazonMusicIcon,
+  appleMusic: AppleMusicIcon,
   deezer: DeezerIcon,
   spotify: SpotifyIcon,
-  youtube_music: YoutubeMusicIcon,
+  youtubeMusic: YoutubeMusicIcon,
 };
 
 interface FolgenStreamingLinksProps {

@@ -273,11 +273,11 @@ func buildStreaming(ids ...sql.NullString) map[string]Streaming {
 		host string
 		path string
 	}{
-		{key: "apple_music", host: "music.apple.com", path: "/de/album/"},
+		{key: "appleMusic", host: "music.apple.com", path: "/de/album/"},
 		{key: "spotify", host: "open.spotify.com", path: "/intl-de/album/"},
 		{key: "bookbeat", host: "www.bookbeat.com", path: "/de/book/"},
-		{key: "amazon_music", host: "music.amazon.de", path: "/albums/"},
-		{key: "youtube_music", host: "music.youtube.com", path: "/browse/"},
+		{key: "amazonMusic", host: "music.amazon.de", path: "/albums/"},
+		{key: "youtubeMusic", host: "music.youtube.com", path: "/browse/"},
 		{key: "deezer", host: "www.deezer.com", path: "/de/album/"},
 	}
 

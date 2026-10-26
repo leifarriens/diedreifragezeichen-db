@@ -137,16 +137,16 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
     communityRating,
     cover,
     description,
-    release_date,
-    script_authors,
+    releaseDate,
+    scriptAuthors,
     streaming,
     title,
-    total_duration,
-    voice_roles,
+    totalDuration,
+    voiceRoles,
     weblink,
   } = folge;
 
-  const isReleased = isReleasDateInThePast(release_date);
+  const isReleased = isReleasDateInThePast(releaseDate);
 
   return (
     <>
@@ -179,24 +179,24 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 </p>
               ) : null}
 
-              {total_duration ? (
+              {totalDuration ? (
                 <p className="mt-2 text-xs text-neutral-300 md:mt-4 md:text-base">
-                  Laufzeit: {formatDuration(total_duration)}
+                  Laufzeit: {formatDuration(totalDuration)}
                 </p>
               ) : null}
 
               <div className="mt-2 text-xs text-neutral-300 md:mt-4 md:text-base">
-                {release_date && (
+                {releaseDate && (
                   <>
                     <span>
                       {isReleased
                         ? "Veröffentlicht am"
                         : "Wird veröffentlicht am"}{" "}
-                      {formatReleaseDate(release_date)}
+                      {formatReleaseDate(releaseDate)}
                     </span>
                     <span className="md:hidden">{" • "}</span>
                     <span className="md:block">
-                      {formatRelativeTime(release_date)}
+                      {formatRelativeTime(releaseDate)}
                     </span>
                   </>
                 )}
@@ -279,13 +279,13 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
             )}
 
             <div className="grid gap-8 md:grid-cols-3 lg:gap-14">
-              {voice_roles.length > 0 && (
+              {voiceRoles.length > 0 && (
                 <Card className="text-sm md:col-span-2 md:text-base">
                   <h2 className="mb-4 text-2xl font-medium">Sprechrollen</h2>
 
                   <table className="w-full table-fixed border-separate border-spacing-y-2">
                     <tbody>
-                      {voice_roles.map(({ role, speaker }) => (
+                      {voiceRoles.map(({ role, speaker }) => (
                         <tr key={`${role}-${speaker}`}>
                           <td className="font-medium break-words">
                             <Link
@@ -318,7 +318,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                 </Card>
               )}
 
-              {(authors.length > 0 || script_authors.length > 0) && (
+              {(authors.length > 0 || scriptAuthors.length > 0) && (
                 <Card className="self-start text-sm md:text-base">
                   <h2 className="mb-4 text-2xl font-medium">Autoren</h2>
 
@@ -344,20 +344,20 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
                         </tr>
                       )}
 
-                      {script_authors.length > 0 && (
+                      {scriptAuthors.length > 0 && (
                         <tr>
                           <td className="break-words">
                             Drehbuch:{" "}
-                            {script_authors.map((script_author) => (
+                            {scriptAuthors.map((scriptAuthor) => (
                               <Link
                                 className="text-neutral-300 hover:text-neutral-100"
                                 href={{
                                   pathname: "/",
-                                  query: { scriptAuthors: script_author },
+                                  query: { scriptAuthors: scriptAuthor },
                                 }}
-                                key={script_author}
+                                key={scriptAuthor}
                               >
-                                {script_authors}
+                                {scriptAuthors}
                               </Link>
                             ))}
                           </td>

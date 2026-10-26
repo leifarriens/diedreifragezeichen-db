@@ -52,11 +52,11 @@ it("offers exactly the five supported streaming services", () => {
       value,
     })),
   ).toEqual([
-    { label: "Amazon Music", value: "amazon_music" },
-    { label: "Apple Music", value: "apple_music" },
+    { label: "Amazon Music", value: "amazonMusic" },
+    { label: "Apple Music", value: "appleMusic" },
     { label: "Deezer", value: "deezer" },
     { label: "Spotify", value: "spotify" },
-    { label: "YouTube Music", value: "youtube_music" },
+    { label: "YouTube Music", value: "youtubeMusic" },
   ]);
 });
 
@@ -108,7 +108,7 @@ it("notifies subscribers when the selected service changes", async () => {
   const { useUserSettingsStore } = await loadStore();
   const subscriber = vi.fn();
   const unsubscribe = useUserSettingsStore.subscribe(subscriber);
-  useUserSettingsStore.getState().setStreamingService("apple_music");
+  useUserSettingsStore.getState().setStreamingService("appleMusic");
   expect(subscriber).toHaveBeenCalledTimes(1);
   unsubscribe();
 });

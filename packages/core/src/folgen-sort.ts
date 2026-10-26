@@ -31,7 +31,7 @@ export interface ReleaseDateSortOption {
 
 export interface SortableFolge {
   id: number;
-  release_date: null | string;
+  releaseDate: null | string;
   title: string;
 }
 
@@ -235,8 +235,8 @@ function compareReleaseDates(
   right: SortableFolge,
   order: "newest" | "oldest",
 ): number {
-  const leftDate = left.release_date?.slice(0, 10) ?? "";
-  const rightDate = right.release_date?.slice(0, 10) ?? "";
+  const leftDate = left.releaseDate?.slice(0, 10) ?? "";
+  const rightDate = right.releaseDate?.slice(0, 10) ?? "";
 
   if (leftDate !== rightDate) {
     if (!leftDate) return 1;

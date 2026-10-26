@@ -24,11 +24,11 @@ vi.mock("@/features/settings/hooks/use-user-settings-store", () => ({
 }));
 
 const streaming = {
-  amazon_music: {
+  amazonMusic: {
     id: "amazon-id",
     link: "https://music.amazon.de/albums/amazon-id",
   },
-  apple_music: {
+  appleMusic: {
     id: "apple-id",
     link: "https://music.apple.com/de/album/apple-id",
   },
@@ -40,7 +40,7 @@ const streaming = {
     id: "spotify-id",
     link: "https://open.spotify.com/album/spotify-id",
   },
-  youtube_music: {
+  youtubeMusic: {
     id: "youtube-id",
     link: "https://music.youtube.com/browse/youtube-id",
   },
@@ -52,11 +52,11 @@ beforeEach(() => {
 });
 
 it.each<StreamingService>([
-  "amazon_music",
-  "apple_music",
+  "amazonMusic",
+  "appleMusic",
   "deezer",
   "spotify",
-  "youtube_music",
+  "youtubeMusic",
 ])("uses the selected %s streaming link", (service) => {
   settings.streamingService = service;
   const button = FolgenPlayButton({ streaming });
@@ -112,8 +112,8 @@ it("uses a changed streaming-service preference", () => {
   expect(FolgenPlayButton({ streaming })).toMatchObject({
     props: { href: streaming.spotify.link },
   });
-  settings.streamingService = "apple_music";
+  settings.streamingService = "appleMusic";
   expect(FolgenPlayButton({ streaming })).toMatchObject({
-    props: { href: streaming.apple_music.link },
+    props: { href: streaming.appleMusic.link },
   });
 });

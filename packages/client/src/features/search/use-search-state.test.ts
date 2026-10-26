@@ -26,11 +26,11 @@ describe("useSearchState", () => {
         authors: [],
         collections: [],
         roles: [],
-        script_authors: [],
+        scriptAuthors: [],
         speakers: [],
         yearRange: { max: 2026, min: 1979 },
       },
-      sort: { by: "release_date", order: "DESC" },
+      sort: { by: "releaseDate", order: "DESC" },
       term: "",
     });
   });
@@ -55,11 +55,11 @@ describe("useSearchState", () => {
         authors: ["André Marx"],
         collections: ["specials"],
         roles: ["Hugenay"],
-        script_authors: ["André Minninger"],
+        scriptAuthors: ["André Minninger"],
         speakers: ["Dorette Hugo"],
         yearRange: { max: 2020, min: 1990 },
       },
-      sort: { by: "release_date", order: "DESC" },
+      sort: { by: "releaseDate", order: "DESC" },
       term: "Hugenay",
     });
     expect(result.current.updateState).toBe(updateState);
@@ -68,8 +68,8 @@ describe("useSearchState", () => {
   });
 
   it.each<{ by: string; order: string; sort: SearchSort }>([
-    { by: "release_date", order: "DESC", sort: "newest" },
-    { by: "release_date", order: "ASC", sort: "oldest" },
+    { by: "releaseDate", order: "DESC", sort: "newest" },
+    { by: "releaseDate", order: "ASC", sort: "oldest" },
     { by: "communityRating", order: "DESC", sort: "rating" },
   ])("maps $sort to the engine sort option", ({ by, order, sort }) => {
     const { result } = renderHook(() => useSearchState(2026));
@@ -99,7 +99,7 @@ describe("useSearchState", () => {
     expect(result.current.state.authors).toEqual([]);
     expect(result.current.state.sort).toBe("newest");
     expect(result.current.searchCriteria.sort).toEqual({
-      by: "release_date",
+      by: "releaseDate",
       order: "DESC",
     });
     expect(result.current.state.term).toBe("Hugenay");

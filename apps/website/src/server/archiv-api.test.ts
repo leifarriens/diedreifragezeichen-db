@@ -18,8 +18,8 @@ const folge = {
   description: null,
   id: 1,
   number: 1,
-  release_date: "1979-01-01",
-  script_authors: [],
+  releaseDate: "1979-01-01",
+  scriptAuthors: [],
   streaming: {
     spotify: {
       id: "example",
@@ -27,8 +27,8 @@ const folge = {
     },
   },
   title: "Der Super-Papagei",
-  total_duration: 3_000,
-  voice_roles: [],
+  totalDuration: 3_000,
+  voiceRoles: [],
   weblink: "https://example.com/folge/1",
 } as const;
 
