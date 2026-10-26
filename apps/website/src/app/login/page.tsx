@@ -20,8 +20,8 @@ export default function LoginPage() {
   return (
     <>
       <Suspense fallback={<PageLoadingIndicator />}>
-        <main className="grid place-items-center">
-          <Wrapper className="mt-20 mb-36 w-full max-w-xl text-center">
+        <main className="mt-32">
+          <Wrapper className="w-full max-w-xl text-center">
             <h1 className="mb-12 text-center text-5xl font-bold">Anmelden</h1>
 
             <LoginContent />

@@ -7,7 +7,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { LoadingIndicator } from "../loading-indicator/loading-indicator";
 
 export const buttonVariants = tv({
-  base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-6 py-2 text-base transition-colors disabled:opacity-50",
+  base: "inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl border-2 px-6 py-2 text-base font-semibold transition-colors disabled:opacity-50",
   defaultVariants: {
     intent: "default",
   },
