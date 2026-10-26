@@ -69,6 +69,10 @@ export function FolgenRatingInput({
       return;
     }
 
+    if (localValue === value) {
+      return;
+    }
+
     onValueChange(localValue);
   }
 

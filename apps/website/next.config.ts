@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   images: nextImagesConfig,
   pageExtensions: ["md", "mdx", "ts", "tsx"],
+  partialPrefetching: true,
   reactCompiler: true,
 };
 
