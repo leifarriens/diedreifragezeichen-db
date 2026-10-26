@@ -23,26 +23,28 @@ export function LoadingIndicator({
         className={cn("flex w-full justify-center", className)}
         role="status"
       >
-        <svg className="size-5 animate-spin" viewBox="0 0 100 100">
-          <circle
-            className="stroke-current opacity-40"
-            cx="50"
-            cy="50"
-            fill="none"
-            r="40"
-            strokeWidth="10"
-          />
-          <circle
-            className="stroke-current"
-            cx="50"
-            cy="50"
-            fill="none"
-            r="40"
-            strokeDasharray="250"
-            strokeDashoffset="210"
-            strokeWidth="10"
-          />
-        </svg>
+        <div aria-hidden="true" className="size-5 animate-spin">
+          <svg className="size-full" viewBox="0 0 100 100">
+            <circle
+              className="stroke-current opacity-40"
+              cx="50"
+              cy="50"
+              fill="none"
+              r="40"
+              strokeWidth="10"
+            />
+            <circle
+              className="stroke-current"
+              cx="50"
+              cy="50"
+              fill="none"
+              r="40"
+              strokeDasharray="250"
+              strokeDashoffset="210"
+              strokeWidth="10"
+            />
+          </svg>
+        </div>
         <span className="sr-only">Laden...</span>
       </div>
     );
@@ -56,13 +58,14 @@ export function LoadingIndicator({
       role="status"
     >
       {Array.from({ length: 3 }).map((_, index) => (
-        <QSvg
+        <div
           aria-hidden="true"
           className={styles.icon}
-          color="white"
           // eslint-disable-next-line @eslint-react/no-array-index-key
           key={index}
-        />
+        >
+          <QSvg className="size-full" color="white" />
+        </div>
       ))}
       <span className="sr-only">Laden...</span>
     </div>

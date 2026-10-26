@@ -1,6 +1,18 @@
 {
   "version": 1,
   "skills": {
+    "eas-update": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/expo/skills/eas-update/SKILL.md",
+      "computedHash": "2f9096af7bc51f6fca7a14c8edb4ff64dc3cb44441bcaa721e6784bc943aa81e"
+    },
+    "expo-dev-client": {
+      "source": "expo/skills",
+      "sourceType": "github",
+      "skillPath": "plugins/expo/skills/expo-dev-client/SKILL.md",
+      "computedHash": "01423bf2dc0cab9a37128c4ca8e1018deeb29109b972d781b3c0b477188c5989"
+    },
     "expo-native-ui": {
       "source": "expo/skills",
       "sourceType": "github",

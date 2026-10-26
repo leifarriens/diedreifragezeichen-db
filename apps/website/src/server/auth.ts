@@ -27,6 +27,7 @@ export const auth = betterAuth({
   trustedOrigins: [
     ...(process.env.BETTER_AUTH_URL ? [process.env.BETTER_AUTH_URL] : []),
     "ddfdb://",
+    "ddfdb-preview://",
     ...(process.env.NODE_ENV === "development"
       ? ["ddfdb-dev://", "exp://", "exp://**", "exp://192.168.*.*:*/**"]
       : []),

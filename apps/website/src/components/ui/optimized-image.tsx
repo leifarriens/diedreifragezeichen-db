@@ -22,10 +22,12 @@ export function OptimizedImage({
   src,
   ...rest
 }: OptimizedImageProps) {
-  const [hasOpimizationFailed, setHasOpimizationFailed] = useState(false);
+  const [imageSrc, setImageSrc] = useState(() =>
+    buildOptimizationUrl(src, size),
+  );
 
   function handleError(e: SyntheticEvent<HTMLImageElement>) {
-    setHasOpimizationFailed(true);
+    setImageSrc(src);
     onError?.(e);
   }
 
@@ -34,7 +36,7 @@ export function OptimizedImage({
       alt={alt}
       height={size}
       onError={handleError}
-      src={hasOpimizationFailed ? src : buildOptimizationUrl(src, size)}
+      src={imageSrc}
       unoptimized // Disables Next.js's built-in image optimization
       width={size}
       {...rest}

@@ -10,7 +10,7 @@ interface EnvironmentConfig {
   scheme: string;
 }
 
-type EnvType = "development" | "production";
+type EnvType = "development" | "preview" | "production";
 
 const EAS_PROJECT_ID = "fe7f150b-65e3-474a-9a6f-af66dc193eda";
 const PROJECT_SLUG = "ddfdb";
@@ -50,16 +50,17 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     ios: {
       associatedDomains,
       bundleIdentifier,
-      icon: "./assets/expo.icon",
+      icon: "./assets/ddfdb.icon",
       userInterfaceStyle: "dark",
     },
     name,
     owner: OWNER,
     plugins: [
+      "expo-font",
+      "expo-image",
       "expo-router",
       "expo-secure-store",
-      "expo-image",
-      "expo-font",
+      "expo-status-bar",
       [
         "expo-splash-screen",
         {
@@ -69,8 +70,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         },
       ],
     ],
+    runtimeVersion: {
+      policy: "appVersion",
+    },
     scheme,
     slug: PROJECT_SLUG,
+    updates: {
+      url: `https://u.expo.dev/${EAS_PROJECT_ID}`,
+    },
     version,
   };
 };
@@ -83,10 +90,16 @@ function getAppEnv(): EnvType {
   }
 
   if (typeof APP_ENV !== "string") {
-    throw new Error("Invalid APP_ENV: expected development or production");
+    throw new Error(
+      "Invalid APP_ENV: expected development, preview or production",
+    );
   }
 
-  if (APP_ENV !== "development" && APP_ENV !== "production") {
+  if (
+    APP_ENV !== "development" &&
+    APP_ENV !== "preview" &&
+    APP_ENV !== "production"
+  ) {
     throw new Error(`Invalid APP_ENV: ${APP_ENV}`);
   }
 
@@ -95,6 +108,15 @@ function getAppEnv(): EnvType {
 
 function getEnvironmentConfig(env: EnvType): EnvironmentConfig {
   switch (env) {
+    case "preview": {
+      return {
+        associatedDomains: [],
+        bundleIdentifier: `${IOS_BUNDLE_IDENTIFIER}.preview`,
+        name: `${APP_NAME} Preview`,
+        packageName: `${ANDROID_PACKAGE_NAME}.preview`,
+        scheme: `${APP_SCHEME}-preview`,
+      };
+    }
     case "production": {
       return {
         associatedDomains: [],

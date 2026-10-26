@@ -1,5 +1,4 @@
 .icon {
-  height: 100%;
   display: inline-block;
   transform-origin: center;
   width: 18px;
@@ -8,12 +7,10 @@
 }
 
 .icon:nth-of-type(2) {
-  -webkit-animation-delay: -1.1s;
   animation-delay: -1.1s;
 }
 
 .icon:nth-of-type(3) {
-  -webkit-animation-delay: -1s;
   animation-delay: -1s;
 }
 
@@ -22,10 +19,8 @@
   40%,
   100% {
     transform: scale(1);
-    -webkit-transform: scale(1);
   }
   20% {
     transform: scale(1.2);
-    -webkit-transform: scale(1.2);
   }
 }
