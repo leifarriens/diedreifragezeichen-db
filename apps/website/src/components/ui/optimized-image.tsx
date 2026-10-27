@@ -22,12 +22,20 @@ export function OptimizedImage({
   src,
   ...rest
 }: OptimizedImageProps) {
-  const [imageSrc, setImageSrc] = useState(() =>
-    buildOptimizationUrl(src, size),
+  const optimizedSrc = buildOptimizationUrl(src, size);
+  const [failedOptimizedSrc, setFailedOptimizedSrc] = useState<null | string>(
+    null,
   );
+  const imageSrc = failedOptimizedSrc === optimizedSrc ? src : optimizedSrc;
 
   function handleError(e: SyntheticEvent<HTMLImageElement>) {
-    setImageSrc(src);
+    if (imageSrc !== src) {
+      setFailedOptimizedSrc(optimizedSrc);
+      return;
+    }
+
+    // Only report a terminal failure so consumers keep the image mounted
+    // while the original source is loading.
     onError?.(e);
   }
 
