@@ -51,6 +51,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       associatedDomains,
       bundleIdentifier,
       icon: "./assets/ddfdb.icon",
+      infoPlist: {
+        ITSAppUsesNonExemptEncryption: false,
+      },
       userInterfaceStyle: "dark",
     },
     name,

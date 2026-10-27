@@ -15,6 +15,7 @@
     "test": "turbo test",
     "typecheck": "turbo typecheck --continue",
     "vercel:build": "bash scripts/vercel-build.sh",
+    "install:skills": "pnpx skills experimental_install",
     "knip": "knip",
     "turbo": "turbo"
   },

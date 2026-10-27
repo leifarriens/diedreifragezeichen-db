@@ -32,44 +32,54 @@ export function OptimizedImage({
   style,
   ...imageProps
 }: OptimizedImageProps) {
-  const [uri, setUri] = useState(() => getImageUrl(imageUrl, imageSize));
-  const [loadedUri, setLoadedUri] = useState<null | string>(null);
-  const isLoaded = loadedUri === uri;
+  const optimizedUri = getImageUrl(imageUrl, imageSize);
+  const [source, setSource] = useState({
+    isLoaded: false,
+    optimizedUri,
+    uri: optimizedUri,
+  });
+
+  // Recycled rows must reset their source and fallback state before rendering.
+  let currentSource = source;
+  if (source.optimizedUri !== optimizedUri) {
+    currentSource = { isLoaded: false, optimizedUri, uri: optimizedUri };
+    setSource(currentSource);
+  }
+
+  const { isLoaded, uri } = currentSource;
 
   function handleError(event: ImageErrorEventData) {
     if (event.error) {
-      // If the optimized image fails to load, fallback to the original image URL.
-      setUri(imageUrl);
+      // Ignore errors from a previous request after the view has been recycled.
+      setSource((current) =>
+        current.optimizedUri === optimizedUri && current.uri === uri
+          ? { ...current, isLoaded: false, uri: imageUrl }
+          : current,
+      );
     }
 
     onError?.(event);
   }
 
   function handleLoad(event: ImageLoadEventData) {
-    if (event.source.url) {
-      setLoadedUri(event.source.url);
-    }
+    setSource((current) =>
+      current.optimizedUri === optimizedUri && current.uri === uri
+        ? { ...current, isLoaded: true }
+        : current,
+    );
 
     onLoad?.(event);
   }
 
   return (
-    <View
-      className={className ?? ""}
-      style={[
-        {
-          // Ensure border radius is applied correctly
-          overflow: "hidden",
-        },
-        style,
-      ]}
-    >
+    <View className={className ?? ""} style={[{ overflow: "hidden" }, style]}>
       {isLoaded ? null : placeholder}
       <Image
         onError={handleError}
         onLoad={handleLoad}
+        recyclingKey={uri}
         source={{
-          cacheKey: imageUrl,
+          cacheKey: `${String(imageSize)}:${uri}`,
           uri,
         }}
         style={StyleSheet.absoluteFill}

@@ -8,19 +8,16 @@
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene",
         "Geheime Botschaften"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Ruhige Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -28,12 +25,36 @@
     "id": 431,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 430,
+    "tags": {
+      "Atmosphäre": [
         "Mysteriös",
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
         "Geheimnis aus der Vergangenheit",
         "Ungewöhnliche Rätsel"
       ],
@@ -42,35 +63,9 @@
         "Rechercheintensiv"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
-        "Dramatischer Showdown"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
-      ]
-    }
-  },
-  {
-    "id": 430,
-    "tags": {
-      "Atmosphäre": [
-        "Mysteriös"
-      ],
-      "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit",
-        "Ungewöhnliche Rätsel"
-      ],
-      "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
-      ],
-      "Spannung": [
-        "Stetig steigende Spannung"
-      ],
-      "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -80,26 +75,22 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
-        "Atmosphärisch"
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
-        "Täuschung und Manipulation",
-        "Verschwörung"
+        "Verborgene Identität",
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall",
-        "Unerwartete Wendung",
-        "Viele falsche Fährten"
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Akute Gefahr",
-        "Stetig steigende Spannung"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Kopfnuss",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
       ]
     }
   },
@@ -109,24 +100,26 @@
       "Atmosphäre": [
         "Unheimlich",
         "Mysteriös",
-        "Atmosphärisch"
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene",
-        "Ungewöhnliche Rätsel"
+        "Ungewöhnliche Rätsel",
+        "Verborgene Identität"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung",
+        "Überraschende Auflösung"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
-        "Akute Gefahr"
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
+        "Absurder Fall"
       ]
     }
   },
@@ -134,21 +127,21 @@
     "id": 428,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Mysteriös",
+        "Düster"
       ],
       "Mystery-Typ": [
         "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Psychologisches Katz-und-Maus-Spiel"
+        "Psychologisches Katz-und-Maus-Spiel",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Zeitdruck",
-        "Stetig steigende Spannung"
+        "Zeitdruck"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
+        "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -157,25 +150,22 @@
     "id": 421,
     "tags": {
       "Atmosphäre": [
+        "Nostalgisch",
         "Mysteriös",
-        "Skurril",
-        "Atmosphärisch"
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
-        "Geheimnis aus der Vergangenheit",
-        "Unerklärliche Phänomene"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Zeitdruck"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Absurder Fall",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
       ]
     }
   },
@@ -183,23 +173,29 @@
     "id": 427,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich"
+        "Unheimlich",
+        "Skurril",
+        "Mysteriös"
       ],
       "Mystery-Typ": [
-        "Täuschung und Manipulation",
+        "Verborgene Identität",
+        "Geheimnis aus der Vergangenheit",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
         "Viele falsche Fährten",
-        "Schrittweise Enthüllung"
+        "Überraschende Auflösung"
       ],
       "Spannung": [
         "Zeitdruck",
-        "Akute Gefahr"
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
       ],
       "Hörerlebnis": [
-        "Richtiger Gruselfall",
-        "Hörspiel zum Miträtseln"
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
+        "Absurder Fall"
       ]
     }
   },
@@ -207,25 +203,26 @@
     "id": 422,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
         "Mysteriös",
+        "Unheimlich",
         "Düster"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Geheimnis aus der Vergangenheit"
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
         "Stetig steigende Spannung",
-        "Akute Gefahr"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall"
+        "Besonders atmosphärisch",
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -239,19 +236,20 @@
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
         "Schrittweise Enthüllung"
       ],
       "Spannung": [
         "Langsamer Spannungsaufbau",
-        "Subtile Bedrohung"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Absurder Fall",
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -259,20 +257,22 @@
     "id": 419,
     "tags": {
       "Atmosphäre": [
-        "Skurril"
+        "Mysteriös",
+        "Beklemmend"
       ],
       "Mystery-Typ": [
-        "Täuschung und Manipulation"
+        "Täuschung und Manipulation",
+        "Verborgene Identität"
       ],
       "Ermittlungsstruktur": [
-        "Viele falsche Fährten",
-        "Überraschende Auflösung"
+        "Rechercheintensiv",
+        "Viele falsche Fährten"
       ],
       "Spannung": [
-        "Akute Gefahr"
+        "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
         "Absurder Fall"
       ]
     }
@@ -291,13 +291,12 @@
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Zeitdruck",
-        "Stetig steigende Spannung"
+        "Zeitdruck"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
-        "Besonders atmosphärisch",
-        "Hörspiel zum Miträtseln"
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
       ]
     }
   },
@@ -305,10 +304,12 @@
     "id": 417,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Mysteriös",
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit"
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
@@ -317,7 +318,7 @@
         "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
+        "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -326,25 +327,21 @@
     "id": 416,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
         "Mysteriös",
-        "Atmosphärisch"
+        "Unheimlich"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Rechercheintensiv"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
-        "Akute Gefahr"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall"
+        "Kopfnuss"
       ]
     }
   },
@@ -354,25 +351,24 @@
       "Atmosphäre": [
         "Unheimlich",
         "Mysteriös",
-        "Atmosphärisch"
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Geheimnis aus der Vergangenheit",
-        "Unerklärliche Phänomene"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Überraschende Auflösung"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
         "Langsamer Spannungsaufbau",
-        "Subtile Bedrohung"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Hörspiel zum Miträtseln"
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
       ]
     }
   },
@@ -386,14 +382,14 @@
         "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
         "Unerwartete Wendung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln"
+        "Kopfnuss"
       ]
     }
   },
@@ -402,24 +398,22 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
-        "Düster"
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Verschwörung",
-        "Unerklärliche Phänomene"
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Überraschende Auflösung"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Akute Gefahr",
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln",
-        "Richtiger Gruselfall"
+        "Absurder Fall",
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -427,8 +421,8 @@
     "id": 305,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Düster"
+        "Düster",
+        "Mysteriös"
       ],
       "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit"
@@ -437,10 +431,9 @@
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -450,25 +443,23 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Düster",
-        "Mysteriös"
+        "Mysteriös",
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit",
-        "Unerklärliche Phänomene",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Langsamer Spannungsaufbau",
-        "Subtile Bedrohung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall"
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
       ]
     }
   },
@@ -477,24 +468,25 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Düster"
+        "Atmosphärisch",
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Unerklärliche Phänomene",
+        "Scheinbar Übernatürliches",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
-        "Subtile Bedrohung"
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Richtiger Gruselfall",
         "Hörspiel zum Miträtseln",
-        "Besonders atmosphärisch"
+        "Kopfnuss",
+        "Absurder Fall"
       ]
     }
   },
@@ -502,25 +494,19 @@
     "id": 302,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Mysteriös"
       ],
       "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit",
-        "Verschwörung"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
-        "Akute Gefahr"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln",
-        "Besonders atmosphärisch"
+        "Kopfnuss"
       ]
     }
   },
@@ -528,23 +514,21 @@
     "id": 301,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Nostalgisch"
       ],
       "Mystery-Typ": [
-        "Geheime Botschaften",
-        "Ungewöhnliche Rätsel"
+        "Geheime Botschaften"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
         "Zeitdruck"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Kopfnuss",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -552,10 +536,12 @@
     "id": 300,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Mysteriös",
+        "Unheimlich"
       ],
       "Mystery-Typ": [
-        "Ungewöhnliche Rätsel"
+        "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
@@ -564,8 +550,7 @@
         "Akute Gefahr"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln"
+        "Klassisches ???-Feeling"
       ]
     }
   },
@@ -577,15 +562,61 @@
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Verborgene Identität",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 298,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
       ],
       "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 297,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Verschwörung",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
         "Akute Gefahr",
-        "Action und Tempo"
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
@@ -594,58 +625,9 @@
     }
   },
   {
-    "id": 298,
-    "tags": {
-      "Atmosphäre": [
-        "Unheimlich",
-        "Düster",
-        "Mysteriös"
-      ],
-      "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
-      ],
-      "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
-      ],
-      "Spannung": [
-        "Akute Gefahr"
-      ],
-      "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
-      ]
-    }
-  },
-  {
-    "id": 297,
-    "tags": {
-      "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
-      ],
-      "Mystery-Typ": [
-        "Ungewöhnliche Rätsel"
-      ],
-      "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
-      ],
-      "Spannung": [
-        "Akute Gefahr",
-        "Action und Tempo"
-      ],
-      "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Besonders atmosphärisch"
-      ]
-    }
-  },
-  {
     "id": 296,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
@@ -656,13 +638,11 @@
         "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
-        "Zeitdruck"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Kopfnuss",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -670,11 +650,10 @@
     "id": 295,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Humorvoll",
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Verborgene Identität",
         "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
@@ -682,12 +661,11 @@
         "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Action und Tempo",
-        "Zeitdruck"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Besonders atmosphärisch"
+        "Wohlfühlfolge",
+        "Absurder Fall"
       ]
     }
   },
@@ -696,24 +674,23 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
-        "Skurril"
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
         "Täuschung und Manipulation",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Schrittweise Enthüllung"
+        "Schrittweise Enthüllung",
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
         "Zeitdruck",
-        "Akute Gefahr"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Kopfnuss",
-        "Hörspiel zum Miträtseln"
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
       ]
     }
   },
@@ -721,18 +698,20 @@
     "id": 293,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Mysteriös",
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
         "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
       ],
       "Spannung": [
-        "Zeitdruck",
-        "Action und Tempo"
+        "Action und Tempo",
+        "Zeitdruck"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling"
@@ -743,8 +722,7 @@
     "id": 292,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Skurril"
+        "Mysteriös"
       ],
       "Mystery-Typ": [
         "Ungewöhnliche Rätsel"
@@ -753,12 +731,10 @@
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Akute Gefahr",
-        "Zeitdruck"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Absurder Fall"
+        "Klassisches ???-Feeling"
       ]
     }
   },
@@ -774,14 +750,13 @@
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall",
-        "Unerwartete Wendung"
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Zeitdruck",
-        "Akute Gefahr"
+        "Zeitdruck"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
+        "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -792,7 +767,7 @@
       "Atmosphäre": [
         "Unheimlich",
         "Düster",
-        "Mysteriös"
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
@@ -803,13 +778,11 @@
       ],
       "Spannung": [
         "Akute Gefahr",
-        "Zeitdruck",
-        "Action und Tempo"
+        "Stetig steigende Spannung"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Richtiger Gruselfall"
       ]
     }
   },
@@ -817,23 +790,19 @@
     "id": 289,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Mysteriös",
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Geheime Botschaften",
-        "Ungewöhnliche Rätsel"
+        "Geheime Botschaften"
       ],
       "Ermittlungsstruktur": [
-        "Komplexer Fall",
         "Rechercheintensiv"
       ],
       "Spannung": [
-        "Zeitdruck",
-        "Akute Gefahr"
+        "Zeitdruck"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -842,8 +811,7 @@
     "id": 288,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Mysteriös"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches"
@@ -852,11 +820,9 @@
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
         "Kopfnuss"
       ]
     }
@@ -865,19 +831,21 @@
     "id": 287,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Subtile Bedrohung"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling"
+        "Klassisches ???-Feeling",
+        "Kopfnuss"
       ]
     }
   },
@@ -890,20 +858,20 @@
         "Mysteriös"
       ],
       "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
         "Geheimnis aus der Vergangenheit",
-        "Ungewöhnliche Rätsel"
+        "Scheinbar Übernatürliches"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
+        "Langsamer Spannungsaufbau",
         "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
         "Besonders atmosphärisch"
       ]
     }
@@ -913,19 +881,21 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Düster",
-        "Mysteriös"
+        "Mysteriös",
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Ungewöhnliche Rätsel"
+        "Verborgene Identität",
+        "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall",
-        "Schrittweise Enthüllung"
+        "Unerwartete Wendung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Ruhige Spannung",
+        "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
@@ -941,16 +911,16 @@
         "Mysteriös"
       ],
       "Mystery-Typ": [
-        "Ungewöhnliche Rätsel"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Akute Gefahr"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -958,21 +928,22 @@
     "id": 283,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Mysteriös",
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit",
-        "Geheime Botschaften"
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung"
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung"
       ],
       "Spannung": [
         "Zeitdruck",
-        "Action und Tempo"
+        "Akute Gefahr"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
@@ -983,23 +954,24 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Mysteriös",
+        "Düster",
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Akute Gefahr"
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
       ]
     }
   },
@@ -1015,16 +987,14 @@
         "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Psychologisches Katz-und-Maus-Spiel",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln"
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
       ]
     }
   },
@@ -1033,22 +1003,21 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Mysteriös",
-        "Atmosphärisch"
+        "Mysteriös"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -1057,23 +1026,21 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
-        "Skurril"
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit",
-        "Ungewöhnliche Rätsel"
+        "Scheinbar Übernatürliches"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Akute Gefahr"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Kopfnuss",
-        "Hörspiel zum Miträtseln"
+        "Klassisches ???-Feeling"
       ]
     }
   },
@@ -1081,24 +1048,25 @@
     "id": 278,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
         "Düster",
-        "Mysteriös"
+        "Mysteriös",
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Ungewöhnliche Rätsel"
+        "Scheinbar Übernatürliches",
+        "Verborgene Identität"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall"
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
-        "Akute Gefahr"
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -1106,25 +1074,24 @@
     "id": 277,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
-        "Mysteriös"
+        "Mysteriös",
+        "Düster",
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
         "Geheimnis aus der Vergangenheit",
-        "Unerklärliche Phänomene"
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Schrittweise Enthüllung"
+        "Schrittweise Enthüllung",
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Hörspiel zum Miträtseln"
+        "Absurder Fall",
+        "Kopfnuss"
       ]
     }
   },
@@ -1132,29 +1099,28 @@
     "id": 276,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
         "Mysteriös",
-        "Düster"
+        "Düster",
+        "Unheimlich"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Geheimnis aus der Vergangenheit",
-        "Verschwörung"
+        "Täuschung und Manipulation",
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
         "Komplexer Fall",
-        "Unerwartete Wendung",
-        "Viele falsche Fährten"
+        "Viele falsche Fährten",
+        "Psychologisches Katz-und-Maus-Spiel"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
-        "Akute Gefahr",
-        "Subtile Bedrohung"
+        "Subtile Bedrohung",
+        "Akute Gefahr"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Absurder Fall",
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -1162,8 +1128,8 @@
     "id": 275,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Düster",
+        "Beklemmend"
       ],
       "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit"
@@ -1172,11 +1138,10 @@
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Akute Gefahr"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Besonders atmosphärisch"
+        "Kopfnuss"
       ]
     }
   },
@@ -1191,14 +1156,13 @@
         "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Schrittweise Enthüllung"
+        "Schrittweise Enthüllung",
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1207,26 +1171,47 @@
     "id": 273,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
         "Mysteriös",
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit",
-        "Ungewöhnliche Rätsel"
+        "Geheime Botschaften",
+        "Scheinbar Übernatürliches"
       ],
       "Ermittlungsstruktur": [
         "Schrittweise Enthüllung",
-        "Psychologisches Katz-und-Maus-Spiel"
+        "Rechercheintensiv"
       ],
       "Spannung": [
-        "Langsamer Spannungsaufbau",
-        "Subtile Bedrohung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 272,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -1234,25 +1219,22 @@
     "id": 271,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
-        "Mysteriös",
-        "Atmosphärisch"
+        "Humorvoll",
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Überraschende Auflösung"
+        "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Ruhige Spannung",
-        "Subtile Bedrohung"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Richtiger Gruselfall"
+        "Kopfnuss",
+        "Absurder Fall",
+        "Klassisches ???-Feeling"
       ]
     }
   },
@@ -1266,19 +1248,16 @@
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Verborgene Identität",
-        "Unerklärliche Phänomene"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Subtile Bedrohung",
-        "Ruhige Spannung"
+        "Langsamer Spannungsaufbau",
+        "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
-        "Richtiger Gruselfall",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1287,10 +1266,11 @@
     "id": 269,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
+        "Humorvoll",
         "Skurril"
       ],
       "Mystery-Typ": [
+        "Täuschung und Manipulation",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
@@ -1300,7 +1280,6 @@
         "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1309,25 +1288,21 @@
     "id": 268,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Beklemmend",
+        "Mysteriös"
       ],
       "Mystery-Typ": [
-        "Verborgene Identität",
-        "Ungewöhnliche Rätsel"
+        "Verborgene Identität"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
       ],
       "Spannung": [
         "Zeitdruck",
-        "Akute Gefahr",
-        "Action und Tempo"
+        "Akute Gefahr"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln",
-        "Besonders atmosphärisch"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -1335,48 +1310,24 @@
     "id": 267,
     "tags": {
       "Atmosphäre": [
-        "Unheimlich",
-        "Mysteriös"
+        "Skurril",
+        "Mysteriös",
+        "Unheimlich"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Verborgene Identität"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
       ],
       "Spannung": [
-        "Langsamer Spannungsaufbau",
-        "Subtile Bedrohung"
-      ],
-      "Hörerlebnis": [
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
-      ]
-    }
-  },
-  {
-    "id": 272,
-    "tags": {
-      "Atmosphäre": [
-        "Mysteriös",
-        "Nostalgisch"
-      ],
-      "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit",
-        "Scheinbar Übernatürliches"
-      ],
-      "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Komplexer Fall"
-      ],
-      "Spannung": [
-        "Langsamer Spannungsaufbau"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln"
+        "Absurder Fall"
       ]
     }
   },
@@ -1385,25 +1336,24 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Düster",
-        "Mysteriös"
+        "Mysteriös",
+        "Düster"
       ],
       "Mystery-Typ": [
-        "Unerklärliche Phänomene",
+        "Scheinbar Übernatürliches",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Komplexer Fall",
+        "Klassischer Detektivfall",
         "Schrittweise Enthüllung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
-        "Akute Gefahr"
+        "Subtile Bedrohung",
+        "Stetig steigende Spannung"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
-        "Richtiger Gruselfall",
-        "Besonders atmosphärisch"
+        "Richtiger Gruselfall"
       ]
     }
   },
@@ -1412,24 +1362,22 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
-        "Atmosphärisch"
+        "Skurril"
       ],
       "Mystery-Typ": [
-        "Unerklärliche Phänomene",
-        "Geheimnis aus der Vergangenheit"
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Klassischer Detektivfall",
-        "Unerwartete Wendung"
+        "Schrittweise Enthüllung",
+        "Rechercheintensiv"
       ],
       "Spannung": [
-        "Langsamer Spannungsaufbau",
-        "Ruhige Spannung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Kopfnuss",
-        "Besonders atmosphärisch"
+        "Klassisches ???-Feeling"
       ]
     }
   },
@@ -1438,7 +1386,8 @@
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
-        "Mysteriös"
+        "Mysteriös",
+        "Atmosphärisch"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
@@ -1449,7 +1398,7 @@
       ],
       "Spannung": [
         "Akute Gefahr",
-        "Stetig steigende Spannung"
+        "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
         "Klassisches ???-Feeling",
@@ -1465,18 +1414,15 @@
         "Skurril"
       ],
       "Mystery-Typ": [
-        "Scheinbar Übernatürliches",
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Akute Gefahr",
-        "Action und Tempo"
+        "Akute Gefahr"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1486,23 +1432,22 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
+        "Skurril",
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Ungewöhnliche Rätsel",
-        "Geheimnis aus der Vergangenheit"
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
-        "Action und Tempo"
+        "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Hörspiel zum Miträtseln"
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
       ]
     }
   },
@@ -1510,23 +1455,19 @@
     "id": 254,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös",
-        "Atmosphärisch"
+        "Skurril",
+        "Beklemmend"
       ],
       "Mystery-Typ": [
         "Ungewöhnliche Rätsel"
       ],
       "Ermittlungsstruktur": [
-        "Komplexer Fall",
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Zeitdruck",
-        "Akute Gefahr"
+        "Zeitdruck"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1539,7 +1480,8 @@
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
-        "Ungewöhnliche Rätsel"
+        "Verborgene Identität",
+        "Täuschung und Manipulation"
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall"
@@ -1548,8 +1490,7 @@
         "Zeitdruck"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
-        "Besonders atmosphärisch"
+        "Klassisches ???-Feeling"
       ]
     }
   },
@@ -1561,20 +1502,16 @@
         "Düster"
       ],
       "Mystery-Typ": [
-        "Geheimnis aus der Vergangenheit",
         "Geheime Botschaften",
-        "Ungewöhnliche Rätsel"
+        "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung",
-        "Komplexer Fall"
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
-        "Subtile Bedrohung"
+        "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1584,21 +1521,21 @@
     "tags": {
       "Atmosphäre": [
         "Mysteriös",
-        "Atmosphärisch"
+        "Unheimlich"
       ],
       "Mystery-Typ": [
         "Scheinbar Übernatürliches",
-        "Unerklärliche Phänomene"
+        "Verborgene Identität"
       ],
       "Ermittlungsstruktur": [
-        "Schrittweise Enthüllung"
+        "Schrittweise Enthüllung",
+        "Klassischer Detektivfall"
       ],
       "Spannung": [
-        "Stetig steigende Spannung",
         "Subtile Bedrohung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling"
+        "Hörspiel zum Miträtseln"
       ]
     }
   },
@@ -1606,7 +1543,8 @@
     "id": 250,
     "tags": {
       "Atmosphäre": [
-        "Mysteriös"
+        "Humorvoll",
+        "Skurril"
       ],
       "Mystery-Typ": [
         "Täuschung und Manipulation",
@@ -1614,14 +1552,13 @@
       ],
       "Ermittlungsstruktur": [
         "Klassischer Detektivfall",
-        "Schrittweise Enthüllung",
-        "Unerwartete Wendung"
+        "Überraschende Auflösung"
       ],
       "Spannung": [
-        "Stetig steigende Spannung"
+        "Ruhige Spannung"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling",
+        "Kopfnuss",
         "Hörspiel zum Miträtseln"
       ]
     }
@@ -1630,11 +1567,791 @@
     "id": 249,
     "tags": {
       "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 248,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 247,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 246,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 245,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 244,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verschwörung",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 243,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 242,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 241,
+    "tags": {
+      "Atmosphäre": [
         "Mysteriös",
         "Atmosphärisch"
       ],
       "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 233,
+    "tags": {
+      "Atmosphäre": [
+        "Atmosphärisch",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 232,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 231,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril"
+      ],
+      "Mystery-Typ": [
         "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 230,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 229,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 225,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 224,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 223,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 222,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 221,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 220,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 219,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Ungewöhnliche Rätsel",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Psychologisches Katz-und-Maus-Spiel",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 218,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Psychologisches Katz-und-Maus-Spiel"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 209,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 208,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 207,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 205,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 206,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Nostalgisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 204,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 203,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 202,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 201,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Psychologisches Katz-und-Maus-Spiel"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 200,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 199,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 185,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
@@ -1642,6 +2359,2074 @@
         "Komplexer Fall"
       ],
       "Spannung": [
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 184,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 183,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 182,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Psychologisches Katz-und-Maus-Spiel"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 181,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Psychologisches Katz-und-Maus-Spiel",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 180,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 179,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 174,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 178,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 173,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Beklemmend",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 171,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 172,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 170,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Unheimlich",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 169,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 168,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Verschwörung",
+        "Täuschung und Manipulation",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Unerwartete Wendung",
+        "Viele falsche Fährten",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Absurder Fall",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 167,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 166,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 164,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Atmosphärisch",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 165,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 159,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 160,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 158,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 157,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 156,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 155,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Beklemmend",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 154,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 153,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 151,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Skurril",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 152,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 150,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Ruhige Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 149,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 148,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 147,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Ruhige Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 146,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheime Botschaften",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 145,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 144,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 140,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 139,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Atmosphärisch",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Viele falsche Fährten",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Besonders atmosphärisch",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 138,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 136,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 137,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Atmosphärisch",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 124,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Unerklärliche Phänomene",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 123,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Komplexer Fall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 122,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 120,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Mysteriös",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 121,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 119,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 118,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 117,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Subtile Bedrohung",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 116,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 114,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 113,
+    "tags": {
+      "Atmosphäre": [
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 111,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 112,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 110,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 413,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 108,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 109,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 107,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Unerklärliche Phänomene",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Absurder Fall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 106,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 105,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Viele falsche Fährten",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 104,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Unheimlich",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 100,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 99,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 98,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 97,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 96,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 95,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 93,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 94,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 92,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 91,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Viele falsche Fährten",
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 89,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 90,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 88,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 87,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 86,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 85,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 83,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Unerklärliche Phänomene"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 84,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 82,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 81,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 80,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 79,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 78,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 77,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 76,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
         "Zeitdruck"
       ],
       "Hörerlebnis": [
@@ -1651,23 +4436,1787 @@
     }
   },
   {
-    "id": 248,
+    "id": 75,
     "tags": {
       "Atmosphäre": [
         "Unheimlich",
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Ungewöhnliche Rätsel",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr",
+        "Action und Tempo"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 73,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 74,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Verschwörung",
+        "Verborgene Identität",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 71,
+    "tags": {
+      "Atmosphäre": [
         "Mysteriös"
       ],
       "Mystery-Typ": [
         "Geheimnis aus der Vergangenheit"
       ],
       "Ermittlungsstruktur": [
+        "Viele falsche Fährten",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 72,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 69,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Zeitdruck"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 70,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 68,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Action und Tempo"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 67,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 65,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 66,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 63,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 64,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 62,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 61,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 60,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 59,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 57,
+    "tags": {
+      "Atmosphäre": [
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 58,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 56,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 55,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 54,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend",
+        "Düster",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 53,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 52,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Action und Tempo"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 51,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 50,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 49,
+    "tags": {
+      "Atmosphäre": [
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 48,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 47,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 46,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 45,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 44,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 43,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 42,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Geheimnis aus der Vergangenheit",
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 41,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 40,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Täuschung und Manipulation",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 39,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 38,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 37,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 36,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Wohlfühlfolge",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 35,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 34,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 33,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Humorvoll",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Unerwartete Wendung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 32,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 31,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 30,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Unerklärliche Phänomene",
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Action und Tempo"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling"
+      ]
+    }
+  },
+  {
+    "id": 29,
+    "tags": {
+      "Atmosphäre": [
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Wohlfühlfolge"
+      ]
+    }
+  },
+  {
+    "id": 28,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Verborgene Identität",
+        "Täuschung und Manipulation",
+        "Geheime Botschaften"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Zeitdruck",
+        "Akute Gefahr",
+        "Action und Tempo"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 27,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 26,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 25,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 24,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Verschwörung",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Action und Tempo",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 23,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Zeitdruck",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 22,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Absurder Fall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Düster",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 19,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung",
+        "Überraschende Auflösung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Ruhige Spannung",
+        "Subtile Bedrohung"
+      ],
+      "Hörerlebnis": [
+        "Richtiger Gruselfall",
+        "Hörspiel zum Miträtseln",
+        "Besonders atmosphärisch"
+      ]
+    }
+  },
+  {
+    "id": 18,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 17,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril",
+        "Beklemmend"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Täuschung und Manipulation",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Viele falsche Fährten",
+        "Schrittweise Enthüllung",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Subtile Bedrohung",
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich",
+        "Düster"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Verschwörung",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "tags": {
+      "Atmosphäre": [
+        "Düster",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 14,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 13,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Unerklärliche Phänomene",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Akute Gefahr",
+        "Subtile Bedrohung",
+        "Stetig steigende Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Richtiger Gruselfall"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Unheimlich"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Komplexer Fall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Atmosphärisch"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau",
+        "Akute Gefahr"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Täuschung und Manipulation",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten",
+        "Rechercheintensiv"
+      ],
+      "Spannung": [
+        "Stetig steigende Spannung",
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Klassisches ???-Feeling",
+        "Absurder Fall",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches",
+        "Geheimnis aus der Vergangenheit"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Schrittweise Enthüllung"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "tags": {
+      "Atmosphäre": [
+        "Skurril",
+        "Humorvoll"
+      ],
+      "Mystery-Typ": [
+        "Ungewöhnliche Rätsel",
+        "Täuschung und Manipulation"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "tags": {
+      "Atmosphäre": [
+        "Unheimlich",
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Scheinbar Übernatürliches"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
         "Viele falsche Fährten"
       ],
       "Spannung": [
         "Langsamer Spannungsaufbau"
       ],
       "Hörerlebnis": [
-        "Klassisches ???-Feeling"
+        "Kopfnuss"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "tags": {
+      "Atmosphäre": [
+        "Mysteriös"
+      ],
+      "Mystery-Typ": [
+        "Geheimnis aus der Vergangenheit",
+        "Geheime Botschaften",
+        "Verborgene Identität"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall",
+        "Viele falsche Fährten"
+      ],
+      "Spannung": [
+        "Langsamer Spannungsaufbau"
+      ],
+      "Hörerlebnis": [
+        "Kopfnuss",
+        "Hörspiel zum Miträtseln"
+      ]
+    }
+  },
+  {
+    "id": 1,
+    "tags": {
+      "Atmosphäre": [
+        "Humorvoll",
+        "Skurril"
+      ],
+      "Mystery-Typ": [
+        "Geheime Botschaften",
+        "Ungewöhnliche Rätsel"
+      ],
+      "Ermittlungsstruktur": [
+        "Klassischer Detektivfall"
+      ],
+      "Spannung": [
+        "Ruhige Spannung"
+      ],
+      "Hörerlebnis": [
+        "Hörspiel zum Miträtseln",
+        "Absurder Fall"
       ]
     }
   }

@@ -1,1 +1,1 @@
-export { default } from "@ddfdb/tailwind-config/postcss-config";
+export { default } from "@ddfdb/tailwind-config/postcss-config/expo";
