@@ -1,4 +1,5 @@
-.container:hover .overlay {
+.container:hover .overlay,
+.container:focus-within .overlay {
   animation-play-state: running;
 }
 

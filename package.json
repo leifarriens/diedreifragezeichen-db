@@ -20,12 +20,12 @@
     "turbo": "turbo"
   },
   "devDependencies": {
-    "@turbo/gen": "^2.11.8",
+    "@turbo/gen": "^2.11.10",
     "@types/node": "^24.19.2",
-    "knip": "^6.41.0",
+    "knip": "^6.42.1",
     "prettier": "^3.9.10",
     "sherif": "^1.13.0",
-    "turbo": "^2.11.8"
+    "turbo": "^2.11.10"
   },
   "author": "Leif Arriens",
   "license": "MIT",
@@ -34,5 +34,5 @@
       "non-existant-packages"
     ]
   },
-  "packageManager": "pnpm@12.7.0"
+  "packageManager": "pnpm@12.15.0"
 }

@@ -2,7 +2,7 @@ import type { FolgenListItemWithUserData } from "@ddfdb/client";
 
 import { formatReleaseDate } from "@ddfdb/core";
 import Link from "next/link";
-import { memo, useRef } from "react";
+import { memo, useRef, useState } from "react";
 import { cn } from "tailwind-variants";
 
 import { FolgenBookmarkButton } from "@/features/bookmarks/folgen-bookmark-button";
@@ -25,6 +25,7 @@ export const FolgenCard = memo(function FolgenGridItem({
 }: FolgenCardProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useIntersectionObserver(ref);
+  const [showBackground, setShowBackground] = useState(false);
 
   const {
     artwork,
@@ -50,6 +51,12 @@ export const FolgenCard = memo(function FolgenGridItem({
         styles.container,
         "group relative w-full overflow-hidden rounded-xl bg-cover transition-transform duration-150 ease-out hover:z-10 hover:scale-[1.2] hover:shadow-2xl",
       )}
+      onFocusCapture={() => {
+        setShowBackground(true);
+      }}
+      onPointerEnter={(event) => {
+        if (event.pointerType === "mouse") setShowBackground(true);
+      }}
       ref={ref}
     >
       <Link
@@ -109,30 +116,36 @@ export const FolgenCard = memo(function FolgenGridItem({
         )}
       </div>
 
-      <Background imageUrl={artwork ?? cover} />
+      <Background imageUrl={artwork ?? cover} showImage={showBackground} />
     </article>
   );
 });
 
-function Background({ imageUrl }: { imageUrl: null | string }) {
+function Background({
+  imageUrl,
+  showImage,
+}: {
+  imageUrl: null | string;
+  showImage: boolean;
+}) {
   return (
     <>
-      {imageUrl && (
+      {imageUrl && showImage && (
         <div
           className={cn(
             styles.overlay,
-            "absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100",
+            "absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 ease-out group-focus-within:opacity-100 group-hover:opacity-100",
           )}
         >
           <FolgenBackground
             artworkUrl={imageUrl}
             className="aspect-square w-full"
             fetchPriority="low"
-            loading="lazy"
+            loading="eager"
           />
         </div>
       )}
-      <div className="absolute inset-0 -z-20 bg-[#000e18] opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100" />
+      <div className="absolute inset-0 -z-20 bg-[#000e18] opacity-0 transition-opacity duration-150 ease-out group-focus-within:opacity-100 group-hover:opacity-100" />
     </>
   );
 }

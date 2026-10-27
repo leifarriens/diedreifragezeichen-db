@@ -33,11 +33,11 @@
     "@ddfdb/archiv": "workspace:*",
     "@ddfdb/core": "workspace:*",
     "@ddfdb/user-api": "workspace:*",
-    "@tanstack/react-query": "5.104.0",
+    "@tanstack/react-query": "5.104.5",
     "@trpc/client": "^11.19.0",
     "@trpc/server": "^11.19.0",
     "@trpc/tanstack-react-query": "^11.19.0",
-    "better-auth": "^1.7.10",
+    "better-auth": "^1.7.12",
     "react": "19.3.0"
   },
   "devDependencies": {
