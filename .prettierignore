@@ -6,3 +6,4 @@ turbo/generators/templates/**/*.hbs
 migrations/
 generated/
 .venv/
+*.icon

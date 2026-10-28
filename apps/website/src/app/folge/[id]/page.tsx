@@ -272,7 +272,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
 
           <div className="mt-12 space-y-8 md:mt-28 lg:space-y-14">
             {description && (
-              <Card className="text-sm md:text-base">
+              <Card>
                 <h2 className="mb-4 text-2xl font-medium">Zusammenfassung</h2>
                 <p>{description}</p>
               </Card>
@@ -319,7 +319,7 @@ async function Folge({ folge }: { folge: FolgeWithCommunityRating }) {
               )}
 
               {(authors.length > 0 || scriptAuthors.length > 0) && (
-                <Card className="self-start text-sm md:text-base">
+                <Card className="self-start">
                   <h2 className="mb-4 text-2xl font-medium">Autoren</h2>
 
                   <table className="w-full table-fixed border-separate border-spacing-y-2">
