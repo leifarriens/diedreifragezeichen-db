@@ -1,0 +1,9 @@
+{
+  "name": "@ddfdb/meta-generation",
+  "private": true,
+  "version": "0.1.0",
+  "exports": {
+    "./generated/alt-text.json": "./generated/alt-text.json",
+    "./generated/tags.json": "./generated/tags.json"
+  }
+}

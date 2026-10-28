@@ -1,0 +1,9 @@
+data/
+/archiv
+/dist/
+/tmp/
+build-errors.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite.sql

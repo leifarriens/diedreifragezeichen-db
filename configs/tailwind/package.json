@@ -1,0 +1,23 @@
+{
+  "name": "@ddfdb/tailwind-config",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./theme": "./theme.css",
+    "./postcss-config": "./postcss-config.js",
+    "./postcss-config/expo": "./postcss-config-expo.js"
+  },
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "4.1.12",
+    "postcss": "8.5.31",
+    "tailwindcss": "catalog:"
+  },
+  "devDependencies": {
+    "@ddfdb/tsconfig": "workspace:*",
+    "typescript": "catalog:"
+  }
+}

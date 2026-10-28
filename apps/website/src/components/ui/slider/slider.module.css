@@ -1,0 +1,35 @@
+.control {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  touch-action: none;
+}
+
+.track {
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 90%);
+}
+
+.indicator {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-ddf-blue);
+}
+
+.thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  background: #fff;
+  box-shadow: 0 0 4px rgb(0 0 0 / 35%);
+  cursor: ew-resize;
+}
+
+.thumb:has(input:focus-visible) {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}

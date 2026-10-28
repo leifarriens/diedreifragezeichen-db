@@ -1,0 +1,33 @@
+:root {
+  --background: #041729;
+  --foreground: #ffffff;
+}
+
+@theme {
+  --color-ddf-red: #e91b24;
+  --color-ddf-blue: #02abeb;
+
+  --color-ddf-blue-50: #e6f7ff;
+  --color-ddf-blue-100: #cceffb;
+  --color-ddf-blue-200: #99e6fb;
+  --color-ddf-blue-300: #66d4f9;
+  --color-ddf-blue-400: #33c7f4;
+  --color-ddf-blue-500: #02abeb;
+  --color-ddf-blue-600: #145a7a;
+  --color-ddf-blue-700: #0a2a44;
+  --color-ddf-blue-800: #05182a;
+  --color-ddf-blue-900: #001727;
+  --color-ddf-blue-950: #030f1a;
+
+  --color-ddf-red-50: #ffe6e6;
+  --color-ddf-red-100: #ffcccc;
+  --color-ddf-red-200: #ff9999;
+  --color-ddf-red-300: #ff6666;
+  --color-ddf-red-400: #ff3333;
+  --color-ddf-red-500: #e91b24;
+  --color-ddf-red-600: #a11418;
+  --color-ddf-red-700: #570a0c;
+  --color-ddf-red-800: #2a0506;
+  --color-ddf-red-900: #170001;
+  --color-ddf-red-950: #0f0303;
+}

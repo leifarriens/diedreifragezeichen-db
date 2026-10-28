@@ -1,0 +1,9 @@
+.container {
+  grid-template-areas:
+    "search"
+    "sort";
+
+  @media (min-width: 720px) {
+    grid-template-areas: "search sort";
+  }
+}

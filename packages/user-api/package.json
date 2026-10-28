@@ -1,0 +1,35 @@
+{
+  "name": "@ddfdb/user-api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./src/index.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.build.json",
+    "clean": "git clean -xdf .cache .turbo dist",
+    "dev": "tsc --watch --project tsconfig.build.json",
+    "lint": "eslint --cache --cache-location .cache/.eslintcache",
+    "test:watch": "vitest",
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ddfdb/eslint-config": "workspace:*",
+    "@ddfdb/tsconfig": "workspace:*",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@ddfdb/core": "workspace:*",
+    "@trpc/server": "^11.19.0",
+    "zod": "^4.6.7"
+  }
+}
