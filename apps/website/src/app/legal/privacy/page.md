@@ -1,6 +1,6 @@
 # Datenschutzerklärung
 
-Stand: 17. Oktober 2026
+Zuletzt aktualisiert: 4. November 2026
 
 ## 1. Verantwortlicher und Geltungsbereich
 
@@ -21,6 +21,18 @@ Die Website wird bei **Vercel Inc., 440 N Barranca Avenue #4133, Covina, CA 9172
 Diese Daten dienen der Auslieferung der Website, der Fehlerbehebung und der Abwehr von Missbrauch und Angriffen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse ist der sichere und zuverlässige Betrieb des Angebots.
 
 **Speicherdauer:** Die für mich zugänglichen [Runtime Logs](https://vercel.com/docs/logs/runtime) werden im Hobby-Tarif für **eine Stunde** vorgehalten. Dies ist keine Löschfrist für sämtliche internen Betriebs- und Sicherheitsdaten von Vercel. Für diese richtet sich die Aufbewahrung nach dem jeweiligen Betriebs-, Sicherheits- oder gesetzlichen Zweck; nähere Angaben enthält [Vercels Datenschutzerklärung](https://vercel.com/legal/privacy-notice).
+
+### Vercel Web Analytics
+
+Zur statistischen Auswertung der Website nutze ich **Vercel Web Analytics**, einen Dienst des oben genannten Hostinganbieters. Beim Aufruf einer Seite und bei Seitenwechseln übermittelt ein im Browser ausgeführtes Skript Seitenaufrufdaten an Vercel. Die Auswertung dient dazu, die Nutzung des Angebots zu verstehen und Inhalte und Bedienbarkeit zu verbessern.
+
+Verarbeitet werden insbesondere Zeitpunkt, aufgerufene Adresse und Seitenpfad, die zuvor besuchte Seite (Referrer), gefilterte URL-Parameter, ein ungefährer Standort sowie Gerätetyp, Betriebssystem und Browser einschließlich Version. Da Seitenadressen übermittelt werden, können darin enthaltene Suchbegriffe und Filter ebenfalls an Vercel gelangen. Die IP-Adresse wird bei der Übermittlung technisch verarbeitet; nach Vercels Angaben werden die aufgezeichneten Analyseereignisse nicht mit einer individuellen IP-Adresse verknüpft.
+
+**Web Analytics verwendet keine Cookies.** Zur Unterscheidung von Besuchen bildet Vercel aus der eingehenden Anfrage einen Hashwert, der nach spätestens **24 Stunden** verworfen bzw. zurückgesetzt wird. Nach Vercels Angaben ermöglicht dieser keine Wiedererkennung über verschiedene Tage oder Websites hinweg. Nach Angaben von Vercel werden die Analyseereignisse anonym erfasst und ausschließlich für zusammengefasste Nutzungsstatistiken verwendet. Mir stehen diese zusammengefassten Statistiken zur Verfügung. Eine Verknüpfung mit Ihrem DDFDB-Konto oder Ihren persönlichen Folgenlisten erfolgt nicht; zusätzliche benutzerdefinierte Ereignisse, etwa zu Bewertungen oder Anmeldungen, werden nicht erfasst.
+
+Soweit dabei personenbezogene Daten verarbeitet werden, ist die Rechtsgrundlage Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse ist die datensparsame statistische Auswertung zur Verbesserung des nicht kommerziellen Angebots. Das Widerspruchsrecht ist in Abschnitt 8 beschrieben. Für mögliche Übermittlungen in Drittländer gelten die Hinweise in Abschnitt 6.
+
+**Speicherdauer:** Die auf 24 Stunden begrenzte Besucherkennung ist von der Speicherung der Analyseereignisse und Statistiken zu unterscheiden. Im Hobby-Tarif beträgt das garantierte Auswertungsfenster laut Vercels [Tarifinformationen](https://vercel.com/docs/analytics/limits-and-pricing) **einen Monat**. Vercel weist darauf hin, dass Analysedaten auch länger gespeichert werden können, um bei einem Tarifwechsel längere Auswertungen zu ermöglichen; das Auswertungsfenster ist daher keine verbindliche Löschfrist. Weitere Angaben enthält Vercels [Dokumentation zum Datenschutz bei Web Analytics](https://vercel.com/docs/analytics/privacy-policy).
 
 ## 3. Freiwilliges Benutzerkonto
 
@@ -46,7 +58,7 @@ Ein technisch erforderliches Cookie enthält das signierte Sitzungstoken. Es hei
 
 Die Speicherung und das Auslesen des Cookies erfolgen nach § 25 Abs. 2 Nr. 2 TDDDG für die ausdrücklich gewünschte Anmeldefunktion. Die anschließende Sitzungsverwaltung beruht auf Art. 6 Abs. 1 lit. b DSGVO; die Verarbeitung technischer Daten zur Missbrauchsabwehr auf Art. 6 Abs. 1 lit. f DSGVO zum Schutz von Konten und Infrastruktur.
 
-Persönliche Folgenlisten werden nicht zusätzlich dauerhaft im Local Storage oder Session Storage des Browsers gespeichert. **Webanalyse- und Trackingdienste werden nicht eingesetzt**, auch nicht Vercel Web Analytics. Für Anmelde-E-Mails wird kein Öffnungs- oder Linktracking eingesetzt.
+Persönliche Folgenlisten werden nicht zusätzlich dauerhaft im Local Storage oder Session Storage des Browsers gespeichert. Die cookielose statistische Auswertung mit Vercel Web Analytics ist in Abschnitt 2 beschrieben. Für Anmelde-E-Mails wird kein Öffnungs- oder Linktracking eingesetzt.
 
 ## 4. Persönliche Folgenlisten und Bewertungen
 

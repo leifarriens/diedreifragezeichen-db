@@ -1,8 +1,8 @@
 import "./globals.css";
-
 import type { Metadata, Viewport } from "next";
 
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Analytics } from "@vercel/analytics/next";
 
 import { ToastProvider } from "@/components/ui/toast/toast";
 import { ArchiveSearchStateProvider } from "@/features/archive/context/archive-search-state-provider";
@@ -66,6 +66,7 @@ export default function RootLayout({
                 buttonPosition="bottom-right"
                 initialIsOpen={false}
               />
+              <Analytics />
             </body>
           </ArchiveSearchStateProvider>
         </ToastProvider>
