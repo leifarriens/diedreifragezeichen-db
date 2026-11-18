@@ -18,7 +18,7 @@ beforeEach(() => {
   vi.resetModules();
   vi.clearAllMocks();
   betterAuth.mockReturnValue({ api: { getSession } });
-  vi.stubEnv("BETTER_AUTH_URL", "https://v2.ddfdb.de");
+  vi.stubEnv("BETTER_AUTH_URL", "https://ddfdb.de");
 });
 
 afterEach(() => {
@@ -58,7 +58,7 @@ describe("auth trusted origins", () => {
 
     expect(betterAuth).toHaveBeenCalledWith(
       expect.objectContaining({
-        trustedOrigins: ["https://v2.ddfdb.de", "ddfdb://", "ddfdb-preview://"],
+        trustedOrigins: ["https://ddfdb.de", "ddfdb://", "ddfdb-preview://"],
       }),
     );
   });
@@ -71,7 +71,7 @@ describe("auth trusted origins", () => {
     expect(betterAuth).toHaveBeenCalledWith(
       expect.objectContaining({
         trustedOrigins: [
-          "https://v2.ddfdb.de",
+          "https://ddfdb.de",
           "ddfdb://",
           "ddfdb-preview://",
           "ddfdb-dev://",

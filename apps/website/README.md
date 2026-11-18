@@ -39,5 +39,5 @@ pnpm --filter @ddfdb/website test:e2e
 Run the end-to-end tests against the deployed instance with the following command:
 
 ```sh
-VERCEL_AUTOMATION_BYPASS_SECRET="SECRET" PLAYWRIGHT_BASE_URL="https://v2.ddfdb.de" pnpm --filter=website test:e2e --project=api
+VERCEL_AUTOMATION_BYPASS_SECRET="SECRET" PLAYWRIGHT_BASE_URL="https://www.ddfdb.de" pnpm --filter=website test:e2e --project=api
 ```
