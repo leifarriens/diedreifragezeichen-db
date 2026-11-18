@@ -1,14 +1,22 @@
-version: '3.7'
+name: ddfdb
+
 services:
-  mongodb:
-    image: mongo:8.0.20
+  postgres:
+    image: postgres:17-alpine
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+      POSTGRES_DB: ddfdb
+      POSTGRES_PASSWORD: ddfdb
+      POSTGRES_USER: ddfdb
+    healthcheck:
+      interval: 30s
+      retries: 10
+      start_period: 5s
+      test: ["CMD-SHELL", "pg_isready -U ddfdb -d ddfdb"]
+      timeout: 5s
     ports:
-      - 27017:27017
+      - "5435:5432"
     volumes:
-      - mongodb_data:/data/db
+      - ddfdb_pgdata:/var/lib/postgresql/data
 
 volumes:
-  mongodb_data:
+  ddfdb_pgdata:

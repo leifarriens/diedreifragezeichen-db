@@ -1,0 +1,11 @@
+services:
+  archiv:
+    image: ddfdb-archiv:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3002:8080"
+    volumes:
+      - archiv-data:/data
+
+volumes:
+  archiv-data:

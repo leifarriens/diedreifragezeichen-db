@@ -1,0 +1,3 @@
+{
+  "extends": "@ddfdb/tsconfig/base.json"
+}

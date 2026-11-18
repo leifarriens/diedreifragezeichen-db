@@ -1,0 +1,24 @@
+.container:hover .overlay,
+.container:focus-within .overlay {
+  animation-play-state: running;
+}
+
+.overlay {
+  background-size: 150%, auto, cover;
+  background-repeat: no-repeat;
+  filter: blur(16px) brightness(50%);
+  animation-name: wobble;
+  animation-play-state: paused;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes wobble {
+  0% {
+    transform: rotate(0deg) scale(2);
+  }
+  100% {
+    transform: rotate(360deg) scale(2);
+  }
+}

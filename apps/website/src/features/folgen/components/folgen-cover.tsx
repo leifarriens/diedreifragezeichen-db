@@ -1,0 +1,75 @@
+"use client";
+
+import { useState } from "react";
+import { cn } from "tailwind-variants";
+
+import {
+  OptimizedImage,
+  type OptimizedImageProps,
+} from "../../../components/ui/optimized-image";
+
+export interface FolgenCoverProps extends Omit<
+  OptimizedImageProps,
+  "alt" | "size" | "src"
+> {
+  alt?: string | undefined;
+  coverUrl: null | string;
+  folgenTitle: string;
+  isInView?: boolean;
+  showFallbackTitle?: boolean;
+}
+
+export function FolgenCover({
+  alt,
+  className,
+  coverUrl,
+  folgenTitle,
+  isInView = true,
+  showFallbackTitle = true,
+  style,
+  ...rest
+}: FolgenCoverProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  if (!coverUrl || isError) {
+    return (
+      <div
+        className={cn(
+          "grid aspect-square w-full place-items-center rounded-xl bg-ddf-blue-950 p-4 transition-opacity duration-150 ease-in",
+          className,
+        )}
+      >
+        {showFallbackTitle && (
+          <span className="text-center text-lg font-semibold">
+            {folgenTitle}
+          </span>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <OptimizedImage
+      alt={alt ?? `Cover für ${folgenTitle}`}
+      className={cn(
+        "w-full rounded-xl object-cover transition-opacity duration-150 ease-in",
+        className,
+      )}
+      onError={() => {
+        setIsError(true);
+      }}
+      onLoad={() => {
+        setIsLoaded(true);
+      }}
+      size={640}
+      src={coverUrl}
+      style={{
+        opacity: !isLoaded || !isInView ? 0 : 1,
+        visibility: !isLoaded ? "hidden" : "visible",
+        ...style,
+      }}
+      {...rest}
+    />
+  );
+}

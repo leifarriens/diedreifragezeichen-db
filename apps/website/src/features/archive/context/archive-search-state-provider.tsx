@@ -1,0 +1,274 @@
+"use client";
+
+import type { Collection } from "@ddfdb/archiv/contracts";
+import type { SearchState } from "@ddfdb/client";
+import type { ReactNode } from "react";
+
+import { useSearchState } from "@ddfdb/client";
+import { usePathname } from "next/navigation";
+import {
+  createContext,
+  use,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useSyncExternalStore,
+} from "react";
+
+import type { ArchiveFilters } from "../archive-filters";
+
+import {
+  FIRST_RELEASE_YEAR,
+  readArchiveFilters,
+  writeArchiveFilters,
+} from "../archive-filters";
+
+const ARCHIVE_ROUTE = "/";
+const ARCHIVE_DEFAULT_COLLECTIONS: Collection[] = [];
+const ARCHIVE_SERIE_ONLY_COLLECTIONS: Collection[] = ["serie"];
+const SEARCH_STATE_FIELDS: readonly (keyof SearchState)[] = [
+  "authors",
+  "collections",
+  "roles",
+  "scriptAuthors",
+  "speakers",
+  "term",
+  "sort",
+  "yearRange",
+];
+
+const ArchiveSearchStateContext =
+  createContext<ArchiveSearchStateContextValue | null>(null);
+
+interface ArchiveSearchStateContextValue {
+  currentYear: number;
+  isEmptySearchState: boolean;
+  resetState: () => void;
+  searchCriteria: ReturnType<typeof useSearchState>["searchCriteria"];
+  state: SearchState;
+  updateState: (updates: Partial<SearchState>) => void;
+}
+
+export function ArchiveSearchStateProvider({
+  children,
+  currentYear: initialYear,
+}: {
+  children: ReactNode;
+  currentYear: number;
+}) {
+  // Keep the prerendered year for hydration, then refresh from the browser clock.
+  const currentYear = useSyncExternalStore(
+    subscribeToCurrentYear,
+    getCurrentYearSnapshot,
+    () => initialYear,
+  );
+  const pathname = usePathname();
+  const isArchivePage = pathname === ARCHIVE_ROUTE;
+  const {
+    initialState,
+    resetState: resetSearchState,
+    searchCriteria,
+    state,
+    updateState: updateSearchState,
+  } = useSearchState(currentYear);
+  const stateRef = useRef(state);
+
+  const getSearchSnapshot = useCallback(
+    () => (isArchivePage ? window.location.search : ""),
+    [isArchivePage],
+  );
+  const search = useSyncExternalStore(
+    subscribeToNavigation,
+    getSearchSnapshot,
+    getServerSearchSnapshot,
+  );
+
+  const restoreFromUrl = useCallback(
+    (query: string) => {
+      const filters = readArchiveFilters(query, currentYear);
+      const nextState = stateFromFilters(filters);
+      stateRef.current = nextState;
+      updateSearchState(nextState);
+    },
+    [currentYear, updateSearchState],
+  );
+
+  useEffect(() => {
+    if (!isArchivePage) return;
+    restoreFromUrl(search);
+  }, [isArchivePage, restoreFromUrl, search]);
+
+  useEffect(() => {
+    if (!isArchivePage) return;
+
+    function handlePopState() {
+      restoreFromUrl(window.location.search);
+    }
+
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, [isArchivePage, restoreFromUrl]);
+
+  const commitFields = useCallback(
+    (fields: readonly (keyof SearchState)[], nextState = stateRef.current) => {
+      if (
+        typeof window === "undefined" ||
+        window.location.pathname !== ARCHIVE_ROUTE
+      ) {
+        return;
+      }
+
+      const url = new URL(window.location.href);
+      const nextFilters = filtersWithStateFields(
+        readArchiveFilters(url.search, currentYear),
+        nextState,
+        fields,
+      );
+      url.search = writeArchiveFilters(url.search, nextFilters, currentYear);
+      if (url.href === window.location.href) return;
+
+      window.history.replaceState(
+        null,
+        "",
+        `${url.pathname}${url.search}${url.hash}`,
+      );
+    },
+    [currentYear],
+  );
+
+  const updateState = useCallback(
+    (updates: Partial<SearchState>) => {
+      if (window.location.pathname !== ARCHIVE_ROUTE) return;
+
+      const nextState = { ...stateRef.current, ...updates };
+      stateRef.current = nextState;
+      updateSearchState(updates);
+
+      const changedFields = Object.keys(updates) as (keyof SearchState)[];
+      if (changedFields.length > 0) {
+        commitFields(changedFields, nextState);
+      }
+    },
+    [commitFields, updateSearchState],
+  );
+
+  const resetArchiveState = useCallback(() => {
+    const defaultState: SearchState = {
+      ...initialState,
+      collections: ARCHIVE_DEFAULT_COLLECTIONS,
+      yearRange: { max: currentYear, min: FIRST_RELEASE_YEAR },
+    };
+    stateRef.current = defaultState;
+    resetSearchState();
+    commitFields(SEARCH_STATE_FIELDS, defaultState);
+  }, [commitFields, currentYear, initialState, resetSearchState]);
+
+  const value = useMemo(
+    () => ({
+      currentYear,
+      isEmptySearchState: isEmptySearchState(state, currentYear),
+      resetState: resetArchiveState,
+      searchCriteria,
+      state,
+      updateState,
+    }),
+    [currentYear, resetArchiveState, searchCriteria, state, updateState],
+  );
+
+  return (
+    <ArchiveSearchStateContext value={value}>
+      {children}
+    </ArchiveSearchStateContext>
+  );
+}
+
+export function useArchiveSearchState() {
+  const context = use(ArchiveSearchStateContext);
+  if (!context) {
+    throw new Error(
+      "useArchiveSearchState must be used within an ArchiveSearchStateProvider",
+    );
+  }
+  return context;
+}
+
+function filtersWithStateFields(
+  filters: ArchiveFilters,
+  state: SearchState,
+  fields: readonly (keyof SearchState)[],
+): ArchiveFilters {
+  return {
+    ...filters,
+    ...(fields.includes("authors") && { authors: state.authors }),
+    ...(fields.includes("roles") && { roles: state.roles }),
+    ...(fields.includes("scriptAuthors") && {
+      scriptAuthors: state.scriptAuthors,
+    }),
+    ...(fields.includes("speakers") && { speakers: state.speakers }),
+    ...(fields.includes("term") && { searchTerm: state.term }),
+    ...(fields.includes("sort") && { sortOrder: state.sort }),
+    ...(fields.includes("collections") && {
+      includeSpecials: state.collections.length === 0,
+    }),
+    ...(fields.includes("yearRange") && { yearRange: state.yearRange }),
+  };
+}
+
+function getCurrentYearSnapshot() {
+  return new Date().getFullYear();
+}
+
+function getServerSearchSnapshot() {
+  return "";
+}
+
+function isEmptySearchState(state: SearchState, currentYear: number) {
+  return (
+    state.authors.length === 0 &&
+    state.roles.length === 0 &&
+    state.scriptAuthors.length === 0 &&
+    state.speakers.length === 0 &&
+    state.term === "" &&
+    state.collections.length === 0 &&
+    state.yearRange.min === FIRST_RELEASE_YEAR &&
+    state.yearRange.max === currentYear
+  );
+}
+
+function stateFromFilters(filters: ArchiveFilters): SearchState {
+  return {
+    authors: filters.authors,
+    collections: filters.includeSpecials
+      ? ARCHIVE_DEFAULT_COLLECTIONS
+      : ARCHIVE_SERIE_ONLY_COLLECTIONS,
+    roles: filters.roles,
+    scriptAuthors: filters.scriptAuthors,
+    sort:
+      filters.sortOrder === "oldest" || filters.sortOrder === "rating"
+        ? filters.sortOrder
+        : "newest",
+    speakers: filters.speakers,
+    term: filters.searchTerm,
+    yearRange: filters.yearRange,
+  };
+}
+
+function subscribeToCurrentYear(onChange: () => void) {
+  const interval = window.setInterval(onChange, 60 * 60 * 1000);
+  window.addEventListener("focus", onChange);
+
+  return () => {
+    window.clearInterval(interval);
+    window.removeEventListener("focus", onChange);
+  };
+}
+
+function subscribeToNavigation(onChange: () => void) {
+  window.addEventListener("popstate", onChange);
+  return () => {
+    window.removeEventListener("popstate", onChange);
+  };
+}

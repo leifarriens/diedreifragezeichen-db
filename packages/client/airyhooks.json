@@ -1,0 +1,5 @@
+{
+  "casing": "kebab-case",
+  "hooksPath": "src/utils",
+  "includeTests": true
+}

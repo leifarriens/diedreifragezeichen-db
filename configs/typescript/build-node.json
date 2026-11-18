@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./shared/build.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false
+  }
+}
