@@ -52,9 +52,9 @@ Rechtsgrundlage für Konto, Code-Prüfung und E-Mail-Versand ist Art. 6 Abs. 1 l
 
 ### Sitzungen und Cookies
 
-Nach der Anmeldung werden Sitzungstoken, interne Kennung, Kontozuordnung und Erstellungs-, Aktualisierungs- und Ablaufzeitpunkte gespeichert, außerdem je nach Anfrage IP-Adresse und Browserinformationen (User-Agent). Die reguläre Sitzungsdauer beträgt **sieben Tage** und kann bei weiterer Nutzung verlängert werden. Beim Abmelden wird die aktuelle Sitzung beendet. Abgelaufene Sitzungsdatensätze werden nicht allein durch Zeitablauf sofort gelöscht; spätestens bei der Kontolöschung werden die zugeordneten Sitzungen aus der aktiven Datenbank entfernt.
+Nach der Anmeldung werden Sitzungstoken, interne Kennung, Kontozuordnung und Erstellungs-, Aktualisierungs- und Ablaufzeitpunkte gespeichert, außerdem je nach Anfrage IP-Adresse und Browserinformationen (User-Agent). Die reguläre Sitzungsdauer beträgt **90 Tage** und kann bei weiterer Nutzung verlängert werden. Beim Abmelden wird die aktuelle Sitzung beendet. Abgelaufene Sitzungsdatensätze werden nicht allein durch Zeitablauf sofort gelöscht; spätestens bei der Kontolöschung werden die zugeordneten Sitzungen aus der aktiven Datenbank entfernt.
 
-Ein technisch erforderliches Cookie enthält das signierte Sitzungstoken. Es heißt `better-auth.session_token`, bei HTTPS gegebenenfalls mit dem Präfix `__Secure-`. Seine reguläre Laufzeit beträgt sieben Tage und kann mit der Sitzung erneuert werden. Beim Abmelden wird es entfernt. Sie können Cookies im Browser löschen oder blockieren; eine dauerhafte Anmeldung ist dann nicht möglich.
+Ein technisch erforderliches Cookie enthält das signierte Sitzungstoken. Es heißt `better-auth.session_token`, bei HTTPS gegebenenfalls mit dem Präfix `__Secure-`. Seine reguläre Laufzeit beträgt 90 Tage und kann mit der Sitzung erneuert werden. Beim Abmelden wird es entfernt. Sie können Cookies im Browser löschen oder blockieren; eine dauerhafte Anmeldung ist dann nicht möglich.
 
 Die Speicherung und das Auslesen des Cookies erfolgen nach § 25 Abs. 2 Nr. 2 TDDDG für die ausdrücklich gewünschte Anmeldefunktion. Die anschließende Sitzungsverwaltung beruht auf Art. 6 Abs. 1 lit. b DSGVO; die Verarbeitung technischer Daten zur Missbrauchsabwehr auf Art. 6 Abs. 1 lit. f DSGVO zum Schutz von Konten und Infrastruktur.
 

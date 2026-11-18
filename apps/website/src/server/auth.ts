@@ -24,6 +24,10 @@ export const auth = betterAuth({
   },
   plugins: [emailOTP(createEmailOtpOptions(emailTransport)), expo()],
   secret: process.env.BETTER_AUTH_SECRET,
+  session: {
+    expiresIn: 60 * 60 * 24 * 90,
+    updateAge: 60 * 60 * 24,
+  },
   trustedOrigins: [
     ...(process.env.BETTER_AUTH_URL ? [process.env.BETTER_AUTH_URL] : []),
     "ddfdb://",
@@ -40,7 +44,11 @@ export const auth = betterAuth({
 });
 
 export const getServerSession = cache(async () =>
-  auth.api.getSession({ headers: await headers() }),
+  // Server Components cannot send a renewed session cookie to the browser.
+  auth.api.getSession({
+    headers: await headers(),
+    query: { disableRefresh: true },
+  }),
 );
 
 export const serverSessionGuard = async () => {

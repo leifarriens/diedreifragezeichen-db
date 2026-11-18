@@ -16,7 +16,11 @@ const allowedOrigins = new Set(
 const handler = async (req: Request) => {
   const response = await fetchRequestHandler({
     createContext: async () => {
-      const session = await auth.api.getSession({ headers: req.headers });
+      // The auth client owns cookie renewal, including Expo's secure storage.
+      const session = await auth.api.getSession({
+        headers: req.headers,
+        query: { disableRefresh: true },
+      });
       return createTRPCContext({
         bookmarks: bookmarkRepository,
         headers: req.headers,
