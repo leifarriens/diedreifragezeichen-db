@@ -16,6 +16,6 @@
     "test": "go test ./..."
   },
   "devDependencies": {
-    "@types/k6": "^2.3.0"
+    "@types/k6": "^2.3.1"
   }
 }

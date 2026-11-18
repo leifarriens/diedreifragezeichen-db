@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@ddfdb/core": "workspace:*",
-    "@trpc/server": "^11.19.0",
+    "@trpc/server": "^11.28.0",
     "zod": "^4.6.7"
   }
 }
