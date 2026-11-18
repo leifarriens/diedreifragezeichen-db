@@ -8,17 +8,17 @@ import { Pressable } from "react-native";
 import { FolgenRatingDisplay } from "./folgen-rating-display";
 import { useUpdateRating, useUserFolgenRating } from "./hooks/use-ratings";
 
-interface FolgenRatingButtonProps {
-  folgeId: number;
-  folgenTitle: string;
-}
-
-interface FolgenRatingSheetProps {
+export interface FolgenRatingSheetProps {
   currentRating: null | number;
   folgeId: number;
   folgenTitle: string;
   isOpen: boolean;
   onClose: () => void;
+}
+
+interface FolgenRatingButtonProps {
+  folgeId: number;
+  folgenTitle: string;
 }
 
 export function FolgenRatingButton({
@@ -58,7 +58,7 @@ export function FolgenRatingButton({
   );
 }
 
-function FolgenRatingSheet({
+export function FolgenRatingSheet({
   currentRating,
   folgeId,
   folgenTitle,

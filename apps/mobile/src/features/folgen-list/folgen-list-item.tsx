@@ -11,6 +11,8 @@ import { FolgenRatingDisplay } from "@/features/ratings/folgen-rating-display";
 
 import type { FolgenListViewMode } from "./types";
 
+import { FolgenGridContextMenu } from "./folgen-grid-context-menu";
+
 export type FolgeDetailPathname =
   | "/(tabs)/(archiv)/[folgeId]"
   | "/(tabs)/bewertet/[folgeId]"
@@ -31,16 +33,24 @@ export const FolgenListItem = memo(function FolgenGridItem({
   if (viewMode === "grid") {
     return (
       <View className="mb-4 w-full gap-2 px-2">
-        <Link
-          asChild
-          href={{ params: { folgeId: folge.id }, pathname: detailPathname }}
+        <FolgenGridContextMenu
+          folgeId={folge.id}
+          folgenTitle={folge.title}
+          hasListened={folge.hasListened}
+          isBookmarked={folge.isBookmarked}
+          userRating={folge.userRating}
         >
-          <Link.AppleZoom>
-            <Pressable>
-              <Cover imageUrl={folge.cover} />
-            </Pressable>
-          </Link.AppleZoom>
-        </Link>
+          <Link
+            asChild
+            href={{ params: { folgeId: folge.id }, pathname: detailPathname }}
+          >
+            <Link.AppleZoom>
+              <Pressable>
+                <Cover imageUrl={folge.cover} />
+              </Pressable>
+            </Link.AppleZoom>
+          </Link>
+        </FolgenGridContextMenu>
 
         <View className="flex-row justify-between">
           <View>
