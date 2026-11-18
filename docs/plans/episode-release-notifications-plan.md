@@ -22,47 +22,9 @@ Track processed Archiv episode IDs rather than a single latest episode. A latest
 
 ## 1. Keep Archiv fresh
 
-### Current behavior
+Archiv refreshes metadata in the background every 23 hours by default, builds and validates a replacement, and atomically swaps the in-memory catalog. It persists the successful check time in SQLite, retries failures with backoff, and continues serving the last valid catalog. A prolonged upstream outage can therefore make the catalog older than 24 hours.
 
-Archiv checks metadata freshness at startup, with `DB_MAX_AGE` defaulting to `24h`. It loads the catalog into memory once and does not refresh it while running. A long-running instance can therefore miss upstream additions indefinitely.
-
-The persistent SQLite database and cached SQL dump both participate in refresh decisions. A restart does not necessarily download new metadata if the existing data is still considered fresh.
-
-### Recommended solution: periodic refresh in Go
-
-Implement background refresh inside `services/archiv`:
-
-- Periodically check whether upstream metadata needs refreshing.
-- Build and validate a replacement catalog without interrupting reads.
-- Atomically replace the catalog used by HTTP handlers only after a successful refresh.
-- Keep serving the last valid catalog if downloading, importing, or validation fails.
-- Prevent overlapping refresh operations.
-- Support cancellation and graceful shutdown.
-- Log refresh successes and failures, and expose the last successful refresh time for freshness monitoring.
-
-Metadata freshness belongs to Archiv. Keeping refresh inside the service makes its behavior independent of host scheduling and avoids restarting a healthy service to update data.
-
-### Interim alternative: scheduled container restart
-
-A host cron job or systemd timer can restart Archiv to reuse its existing startup refresh behavior:
-
-```sh
-docker compose -f /srv/ddfdb-archiv/compose.yaml restart archiv
-```
-
-Docker Compose has no built-in time-based restart scheduler. Its `restart:` policy handles lifecycle events such as process failures, not scheduled restarts.
-
-If using this alternative:
-
-- Prefer a host systemd timer over a scheduler container with Docker socket access.
-- Configure the restart interval and `DB_MAX_AGE` together. Restarting every six hours with a `24h` freshness threshold does not force six-hourly updates.
-- Verify cached SQL dump behavior when choosing the freshness settings.
-- Expect brief downtime while the process restarts and loads metadata.
-- Monitor restart failures and service health.
-- Schedule notification polling after the expected refresh period, but do not depend on exact timing for correctness.
-- Leave notification detection state unchanged when Archiv is unavailable so a later poll can recover.
-
-Scheduled restarts are an acceptable interim deployment measure. Periodic in-process refresh is the preferred long-term design.
+Notification polling should not depend on exact refresh timing. Leave detection state unchanged when Archiv is unavailable so a later poll can recover.
 
 ## 2. Define release availability
 

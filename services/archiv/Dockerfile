@@ -23,8 +23,7 @@ RUN apk --no-cache add ca-certificates \
 COPY --from=build /out/archiv /usr/local/bin/archiv
 
 ENV PORT=8080 \
-    DB_PATH=/data/metadata.sqlite \
-    SQL_CACHE_PATH=/data/metadata.sqlite.sql
+    DB_PATH=/data/metadata.sqlite
 
 USER archiv
 VOLUME ["/data"]

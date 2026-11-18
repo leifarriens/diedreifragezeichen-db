@@ -13,7 +13,7 @@ go run ./cmd
 
 For a local rebuild-on-change loop, run `air` from `services/archiv`; it uses the checked-in `.air.toml`. Generate the TypeScript contract from `internal/archive/folge.go` with `pnpm --filter @ddfdb/archiv build`; Tygo writes `generated/folge.ts`, importable as `@ddfdb/archiv/contracts`. The generated contract is checked in so JavaScript builds do not need Go. Build a standalone binary with `go build -o ./tmp/archiv ./cmd`.
 
-The entry point is `cmd/main.go`; application code lives under `internal/archive`. On the first start, the service downloads `metadata/db.sql` from dreimetadaten, builds `./data/metadata.sqlite`, and starts listening on port `8080`. It refreshes the source data when the SQLite database is older than 24 hours. The SQL dump is cached alongside the database, so a recent cached dump can be reused if a database rebuild is needed. If a refresh fails but a valid cached database exists, the service logs a warning and continues to serve the stale data.
+The entry point is `cmd/main.go`; application code lives under `internal/archive`. On the first start, the service downloads `metadata/db.sql` from dreimetadaten, builds `./data/metadata.sqlite`, and starts listening on port `8080`. On later starts it serves the cached database immediately, even when it is stale. In the background, it checks upstream every 23 hours by default, builds and validates a replacement, and swaps the API data without interrupting requests. Failed refreshes are logged and retried with backoff while the last valid data remains available. The successful check time is stored in the database, so the schedule survives restarts; databases from older versions are checked immediately. Freshness is best effort: the data may be older than 24 hours during an upstream outage. A first start without a valid cached database still requires a successful download.
 
 Try it with curl:
 
@@ -43,11 +43,10 @@ The available configurations are `smoke` (the default), `average`, `stress`, `sp
 | `PORT`                 | `8080`                         | Port to listen on                                                                  |
 | `LISTEN_ADDR`          | unset                          | Full listen address, overrides `PORT` (for example `0.0.0.0:8080`)                 |
 | `DB_PATH`              | `./data/metadata.sqlite`       | Local SQLite database path                                                         |
-| `SQL_CACHE_PATH`       | `<DB_PATH>.sql`                | Cached upstream SQL dump path                                                      |
 | `DDF_METADATA_SQL_URL` | Upstream `metadata/db.sql` URL | Source SQL dump URL                                                                |
-| `DB_MAX_AGE`           | `24h`                          | How long the local SQLite database is considered fresh; accepts Go duration syntax |
+| `DB_MAX_AGE`           | `24h`                          | Freshness target; checks run after 23/24 of this duration (Go duration syntax)     |
 
-Remove the SQLite file to force a fresh import. Remove both the SQLite file and cached SQL dump to force a new download immediately.
+Remove the SQLite file while the service is stopped to force a fresh download on the next start. Older versions' cached SQL dump files are no longer used.
 
 ## VPS deployment
 

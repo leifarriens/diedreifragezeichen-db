@@ -17,75 +17,77 @@ import (
 
 const maxSQLDumpSize = 32 << 20
 
-type databaseStatus struct {
-	refreshed     bool
-	staleFallback bool
-	refreshErr    error
-}
-
-// openDatabase uses a cached SQLite database until it is older than maxAge.
-// When a refresh is needed, it caches the upstream SQL dump separately and
-// builds a replacement database before swapping it into place.
-func openDatabase(
-	ctx context.Context,
-	databasePath string,
-	sqlCachePath string,
-	sourceURL string,
-	maxAge time.Duration,
-) (*sql.DB, databaseStatus, error) {
-	var status databaseStatus
-
-	cachedDB, cachedErr := openSQLiteDatabase(ctx, databasePath)
-	if cachedErr == nil && fileIsFresh(databasePath, maxAge) {
-		return cachedDB, status, nil
-	}
-
-	dump, err := readOrDownloadSQL(ctx, sqlCachePath, sourceURL, maxAge)
-	if err != nil {
-		if cachedErr == nil {
-			status.staleFallback = true
-			status.refreshErr = err
-			return cachedDB, status, nil
-		}
-		return nil, status, fmt.Errorf("load metadata SQL dump: %w", err)
-	}
-
-	temporaryDatabasePath, err := buildSQLiteDatabase(ctx, databasePath, dump)
-	if err != nil {
-		_ = os.Remove(sqlCachePath)
-		if cachedErr == nil {
-			status.staleFallback = true
-			status.refreshErr = err
-			return cachedDB, status, nil
-		}
-		return nil, status, err
-	}
-	defer os.Remove(temporaryDatabasePath)
-
-	if cachedDB != nil {
-		if err := cachedDB.Close(); err != nil {
-			return nil, status, fmt.Errorf("close stale metadata database: %w", err)
-		}
-	}
-
-	if err := os.Rename(temporaryDatabasePath, databasePath); err != nil {
-		if cachedErr == nil {
-			fallbackDB, openErr := openSQLiteDatabase(ctx, databasePath)
-			if openErr == nil {
-				status.staleFallback = true
-				status.refreshErr = fmt.Errorf("replace metadata database: %w", err)
-				return fallbackDB, status, nil
-			}
-		}
-		return nil, status, fmt.Errorf("replace metadata database: %w", err)
-	}
-
+// loadCachedDatabase loads the last valid snapshot even if its refresh is overdue.
+// Databases created before refresh timestamps were introduced are refreshed immediately.
+func loadCachedDatabase(ctx context.Context, databasePath string) ([]Folge, time.Time, error) {
 	db, err := openSQLiteDatabase(ctx, databasePath)
 	if err != nil {
-		return nil, status, fmt.Errorf("open refreshed metadata database: %w", err)
+		return nil, time.Time{}, err
 	}
-	status.refreshed = true
-	return db, status, nil
+	defer db.Close()
+
+	folgen, err := loadFolgen(db)
+	if err != nil {
+		return nil, time.Time{}, err
+	}
+	if len(folgen) == 0 {
+		return nil, time.Time{}, errors.New("cached metadata contains no Folgen")
+	}
+
+	var rawCheckedAt string
+	var checkedAt time.Time
+	if err := db.QueryRowContext(ctx, `SELECT checked_at FROM "__ddfdb_refresh" LIMIT 1`).Scan(&rawCheckedAt); err == nil {
+		checkedAt, _ = time.Parse(time.RFC3339Nano, rawCheckedAt)
+		if checkedAt.After(time.Now()) {
+			checkedAt = time.Time{}
+		}
+	}
+	return folgen, checkedAt, nil
+}
+
+// refreshDatabase downloads and fully validates a replacement before publishing it
+// on disk. The check time lives in the same file as the data so a crash cannot
+// make an older snapshot look fresh.
+func refreshDatabase(ctx context.Context, databasePath, sourceURL string) ([]Folge, time.Time, error) {
+	checkedAt := time.Now().UTC()
+	dump, err := downloadSQL(ctx, sourceURL)
+	if err != nil {
+		return nil, time.Time{}, err
+	}
+	temporaryPath, err := buildSQLiteDatabase(ctx, databasePath, dump)
+	if err != nil {
+		return nil, time.Time{}, err
+	}
+	defer os.Remove(temporaryPath)
+
+	db, err := openSQLiteDatabase(ctx, temporaryPath)
+	if err != nil {
+		return nil, time.Time{}, fmt.Errorf("open imported metadata: %w", err)
+	}
+	folgen, loadErr := loadFolgen(db)
+	if loadErr == nil && len(folgen) == 0 {
+		loadErr = errors.New("imported metadata contains no Folgen")
+	}
+	if loadErr == nil {
+		_, loadErr = db.ExecContext(ctx, `CREATE TABLE "__ddfdb_refresh" (checked_at TEXT NOT NULL)`)
+	}
+	if loadErr == nil {
+		_, loadErr = db.ExecContext(ctx, `INSERT INTO "__ddfdb_refresh" (checked_at) VALUES (?)`, checkedAt.Format(time.RFC3339Nano))
+	}
+	closeErr := db.Close()
+	if loadErr != nil {
+		return nil, time.Time{}, fmt.Errorf("validate imported metadata: %w", loadErr)
+	}
+	if closeErr != nil {
+		return nil, time.Time{}, fmt.Errorf("close imported metadata: %w", closeErr)
+	}
+	if err := ctx.Err(); err != nil {
+		return nil, time.Time{}, err
+	}
+	if err := os.Rename(temporaryPath, databasePath); err != nil {
+		return nil, time.Time{}, fmt.Errorf("replace metadata database: %w", err)
+	}
+	return folgen, checkedAt, nil
 }
 
 func openSQLiteDatabase(ctx context.Context, path string) (*sql.DB, error) {
@@ -110,11 +112,9 @@ func buildSQLiteDatabase(ctx context.Context, databasePath string, dump []byte) 
 	if len(dump) == 0 {
 		return "", errors.New("upstream SQL dump is empty")
 	}
-
 	if err := os.MkdirAll(filepath.Dir(databasePath), 0o755); err != nil {
 		return "", fmt.Errorf("create database directory: %w", err)
 	}
-
 	file, err := os.CreateTemp(filepath.Dir(databasePath), filepath.Base(databasePath)+".tmp-*.sqlite")
 	if err != nil {
 		return "", fmt.Errorf("create temporary database file: %w", err)
@@ -124,7 +124,6 @@ func buildSQLiteDatabase(ctx context.Context, databasePath string, dump []byte) 
 		_ = os.Remove(temporaryPath)
 		return "", fmt.Errorf("close temporary database file: %w", err)
 	}
-
 	db, err := sql.Open("sqlite", temporaryPath)
 	if err != nil {
 		_ = os.Remove(temporaryPath)
@@ -146,23 +145,10 @@ func buildSQLiteDatabase(ctx context.Context, databasePath string, dump []byte) 
 		_ = os.Remove(temporaryPath)
 		return "", fmt.Errorf("close imported metadata database: %w", err)
 	}
-
 	return temporaryPath, nil
 }
 
-func readOrDownloadSQL(
-	ctx context.Context,
-	cachePath string,
-	sourceURL string,
-	maxAge time.Duration,
-) ([]byte, error) {
-	if fileIsFresh(cachePath, maxAge) {
-		contents, err := os.ReadFile(cachePath)
-		if err == nil && len(contents) > 0 {
-			return contents, nil
-		}
-	}
-
+func downloadSQL(ctx context.Context, sourceURL string) ([]byte, error) {
 	request, err := http.NewRequestWithContext(ctx, http.MethodGet, sourceURL, nil)
 	if err != nil {
 		return nil, fmt.Errorf("create SQL download request: %w", err)
@@ -176,7 +162,6 @@ func readOrDownloadSQL(
 	if response.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("download SQL dump: unexpected HTTP status %s", response.Status)
 	}
-
 	contents, err := io.ReadAll(io.LimitReader(response.Body, maxSQLDumpSize+1))
 	if err != nil {
 		return nil, fmt.Errorf("read SQL dump: %w", err)
@@ -187,45 +172,5 @@ func readOrDownloadSQL(
 	if len(contents) == 0 || !strings.Contains(string(contents[:min(len(contents), 256)]), "CREATE TABLE") {
 		return nil, errors.New("downloaded content is not a valid SQL dump")
 	}
-	if err := writeAtomically(cachePath, contents); err != nil {
-		return nil, fmt.Errorf("cache SQL dump: %w", err)
-	}
 	return contents, nil
-}
-
-func writeAtomically(path string, contents []byte) error {
-	if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
-		return err
-	}
-	file, err := os.CreateTemp(filepath.Dir(path), filepath.Base(path)+".tmp-*")
-	if err != nil {
-		return err
-	}
-	temporaryPath := file.Name()
-	defer os.Remove(temporaryPath)
-
-	if err := file.Chmod(0o644); err != nil {
-		_ = file.Close()
-		return err
-	}
-	if _, err := file.Write(contents); err != nil {
-		_ = file.Close()
-		return err
-	}
-	if err := file.Sync(); err != nil {
-		_ = file.Close()
-		return err
-	}
-	if err := file.Close(); err != nil {
-		return err
-	}
-	return os.Rename(temporaryPath, path)
-}
-
-func fileIsFresh(path string, maxAge time.Duration) bool {
-	if maxAge <= 0 {
-		return false
-	}
-	info, err := os.Stat(path)
-	return err == nil && time.Since(info.ModTime()) <= maxAge
 }

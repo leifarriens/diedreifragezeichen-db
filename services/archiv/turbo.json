@@ -8,8 +8,7 @@
         "DB_PATH",
         "DDF_METADATA_SQL_URL",
         "LISTEN_ADDR",
-        "PORT",
-        "SQL_CACHE_PATH"
+        "PORT"
       ]
     }
   }

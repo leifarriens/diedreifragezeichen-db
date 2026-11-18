@@ -18,7 +18,6 @@ const defaultSQLURL = "https://raw.githubusercontent.com/YourMJK/dreimetadaten/r
 func Run() error {
 	logger := zerolog.New(os.Stdout).With().Timestamp().Logger()
 	databasePath := envOrDefault("DB_PATH", "./data/metadata.sqlite")
-	sqlCachePath := envOrDefault("SQL_CACHE_PATH", databasePath+".sql")
 	sourceURL := envOrDefault("DDF_METADATA_SQL_URL", defaultSQLURL)
 	maxAge, err := time.ParseDuration(envOrDefault("DB_MAX_AGE", "24h"))
 	if err != nil || maxAge <= 0 {
@@ -28,23 +27,30 @@ func Run() error {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 
-	db, status, err := openDatabase(ctx, databasePath, sqlCachePath, sourceURL, maxAge)
+	folgen, checkedAt, err := loadCachedDatabase(ctx, databasePath)
 	if err != nil {
-		return err
-	}
-	defer db.Close()
-	if status.refreshed {
-		logger.Info().Msg("refreshed metadata database")
-	}
-	if status.staleFallback {
-		logger.Warn().Err(status.refreshErr).Msg("could not refresh metadata, serving the cached database")
-	}
-
-	folgen, err := loadFolgen(db)
-	if err != nil {
-		return err
+		logger.Warn().Err(err).Msg("no valid cached metadata, downloading initial database")
+		folgen, checkedAt, err = refreshDatabase(ctx, databasePath, sourceURL)
+		if err != nil {
+			return fmt.Errorf("load initial metadata: %w", err)
+		}
 	}
 	logger.Info().Int("count", len(folgen)).Msg("loaded Folgen")
+
+	store := &archiveStore{}
+	store.replace(folgen)
+	refreshCtx, cancelRefresh := context.WithCancel(ctx)
+	refreshDone := make(chan struct{})
+	go func() {
+		defer close(refreshDone)
+		// Check after 23 hours by default, leaving a buffer before the 24-hour target.
+		interval := maxAge - maxAge/24
+		runRefreshLoop(refreshCtx, store, databasePath, sourceURL, checkedAt, interval, initialRetryDelay, maximumRetryDelay, logger)
+	}()
+	defer func() {
+		cancelRefresh()
+		<-refreshDone
+	}()
 
 	addr := os.Getenv("LISTEN_ADDR")
 	if addr == "" {
@@ -53,7 +59,7 @@ func Run() error {
 	}
 	server := &http.Server{
 		Addr:              addr,
-		Handler:           newHTTPHandler(folgen, logger),
+		Handler:           newHTTPHandlerWithStore(store, logger, time.Now),
 		ReadHeaderTimeout: 5 * time.Second,
 		IdleTimeout:       60 * time.Second,
 		WriteTimeout:      30 * time.Second,

@@ -6,6 +6,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -24,10 +25,26 @@ const (
 	searchOptionSortName        searchOptionSort = "name"
 )
 
-type archiveHandler struct {
+type archiveSnapshot struct {
 	folgen []Folge
 	byID   map[int64]Folge
-	now    func() time.Time
+}
+
+type archiveStore struct {
+	snapshot atomic.Pointer[archiveSnapshot]
+}
+
+func (s *archiveStore) replace(folgen []Folge) {
+	byID := make(map[int64]Folge, len(folgen))
+	for _, folge := range folgen {
+		byID[folge.ID] = folge
+	}
+	s.snapshot.Store(&archiveSnapshot{folgen: folgen, byID: byID})
+}
+
+type archiveHandler struct {
+	store *archiveStore
+	now   func() time.Time
 }
 
 func newHTTPHandler(folgen []Folge, logger zerolog.Logger) http.Handler {
@@ -39,12 +56,13 @@ func newHTTPHandlerWithClock(
 	logger zerolog.Logger,
 	now func() time.Time,
 ) http.Handler {
-	byID := make(map[int64]Folge, len(folgen))
-	for _, folge := range folgen {
-		byID[folge.ID] = folge
-	}
+	store := &archiveStore{}
+	store.replace(folgen)
+	return newHTTPHandlerWithStore(store, logger, now)
+}
 
-	handler := &archiveHandler{folgen: folgen, byID: byID, now: now}
+func newHTTPHandlerWithStore(store *archiveStore, logger zerolog.Logger, now func() time.Time) http.Handler {
+	handler := &archiveHandler{store: store, now: now}
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /", handler.root)
 	mux.HandleFunc("GET /healthz", handler.health)
@@ -114,8 +132,9 @@ func (h *archiveHandler) health(w http.ResponseWriter, _ *http.Request) {
 
 func (h *archiveHandler) listFolgen(w http.ResponseWriter, _ *http.Request) {
 	now := h.now()
-	folgen := make([]Folge, 0, len(h.folgen))
-	for _, folge := range h.folgen {
+	snapshot := h.store.snapshot.Load()
+	folgen := make([]Folge, 0, len(snapshot.folgen))
+	for _, folge := range snapshot.folgen {
 		if isAvailableInArchive(folge, now) {
 			folgen = append(folgen, folge)
 		}
@@ -152,7 +171,7 @@ func (h *archiveHandler) listSearchOptions(w http.ResponseWriter, r *http.Reques
 			return
 		}
 	}
-	writeJSON(w, http.StatusOK, buildSearchOptions(h.folgen, h.now(), minOccurrences, sortBy))
+	writeJSON(w, http.StatusOK, buildSearchOptions(h.store.snapshot.Load().folgen, h.now(), minOccurrences, sortBy))
 }
 
 func buildSearchOptions(
@@ -255,7 +274,7 @@ func (h *archiveHandler) getFolge(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "Folge not found"})
 		return
 	}
-	folge, ok := h.byID[id]
+	folge, ok := h.store.snapshot.Load().byID[id]
 	if !ok || !isAvailableInArchive(folge, h.now()) {
 		writeJSON(w, http.StatusNotFound, map[string]string{"error": "Folge not found"})
 		return

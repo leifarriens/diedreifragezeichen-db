@@ -2,17 +2,13 @@ package archive
 
 import (
 	"bytes"
-	"context"
 	"database/sql"
 	"encoding/json"
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
-	"sync/atomic"
 	"testing"
 	"time"
 
@@ -669,78 +665,6 @@ func TestCORSRejectsUnexpectedPreflightOrigin(t *testing.T) {
 	}
 	if response.Header().Get("Access-Control-Allow-Origin") != "" {
 		t.Fatalf("unexpected allowed origin: %q", response.Header().Get("Access-Control-Allow-Origin"))
-	}
-}
-
-func TestOpenDatabaseCachesRecentDatabase(t *testing.T) {
-	var downloads atomic.Int32
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-		downloads.Add(1)
-		_, _ = w.Write([]byte(testDatabaseSQL))
-	}))
-	defer server.Close()
-
-	directory := t.TempDir()
-	databasePath := filepath.Join(directory, "metadata.sqlite")
-	sqlCachePath := filepath.Join(directory, "metadata.sql")
-
-	db, status, err := openDatabase(context.Background(), databasePath, sqlCachePath, server.URL, time.Hour)
-	if err != nil {
-		t.Fatalf("first openDatabase: %v", err)
-	}
-	if !status.refreshed || downloads.Load() != 1 {
-		t.Fatalf("first start: status=%+v downloads=%d, want refreshed and one download", status, downloads.Load())
-	}
-	if err := db.Close(); err != nil {
-		t.Fatalf("close first database: %v", err)
-	}
-
-	db, status, err = openDatabase(context.Background(), databasePath, sqlCachePath, server.URL, time.Hour)
-	if err != nil {
-		t.Fatalf("second openDatabase: %v", err)
-	}
-	defer db.Close()
-	if status.refreshed || downloads.Load() != 1 {
-		t.Fatalf("second start: status=%+v downloads=%d, want cached database and no extra download", status, downloads.Load())
-	}
-}
-
-func TestOpenDatabaseRefreshesExpiredCache(t *testing.T) {
-	var downloads atomic.Int32
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
-		downloads.Add(1)
-		_, _ = w.Write([]byte(testDatabaseSQL))
-	}))
-	defer server.Close()
-
-	directory := t.TempDir()
-	databasePath := filepath.Join(directory, "metadata.sqlite")
-	sqlCachePath := filepath.Join(directory, "metadata.sql")
-	maxAge := time.Hour
-
-	db, _, err := openDatabase(context.Background(), databasePath, sqlCachePath, server.URL, maxAge)
-	if err != nil {
-		t.Fatalf("first openDatabase: %v", err)
-	}
-	if err := db.Close(); err != nil {
-		t.Fatalf("close first database: %v", err)
-	}
-
-	old := time.Now().Add(-2 * maxAge)
-	if err := os.Chtimes(databasePath, old, old); err != nil {
-		t.Fatalf("age SQLite database: %v", err)
-	}
-	if err := os.Chtimes(sqlCachePath, old, old); err != nil {
-		t.Fatalf("age SQL cache: %v", err)
-	}
-
-	db, status, err := openDatabase(context.Background(), databasePath, sqlCachePath, server.URL, maxAge)
-	if err != nil {
-		t.Fatalf("refresh expired database: %v", err)
-	}
-	defer db.Close()
-	if !status.refreshed || downloads.Load() != 2 {
-		t.Fatalf("expired start: status=%+v downloads=%d, want refresh and two downloads", status, downloads.Load())
 	}
 }
 

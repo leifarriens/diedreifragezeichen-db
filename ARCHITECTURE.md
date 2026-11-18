@@ -28,7 +28,7 @@ The user API is a separate logical API from Archiv, but it is currently hosted i
 
 [`services/archiv`](services/archiv/README.md) is a standalone Go service. It automatically downloads the upstream dreimetadaten SQL dump and imports it into a local SQLite database. The SQLite database is a rebuildable copy of upstream metadata, not a store for user data.
 
-At startup, Archiv checks its local database and rebuilds it when missing or stale (24 hours by default). It caches the SQL dump separately and can continue serving a valid stale database if a refresh fails. This is a startup freshness check, not a background polling loop.
+At startup, Archiv loads its local database, or downloads an initial copy if none is valid. It checks upstream in the background every 23 hours by default, validates a replacement, and atomically swaps the in-memory catalog. If refresh fails, it retries while serving the last valid data. Freshness is best effort during an upstream outage.
 
 Archiv exposes read-only JSON endpoints:
 
