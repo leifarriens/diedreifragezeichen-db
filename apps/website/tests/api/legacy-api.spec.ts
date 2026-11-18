@@ -74,11 +74,11 @@ test.describe("GET /api/folgen", () => {
     const body: unknown = await response.json();
 
     const newest = body as { items: { release_date: string }[] };
-    expect(
-      new Date(newest.items[0]?.release_date ?? 0).getDay(),
-    ).toBeGreaterThanOrEqual(
-      new Date(newest.items[1]?.release_date ?? 0).getDay(),
-    );
+    expect(newest.items.length).toBeGreaterThanOrEqual(2);
+    const dates = newest.items.map((item) => Date.parse(item.release_date));
+    dates.slice(1).forEach((date, index) => {
+      expect(dates[index]).toBeGreaterThanOrEqual(date);
+    });
   });
 
   test("returns oldest folgen first when respective sort is applied", async ({
@@ -93,11 +93,11 @@ test.describe("GET /api/folgen", () => {
     const body: unknown = await response.json();
 
     const oldest = body as { items: { release_date: string }[] };
-    expect(
-      new Date(oldest.items[0]?.release_date ?? 0).getDay(),
-    ).toBeLessThanOrEqual(
-      new Date(oldest.items[1]?.release_date ?? 0).getDay(),
-    );
+    expect(oldest.items.length).toBeGreaterThanOrEqual(2);
+    const dates = oldest.items.map((item) => Date.parse(item.release_date));
+    dates.slice(1).forEach((date, index) => {
+      expect(dates[index]).toBeLessThanOrEqual(date);
+    });
   });
 
   test("returns 400 higher limit parameter", async ({ request }) => {
