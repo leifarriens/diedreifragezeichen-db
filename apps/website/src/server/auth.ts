@@ -12,9 +12,13 @@ import { createEmailOtpOptions } from "./email/email-otp";
 import { createEmailTransport } from "./email/email-transport";
 
 const emailTransport = createEmailTransport();
+const baseURL =
+  process.env.VERCEL_ENV === "preview" && process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : process.env.BETTER_AUTH_URL;
 
 export const auth = betterAuth({
-  baseURL: process.env.BETTER_AUTH_URL,
+  baseURL,
   database: drizzleAdapter(db, {
     provider: "pg",
     schema,
@@ -29,7 +33,7 @@ export const auth = betterAuth({
     updateAge: 60 * 60 * 24,
   },
   trustedOrigins: [
-    ...(process.env.BETTER_AUTH_URL ? [process.env.BETTER_AUTH_URL] : []),
+    ...(baseURL ? [baseURL] : []),
     "ddfdb://",
     "ddfdb-preview://",
     ...(process.env.NODE_ENV === "development"

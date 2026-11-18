@@ -19,6 +19,8 @@ beforeEach(() => {
   vi.clearAllMocks();
   betterAuth.mockReturnValue({ api: { getSession } });
   vi.stubEnv("BETTER_AUTH_URL", "https://ddfdb.de");
+  vi.stubEnv("VERCEL_ENV", "production");
+  vi.stubEnv("VERCEL_URL", "");
 });
 
 afterEach(() => {
@@ -51,6 +53,25 @@ describe("auth sessions", () => {
 });
 
 describe("auth trusted origins", () => {
+  it("uses the deployment URL for Vercel previews", async () => {
+    vi.stubEnv("VERCEL_ENV", "preview");
+    vi.stubEnv("VERCEL_URL", "ddfdb-git-feature-team.vercel.app");
+    vi.stubEnv("NODE_ENV", "production");
+
+    await import("./auth");
+
+    expect(betterAuth).toHaveBeenCalledWith(
+      expect.objectContaining({
+        baseURL: "https://ddfdb-git-feature-team.vercel.app",
+        trustedOrigins: [
+          "https://ddfdb-git-feature-team.vercel.app",
+          "ddfdb://",
+          "ddfdb-preview://",
+        ],
+      }),
+    );
+  });
+
   it("allows production and preview apps without development origins in production", async () => {
     vi.stubEnv("NODE_ENV", "production");
 

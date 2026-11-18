@@ -17,7 +17,9 @@
         "MONGODB_URI",
         "SPOTIFY_CLIENT_ID",
         "SPOTIFY_CLIENT_SECRET",
-        "TRPC_CORS_ORIGINS"
+        "TRPC_CORS_ORIGINS",
+        "VERCEL_ENV",
+        "VERCEL_URL"
       ]
     },
     "dev": {
@@ -30,7 +32,9 @@
         "MONGODB_URI",
         "SPOTIFY_CLIENT_ID",
         "SPOTIFY_CLIENT_SECRET",
-        "TRPC_CORS_ORIGINS"
+        "TRPC_CORS_ORIGINS",
+        "VERCEL_ENV",
+        "VERCEL_URL"
       ]
     }
   }
