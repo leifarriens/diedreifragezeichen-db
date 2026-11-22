@@ -41,6 +41,8 @@ export function ArchiveBrowser({
 
   return (
     <Wrapper>
+      <h1 className="mb-6 text-3xl font-semibold">Archiv</h1>
+
       <section aria-label="Archivfilter" className="mb-8 space-y-8">
         <ArchiveBrowserSearchCriteria
           availableOptions={availableOptions}

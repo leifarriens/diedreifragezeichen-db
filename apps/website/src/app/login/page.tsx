@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     follow: false,
     index: false,
   },
+  title: "Anmelden",
 };
 
 export default function LoginPage() {

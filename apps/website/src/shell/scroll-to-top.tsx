@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function ScrollToTop() {
-  const scrollTopRef = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isAtBottom, setIsAtBottom] = useState(false);
 
@@ -15,9 +14,11 @@ export function ScrollToTop() {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleVisibility);
+    const animationFrame = window.requestAnimationFrame(handleVisibility);
+    window.addEventListener("scroll", handleVisibility, { passive: true });
 
     return () => {
+      window.cancelAnimationFrame(animationFrame);
       window.removeEventListener("scroll", handleVisibility);
     };
   }, []);
@@ -26,12 +27,10 @@ export function ScrollToTop() {
     window.scroll({ behavior: "smooth", top: 0 });
   };
 
+  if (!isVisible) return null;
+
   return (
-    <div
-      className="fixed right-0 bottom-0 z-20 grid h-20 w-20 place-items-center transition-opacity duration-150 ease-in"
-      ref={scrollTopRef}
-      style={{ opacity: isVisible ? 1 : 0 }}
-    >
+    <div className="fixed right-0 bottom-0 z-20 grid h-20 w-20 place-items-center">
       <button
         aria-label="Zum Seitenanfang scrollen"
         className="cursor-pointer transition-transform duration-200 ease-in"

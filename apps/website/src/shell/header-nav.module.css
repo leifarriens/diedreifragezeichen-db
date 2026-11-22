@@ -6,7 +6,7 @@
     "logo - profile"
     "search search search";
 
-  @media (min-width: 380px) {
+  @media (min-width: 430px) {
     grid-template-areas: "logo search profile";
   }
 
